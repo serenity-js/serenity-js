@@ -3,6 +3,7 @@
 //     expect = chai.expect;
 
 import {binding, given, when, then} from "cucumber-tsflow";
+
 // import {promise} from "selenium-webdriver";
 
 // import {Actor} from "./../../../serenity_screenplay/actor";
@@ -21,28 +22,25 @@ class TodoUserSteps {
     // private loginPageObject: LoginPageObject = new LoginPageObject();
 
     @given(/^.*has an empty todo list$/)
-    // private has_an_empty_todo_list (): promise.Promise<void> {
-    private has_an_empty_todo_list () {
+    private has_an_empty_todo_list (): Promise<void> {
 
         // return this.james.attemptsTo(
         //     Open.browserOn("http://todomvc.com/examples/angular2/")
         // );
 
-        // return undefined;
 
         // return browser.get('https://amazon.com');
+        return Promise.resolve();
     };
 
     @when(/^he adds '(.*?)' to (?:his|her) list$/)
-    public adds (item: string) {
-        // return browser.get('https://ebay.com');
-        // return undefined;
+    public adds (item: string) : Promise<void> {
+        return Promise.resolve();
     }
 
     @then(/^'(.*?)' should be recorded in (?:his|her) list$/)
-    public should_see_recorded (item: string) {
-        // return browser.get('https://google.com');
-        // return undefined;
+    public should_see_recorded (item: string) : Promise<void> {
+        return Promise.resolve();
     }
 }
 
