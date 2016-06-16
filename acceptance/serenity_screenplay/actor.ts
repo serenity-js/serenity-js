@@ -4,8 +4,12 @@ import {Performable} from "./performable";
 export class Actor implements PerformsTasks {
 
     // todo: doesn't work with '...'.
-    public attemptsTo(tasks: Performable[]): Promise<void> {
-        return Promise.resolve();
+    public attemptsTo(...tasks: Performable[]): Promise<void> {
+        return tasks.reduce((previousTask: Promise<void>, currentTask: Performable, currentIndex: number, array: Performable[]): Promise<void> => {
+            return previousTask.then(() => currentTask.performAs(this));
+        }, Promise.resolve());
+        
+        // return Promise.resolve();
     }
 
     // public attemptsTo(...tasks: Array<Performable>):Promise<void> {

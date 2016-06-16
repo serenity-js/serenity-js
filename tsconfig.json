@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true
   },
+
   "exclude": [
     "node_modules",
     "typings/main.d.ts",
-    "typings/main",
-    "typings"
+    "typings/main"
   ],
   "filesGlob": [
-    "./acceptance/features/**/*.ts",
-    "!./node_modules/**/*.ts"
-//  ,
-//    "typings/browser.d.ts"
+    "./acceptance/**/*.ts",
+    "!./node_modules/**/*.ts",
+    "src/custom-typings.d.ts",
+    "typings/browser.d.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "resolveGlobs": true,
