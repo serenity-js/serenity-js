@@ -15,7 +15,7 @@ export class Open implements Performable {
 
     performAs(actor: Actor):Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            browser.get(this.website).then(resolve, reject);
+            browser.get(this.website).then(resolve, reject)
         })
     }
 }

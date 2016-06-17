@@ -6,5 +6,5 @@ Feature: Add new items to the todo list
 
   Scenario: Adding an item to an empty list
     Given that James has an empty todo list
-    When he adds 'Buy some milk' to his list
+    When he adds 'Buy some milk and eggs' to his list
     Then 'Buy some milk' should be recorded in his list

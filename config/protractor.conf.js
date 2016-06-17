@@ -12,7 +12,7 @@ exports.config = {
      * `rootEl`
      *
      */
-    useAllAngular2AppRoots: true,
+    // useAllAngular2AppRoots: true,
 
     /* LOCALHOST CONFIG */
     // seleniumServerJar: "node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar",
@@ -43,6 +43,6 @@ exports.config = {
     },
 
     onPrepare: function() {
-        browser.ignoreSynchronization = true;
+        browser.ignoreSynchronization = false;
     }
 };
