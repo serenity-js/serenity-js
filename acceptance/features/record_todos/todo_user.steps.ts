@@ -5,8 +5,9 @@ const
 
 import {binding, given, when, then} from "cucumber-tsflow";
 import {Actor} from "../../serenity_screenplay/actor";
-import {Open}  from "../screenplay/tasks/open"
 import {AddATodoItem} from "../screenplay/tasks/add_a_todo_item";
+import {Start} from "../screenplay/tasks/start";
+import {listOf} from "../../text_functions";
 
 @binding()
 class TodoUserSteps {
@@ -14,12 +15,21 @@ class TodoUserSteps {
     private james: Actor = Actor.named("james");
 
     @given(/^.*has an empty todo list$/)
-    private has_an_empty_todo_list () {
+    private starts_with_an_empty_list () {
 
         this.james.attemptsTo(
-            Open.browserOn("http://todomvc.com/examples/angularjs/")
+            Start.withAnEmptyTodoList()
         );
     };
+
+    @given(/^.*has a todo list containing (.*)$/)
+    public has_a_list_with (items: string) {
+
+        this.james.attemptsTo(
+            Start.withATodoListContaining(items)
+        );
+    }
+
 
     @when(/^he adds '(.*?)' to (?:his|her) list$/)
     public adds (item_name: string) {
@@ -29,10 +39,18 @@ class TodoUserSteps {
         );
     }
 
-    @then(/^'(.*?)' should be recorded in (?:his|her) list$/)
-    public should_see_recorded (item: string) : Promise<void> {
+    @then(/^'(.*?)' should be recorded in his list$/)
+    public should_see_todo_list_with_just_one (item: string) : Promise<void> {
 
-        return expect(TodoListItems.displayed()).to.eventually.include(item);
+        return this.should_see_todo_list_with_following(item);
+    }
+
+
+
+    @then(/^.* todo list should contain (.*?)$/)
+    public should_see_todo_list_with_following (items: string) : Promise<void> {
+        
+        return expect(TodoListItems.displayed()).to.eventually.eql(listOf(items));
     }
 }
 

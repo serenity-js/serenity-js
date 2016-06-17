@@ -1,5 +1,5 @@
-import {Actor} from "../../../serenity_screenplay/actor";
-import {Performable} from "../../../serenity_screenplay/performable";
+import {Actor} from "../actor";
+import {Performable} from "../performable";
 
 export class Open implements Performable {
 

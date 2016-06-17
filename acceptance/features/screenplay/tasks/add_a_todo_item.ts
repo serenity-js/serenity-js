@@ -9,8 +9,9 @@ export class AddATodoItem implements Performable {
         return new AddATodoItem(name);
     }
 
-    performAs(actor:PerformsTasks):Promise<void> {
-        return actor.attemptsTo(
+    performAs(actor:PerformsTasks) {
+        
+        actor.attemptsTo(
             Enter.theValue(this.name).into(TodoList.What_Needs_To_Be_Done).thenHit(protractor.Key.ENTER)
         )
     }
