@@ -3,9 +3,17 @@ import {Performable} from "./performable";
 
 export class Actor implements PerformsTasks {
     
-    public attemptsTo(...tasks: Performable[]): Promise<void> {
-        return tasks.reduce((previousTask: Promise<void>, currentTask: Performable, currentIndex: number, array: Performable[]): Promise<void> => {
-            return previousTask.then(() => currentTask.performAs(this));
-        }, Promise.resolve());
+    public static named(name: string) : Actor {
+        return new Actor(name);
     }
+
+    public attemptsTo(...tasks: Performable[]) {
+        tasks.forEach((task) => task.performAs(this));
+    }
+
+    constructor(name: string) {
+        this.name = name;
+    }
+    
+    private name:string;
 }

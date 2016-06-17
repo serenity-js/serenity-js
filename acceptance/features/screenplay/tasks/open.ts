@@ -7,15 +7,15 @@ export class Open implements Performable {
         return new Open(website);
     }
 
-    private website : string;
-
-    constructor(website: string) {
-        this.website = website;
-    }
-
     performAs(actor: Actor):Promise<void> {
         return new Promise<void>((resolve, reject) => {
             browser.get(this.website).then(resolve, reject)
         })
     }
+
+    constructor(website: string) {
+        this.website = website;
+    }
+
+    private website : string;
 }

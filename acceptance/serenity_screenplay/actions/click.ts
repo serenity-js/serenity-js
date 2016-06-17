@@ -7,10 +7,8 @@ export class Click implements Performable {
         return new Click(locator);
     }
 
-    performAs(actor: PerformsTasks):Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            element(this.locator).click();
-        })
+    performAs(actor: PerformsTasks) {
+        element(this.locator).click();
     }
 
     constructor(locator:webdriver.Locator) {
@@ -18,5 +16,4 @@ export class Click implements Performable {
     }
 
     private locator: webdriver.Locator;
-    private key:string;
 }

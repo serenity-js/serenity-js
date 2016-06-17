@@ -19,10 +19,8 @@ export class Enter implements Performable {
         return this;
     }
     
-    performAs(actor: PerformsTasks):Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            element(this.locator).sendKeys(this.value, this.key).then(resolve, reject);
-        })
+    performAs(actor: PerformsTasks) {
+        element(this.locator).sendKeys(this.value, this.key);
     }
 
     constructor(value:string) {
