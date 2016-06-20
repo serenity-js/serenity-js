@@ -1,7 +1,7 @@
-import {Performable} from './../performable';
-import {PerformsTasks} from './../performs_tasks';
+import {Action, PerformsTasks} from '../../screenplay/pattern';
+import {step} from '../../screenplay/reporting/annotations'
 
-export class Enter implements Performable {
+export class Enter implements Action {
     
     public static theValue(value: string) : Enter {
         return new Enter(value);
@@ -18,7 +18,8 @@ export class Enter implements Performable {
 
         return this;
     }
-    
+
+    @step("{0} enters '#value' into #locator")
     performAs(actor: PerformsTasks) {
         element(this.locator).sendKeys(this.value, this.key);
     }

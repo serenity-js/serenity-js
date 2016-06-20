@@ -1,5 +1,8 @@
-import {PerformsTasks} from "./performs_tasks";
-import {Performable} from "./performable";
+import {Performable} from "./performables";
+
+export interface PerformsTasks {
+    attemptsTo(...tasks: Performable[])
+}
 
 export class Actor implements PerformsTasks {
     
@@ -9,6 +12,10 @@ export class Actor implements PerformsTasks {
 
     public attemptsTo(...tasks: Performable[]) {
         tasks.forEach((task) => task.performAs(this));
+    }
+
+    public toString() : string {
+        return this.name;
     }
 
     constructor(name: string) {

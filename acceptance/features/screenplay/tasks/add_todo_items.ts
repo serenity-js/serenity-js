@@ -1,7 +1,6 @@
-import {Performable} from "../../../serenity_screenplay/performable";
-import {Enter} from "../../../serenity_screenplay/actions/enter";
-import {TodoList} from "../user_interface/todo_list";
-import {PerformsTasks} from "../../../serenity_screenplay/performs_tasks";
+import {Performable, PerformsTasks} from "../../../../lib/screenplay/pattern";
+import {step} from "../../../../lib/screenplay/reporting/annotations"
+
 import {AddATodoItem} from "./add_a_todo_item";
 
 export class AddTodoItems implements Performable {
@@ -10,8 +9,8 @@ export class AddTodoItems implements Performable {
         return new AddTodoItems(names);
     }
 
+    @step("{0} adds the todo items called: #items")
     performAs(actor:PerformsTasks) {
-        
         actor.attemptsTo.apply(actor, this.addAllOf(this.items));       // array -> var args conversion
     }
 

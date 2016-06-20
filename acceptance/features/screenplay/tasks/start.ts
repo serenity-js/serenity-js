@@ -1,6 +1,7 @@
-import {Performable} from "../../../serenity_screenplay/performable";
-import {PerformsTasks} from "../../../serenity_screenplay/performs_tasks";
-import {Open} from "../../../serenity_screenplay/actions/open";
+import {Performable, PerformsTasks} from "../../../../lib/screenplay/pattern";
+import {step} from "../../../../lib/screenplay/reporting/annotations"
+
+import {Open} from "../../../../lib/screenplay_protractor/actions/open";
 import {AddTodoItems} from "./add_todo_items";
 import {listOf} from "../../../text_functions";
 
@@ -13,16 +14,21 @@ export class Start implements Performable {
         return new Start(listOf(comma_separated_items));
     }
 
+    @step("{0} starts with a todo list containing #todoListDescription")
     performAs(actor:PerformsTasks) {
         actor.attemptsTo(
-            Open.browserOn("http://todomvc.com/examples/angularjs/"),       // hard-coded for now.
-            AddTodoItems.called(this.initial_items)
+            Open.browserOn("http://todomvc.com/examples/angularjs/"),       // fixme: should be configurable
+            AddTodoItems.called(this.initialItems)
         )
     }
 
-    constructor(initial_items: string[]) {
-        this.initial_items = initial_items;
+    constructor(initialItems: string[]) {
+        this.initialItems = initialItems;
     }
 
-    private initial_items:string[];
+    public todoListDescription() : string {
+        return !!this.initialItems.length ? this.initialItems.join(', ') : 'no items'
+    }
+
+    private initialItems:string[];
 }
