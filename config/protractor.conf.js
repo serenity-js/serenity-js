@@ -28,7 +28,7 @@ exports.config = {
         fs.root('acceptance/**/*.feature')
     ],
     cucumberOpts: {
-        require: [fs.root('acceptance/**/*.ts')],
+        require: [fs.root('acceptance/**/*.ts'), fs.root('lib/screenplay_protractor/integration/cucumber.ts')],
         format: 'pretty',
         compiler: 'ts:ts-node/register'
     },
