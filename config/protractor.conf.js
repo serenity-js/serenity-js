@@ -1,4 +1,4 @@
-// require('ts-node/register');
+require('ts-node/register');
 
 const fs = require('./fs');
 
@@ -28,17 +28,27 @@ exports.config = {
         fs.root('acceptance/**/*.feature')
     ],
     cucumberOpts: {
-        require: [fs.root('acceptance/**/*.ts'), fs.root('lib/screenplay_protractor/integration/cucumber.ts')],
+        require: [
+            fs.root('acceptance/**/*.ts'),
+            fs.root('lib/serenity/integration/cucumber/cucumber.ts')
+        ],
         format: 'pretty',
         compiler: 'ts:ts-node/register'
     },
 
+    plugins: [{
+        path: '../lib/serenity/integration/protractor/index.ts'
+        // integration: ['cucumber']  // todo: some config option to enable cucumber step listener
+    }],
+
     directConnect: true,
 
     capabilities: {
-        'browserName': 'chrome',
-        'chromeOptions': {
-            'args': ['show-fps-counter=true']
+        browserName: 'chrome',
+        // shardTestFiles: true,
+        // maxInstances: 2,
+        chromeOptions: {
+            args: ['show-fps-counter=true']
         }
     },
 

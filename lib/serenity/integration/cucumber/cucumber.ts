@@ -1,18 +1,11 @@
 ///<reference path="cucumber.d.ts"/>
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
+// import serenity = require('../../index');
 
-function createSerenityReporter() : EventListener {
+function createListener() : EventListener {
 
     let self = <any>Listener();
-
-    function inspect(event: events.Event, o: any) {
-        console.log("Methods on", event.getName());
-
-        Object.keys(o).forEach((key) => {
-            console.log(o[key].toString());
-        });
-    }
 
     self.handleBeforeFeaturesEvent = (event: events.Event, callback: ()=>void) => {
         let features = <events.FeaturesPayload>event.getPayloadItem('features');
@@ -81,10 +74,6 @@ function createSerenityReporter() : EventListener {
         callback();
     };
 
-
-    // event bus
-    // http://stackoverflow.com/questions/12881212/does-typescript-support-events-on-classes
-
     return self;
 }
 
@@ -92,8 +81,17 @@ function createSerenityReporter() : EventListener {
 export = function() {
     let hook = <Hooks>this;
 
-    hook.registerListener(createSerenityReporter());
+    hook.registerListener(createListener());
 }
+
+
+// function inspect(event: events.Event, o: any) {
+//     console.log("Methods on", event.getName());
+//
+//     Object.keys(o).forEach((key) => {
+//         console.log(o[key].toString());
+//     });
+// }
 
 
 // export = function() {
