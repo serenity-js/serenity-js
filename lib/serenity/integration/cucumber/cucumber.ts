@@ -2,10 +2,7 @@
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {
-    RegistersTestStarted, TestStartedHandler, TestStarted,
-    TestStartedHandlerInterface, TestStartedInterface
-} from "../../domain_events";
+import {TestStarted, TestFinished} from "../../domain_events";
 // import serenity = require('../../index');
 
 function createListener() : EventListener {
@@ -53,6 +50,8 @@ function createListener() : EventListener {
     self.handleAfterScenarioEvent = (event: events.Event, callback: ()=>void) => {
 
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
+        
+        Serenity.instance.domainEvents().trigger(new TestFinished(), TestFinished.interface)
 
         callback();
     };

@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
 // interface checkers
 
-interface InterfaceDescription {
+export interface InterfaceDescription {
     methodNames?: string[];
     propertyNames?: string[];
     className: string;
@@ -49,13 +49,22 @@ export class TestStarted implements DomainEvent<string> {
 
 export class TestStartedInterface implements InterfaceDescription {
     methodNames:string[] = ['value'];
-    className:string       = 'TestStartedInterface';
+    className:string     = 'TestStartedInterface';
 }
 
-class TestFinished implements DomainEvent<string> {
+export class TestFinished implements DomainEvent<string> {
     value():string {
         return "test finished";
     }
+
+    static get interface(): {new (): InterfaceDescription} {
+        return TestFinishedInterface;
+    }
+}
+
+class TestFinishedInterface implements InterfaceDescription {
+    methodNames:string[] = ['value'];
+    className:string     = 'TestFinishedInterface';
 }
 
 class TestStepStarted implements DomainEvent<string> {
@@ -73,35 +82,29 @@ class TestStepFinished implements DomainEvent<string> {
 // ----------------------------------------------------------------------------
 // event handlers
 
-interface DomainEventHandler<T extends DomainEvent<any>> {
-    handle(event: T);
+interface DomainEventHandler { }
+
+export interface TestStartedHandler extends DomainEventHandler {
+    onTestStarted(event: TestStarted);
 }
 
-export interface TestStartedHandler extends DomainEventHandler<TestStarted> { }
-
-export class TestStartedHandlerInterface implements InterfaceDescription {
-    methodNames = ['handle'];
-    className   = 'TestStartedHandlerInterface';
+export interface TestLifecycleListener extends DomainEventHandler {
+    onTestStarted(event: TestStarted);
+    onTestFinished(event: TestFinished);
 }
 
-
-export class RegistersTestStarted implements TestStartedHandler {
-    handle(event:TestStarted) {
-        console.log("[DOMAIN EVENT TRIGGERED] ", event.value())
-    }
-
-    static get interface(): {new (): InterfaceDescription}  {
-        return TestStartedHandlerInterface;
-    }
+export class TestLifecycleListenerInterface implements InterfaceDescription {
+    methodNames = ['onTestStarted', 'onTestFinished'];
+    className   = 'TestLifecycleListenerInterface';
 }
 
 // ----------------------------------------------------------------------------
 // event bus
 
 class EventHandlers<DE extends DomainEvent<any>> {
-    private eventHandlers: DomainEventHandler<DE>[] = [];
+    private eventHandlers: DomainEventHandler[] = [];
 
-    register(handler: DomainEventHandler<DE>, interfaceType: {new (): InterfaceDescription}) {
+    register(handler: DomainEventHandler, interfaceType: {new (): InterfaceDescription}) {
 
         if(InterfaceChecker.implements(handler, interfaceType)) {
             this.eventHandlers.push(handler);
@@ -112,7 +115,8 @@ class EventHandlers<DE extends DomainEvent<any>> {
 
     trigger(event: DE){
         this.eventHandlers.forEach((handler) => {
-            handler.handle(event);
+            // todo: we assume that onEventName method exists. Is it too much of an assumption?
+            handler[`on${event.constructor.name}`](event);
         });
     }
 }
@@ -120,7 +124,7 @@ class EventHandlers<DE extends DomainEvent<any>> {
 export class DomainEvents<DE extends DomainEvent<any>> {
     private handlers: EventHandlers<DE>[] = new Array<EventHandlers<DE>>();
 
-    public register(handler: DomainEventHandler<DE>,
+    public register(handler: DomainEventHandler,
                     handlerInterface: { new(): InterfaceDescription },
                     eventInterface: { new(): InterfaceDescription })
     {
@@ -143,12 +147,12 @@ export class DomainEvents<DE extends DomainEvent<any>> {
             let eventType = new eventInterface(),
                 handlers  = this.handlers[eventType.className];
             
-            if (handlers) {
-                handlers.trigger(event);
+            if (! handlers) {
+                throw new Error(`[ERROR] Couldn't find an appropriate handler for a '${event.constructor.name}' event`);
+
             }
-            else {
-                console.error("didn't find an appropriate handler");
-            }
+
+            handlers.trigger(event);
         }
     }
 }
