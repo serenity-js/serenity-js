@@ -1,110 +1,17 @@
-// ----------------------------------------------------------------------------
-// interface checkers
+import {InterfaceDescriptor, InterfaceChecker} from "./typesafety";
 
-export interface InterfaceDescription {
-    methodNames?: string[];
-    propertyNames?: string[];
-    className: string;
+export interface DomainEvent<T> {
+    value(): T;
 }
 
-// todo: rename and cleanup
-class InterfaceChecker {
-    static implements<T extends InterfaceDescription>(objectToCheck: Object, t: { new (): T; }): boolean {
-        var targetInterfaceDescription = new t();
+export interface DomainEventHandler {
 
-        (targetInterfaceDescription.methodNames || []).forEach((method) => {
-            if (!objectToCheck[method] || typeof objectToCheck[method] !== 'function') {
-                console.error(`Method: '${method}' not found on ${JSON.stringify(objectToCheck)}`);
-                return false;
-            }
-        });
-
-        (targetInterfaceDescription.propertyNames || []).forEach((property) => {
-            if (!objectToCheck[property] || typeof objectToCheck[property] == 'function') {
-                console.error(`Property: '${property}' not found on ${JSON.stringify(objectToCheck)}`);
-                return false;
-            }
-        });
-
-        return true;
-    }
 }
-
-// ----------------------------------------------------------------------------
-// events
-
-interface DomainEvent<T> {
-    value(): T
-}
-
-export class TestStarted implements DomainEvent<string> {
-    value():string {
-        return "test started";
-    }
-    
-    static get interface(): {new (): InterfaceDescription} {
-        return TestStartedInterface;
-    }
-}
-
-export class TestStartedInterface implements InterfaceDescription {
-    methodNames:string[] = ['value'];
-    className:string     = 'TestStartedInterface';
-}
-
-export class TestFinished implements DomainEvent<string> {
-    value():string {
-        return "test finished";
-    }
-
-    static get interface(): {new (): InterfaceDescription} {
-        return TestFinishedInterface;
-    }
-}
-
-class TestFinishedInterface implements InterfaceDescription {
-    methodNames:string[] = ['value'];
-    className:string     = 'TestFinishedInterface';
-}
-
-class TestStepStarted implements DomainEvent<string> {
-    value():string {
-        return "test step started";
-    }
-}
-
-class TestStepFinished implements DomainEvent<string> {
-    value():string {
-        return "test step finished";
-    }
-}
-
-// ----------------------------------------------------------------------------
-// event handlers
-
-interface DomainEventHandler { }
-
-export interface TestStartedHandler extends DomainEventHandler {
-    onTestStarted(event: TestStarted);
-}
-
-export interface TestLifecycleListener extends DomainEventHandler {
-    onTestStarted(event: TestStarted);
-    onTestFinished(event: TestFinished);
-}
-
-export class TestLifecycleListenerInterface implements InterfaceDescription {
-    methodNames = ['onTestStarted', 'onTestFinished'];
-    className   = 'TestLifecycleListenerInterface';
-}
-
-// ----------------------------------------------------------------------------
-// event bus
 
 class EventHandlers<DE extends DomainEvent<any>> {
     private eventHandlers: DomainEventHandler[] = [];
 
-    register(handler: DomainEventHandler, interfaceType: {new (): InterfaceDescription}) {
+    register(handler: DomainEventHandler, interfaceType: {new (): InterfaceDescriptor}) {
 
         if(InterfaceChecker.implements(handler, interfaceType)) {
             this.eventHandlers.push(handler);
@@ -125,8 +32,8 @@ export class DomainEvents<DE extends DomainEvent<any>> {
     private handlers: EventHandlers<DE>[] = new Array<EventHandlers<DE>>();
 
     public register(handler: DomainEventHandler,
-                    handlerInterface: { new(): InterfaceDescription },
-                    eventInterface: { new(): InterfaceDescription })
+                    handlerInterface: { new(): InterfaceDescriptor },
+                    eventInterface: { new(): InterfaceDescriptor })
     {
         let eventType   = new eventInterface();
 
@@ -134,7 +41,8 @@ export class DomainEvents<DE extends DomainEvent<any>> {
 
         if (existingHandlers) {
             existingHandlers.register(handler, handlerInterface);
-        } else {
+        }
+        else {
             let newHandlers = new EventHandlers<DE>();
             newHandlers.register(handler, handlerInterface);
 
@@ -142,7 +50,7 @@ export class DomainEvents<DE extends DomainEvent<any>> {
         }
     }
 
-    public trigger(event: DE, eventInterface: { new(): InterfaceDescription }) {
+    public trigger(event: DE, eventInterface: { new(): InterfaceDescriptor }) {
         if (InterfaceChecker.implements(event, eventInterface)) {
             let eventType = new eventInterface(),
                 handlers  = this.handlers[eventType.className];
@@ -156,19 +64,3 @@ export class DomainEvents<DE extends DomainEvent<any>> {
         }
     }
 }
-
-
-/*
- Domain events:
- - Test Started                          // cucumber scenario or a mocha test
-    - Test Step Started                 // cucumber step or screenplay test
-        - Test Step Started/Finished
-            ...
-        ...
-    - Test Step Finished
-    ...
- - Test Step Finished
- ...
-
- - Test Finished
- */

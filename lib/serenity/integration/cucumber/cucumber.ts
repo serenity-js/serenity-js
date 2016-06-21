@@ -2,7 +2,8 @@
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {TestStarted, TestFinished} from "../../domain_events";
+import {TestStarted, TestFinished, TestStepStarted, TestStepFinished} from "../../test_lifecycle_events";
+
 // import serenity = require('../../index');
 
 function createListener() : EventListener {
@@ -65,11 +66,15 @@ function createListener() : EventListener {
     self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
+        Serenity.instance.domainEvents().trigger(new TestStepStarted(), TestStepStarted.interface);
+
         callback();
     };
 
     self.handleAfterStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
+
+        Serenity.instance.domainEvents().trigger(new TestStepFinished(), TestStepFinished.interface);
 
         callback();
     };

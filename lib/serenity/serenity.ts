@@ -1,6 +1,7 @@
-import {
-    DomainEvents, TestStarted, TestLifecycleListener, InterfaceDescription, TestFinished, TestLifecycleListenerInterface
-} from "./domain_events";
+import {DomainEvents} from "./domain_events";
+import {TestStarted, TestLifecycleListener, TestFinished, TestLifecycleListenerInterface} from "./test_lifecycle_events"
+import {InterfaceDescriptor} from "./typesafety";
+import {TestStepStarted, TestStepFinished} from "./test_lifecycle_events";
 
 
 export class TestLifecycleReporter implements TestLifecycleListener {
@@ -12,12 +13,27 @@ export class TestLifecycleReporter implements TestLifecycleListener {
         console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
     }
 
-    static get interface(): {new (): InterfaceDescription}  {
+    onTestStepStarted(event:TestStepStarted) {
+        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+    }
+
+    onTestStepFinished(event:TestStepFinished) {
+        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+    }
+
+    get handledEventTypes(): {new (): InterfaceDescriptor}[] {
+        return [
+            TestStarted.interface,
+            TestFinished.interface,
+            TestStepStarted.interface,
+            TestStepFinished.interface
+        ]
+    }
+
+    static get interface(): {new (): InterfaceDescriptor}  {
         return TestLifecycleListenerInterface;
     }
 }
-
-
 
 export class Serenity {
 
@@ -31,10 +47,9 @@ export class Serenity {
     private reporter       = new TestLifecycleReporter();
 
     constructor() {
-        console.log(">>>>>>>>>>>>>> INITIALISED Serenity Library using a constructor");
-        
-        this.domainEventBus.register(this.reporter, TestLifecycleReporter.interface, TestStarted.interface);
-        this.domainEventBus.register(this.reporter, TestLifecycleReporter.interface, TestFinished.interface);
+        this.reporter.handledEventTypes.forEach((eventType) => {
+            this.domainEventBus.register(this.reporter, TestLifecycleReporter.interface, eventType);
+        });
     }
 
     public name() {
