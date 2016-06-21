@@ -1,6 +1,11 @@
 ///<reference path="cucumber.d.ts"/>
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
+import {Serenity} from "../../serenity";
+import {
+    RegistersTestStarted, TestStartedHandler, TestStarted,
+    TestStartedHandlerInterface, TestStartedInterface
+} from "../../domain_events";
 // import serenity = require('../../index');
 
 function createListener() : EventListener {
@@ -39,6 +44,8 @@ function createListener() : EventListener {
 
     self.handleBeforeScenarioEvent = (event: events.Event, callback: ()=>void) => {
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
+
+        Serenity.instance.domainEvents().trigger(new TestStarted(), TestStarted.interface)
 
         callback();
     };
