@@ -2,9 +2,9 @@
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {TestStarted, TestFinished, TestStepStarted, TestStepFinished} from "../../test_lifecycle_events";
+import {TestIsStarted, TestIsFinished, TestStepIsStarted, TestStepIsFinished} from "../../events/test_lifecycle";
+import {Test} from "../../domain";
 
-// import serenity = require('../../index');
 
 function createListener() : EventListener {
 
@@ -42,17 +42,20 @@ function createListener() : EventListener {
 
     self.handleBeforeScenarioEvent = (event: events.Event, callback: ()=>void) => {
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
-
-        Serenity.instance.domainEvents().trigger(new TestStarted(), TestStarted.interface)
-
-        callback();
-    };
-
-    self.handleAfterScenarioEvent = (event: events.Event, callback: ()=>void) => {
-
-        let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
         
-        Serenity.instance.domainEvents().trigger(new TestFinished(), TestFinished.interface)
+        // console.log('[SCENARIO]', scenario.getName());
+        // console.log('[SCENARIO]', scenario.getUri());
+        // console.log('[SCENARIO]', scenario.getDescription());
+
+        // todo: StartedTest.of(...)
+        // todo: FinishedTest.of(...)
+            // todo: StartedTestStep.of(...)
+            // todo: FinishedTestStep.of(...)
+        
+        Serenity.instance.domainEvents().trigger(new TestIsStarted(new Test(
+            scenario.getName(),
+            scenario.getUri()
+        )), TestIsStarted.interface);
 
         callback();
     };
@@ -60,13 +63,34 @@ function createListener() : EventListener {
     self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
         let scenarioResult = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
 
+        // console.log("[Scenario Result]",
+        //     'exception', scenarioResult.getFailureException(),
+        //     'scenario', scenarioResult.getScenario(),
+        //     'status', scenarioResult.getStatus()
+        // );
+
+        callback();
+    };
+
+    self.handleAfterScenarioEvent = (event: events.Event, callback: ()=>void) => {
+
+        let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
+
+        // Serenity.instance.domainEvents().trigger(new TestIsFinished(), TestIsFinished.interface)
+
+        // console.log("[Scenario]",
+        //     'exception', scenario.,
+        //     'scenario', scenarioResult.getScenario(),
+        //     'status', scenarioResult.getStatus()
+        // );
+
         callback();
     };
 
     self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        Serenity.instance.domainEvents().trigger(new TestStepStarted(), TestStepStarted.interface);
+        // Serenity.instance.domainEvents().trigger(new TestStepIsStarted(), TestStepIsStarted.interface);
 
         callback();
     };
@@ -74,7 +98,7 @@ function createListener() : EventListener {
     self.handleAfterStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        Serenity.instance.domainEvents().trigger(new TestStepFinished(), TestStepFinished.interface);
+        // Serenity.instance.domainEvents().trigger(new TestStepIsFinished(), TestStepIsFinished.interface);
 
         callback();
     };
@@ -107,8 +131,6 @@ export = function() {
 
 // export = function() {
 //     var hook = <Hooks>this;
-//
-//
 //
 //     hook.Before(function(scenario: Scenario){
 //         console.log("[CUCUMBER] Before Scenario '", scenario.getName(), "'");

@@ -1,4 +1,4 @@
-export interface InterfaceDescriptor {
+export interface RuntimeInterfaceDescriptor {
     methodNames?: string[];
     propertyNames?: string[];
     className: string;
@@ -6,7 +6,7 @@ export interface InterfaceDescriptor {
 
 // todo: rename and cleanup
 export class InterfaceChecker {
-    static implements<T extends InterfaceDescriptor>(objectToCheck: Object, t: { new (): T; }): boolean {
+    static implements<T extends RuntimeInterfaceDescriptor>(objectToCheck: Object, t: { new (): T; }): boolean {
         var targetInterfaceDescription = new t();
 
         (targetInterfaceDescription.methodNames || []).forEach((method) => {

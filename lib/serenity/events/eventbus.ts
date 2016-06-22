@@ -1,7 +1,23 @@
-import {InterfaceDescriptor, InterfaceChecker} from "./typesafety";
+import {RuntimeInterfaceDescriptor, InterfaceChecker} from "../typesafety";
+import * as moment from 'moment';
 
-export interface DomainEvent<T> {
-    value(): T;
+export class DomainEvent<T> {
+    protected _value: T;
+    protected _timestamp: number;
+
+    // timestamp: number = moment().unix()
+    constructor(value: T, timestamp?: number) {
+        this._value     = value;
+        this._timestamp = timestamp || moment().unix();
+    }
+
+    value():T {
+        return this._value;
+    }
+
+    timestamp():number {
+        return this._timestamp;
+    }
 }
 
 export interface DomainEventHandler {
@@ -11,7 +27,7 @@ export interface DomainEventHandler {
 class EventHandlers<DE extends DomainEvent<any>> {
     private eventHandlers: DomainEventHandler[] = [];
 
-    register(handler: DomainEventHandler, interfaceType: {new (): InterfaceDescriptor}) {
+    register(handler: DomainEventHandler, interfaceType: {new (): RuntimeInterfaceDescriptor}) {
 
         if(InterfaceChecker.implements(handler, interfaceType)) {
             this.eventHandlers.push(handler);
@@ -22,8 +38,13 @@ class EventHandlers<DE extends DomainEvent<any>> {
 
     trigger(event: DE){
         this.eventHandlers.forEach((handler) => {
-            // todo: we assume that onEventName method exists. Is it too much of an assumption?
-            handler[`on${event.constructor.name}`](event);
+            let method = `when${event.constructor.name}`;
+
+            if (! handler[method]) {
+                throw new Error(`${handler.constructor.name} needs a '${method}' method to handle the '${event.constructor.name}' event.`)
+            }
+
+            handler[method](event);
         });
     }
 }
@@ -32,8 +53,8 @@ export class DomainEvents<DE extends DomainEvent<any>> {
     private handlers: EventHandlers<DE>[] = new Array<EventHandlers<DE>>();
 
     public register(handler: DomainEventHandler,
-                    handlerInterface: { new(): InterfaceDescriptor },
-                    eventInterface: { new(): InterfaceDescriptor })
+                    handlerInterface: { new(): RuntimeInterfaceDescriptor },
+                    eventInterface: { new(): RuntimeInterfaceDescriptor })
     {
         let eventType   = new eventInterface();
 
@@ -50,7 +71,7 @@ export class DomainEvents<DE extends DomainEvent<any>> {
         }
     }
 
-    public trigger(event: DE, eventInterface: { new(): InterfaceDescriptor }) {
+    public trigger(event: DE, eventInterface: { new(): RuntimeInterfaceDescriptor }) {
         if (InterfaceChecker.implements(event, eventInterface)) {
             let eventType = new eventInterface(),
                 handlers  = this.handlers[eventType.className];

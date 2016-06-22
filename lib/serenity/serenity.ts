@@ -1,36 +1,57 @@
-import {DomainEvents} from "./domain_events";
-import {TestStarted, TestLifecycleListener, TestFinished, TestLifecycleListenerInterface} from "./test_lifecycle_events"
-import {InterfaceDescriptor} from "./typesafety";
-import {TestStepStarted, TestStepFinished} from "./test_lifecycle_events";
-
+import {DomainEvents} from "./events/eventbus";
+import {
+    TestIsStarted,
+    TestLifecycleListener,
+    TestIsFinished,
+    TestLifecycleListenerInterface,
+    TestStepIsStarted,
+    TestStepIsFinished
+} from "./events/test_lifecycle";
+import {RuntimeInterfaceDescriptor} from "./typesafety";
+import {Test, Identifiable} from "./domain";
+import {Md5} from "ts-md5/dist/md5";
+import id = webdriver.By.id;
 
 export class TestLifecycleReporter implements TestLifecycleListener {
-    onTestStarted(event:TestStarted) {
-        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+    private tests: {[key: string]: Test;} = {}
+
+    private hash(thing: Identifiable): string {
+        return <string>Md5.hashAsciiStr(thing.id());
     }
 
-    onTestFinished(event:TestFinished) {
-        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+
+    whenTestIsStarted(event:TestIsStarted) {
+        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value(), this.hash(event.value()));
+
+        let test = event.value();
+
+        this.tests[this.hash(test)] = test;
     }
 
-    onTestStepStarted(event:TestStepStarted) {
+    whenTestIsFinished(event:TestIsFinished) {
         console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+
+
     }
 
-    onTestStepFinished(event:TestStepFinished) {
-        console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+    whenTestStepIsStarted(event:TestStepIsStarted) {
+        // console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
     }
 
-    get handledEventTypes(): {new (): InterfaceDescriptor}[] {
+    whenTestStepIsFinished(event:TestStepIsFinished) {
+        // console.log("[DOMAIN EVENT] ", event.constructor.name, event.value())
+    }
+
+    get handledEventTypes(): {new (): RuntimeInterfaceDescriptor}[] {
         return [
-            TestStarted.interface,
-            TestFinished.interface,
-            TestStepStarted.interface,
-            TestStepFinished.interface
+            TestIsStarted.interface,
+            TestIsFinished.interface,
+            TestStepIsStarted.interface,
+            TestStepIsFinished.interface
         ]
     }
 
-    static get interface(): {new (): InterfaceDescriptor}  {
+    static get interface(): {new (): RuntimeInterfaceDescriptor}  {
         return TestLifecycleListenerInterface;
     }
 }

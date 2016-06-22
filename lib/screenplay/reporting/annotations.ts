@@ -31,12 +31,12 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string) 
             let interpolated = interpolateStepDescription(this, args);
 
             // todo: send "step started event"
-            console.log('[PERFORMING STEP] ', interpolated);
+            // console.log('[PERFORMING STEP] ', interpolated);
 
             step.apply(this, args);
 
             // todo: send "step finished event"
-            console.log('[  FINISHED STEP] ', interpolated);
+            // console.log('[  FINISHED STEP] ', interpolated);
         };
 
         return descriptor;
