@@ -5,12 +5,12 @@ export interface Identifiable {
 }
 
 export class Test implements Identifiable {
-    private _name;
+    private _scenarioName;
     private _testCaseName;
     private _title;
 
-    constructor(name: string, testCaseName: string, title: string = name) {
-        this._name          = name;
+    constructor(scenarioName: string, testCaseName: string, title: string = scenarioName) {
+        this._scenarioName  = scenarioName;
         this._testCaseName  = testCaseName;
         this._title         = title;
     }
@@ -19,8 +19,8 @@ export class Test implements Identifiable {
         return this._title;
     }
 
-    public get name(): string {
-        return this._name;
+    public get scenarioName(): string {
+        return this._scenarioName;
     }
 
     public get testCaseName(): string {
@@ -29,7 +29,25 @@ export class Test implements Identifiable {
     }
 
     public id() {
-        return `${this.testCaseName}_${this.name}`;
+        return `${this.testCaseName}_${this.scenarioName}`;
+    }
+}
+
+export class TestResult {
+    private _test: Test;
+    private _result: string;
+    
+    constructor(test: Test, result: string) {
+        this._test = test;
+        this._result = result;
+    }
+    
+    public get test(): Test {
+        return this._test;
+    }
+    
+    public get result(): string {
+        return this._result;
     }
 }
 

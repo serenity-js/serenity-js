@@ -5,7 +5,6 @@ export class DomainEvent<T> {
     protected _value: T;
     protected _timestamp: number;
 
-    // timestamp: number = moment().unix()
     constructor(value: T, timestamp?: number) {
         this._value     = value;
         this._timestamp = timestamp || moment().unix();

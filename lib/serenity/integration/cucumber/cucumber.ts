@@ -2,8 +2,11 @@
 
 import {Listener, Hooks, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {TestIsStarted, TestIsFinished, TestStepIsStarted, TestStepIsFinished} from "../../events/test_lifecycle";
-import {Test} from "../../domain";
+import {
+    TestIsStarted, TestIsFinished, TestStepIsStarted, TestStepIsFinished,
+    TestIsCompleted
+} from "../../events/test_lifecycle";
+import {Test, TestResult} from "../../domain";
 
 
 function createListener() : EventListener {
@@ -42,10 +45,6 @@ function createListener() : EventListener {
 
     self.handleBeforeScenarioEvent = (event: events.Event, callback: ()=>void) => {
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
-        
-        // console.log('[SCENARIO]', scenario.getName());
-        // console.log('[SCENARIO]', scenario.getUri());
-        // console.log('[SCENARIO]', scenario.getDescription());
 
         // todo: StartedTest.of(...)
         // todo: FinishedTest.of(...)
@@ -60,15 +59,36 @@ function createListener() : EventListener {
         callback();
     };
 
+
+    function translateToSerenityResult(cucumberStatus: string) {
+        // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/status.js
+        switch(cucumberStatus) {
+            case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
+                return 'ambiguousCucumberStatus';
+            case 'undefined':
+                return 'undefinedCucumberStatus';
+            case 'failed':
+                return 'failure';
+            case 'pending':
+                return 'pending';
+            case 'passed':
+                return 'success';
+            case 'skipped':
+                return 'skipped';
+        }
+    }
+
     self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
         let scenarioResult = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
 
-        // console.log("[Scenario Result]",
-        //     'exception', scenarioResult.getFailureException(),
-        //     'scenario', scenarioResult.getScenario(),
-        //     'status', scenarioResult.getStatus()
-        // );
-
+        Serenity.instance.domainEvents().trigger(new TestIsCompleted(new TestResult(
+            new Test(
+                scenarioResult.getScenario().getName(),
+                scenarioResult.getScenario().getUri()
+            ),
+            translateToSerenityResult(scenarioResult.getStatus())
+        )), TestIsCompleted.interface);
+        
         callback();
     };
 
@@ -76,13 +96,10 @@ function createListener() : EventListener {
 
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
 
-        // Serenity.instance.domainEvents().trigger(new TestIsFinished(), TestIsFinished.interface)
-
-        // console.log("[Scenario]",
-        //     'exception', scenario.,
-        //     'scenario', scenarioResult.getScenario(),
-        //     'status', scenarioResult.getStatus()
-        // );
+        Serenity.instance.domainEvents().trigger(new TestIsFinished(new Test(
+            scenario.getName(),
+            scenario.getUri()
+        )), TestIsFinished.interface);
 
         callback();
     };

@@ -1,6 +1,6 @@
 import {DomainEvent, DomainEventHandler} from "./eventbus";
 import {RuntimeInterfaceDescriptor} from "../typesafety";
-import {Test} from "../domain";
+import {Test, TestResult} from "../domain";
 
 
 /*
@@ -31,11 +31,23 @@ export class TestIsStartedInterface implements RuntimeInterfaceDescriptor {
     className:string     = 'TestIsStartedInterface';
 }
 
-export class TestIsFinished extends DomainEvent<string> {
+export class TestIsFinished extends DomainEvent<Test> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestIsFinishedInterface;
     }
 }
+
+export class TestIsCompleted extends DomainEvent<TestResult> {
+    static get interface(): {new (): RuntimeInterfaceDescriptor} {
+        return TestIsCompletedInterface;
+    }
+}
+
+export class TestIsCompletedInterface implements RuntimeInterfaceDescriptor {
+    methodNames:string[] = ['value'];
+    className:string     = 'TestIsCompletedInterface';
+}
+
 
 export class TestIsFinishedInterface implements RuntimeInterfaceDescriptor {
     methodNames:string[] = ['value'];
@@ -53,6 +65,17 @@ export class TestStepIsStartedInterface implements RuntimeInterfaceDescriptor {
     className:string     = 'TestStepIsStartedInterface';
 }
 
+export class TestStepIsCompleted extends DomainEvent<string> {
+    static get interface(): {new (): RuntimeInterfaceDescriptor} {
+        return TestStepIsFinishedInterface;
+    }
+}
+
+export class TestStepIsCompletedInterface implements RuntimeInterfaceDescriptor {
+    methodNames:string[] = ['value'];
+    className:string     = 'TestStepIsCompletedInterface';
+}
+
 export class TestStepIsFinished extends DomainEvent<string> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestStepIsFinishedInterface;
@@ -68,16 +91,22 @@ export class TestStepIsFinishedInterface implements RuntimeInterfaceDescriptor {
 // event handlers
 
 export interface TestLifecycleListener extends DomainEventHandler {
-    whenTestIsStarted(event: TestIsStarted);
-    whenTestIsFinished(event: TestIsFinished);
-    whenTestStepIsStarted(event: TestStepIsStarted);
-    whenTestStepIsFinished(event: TestStepIsFinished);
+    whenTestIsStarted       (event: TestIsStarted);
+    whenTestIsCompleted     (event: TestIsCompleted);
+    whenTestIsFinished      (event: TestIsFinished);
+    whenTestStepIsStarted   (event: TestStepIsStarted);
+    whenTestStepIsCompleted (event: TestStepIsCompleted);
+    whenTestStepIsFinished  (event: TestStepIsFinished);
 }
 
 export class TestLifecycleListenerInterface implements RuntimeInterfaceDescriptor {
     methodNames = [
-        'whenTestIsStarted', 'whenTestIsFinished',
-        'whenTestStepIsStarted', 'whenTestStepIsFinished'
+        'whenTestIsStarted',
+        'whenTestIsCompleted',
+        'whenTestIsFinished',
+        'whenTestStepIsStarted',
+        'whenTestStepIsCompleted',
+        'whenTestStepIsFinished'
     ];
     className   = 'TestLifecycleListenerInterface';
 }
