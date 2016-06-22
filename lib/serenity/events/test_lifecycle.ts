@@ -1,6 +1,6 @@
 import {DomainEvent, DomainEventHandler} from "./eventbus";
 import {RuntimeInterfaceDescriptor} from "../typesafety";
-import {Test, TestOutcome} from "../domain";
+import {Test, TestOutcome, Step, StepOutcome} from "../domain";
 
 
 /*
@@ -37,6 +37,11 @@ export class TestIsFinished extends DomainEvent<Test> {
     }
 }
 
+export class TestIsFinishedInterface implements RuntimeInterfaceDescriptor {
+    methodNames:string[] = ['value'];
+    className:string     = 'TestIsFinishedInterface';
+}
+
 export class TestIsCompleted extends DomainEvent<TestOutcome> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestIsCompletedInterface;
@@ -48,13 +53,7 @@ export class TestIsCompletedInterface implements RuntimeInterfaceDescriptor {
     className:string     = 'TestIsCompletedInterface';
 }
 
-
-export class TestIsFinishedInterface implements RuntimeInterfaceDescriptor {
-    methodNames:string[] = ['value'];
-    className:string     = 'TestIsFinishedInterface';
-}
-
-export class TestStepIsStarted extends DomainEvent<string> {
+export class TestStepIsStarted extends DomainEvent<Step> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestStepIsStartedInterface;
     }
@@ -65,9 +64,9 @@ export class TestStepIsStartedInterface implements RuntimeInterfaceDescriptor {
     className:string     = 'TestStepIsStartedInterface';
 }
 
-export class TestStepIsCompleted extends DomainEvent<string> {
+export class TestStepIsCompleted extends DomainEvent<StepOutcome> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
-        return TestStepIsFinishedInterface;
+        return TestStepIsCompletedInterface;
     }
 }
 
@@ -76,7 +75,7 @@ export class TestStepIsCompletedInterface implements RuntimeInterfaceDescriptor 
     className:string     = 'TestStepIsCompletedInterface';
 }
 
-export class TestStepIsFinished extends DomainEvent<string> {
+export class TestStepIsFinished extends DomainEvent<Step> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestStepIsFinishedInterface;
     }

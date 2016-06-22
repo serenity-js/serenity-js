@@ -1,8 +1,8 @@
-export enum TestResult {
-    Failure,
-    Pending,
-    Success,
-    Skipped
+export enum Result {
+    FAILURE,
+    PENDING,
+    SUCCESS,
+    SKIPPED
 }
 
 export interface Identifiable {
@@ -38,11 +38,28 @@ export class Test implements Identifiable {
     }
 }
 
+export class Step implements Identifiable{
+    private _name: string;
+    
+    constructor(name:string) {
+        this._name = name;
+    }
+    
+    public get name() {
+        return this._name;
+    }
+
+    public id() {
+        return `${this._name}`;
+    }
+}
+
+// todo: refactor - maybe replace both with "outcome<T>"?
 export class TestOutcome {
     private _test: Test;
-    private _result: TestResult;
+    private _result: Result;
     
-    constructor(test: Test, result: TestResult) {
+    constructor(test: Test, result: Result) {
         this._test = test;
         this._result = result;
     }
@@ -51,52 +68,26 @@ export class TestOutcome {
         return this._test;
     }
     
-    public get result(): TestResult {
+    public get result(): Result {
         return this._result;
     }
 }
 
-export class TestSummary {
-    public get title(): string {
-        return "Displaying potential failure cause";
+// todo: refactor
+export class StepOutcome {
+    private _step: Step;
+    private _result: Result;
+
+    constructor(step: Step, result: Result) {
+        this._step   = step;
+        this._result = result;
     }
 
-    public get name(): string {
-        return "displaying_potential_failure_cause";
+    public get step(): Step {
+        return this._step;
     }
 
-    public get testCaseName(): string {
-        return "features.ShouldTellWhatBrokeTheBuild";
-
+    public get result(): Result {
+        return this._result;
     }
-
-    public get startTime(): number {
-        return 1466457468037;
-    }
-
-
-    public get duration(): number {
-        return 79546;
-    }
-
-    public get sessionId(): string {
-        return "62f827eb-0194-d844-9646-c1b616bca7a8";
-    }
-
-    public get driver(): string {
-        return "firefox";
-    }
-
-    public get manual(): boolean {
-        return false;
-    }
-
-
-    public get result(): string {
-        return "SUCCESS";
-    }
-}
-
-export class Step {
-
 }

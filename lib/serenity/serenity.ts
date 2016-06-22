@@ -19,6 +19,7 @@ const fs:typeof QioFS = require('q-io/fs');
 export class TestExecutionMonitor implements TestLifecycleListener {
     private recorder = new Recorder();
 
+    // todo: (1) extract together
     private hash(thing: Identifiable): string {
         return <string>Md5.hashAsciiStr(thing.id());
     }
@@ -37,22 +38,23 @@ export class TestExecutionMonitor implements TestLifecycleListener {
         let test      = event.value();
         let recording = this.recorder.extractRecordingFor(test);
 
-        // todo: extract
+        // todo: (1) extract together 
         fs.makeTree(`${process.cwd()}/target/site/serenity`).then(() => {
             return fs.write(`${process.cwd()}/target/site/serenity/${this.hash(test)}.json`, JSON.stringify(recording))
         }).then(console.log, console.error);
     }
 
     whenTestStepIsStarted(event:TestStepIsStarted) {
-        // console.log('[DOMAIN EVENT] ', event.constructor.name, event.value())
+        this.recorder.recordStep(event.value(), event.timestamp());
     }
     
     whenTestStepIsCompleted(event:TestStepIsCompleted) {
-        
+        let outcome = event.value();
+        this.recorder.recordStepResultOf(outcome.step, outcome.result, event.timestamp());
     }
 
     whenTestStepIsFinished(event:TestStepIsFinished) {
-        // console.log('[DOMAIN EVENT] ', event.constructor.name, event.value())
+        
     }
 
     get handledEventTypes(): {new (): RuntimeInterfaceDescriptor}[] {

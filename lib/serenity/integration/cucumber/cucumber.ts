@@ -4,9 +4,9 @@ import {Listener, Hooks, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
 import {
     TestIsStarted, TestIsFinished, TestStepIsStarted, TestStepIsFinished,
-    TestIsCompleted
+    TestIsCompleted, TestStepIsCompleted
 } from "../../events/test_lifecycle";
-import {Test, TestOutcome, TestResult} from "../../domain";
+import {Test, TestOutcome, Result, Step, StepOutcome} from "../../domain";
 
 
 function createListener() : EventListener {
@@ -19,14 +19,14 @@ function createListener() : EventListener {
         callback();
     };
 
-    self.handleAfterFeaturesEvent = (event: events.Event, callback: ()=>void) => {
-        let features = <events.FeaturesPayload>event.getPayloadItem('features');
+    self.handleFeaturesResultEvent = (event: events.Event, callback: ()=>void) => {
+        let featuresResult = <events.FeaturesResultPayload>event.getPayloadItem('featuresResult');
 
         callback();
     };
 
-    self.handleFeaturesResultEvent = (event: events.Event, callback: ()=>void) => {
-        let featuresResult = <events.FeaturesResultPayload>event.getPayloadItem('featuresResult');
+    self.handleAfterFeaturesEvent = (event: events.Event, callback: ()=>void) => {
+        let features = <events.FeaturesPayload>event.getPayloadItem('features');
 
         callback();
     };
@@ -59,21 +59,6 @@ function createListener() : EventListener {
         callback();
     };
 
-
-    function translateToSerenityResult(cucumberStatus: string): TestResult {
-        // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/status.js
-        switch(cucumberStatus) {
-            // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
-            //     return 'ambiguousCucumberStatus';
-            // case 'undefined':
-            //     return 'undefinedCucumberStatus';
-            case 'failed':  return TestResult.Failure;
-            case 'pending': return TestResult.Pending;
-            case 'passed':  return TestResult.Success;
-            case 'skipped': return TestResult.Skipped;
-        }
-    }
-
     self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
         let scenarioResult = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
 
@@ -89,7 +74,6 @@ function createListener() : EventListener {
     };
 
     self.handleAfterScenarioEvent = (event: events.Event, callback: ()=>void) => {
-
         let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
 
         Serenity.instance.domainEvents().trigger(new TestIsFinished(new Test(
@@ -103,7 +87,25 @@ function createListener() : EventListener {
     self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        // Serenity.instance.domainEvents().trigger(new TestStepIsStarted(), TestStepIsStarted.interface);
+        // todo: can I get the Given/When/Then prefix at this stage?
+
+        Serenity.instance.domainEvents().trigger(new TestStepIsStarted(new Step(
+            `${step.getKeyword()} ${step.getName()}`
+        )), TestStepIsStarted.interface);
+
+        callback();
+    };
+
+    self.handleStepResultEvent = (event: events.Event, callback: ()=>void) => {
+        let result = <events.StepResultPayload>event.getPayloadItem('stepResult'),
+            step   = result.getStep();
+
+        if (! step.isHidden()) {    // "before" and "after" steps emit an event, even if they're not present in the test
+            Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
+                new Step(`${step.getKeyword()} ${step.getName()}`),
+                translateToSerenityResult(result.getStatus())
+            )), TestStepIsStarted.interface);
+        }
 
         callback();
     };
@@ -111,16 +113,29 @@ function createListener() : EventListener {
     self.handleAfterStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        // Serenity.instance.domainEvents().trigger(new TestStepIsFinished(), TestStepIsFinished.interface);
+        Serenity.instance.domainEvents().trigger(new TestStepIsFinished(new Step(
+            `${step.getKeyword()}${step.getName()}`
+        )), TestStepIsFinished.interface);
 
         callback();
     };
 
-    self.handleStepResultEvent = (event: events.Event, callback: ()=>void) => {
-        let stepResult = <events.FeaturesResultPayload>event.getPayloadItem('stepResult');
+    // todo: extract and clean up
+    function translateToSerenityResult(cucumberStatus: string): Result {
+        // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/status.js
+        switch(cucumberStatus) {
+            // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
+            //     return 'ambiguousCucumberStatus';
+            // case 'undefined':
+            //     return 'undefinedCucumberStatus';
+            case 'failed':  return Result.FAILURE;
+            case 'pending': return Result.PENDING;
+            case 'passed':  return Result.SUCCESS;
+            case 'skipped': return Result.SKIPPED;
+        }
+    }
 
-        callback();
-    };
+
 
     return self;
 }
