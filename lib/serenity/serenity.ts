@@ -11,40 +11,36 @@ import {RuntimeInterfaceDescriptor} from './typesafety';
 import {Test, Identifiable} from './domain';
 import {Md5} from 'ts-md5/dist/md5';
 import id = webdriver.By.id;
+import {Recorder} from "./reporting/test_reports";
 
 const fs:typeof QioFS = require('q-io/fs');
 
 // todo: extract; this should interact with some sort of a test outcomes data structure
-export class TestLifecycleReporter implements TestLifecycleListener {
-    private tests: {[key: string]: Test;} = {}
+export class TestExecutionMonitor implements TestLifecycleListener {
+    private recorder = new Recorder();
 
     private hash(thing: Identifiable): string {
         return <string>Md5.hashAsciiStr(thing.id());
     }
-    
+
     whenTestIsStarted(event:TestIsStarted) {
-        // console.log('[DOMAIN EVENT] ', event.constructor.name, event.value(), this.hash(event.value()));
-
-        let test = event.value();
-
-        this.tests[this.hash(test)] = test;
+        this.recorder.startARecordingOf(event.value(), event.timestamp());
     }
 
     whenTestIsCompleted(event:TestIsCompleted) {
-        // console.log('[DOMAIN EVENT] ', event.constructor.name, event.value());
+        let outcome = event.value();
 
-        let testResult = event.value();
-        
-
-        fs.makeTree(`${process.cwd()}/target/site/serenity`).then(() => {
-            return fs.write(`${process.cwd()}/target/site/serenity/some.json`, JSON.stringify(testResult))
-        }).then(console.log, console.error);
+        this.recorder.recordResultOf(outcome.test, outcome.result, event.timestamp());
     }
     
     whenTestIsFinished(event:TestIsFinished) {
-        // console.log('[DOMAIN EVENT] ', event.constructor.name, event.value())
+        let test      = event.value();
+        let recording = this.recorder.extractRecordingFor(test);
 
-
+        // todo: extract
+        fs.makeTree(`${process.cwd()}/target/site/serenity`).then(() => {
+            return fs.write(`${process.cwd()}/target/site/serenity/${this.hash(test)}.json`, JSON.stringify(recording))
+        }).then(console.log, console.error);
     }
 
     whenTestStepIsStarted(event:TestStepIsStarted) {
@@ -84,11 +80,11 @@ export class Serenity {
     }
 
     private domainEventBus = new DomainEvents<any>();
-    private reporter       = new TestLifecycleReporter();
+    private reporter       = new TestExecutionMonitor();
 
     constructor() {
         this.reporter.handledEventTypes.forEach((eventType) => {
-            this.domainEventBus.register(this.reporter, TestLifecycleReporter.interface, eventType);
+            this.domainEventBus.register(this.reporter, TestExecutionMonitor.interface, eventType);
         });
     }
 

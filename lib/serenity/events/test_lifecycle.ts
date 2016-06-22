@@ -1,6 +1,6 @@
 import {DomainEvent, DomainEventHandler} from "./eventbus";
 import {RuntimeInterfaceDescriptor} from "../typesafety";
-import {Test, TestResult} from "../domain";
+import {Test, TestOutcome} from "../domain";
 
 
 /*
@@ -37,7 +37,7 @@ export class TestIsFinished extends DomainEvent<Test> {
     }
 }
 
-export class TestIsCompleted extends DomainEvent<TestResult> {
+export class TestIsCompleted extends DomainEvent<TestOutcome> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestIsCompletedInterface;
     }

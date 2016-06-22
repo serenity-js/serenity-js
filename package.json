@@ -6,7 +6,9 @@
   "homepage": "https://github.com/smartcodeltd/screenplay-js-demo",
   "license": "MIT",
   "scripts": {
-    "test": "npm run verify",
+    "test": "npm run clean && npm run unit-tests && npm run verify",
+    "clean": "rm -rf ./target",
+    "unit-tests": "mocha --opts mocha.opts",
     "verify": "npm run protractor",
     "postinstall": "npm run typings -- install",
     "preprotractor": "npm run webdriver:update -- --standalone",
@@ -30,6 +32,7 @@
     "es6-promise-loader": "^1.0.1",
     "es6-shim": "^0.35.0",
     "es7-reflect-metadata": "^1.6.0",
+    "mocha": "^2.5.3",
     "moment": "^2.13.0",
     "protractor": "^3.2.2",
     "protractor-cucumber-framework": "^0.4.0",

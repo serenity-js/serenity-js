@@ -1,4 +1,9 @@
-// export class
+export enum TestResult {
+    Failure,
+    Pending,
+    Success,
+    Skipped
+}
 
 export interface Identifiable {
     id(): string;
@@ -33,11 +38,11 @@ export class Test implements Identifiable {
     }
 }
 
-export class TestResult {
+export class TestOutcome {
     private _test: Test;
-    private _result: string;
+    private _result: TestResult;
     
-    constructor(test: Test, result: string) {
+    constructor(test: Test, result: TestResult) {
         this._test = test;
         this._result = result;
     }
@@ -46,7 +51,7 @@ export class TestResult {
         return this._test;
     }
     
-    public get result(): string {
+    public get result(): TestResult {
         return this._result;
     }
 }

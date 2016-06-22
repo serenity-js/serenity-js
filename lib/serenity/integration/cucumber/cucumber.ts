@@ -6,7 +6,7 @@ import {
     TestIsStarted, TestIsFinished, TestStepIsStarted, TestStepIsFinished,
     TestIsCompleted
 } from "../../events/test_lifecycle";
-import {Test, TestResult} from "../../domain";
+import {Test, TestOutcome, TestResult} from "../../domain";
 
 
 function createListener() : EventListener {
@@ -60,28 +60,24 @@ function createListener() : EventListener {
     };
 
 
-    function translateToSerenityResult(cucumberStatus: string) {
+    function translateToSerenityResult(cucumberStatus: string): TestResult {
         // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/status.js
         switch(cucumberStatus) {
-            case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
-                return 'ambiguousCucumberStatus';
-            case 'undefined':
-                return 'undefinedCucumberStatus';
-            case 'failed':
-                return 'failure';
-            case 'pending':
-                return 'pending';
-            case 'passed':
-                return 'success';
-            case 'skipped':
-                return 'skipped';
+            // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
+            //     return 'ambiguousCucumberStatus';
+            // case 'undefined':
+            //     return 'undefinedCucumberStatus';
+            case 'failed':  return TestResult.Failure;
+            case 'pending': return TestResult.Pending;
+            case 'passed':  return TestResult.Success;
+            case 'skipped': return TestResult.Skipped;
         }
     }
 
     self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
         let scenarioResult = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
 
-        Serenity.instance.domainEvents().trigger(new TestIsCompleted(new TestResult(
+        Serenity.instance.domainEvents().trigger(new TestIsCompleted(new TestOutcome(
             new Test(
                 scenarioResult.getScenario().getName(),
                 scenarioResult.getScenario().getUri()
