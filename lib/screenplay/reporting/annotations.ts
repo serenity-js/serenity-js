@@ -1,4 +1,7 @@
 import {Performable} from "../pattern/performables";
+import {Serenity} from "../../serenity/serenity";
+import {TestStepIsStarted, TestStepIsCompleted} from "../../serenity/events/test_lifecycle";
+import {Step, StepOutcome, Result} from "../../serenity/domain";
 
 export function step<STEP extends Performable>(stepDescriptionTemplate: string) {
 
@@ -30,13 +33,26 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string) 
 
             let interpolated = interpolateStepDescription(this, args);
 
-            // todo: send "step started event"
-            // console.log('[PERFORMING STEP] ', interpolated);
+            // todo: clean up, too much code here
+            Serenity.instance.domainEvents().trigger(new TestStepIsStarted(new Step(
+                interpolated
+            )), TestStepIsStarted.interface);
 
-            step.apply(this, args);
+            try {
+                step.apply(this, args);
 
-            // todo: send "step finished event"
-            // console.log('[  FINISHED STEP] ', interpolated);
+                Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
+                    new Step(interpolated),
+                    Result.SUCCESS
+                )), TestStepIsStarted.interface);
+            }
+            catch(e) {
+                Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
+                    new Step(interpolated),
+                    Result.FAILURE
+                )), TestStepIsStarted.interface);
+
+            }
         };
 
         return descriptor;

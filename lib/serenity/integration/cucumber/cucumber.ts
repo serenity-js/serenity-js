@@ -87,8 +87,6 @@ function createListener() : EventListener {
     self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        // todo: can I get the Given/When/Then prefix at this stage?
-
         Serenity.instance.domainEvents().trigger(new TestStepIsStarted(new Step(
             `${step.getKeyword()} ${step.getName()}`
         )), TestStepIsStarted.interface);

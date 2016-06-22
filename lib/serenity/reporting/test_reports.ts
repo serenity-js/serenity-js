@@ -1,5 +1,4 @@
 import {Test, Step, Result} from "../domain";
-import moment = require("moment/moment");
 
 export class StepRecording {
     private description:  string;
@@ -7,9 +6,26 @@ export class StepRecording {
     private result:       Result;
     private duration:     number;
 
+    private parentRecording: StepRecording   = null;   // todo: can I avoid using a null?
+    private nestedSteps:     StepRecording[] = [];
+
     constructor(step: Step, startedAt: number) {
         this.description = step.name;
         this.startTime   = startedAt;
+    }
+
+    public parent(): StepRecording {
+        return this.parentRecording;
+    }
+
+    public nest(stepRecording: StepRecording) {
+        stepRecording.nestInside(this);
+
+        this.nestedSteps.push(stepRecording);
+    }
+
+    public nestInside(stepRecording: StepRecording) {
+        this.parentRecording = stepRecording;
     }
 
     public matches(step: Step): boolean {
@@ -21,12 +37,17 @@ export class StepRecording {
         this.duration = timestamp - this.startTime;
     }
 
+    public isCompleted(): boolean {
+        return !!(this.result && this.duration);
+    }
+
     public toJSON() {
         return {
             description: this.description,
             startTime:   this.startTime,
             result:      Result[this.result],
-            duration:    this.duration
+            duration:    this.duration,
+            children:    this.nestedSteps.map((step) => step.toJSON())
         }
     }
 }
@@ -42,14 +63,13 @@ export class TestRecording {
     private result:       Result;
     private manual:       boolean = false;
 
-    // missing
+    // todo: missing fields
     private sessionId:    string;
     private driver:       string;
 
-    // private _steps: {[key: string]: StepRecording} = {};
-    private _steps:       StepRecording[] = [];
+    private steps:       StepRecording[] = [];
 
-    private _lastStepRecording: StepRecording;
+    private lastStepRecording: StepRecording;
     
     constructor(test: Test, startedAt: number) {
         this.title        = test.title;
@@ -59,22 +79,24 @@ export class TestRecording {
     }
 
     public startedStep(step: Step, timestamp: number) {
-        // console.log("started step", step.name);
-
         let recording = new StepRecording(step, timestamp);
 
-        this._steps.push(recording)
-        this._lastStepRecording = recording;
+        if (this.lastStepRecording && ! this.lastStepRecording.isCompleted()) {
+            this.lastStepRecording.nest(recording);
+        } else {
+            this.steps.push(recording)
+        }
+
+        this.lastStepRecording = recording;
     }
     
     public finishedStep(step: Step, result: Result, timestamp: number) {
-        // console.log("finished step", step);
+        if (this.lastStepRecording.matches(step)) {
+            this.lastStepRecording.finishedWith(result, timestamp);
 
-        if (this._lastStepRecording.matches(step)) {
-            this._lastStepRecording.finishedWith(result, timestamp);
+            this.lastStepRecording = this.lastStepRecording.parent();
         }
     }
-    
 
     public finishedWith(result: Result, timestamp: number) {
         this.result = result;
@@ -93,7 +115,7 @@ export class TestRecording {
             // sessionId:
             // driver:
 
-            testSteps:      this._steps.map((step) => step.toJSON())
+            testSteps:      this.steps.map((step) => step.toJSON())
         };
     }
 }
@@ -104,25 +126,21 @@ export class Recorder {
     private _currentRecording: string;
 
     public startARecordingOf(test: Test, timestamp: number):void {
-        // console.log('Recorder::startARecordingOf');
-
         let recording = new TestRecording(test, timestamp);
+
         this._recordings[test.id()] = recording;
         this._currentRecording      = test.id();
     }
 
     public recordStep(step: Step, timestamp: number): void {
-        // console.log('Recorder::recordStep');
         this._recordings[this._currentRecording].startedStep(step, timestamp)
     }
     
     public recordStepResultOf(step: Step, result: Result, timestamp: number): void {
-        // console.log('Recorder::recordStepResultOf');
         this._recordings[this._currentRecording].finishedStep(step, result, timestamp)
     }
 
     public recordResultOf(test: Test, result: Result, timestamp: number):void {
-        // console.log('Recorder::recordResultOf');
         this._recordings[test.id()].finishedWith(result, timestamp);
     }
     

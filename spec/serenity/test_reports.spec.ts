@@ -14,8 +14,9 @@ describe('Test Recorder', () => {
             'Adding an item to an empty list',
             '/fake/path/to/scenario/add_new_items.feature'
         ),
-        step        = new Step('James adds "Buy a coffee" to his todo list'),
-        anotherStep = new Step('James adds "Buy some milk" to his todo list');
+        step        = new Step('Given James adds "Buy a coffee" to his todo list'),
+        anotherStep = new Step('Then James adds "Buy some milk" to his todo list'),
+        nestedStep  = new Step('Given James enters "Buy some milk" into the input box');
 
 
     it('has no recordings to start with', () => {
@@ -73,27 +74,12 @@ describe('Test Recorder', () => {
                 description: step.name,
                 duration:    stepFinishedAt - stepStartedAt,
                 startTime:   stepStartedAt,
-                result:      Result[Result.SUCCESS]
+                result:      Result[Result.SUCCESS],
+                children:    []
             }]);
-
-/*
-            {
-                "number": 1,
-                "description": "Dave uses the \u0027Failure Cause Management\u0027",
-                "duration": 4693,
-                "startTime": 1466457531915,
-                "screenshots": [
-                    {
-                        "screenshot": "edbf049b1fc274246a69f8b64ca03d8b.png"
-                    }
-                ],
-                "result": "SUCCESS",
-                children: []
-
-*/
         });
 
-        it('Records a multiple test steps', () => {
+        it('Records multiple test steps', () => {
             let recorder = new Recorder(),
                 firstStepStarted   = testStartedTime + 1,
                 firstStepFinished  = testStartedTime + 3,
@@ -116,29 +102,50 @@ describe('Test Recorder', () => {
                 description: step.name,
                 duration:    firstStepFinished - firstStepStarted,
                 startTime:   firstStepStarted,
-                result:      Result[Result.SUCCESS]
+                result:      Result[Result.SUCCESS],
+                children:    []
             }, {
                 description: anotherStep.name,
                 duration:    secondStepFinished - secondStepStarted,
                 startTime:   secondStepStarted,
-                result:      Result[Result.SUCCESS]
+                result:      Result[Result.SUCCESS],
+                children:    []
             }]);
-
-            /*
-             {
-             "number": 1,
-             "description": "Dave uses the \u0027Failure Cause Management\u0027",
-             "duration": 4693,
-             "startTime": 1466457531915,
-             "screenshots": [
-             {
-             "screenshot": "edbf049b1fc274246a69f8b64ca03d8b.png"
-             }
-             ],
-             "result": "SUCCESS",
-             children: []
-
-             */
         });
+
+        it('Records nested steps', () => {
+            let recorder = new Recorder(),
+                firstStepStarted   = testStartedTime + 1,
+                nestedStepStarted  = testStartedTime + 3,
+                nestedStepFinished = testStartedTime + 4,
+                firstStepFinished  = testStartedTime + 8;
+
+            recorder.startARecordingOf(test, testStartedTime);
+
+            recorder.recordStep        (step,       firstStepStarted);
+
+            recorder.recordStep        (nestedStep, nestedStepStarted);
+            recorder.recordStepResultOf(nestedStep, Result.SUCCESS, nestedStepFinished);
+
+            recorder.recordStepResultOf(step,       Result.SUCCESS, firstStepFinished);
+
+            recorder.recordResultOf(test, Result.SUCCESS, testFinishedTime);
+
+            let recording = recorder.recordings[0].toJSON();
+
+            expect(recording.testSteps).to.deep.equal([{
+                description: step.name,
+                duration:    firstStepFinished - firstStepStarted,
+                startTime:   firstStepStarted,
+                result:      Result[Result.SUCCESS],
+                children: [{
+                    description: nestedStep.name,
+                    duration:    nestedStepFinished - nestedStepStarted,
+                    startTime:   nestedStepStarted,
+                    result:      Result[Result.SUCCESS],
+                    children:    []
+                }]
+            }]);
+        })
     });
 });
