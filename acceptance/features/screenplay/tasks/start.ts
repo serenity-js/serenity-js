@@ -17,7 +17,7 @@ export class Start implements Performable {
     @step("{0} starts with a todo list containing #todoListDescription")
     performAs(actor:PerformsTasks) {
         actor.attemptsTo(
-            Open.browserOn("http://todomvc.com/examples/angularjs/"),       // fixme: should be configurable
+            Open.browserOn("http://todomvc.dev/examples/angularjs/"),       // fixme: should be configurable
             AddTodoItems.called(this.initialItems)
         )
     }
