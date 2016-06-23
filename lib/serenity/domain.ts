@@ -40,9 +40,11 @@ export class Test implements Identifiable {
 
 export class Step implements Identifiable{
     private _name: string;
+    private _id: string;
     
-    constructor(name:string) {
+    constructor(name:string, id: string = name) {
         this._name = name;
+        this._id   = id;
     }
     
     public get name() {
@@ -50,7 +52,7 @@ export class Step implements Identifiable{
     }
 
     public id() {
-        return `${this._name}`;
+        return this._id;
     }
 }
 

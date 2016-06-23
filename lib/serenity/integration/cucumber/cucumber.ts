@@ -8,7 +8,6 @@ import {
 } from "../../events/test_lifecycle";
 import {Test, TestOutcome, Result, Step, StepOutcome} from "../../domain";
 
-
 function createListener() : EventListener {
 
     let self = <any>Listener();
@@ -87,9 +86,9 @@ function createListener() : EventListener {
     self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        Serenity.instance.domainEvents().trigger(new TestStepIsStarted(new Step(
-            `${step.getKeyword()} ${step.getName()}`
-        )), TestStepIsStarted.interface);
+        Serenity.instance.domainEvents().trigger(new TestStepIsStarted(
+            new Step(`${step.getKeyword()} ${step.getName()}`, idFor(step))
+        ), TestStepIsStarted.interface);
 
         callback();
     };
@@ -100,7 +99,7 @@ function createListener() : EventListener {
 
         if (! step.isHidden()) {    // "before" and "after" steps emit an event, even if they're not present in the test
             Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
-                new Step(`${step.getKeyword()} ${step.getName()}`),
+                new Step(`${step.getKeyword()} ${step.getName()}`, idFor(step)),
                 translateToSerenityResult(result.getStatus())
             )), TestStepIsStarted.interface);
         }
@@ -111,12 +110,17 @@ function createListener() : EventListener {
     self.handleAfterStepEvent = (event: events.Event, callback: ()=>void) => {
         let step = <events.StepPayload>event.getPayloadItem('step');
 
-        Serenity.instance.domainEvents().trigger(new TestStepIsFinished(new Step(
-            `${step.getKeyword()}${step.getName()}`
-        )), TestStepIsFinished.interface);
+        Serenity.instance.domainEvents().trigger(new TestStepIsFinished(
+            new Step(`${step.getKeyword()} ${step.getName()}`, idFor(step))
+        ), TestStepIsFinished.interface);
 
         callback();
     };
+
+    // todo: extract and clean up
+    function idFor(payload: events.StepPayload) {
+        return `${payload.getUri()}:${payload.getLine()}:${payload.getName()}`;
+    }
 
     // todo: extract and clean up
     function translateToSerenityResult(cucumberStatus: string): Result {

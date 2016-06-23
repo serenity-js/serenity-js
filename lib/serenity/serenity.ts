@@ -1,17 +1,19 @@
-import {DomainEvents} from './events/eventbus';
+import {DomainEvents} from "./events/eventbus";
 import {
     TestIsStarted,
     TestLifecycleListener,
     TestIsFinished,
     TestLifecycleListenerInterface,
     TestStepIsStarted,
-    TestStepIsFinished, TestIsCompleted, TestStepIsCompleted
-} from './events/test_lifecycle';
-import {RuntimeInterfaceDescriptor} from './typesafety';
-import {Test, Identifiable} from './domain';
-import {Md5} from 'ts-md5/dist/md5';
-import id = webdriver.By.id;
+    TestStepIsFinished,
+    TestIsCompleted,
+    TestStepIsCompleted
+} from "./events/test_lifecycle";
+import {RuntimeInterfaceDescriptor} from "./typesafety";
+import {Identifiable} from "./domain";
+import {Md5} from "ts-md5/dist/md5";
 import {Recorder} from "./reporting/test_reports";
+import id = webdriver.By.id;
 
 const fs:typeof QioFS = require('q-io/fs');
 
