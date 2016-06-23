@@ -1,4 +1,4 @@
-import {Test, Step, Result} from "../domain";
+import {Test, Step, Result, TestOutcome, StepOutcome} from "../domain";
 
 export class StepRecording {
     private description:  string;
@@ -8,6 +8,8 @@ export class StepRecording {
 
     private parentRecording: StepRecording   = null;   // todo: can I avoid using a null?
     private nestedSteps:     StepRecording[] = [];
+
+    private error:        Error;
 
     constructor(step: Step, startedAt: number) {
         this.description = step.name;
@@ -32,13 +34,27 @@ export class StepRecording {
         return step.name === this.description;
     }
 
-    public finishedWith(result: Result, timestamp: number) {
-        this.result   = result;
+    public finishedWith(outcome: StepOutcome, timestamp: number) {
+        this.result   = outcome.result;
+        this.error    = outcome.error;
         this.duration = timestamp - this.startTime;
     }
 
     public isCompleted(): boolean {
         return !!(this.result && this.duration);
+    }
+
+    private hasError(): boolean {
+        return !! this.error;
+    }
+
+    private toJavaStandard(error: Error) {
+        return {
+            // "errorType":    `java.lang.${this.error.name}`,
+            "errorType":    this.error.name,
+            "message":      error.message,
+            "stackTrace":   []
+        };
     }
 
     public toJSON() {
@@ -47,7 +63,15 @@ export class StepRecording {
             startTime:   this.startTime,
             result:      Result[this.result],
             duration:    this.duration,
-            children:    this.nestedSteps.map((step) => step.toJSON())
+            children:    this.nestedSteps.map((step) => step.toJSON()),
+
+            // fixme: not a big fan of setting the fields to undefined, but that's how we can ensure that  they don't get serialised.
+            // fixme: those three fields seem massively redundant
+            exception:            this.hasError() ? this.toJavaStandard(this.error) : undefined,
+            testFailureClassname: this.hasError() ? `java.lang.${this.error.name}` : undefined,
+            testFailureMessage:   this.hasError() ? this.error.message : undefined,
+
+            annotatedResult:    this.hasError() ? Result[this.result] : undefined
         }
     }
 }
@@ -62,6 +86,8 @@ export class TestRecording {
     private duration:     number;
     private result:       Result;
     private manual:       boolean = false;
+
+    private error:        Error;
 
     // todo: missing fields
     private sessionId:    string;
@@ -90,17 +116,30 @@ export class TestRecording {
         this.lastStepRecording = recording;
     }
     
-    public finishedStep(step: Step, result: Result, timestamp: number) {
-        if (this.lastStepRecording.matches(step)) {
-            this.lastStepRecording.finishedWith(result, timestamp);
+    public finishedStep(outcome: StepOutcome, timestamp: number) {
+        if (this.lastStepRecording.matches(outcome.step)) {
+            this.lastStepRecording.finishedWith(outcome, timestamp);
 
             this.lastStepRecording = this.lastStepRecording.parent();
         }
     }
 
-    public finishedWith(result: Result, timestamp: number) {
-        this.result = result;
+    public finishedWith(outcome: TestOutcome, timestamp: number) {
+        this.result = outcome.result;
+        this.error  = outcome.error;
         this.duration = timestamp - this.startTime;
+    }
+
+    private hasError(): boolean {
+        return !! this.error;
+    }
+
+    private toJavaStandard(error: Error) {
+        return {
+            "errorType":    this.error.name,
+            "message":      error.message,
+            "stackTrace":   []
+        };
     }
 
     public toJSON() {
@@ -115,7 +154,20 @@ export class TestRecording {
             // sessionId:
             // driver:
 
-            testSteps:      this.steps.map((step) => step.toJSON())
+            testSteps:          this.steps.map((step) => step.toJSON()),
+
+            // fixme: not a big fan of setting the fields to undefined, but that's how we can ensure that  they don't get serialised.
+            // fixme: those three fields seem massively redundant
+            testFailureCause:     this.hasError() ? this.toJavaStandard(this.error) : undefined,
+            testFailureClassname: this.hasError() ? this.error.name : undefined,
+            testFailureMessage:   this.hasError() ? this.error.message : undefined,
+
+            annotatedResult:      this.hasError() ? Result[this.result] : undefined
+
+            // todo: missing
+            // "testFailureClassname": "java.lang.AssertionError",
+            // "testFailureMessage": "\nExpected: displaying the status as \u0027failing\u0027\n     but: was \u003cProjectInformation{name\u003dMy App, status\u003d[successful]}\u003e",
+            // "annotatedResult": "FAILURE",
         };
     }
 }
@@ -136,12 +188,12 @@ export class Recorder {
         this._recordings[this._currentRecording].startedStep(step, timestamp)
     }
     
-    public recordStepResultOf(step: Step, result: Result, timestamp: number): void {
-        this._recordings[this._currentRecording].finishedStep(step, result, timestamp)
+    public recordStepResultOf(outcome: StepOutcome, timestamp: number): void {
+        this._recordings[this._currentRecording].finishedStep(outcome, timestamp)
     }
 
-    public recordResultOf(test: Test, result: Result, timestamp: number):void {
-        this._recordings[test.id()].finishedWith(result, timestamp);
+    public recordResultOf(outcome: TestOutcome, timestamp: number):void {
+        this._recordings[outcome.test.id()].finishedWith(outcome, timestamp);
     }
     
     public get recordings() {

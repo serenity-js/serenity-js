@@ -60,10 +60,12 @@ export class Step implements Identifiable{
 export class TestOutcome {
     private _test: Test;
     private _result: Result;
+    private _error:  Error;
     
-    constructor(test: Test, result: Result) {
+    constructor(test: Test, result: Result, error?: Error) {
         this._test = test;
         this._result = result;
+        this._error  = error;
     }
     
     public get test(): Test {
@@ -73,16 +75,22 @@ export class TestOutcome {
     public get result(): Result {
         return this._result;
     }
+
+    public get error(): Error {
+        return this._error;
+    }
 }
 
 // todo: refactor
 export class StepOutcome {
-    private _step: Step;
+    private _step:   Step;
     private _result: Result;
+    private _error:  Error;
 
-    constructor(step: Step, result: Result) {
+    constructor(step: Step, result: Result, error?: Error) {
         this._step   = step;
         this._result = result;
+        this._error  = error;
     }
 
     public get step(): Step {
@@ -91,5 +99,9 @@ export class StepOutcome {
 
     public get result(): Result {
         return this._result;
+    }
+
+    public get error(): Error {
+        return this._error;
     }
 }

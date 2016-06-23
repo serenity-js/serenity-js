@@ -12,7 +12,7 @@ export class AddATodoItem implements Performable {
 
     @step("{0} adds a todo item called: #name")
     performAs(actor:PerformsTasks) {
-        
+
         actor.attemptsTo(
             Enter.theValue(this.name).into(TodoList.What_Needs_To_Be_Done).thenHit(protractor.Key.ENTER)
         )

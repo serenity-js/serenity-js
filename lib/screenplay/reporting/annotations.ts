@@ -44,14 +44,16 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string) 
                 Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
                     new Step(interpolated),
                     Result.SUCCESS
-                )), TestStepIsStarted.interface);
+                )), TestStepIsCompleted.interface);
             }
             catch(e) {
                 Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
                     new Step(interpolated),
                     Result.FAILURE
-                )), TestStepIsStarted.interface);
+                )), TestStepIsCompleted.interface);
 
+                // notify the test runner about the problem as well
+                throw e;
             }
         };
 

@@ -59,14 +59,15 @@ function createListener() : EventListener {
     };
 
     self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
-        let scenarioResult = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
+        let result = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult');
 
         Serenity.instance.domainEvents().trigger(new TestIsCompleted(new TestOutcome(
             new Test(
-                scenarioResult.getScenario().getName(),
-                scenarioResult.getScenario().getUri()
+                result.getScenario().getName(),
+                result.getScenario().getUri()
             ),
-            translateToSerenityResult(scenarioResult.getStatus())
+            translateToSerenityResult(result.getStatus()),
+            result.getFailureException()
         )), TestIsCompleted.interface);
         
         callback();
@@ -97,10 +98,13 @@ function createListener() : EventListener {
         let result = <events.StepResultPayload>event.getPayloadItem('stepResult'),
             step   = result.getStep();
 
-        if (! step.isHidden()) {    // "before" and "after" steps emit an event, even if they're not present in the test
+        // "before" and "after" steps emit an event, even if they're not present in the test
+        if (! step.isHidden()) {
+            // todo: extract and clean up
             Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
                 new Step(`${step.getKeyword()} ${step.getName()}`, idFor(step)),
-                translateToSerenityResult(result.getStatus())
+                translateToSerenityResult(result.getStatus()),
+                result.getFailureException()
             )), TestStepIsStarted.interface);
         }
 

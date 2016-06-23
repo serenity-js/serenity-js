@@ -33,7 +33,7 @@ export class TestExecutionMonitor implements TestLifecycleListener {
     whenTestIsCompleted(event:TestIsCompleted) {
         let outcome = event.value();
 
-        this.recorder.recordResultOf(outcome.test, outcome.result, event.timestamp());
+        this.recorder.recordResultOf(outcome, event.timestamp());
     }
     
     whenTestIsFinished(event:TestIsFinished) {
@@ -52,7 +52,7 @@ export class TestExecutionMonitor implements TestLifecycleListener {
     
     whenTestStepIsCompleted(event:TestStepIsCompleted) {
         let outcome = event.value();
-        this.recorder.recordStepResultOf(outcome.step, outcome.result, event.timestamp());
+        this.recorder.recordStepResultOf(outcome, event.timestamp());
     }
 
     whenTestStepIsFinished(event:TestStepIsFinished) {
