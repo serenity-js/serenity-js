@@ -6,7 +6,7 @@
   "homepage": "https://github.com/smartcodeltd/screenplay-js-demo",
   "license": "MIT",
   "scripts": {
-    "test": "npm run clean && npm run unit-tests && npm run verify",
+    "test": "npm run clean && npm run unit-tests && npm run verify --silent",
     "clean": "rm -rf ./target",
     "unit-tests": "mocha --opts mocha.opts",
     "verify": "npm run protractor",
