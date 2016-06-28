@@ -72,10 +72,7 @@ describe('Test Recorder', () => {
                 result:      Result[Result.SUCCESS],
                 children:    [],
 
-                exception: undefined,
-                testFailureClassname: undefined,
-                testFailureMessage: undefined,
-                annotatedResult: undefined,
+                exception: undefined
             }]);
         });
 
@@ -105,10 +102,7 @@ describe('Test Recorder', () => {
                 result:      Result[Result.SUCCESS],
                 children:    [],
 
-                exception: undefined,
-                testFailureClassname: undefined,
-                testFailureMessage: undefined,
-                annotatedResult: undefined,
+                exception: undefined
             }, {
                 description: anotherStep.name,
                 duration:    secondStepFinished - secondStepStarted,
@@ -116,10 +110,7 @@ describe('Test Recorder', () => {
                 result:      Result[Result.SUCCESS],
                 children:    [],
 
-                exception: undefined,
-                testFailureClassname: undefined,
-                testFailureMessage: undefined,
-                annotatedResult: undefined,
+                exception: undefined
             }]);
         });
 
@@ -150,9 +141,6 @@ describe('Test Recorder', () => {
                 result:      Result[Result.SUCCESS],
 
                 exception: undefined,
-                testFailureClassname: undefined,
-                testFailureMessage: undefined,
-                annotatedResult: undefined,
 
                 children: [{
                     description: nestedStep.name,
@@ -161,10 +149,7 @@ describe('Test Recorder', () => {
                     result:      Result[Result.SUCCESS],
                     children:    [],
 
-                    exception: undefined,
-                    testFailureClassname: undefined,
-                    testFailureMessage: undefined,
-                    annotatedResult: undefined,
+                    exception: undefined
                 }]
             }]);
         })

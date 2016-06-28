@@ -1,4 +1,12 @@
 import {Test, Step, Result, TestOutcome, StepOutcome} from "../domain";
+import {parse} from 'stack-trace';
+
+export interface SerenityStackFrame {
+    declaringClass:string;
+    methodName:string;
+    fileName:string;
+    lineNumber:number;
+}
 
 export class StepRecording {
     private description:  string;
@@ -48,12 +56,22 @@ export class StepRecording {
         return !! this.error;
     }
 
+    private stackTraceOf(error: Error): Array<SerenityStackFrame> {
+        return parse(error).map((frame) => {
+            return {
+                declaringClass: frame.getTypeName() || frame.getFunctionName() || '',
+                methodName:     frame.getMethodName() || frame.getFunctionName() || '',
+                fileName:       frame.getFileName(),
+                lineNumber:     frame.getLineNumber()
+            }
+        });
+    }
+
     private toJavaStandard(error: Error) {
         return {
-            // "errorType":    `java.lang.${this.error.name}`,
-            "errorType":    this.error.name,
+            "errorType":    error.name,
             "message":      error.message,
-            "stackTrace":   []
+            "stackTrace":   this.stackTraceOf(error)
         };
     }
 
@@ -67,11 +85,7 @@ export class StepRecording {
 
             // fixme: not a big fan of setting the fields to undefined, but that's how we can ensure that  they don't get serialised.
             // fixme: those three fields seem massively redundant
-            exception:            this.hasError() ? this.toJavaStandard(this.error) : undefined,
-            testFailureClassname: this.hasError() ? `java.lang.${this.error.name}` : undefined,
-            testFailureMessage:   this.hasError() ? this.error.message : undefined,
-
-            annotatedResult:    this.hasError() ? Result[this.result] : undefined
+            exception:   this.hasError() ? this.toJavaStandard(this.error) : undefined
         }
     }
 }
@@ -134,11 +148,22 @@ export class TestRecording {
         return !! this.error;
     }
 
+    private stackTraceOf(error: Error): Array<SerenityStackFrame> {
+        return parse(error).map((frame) => {
+            return {
+                declaringClass: frame.getTypeName() || '',
+                methodName:     frame.getMethodName() || frame.getFunctionName() || '',
+                fileName:       frame.getFileName(),
+                lineNumber:     frame.getLineNumber()
+            }
+        });
+    }
+
     private toJavaStandard(error: Error) {
         return {
-            "errorType":    this.error.name,
+            "errorType":    error.name,
             "message":      error.message,
-            "stackTrace":   []
+            "stackTrace":   this.stackTraceOf(error)
         };
     }
 
