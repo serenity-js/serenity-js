@@ -12,6 +12,7 @@ describe('Test Recorder', () => {
         testFinishedTime = 1466606256010,
         test = new Test(
             'Adding an item to an empty list',
+            'Add new items to the todo list',
             '/fake/path/to/scenario/add_new_items.feature'
         ),
         step        = new Step('Given James adds "Buy a coffee" to his todo list'),
@@ -41,8 +42,8 @@ describe('Test Recorder', () => {
             let recording = recorder.recordings[0].toJSON();
             
             expect(recording.title)         .to.equal(test.title);
-            expect(recording.name)          .to.equal(test.scenarioName);
-            expect(recording.testCaseName)  .to.equal(test.testCaseName);
+            expect(recording.name)          .to.equal(test.name);
+            expect(recording.testCaseName)  .to.equal(test.category);
             expect(recording.startTime)     .to.equal(testStartedTime);
             expect(recording.duration)      .to.equal(testFinishedTime - testStartedTime);
             expect(recording.manual)        .to.equal(false);

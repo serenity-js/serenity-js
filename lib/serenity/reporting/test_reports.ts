@@ -91,9 +91,9 @@ export class StepRecording {
 }
 
 export class TestRecording {
-    private title:        string;
-    private name:         string;
-    private testCaseName: string;
+    private _title:        string;
+    private _name:         string;
+    private _category: string;
 
     private startTime:    number;
 
@@ -112,10 +112,10 @@ export class TestRecording {
     private lastStepRecording: StepRecording;
     
     constructor(test: Test, startedAt: number) {
-        this.title        = test.title;
-        this.name         = test.scenarioName;
-        this.testCaseName = test.testCaseName;
-        this.startTime    = startedAt;
+        this._title     = test.title;
+        this._name      = test.name;
+        this._category  = test.category;
+        this.startTime  = startedAt;
     }
 
     public startedStep(step: Step, timestamp: number) {
@@ -169,9 +169,9 @@ export class TestRecording {
 
     public toJSON() {
         return {
-            title:          this.title,
-            name:           this.name,
-            testCaseName:   this.testCaseName,
+            title:          this._title,
+            name:           this._name,
+            testCaseName:   this._category,
             startTime:      this.startTime,
             duration:       this.duration,
             result:         Result[this.result],

@@ -1,7 +1,6 @@
 import {Performable} from "../pattern/performables";
 import {Serenity} from "../../serenity/serenity";
-import {TestStepIsStarted, TestStepIsCompleted} from "../../serenity/events/test_lifecycle";
-import {Step, StepOutcome, Result} from "../../serenity/domain";
+import {Result} from "../../serenity/domain";
 
 export function step<STEP extends Performable>(stepDescriptionTemplate: string) {
 
@@ -33,24 +32,16 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string) 
 
             let interpolated = interpolateStepDescription(this, args);
 
-            // todo: clean up, too much code here
-            Serenity.instance.domainEvents().trigger(new TestStepIsStarted(new Step(
-                interpolated
-            )), TestStepIsStarted.interface);
+            Serenity.instance.stepStarts(interpolated);
 
             try {
                 step.apply(this, args);
 
-                Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
-                    new Step(interpolated),
-                    Result.SUCCESS
-                )), TestStepIsCompleted.interface);
+                Serenity.instance.stepCompleted(interpolated, Result.SUCCESS);
             }
             catch(e) {
-                Serenity.instance.domainEvents().trigger(new TestStepIsCompleted(new StepOutcome(
-                    new Step(interpolated),
-                    Result.FAILURE
-                )), TestStepIsCompleted.interface);
+                // todo: sniff the exception to find out the Result
+                Serenity.instance.stepCompleted(interpolated, Result.FAILURE, e);
 
                 // notify the test runner about the problem as well
                 throw e;

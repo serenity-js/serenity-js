@@ -1,8 +1,45 @@
 export enum Result {
+    /**
+     * Test failures due to external events or systems that compromise the validity of the test.
+     */
+    COMPROMISED,
+    /**
+     *  Test failure, due to some other exception.
+     */
+    ERROR,
+
+    /**
+     * Test failure, due to an assertion error
+     * For a test case, this means one of the tests in the test case failed.
+     */
     FAILURE,
+
+    /**
+     * The test step was not executed because a previous step in this test case failed.
+     * A whole test case can be skipped using tags or annotations to indicate that it is currently "work-in-progress"
+     */
+    SKIPPED,
+
+    /**
+     * The test or test case was deliberately ignored.
+     * Tests can be ignored via the @Ignore annotation in JUnit, for example.
+     * Ignored tests are not considered the same as pending tests: a pending test is one that
+     * has been specified, but the corresponding code is yet to be implemented, whereas an
+     * ignored test can be a temporarily-deactivated test (during refactoring, for example).
+     */
+    IGNORED,
+
+    /**
+     * A pending test is one that has been specified but not yet implemented.
+     * In a JUnit test case, you can use the (Thucydides) @Pending annotation to mark this.
+     * A pending test case is a test case that has at least one pending test.
+     */
     PENDING,
-    SUCCESS,
-    SKIPPED
+
+    /**
+     * The test or test case ran as expected.
+     */
+    SUCCESS
 }
 
 export interface Identifiable {
@@ -10,31 +47,36 @@ export interface Identifiable {
 }
 
 export class Test implements Identifiable {
-    private _scenarioName;
-    private _testCaseName;
+    private _name;
+    private _category;
+    private _path;
     private _title;
 
-    constructor(scenarioName: string, testCaseName: string, title: string = scenarioName) {
-        this._scenarioName  = scenarioName;
-        this._testCaseName  = testCaseName;
-        this._title         = title;
+    constructor(name: string, category: string, path: string, title: string = name) {
+        this._name      = name;
+        this._category  = category;
+        this._path      = path;
+        this._title     = title;
+    }
+
+    public get name(): string {
+        return this._name;
+    }
+
+    public get category(): string {
+        return this._category;
+    }
+
+    public get path(): string {
+        return this._path;
     }
 
     public get title(): string {
         return this._title;
     }
 
-    public get scenarioName(): string {
-        return this._scenarioName;
-    }
-
-    public get testCaseName(): string {
-        return this._testCaseName;
-
-    }
-
     public id() {
-        return `${this.testCaseName}_${this.scenarioName}`;
+        return `${this._path}:${this._category}:${this._name}`;
     }
 }
 

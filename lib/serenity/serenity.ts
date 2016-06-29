@@ -10,7 +10,7 @@ import {
     TestStepIsCompleted
 } from "./events/test_lifecycle";
 import {RuntimeInterfaceDescriptor} from "./typesafety";
-import {Identifiable} from "./domain";
+import {Identifiable, Test, Step, Result, StepOutcome, TestOutcome} from "./domain";
 import {Md5} from "ts-md5/dist/md5";
 import {Recorder} from "./reporting/test_reports";
 import id = webdriver.By.id;
@@ -83,12 +83,12 @@ export class Serenity {
         return Serenity._instance||(Serenity._instance = new Serenity());
     }
 
-    private domainEventBus = new DomainEvents<any>();
-    private reporter       = new TestExecutionMonitor();
+    private events   = new DomainEvents<any>();
+    private reporter = new TestExecutionMonitor();
 
     constructor() {
         this.reporter.handledEventTypes.forEach((eventType) => {
-            this.domainEventBus.register(this.reporter, TestExecutionMonitor.interface, eventType);
+            this.events.register(this.reporter, TestExecutionMonitor.interface, eventType);
         });
     }
 
@@ -96,7 +96,73 @@ export class Serenity {
         return 'Serenity';
     }
 
-    public domainEvents(): DomainEvents<any> {
-        return this.domainEventBus;
+    /**
+     * Notify Serenity that a test scenario is about to start
+     *
+     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
+     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
+     * @param filePath  The path to a file where the scenario is defined
+     */
+    public scenarioStarts(name: string, feature:string, filePath: string) {
+        this.events.trigger(new TestIsStarted(new Test(
+            name,
+            feature,
+            filePath
+        )), TestIsStarted.interface);
+    }
+
+    /**
+     * Notify Serenity that a test step is about to start
+     *
+     * @param name      The name of the step, such as "When Bob views his profile"
+     */
+    public stepStarts(name: string) {
+        this.events.trigger(new TestStepIsStarted(new Step(name)), TestStepIsStarted.interface)
+    }
+
+    /**
+     * Notify Serenity that a test step has completed and a result is available
+     *
+     * @param name      The name of the step, such as "When Bob views his profile"
+     * @param result    The result of the step, such as Result.SUCCESS or Result.Failure
+     * @param error     Optional error object telling Serenity what went wrong with the step
+     */
+    public stepCompleted(name: string, result: Result, error?: Error) {
+        // todo: maybe trigger a different event depending on if the error is present to avoid conditional logic in the StepOutcome
+
+        this.events.trigger(new TestStepIsCompleted(new StepOutcome(new Step(name), result, error)), TestStepIsStarted.interface);
+    }
+
+    /**
+     * Notify Serenity that a test scenario has completed and a result is available
+     *
+     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
+     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
+     * @param filePath  The path to a file where the scenario is defined
+     *
+     * @param result    The result of the scenario, such as Result.SUCCESS or Result.Failure
+     * @param error     Optional error object telling Serenity what went wrong with the scenario
+     */
+    public scenarioCompleted(name: string, feature: string, filePath: string, result: Result, error?: Error) {
+        this.events.trigger(new TestIsCompleted(new TestOutcome(
+            new Test(name, feature, filePath),
+            result,
+            error
+        )), TestIsCompleted.interface);
+    }
+
+    /**
+     * Notify Serenity that a test step has finished
+     *
+     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
+     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
+     * @param filePath  The path to a file where the scenario is defined
+     */
+    public scenarioFinished(name: string, feature: string, filePath: string) {
+        this.events.trigger(new TestIsFinished(new Test(
+            name,
+            feature,
+            filePath
+        )), TestIsFinished.interface);
     }
 }
