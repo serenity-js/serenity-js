@@ -43,7 +43,7 @@ export class TestExecutionMonitor implements TestLifecycleListener {
         // todo: (1) extract together 
         fs.makeTree(`${process.cwd()}/target/site/serenity`).then(() => {
             return fs.write(`${process.cwd()}/target/site/serenity/${this.hash(test)}.json`, JSON.stringify(recording))
-        }).then(console.log, console.error);
+        }).then(() => {}, console.error);
     }
 
     whenTestStepIsStarted(event:TestStepIsStarted) {

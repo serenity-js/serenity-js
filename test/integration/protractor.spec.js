@@ -17,20 +17,17 @@ describe('Protractor Integration', () => {
         var child = childProcess
             .fork(path.resolve('node_modules/protractor/bin/protractor'), args)
             .on('error', function() {
-                console.log('error', arguments);
+                // console.log('error', arguments);
             })
-            .on('exit', function() {
-                console.log('exit', arguments);
-                done();
-            })
+            .on('exit', done)
             .on('close', function() {
-                console.log('close', arguments);
+                // console.log('close', arguments);
             })
             .on('disconnect', function() {
-                console.log('disconnect', arguments);
+                // console.log('disconnect', arguments);
             })
             .on('message', function(errorCode) {
-                console.log('message', arguments);
+                // console.log('message', arguments);
             });
         process.on('SIGINT', child.kill);
 
