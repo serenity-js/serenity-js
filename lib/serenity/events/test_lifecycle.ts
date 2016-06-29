@@ -1,26 +1,26 @@
 import {DomainEvent, DomainEventHandler} from "./eventbus";
 import {RuntimeInterfaceDescriptor} from "../typesafety";
-import {Test, TestOutcome, Step, StepOutcome} from "../domain";
+import {Scenario, TestOutcome, Step, StepOutcome} from "../domain";
 
 
 /*
  Domain events:
- - Test Started                          // cucumber scenario or a mocha test
-    - Test Step Started                 // cucumber step or screenplay test
-        - Test Step Started/Finished
+ - Scenario Started                          // cucumber scenario or a mocha test
+    - Scenario Step Started                 // cucumber step or screenplay test
+        - Scenario Step Started/Finished
         ...
     ...
- - Test Step Finished
+ - Scenario Step Finished
  ...
- - Test Step Finished
+ - Scenario Step Finished
  ...
 
- - Test Finished
+ - Scenario Finished
  */
 
 // todo: maybe use reflect-metadata instead of all those hand-roller interface descriptors?
 
-export class TestIsStarted extends DomainEvent<Test> {
+export class TestIsStarted extends DomainEvent<Scenario> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestIsStartedInterface;
     }
@@ -31,7 +31,7 @@ export class TestIsStartedInterface implements RuntimeInterfaceDescriptor {
     className:string     = 'TestIsStartedInterface';
 }
 
-export class TestIsFinished extends DomainEvent<Test> {
+export class TestIsFinished extends DomainEvent<Scenario> {
     static get interface(): {new (): RuntimeInterfaceDescriptor} {
         return TestIsFinishedInterface;
     }

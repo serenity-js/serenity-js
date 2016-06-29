@@ -1,15 +1,15 @@
 export enum Result {
     /**
-     * Test failures due to external events or systems that compromise the validity of the test.
+     * Scenario failures due to external events or systems that compromise the validity of the test.
      */
     COMPROMISED,
     /**
-     *  Test failure, due to some other exception.
+     *  Scenario failure, due to some other exception.
      */
     ERROR,
 
     /**
-     * Test failure, due to an assertion error
+     * Scenario failure, due to an assertion error
      * For a test case, this means one of the tests in the test case failed.
      */
     FAILURE,
@@ -46,17 +46,17 @@ export interface Identifiable {
     id(): string;
 }
 
-export class Test implements Identifiable {
+export class Scenario implements Identifiable {
     private _name;
     private _category;
     private _path;
-    private _title;
+    private _id;
 
-    constructor(name: string, category: string, path: string, title: string = name) {
+    constructor(name: string, category: string, path: string, id: string = `${category}:${name}`) {
         this._name      = name;
         this._category  = category;
         this._path      = path;
-        this._title     = title;
+        this._id        = id;
     }
 
     public get name(): string {
@@ -71,12 +71,8 @@ export class Test implements Identifiable {
         return this._path;
     }
 
-    public get title(): string {
-        return this._title;
-    }
-
     public id() {
-        return `${this._path}:${this._category}:${this._name}`;
+        return this._id;
     }
 }
 
@@ -100,17 +96,17 @@ export class Step implements Identifiable{
 
 // todo: refactor - maybe replace both with "outcome<T>"?
 export class TestOutcome {
-    private _test: Test;
+    private _test: Scenario;
     private _result: Result;
     private _error:  Error;
     
-    constructor(test: Test, result: Result, error?: Error) {
+    constructor(test: Scenario, result: Result, error?: Error) {
         this._test = test;
         this._result = result;
         this._error  = error;
     }
     
-    public get test(): Test {
+    public get test(): Scenario {
         return this._test;
     }
     

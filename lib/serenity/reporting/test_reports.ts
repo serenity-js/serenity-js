@@ -1,4 +1,4 @@
-import {Test, Step, Result, TestOutcome, StepOutcome} from "../domain";
+import {Scenario, Step, Result, TestOutcome, StepOutcome} from "../domain";
 import {parse} from 'stack-trace';
 
 export interface SerenityStackFrame {
@@ -111,8 +111,8 @@ export class TestRecording {
 
     private lastStepRecording: StepRecording;
     
-    constructor(test: Test, startedAt: number) {
-        this._title     = test.title;
+    constructor(test: Scenario, startedAt: number) {
+        this._title     = test.name;
         this._name      = test.name;
         this._category  = test.category;
         this.startTime  = startedAt;
@@ -202,7 +202,7 @@ export class Recorder {
     private _recordings: {[key: string]: TestRecording} = {};
     private _currentRecording: string;
 
-    public startARecordingOf(test: Test, timestamp: number):void {
+    public startARecordingOf(test: Scenario, timestamp: number):void {
         let recording = new TestRecording(test, timestamp);
 
         this._recordings[test.id()] = recording;
@@ -225,7 +225,7 @@ export class Recorder {
         return Object.keys(this._recordings).map((key) => this._recordings[key]);
     }
 
-    public extractRecordingFor(test: Test) {
+    public extractRecordingFor(test: Scenario) {
         let recording = this._recordings[test.id()];
 
         delete this._recordings[test.id()];

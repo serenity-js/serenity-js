@@ -10,7 +10,7 @@ import {
     TestStepIsCompleted
 } from "./events/test_lifecycle";
 import {RuntimeInterfaceDescriptor} from "./typesafety";
-import {Identifiable, Test, Step, Result, StepOutcome, TestOutcome} from "./domain";
+import {Identifiable, Scenario, Step, Result, StepOutcome, TestOutcome} from "./domain";
 import {Md5} from "ts-md5/dist/md5";
 import {Recorder} from "./reporting/test_reports";
 import id = webdriver.By.id;
@@ -99,16 +99,10 @@ export class Serenity {
     /**
      * Notify Serenity that a test scenario is about to start
      *
-     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
-     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
-     * @param filePath  The path to a file where the scenario is defined
+     * @param scenario  The Scenario that is about to start
      */
-    public scenarioStarts(name: string, feature:string, filePath: string) {
-        this.events.trigger(new TestIsStarted(new Test(
-            name,
-            feature,
-            filePath
-        )), TestIsStarted.interface);
+    public scenarioStarts(scenario: Scenario) {
+        this.events.trigger(new TestIsStarted(scenario), TestIsStarted.interface);
     }
 
     /**
@@ -136,16 +130,13 @@ export class Serenity {
     /**
      * Notify Serenity that a test scenario has completed and a result is available
      *
-     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
-     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
-     * @param filePath  The path to a file where the scenario is defined
-     *
+     * @param scenario  The scenario that just got completed
      * @param result    The result of the scenario, such as Result.SUCCESS or Result.Failure
      * @param error     Optional error object telling Serenity what went wrong with the scenario
      */
-    public scenarioCompleted(name: string, feature: string, filePath: string, result: Result, error?: Error) {
+    public scenarioCompleted(scenario: Scenario, result: Result, error?: Error) {
         this.events.trigger(new TestIsCompleted(new TestOutcome(
-            new Test(name, feature, filePath),
+            scenario,
             result,
             error
         )), TestIsCompleted.interface);
@@ -154,15 +145,9 @@ export class Serenity {
     /**
      * Notify Serenity that a test step has finished
      *
-     * @param name      The name of an `it` block in jasmine/mocha, the `Scenario` in cucumber, or the method name in something like jUnit
-     * @param feature   Name of the describe block in jasmine/mocha, the Feature in cucumber, or the class name in something like jUnit
-     * @param filePath  The path to a file where the scenario is defined
+     * @param scenario  The scenario that we've just finished with
      */
-    public scenarioFinished(name: string, feature: string, filePath: string) {
-        this.events.trigger(new TestIsFinished(new Test(
-            name,
-            feature,
-            filePath
-        )), TestIsFinished.interface);
+    public scenarioFinished(scenario: Scenario) {
+        this.events.trigger(new TestIsFinished(scenario), TestIsFinished.interface);
     }
 }

@@ -2,7 +2,20 @@
 
 import {Listener, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {Result} from "../../domain";
+import {Result, Scenario} from "../../domain";
+
+export class CucumberScenario extends Scenario {
+    constructor(scenario: events.ScenarioPayload) {
+        super(
+            scenario.getName(),
+            scenario.getFeature().getName(),
+            scenario.getUri(),
+            `${scenario.getFeature().getName()}:${scenario.getLine()}:${scenario.getName()}`
+        );
+    }
+}
+
+
 
 export function createSerenityListener() : EventListener {
 
@@ -13,19 +26,12 @@ export function createSerenityListener() : EventListener {
     };
 
     self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => {
-        // todo: is this not available for scenario outlines?
-        // feature = <events.FeaturePayload>event.getPayloadItem('feature');
-
         callback();
     };
 
     self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
 
-        Serenity.instance.scenarioStarts(
-            scenario.getName(),
-            scenario.getFeature().getName(),
-            scenario.getUri()
-        );
+        Serenity.instance.scenarioStarts(new CucumberScenario(scenario));
 
         callback();
     };
@@ -62,9 +68,7 @@ export function createSerenityListener() : EventListener {
         let scenario = result.getScenario();
 
         Serenity.instance.scenarioCompleted(
-            scenario.getName(),
-            scenario.getFeature().getName(),
-            scenario.getUri(),
+            new CucumberScenario(scenario),
             asSerenity(result),
             result.getFailureException()
         );
@@ -73,11 +77,7 @@ export function createSerenityListener() : EventListener {
     };
 
     self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
-        Serenity.instance.scenarioFinished(
-            scenario.getName(),
-            scenario.getFeature().getName(),
-            scenario.getUri()
-        );
+        Serenity.instance.scenarioFinished(new CucumberScenario(scenario));
 
         callback();
     };

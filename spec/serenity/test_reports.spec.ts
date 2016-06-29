@@ -3,14 +3,14 @@ import chai = require('chai');
 var expect = chai.expect;
 
 import {Recorder} from '../../lib/serenity/reporting/test_reports'
-import {Test, Result, Step, TestOutcome, StepOutcome} from "../../lib/serenity/domain";
+import {Scenario, Result, Step, TestOutcome, StepOutcome} from "../../lib/serenity/domain";
 
-describe('Test Recorder', () => {
+describe('Scenario Recorder', () => {
     
     const 
         testStartedTime  = 1466606256001,
         testFinishedTime = 1466606256010,
-        test = new Test(
+        test = new Scenario(
             'Adding an item to an empty list',
             'Add new items to the todo list',
             '/fake/path/to/scenario/add_new_items.feature'
@@ -41,7 +41,7 @@ describe('Test Recorder', () => {
 
             let recording = recorder.recordings[0].toJSON();
             
-            expect(recording.title)         .to.equal(test.title);
+            expect(recording.title)         .to.equal(test.name);
             expect(recording.name)          .to.equal(test.name);
             expect(recording.testCaseName)  .to.equal(test.category);
             expect(recording.startTime)     .to.equal(testStartedTime);
