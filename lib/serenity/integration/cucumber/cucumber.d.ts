@@ -79,52 +79,31 @@ declare namespace cucumber {
         }
 
         interface FeaturePayload extends EventPayload {
+            getStepKeywordByLines(): any; // todo ?
+            getScenarioKeyword(): string;
             getKeyword(): string;
             getName(): string;
             getDescription(): string;
             getUri(): string;
             getLine(): number;
-            setBackground(newBackground): void;
-            getBackground(): any;
-            hasBackground(): boolean;
-            addFeatureElement(featureElement): void;
-            insertFeatureElement(index:number, featureElement) :void;
-            convertScenarioOutlinesToScenarios(): void;
-            convertScenarioOutlineToScenarios(scenarioOutline): void;
-            getFeatureElements(): any[];
-            getLastFeatureElement(): any;
-            hasFeatureElements(): boolean;
-            setTags(newTags): void;
-            getTags();
-            
-            acceptVisitor(visitor, callback): void;
-            instructVisitorToVisitBackground(visitor, callback): void;
-            instructVisitorToVisitScenarios(visitor, callback): void;
-            filterScenarios(predicate): void;
+            getTags(): string[];
+            getScenarios(): ScenarioPayload[]; // todo ?
+            getPayloadItem(): FeaturePayload;
         }
         
         interface ScenarioPayload extends EventPayload {
-            isScenarioOutline(): boolean
-            setBackground(newBackground): void;
-            getKeyword(): string;
             getName(): string;
+            getKeyword(): string;
             getDescription(): string;
+            getFeature(): FeaturePayload;
+            setFeature(feature: FeaturePayload);
             getUri(): string;
+            getUris(): string[]; // todo: ?
             getLine(): number;
-            getBackground(): any;
-            addStep(step): void;
-            getLastStep(): any;
-            setSteps(newSteps): void;
+            getLines(): number[]; // todo: ?
+            getTags(): string[]; // todo: ?
             getSteps(): any[];
-            addTags(newTags): void;
-            addInheritedTags(newTags): void;
-            getTags(): any[];
-            getOwnTags(): any[];
-        
-            acceptVisitor(visitor, callback): void;
-            instructVisitorToVisitBackgroundSteps(visitor, callback): void;
-            instructVisitorToVisitScenarioSteps(visitor, callback): void;
-            instructVisitorToVisitSteps(visitor, steps, callback): void;
+            getPayloadItem(): ScenarioPayload;
         }
 
 

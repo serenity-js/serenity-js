@@ -8,50 +8,44 @@ export function createSerenityListener() : EventListener {
 
     let self = <any>Listener();
 
-    let feature = null;
-
-    self.handleBeforeFeaturesEvent = (event: events.Event, callback: ()=>void) => {
-        // let features = <events.FeaturesPayload>event.getPayloadItem('features');
-        
+    self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => {
         callback();
     };
 
-    self.handleBeforeFeatureEvent = (event: events.Event, callback: ()=>void) => {
+    self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => {
         // todo: is this not available for scenario outlines?
-        feature = <events.FeaturePayload>event.getPayloadItem('feature');
+        // feature = <events.FeaturePayload>event.getPayloadItem('feature');
 
         callback();
     };
 
-    self.handleBeforeScenarioEvent = (event: events.Event, callback: ()=>void) => {
-        let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
+    self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
 
         Serenity.instance.scenarioStarts(
             scenario.getName(),
-            feature.getName(),  // todo: should this be a "user story" object?
+            scenario.getFeature().getName(),
             scenario.getUri()
         );
 
         callback();
     };
 
-    self.handleBeforeStepEvent = (event: events.Event, callback: ()=>void) => {
-        let step = <events.StepPayload>event.getPayloadItem('step');
-
-        Serenity.instance.stepStarts(`${step.getKeyword()} ${step.getName()}`);
+    self.handleBeforeStepEvent = (step: events.StepPayload, callback: ()=>void) => {
+        if (! step.isHidden()) {
+            Serenity.instance.stepStarts(fullNameOf(step));
+        }
 
         callback();
     };
 
-    self.handleStepResultEvent = (event: events.Event, callback: ()=>void) => {
-        let result = <events.StepResultPayload>event.getPayloadItem('stepResult'),
-            step   = result.getStep();
+    self.handleStepResultEvent = (result: events.StepResultPayload, callback: ()=>void) => {
+        let step   = result.getStep();
 
         // "before" and "after" steps emit an event, even if they keywords themselves are not present in the test...
         if (! step.isHidden()) {
 
             Serenity.instance.stepCompleted(
-                `${step.getKeyword()} ${step.getName()}`,
+                fullNameOf(step),
                 asSerenity(result),
                 result.getFailureException()
             );
@@ -60,19 +54,16 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleAfterStepEvent = (event: events.Event, callback: ()=>void) => {
-        // let step = <events.StepPayload>event.getPayloadItem('step');
-
+    self.handleAfterStepEvent = (step: events.StepPayload, callback: ()=>void) => {
         callback();
     };
 
-    self.handleScenarioResultEvent = (event: events.Event, callback: ()=>void) => {
-        let result = <events.ScenarioResultPayload>event.getPayloadItem('scenarioResult'),
-            scenario = result.getScenario();
+    self.handleScenarioResultEvent = (result: events.ScenarioResultPayload, callback: ()=>void) => {
+        let scenario = result.getScenario();
 
         Serenity.instance.scenarioCompleted(
             scenario.getName(),
-            feature.getName(),
+            scenario.getFeature().getName(),
             scenario.getUri(),
             asSerenity(result),
             result.getFailureException()
@@ -81,35 +72,33 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleAfterScenarioEvent = (event: events.Event, callback: ()=>void) => {
-        let scenario = <events.ScenarioPayload>event.getPayloadItem('scenario');
-
+    self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
         Serenity.instance.scenarioFinished(
             scenario.getName(),
-            feature.getName(),
+            scenario.getFeature().getName(),
             scenario.getUri()
         );
 
         callback();
     };
 
-    self.handleAfterFeatureEvent = (event: events.Event, callback: ()=>void) => {
-        // let feature = <events.FeaturePayload>event.getPayloadItem('feature');
-
+    self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => {
         callback();
     };
 
-    self.handleFeaturesResultEvent = (event: events.Event, callback: ()=>void) => {
-        let featuresResult = <events.FeaturesResultPayload>event.getPayloadItem('featuresResult');
-
+    self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: ()=>void) => {
         callback();
     };
 
-    self.handleAfterFeaturesEvent = (event: events.Event, callback: ()=>void) => {
-        let features = <events.FeaturesPayload>event.getPayloadItem('features');
-
+    self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => {
         callback();
     };
+
+    // --
+
+    function fullNameOf(step: events.StepPayload): string {
+        return step.getKeyword() + step.getName()
+    }
 
     function asSerenity(event: {getStatus(): string}): Result {
         switch(event.getStatus()) {
