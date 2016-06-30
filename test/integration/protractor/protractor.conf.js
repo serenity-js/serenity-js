@@ -43,8 +43,7 @@ exports.config = {
     },
 
     plugins: [{
-        path: '../../../lib/serenity/integration/protractor/index.ts',
-        // integration: ['cucumber']  // todo: some config option to enable cucumber step listener
+        path: '../../../lib/serenity/integration/protractor/index.ts'
     }],
 
     // capabilities: {
