@@ -18,9 +18,5 @@ export class Actor implements PerformsTasks {
         return this.name;
     }
 
-    constructor(name: string) {
-        this.name = name;
-    }
-    
-    private name:string;
+    constructor(private name: string) { }
 }

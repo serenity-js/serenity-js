@@ -12,9 +12,5 @@ export class Click implements Action {
         element(this.locator).click();
     }
 
-    constructor(locator:webdriver.Locator) {
-        this.locator = locator;
-    }
-
-    private locator: webdriver.Locator;
+    constructor(private locator:webdriver.Locator) { }
 }

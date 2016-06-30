@@ -12,9 +12,5 @@ export class Open implements Action {
         browser.get(this.targetWebsite)
     }
 
-    constructor(targetWebsite: string) {
-        this.targetWebsite = targetWebsite;
-    }
-
-    private targetWebsite : string;
+    constructor(private targetWebsite: string) { }
 }
