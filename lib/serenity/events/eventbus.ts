@@ -1,3 +1,6 @@
+// todo: DELETE
+
+
 import {RuntimeInterfaceDescriptor, InterfaceChecker} from "../typesafety";
 import * as moment from 'moment';
 

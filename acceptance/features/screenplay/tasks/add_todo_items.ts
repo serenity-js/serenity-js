@@ -1,6 +1,5 @@
 import {Performable, PerformsTasks} from "../../../../lib/screenplay/pattern";
-import {step} from "../../../../lib/screenplay/reporting/annotations"
-
+import {step} from "../../../../lib/screenplay/reporting/annotations";
 import {AddATodoItem} from "./add_a_todo_item";
 
 export class AddTodoItems implements Performable {

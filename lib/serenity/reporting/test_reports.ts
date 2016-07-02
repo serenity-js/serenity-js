@@ -205,8 +205,8 @@ export class Recorder {
     public startARecordingOf(test: Scenario, timestamp: number):void {
         let recording = new TestRecording(test, timestamp);
 
-        this._recordings[test.id()] = recording;
-        this._currentRecording      = test.id();
+        this._recordings[test.id] = recording;
+        this._currentRecording      = test.id;
     }
 
     public recordStep(step: Step, timestamp: number): void {
@@ -218,7 +218,7 @@ export class Recorder {
     }
 
     public recordResultOf(outcome: TestOutcome, timestamp: number):void {
-        this._recordings[outcome.test.id()].finishedWith(outcome, timestamp);
+        this._recordings[outcome.test.id].finishedWith(outcome, timestamp);
     }
     
     public get recordings() {
@@ -226,9 +226,9 @@ export class Recorder {
     }
 
     public extractRecordingFor(test: Scenario) {
-        let recording = this._recordings[test.id()];
+        let recording = this._recordings[test.id];
 
-        delete this._recordings[test.id()];
+        delete this._recordings[test.id];
 
         return recording;
     }

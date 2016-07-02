@@ -56,7 +56,7 @@ exports.config = {
         // shardTestFiles: true,
         // maxInstances: 2,
         chromeOptions: {
-            args: ['show-fps-counter=true']
+            // args: ['show-fps-counter=true']
         }
     },
 

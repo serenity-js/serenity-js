@@ -1,7 +1,8 @@
+// todo: DELETE
+
 import {DomainEvent, DomainEventHandler} from "./eventbus";
 import {RuntimeInterfaceDescriptor} from "../typesafety";
 import {Scenario, TestOutcome, Step, StepOutcome} from "../domain";
-
 
 /*
  Domain events:

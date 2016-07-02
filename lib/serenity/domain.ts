@@ -1,3 +1,4 @@
+import {PictureTime} from "../screenplay/reporting/annotations";
 export enum Result {
     /**
      * Scenario failures due to external events or systems that compromise the validity of the test.
@@ -43,56 +44,33 @@ export enum Result {
 }
 
 export interface Identifiable {
-    id(): string;
+    id: string;
 }
 
 export class Scenario implements Identifiable {
-    private _name;
-    private _category;
-    private _path;
-    private _id;
-
-    constructor(name: string, category: string, path: string, id: string = `${category}:${name}`) {
-        this._name      = name;
-        this._category  = category;
-        this._path      = path;
-        this._id        = id;
-    }
-
-    public get name(): string {
-        return this._name;
-    }
-
-    public get category(): string {
-        return this._category;
-    }
-
-    public get path(): string {
-        return this._path;
-    }
-
-    public id() {
-        return this._id;
-    }
+    constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
 }
 
 export class Step implements Identifiable{
-    private _name: string;
-    private _id: string;
-    
-    constructor(name:string, id: string = name) {
-        this._name = name;
-        this._id   = id;
-    }
-    
-    public get name() {
-        return this._name;
-    }
-
-    public id() {
-        return this._id;
-    }
+    constructor(public name: string, public id: string = name) { }
 }
+
+export class Outcome<T> {
+    constructor(public subject: T, public result: Result, error?: Error) {}
+}
+
+export class Screenshot {
+    // todo: Is knowing only the 'time' when a screenshot was takenAt sufficient to correlate it with an appropriate step?
+    constructor(public step: Step, public path: string, public takenAt: PictureTime) {}
+}
+
+
+
+
+
+
+
+
 
 // todo: refactor - maybe replace both with "outcome<T>"?
 export class TestOutcome {

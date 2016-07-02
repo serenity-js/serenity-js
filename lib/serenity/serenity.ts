@@ -10,10 +10,16 @@ import {
     TestStepIsCompleted
 } from "./events/test_lifecycle";
 import {RuntimeInterfaceDescriptor} from "./typesafety";
-import {Identifiable, Scenario, Step, Result, StepOutcome, TestOutcome} from "./domain";
+import {Identifiable, Scenario, Step, Result, StepOutcome, TestOutcome, Outcome} from "./domain";
 import {Md5} from "ts-md5/dist/md5";
 import {Recorder} from "./reporting/test_reports";
+import {Scribe, Journal} from "./events/scribe";
 import id = webdriver.By.id;
+import {
+    DomainEvent, ScenarioStarted, StepStarted, StepCompleted, ScenarioCompleted,
+    ScreenshotCaptured
+} from "./events/domain_events";
+import {PictureTime} from "../screenplay/reporting/annotations";
 
 const fs:typeof QioFS = require('q-io/fs');
 
@@ -23,7 +29,7 @@ export class TestExecutionMonitor implements TestLifecycleListener {
 
     // todo: (1) extract together
     private hash(thing: Identifiable): string {
-        return <string>Md5.hashAsciiStr(thing.id());
+        return <string>Md5.hashAsciiStr(thing.id);
     }
 
     whenTestIsStarted(event:TestIsStarted) {
@@ -76,6 +82,8 @@ export class TestExecutionMonitor implements TestLifecycleListener {
 }
 
 export class Serenity {
+    private scribe = new Scribe(new Journal());
+
 
     private static _instance: Serenity;
 
@@ -90,10 +98,25 @@ export class Serenity {
         this.reporter.handledEventTypes.forEach((eventType) => {
             this.events.register(this.reporter, TestExecutionMonitor.interface, eventType);
         });
+
+        this.scribe.on(ScreenshotCaptured, (e: ScreenshotCaptured) => {
+            let screenshot = e.value;
+
+            console.log(`  > screenshot "${PictureTime[screenshot.takenAt]}" step "${screenshot.step.name}" at ${screenshot.path}`);
+        });
     }
 
     public name() {
         return 'Serenity';
+    }
+
+    /**
+     * Record a domain event so that it can be later on retrieved, or used to notify listeners interested in it.
+     *
+     * @param event
+     */
+    public record(event: DomainEvent<any>) {
+        this.scribe.record(event);
     }
 
     /**
@@ -103,6 +126,8 @@ export class Serenity {
      */
     public scenarioStarts(scenario: Scenario) {
         this.events.trigger(new TestIsStarted(scenario), TestIsStarted.interface);
+
+        this.scribe.record(new ScenarioStarted(scenario));
     }
 
     /**
@@ -112,6 +137,8 @@ export class Serenity {
      */
     public stepStarts(name: string) {
         this.events.trigger(new TestStepIsStarted(new Step(name)), TestStepIsStarted.interface)
+
+        this.scribe.record(new StepStarted(new Step(name)));
     }
 
     /**
@@ -125,6 +152,8 @@ export class Serenity {
         // todo: maybe trigger a different event depending on if the error is present to avoid conditional logic in the StepOutcome
 
         this.events.trigger(new TestStepIsCompleted(new StepOutcome(new Step(name), result, error)), TestStepIsStarted.interface);
+
+        this.scribe.record(new StepCompleted(new Outcome(new Step(name), result, error)));
     }
 
     /**
@@ -140,6 +169,8 @@ export class Serenity {
             result,
             error
         )), TestIsCompleted.interface);
+
+        this.scribe.record(new ScenarioCompleted(new Outcome(scenario, result, error)));
     }
 
     /**
