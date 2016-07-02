@@ -13,13 +13,13 @@ import {RuntimeInterfaceDescriptor} from "./typesafety";
 import {Identifiable, Scenario, Step, Result, StepOutcome, TestOutcome, Outcome} from "./domain";
 import {Md5} from "ts-md5/dist/md5";
 import {Recorder} from "./reporting/test_reports";
-import {Scribe, Journal} from "./events/scribe";
+import {Chronicler, Chronicle} from "./events/chronicles";
 import id = webdriver.By.id;
 import {
     DomainEvent, ScenarioStarted, StepStarted, StepCompleted, ScenarioCompleted,
     ScreenshotCaptured
 } from "./events/domain_events";
-import {PictureTime} from "../screenplay/reporting/annotations";
+import {CaptureScreenshot} from "../screenplay/reporting/annotations";
 
 const fs:typeof QioFS = require('q-io/fs');
 
@@ -82,7 +82,7 @@ export class TestExecutionMonitor implements TestLifecycleListener {
 }
 
 export class Serenity {
-    private scribe = new Scribe(new Journal());
+    private scribe = new Chronicler(new Chronicle());
 
 
     private static _instance: Serenity;
@@ -102,7 +102,7 @@ export class Serenity {
         this.scribe.on(ScreenshotCaptured, (e: ScreenshotCaptured) => {
             let screenshot = e.value;
 
-            console.log(`  > screenshot "${PictureTime[screenshot.takenAt]}" step "${screenshot.step.name}" at ${screenshot.path}`);
+            console.log(`  > screenshot "${CaptureScreenshot[screenshot.takenAt]}" step "${screenshot.step.name}" at ${screenshot.path}`);
         });
     }
 

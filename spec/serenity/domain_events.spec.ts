@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import {Journal, Scribe} from "../../lib/serenity/events/scribe";
+import {Chronicle, Chronicler} from "../../lib/serenity/events/chronicles";
 import {DomainEvent} from "../../lib/serenity/events/domain_events";
 
 const expect = chai.expect;
@@ -9,21 +9,21 @@ chai.use(require("sinon-chai"));
 
 describe('Domain Events', () => {
 
-    describe('The Journal', () => {
+    describe('The Chronicler', () => {
         const now = 1467395872000;
 
-        let journal: Journal;
+        let chronicle: Chronicle;
 
-        beforeEach(() => { journal = new Journal(); });
+        beforeEach(() => { chronicle = new Chronicle(); });
 
-        describe('Reading the Journal', () => {
+        describe('Reading the Chronicle', () => {
             it('provides a record of what happened', () => {
 
                 let event   = new DomainEvent<string>("You wouldn't believe what just happened!");
 
-                journal.record(event);
+                chronicle.record(event);
 
-                expect(journal.read()).to.deep.equal([event]);
+                expect(chronicle.read()).to.deep.equal([event]);
             });
 
             it('always provides the full record of what happened, no matter how many times it is called', () => {
@@ -31,12 +31,12 @@ describe('Domain Events', () => {
                     B   = new DomainEvent("B", now-2),
                     C   = new DomainEvent("C", now-1);
 
-                journal.record(A);
-                journal.record(B);
-                journal.record(C);
+                chronicle.record(A);
+                chronicle.record(B);
+                chronicle.record(C);
 
-                expect(journal.read()).to.deep.equal([A, B, C]);
-                expect(journal.read()).to.deep.equal([A, B, C]);
+                expect(chronicle.read()).to.deep.equal([A, B, C]);
+                expect(chronicle.read()).to.deep.equal([A, B, C]);
             });
 
             it('provides a chronological record of what happened', () => {
@@ -44,11 +44,11 @@ describe('Domain Events', () => {
                     B   = new DomainEvent("B", now - 2),
                     C   = new DomainEvent("C", now - 1);
 
-                journal.record(A);
-                journal.record(B);
-                journal.record(C);
+                chronicle.record(A);
+                chronicle.record(B);
+                chronicle.record(C);
 
-                expect(journal.read()).to.deep.equal([
+                expect(chronicle.read()).to.deep.equal([
                     A, B, C
                 ]);
             });
@@ -58,11 +58,11 @@ describe('Domain Events', () => {
                     B   = new DomainEvent("B", now - 2),
                     C   = new DomainEvent("C", now - 1);
 
-                journal.record(C);
-                journal.record(B);
-                journal.record(A);
+                chronicle.record(C);
+                chronicle.record(B);
+                chronicle.record(A);
 
-                expect(journal.read()).to.deep.equal([
+                expect(chronicle.read()).to.deep.equal([
                     A, B, C
                 ])
             });
@@ -72,11 +72,11 @@ describe('Domain Events', () => {
                     B   = new DomainEvent("B", now),
                     C   = new DomainEvent("C", now);
 
-                journal.record(A);
-                journal.record(C);
-                journal.record(B);
+                chronicle.record(A);
+                chronicle.record(C);
+                chronicle.record(B);
 
-                expect(journal.read()).to.deep.equal([
+                expect(chronicle.read()).to.deep.equal([
                     A, C, B
                 ])
             });
@@ -89,13 +89,13 @@ describe('Domain Events', () => {
                     B1  = new DomainEvent("C", now-2),
                     A1  = new DomainEvent("C", now-3);
 
-                journal.record(A);
-                journal.record(B);
-                journal.record(C);
-                journal.record(B1);
-                journal.record(A1);
+                chronicle.record(A);
+                chronicle.record(B);
+                chronicle.record(C);
+                chronicle.record(B1);
+                chronicle.record(A1);
 
-                expect(journal.read()).to.deep.equal([
+                expect(chronicle.read()).to.deep.equal([
                     A, A1, B, B1, C
                 ])
             });
@@ -108,11 +108,11 @@ describe('Domain Events', () => {
                     B   = new DomainEvent("B", now-2),
                     C   = new DomainEvent("C", now-1);
 
-                journal.record(A);
-                journal.record(B);
-                journal.record(C);
+                chronicle.record(A);
+                chronicle.record(B);
+                chronicle.record(C);
 
-                expect(journal.read()).to.deep.equal(journal.readAs('some reader'));
+                expect(chronicle.read()).to.deep.equal(chronicle.readAs('some reader'));
             });
 
             it('allows the reader to read from where they have left', () => {
@@ -124,16 +124,16 @@ describe('Domain Events', () => {
                     D   = new DomainEvent("D", now-2),
                     E   = new DomainEvent("E", now-1);
 
-                journal.record(A);
-                journal.record(B);
-                journal.record(C);
+                chronicle.record(A);
+                chronicle.record(B);
+                chronicle.record(C);
 
-                expect(journal.readAs(id)).to.deep.equal([A, B, C]);
+                expect(chronicle.readAs(id)).to.deep.equal([A, B, C]);
 
-                journal.record(D);
-                journal.record(E);
+                chronicle.record(D);
+                chronicle.record(E);
 
-                expect(journal.readAs(id)).to.deep.equal([D, E]);
+                expect(chronicle.readAs(id)).to.deep.equal([D, E]);
             });
 
 
@@ -147,74 +147,74 @@ describe('Domain Events', () => {
                     D   = new DomainEvent("D", now-2),
                     E   = new DomainEvent("E", now-1);
 
-                journal.record(A);
-                journal.record(B);
+                chronicle.record(A);
+                chronicle.record(B);
 
-                expect(journal.readAs(reader1)).to.deep.equal([A, B]);
+                expect(chronicle.readAs(reader1)).to.deep.equal([A, B]);
 
-                journal.record(C);
-                journal.record(D);
+                chronicle.record(C);
+                chronicle.record(D);
 
-                expect(journal.readAs(reader2)).to.deep.equal([A, B, C, D]);
+                expect(chronicle.readAs(reader2)).to.deep.equal([A, B, C, D]);
 
-                journal.record(E);
+                chronicle.record(E);
 
-                expect(journal.readAs(reader1)).to.deep.equal([C, D, E]);
-                expect(journal.readAs(reader2)).to.deep.equal([E]);
+                expect(chronicle.readAs(reader1)).to.deep.equal([C, D, E]);
+                expect(chronicle.readAs(reader2)).to.deep.equal([E]);
             });
         });
 
         describe('Altering the records', () => {
 
             it('contents cannot be altered', () => {
-                journal.record(new DomainEvent("You wouldn't believe what just happened!"));
+                chronicle.record(new DomainEvent("You wouldn't believe what just happened!"));
 
-                journal.read()[0].value = "Oh yes I would!";
+                chronicle.read()[0].value = "Oh yes I would!";
 
-                expect(journal.read()[0].value).to.equal("You wouldn't believe what just happened!");
+                expect(chronicle.read()[0].value).to.equal("You wouldn't believe what just happened!");
             });
 
             it('contents cannot be deleted', () => {
-                journal.record(new DomainEvent("You wouldn't believe what just happened!"));
+                chronicle.record(new DomainEvent("You wouldn't believe what just happened!"));
 
-                delete journal.read()[0];
+                delete chronicle.read()[0];
 
-                expect(journal.read()).to.have.length(1)
+                expect(chronicle.read()).to.have.length(1)
             });
         });
     });
 
-    describe('The Scribe', () => {
+    describe('The Chronicler', () => {
 
-        describe('Journal Maintenance', () => {
-            it('maintains a Journal of what happened during the test', () => {
+        describe('Chronicle Maintenance', () => {
+            it('maintains a Chronicle of what happened during the test', () => {
 
-                let journal = <any> sinon.createStubInstance(Journal),
-                    scribe  = new Scribe(journal),
+                let chronicle = <any> sinon.createStubInstance(Chronicle),
+                    scribe  = new Chronicler(chronicle),
                     event   = new DomainEvent('A');
 
                 scribe.record(event)
 
-                expect(journal.record).to.have.been.calledWith(event);
+                expect(chronicle.record).to.have.been.calledWith(event);
             });
 
-            it('provides means to access the contents of the journal', () => {
+            it('provides means to access the contents of the chronicle', () => {
 
-                let journal = <any> sinon.createStubInstance(Journal),
-                    scribe  = new Scribe(journal);
+                let chronicle = <any> sinon.createStubInstance(Chronicle),
+                    scribe  = new Chronicler(chronicle);
 
-                scribe.readJournal();
-                expect(journal.read).to.have.been.called;
+                scribe.readTheChronicle();
+                expect(chronicle.read).to.have.been.called;
 
-                scribe.readNewJournalEntriesAs('some reader');
-                expect(journal.readAs).to.have.been.calledWith('some reader');
+                scribe.readNewEntriesAs('some reader');
+                expect(chronicle.readAs).to.have.been.calledWith('some reader');
             });
         });
 
         describe('Notifications', () => {
             it('will notify you when something of interest happens', () => {
-                let journal = <any> sinon.createStubInstance(Journal),
-                    scribe  = new Scribe(journal),
+                let chronicle = <any> sinon.createStubInstance(Chronicle),
+                    scribe  = new Chronicler(chronicle),
                     event   = new DomainEvent('A'),
                     spy     = sinon.spy();
 
@@ -230,8 +230,8 @@ describe('Domain Events', () => {
                 class DomainEventA extends DomainEvent<string> {}
                 class DomainEventB extends DomainEvent<string> {}
 
-                let journal = new Journal(),
-                    scribe  = new Scribe(journal),
+                let chronicle = new Chronicle(),
+                    scribe  = new Chronicler(chronicle),
                     A       = new DomainEventA('A'),
                     B       = new DomainEventB('B'),
                     spyA    = sinon.spy(),
@@ -255,8 +255,8 @@ describe('Domain Events', () => {
             });
 
             it('does not allow the listener to alter the event it received', () => {
-                let journal = new Journal(),
-                    scribe  = new Scribe(journal),
+                let chronicle = new Chronicle(),
+                    scribe  = new Chronicler(chronicle),
                     event   = new DomainEvent('original');
 
                 scribe.on(DomainEvent, (e) => {
@@ -265,7 +265,7 @@ describe('Domain Events', () => {
 
                 scribe.record(event);
 
-                expect(scribe.readJournal().pop().value).to.deep.equal('original');
+                expect(scribe.readTheChronicle().pop().value).to.deep.equal('original');
             });
         });
     });

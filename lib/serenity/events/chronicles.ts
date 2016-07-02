@@ -1,14 +1,14 @@
 import * as _ from 'lodash';
 import {DomainEvent} from "./domain_events";
 
-export class Scribe {
+export class Chronicler {
 
-    constructor(private journal: Journal) {}
+    constructor(private chronicle: Chronicle) {}
 
     private listeners: DomainEventListeners[] = [];
 
     record(event: DomainEvent<any>) {
-        this.journal.record(event);
+        this.chronicle.record(event);
 
         if (this.listeners[event.constructor.name]) {
             this.listeners[event.constructor.name].notify(event);
@@ -24,28 +24,16 @@ export class Scribe {
         this.listeners[eventType.name].register(listener);
     }
 
-    readJournal(): DomainEvent<any>[] {
-        return this.journal.read();
+    readTheChronicle(): DomainEvent<any>[] {
+        return this.chronicle.read();
     }
 
-    readNewJournalEntriesAs(readerId: string): DomainEvent<any>[] {
-        return this.journal.readAs(readerId);
-    }
-}
-
-class DomainEventListeners {
-    private listeners: Array<(DomainEvent) => void> = [];
-
-    register(listener: (DomainEvent) => void) {
-        this.listeners.push(listener);
-    }
-
-    notify(event: DomainEvent<any>) {
-        this.listeners.forEach( (listener) => listener(_.cloneDeep(event)) );
+    readNewEntriesAs(readerId: string): DomainEvent<any>[] {
+        return this.chronicle.readAs(readerId);
     }
 }
 
-export class Journal {
+export class Chronicle {
     private events:    DomainEvent<any>[] = []; // todo: is that right? is that a list or a map??
     private bookmarks: string[]           = []; // { [id: string] : number } = {};
 
@@ -74,5 +62,17 @@ export class Journal {
         this.bookmarks[readerId] = events.length;
 
         return events.slice(bookmark);
+    }
+}
+
+class DomainEventListeners {
+    private listeners: Array<(DomainEvent) => void> = [];
+
+    register(listener: (DomainEvent) => void) {
+        this.listeners.push(listener);
+    }
+
+    notify(event: DomainEvent<any>) {
+        this.listeners.forEach( (listener) => listener(_.cloneDeep(event)) );
     }
 }
