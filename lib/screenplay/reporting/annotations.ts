@@ -6,7 +6,7 @@ import moment = require("moment/moment");
 import {Serenity} from "../../serenity/serenity";
 import {ScreenshotCaptured} from "../../serenity/events/domain_events";
 
-export enum PictureTime {
+export enum CaptureScreenshot {
     NONE   = 1 << 0,
     BEFORE = 1 << 1,
     AFTER  = 1 << 2,
@@ -19,9 +19,9 @@ class Photographer {
     // todo: should all the objects that need to communicate with the scribe receive a reference to it?
     // todo:    what else talks to the scribe?
     // todo: should the browser be given?
-    constructor(private whenToCaptureScreenshot = PictureTime.NONE) { }
+    constructor(private whenToCaptureScreenshot = CaptureScreenshot.NONE) { }
 
-    takeAPictureOf(step: Step, currentPhase: PictureTime) {
+    takeAPictureOf(step: Step, currentPhase: CaptureScreenshot) {
         if(this.isAPhotoNeeded(currentPhase)) {
             let timestamp = moment().valueOf();
 
@@ -31,12 +31,12 @@ class Photographer {
         }
     }
 
-    private isAPhotoNeeded(currentStage: PictureTime): boolean {
+    private isAPhotoNeeded(currentStage: CaptureScreenshot): boolean {
         return !! (this.whenToCaptureScreenshot & currentStage);
     }
 
     // todo: extract
-    private saveScreenshot = (timestamp: number, currentStage: PictureTime) => (data : string) : string => {
+    private saveScreenshot = (timestamp: number, currentStage: CaptureScreenshot) => (data : string) : string => {
 
         // todo: some sort of Serenity.fs()... ?
 
@@ -51,7 +51,7 @@ class Photographer {
     };
 }
 
-export function step<STEP extends Performable>(stepDescriptionTemplate: string, whenToCaptureScreenshot = PictureTime.NONE) {
+export function step<STEP extends Performable>(stepDescriptionTemplate: string, whenToCaptureScreenshot = CaptureScreenshot.NONE) {
 
     function using(source: any) {
         return (token: string, field: string|number) => {
@@ -83,16 +83,16 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
 
             let interpolated = interpolateStepDescription(this, args);
 
-            photographer.takeAPictureOf(new Step(interpolated), PictureTime.BEFORE);
+            photographer.takeAPictureOf(new Step(interpolated), CaptureScreenshot.BEFORE);
 
-            Serenity.instance.stepStarts(interpolated);
+            Serenity.instance.stepStarts(interpolated); // todo: maybe "step starts, needs a picture", photographer takes a photo, sticks it on the queue
 
             try {
                 step.apply(this, args);
 
                 Serenity.instance.stepCompleted(interpolated, Result.SUCCESS);
 
-                photographer.takeAPictureOf(new Step(interpolated), PictureTime.AFTER);
+                photographer.takeAPictureOf(new Step(interpolated), CaptureScreenshot.AFTER);
             }
             catch(e) {
                 // todo: sniff the exception to find out the Result

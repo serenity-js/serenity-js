@@ -1,4 +1,4 @@
-import {PictureTime} from "../screenplay/reporting/annotations";
+import {CaptureScreenshot} from "../screenplay/reporting/annotations";
 export enum Result {
     /**
      * Scenario failures due to external events or systems that compromise the validity of the test.
@@ -60,8 +60,7 @@ export class Outcome<T> {
 }
 
 export class Screenshot {
-    // todo: Is knowing only the 'time' when a screenshot was takenAt sufficient to correlate it with an appropriate step?
-    constructor(public step: Step, public path: string, public takenAt: PictureTime) {}
+    constructor(public step: Step, public path: string, public takenAt: CaptureScreenshot) {}
 }
 
 
