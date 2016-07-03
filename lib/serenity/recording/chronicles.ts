@@ -55,6 +55,11 @@ export class Chronicle {
         return _.sortBy(_.cloneDeep(this.events), (event) => event.timestamp );
     }
 
+    /**
+     * Returns a list of all the events recorded since you last checked
+     *
+     * @return {Event[]} a list of events
+     */
     public readAs(readerId: string): DomainEvent<any>[] {
         let events   = this.read(),
             bookmark = this.bookmarks[readerId] || 0;
