@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
-import {DomainEvent} from "./domain_events";
+import {DomainEvent} from "../domain/events";
 
 export class Chronicler {
 
-    constructor(private chronicle: Chronicle) {}
+    constructor(private chronicle: Chronicle) { }
 
     private listeners: DomainEventListeners[] = [];
 

@@ -1,10 +1,12 @@
+// TODO: move under "recording" ?
+
 import {Performable} from "../pattern/performables";
-import {Result, Screenshot, Step} from "../../serenity/domain";
+import {Result, Screenshot, Step} from "../../serenity/domain/model";
 import {Md5} from "ts-md5/dist/md5";
 import * as fs from "fs";
-import moment = require("moment/moment");
 import {Serenity} from "../../serenity/serenity";
-import {ScreenshotCaptured} from "../../serenity/events/domain_events";
+import {ScreenshotCaptured} from "../../serenity/domain/events";
+import moment = require("moment/moment");
 
 export enum CaptureScreenshot {
     NONE   = 1 << 0,
@@ -27,7 +29,7 @@ class Photographer {
 
             return browser.takeScreenshot().
                 then(this.saveScreenshot(timestamp, currentPhase)).
-                then((filename) => Serenity.instance.record(new ScreenshotCaptured(new Screenshot(step, filename, currentPhase), timestamp)));
+                then((filename) => Serenity.instance.record(new ScreenshotCaptured(new Screenshot(step, filename), timestamp)));
         }
     }
 

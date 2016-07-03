@@ -1,13 +1,13 @@
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-import {Chronicle, Chronicler} from "../../lib/serenity/events/chronicles";
-import {DomainEvent} from "../../lib/serenity/events/domain_events";
+import * as sinon from "sinon";
+import * as chai from "chai";
+import {Chronicle, Chronicler} from "../../lib/serenity/recording/chronicles";
+import {DomainEvent} from "../../lib/serenity/domain/events";
 
 const expect = chai.expect;
 
 chai.use(require("sinon-chai"));
 
-describe('Domain Events', () => {
+describe('Recording what happened during the test', () => {
 
     describe('The Chronicler', () => {
         const now = 1467395872000;

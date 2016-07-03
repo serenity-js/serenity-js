@@ -1,4 +1,3 @@
-import {CaptureScreenshot} from "../screenplay/reporting/annotations";
 export enum Result {
     /**
      * Scenario failures due to external events or systems that compromise the validity of the test.
@@ -56,67 +55,9 @@ export class Step implements Identifiable{
 }
 
 export class Outcome<T> {
-    constructor(public subject: T, public result: Result, error?: Error) {}
+    constructor(public subject: T, public result: Result, public error?: Error) {}
 }
 
 export class Screenshot {
-    constructor(public step: Step, public path: string, public takenAt: CaptureScreenshot) {}
-}
-
-
-
-
-
-
-
-
-
-// todo: refactor - maybe replace both with "outcome<T>"?
-export class TestOutcome {
-    private _test: Scenario;
-    private _result: Result;
-    private _error:  Error;
-    
-    constructor(test: Scenario, result: Result, error?: Error) {
-        this._test = test;
-        this._result = result;
-        this._error  = error;
-    }
-    
-    public get test(): Scenario {
-        return this._test;
-    }
-    
-    public get result(): Result {
-        return this._result;
-    }
-
-    public get error(): Error {
-        return this._error;
-    }
-}
-
-// todo: refactor
-export class StepOutcome {
-    private _step:   Step;
-    private _result: Result;
-    private _error:  Error;
-
-    constructor(step: Step, result: Result, error?: Error) {
-        this._step   = step;
-        this._result = result;
-        this._error  = error;
-    }
-
-    public get step(): Step {
-        return this._step;
-    }
-
-    public get result(): Result {
-        return this._result;
-    }
-
-    public get error(): Error {
-        return this._error;
-    }
+    constructor(public step: Step, public path: string) {}
 }

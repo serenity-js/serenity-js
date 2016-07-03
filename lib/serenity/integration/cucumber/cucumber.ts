@@ -2,9 +2,9 @@
 
 import {Listener, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {Result, Scenario} from "../../domain";
+import {Result, Scenario} from "../../domain/model";
 
-export class CucumberScenario extends Scenario {
+class CucumberScenario extends Scenario {
     constructor(scenario: events.ScenarioPayload) {
         super(
             scenario.getName(),
@@ -15,19 +15,12 @@ export class CucumberScenario extends Scenario {
     }
 }
 
-
-
 export function createSerenityListener() : EventListener {
 
     let self = <any>Listener();
 
-    self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => {
-        callback();
-    };
-
-    self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => {
-        callback();
-    };
+    self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => callback();
+    self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => callback();
 
     self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
 
@@ -76,23 +69,10 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
-        Serenity.instance.scenarioFinished(new CucumberScenario(scenario));
-
-        callback();
-    };
-
-    self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => {
-        callback();
-    };
-
-    self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: ()=>void) => {
-        callback();
-    };
-
-    self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => {
-        callback();
-    };
+    self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => callback();
+    self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => callback();
+    self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: ()=>void) => callback();
+    self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => callback();
 
     // --
 
