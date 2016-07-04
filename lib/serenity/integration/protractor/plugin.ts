@@ -23,16 +23,12 @@ export default class SerenityProtractorPlugin extends ProtractorPlugin {
 
 
     setup() {
-        // console.log("options:", this.config['integration']);
 
-        // console.log('initialised: ', Serenity.instance.name());
-        console.log('initialised: ', serenity.name());
     };
 
     postTest(passed: boolean, info: TestInfo): Promise<void> {
 
         return this.reporter.reportOn(this.chronicler.readNewEntriesAs(this.id)).then( (reports) => {
-            console.log('saving report for', info.name);
             this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
         });
     }
