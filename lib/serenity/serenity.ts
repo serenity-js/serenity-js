@@ -49,8 +49,8 @@ export class Serenity {
      *
      * @param name      The name of the step, such as "When Bob views his profile"
      */
-    public stepStarts(name: string) {
-        this.chronicler.record(new StepStarted(new Step(name)));
+    public stepStarts(step: Step) {
+        this.chronicler.record(new StepStarted(step));
     }
 
     /**
@@ -60,8 +60,8 @@ export class Serenity {
      * @param result    The result of the step, such as Result.SUCCESS or Result.Failure
      * @param error     Optional error object telling Serenity what went wrong with the step
      */
-    public stepCompleted(name: string, result: Result, error?: Error) {
-        this.chronicler.record(new StepCompleted(new Outcome(new Step(name), result, error)));
+    public stepCompleted(step: Step, result: Result, error?: Error) {
+        this.chronicler.record(new StepCompleted(new Outcome(step, result, error)));
     }
 
     /**

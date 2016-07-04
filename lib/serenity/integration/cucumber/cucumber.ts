@@ -2,7 +2,7 @@
 
 import {Listener, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
-import {Result, Scenario} from "../../domain/model";
+import {Result, Scenario, Step} from "../../domain/model";
 
 class CucumberScenario extends Scenario {
     constructor(scenario: events.ScenarioPayload) {
@@ -31,7 +31,7 @@ export function createSerenityListener() : EventListener {
 
     self.handleBeforeStepEvent = (step: events.StepPayload, callback: ()=>void) => {
         if (! step.isHidden()) {
-            Serenity.instance.stepStarts(fullNameOf(step));
+            Serenity.instance.stepStarts(asSerenityStep(step));
         }
 
         callback();
@@ -44,8 +44,8 @@ export function createSerenityListener() : EventListener {
         if (! step.isHidden()) {
 
             Serenity.instance.stepCompleted(
-                fullNameOf(step),
-                asSerenity(result),
+                asSerenityStep(step),
+                asSerenityResult(result),
                 result.getFailureException()
             );
         }
@@ -62,7 +62,7 @@ export function createSerenityListener() : EventListener {
 
         Serenity.instance.scenarioCompleted(
             new CucumberScenario(scenario),
-            asSerenity(result),
+            asSerenityResult(result),
             result.getFailureException()
         );
 
@@ -76,11 +76,11 @@ export function createSerenityListener() : EventListener {
 
     // --
 
-    function fullNameOf(step: events.StepPayload): string {
-        return step.getKeyword() + step.getName()
+    function asSerenityStep(step: events.StepPayload): Step {
+        return new Step(step.getKeyword() + step.getName());
     }
 
-    function asSerenity(event: {getStatus(): string}): Result {
+    function asSerenityResult(event: {getStatus(): string}): Result {
         switch(event.getStatus()) {
             // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
             //     return 'ambiguousCucumberStatus';

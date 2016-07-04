@@ -49,7 +49,7 @@ class TodoUserSteps {
 
     @then(/^.* todo list should contain (.*?)$/)
     public should_see_todo_list_with_following (items: string) : Promise<void> {
-        
+        // todo: report assertion errors
         return expect(TodoListItems.displayed()).to.eventually.eql(listOf(items));
     }
 }

@@ -31,9 +31,10 @@ export default class SerenityProtractorPlugin extends ProtractorPlugin {
 
     postTest(passed: boolean, info: TestInfo): Promise<void> {
 
-        let report = this.reporter.reportOn(this.chronicler.readNewEntriesAs(this.id)).pop();
-
-        return this.scribe.write(report, `${this.hash(info.category, info.name)}.json`);
+        return this.reporter.reportOn(this.chronicler.readNewEntriesAs(this.id)).then( (reports) => {
+            console.log('saving report for', info.name);
+            this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
+        });
     }
 
     postResults(): Promise<void> {

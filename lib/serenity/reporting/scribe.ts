@@ -28,15 +28,15 @@ export class Scribe {
 
 export class SerenityReporter {
 
-    reportOn(events: DomainEvent<any>[]) : ScenarioReport[] {
+    reportOn(events: DomainEvent<any>[]) : Promise<any[]> {
 
         return events.reduce( (reports, event, index, list) => {
+
             switch(event.constructor.name) {
+
                 case ScenarioStarted.name:      return reports.scenarioStarted(event.value, event.timestamp);
 
                 case StepStarted.name:          return reports.stepStarted(event.value, event.timestamp);
-
-                // case ScreenshotCaptured.name:   break;
 
                 case StepCompleted.name:        return reports.stepCompleted(event.value, event.timestamp);
 
@@ -85,8 +85,8 @@ class SerenityReports {
         return this;
     }
 
-    extract(): any[] {
-        return _.values<ScenarioReport>(this.reports).map((report) => report.toJSON());
+    extract(): Promise<any[]> {
+        return Promise.all(_.values<ScenarioReport>(this.reports).map((report) => report.toJSON()));
     }
 }
 
@@ -135,6 +135,14 @@ abstract class SerenityReport<T> {
         };
     }
 
+    protected mapAll(items: Promise<Screenshot>[], mapper: (Screenshot) => any = (x)=>x): Promise<any[]> {
+        return Promise.all<Screenshot>(items).then( (all) => all.map(mapper) );
+    }
+
+    protected ifNotEmpty<T>(list: T[]): T[] {
+        return !! list.length ? list : undefined;
+    }
+
     private stackTraceOf(error: Error): Array<ErrorStackFrame> {
         return parse(error).map((frame) => {
             return {
@@ -146,7 +154,7 @@ abstract class SerenityReport<T> {
         });
     }
 
-    abstract toJSON(): any;
+    abstract toJSON(): Promise<any>;
 }
 
 class ScenarioReport extends SerenityReport<Scenario> {
@@ -155,44 +163,64 @@ class ScenarioReport extends SerenityReport<Scenario> {
         super(startTimestamp);
     }
 
-    toJSON(): any {
-        return {
-            name:           this.scenario.name,
-            title:          this.scenario.name,     // todo: do we need both name and title?
-            description:    '',                     // todo: missing
-            tags:           [],                     // todo: missing
-            // driver                               // todo: missing
-            startTime:      this.startedAt,
-            manual:         false,
-            duration:       this.duration,
-            result:         Result[this.result],
-            testSteps:      this.children.map((report) => report.toJSON()),
-            userStory: {
-                id:        dashify(this.scenario.category),
-                storyName: this.scenario.category,
-                path:      this.scenario.path,
-                type:      'feature'
-            },
-            testFailureCause: this.errorIfPresent()
-        }
+    toJSON(): Promise<any> {
+        return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
+
+            return {
+                name:           this.scenario.name,
+                title:          this.scenario.name,     // todo: do we need both the name and the title?
+                description:    '',                     // todo: missing
+                tags: [],                               // todo: missing
+                // driver                               // todo: missing
+                startTime:      this.startedAt,
+                manual:         false,
+                duration:       this.duration,
+                result:         Result[this.result],
+                testSteps:      serialisedChildren,
+                userStory: {
+                    id:         dashify(this.scenario.category),
+                    storyName:  this.scenario.category,
+                    path:       this.scenario.path,
+                    type:       'feature'
+                },
+                testFailureCause: this.errorIfPresent()
+            };
+        });
     }
 }
 
 class StepReport extends SerenityReport<Step> {
+    private promisedScreenshots: Promise<Screenshot>[];
+
     constructor(private step: Step, startTimestamp: number) {
         super(startTimestamp);
+
+        this.promisedScreenshots = step.promisedScreenshots;
     }
 
-    toJSON(): any {
-        return {
-            description: this.step.name,
-            startTime:   this.startedAt,
-            duration:    this.duration,
-            result:      Result[this.result],
-            children:    this.children.map((report) => report.toJSON()),
-            exception:   this.errorIfPresent()
-        }
+    completedWith(outcome: Outcome<Step>, finishedAt: number) {
+        super.completedWith(outcome, finishedAt);
+
+        this.promisedScreenshots = this.promisedScreenshots.concat(outcome.subject.promisedScreenshots);
     }
 
-    /* ? */ attachScreenshot(screenshot: Screenshot) { }
+    private serialise(screenshot: Screenshot) {
+        return { screenshot: screenshot.path };
+    }
+
+    toJSON(): Promise<any> {
+        return this.mapAll(this.promisedScreenshots, this.serialise).then( (serialisedScreenshots) => {
+            return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
+                return {
+                    description: this.step.name,
+                    startTime:   this.startedAt,
+                    duration:    this.duration,
+                    result:      Result[this.result],
+                    children:    serialisedChildren,
+                    exception:   this.errorIfPresent(),
+                    screenshots: this.ifNotEmpty(serialisedScreenshots)
+                }
+            });
+        });
+    }
 }

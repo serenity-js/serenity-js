@@ -7,6 +7,7 @@ import timeout = Q.timeout;
 const expect = chai.expect;
 
 chai.use(require("sinon-chai"));
+chai.use(require("chai-as-promised"));
 
 describe('Reporting what happened during the test', () => {
 
@@ -56,12 +57,12 @@ describe('Reporting what happened during the test', () => {
 
             let reports = new SerenityReporter().reportOn(events);
 
-            expect(reports).to.have.length(1);
-            expect(reports.pop()).to.deep.equal(expectedReportWith({
+            expect(reports).to.eventually.have.length(1);
+            expect(reports).to.eventually.deep.equal([expectedReportWith({
                 startTime: startTime,
                 duration:  duration,
                 result:    Result[Result.SUCCESS]
-            }));
+            })]);
         });
 
         it('reports a more detailed story of what happened', () => {
@@ -74,9 +75,9 @@ describe('Reporting what happened during the test', () => {
 
             let reports = new SerenityReporter().reportOn(events);
 
-            expect(reports).to.have.length(1);
+            expect(reports).to.eventually.have.length(1);
 
-            expect(reports.pop()).to.deep.equal(expectedReportWith({
+            expect(reports).to.eventually.deep.equal([expectedReportWith({
                 duration:  3,
                 testSteps: [{
                     description: 'Opens a browser',
@@ -86,7 +87,7 @@ describe('Reporting what happened during the test', () => {
                     children:    [],
                     exception:   undefined
                 }]
-            }));
+            })]);
 
         });
 
@@ -102,9 +103,9 @@ describe('Reporting what happened during the test', () => {
 
             let reports = new SerenityReporter().reportOn(events);
 
-            expect(reports).to.have.length(1);
+            expect(reports).to.eventually.have.length(1);
 
-            expect(reports.pop()).to.deep.equal(expectedReportWith({
+            expect(reports).to.eventually.deep.equal([expectedReportWith({
                 duration:  5,
                 testSteps: [{
                     description: 'Opens a browser',
@@ -121,7 +122,7 @@ describe('Reporting what happened during the test', () => {
                     children:    [],
                     exception:   undefined
                 }]
-            }));
+            })]);
 
         });
 
@@ -141,9 +142,9 @@ describe('Reporting what happened during the test', () => {
 
             let reports = new SerenityReporter().reportOn(events);
 
-            expect(reports).to.have.length(1);
+            expect(reports).to.eventually.have.length(1);
 
-            expect(reports.pop()).to.deep.equal(expectedReportWith({
+            expect(reports).to.eventually.deep.equal([expectedReportWith({
                 duration:  9,
                 testSteps: [{
                     description: 'Buys a discounted e-book reader',
@@ -174,7 +175,7 @@ describe('Reporting what happened during the test', () => {
                         exception:   undefined
                     }]
                 }]
-            }));
+            })]);
         });
 
         it('reports problems', () => {
@@ -197,7 +198,7 @@ describe('Reporting what happened during the test', () => {
 
             let reports = new SerenityReporter().reportOn(events);
 
-            expect(reports.pop()).to.deep.equal(expectedReportWith({
+            expect(reports).to.eventually.deep.equal([expectedReportWith({
                 duration:  3,
                 testSteps: [{
                     description: 'Buys a discounted e-book reader',
@@ -237,7 +238,7 @@ describe('Reporting what happened during the test', () => {
                         methodName: "Runnable.run",
                     }]
                 }
-            }))
+            })]);
         });
     });
 });
