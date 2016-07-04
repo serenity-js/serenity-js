@@ -1,5 +1,5 @@
 import {Action, PerformsTasks} from '../../screenplay/pattern';
-import {step} from '../../screenplay/reporting/annotations'
+import {step} from '../../screenplay/recording/annotations'
 
 export class Enter implements Action {
     

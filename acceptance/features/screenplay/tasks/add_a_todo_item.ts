@@ -1,5 +1,5 @@
 import {Performable, PerformsTasks} from "../../../../lib/screenplay/pattern";
-import {step} from "../../../../lib/screenplay/reporting/annotations";
+import {step} from "../../../../lib/screenplay/recording/annotations";
 import {Enter} from "../../../../lib/screenplay_protractor/actions/enter";
 import {TodoList} from "../user_interface/todo_list";
 

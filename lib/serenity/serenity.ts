@@ -1,14 +1,6 @@
 import {Scenario, Step, Result, Outcome} from "./domain/model";
 import {Chronicler, Chronicle} from "./recording/chronicles";
-import {
-    DomainEvent,
-    ScenarioStarted,
-    StepStarted,
-    StepCompleted,
-    ScenarioCompleted,
-    ScreenshotCaptured
-} from "./domain/events";
-import {CaptureScreenshot} from "../screenplay/reporting/annotations";
+import {DomainEvent, ScenarioStarted, StepStarted, StepCompleted, ScenarioCompleted} from "./domain/events";
 import id = webdriver.By.id;
 
 const fs:typeof QioFS = require('q-io/fs');
