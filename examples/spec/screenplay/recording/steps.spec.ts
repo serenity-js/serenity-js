@@ -15,12 +15,12 @@ describe('InterpolatedStep', () => {
         }
 
         expiringOn(date: string) {
-            this.expiryDate = date;
+            this.expiryDate = date.split('/');
 
             return this;
         }
 
-        constructor(private cardNumber: string, private expiryDate?: string) {}
+        constructor(private cardNumber: string, private expiryDate?: string[]) {}
 
         performAs(actor: PerformsTasks) {
             actor.attemptsTo(
@@ -49,6 +49,13 @@ describe('InterpolatedStep', () => {
             expect(step.name).to.equal('Pays with a credit number "4111 1111 1111 1234"');
         });
 
+        it('uses lists of strings', () => {
+            let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
+                step = new InterpolatedStep('Pays with a credit card expiring on "#expiryDate"').from(task, []);
+
+            expect(step.name).to.equal('Pays with a credit card expiring on "2020, 12"');
+        });
+
         it('uses arguments passed to the performAs method', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
                 step = new InterpolatedStep('{0} pays with a credit card').from(task, [Actor.named('James')]);
@@ -58,9 +65,9 @@ describe('InterpolatedStep', () => {
 
         it('ignores the fields that are not defined', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234'),
-                step = new InterpolatedStep('Pays with a credit card expiring on #expiryDate').from(task, []);
+                step = new InterpolatedStep('Pays with a credit card with PIN number #pinNumber').from(task, []);
 
-            expect(step.name).to.equal('Pays with a credit card expiring on #expiryDate');
+            expect(step.name).to.equal('Pays with a credit card with PIN number #pinNumber');
         });
     });
 });
