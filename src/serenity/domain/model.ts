@@ -51,9 +51,9 @@ export class Scenario implements Identifiable {
 }
 
 export class Step implements Identifiable{
-    constructor(public name: string, public id: string = name, public promisedScreenshots: Promise<Screenshot>[] = []) { }
+    constructor(public name: string, public id: string = name, public promisedScreenshots: PromiseLike<Screenshot>[] = []) { }
 
-    withScreenshot(screenshot: Promise<Screenshot>) {
+    withScreenshot(screenshot: PromiseLike<Screenshot>) {
         return new Step(this.name, this.id, this.promisedScreenshots.concat(screenshot));
     }
 }

@@ -135,8 +135,8 @@ abstract class SerenityReport<T> {
         };
     }
 
-    protected mapAll(items: Promise<Screenshot>[], mapper: (Screenshot) => any = (x)=>x): Promise<any[]> {
-        return Promise.all<Screenshot>(items).then( (all) => all.map(mapper) );
+    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x)=>x): PromiseLike<any[]> {
+        return Promise.all<I>(items).then( (all) => all.map(mapper) );
     }
 
     protected ifNotEmpty<T>(list: T[]): T[] {
@@ -154,7 +154,7 @@ abstract class SerenityReport<T> {
         });
     }
 
-    abstract toJSON(): Promise<any>;
+    abstract toJSON(): PromiseLike<any>;
 }
 
 class ScenarioReport extends SerenityReport<Scenario> {
@@ -163,7 +163,7 @@ class ScenarioReport extends SerenityReport<Scenario> {
         super(startTimestamp);
     }
 
-    toJSON(): Promise<any> {
+    toJSON(): PromiseLike<any> {
         return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
 
             return {
@@ -190,7 +190,7 @@ class ScenarioReport extends SerenityReport<Scenario> {
 }
 
 class StepReport extends SerenityReport<Step> {
-    private promisedScreenshots: Promise<Screenshot>[];
+    private promisedScreenshots: PromiseLike<Screenshot>[];
 
     constructor(private step: Step, startTimestamp: number) {
         super(startTimestamp);
@@ -208,7 +208,7 @@ class StepReport extends SerenityReport<Step> {
         return { screenshot: screenshot.path };
     }
 
-    toJSON(): Promise<any> {
+    toJSON(): PromiseLike<any> {
         return this.mapAll(this.promisedScreenshots, this.serialise).then( (serialisedScreenshots) => {
             return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
                 return {
