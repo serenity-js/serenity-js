@@ -48,7 +48,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
         let deferred = new Deferred<Screenshot>();
 
         browser.takeScreenshot().then(saveScreenshot).then((filename) => {
-            console.log('[Screenshot] saved at', filename)
+            // console.log('[Screenshot] saved at', filename)
             deferred.resolve(new Screenshot(step, filename));
         });
 

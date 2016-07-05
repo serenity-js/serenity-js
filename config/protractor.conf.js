@@ -30,7 +30,7 @@ exports.config = {
     cucumberOpts: {
         require: [
             fs.root('acceptance/**/*.ts'),
-            fs.root('lib/serenity/integration/cucumber/cucumber.ts')
+            fs.root('src/serenity/integration/cucumber/cucumber.ts')
         ],
         format: 'pretty',
         compiler: 'ts:ts-node/register'

@@ -1,7 +1,7 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
-import {Chronicle, Chronicler} from "../../lib/serenity/recording/chronicles";
-import {DomainEvent} from "../../lib/serenity/domain/events";
+import {Chronicle, Chronicler} from "../../../src/serenity/recording/chronicles";
+import {DomainEvent} from "../../../src/serenity/domain/events";
 
 const expect = chai.expect;
 

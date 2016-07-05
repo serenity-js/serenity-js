@@ -43,7 +43,7 @@ exports.config = {
     },
 
     plugins: [{
-        path: '../../../lib/serenity/integration/protractor/index.ts'
+        path: '../../../src/serenity/integration/protractor/index.ts'
     }],
 
     // capabilities: {

@@ -35,6 +35,8 @@ export default class SerenityProtractorPlugin extends ProtractorPlugin {
 
     postResults(): Promise<void> {
 
+       // console.log(this.chronicler.readTheChronicle().map((entry) => entry.value));
+
         return Promise.resolve();
     }
 
