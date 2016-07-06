@@ -4,9 +4,9 @@ const
 
 import {binding, given, when, then} from "cucumber-tsflow";
 import {Actor} from "../../../src/screenplay/pattern/actor";
-import {AddATodoItem} from "../screenplay/tasks/add_a_todo_item";
-import {Start} from "../screenplay/tasks/start";
-import {TodoListItems} from "../screenplay/questions/todo_list_items";
+import {AddATodoItem} from "../../screenplay/tasks/add_a_todo_item";
+import {Start} from "../../screenplay/tasks/start";
+import {TodoListItems} from "../../screenplay/questions/todo_list_items";
 import {listOf} from "../../text_functions";
 
 @binding()
@@ -40,7 +40,7 @@ class TodoUserSteps {
     }
 
     @then(/^'(.*?)' should be recorded in his list$/)
-    public should_see_todo_list_with_just_one (item: string) : Promise<void> {
+    public should_see_todo_list_with_just_one (item: string) : PromiseLike<void> {
 
         return this.should_see_todo_list_with_following(item);
     }
@@ -48,9 +48,15 @@ class TodoUserSteps {
 
 
     @then(/^.* todo list should contain (.*?)$/)
-    public should_see_todo_list_with_following (items: string) : Promise<void> {
-        // todo: report assertion errors
-        return expect(TodoListItems.displayed()).to.eventually.eql(listOf(items));
+    public should_see_todo_list_with_following (items: string) : PromiseLike<void> {
+
+        // gets reported
+        return TodoListItems.displayed().then((displayedItems) => {
+            expect(displayedItems).to.eql(listOf(items))
+        });
+
+        // does not get reported
+        // return expect(TodoListItems.displayed()).to.eventually.eql(listOf(items));
     }
 }
 

@@ -1,6 +1,6 @@
-import {Performable, PerformsTasks} from "../../../../src/screenplay/pattern";
-import {step, CaptureScreenshot} from "../../../../src/screenplay/recording/annotations";
-import {Enter} from "../../../../src/screenplay_protractor/actions/enter";
+import {Performable, PerformsTasks} from "../../../src/screenplay/pattern";
+import {step, CaptureScreenshot} from "../../../src/screenplay/recording/annotations";
+import {Enter} from "../../../src/screenplay_protractor/actions/enter";
 import {TodoList} from "../user_interface/todo_list";
 
 export class AddATodoItem implements Performable {
@@ -9,7 +9,7 @@ export class AddATodoItem implements Performable {
         return new AddATodoItem(name);
     }
 
-    @step("{0} adds a todo item called: #name")
+    @step("{0} adds a todo item called: #name", CaptureScreenshot.BEFORE_AND_AFTER)
     performAs(actor:PerformsTasks) {
 
         actor.attemptsTo(
@@ -17,9 +17,5 @@ export class AddATodoItem implements Performable {
         );
     }
 
-    constructor(name: string) {
-        this.name = name;
-    }
-
-    private name:string;
+    constructor(public name: string) { }
 }
