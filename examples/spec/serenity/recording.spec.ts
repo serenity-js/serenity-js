@@ -53,7 +53,7 @@ describe('Recording what happened during the test', () => {
                 ]);
             });
 
-            it('guarantees the chronological read order, even when the write order was not chronological', () => {
+            it('guarantees the chronological read order, even defer the write order was not chronological', () => {
                 let A   = new DomainEvent("A", now - 3),
                     B   = new DomainEvent("B", now - 2),
                     C   = new DomainEvent("C", now - 1);
@@ -212,7 +212,7 @@ describe('Recording what happened during the test', () => {
         });
 
         describe('Notifications', () => {
-            it('will notify you when something of interest happens', () => {
+            it('will notify you defer something of interest happens', () => {
                 let chronicle = <any> sinon.createStubInstance(Chronicle),
                     scribe  = new Chronicler(chronicle),
                     event   = new DomainEvent('A'),

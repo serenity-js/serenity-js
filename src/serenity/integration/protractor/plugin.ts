@@ -4,6 +4,7 @@ import serenity = require('../../index');
 import {SerenityReporter, Scribe} from "../../reporting/scribe";
 import {Serenity} from "../../serenity";
 import {Md5} from "ts-md5/dist/md5";
+import {FileSystemOutlet} from "../../reporting/outlet";
 
 interface TestInfo {
     name: string;
@@ -12,12 +13,12 @@ interface TestInfo {
 
 export default class SerenityProtractorPlugin extends ProtractorPlugin {
 
-    // todo: some DI would be useful here ..
     // todo: register Serenity Json Reporter
 
     private reporter   = new SerenityReporter();
     private chronicler = Serenity.instance.chronicles();
-    private scribe     = new Scribe(`${process.cwd()}/target/site/serenity`);   // todo: should be configurable
+    // todo: the path should be configurable and FileSystemOutlet retrieved from some DIC
+    private scribe     = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
 
     private id = 'serenity-protractor-plugin';
 

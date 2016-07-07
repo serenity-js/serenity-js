@@ -2,21 +2,18 @@ import {DomainEvent, ScenarioStarted, ScenarioCompleted, StepStarted, StepComple
 import {Screenshot, Step, Outcome, Scenario, Result} from "../domain/model";
 import * as _ from "lodash";
 import * as path from "path";
-import {parse} from 'stack-trace';
+import {parse} from "stack-trace";
+import {Outlet} from "./outlet";
 
-const fs:typeof QioFS = require('q-io/fs');
 const dashify = require('dashify');
 
 
 export class Scribe {
 
-    constructor(private outputRootDir: string) { }
+    constructor(private outlet: Outlet) { }
 
-    write(report: any, pathToFile: string): Promise<void> {
-        let fullPathToReport = path.join(this.outputRootDir, pathToFile);
-
-        return fs.makeTree(this.outputRootDir).
-                then(() => fs.write(fullPathToReport, JSON.stringify(report)));
+    write(report: any, pathToFile: string): PromiseLike<string> {
+        return this.outlet.sendJSON(pathToFile, report);
     }
 }
 

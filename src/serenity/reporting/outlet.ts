@@ -3,21 +3,21 @@ import * as path    from 'path';
 import * as mkdirp  from 'mkdirp';
 
 export interface Outlet {
-    sendPicture(destination: string, base64EncodedData: string): Promise<string>
-    sendJSON   (destination: string, json: any): Promise<string>
+    sendPicture(destination: string, base64EncodedData: string): PromiseLike<string>
+    sendJSON   (destination: string, json: any): PromiseLike<string>
 }
 
 export class FileSystemOutlet {
 
     constructor(private root: string) {}
 
-    public sendPicture(relativePathToFile: string, base64EncodedData: string): Promise<string> {
+    public sendPicture(relativePathToFile: string, base64EncodedData: string): PromiseLike<string> {
 
         return this.prepareDirectory(relativePathToFile).
             then((pathToFile) => this.write(pathToFile, new Buffer(base64EncodedData, 'base64')));
     }
 
-    public sendJSON(relativePathToFile: string, json: any): Promise<string> {
+    public sendJSON(relativePathToFile: string, json: any): PromiseLike<string> {
 
         return this.prepareDirectory(relativePathToFile).
             then((pathToFile) => this.write(pathToFile, JSON.stringify(json)));
@@ -25,7 +25,7 @@ export class FileSystemOutlet {
 
     // --
 
-    private prepareDirectory(relativePathToFile: string): Promise<string> {
+    private prepareDirectory(relativePathToFile: string): PromiseLike<string> {
         if (! this.specified(relativePathToFile)) {
             return this.complaint('Please specify where the file should be saved.');
         }
@@ -49,7 +49,7 @@ export class FileSystemOutlet {
         return !! (value && value.length);
     }
 
-    private complaint(message: string): Promise<string> {
+    private complaint(message: string): PromiseLike<string> {
         return Promise.reject<string>(new Error(message));
     }
 

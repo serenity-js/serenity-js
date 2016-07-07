@@ -3,8 +3,6 @@ import {Chronicler, Chronicle} from "./recording/chronicles";
 import {DomainEvent, ScenarioStarted, StepStarted, StepCompleted, ScenarioCompleted} from "./domain/events";
 import id = webdriver.By.id;
 
-const fs:typeof QioFS = require('q-io/fs');
-
 export class Serenity {
     // todo: get DI, seriously. http://stackoverflow.com/questions/12795666/ioc-for-typescript
     private chronicler = new Chronicler(new Chronicle());

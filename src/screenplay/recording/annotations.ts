@@ -14,10 +14,10 @@ export enum CaptureScreenshot {
     BEFORE_AND_AFTER = BEFORE_STEP | AFTER_STEP,
 }
 
-
 export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.DO_NOT) {
 
-    let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`)),   // todo: should be configurable
+    // todo: should be configurable
+    let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`), browser),
         interpolated = new InterpolatedStep(stepDescriptionTemplate);
 
     function beforeStep(step: Step) {
