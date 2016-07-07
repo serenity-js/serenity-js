@@ -5,6 +5,7 @@ import {Result, Step} from "../../serenity/domain/model";
 import {Serenity} from "../../serenity/serenity";
 import {Photographer} from "../../screenplay_protractor/recording/photography";
 import {InterpolatedStep} from "./steps";
+import {FileSystemOutlet} from "../../serenity/reporting/outlet";
 
 export enum CaptureScreenshot {
     DO_NOT      = 1 << 0,
@@ -16,7 +17,7 @@ export enum CaptureScreenshot {
 
 export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.DO_NOT) {
 
-    let photographer = new Photographer(),
+    let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`)),   // todo: should be configurable
         interpolated = new InterpolatedStep(stepDescriptionTemplate);
 
     function beforeStep(step: Step) {

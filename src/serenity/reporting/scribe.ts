@@ -180,7 +180,7 @@ class ScenarioReport extends SerenityReport<Scenario> {
                 userStory: {
                     id:         dashify(this.scenario.category),
                     storyName:  this.scenario.category,
-                    path:       this.scenario.path,
+                    path:       path.relative(process.cwd(), this.scenario.path),   // todo: introduce some relative path resolver
                     type:       'feature'
                 },
                 testFailureCause: this.errorIfPresent()
@@ -205,7 +205,7 @@ class StepReport extends SerenityReport<Step> {
     }
 
     private serialise(screenshot: Screenshot) {
-        return { screenshot: screenshot.path };
+        return { screenshot: path.basename(screenshot.path) };
     }
 
     toJSON(): PromiseLike<any> {
