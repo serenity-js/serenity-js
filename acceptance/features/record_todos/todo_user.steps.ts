@@ -1,9 +1,10 @@
+import ExpectStatic = Chai.ExpectStatic;
 const
     chai = require('chai').use(require('chai-as-promised')),
     expect = chai.expect;
 
 import {binding, given, when, then} from "cucumber-tsflow";
-import {Actor} from "../../../src/screenplay/pattern/actor";
+import {Actor} from "../../../src/serenity/screenplay/actor";
 import {AddATodoItem} from "../../screenplay/tasks/add_a_todo_item";
 import {Start} from "../../screenplay/tasks/start";
 import {TodoListItems} from "../../screenplay/questions/todo_list_items";

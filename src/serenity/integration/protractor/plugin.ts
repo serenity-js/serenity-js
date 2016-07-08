@@ -6,7 +6,7 @@ import {Serenity} from "../../serenity";
 import {Md5} from "ts-md5/dist/md5";
 import {FileSystemOutlet} from "../../reporting/outlet";
 
-interface TestInfo {
+export interface TestInfo {
     name: string;
     category: string;
 }

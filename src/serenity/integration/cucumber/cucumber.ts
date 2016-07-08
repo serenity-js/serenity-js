@@ -1,5 +1,3 @@
-///<reference path="cucumber.d.ts"/>
-
 import {Listener, EventListener, events} from "cucumber";
 import {Serenity} from "../../serenity";
 import {Result, Scenario, Step} from "../../domain/model";

@@ -1,7 +1,7 @@
 import * as chai from "chai";
-import {ScenarioStarted, ScenarioCompleted, StepStarted, StepCompleted} from "../../../src/serenity/domain/events";
-import {Scenario, Outcome, Result, Step} from "../../../src/serenity/domain/model";
-import {SerenityReporter} from "../../../src/serenity/reporting/scribe";
+import {ScenarioStarted, ScenarioCompleted, StepStarted, StepCompleted} from "../../src/serenity/domain/events";
+import {Scenario, Outcome, Result, Step} from "../../src/serenity/domain/model";
+import {SerenityReporter} from "../../src/serenity/reporting/scribe";
 import timeout = Q.timeout;
 
 const expect = chai.expect;

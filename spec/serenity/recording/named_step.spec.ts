@@ -1,13 +1,14 @@
 import * as chai from "chai";
-import {Task} from "../../../../src/screenplay/pattern/performables";
-import {PerformsTasks, Actor} from "../../../../src/screenplay/pattern/actor";
-import {InterpolatedStep} from "../../../../src/screenplay/recording/steps";
+
+import {PerformsTasks, Actor} from "../../../src/serenity/screenplay/actor";
+import {Task} from "../../../src/serenity/screenplay/performables";
+import {NamedStep} from "../../../src/serenity/recording/named_step";
 
 const expect = chai.expect;
 
 chai.use(require("sinon-chai"));
 
-describe('InterpolatedStep', () => {
+describe('NamedStep', () => {
 
     class PayWithCreditCard implements Task {
         static number(creditCardNumber: string) {
@@ -37,35 +38,35 @@ describe('InterpolatedStep', () => {
 
         it('uses public methods defined on the performable', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
-                step = new InterpolatedStep('Pays with a credit card ending "#lastFourDigits"').from(task, []);
+                step = new NamedStep('Pays with a credit card ending "#lastFourDigits"').from(task, []);
 
             expect(step.name).to.equal('Pays with a credit card ending "1234"');
         });
 
         it('uses member fields defined on the performable', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
-                step = new InterpolatedStep('Pays with a credit number "#cardNumber"').from(task, []);
+                step = new NamedStep('Pays with a credit number "#cardNumber"').from(task, []);
 
             expect(step.name).to.equal('Pays with a credit number "4111 1111 1111 1234"');
         });
 
         it('uses lists of strings', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
-                step = new InterpolatedStep('Pays with a credit card expiring on "#expiryDate"').from(task, []);
+                step = new NamedStep('Pays with a credit card expiring on "#expiryDate"').from(task, []);
 
             expect(step.name).to.equal('Pays with a credit card expiring on "2020, 12"');
         });
 
         it('uses arguments passed to the performAs method', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),
-                step = new InterpolatedStep('{0} pays with a credit card').from(task, [Actor.named('James')]);
+                step = new NamedStep('{0} pays with a credit card').from(task, [Actor.named('James')]);
 
             expect(step.name).to.equal('James pays with a credit card');
         });
 
         it('ignores the fields that are not defined', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234'),
-                step = new InterpolatedStep('Pays with a credit card with PIN number #pinNumber').from(task, []);
+                step = new NamedStep('Pays with a credit card with PIN number #pinNumber').from(task, []);
 
             expect(step.name).to.equal('Pays with a credit card with PIN number #pinNumber');
         });

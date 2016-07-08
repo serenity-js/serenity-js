@@ -1,5 +1,5 @@
 import * as mockfs  from 'mock-fs';
-import {FileSystemOutlet} from "../../../../src/serenity/reporting/outlet";
+import {FileSystemOutlet} from "../../../src/serenity/reporting/outlet";
 
 import * as chai    from "chai";
 import * as fs      from 'fs';

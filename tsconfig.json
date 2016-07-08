@@ -4,23 +4,14 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "out"
   },
 
   "exclude": [
     "node_modules",
     "typings/main.d.ts",
     "typings/main"
-  ],
-  "filesGlob": [
-    "./acceptance/**/*.ts",
-    "!./node_modules/**/*.ts"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "resolveGlobs": true,
-    "forkChecker": true
-  },
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "atom": { "rewriteTsconfig": false }
+  ]
 }

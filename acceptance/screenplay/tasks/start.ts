@@ -1,9 +1,10 @@
-import {Performable, PerformsTasks} from "../../../src/screenplay/pattern";
 import {step} from "../../../src/screenplay/recording/annotations"
 
 import {Open} from "../../../src/screenplay_protractor/actions/open";
 import {AddTodoItems} from "./add_todo_items";
 import {listOf} from "../../text_functions";
+import {Performable} from "../../../src/serenity/screenplay/performables";
+import {PerformsTasks} from "../../../src/serenity/screenplay/actor";
 
 export class Start implements Performable {
     public static withAnEmptyTodoList() : Start {

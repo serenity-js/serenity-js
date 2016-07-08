@@ -1,7 +1,8 @@
-import {Performable, PerformsTasks} from "../../../src/screenplay/pattern";
 import {step, CaptureScreenshot} from "../../../src/screenplay/recording/annotations";
 import {Enter} from "../../../src/screenplay_protractor/actions/enter";
 import {TodoList} from "../user_interface/todo_list";
+import {PerformsTasks} from "../../../src/serenity/screenplay/actor";
+import {Performable} from "../../../src/serenity/screenplay/performables";
 
 export class AddATodoItem implements Performable {
 

@@ -1,7 +1,7 @@
-import {Performable} from "../pattern/performables";
-import {Step} from "../../serenity/domain/model";
+import {Step} from "../domain/model";
+import {Performable} from "../screenplay/performables";
 
-export class InterpolatedStep {
+export class NamedStep {
     private argToken   = /{(\d+)}/g;
     private fieldToken = /#(\w+)/g;
 
@@ -27,7 +27,7 @@ export class InterpolatedStep {
 
     private determineStepName(template: string, performable: Performable, args: any[]): string {
         return template.
-            replace(this.fieldToken, this.using(performable)).
-            replace(this.argToken, this.using(args))
+        replace(this.fieldToken, this.using(performable)).
+        replace(this.argToken, this.using(args))
     }
 }

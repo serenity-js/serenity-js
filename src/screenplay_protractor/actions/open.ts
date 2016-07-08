@@ -1,5 +1,6 @@
-import {Action, PerformsTasks} from '../../screenplay/pattern';
 import {step} from '../../screenplay/recording/annotations';
+import {PerformsTasks} from "../../serenity/screenplay/actor";
+import {Action} from "../../serenity/screenplay/performables";
 
 export class Open implements Action {
 

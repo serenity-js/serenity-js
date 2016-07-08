@@ -1,11 +1,11 @@
 // todo: clean up
 
-import {Performable} from "../pattern/performables";
+import {Performable} from "../../serenity/screenplay/performables";
 import {Result, Step} from "../../serenity/domain/model";
 import {Serenity} from "../../serenity/serenity";
 import {Photographer} from "../../screenplay_protractor/recording/photography";
-import {InterpolatedStep} from "./steps";
 import {FileSystemOutlet} from "../../serenity/reporting/outlet";
+import {NamedStep} from "../../serenity/recording/named_step";
 
 export enum CaptureScreenshot {
     DO_NOT      = 1 << 0,
@@ -18,7 +18,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
 
     // todo: should be configurable
     let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`), browser),
-        interpolated = new InterpolatedStep(stepDescriptionTemplate);
+        interpolated = new NamedStep(stepDescriptionTemplate);
 
     function beforeStep(step: Step) {
 
