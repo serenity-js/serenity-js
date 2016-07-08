@@ -2,14 +2,7 @@ import {ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from '..
 import {Outcome, Result, Scenario, Step} from '../../src/serenity/domain/model';
 import {SerenityReporter} from '../../src/serenity/reporting/scribe';
 
-import * as chai from 'chai';
-import sinon_chai = require('sinon-chai');
-import chai_as_promised = require('chai-as-promised');
-
-const expect = chai.expect;
-
-chai.use(<any> sinon_chai);
-chai.use(<any> chai_as_promised);
+import expect = require('../expect');
 
 describe('Reporting what happened during the test', () => {
 

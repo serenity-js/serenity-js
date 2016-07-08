@@ -1,15 +1,8 @@
 import {FileSystemOutlet} from '../../../src/serenity/reporting/outlet';
-import * as chai from 'chai';
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 
-import sinon_chai = require('sinon-chai');
-import chai_as_promised = require('chai-as-promised');
-
-const expect = chai.expect;
-
-chai.use(<any> sinon_chai);
-chai.use(<any> chai_as_promised);
+import expect = require('../../expect');
 
 describe('FileSystemOutlet', () => {
 

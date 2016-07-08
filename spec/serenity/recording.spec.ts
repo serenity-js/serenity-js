@@ -1,13 +1,8 @@
 import {DomainEvent} from '../../src/serenity/domain/events';
 import {Chronicle, Chronicler} from '../../src/serenity/recording/chronicles';
-import * as chai from 'chai';
-import * as sinon from 'sinon';
+import sinon = require('sinon');
 
-import sinon_chai = require('sinon-chai');
-
-const expect = chai.expect;
-
-chai.use(<any> sinon_chai);
+import expect = require('../expect');
 
 describe('Recording what happened during the test', () => {
 

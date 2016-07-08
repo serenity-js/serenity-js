@@ -2,12 +2,7 @@ import {NamedStep} from '../../../src/serenity/recording/named_step';
 import {Actor, PerformsTasks} from '../../../src/serenity/screenplay/actor';
 import {Task} from '../../../src/serenity/screenplay/performables';
 
-import * as chai from 'chai';
-import sinon_chai = require('sinon-chai');
-
-const expect = chai.expect;
-
-chai.use(<any> sinon_chai);
+import expect = require('../../expect');
 
 describe('NamedStep', () => {
 
@@ -35,7 +30,7 @@ describe('NamedStep', () => {
         }
     }
 
-    describe('the step name can be generated so that', () => {
+    describe('generates a step from a performable so that the template of its name', () => {
 
         it('uses public methods defined on the performable', () => {
             let task = PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'),

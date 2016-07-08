@@ -67,4 +67,4 @@ gulp.task('test', ['pre-test'], () => {
         .on('end', remapToTypescript);
 });
 
-gulp.task('default', ['clean', 'lint', 'test'], () => {});
+gulp.task('default', ['lint', 'test'], () => {});
