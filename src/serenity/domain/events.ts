@@ -1,8 +1,8 @@
+import {Outcome, Scenario, Step} from './model';
 import * as moment from 'moment';
-import {Scenario, Step, Outcome, Screenshot} from "./model";
 
 export class DomainEvent<T> {
-    constructor(public value:T, public timestamp?:number) {
+    constructor(public value: T, public timestamp?: number) {
         this.timestamp = timestamp || moment().valueOf();
     }
 }

@@ -1,19 +1,16 @@
-import {Scenario, Step, Result, Outcome} from "./domain/model";
-import {Chronicler, Chronicle} from "./recording/chronicles";
-import {DomainEvent, ScenarioStarted, StepStarted, StepCompleted, ScenarioCompleted} from "./domain/events";
-import id = webdriver.By.id;
+import {DomainEvent, ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from './domain/events';
+import {Outcome, Result, Scenario, Step} from './domain/model';
+import {Chronicle, Chronicler} from './recording/chronicles';
 
 export class Serenity {
+    private static serenity: Serenity;
+
     // todo: get DI, seriously. http://stackoverflow.com/questions/12795666/ioc-for-typescript
     private chronicler = new Chronicler(new Chronicle());
 
-    private static _instance: Serenity;
-
     public static get instance() {
-        return Serenity._instance||(Serenity._instance = new Serenity());
+        return Serenity.serenity || (Serenity.serenity = new Serenity());
     }
-
-    constructor() { }
 
     public name() {
         return 'Serenity';

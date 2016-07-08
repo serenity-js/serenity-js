@@ -1,11 +1,11 @@
+import {DomainEvent} from '../domain/events';
 import * as _ from 'lodash';
-import {DomainEvent} from "../domain/events";
 
 export class Chronicler {
 
-    constructor(private chronicle: Chronicle) { }
-
     private listeners: DomainEventListeners[] = [];
+
+    constructor(private chronicle: Chronicle) { }
 
     record(event: DomainEvent<any>) {
         this.chronicle.record(event);
@@ -34,8 +34,8 @@ export class Chronicler {
 }
 
 export class Chronicle {
-    private events:    DomainEvent<any>[] = []; // todo: is that right? is that a list or a map??
-    private bookmarks: string[]           = []; // { [id: string] : number } = {};
+    private events:     DomainEvent<any>[]       = [];
+    private bookmarks:  { [id: string]: number } = {};
 
     /**
      * Records an event and stores it in memory

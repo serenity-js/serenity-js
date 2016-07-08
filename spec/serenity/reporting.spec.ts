@@ -1,13 +1,15 @@
-import * as chai from "chai";
-import {ScenarioStarted, ScenarioCompleted, StepStarted, StepCompleted} from "../../src/serenity/domain/events";
-import {Scenario, Outcome, Result, Step} from "../../src/serenity/domain/model";
-import {SerenityReporter} from "../../src/serenity/reporting/scribe";
-import timeout = Q.timeout;
+import {ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from '../../src/serenity/domain/events';
+import {Outcome, Result, Scenario, Step} from '../../src/serenity/domain/model';
+import {SerenityReporter} from '../../src/serenity/reporting/scribe';
+
+import * as chai from 'chai';
+import sinon_chai = require('sinon-chai');
+import chai_as_promised = require('chai-as-promised');
 
 const expect = chai.expect;
 
-chai.use(require("sinon-chai"));
-chai.use(require("chai-as-promised"));
+chai.use(<any> sinon_chai);
+chai.use(<any> chai_as_promised);
 
 describe('Reporting what happened during the test', () => {
 
@@ -18,41 +20,40 @@ describe('Reporting what happened during the test', () => {
             duration  = 42,
             scenario  = new Scenario('Paying with a default card', 'Checkout', 'features/checkout.feature'),
 
-            scenarioStarted   = (scenario: Scenario, timestamp: number)                       => new ScenarioStarted(scenario, timestamp),
-            stepStarted       = (name: string, timestamp: number)                             => new StepStarted(new Step(name), timestamp),
-            stepCompleted     = (name: string, r: Result, timestamp: number, e?: Error)       => new StepCompleted(new Outcome(new Step(name), r, e), timestamp),
-            scenarioCompleted = (scenario: Scenario, r: Result, timestamp: number, e?: Error) => new ScenarioCompleted(new Outcome(scenario, r, e), timestamp);
+            scenarioStarted   = (s: Scenario, timestamp: number)                        => new ScenarioStarted(s, timestamp),
+            stepStarted       = (name: string, timestamp: number)                       => new StepStarted(new Step(name), timestamp),
+            stepCompleted     = (name: string, r: Result, timestamp: number, e?: Error) => new StepCompleted(new Outcome(new Step(name), r, e), timestamp),
+            scenarioCompleted = (s: Scenario, r: Result, timestamp: number, e?: Error)  => new ScenarioCompleted(new Outcome(s, r, e), timestamp);
 
         function expectedReportWith(overrides: any) {
             let report = {
-                name: "Paying with a default card",
+                name: 'Paying with a default card',
                 testSteps: [],
                 userStory: {
-                    id: "checkout",
-                    storyName: "Checkout",
-                    path: "features/checkout.feature",
-                    // narrative: "\nIn order to make me feel a sense of accomplishment\nAs a forgetful person\nI want to be to view all of things I have completed",
-                    type: "feature"
+                    id: 'checkout',
+                    storyName: 'Checkout',
+                    path: 'features/checkout.feature',
+                    // narrative: '\nIn order to make me feel a sense of accomplishment\nAs a forgetful person\nI want to ...',
+                    type: 'feature',
                 },
-                title:       "Paying with a default card",
-                description: "",
+                title:       'Paying with a default card',
+                description: '',
                 tags: [],
-                // driver: "chrome:jane",
+                // driver: 'chrome:jane',
                 manual:    false,
                 startTime: startTime,
                 duration:  undefined,
                 result:    'SUCCESS',
-                testFailureCause: undefined
+                testFailureCause: undefined,
             };
 
             return Object.assign(report, overrides);
         }
 
-
         it('reports the basic story of what happened', () => {
             let events = [
                 scenarioStarted(scenario, startTime),
-                scenarioCompleted(scenario, Result.SUCCESS, startTime + duration)
+                scenarioCompleted(scenario, Result.SUCCESS, startTime + duration),
             ];
 
             let reports = new SerenityReporter().reportOn(events);
@@ -61,16 +62,16 @@ describe('Reporting what happened during the test', () => {
             expect(reports).to.eventually.deep.equal([expectedReportWith({
                 startTime: startTime,
                 duration:  duration,
-                result:    Result[Result.SUCCESS]
+                result:    Result[Result.SUCCESS],
             })]);
         });
 
         it('reports a more detailed story of what happened', () => {
             let events = [
                 scenarioStarted(scenario, startTime),
-                stepStarted("Opens a browser", startTime + 1),
-                stepCompleted("Opens a browser", Result.SUCCESS, startTime + 2),
-                scenarioCompleted(scenario, Result.SUCCESS, startTime + 3)
+                stepStarted('Opens a browser', startTime + 1),
+                stepCompleted('Opens a browser', Result.SUCCESS, startTime + 2),
+                scenarioCompleted(scenario, Result.SUCCESS, startTime + 3),
             ];
 
             let reports = new SerenityReporter().reportOn(events);
@@ -85,8 +86,8 @@ describe('Reporting what happened during the test', () => {
                     duration:    1,
                     result:      'SUCCESS',
                     children:    [],
-                    exception:   undefined
-                }]
+                    exception:   undefined,
+                }],
             })]);
 
         });
@@ -94,11 +95,11 @@ describe('Reporting what happened during the test', () => {
         it('reports stories involving multiple steps', () => {
             let events = [
                 scenarioStarted(scenario, startTime),
-                stepStarted("Opens a browser", startTime + 1),
-                stepCompleted("Opens a browser", Result.SUCCESS, startTime + 2),
-                stepStarted("Navigates to amazon.com", startTime + 3),
-                stepCompleted("Navigates to amazon.com", Result.SUCCESS, startTime + 4),
-                scenarioCompleted(scenario, Result.SUCCESS, startTime + 5)
+                stepStarted('Opens a browser', startTime + 1),
+                stepCompleted('Opens a browser', Result.SUCCESS, startTime + 2),
+                stepStarted('Navigates to amazon.com', startTime + 3),
+                stepCompleted('Navigates to amazon.com', Result.SUCCESS, startTime + 4),
+                scenarioCompleted(scenario, Result.SUCCESS, startTime + 5),
             ];
 
             let reports = new SerenityReporter().reportOn(events);
@@ -113,15 +114,15 @@ describe('Reporting what happened during the test', () => {
                     duration:    1,
                     result:      'SUCCESS',
                     children:    [],
-                    exception:   undefined
+                    exception:   undefined,
                 }, {
                     description: 'Navigates to amazon.com',
                     startTime:   startTime + 3,
                     duration:    1,
                     result:      'SUCCESS',
                     children:    [],
-                    exception:   undefined
-                }]
+                    exception:   undefined,
+                }],
             })]);
 
         });
@@ -129,15 +130,15 @@ describe('Reporting what happened during the test', () => {
         it('reports stories involving nested steps', () => {
             let events = [
                 scenarioStarted(scenario, startTime),
-                stepStarted("Buys a discounted e-book reader", startTime + 1),
-                stepStarted("Opens a browser", startTime + 2),
-                stepCompleted("Opens a browser", Result.SUCCESS, startTime + 3),
-                stepStarted("Searches for discounted e-book readers", startTime + 4),
-                stepStarted("Navigates to amazon.com", startTime + 5),
-                stepCompleted("Navigates to amazon.com", Result.SUCCESS, startTime + 6),
-                stepCompleted("Searches for discounted e-book readers", Result.SUCCESS, startTime + 7),
-                stepCompleted("Buys a discounted e-book reader", Result.SUCCESS, startTime + 8),
-                scenarioCompleted(scenario, Result.SUCCESS, startTime + 9)
+                stepStarted('Buys a discounted e-book reader', startTime + 1),
+                stepStarted('Opens a browser', startTime + 2),
+                stepCompleted('Opens a browser', Result.SUCCESS, startTime + 3),
+                stepStarted('Searches for discounted e-book readers', startTime + 4),
+                stepStarted('Navigates to amazon.com', startTime + 5),
+                stepCompleted('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
+                stepCompleted('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
+                stepCompleted('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
+                scenarioCompleted(scenario, Result.SUCCESS, startTime + 9),
             ];
 
             let reports = new SerenityReporter().reportOn(events);
@@ -158,7 +159,7 @@ describe('Reporting what happened during the test', () => {
                         duration:    1,
                         result:      'SUCCESS',
                         children:    [],
-                        exception:   undefined
+                        exception:   undefined,
                     }, {
                         description: 'Searches for discounted e-book readers',
                         startTime:   startTime + 4,
@@ -170,11 +171,11 @@ describe('Reporting what happened during the test', () => {
                             duration:    1,
                             result:      'SUCCESS',
                             children:    [],
-                            exception:   undefined
+                            exception:   undefined,
                         }],
-                        exception:   undefined
-                    }]
-                }]
+                        exception:   undefined,
+                    }],
+                }],
             })]);
         });
 
@@ -183,17 +184,16 @@ describe('Reporting what happened during the test', () => {
 
             error.stack = [
             "Error: We're sorry, something happened",
-            "    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)",
-            "    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)",
+            '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
+            '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',
                 // and so on
             ].join('\n');
 
-
             let events = [
                 scenarioStarted(scenario, startTime),
-                stepStarted("Buys a discounted e-book reader", startTime + 1),
-                stepCompleted("Buys a discounted e-book reader", Result.ERROR, startTime + 2, error),
-                scenarioCompleted(scenario, Result.ERROR, startTime + 3, error)
+                stepStarted('Buys a discounted e-book reader', startTime + 1),
+                stepCompleted('Buys a discounted e-book reader', Result.ERROR, startTime + 2, error),
+                scenarioCompleted(scenario, Result.ERROR, startTime + 3, error),
             ];
 
             let reports = new SerenityReporter().reportOn(events);
@@ -207,37 +207,37 @@ describe('Reporting what happened during the test', () => {
                     result:      'ERROR',
                     children:   [],
                     exception: {
-                        errorType: "Error",
+                        errorType: 'Error',
                         message: "We're sorry, something happened",
                         stackTrace: [{
-                            declaringClass: "Object",
-                            fileName: "/fake/path/node_modules/mocha/lib/runnable.js",
+                            declaringClass: 'Object',
+                            fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                             lineNumber: 326,
-                            methodName: "callFn",
+                            methodName: 'callFn',
                         }, {
-                            declaringClass: "Test",
-                            fileName: "/fake/path/node_modules/mocha/lib/runnable.js",
+                            declaringClass: 'Test',
+                            fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                             lineNumber: 319,
-                            methodName: "Runnable.run",
-                        }]
+                            methodName: 'Runnable.run',
+                        }],
                     },
                 }],
                 result: 'ERROR',
                 testFailureCause: {
-                    errorType: "Error",
+                    errorType: 'Error',
                     message: "We're sorry, something happened",
                     stackTrace: [{
-                        declaringClass: "Object",
-                        fileName: "/fake/path/node_modules/mocha/lib/runnable.js",
+                        declaringClass: 'Object',
+                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                         lineNumber: 326,
-                        methodName: "callFn",
+                        methodName: 'callFn',
                     }, {
-                        declaringClass: "Test",
-                        fileName: "/fake/path/node_modules/mocha/lib/runnable.js",
+                        declaringClass: 'Test',
+                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                         lineNumber: 319,
-                        methodName: "Runnable.run",
-                    }]
-                }
+                        methodName: 'Runnable.run',
+                    }],
+                },
             })]);
         });
     });

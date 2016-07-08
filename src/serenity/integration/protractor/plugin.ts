@@ -1,10 +1,8 @@
+import {FileSystemOutlet} from '../../reporting/outlet';
+import {Scribe, SerenityReporter} from '../../reporting/scribe';
+import {Serenity} from '../../serenity';
 import {ProtractorPlugin} from 'protractor/built/plugins';
-
-import serenity = require('../../index');
-import {SerenityReporter, Scribe} from "../../reporting/scribe";
-import {Serenity} from "../../serenity";
-import {Md5} from "ts-md5/dist/md5";
-import {FileSystemOutlet} from "../../reporting/outlet";
+import {Md5} from 'ts-md5/dist/md5';
 
 export interface TestInfo {
     name: string;
@@ -19,13 +17,9 @@ export default class SerenityProtractorPlugin extends ProtractorPlugin {
     private chronicler = Serenity.instance.chronicles();
     // todo: the path should be configurable and FileSystemOutlet retrieved from some DIC
     private scribe     = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
-
     private id = 'serenity-protractor-plugin';
 
-
-    setup() {
-
-    };
+    // setup() { };
 
     postTest(passed: boolean, info: TestInfo): Promise<void> {
 
@@ -42,6 +36,6 @@ export default class SerenityProtractorPlugin extends ProtractorPlugin {
     }
 
     private hash(...values: string[]): string {
-        return <string>Md5.hashAsciiStr(values.join(':'));
+        return <string> Md5.hashAsciiStr(values.join(':'));
     }
-};
+}

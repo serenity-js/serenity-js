@@ -1,11 +1,11 @@
 // todo: clean up
 
-import {Performable} from "../../serenity/screenplay/performables";
-import {Result, Step} from "../../serenity/domain/model";
-import {Serenity} from "../../serenity/serenity";
-import {Photographer} from "../../screenplay_protractor/recording/photography";
-import {FileSystemOutlet} from "../../serenity/reporting/outlet";
-import {NamedStep} from "../../serenity/recording/named_step";
+import {Photographer} from '../../screenplay_protractor/recording/photography';
+import {Result, Step} from '../../serenity/domain/model';
+import {NamedStep} from '../../serenity/recording/named_step';
+import {FileSystemOutlet} from '../../serenity/reporting/outlet';
+import {Performable} from '../../serenity/screenplay/performables';
+import {Serenity} from '../../serenity/serenity';
 
 export enum CaptureScreenshot {
     DO_NOT      = 1 << 0,
@@ -58,7 +58,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
 
                 afterStep(step);
             }
-            catch(e) {
+            catch (e) {
                 onFailure(step, e);
 
                 throw e;            // notify the test runner about the problem as well

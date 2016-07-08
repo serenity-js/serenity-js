@@ -1,12 +1,10 @@
-import {DomainEvent, ScenarioStarted, ScenarioCompleted, StepStarted, StepCompleted} from "../domain/events";
-import {Screenshot, Step, Outcome, Scenario, Result} from "../domain/model";
-import * as _ from "lodash";
-import * as path from "path";
-import {parse} from "stack-trace";
-import {Outlet} from "./outlet";
+import {DomainEvent, ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from '../domain/events';
+import {Outcome, Result, Scenario, Screenshot, Step} from '../domain/model';
+import {Outlet} from './outlet';
+import {parse} from 'stack-trace';
 
-const dashify = require('dashify');
-
+import * as _ from 'lodash';
+import * as path from 'path';
 
 export class Scribe {
 
@@ -17,7 +15,6 @@ export class Scribe {
     }
 }
 
-
 // states:
 // - ready to report scenario - initial state
 // - reporting scenario       - after ScenarioStarted
@@ -25,11 +22,11 @@ export class Scribe {
 
 export class SerenityReporter {
 
-    reportOn(events: DomainEvent<any>[]) : Promise<any[]> {
+    reportOn(events: DomainEvent<any>[]): Promise<any[]> {
 
         return events.reduce( (reports, event, index, list) => {
 
-            switch(event.constructor.name) {
+            switch (event.constructor.name) {
 
                 case ScenarioStarted.name:      return reports.scenarioStarted(event.value, event.timestamp);
 
@@ -38,6 +35,8 @@ export class SerenityReporter {
                 case StepCompleted.name:        return reports.stepCompleted(event.value, event.timestamp);
 
                 case ScenarioCompleted.name:    return reports.scenarioCompleted(event.value, event.timestamp);
+
+                default:                        break;
             }
 
             return reports;
@@ -48,7 +47,6 @@ export class SerenityReporter {
 class SerenityReports {
     private reports: {[key: string]: ScenarioReport} = {};
     private last: SerenityReport<any>;
-
 
     scenarioStarted(scenario: Scenario, timestamp: number) {
         let report = new ScenarioReport(scenario, timestamp);
@@ -88,10 +86,10 @@ class SerenityReports {
 }
 
 interface ErrorStackFrame {
-    declaringClass:string;
-    methodName:string;
-    fileName:string;
-    lineNumber:number;
+    declaringClass: string;
+    methodName:     string;
+    fileName:       string;
+    lineNumber:     number;
 }
 
 abstract class SerenityReport<T> {
@@ -102,7 +100,7 @@ abstract class SerenityReport<T> {
     protected duration:  number;
     public    parent:    SerenityReport<any>;
 
-    constructor(startTimestamp:number) {
+    constructor(startTimestamp: number) {
         this.startedAt = startTimestamp;
     }
 
@@ -120,19 +118,21 @@ abstract class SerenityReport<T> {
         this.duration = finishedAt - this.startedAt;
     }
 
+    abstract toJSON(): PromiseLike<any>;
+
     protected errorIfPresent() {
         if (! this.error) {
             return undefined; // so that the field is not rendered (that's what Serenity JVM expects for now)
         }
 
         return {
-            "errorType":    this.error.name,
-            "message":      this.error.message,
-            "stackTrace":   this.stackTraceOf(this.error)
+            'errorType':    this.error.name,
+            'message':      this.error.message,
+            'stackTrace':   this.stackTraceOf(this.error),
         };
     }
 
-    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x)=>x): PromiseLike<any[]> {
+    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x) => x): PromiseLike<any[]> {
         return Promise.all<I>(items).then( (all) => all.map(mapper) );
     }
 
@@ -146,12 +146,10 @@ abstract class SerenityReport<T> {
                 declaringClass: frame.getTypeName() || frame.getFunctionName() || '',
                 methodName:     frame.getMethodName() || frame.getFunctionName() || '',
                 fileName:       frame.getFileName(),
-                lineNumber:     frame.getLineNumber()
-            }
+                lineNumber:     frame.getLineNumber(),
+            };
         });
     }
-
-    abstract toJSON(): PromiseLike<any>;
 }
 
 class ScenarioReport extends SerenityReport<Scenario> {
@@ -175,14 +173,23 @@ class ScenarioReport extends SerenityReport<Scenario> {
                 result:         Result[this.result],
                 testSteps:      serialisedChildren,
                 userStory: {
-                    id:         dashify(this.scenario.category),
+                    id:         this.dashify(this.scenario.category),
                     storyName:  this.scenario.category,
                     path:       path.relative(process.cwd(), this.scenario.path),   // todo: introduce some relative path resolver
-                    type:       'feature'
+                    type:       'feature',
                 },
-                testFailureCause: this.errorIfPresent()
+                testFailureCause: this.errorIfPresent(),
             };
         });
+    }
+
+    private dashify(name: string) {
+        let dashified = name
+            .replace(/([a-z])([A-Z])/g, '$1-$2')
+            .replace(/[ \t\W]/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        return dashified.toLowerCase();
     }
 }
 
@@ -201,10 +208,6 @@ class StepReport extends SerenityReport<Step> {
         this.promisedScreenshots = this.promisedScreenshots.concat(outcome.subject.promisedScreenshots);
     }
 
-    private serialise(screenshot: Screenshot) {
-        return { screenshot: path.basename(screenshot.path) };
-    }
-
     toJSON(): PromiseLike<any> {
         return this.mapAll(this.promisedScreenshots, this.serialise).then( (serialisedScreenshots) => {
             return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
@@ -215,9 +218,13 @@ class StepReport extends SerenityReport<Step> {
                     result:      Result[this.result],
                     children:    serialisedChildren,
                     exception:   this.errorIfPresent(),
-                    screenshots: this.ifNotEmpty(serialisedScreenshots)
-                }
+                    screenshots: this.ifNotEmpty(serialisedScreenshots),
+                };
             });
         });
+    }
+
+    private serialise(screenshot: Screenshot) {
+        return { screenshot: path.basename(screenshot.path) };
     }
 }

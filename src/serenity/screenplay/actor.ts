@@ -1,12 +1,12 @@
-import {Performable} from "./performables";
+import {Performable} from './performables';
 
 export interface PerformsTasks {
-    attemptsTo(...tasks: Performable[])
+    attemptsTo(...tasks: Performable[]);
 }
 
 export class Actor implements PerformsTasks {
-    
-    public static named(name: string) : Actor {
+
+    public static named(name: string): Actor {
         return new Actor(name);
     }
 
@@ -14,7 +14,7 @@ export class Actor implements PerformsTasks {
         tasks.forEach((task) => task.performAs(this));
     }
 
-    public toString() : string {
+    public toString(): string {
         return this.name;
     }
 

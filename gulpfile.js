@@ -2,6 +2,7 @@
 
 const gulp      = require('gulp'),
     clean       = require('gulp-clean'),
+    tslint      = require("gulp-tslint"),
     ts          = require('gulp-typescript'),
     merge       = require('merge2'),
     concat      = require('gulp-concat'),
@@ -14,6 +15,12 @@ const gulp      = require('gulp'),
 
 
 gulp.task('clean', () => gulp.src(dir.target.all, { read: false }).pipe(clean()));
+
+gulp.task("lint", () =>
+    gulp.src([ dir.src, dir.spec, '!**/*.d.ts' ])
+        .pipe(tslint())
+        .pipe(tslint.report("prose"))
+);
 
 gulp.task('transpile', () => {
     let transpiled = gulp.src([ dir.src, dir.spec, dir.typings ])
@@ -60,4 +67,4 @@ gulp.task('test', ['pre-test'], () => {
         .on('end', remapToTypescript);
 });
 
-gulp.task('default', ['clean', 'test'], () => {});
+gulp.task('default', ['clean', 'lint', 'test'], () => {});

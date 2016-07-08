@@ -50,7 +50,7 @@ export class Scenario implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
 }
 
-export class Step implements Identifiable{
+export class Step implements Identifiable {
     constructor(public name: string, public id: string = name, public promisedScreenshots: PromiseLike<Screenshot>[] = []) { }
 
     withScreenshot(screenshot: PromiseLike<Screenshot>) {

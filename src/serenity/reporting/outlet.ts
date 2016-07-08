@@ -1,10 +1,10 @@
 import * as fs      from 'graceful-fs';
-import * as path    from 'path';
 import * as mkdirp  from 'mkdirp';
+import * as path    from 'path';
 
 export interface Outlet {
-    sendPicture(destination: string, base64EncodedData: string): PromiseLike<string>
-    sendJSON   (destination: string, json: any): PromiseLike<string>
+    sendPicture(destination: string, base64EncodedData: string): PromiseLike<string>;
+    sendJSON   (destination: string, json: any): PromiseLike<string>;
 }
 
 export class FileSystemOutlet {

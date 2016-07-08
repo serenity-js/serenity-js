@@ -1,5 +1,5 @@
-import {Step} from "../domain/model";
-import {Performable} from "../screenplay/performables";
+import {Step} from '../domain/model';
+import {Performable} from '../screenplay/performables';
 
 export class NamedStep {
     private argToken   = /{(\d+)}/g;
@@ -15,19 +15,19 @@ export class NamedStep {
 
     private using(source: any) {
         return (token: string, field: string|number) => {
-            switch({}.toString.call(source[field])) {
+            switch ({}.toString.call(source[field])) {
                 case '[object Function]':   return source[field]();
                 case '[object Array]':      return source[field].join(', ');
                 case '[object Object]':     return source[field].toString();
                 case '[object Undefined]':  return token;
                 default:                    return source[field];
             }
-        }
+        };
     }
 
     private determineStepName(template: string, performable: Performable, args: any[]): string {
         return template.
-        replace(this.fieldToken, this.using(performable)).
-        replace(this.argToken, this.using(args))
+            replace(this.fieldToken, this.using(performable)).
+            replace(this.argToken, this.using(args));
     }
 }

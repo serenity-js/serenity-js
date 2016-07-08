@@ -1,7 +1,7 @@
-import {Step, Screenshot} from "../../serenity/domain/model";
-import {Md5} from "ts-md5/dist/md5";
-import {Outlet} from "../../serenity/reporting/outlet";
-import {defer} from "../../serenity/recording/async";
+import {Screenshot, Step} from '../../serenity/domain/model';
+import {defer} from '../../serenity/recording/async';
+import {Outlet} from '../../serenity/reporting/outlet';
+import {Md5} from 'ts-md5/dist/md5';
 import WebDriver = webdriver.WebDriver;
 
 export class Photographer {
@@ -15,6 +15,6 @@ export class Photographer {
 
         return defer(this.browser.takeScreenshot()).
             then(saveScreenshot).
-            then(path => new Screenshot(step, path))
+            then(path => new Screenshot(step, path));
     }
 }

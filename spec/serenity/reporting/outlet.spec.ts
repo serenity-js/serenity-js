@@ -1,14 +1,15 @@
-import * as mockfs  from 'mock-fs';
-import {FileSystemOutlet} from "../../../src/serenity/reporting/outlet";
+import {FileSystemOutlet} from '../../../src/serenity/reporting/outlet';
+import * as chai from 'chai';
+import * as fs from 'fs';
+import * as mockfs from 'mock-fs';
 
-import * as chai    from "chai";
-import * as fs      from 'fs';
+import sinon_chai = require('sinon-chai');
+import chai_as_promised = require('chai-as-promised');
 
 const expect = chai.expect;
 
-chai.use(require("sinon-chai"));
-chai.use(require("chai-as-promised"));
-
+chai.use(<any> sinon_chai);
+chai.use(<any> chai_as_promised);
 
 describe('FileSystemOutlet', () => {
 
@@ -28,9 +29,8 @@ describe('FileSystemOutlet', () => {
 
                 expect(fs.existsSync(absolutePath)).to.be.true;
                 expect(jsonFrom(absolutePath)).to.eql(originalJSON);
-            })
+            });
         });
-
 
         it('tells the absolute path to a JSON file once it is saved', () => {
             let out = new FileSystemOutlet(processCWD);
@@ -54,9 +54,8 @@ describe('FileSystemOutlet', () => {
             return out.sendPicture('outlet/some.png', picture).then((absolutePath) => {
                 expect(fs.existsSync(absolutePath)).to.be.true;
                 expect(pictureAt(absolutePath)).to.eql(picture);
-            })
+            });
         });
-
 
         it('tells the absolute path to a JSON file once it is saved', () => {
             let out = new FileSystemOutlet(processCWD);

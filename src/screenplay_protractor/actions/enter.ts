@@ -1,20 +1,23 @@
-import {step} from '../../screenplay/recording/annotations'
-import {Action} from "../../serenity/screenplay/performables";
-import {PerformsTasks} from "../../serenity/screenplay/actor";
+import {step} from '../../screenplay/recording/annotations';
+import {PerformsTasks} from '../../serenity/screenplay/actor';
+import {Action} from '../../serenity/screenplay/performables';
 
 export class Enter implements Action {
-    
-    public static theValue(value: string) : Enter {
+
+    private locator: webdriver.Locator;
+    private key: string;
+
+    static theValue(value: string): Enter {
         return new Enter(value);
     }
 
-    public into(field: webdriver.Locator) : Enter {
+    into(field: webdriver.Locator): Enter {
         this.locator = field;
 
         return this;
     }
 
-    public thenHit(key: string) {
+    thenHit(key: string) {
         this.key = key;
 
         return this;
@@ -26,7 +29,4 @@ export class Enter implements Action {
     }
 
     constructor(private value: string) { }
-
-    private locator: webdriver.Locator;
-    private key:string;
 }

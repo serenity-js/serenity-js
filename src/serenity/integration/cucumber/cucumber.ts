@@ -1,6 +1,6 @@
-import {Listener, EventListener, events} from "cucumber";
-import {Serenity} from "../../serenity";
-import {Result, Scenario, Step} from "../../domain/model";
+import {Result, Scenario, Step} from '../../domain/model';
+import {Serenity} from '../../serenity';
+import {EventListener, Listener, events} from 'cucumber';
 
 class CucumberScenario extends Scenario {
     constructor(scenario: events.ScenarioPayload) {
@@ -13,21 +13,18 @@ class CucumberScenario extends Scenario {
     }
 }
 
-export function createSerenityListener() : EventListener {
+export function createSerenityListener(): EventListener {
 
-    let self = <any>Listener();
+    let self = <any> Listener();
 
-    self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => callback();
-    self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => callback();
-
-    self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => {
+    self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: () => void) => {
 
         Serenity.instance.scenarioStarts(new CucumberScenario(scenario));
 
         callback();
     };
 
-    self.handleBeforeStepEvent = (step: events.StepPayload, callback: ()=>void) => {
+    self.handleBeforeStepEvent = (step: events.StepPayload, callback: () => void) => {
         if (! step.isHidden()) {
             Serenity.instance.stepStarts(asSerenityStep(step));
         }
@@ -35,7 +32,7 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleStepResultEvent = (result: events.StepResultPayload, callback: ()=>void) => {
+    self.handleStepResultEvent = (result: events.StepResultPayload, callback: () => void) => {
         let step   = result.getStep();
 
         // "before" and "after" steps emit an event, even if they keywords themselves are not present in the test...
@@ -51,11 +48,7 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleAfterStepEvent = (step: events.StepPayload, callback: ()=>void) => {
-        callback();
-    };
-
-    self.handleScenarioResultEvent = (result: events.ScenarioResultPayload, callback: ()=>void) => {
+    self.handleScenarioResultEvent = (result: events.ScenarioResultPayload, callback: () => void) => {
         let scenario = result.getScenario();
 
         Serenity.instance.scenarioCompleted(
@@ -67,10 +60,13 @@ export function createSerenityListener() : EventListener {
         callback();
     };
 
-    self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: ()=>void) => callback();
-    self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: ()=>void) => callback();
-    self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: ()=>void) => callback();
-    self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: ()=>void) => callback();
+    self.handleAfterStepEvent       = (step: events.StepPayload, callback: () => void) => callback();
+    self.handleBeforeFeaturesEvent  = (features: events.FeaturesPayload, callback: () => void) => callback();
+    self.handleBeforeFeatureEvent   = (feature: events.FeaturePayload, callback: () => void) => callback();
+    self.handleAfterScenarioEvent   = (scenario: events.ScenarioPayload, callback: () => void) => callback();
+    self.handleAfterFeatureEvent    = (feature: events.FeaturePayload, callback: () => void) => callback();
+    self.handleFeaturesResultEvent  = (featuresResult: events.FeaturesResultPayload, callback: () => void) => callback();
+    self.handleAfterFeaturesEvent   = (features: events.FeaturesPayload, callback: () => void) => callback();
 
     // --
 
@@ -79,7 +75,7 @@ export function createSerenityListener() : EventListener {
     }
 
     function asSerenityResult(event: {getStatus(): string}): Result {
-        switch(event.getStatus()) {
+        switch (event.getStatus()) {
             // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
             //     return 'ambiguousCucumberStatus';
             // case 'undefined':
