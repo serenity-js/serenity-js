@@ -36,7 +36,7 @@ describe('Screenplay Pattern', () => {
             let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             actor.attemptsTo(
-                PerformASong.from(MusicSheets.WildThing)
+                PerformASong.from(MusicSheets.Wild_Thing)
             );
 
             expect(invocation(0, acousticGuitar.play)).to.have.been.calledWith(Chords.AMajor);
@@ -62,7 +62,7 @@ describe('Screenplay Pattern', () => {
 
             let actor   = <any> sinon.createStubInstance(Actor);
 
-            PerformASong.from(MusicSheets.WildThing).performAs(actor);
+            PerformASong.from(MusicSheets.Wild_Thing).performAs(actor);
 
             expect(actor.attemptsTo).to.have.been.calledWith(
                 PlayAChord.called(Chords.AMajor),
@@ -116,7 +116,7 @@ describe('Screenplay Pattern', () => {
     }
 
     class MusicSheets {
-        public static WildThing = new MusicSheet([ Chords.AMajor, Chords.DMajor, Chords.EMajor ]);
+        public static Wild_Thing = new MusicSheet([ Chords.AMajor, Chords.DMajor, Chords.EMajor ]);
     }
 
     class PerformASong implements Task {

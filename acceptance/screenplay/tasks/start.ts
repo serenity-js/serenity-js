@@ -1,35 +1,31 @@
-import {step} from "../../../src/screenplay/recording/annotations"
-
-import {Open} from "../../../src/screenplay_protractor/actions/open";
-import {AddTodoItems} from "./add_todo_items";
-import {listOf} from "../../text_functions";
-import {Performable} from "../../../src/serenity/screenplay/performables";
-import {PerformsTasks} from "../../../src/serenity/screenplay/actor";
+import { step } from '../../../src/screenplay/recording/annotations';
+import { Open } from '../../../src/screenplay_protractor/actions/open';
+import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
+import { Performable } from '../../../src/serenity/screenplay/performables';
+import { listOf } from '../../text_functions';
+import { AddTodoItems } from './add_todo_items';
 
 export class Start implements Performable {
-    public static withAnEmptyTodoList() : Start {
-        return new Start([]);
+    public static withAnEmptyTodoList(): Start {
+        return new Start();
     }
 
-    public static withATodoListContaining(comma_separated_items: string) : Start {
+    public static withATodoListContaining(comma_separated_items: string): Start {
         return new Start(listOf(comma_separated_items));
     }
 
-    @step("{0} starts with a todo list containing #todoListDescription")
-    performAs(actor:PerformsTasks) {
+    @step('{0} starts with a todo list containing #todoListDescription')
+    performAs(actor: PerformsTasks) {
         actor.attemptsTo(
-            Open.browserOn("http://todomvc.dev/examples/angularjs/"),       // fixme: should be configurable
+            Open.browserOn('http://todomvc.dev/examples/angularjs/'),       // fixme: should be configurable
             AddTodoItems.called(this.initialItems)
-        )
+        );
     }
 
-    constructor(initialItems: string[]) {
-        this.initialItems = initialItems;
+    constructor(private initialItems: string[] = []) {
     }
 
-    public todoListDescription() : string {
-        return !!this.initialItems.length ? this.initialItems.join(', ') : 'no items'
+    public todoListDescription(): string {
+        return !!this.initialItems.length ? this.initialItems.join(', ') : 'no items';
     }
-
-    private initialItems:string[];
 }
