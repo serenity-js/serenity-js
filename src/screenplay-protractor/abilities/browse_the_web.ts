@@ -32,6 +32,10 @@ export class BrowseTheWeb implements Ability {
         return element.all(locator);
     }
 
+    takeScreenshot(): Promise<String> {
+        return defer(this.browser.takeScreenshot());
+    }
+
     get(destination: string, timeout?: number): Promise<void> {
         return defer(browser.get(destination, timeout));
     }
