@@ -1,5 +1,5 @@
+import { Open } from '../../../src/screenplay-protractor/actions/open';
 import { step } from '../../../src/screenplay/recording/annotations';
-import { Open } from '../../../src/screenplay_protractor/actions/open';
 import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
 import { Performable } from '../../../src/serenity/screenplay/performables';
 import { listOf } from '../../text_functions';

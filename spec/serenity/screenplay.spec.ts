@@ -162,7 +162,7 @@ describe('Screenplay Pattern', () => {
         private actor: UsesAbilities;
 
         /**
-         * Instantiates the Ability to PlayAnInstrument an Instrument, allowing the Actor to PerformASong
+         * Instantiates the Ability to PlayAnInstrument, allowing the Actor to PerformASong
          *
          * @param instrument
          * @return {PlayAnInstrument}

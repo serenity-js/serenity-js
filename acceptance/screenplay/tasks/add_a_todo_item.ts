@@ -1,5 +1,5 @@
 import { CaptureScreenshot, step } from '../../../src/screenplay/recording/annotations';
-import { Enter } from '../../../src/screenplay_protractor/actions/enter';
+import { Enter } from '../../../src/screenplay-protractor/actions/enter';
 import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
 import { Performable } from '../../../src/serenity/screenplay/performables';
 import { TodoList } from '../user_interface/todo_list';

@@ -1,6 +1,6 @@
 // todo: clean up
 
-import {Photographer} from '../../screenplay_protractor/recording/photography';
+import {Photographer} from '../../screenplay-protractor/recording/photography';
 import {Result, Step} from '../../serenity/domain/model';
 import {NamedStep} from '../../serenity/recording/named_step';
 import {FileSystemOutlet} from '../../serenity/reporting/outlet';
@@ -54,7 +54,11 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
             try {
                 beforeStep(step);
 
+                // todo: maybe inject a take a photo step here and make the Actor take the picture themselves?
+
                 performAs.apply(this, args);
+
+                // todo: maybe inject a take a photo step here and make the Actor take the picture themselves?
 
                 afterStep(step);
             }

@@ -1,6 +1,7 @@
 import {step} from '../../screenplay/recording/annotations';
-import {PerformsTasks} from '../../serenity/screenplay/actor';
+import { PerformsTasks, UsesAbilities } from '../../serenity/screenplay/actor';
 import {Action} from '../../serenity/screenplay/performables';
+import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Enter implements Action {
 
@@ -24,8 +25,8 @@ export class Enter implements Action {
     }
 
     @step("{0} enters '#value' into #locator")
-    performAs(actor: PerformsTasks) {
-        element(this.locator).sendKeys(this.value, this.key);
+    performAs(actor: PerformsTasks & UsesAbilities) {
+        BrowseTheWeb.as(actor).findElement(this.locator).sendKeys(this.value, this.key);
     }
 
     constructor(private value: string) { }

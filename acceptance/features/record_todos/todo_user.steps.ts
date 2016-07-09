@@ -6,13 +6,14 @@ import { listOf } from '../../text_functions';
 import { binding, given, then, when } from 'cucumber-tsflow';
 
 import chai = require('chai');
+import { BrowseTheWeb } from '../../../src/screenplay-protractor/abilities/browse_the_web';
 
 const expect = chai.expect;
 
 @binding()
 class TodoUserSteps {
 
-    private james: Actor = Actor.named('James');
+    private james: Actor = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
 
     @given(/^.*has an empty todo list$/)
     public starts_with_an_empty_list() {

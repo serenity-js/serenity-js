@@ -1,6 +1,7 @@
 import {step} from '../../screenplay/recording/annotations';
-import {PerformsTasks} from '../../serenity/screenplay/actor';
+import { PerformsTasks, UsesAbilities } from '../../serenity/screenplay/actor';
 import {Action} from '../../serenity/screenplay/performables';
+import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Open implements Action {
 
@@ -9,8 +10,8 @@ export class Open implements Action {
     }
 
     @step('{0} opens the #targetWebsite')
-    performAs(actor: PerformsTasks) {
-        browser.get(this.targetWebsite);
+    performAs(actor: PerformsTasks & UsesAbilities) {
+        BrowseTheWeb.as(actor).get(this.targetWebsite);
     }
 
     constructor(private targetWebsite: string) { }
