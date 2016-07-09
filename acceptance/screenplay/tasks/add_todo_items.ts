@@ -1,26 +1,22 @@
-import {step} from "../../../src/screenplay/recording/annotations";
-import {AddATodoItem} from "./add_a_todo_item";
-import {Performable} from "../../../src/serenity/screenplay/performables";
-import {PerformsTasks} from "../../../src/serenity/screenplay/actor";
+import { step } from '../../../src/screenplay/recording/annotations';
+import { AddATodoItem } from './add_a_todo_item';
+import { Performable } from '../../../src/serenity/screenplay/performables';
+import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
 
 export class AddTodoItems implements Performable {
 
-    public static called(names: string[]) : AddTodoItems {
+    public static called(names: string[]): AddTodoItems {
         return new AddTodoItems(names);
     }
 
-    @step("{0} adds the todo items called: #items")
-    performAs(actor:PerformsTasks) {
+    @step('{0} adds the todo items called: #items')
+    performAs(actor: PerformsTasks) {
         actor.attemptsTo.apply(actor, this.addAllOf(this.items));       // array -> var args conversion
     }
 
-    private addAllOf(items: string[]) : Performable[] {
-        return items.map((item) => AddATodoItem.called(item))
-    }
+    constructor(private items: string[]) { }
 
-    constructor(items: string[]) {
-        this.items = items;
+    private addAllOf(items: string[]): Performable[] {
+        return items.map((item) => AddATodoItem.called(item));
     }
-
-    private items:string[];
 }
