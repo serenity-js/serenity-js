@@ -1,5 +1,6 @@
 import {Ability} from './ability';
 import {Performable} from './performables';
+import { Question } from './question';
 
 export interface PerformsTasks {
     attemptsTo(...tasks: Performable[]);
@@ -21,15 +22,19 @@ export interface UsesAbilities {
     abilityTo<T extends Ability>(doSomething: {new (T): T }): T;
 }
 
-export class Actor implements PerformsTasks, UsesAbilities {
+export interface AnswersQuestions {
+    toSee<T>(question: Question<T>): T;
+}
+
+export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private abilities: { [id: string]: Ability } = {};
 
-    public static named(name: string): Actor {
+    static named(name: string): Actor {
         return new Actor(name);
     }
 
-    public whoCan(...abilities: Ability[]): Actor {
+    whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(ability => {
             this.abilities[ability.constructor.name] = ability.usedBy(this);
         });
@@ -45,11 +50,15 @@ export class Actor implements PerformsTasks, UsesAbilities {
         return <T> this.abilities[this.nameOf(doSomething)];
     }
 
-    public attemptsTo(...tasks: Performable[]) {
+    attemptsTo(...tasks: Performable[]) {
         tasks.forEach((task) => task.performAs(this));
     }
 
-    public toString(): string {
+    toSee<T>(question: Question<T>): Promise<T>|T {
+        return question.answeredBy(this);
+    }
+
+    toString(): string {
         return this.name;
     }
 

@@ -4,6 +4,7 @@ import { Action, Task } from '../../src/serenity/screenplay/performables';
 import expect = require('../expect');
 import sinon = require('sinon');
 import SinonSpyCall = Sinon.SinonSpyCall;
+import { Question } from '../../src/serenity/screenplay/question';
 
 describe('Screenplay Pattern', () => {
 
@@ -42,6 +43,13 @@ describe('Screenplay Pattern', () => {
             expect(invocation(0, acousticGuitar.play)).to.have.been.calledWith(Chords.AMajor);
             expect(invocation(1, acousticGuitar.play)).to.have.been.calledWith(Chords.DMajor);
             expect(invocation(2, acousticGuitar.play)).to.have.been.calledWith(Chords.EMajor);
+        });
+
+        it('asks Questions about the state of the Interface', () => {
+
+            let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+
+            expect(actor.toSee(NumberOfGuitarStrings.left())).equal(6);
         });
 
         it('admits if it does not have the Abilities necessary to accomplish the given Action', () => {
@@ -144,6 +152,17 @@ describe('Screenplay Pattern', () => {
         }
 
         constructor(private chord: Chord) {
+        }
+    }
+
+    class NumberOfGuitarStrings implements Question<number> {
+
+        static left(): Question<number> {
+            return new NumberOfGuitarStrings();
+        }
+
+        answeredBy(actor: UsesAbilities): Promise<number>|number {
+            return 6;
         }
     }
 

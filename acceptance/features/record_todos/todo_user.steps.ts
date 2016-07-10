@@ -1,3 +1,4 @@
+import { BrowseTheWeb } from '../../../src/screenplay-protractor/abilities/browse_the_web';
 import { Actor } from '../../../src/serenity/screenplay/actor';
 import { TodoListItems } from '../../screenplay/questions/todo_list_items';
 import { AddATodoItem } from '../../screenplay/tasks/add_a_todo_item';
@@ -5,10 +6,7 @@ import { Start } from '../../screenplay/tasks/start';
 import { listOf } from '../../text_functions';
 import { binding, given, then, when } from 'cucumber-tsflow';
 
-import chai = require('chai');
-import { BrowseTheWeb } from '../../../src/screenplay-protractor/abilities/browse_the_web';
-
-const expect = chai.expect;
+import expect = require('../../../spec/expect');
 
 @binding()
 class TodoUserSteps {
@@ -17,6 +15,8 @@ class TodoUserSteps {
 
     @given(/^.*has an empty todo list$/)
     public starts_with_an_empty_list() {
+
+        // todo: make it all return promises
 
         this.james.attemptsTo(
             Start.withAnEmptyTodoList()
@@ -40,21 +40,15 @@ class TodoUserSteps {
     }
 
     @then(/^'(.*?)' should be recorded in his list$/)
-    public should_see_todo_list_with_just_one(item: string): PromiseLike<void> {
+    public should_see_todo_list_with_just_one(item: string): PromiseLike<any> {
 
         return this.should_see_todo_list_with_following(item);
     }
 
     @then(/^.* todo list should contain (.*?)$/)
-    public should_see_todo_list_with_following(items: string): PromiseLike<void> {
+    public should_see_todo_list_with_following(items: string): PromiseLike<any> {
 
-        // gets reported
-        return TodoListItems.displayed().then((displayedItems) => {
-            expect(displayedItems).to.eql(listOf(items));
-        });
-
-        // does not get reported
-        // return expect(TodoListItems.displayed()).to.eventually.eql(listOf(items));
+        return expect(this.james.toSee(TodoListItems.Displayed)).eventually.eql(listOf(items));
     }
 }
 

@@ -1,6 +1,6 @@
 import { defer } from '../../serenity/recording/async';
 import { Ability } from '../../serenity/screenplay/ability';
-import { PerformsTasks, UsesAbilities } from '../../serenity/screenplay/actor';
+import { UsesAbilities } from '../../serenity/screenplay/actor';
 
 export class BrowseTheWeb implements Ability {
 
@@ -20,7 +20,7 @@ export class BrowseTheWeb implements Ability {
      * @param actor
      * @return {BrowseTheWeb}
      */
-    static as(actor: UsesAbilities & PerformsTasks): BrowseTheWeb {
+    static as(actor: UsesAbilities): BrowseTheWeb {
         return actor.abilityTo(BrowseTheWeb);
     }
 
@@ -29,6 +29,7 @@ export class BrowseTheWeb implements Ability {
     }
 
     findElements(locator: webdriver.Locator): protractor.ElementArrayFinder {
+        // fixme: this will only work when a single browser is used within a test
         return element.all(locator);
     }
 
