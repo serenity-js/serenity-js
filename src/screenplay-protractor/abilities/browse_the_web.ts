@@ -1,8 +1,11 @@
 import { defer } from '../../serenity/recording/async';
 import { Ability } from '../../serenity/screenplay/ability';
 import { UsesAbilities } from '../../serenity/screenplay/actor';
+import { Target, WebElement, WebElements } from '../ui/target';
 
 export class BrowseTheWeb implements Ability {
+
+    private actor: UsesAbilities;
 
     /**
      * Instantiates the Ability to PlayAnInstrument an Instrument, allowing the Actor to PerformASong
@@ -24,13 +27,12 @@ export class BrowseTheWeb implements Ability {
         return actor.abilityTo(BrowseTheWeb);
     }
 
-    findElement(locator: webdriver.Locator): protractor.ElementFinder {
-        return this.browser.element(locator);
+    locate(target: Target): WebElement {
+        return target.resolveUsing(this.browser.element);
     }
 
-    findElements(locator: webdriver.Locator): protractor.ElementArrayFinder {
-        // fixme: this will only work when a single browser is used within a test
-        return element.all(locator);
+    locateAll(target: Target): WebElements {
+        return target.resolveAllUsing(<any> this.browser.element);      // see: https://github.com/angular/protractor/issues/3350
     }
 
     takeScreenshot(): Promise<String> {
