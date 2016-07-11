@@ -1,4 +1,5 @@
+import { Target } from '../../../src/screenplay-protractor/ui/target';
 export class TodoList {
-    public static What_Needs_To_Be_Done = by.id('new-todo');
-    public static Items                 = by.repeater('todo in todos');
+    static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box').located(by.id('new-todo'));
+    static Items                 = Target.the('List of Items').located(by.repeater('todo in todos'));
 }

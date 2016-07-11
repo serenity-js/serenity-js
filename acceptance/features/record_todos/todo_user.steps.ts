@@ -48,7 +48,7 @@ class TodoUserSteps {
     @then(/^.* todo list should contain (.*?)$/)
     public should_see_todo_list_with_following(items: string): PromiseLike<any> {
 
-        return expect(this.james.toSee(TodoListItems.Displayed)).eventually.eql(listOf(items));
+        return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
     }
 }
 

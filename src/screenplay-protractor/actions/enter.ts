@@ -2,18 +2,19 @@ import {step} from '../../screenplay/recording/annotations';
 import { PerformsTasks, UsesAbilities } from '../../serenity/screenplay/actor';
 import {Action} from '../../serenity/screenplay/performables';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
+import { Target } from '../ui/target';
 
 export class Enter implements Action {
 
-    private locator: webdriver.Locator;
+    private target: Target;
     private key: string;
 
     static theValue(value: string): Enter {
         return new Enter(value);
     }
 
-    into(field: webdriver.Locator): Enter {
-        this.locator = field;
+    into(field: Target): Enter {
+        this.target = field;
 
         return this;
     }
@@ -24,9 +25,9 @@ export class Enter implements Action {
         return this;
     }
 
-    @step("{0} enters '#value' into #locator")
+    @step("{0} enters '#value' into #target")
     performAs(actor: PerformsTasks & UsesAbilities) {
-        BrowseTheWeb.as(actor).findElement(this.locator).sendKeys(this.value, this.key);
+        BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value, this.key);
     }
 
     constructor(private value: string) { }
