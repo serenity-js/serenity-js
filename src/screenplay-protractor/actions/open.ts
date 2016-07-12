@@ -10,8 +10,8 @@ export class Open implements Action {
     }
 
     @step('{0} opens the #targetWebsite')
-    performAs(actor: PerformsTasks & UsesAbilities) {
-        BrowseTheWeb.as(actor).get(this.targetWebsite);
+    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+        return BrowseTheWeb.as(actor).get(this.targetWebsite);
     }
 
     constructor(private targetWebsite: string) { }

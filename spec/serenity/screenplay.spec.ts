@@ -25,24 +25,26 @@ describe('Screenplay Pattern', () => {
 
             let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
-            actor.attemptsTo(
+            return actor.attemptsTo(
                 PlayAChord.called(Chords.AMajor)
-            );
-
-            expect(acousticGuitar.play).to.have.been.calledWith(Chords.AMajor);
+            )
+            .then(() => {
+                expect(acousticGuitar.play).to.have.been.calledWith(Chords.AMajor);
+            });
         });
 
         it('performs Tasks to accomplish their Business Goals', () => {
 
             let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
-            actor.attemptsTo(
+            return actor.attemptsTo(
                 PerformASong.from(MusicSheets.Wild_Thing)
-            );
-
-            expect(invocation(0, acousticGuitar.play)).to.have.been.calledWith(Chords.AMajor);
-            expect(invocation(1, acousticGuitar.play)).to.have.been.calledWith(Chords.DMajor);
-            expect(invocation(2, acousticGuitar.play)).to.have.been.calledWith(Chords.EMajor);
+            )
+            .then(() => {
+                expect(invocation(0, acousticGuitar.play)).to.have.been.calledWith(Chords.AMajor);
+                expect(invocation(1, acousticGuitar.play)).to.have.been.calledWith(Chords.DMajor);
+                expect(invocation(2, acousticGuitar.play)).to.have.been.calledWith(Chords.EMajor);
+            });
         });
 
         it('asks Questions about the state of the Interface', () => {
@@ -55,8 +57,8 @@ describe('Screenplay Pattern', () => {
         it('admits if it does not have the Abilities necessary to accomplish the given Action', () => {
             let actor = Actor.named('Ben');
 
-            expect(() => actor.attemptsTo(PlayAChord.called(Chords.AMajor)))
-                .to.throw('I don\'t have the ability to PlayAnInstrument, said Ben sadly.');
+            return expect(actor.attemptsTo(PlayAChord.called(Chords.AMajor)))
+                .to.be.eventually.rejectedWith('I don\'t have the ability to PlayAnInstrument, said Ben sadly.');
         });
 
         function invocation(n: number, spy: any): SinonSpyCall {
@@ -131,8 +133,9 @@ describe('Screenplay Pattern', () => {
         static from(musicSheet: MusicSheet) {
             return new PerformASong(musicSheet);
         }
-        performAs(actor: PerformsTasks) {
-            actor.attemptsTo.apply(actor, this.playThe(this.musicSheet.chords));
+
+        performAs(actor: PerformsTasks): Promise<void> {
+            return actor.attemptsTo.apply(actor, this.playThe(this.musicSheet.chords));
         }
 
         constructor(private musicSheet: MusicSheet) { }
@@ -147,8 +150,8 @@ describe('Screenplay Pattern', () => {
             return new PlayAChord(chord);
         }
 
-        performAs(actor: PerformsTasks & UsesAbilities) {
-            PlayAnInstrument.as(actor).play(this.chord);
+        performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+            return PlayAnInstrument.as(actor).play(this.chord);
         }
 
         constructor(private chord: Chord) {
@@ -167,12 +170,13 @@ describe('Screenplay Pattern', () => {
     }
 
     interface Instrument {
-        play(chord: Chord);
+        play(chord: Chord): Promise<any>;
     }
 
     class AcousticGuitar implements Instrument {
-        play(chord: Chord) {
+        play(chord: Chord): Promise<any> {
             // use some "guitar driver" to play the chord on the "real guitar"
+            return Promise.resolve();
         }
     }
 
@@ -207,8 +211,8 @@ describe('Screenplay Pattern', () => {
          *
          * @param chord
          */
-        play(chord: Chord) {
-            this.instrument.play(chord);
+        play(chord: Chord): Promise<void> {
+            return this.instrument.play(chord);
         }
 
         // todo: is this association needed?

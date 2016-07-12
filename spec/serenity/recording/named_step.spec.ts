@@ -19,8 +19,8 @@ describe('NamedStep', () => {
 
         constructor(private cardNumber: string, private expiryDate?: string[]) {}
 
-        performAs(actor: PerformsTasks) {
-            actor.attemptsTo(
+        performAs(actor: PerformsTasks): Promise<void> {
+            return actor.attemptsTo(
                 // interact with the application to input the data
             );
         }

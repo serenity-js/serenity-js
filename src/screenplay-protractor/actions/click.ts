@@ -11,8 +11,8 @@ export class Click implements Action {
     }
 
     @step('{0} clicks on #target')
-    performAs(actor: PerformsTasks & UsesAbilities) {
-        BrowseTheWeb.as(actor).locate(this.target).click();
+    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+        return BrowseTheWeb.as(actor).locate(this.target).click();
     }
 
     constructor(private target: Target) { }

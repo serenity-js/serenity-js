@@ -26,8 +26,8 @@ export class Enter implements Action {
     }
 
     @step("{0} enters '#value' into #target")
-    performAs(actor: PerformsTasks & UsesAbilities) {
-        BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value, this.key);
+    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+        return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value, this.key);
     }
 
     constructor(private value: string) { }

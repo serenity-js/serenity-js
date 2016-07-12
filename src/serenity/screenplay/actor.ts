@@ -3,7 +3,7 @@ import {Performable} from './performables';
 import { Question } from './question';
 
 export interface PerformsTasks {
-    attemptsTo(...tasks: Performable[]);
+    attemptsTo(...tasks: Performable[]): Promise<void>;
 }
 
 export interface UsesAbilities {
@@ -50,8 +50,10 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return <T> this.abilities[this.nameOf(doSomething)];
     }
 
-    attemptsTo(...tasks: Performable[]) {
-        tasks.forEach((task) => task.performAs(this));
+    attemptsTo(...tasks: Performable[]): Promise<void> {
+        return tasks.reduce((previous: Promise<void>, current: Performable, index, list) => {
+            return previous.then(() => current.performAs(this));
+        }, Promise.resolve(null));
     }
 
     toSee<T>(question: Question<T>): Promise<T>|T {

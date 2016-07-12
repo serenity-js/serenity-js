@@ -1,17 +1,17 @@
 import { step } from '../../../src/screenplay/recording/annotations';
 import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
-import { Performable } from '../../../src/serenity/screenplay/performables';
+import { Performable, Task } from '../../../src/serenity/screenplay/performables';
 import { AddATodoItem } from './add_a_todo_item';
 
-export class AddTodoItems implements Performable {
+export class AddTodoItems implements Task {
 
     static called(names: string[]): AddTodoItems {
         return new AddTodoItems(names);
     }
 
     @step('{0} adds #description')
-    performAs(actor: PerformsTasks) {
-        actor.attemptsTo.apply(actor, this.addAllOf(this.items));       // array -> var args conversion
+    performAs(actor: PerformsTasks): Promise<void> {
+        return actor.attemptsTo.apply(actor, this.addAllOf(this.items));       // array -> var args conversion
     }
 
     constructor(private items: string[]) {
