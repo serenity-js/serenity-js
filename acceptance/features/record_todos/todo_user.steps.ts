@@ -7,6 +7,16 @@ import { listOf } from '../../text_functions';
 import { binding, given, then, when } from 'cucumber-tsflow';
 
 import expect = require('../../../spec/expect');
+import { Deferred } from '../../../src/serenity/recording/async';
+
+function wrap(step: any): Promise<any> {
+    let d = new Deferred();
+    // https://github.com/angular/jasminewd/blob/jasminewd2/index.js
+
+    browser.controlFlow().execute(step).then(d.resolve, d.reject);
+
+    return d.promise;
+}
 
 @binding()
 class TodoUserSteps {
@@ -15,28 +25,33 @@ class TodoUserSteps {
 
     @given(/^.*has an empty todo list$/)
     public starts_with_an_empty_list() {
-
-        // todo: make it all return promises
-
-        this.james.attemptsTo(
-            Start.withAnEmptyTodoList()
-        );
+        return wrap(() => {
+            return this.james.attemptsTo(
+                Start.withAnEmptyTodoList()
+            );
+        });
     };
 
     @given(/^.*has a todo list containing (.*)$/)
     public has_a_list_with(items: string) {
+        return wrap(() => {
 
-        this.james.attemptsTo(
-            Start.withATodoListContaining(items)
-        );
+            return this.james.attemptsTo(
+                Start.withATodoListContaining(items)
+            );
+
+        });
     }
 
     @when(/^s?he adds '(.*?)' to (?:his|her) list$/)
     public adds(itemName: string) {
+        return wrap(() => {
 
-        this.james.attemptsTo(
-            AddATodoItem.called(itemName)
-        );
+            return this.james.attemptsTo(
+                AddATodoItem.called(itemName)
+            );
+
+        });
     }
 
     @then(/^'(.*?)' should be recorded in his list$/)
@@ -47,8 +62,10 @@ class TodoUserSteps {
 
     @then(/^.* todo list should contain (.*?)$/)
     public should_see_todo_list_with_following(items: string): PromiseLike<any> {
+        return wrap(() => {
 
-        return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
+            return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
+        });
     }
 }
 

@@ -45,6 +45,8 @@ export class BrowseTheWeb implements Ability {
 
     // todo: is this needed?
     usedBy<U extends UsesAbilities>(actor: U): BrowseTheWeb {
+        this.actor = actor;
+
         return this;
     }
 
