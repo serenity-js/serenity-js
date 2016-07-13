@@ -1,5 +1,5 @@
-import {Result, Scenario, Step} from '../../domain/model';
-import {Serenity} from '../../serenity';
+import {Result, Scenario, Step} from '../../serenity/domain/model';
+import {Serenity} from '../../serenity/serenity';
 import {EventListener, Listener, events} from 'cucumber';
 
 class CucumberScenario extends Scenario {
@@ -13,7 +13,7 @@ class CucumberScenario extends Scenario {
     }
 }
 
-export function createSerenityListener(): EventListener {
+export function serenityCucumberListener(): EventListener {
 
     let self = <any> Listener();
 

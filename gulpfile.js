@@ -10,61 +10,68 @@ const gulp      = require('gulp'),
     mocha       = require('gulp-mocha'),
     istanbul    = require('gulp-istanbul'),
     remap       = require('remap-istanbul/lib/gulpRemapIstanbul'),
+    runSequence = require('run-sequence'),
     project     = ts.createProject('tsconfig.json'),
-    dir         = require('./gulpfile.config');
+    dirs        = require('./gulpfile.config');
 
 
-gulp.task('clean', () => gulp.src(dir.target.all, { read: false }).pipe(clean()));
+gulp.task('clean', () => gulp.src([dirs.staging.all, dirs.export], { read: false }).pipe(clean()));
 
 gulp.task("lint", () =>
-    gulp.src([ dir.src, dir.spec, '!**/*.d.ts' ])
+    gulp.src([ dirs.src, dirs.spec, '!**/*.d.ts' ])
         .pipe(tslint())
         .pipe(tslint.report("prose"))
 );
 
 gulp.task('transpile', () => {
-    let transpiled = gulp.src([ dir.src, dir.spec, dir.typings ])
+    let transpiled = gulp.src([ dirs.src, dirs.spec, dirs.typings ])
         .pipe(sourcemaps.init())
         .pipe(ts(project, { sortOutput: true }));
 
     return merge([
         transpiled.dts
-            .pipe(gulp.dest(dir.target.traspiled.all)),
+            .pipe(gulp.dest(dirs.staging.traspiled.all)),
         transpiled.js
             .pipe(sourcemaps.write('.', { sourceRoot: '.', includeContent: false }))
-            .pipe(gulp.dest(dir.target.traspiled.all))
+            .pipe(gulp.dest(dirs.staging.traspiled.all))
     ]);
 });
 
 gulp.task('pre-test', ['transpile'], () =>
-    gulp.src(dir.target.traspiled.src)
+    gulp.src(dirs.staging.traspiled.src)
         .pipe(istanbul())
         .pipe(istanbul.hookRequire())
 );
 
 gulp.task('test', ['pre-test'], () => {
     let remapToTypescript = () => gulp
-        .src(dir.target.reports.coverage + '/coverage-final.json')
+        .src(dirs.staging.reports.coverage + '/coverage-final.json')
         .pipe(remap({
             basePath: '.',
             useAbsolutePaths: true,
             reports: {
-                'json':         dir.target.reports.coverage + '/coverage-typescript.json',
-                'html':         dir.target.reports.coverage + 'html',
+                'json':         dirs.staging.reports.coverage + '/coverage-typescript.json',
+                'html':         dirs.staging.reports.coverage + 'html',
                 'text-summary': null,
-                'lcovonly':     dir.target.reports.coverage + '/lcov.info',
-                'cobertura':    dir.target.reports.coverage + '/cobertura.xml'
+                'lcovonly':     dirs.staging.reports.coverage + '/lcov.info',
+                'cobertura':    dirs.staging.reports.coverage + '/cobertura.xml'
             }
         }));
 
-    return gulp.src(dir.target.traspiled.spec)
+    return gulp.src(dirs.staging.traspiled.spec)
         .pipe(mocha())
         .pipe(istanbul.writeReports({
-            dir: dir.target.reports.coverage,
+            dir: dirs.staging.reports.coverage,
             reporters: [ 'json' ],
         }))
         .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
         .on('end', remapToTypescript);
+});
+
+gulp.task('prepublish', ['lint', 'test'], () => {
+    return gulp
+        .src(dirs.staging.traspiled.export)
+        .pipe(gulp.dest(dirs.export));
 });
 
 gulp.task('default', ['lint', 'test'], () => {});

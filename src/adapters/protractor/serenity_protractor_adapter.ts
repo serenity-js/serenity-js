@@ -1,6 +1,7 @@
-import {FileSystemOutlet} from '../../reporting/outlet';
-import {Scribe, SerenityReporter} from '../../reporting/scribe';
-import {Serenity} from '../../serenity';
+import { FileSystemOutlet } from '../../serenity/reporting/outlet';
+import { Scribe, SerenityReporter } from '../../serenity/reporting/scribe';
+import { Serenity } from '../../serenity/serenity';
+
 import {ProtractorPlugin} from 'protractor/built/plugins';
 import {Md5} from 'ts-md5/dist/md5';
 
@@ -9,7 +10,7 @@ export interface TestInfo {
     category: string;
 }
 
-export default class SerenityProtractorPlugin extends ProtractorPlugin {
+export class SerenityProtractorPlugin extends ProtractorPlugin {
 
     // todo: register Serenity Json Reporter
 

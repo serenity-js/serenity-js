@@ -15,7 +15,7 @@ export enum CaptureScreenshot {
     BEFORE_AND_AFTER = BEFORE_STEP | AFTER_STEP,
 }
 
-export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.AFTER_STEP) {
+export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.DO_NOT) {
 
     // todo: should be configurable
     let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`)),
@@ -49,26 +49,6 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
         let performAs = descriptor.value;
 
         descriptor.value = function(...args: any[]): Promise<void> {
-        //
-        //     console.log(interpolated.from(this, args).name)
-        //
-        //     return descriptor.value.apply(args);
-
-        //     let actor: Actor = args[0],
-        //         step: Step   = interpolated.from(this, args);
-        //
-        //     try {
-        //         beforeStep(actor, step);
-        //
-        //         performAs.apply(this, args);
-        //
-        //         afterStep(actor, step);
-        //     }
-        //     catch (e) {
-        //         onFailure(actor, step, e);
-        //
-        //         throw e;            // notify the test runner about the problem as well
-        //     }
 
             let actor: Actor = args[0],
                 step: Step   = interpolated.from(this, args);

@@ -5,6 +5,7 @@ var chai         = require('chai'),
 
 var expect = chai.expect;
 
+// todo: setup to work with the "examples"
 describe('Protractor Integration', () => {
 
     var args = [path.join(__dirname, 'protractor/protractor.conf.js')];

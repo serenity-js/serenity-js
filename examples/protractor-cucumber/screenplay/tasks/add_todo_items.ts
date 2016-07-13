@@ -1,7 +1,7 @@
-import { step } from '../../../src/screenplay/recording/annotations';
-import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
-import { Performable, Task } from '../../../src/serenity/screenplay/performables';
 import { AddATodoItem } from './add_a_todo_item';
+
+import { step } from 'serenity';
+import { Performable, PerformsTasks, Task } from 'serenity/lib/serenity/screenplay';
 
 export class AddTodoItems implements Task {
 

@@ -1,16 +1,19 @@
 module.exports = {
-    target:   {
-        all:        'out',
+    staging:   {
+        all:        'staging',
         reports:   {
-            all:      'out/reports',
-            coverage: 'out/reports/coverage'
+            all:      'staging/reports',
+            coverage: 'staging/reports/coverage'
         },
         traspiled: {
-            all:    'out/transpiled',
-            src:    'out/transpiled/src/**/*.js',
-            spec:   'out/transpiled/spec/**/*.js',
+            all:    'staging/transpiled',
+            src:    'staging/transpiled/src/**/*.js',
+            spec:   'staging/transpiled/spec/**/*.js',
+            export: 'staging/transpiled/src/**/*'
         }
     },
+    export:   'lib',
+
     src:      'src/**/*.ts',
     spec:     'spec/**/*.ts',
 

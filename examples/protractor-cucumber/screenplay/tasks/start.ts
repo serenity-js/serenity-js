@@ -1,9 +1,9 @@
-import { Open } from '../../../src/screenplay-protractor/actions/open';
-import { step } from '../../../src/screenplay/recording/annotations';
-import { PerformsTasks } from '../../../src/serenity/screenplay/actor';
-import { Task } from '../../../src/serenity/screenplay/performables';
-import { listOf } from '../../text_functions';
+import { listOf } from '../../../text';
 import { AddTodoItems } from './add_todo_items';
+
+import { step } from 'serenity';
+import { Open } from 'serenity/lib/screenplay-protractor';
+import { PerformsTasks, Task } from 'serenity/lib/serenity/screenplay';
 
 export class Start implements Task {
     public static withAnEmptyTodoList(): Start {
