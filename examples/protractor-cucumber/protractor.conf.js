@@ -26,7 +26,7 @@ exports.config = {
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-            args: ['show-fps-counter=false']
+            // args: ['show-fps-counter=false']
         }
     },
 

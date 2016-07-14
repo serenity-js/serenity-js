@@ -1,5 +1,6 @@
-import { serenityCucumberListener } from 'serenity/lib/adapters';
+import * as serenity from 'serenity/lib/adapters/cucumber';
 
 export = function () {
-    this.registerListener(serenityCucumberListener());
+    serenity.notifierFor(this);
+    serenity.webdriverSynchroniserFor(this, browser.controlFlow());
 };

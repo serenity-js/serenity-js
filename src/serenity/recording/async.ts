@@ -8,7 +8,7 @@ export function defer<T>(promise: PromiseLike<T>) {
 
 export class Deferred<T> {
     public promise: Promise<T>;
-    public resolve: (T) => void;
+    public resolve: (T?) => void;
     public reject:  (Error) => void;
 
     constructor() {

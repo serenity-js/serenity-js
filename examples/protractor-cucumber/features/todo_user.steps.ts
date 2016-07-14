@@ -6,18 +6,7 @@ import { Start } from '../screenplay/tasks/start';
 import { binding, given, then, when } from 'cucumber-tsflow';
 
 import expect = require('../../../spec/expect');
-import { Deferred } from '../../../src/serenity/recording/async';
 import { listOf } from '../../text';
-
-// todo: move to Serenity plugin
-function wrap(step: any): Promise<any> {
-    let d = new Deferred();
-    // https://github.com/angular/jasminewd/blob/jasminewd2/index.js
-
-    browser.controlFlow().execute(step).then(d.resolve, d.reject);
-
-    return d.promise;
-}
 
 @binding()
 class TodoUserSteps {
@@ -25,48 +14,35 @@ class TodoUserSteps {
     private james: Actor = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
 
     @given(/^.*has an empty todo list$/)
-    public starts_with_an_empty_list() {
-        return wrap(() => {
-            return this.james.attemptsTo(
-                Start.withAnEmptyTodoList()
-            );
-        });
+    starts_with_an_empty_list () {
+        return this.james.attemptsTo(
+            Start.withAnEmptyTodoList()
+        );
     };
 
     @given(/^.*has a todo list containing (.*)$/)
-    public has_a_list_with(items: string) {
-        return wrap(() => {
-
-            return this.james.attemptsTo(
-                Start.withATodoListContaining(items)
-            );
-
-        });
+    has_a_list_with (items: string) {
+        return this.james.attemptsTo(
+            Start.withATodoListContaining(items)
+        );
     }
 
     @when(/^s?he adds '(.*?)' to (?:his|her) list$/)
-    public adds(itemName: string) {
-        return wrap(() => {
-
-            return this.james.attemptsTo(
-                AddATodoItem.called(itemName)
-            );
-
-        });
+    adds (itemName: string) {
+        return this.james.attemptsTo(
+            AddATodoItem.called(itemName)
+        );
     }
 
     @then(/^'(.*?)' should be recorded in his list$/)
-    public should_see_todo_list_with_just_one(item: string): PromiseLike<any> {
+    should_see_todo_list_with_just_one (item: string): PromiseLike<any> {
 
         return this.should_see_todo_list_with_following(item);
     }
 
     @then(/^.* todo list should contain (.*?)$/)
-    public should_see_todo_list_with_following(items: string): PromiseLike<any> {
-        return wrap(() => {
-
-            return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
-        });
+    should_see_todo_list_with_following (items: string): PromiseLike<any> {
+        return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
     }
 }
 
