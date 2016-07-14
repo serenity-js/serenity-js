@@ -5,7 +5,7 @@ import { NamedStep } from '../../serenity/recording/named_step';
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
 import { Actor, Performable, UsesAbilities } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
-import { Photographer } from './photography';
+import { Md5HashedPictureNames, Photographer } from './photographer';
 
 export enum CaptureScreenshot {
     DO_NOT      = 1 << 0,
@@ -17,7 +17,10 @@ export enum CaptureScreenshot {
 export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.DO_NOT) {
 
     // todo: should be configurable
-    let photographer = new Photographer(new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`)),
+    let photographer = new Photographer(
+            new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
+            new Md5HashedPictureNames('.png')
+        ),
         interpolated = new NamedStep(stepDescriptionTemplate);
 
     function beforeStep(actor: UsesAbilities, step: Step) {

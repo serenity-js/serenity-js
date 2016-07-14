@@ -1,2 +1,2 @@
-export * from './photography';
+export * from './photographer';
 export * from './step_annotation';
