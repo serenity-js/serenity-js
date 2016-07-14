@@ -1,4 +1,4 @@
-import * as serenity from 'serenity/lib/adapters/cucumber';
+import * as serenity from 'serenity/lib/serenity-cucumber';
 
 export = function () {
     serenity.notifierFor(this);

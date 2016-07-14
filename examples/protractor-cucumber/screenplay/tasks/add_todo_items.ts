@@ -1,7 +1,6 @@
 import { AddATodoItem } from './add_a_todo_item';
 
-import { step } from 'serenity';
-import { Performable, PerformsTasks, Task } from 'serenity/lib/serenity/screenplay';
+import { Performable, PerformsTasks, Task, step } from 'serenity/lib/screenplay-protractor';
 
 export class AddTodoItems implements Task {
 

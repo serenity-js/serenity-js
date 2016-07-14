@@ -1,12 +1,11 @@
 // todo: clean up
 
-import { Photographer } from '../../screenplay-protractor/recording/photography';
 import { Result, Step } from '../../serenity/domain/model';
 import { NamedStep } from '../../serenity/recording/named_step';
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
-import { Actor, UsesAbilities } from '../../serenity/screenplay/actor';
-import { Performable } from '../../serenity/screenplay/performables';
+import { Actor, Performable, UsesAbilities } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
+import { Photographer } from './photography';
 
 export enum CaptureScreenshot {
     DO_NOT      = 1 << 0,

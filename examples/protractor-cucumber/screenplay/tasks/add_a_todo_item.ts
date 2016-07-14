@@ -1,8 +1,6 @@
 import { TodoList } from '../user_interface/todo_list';
 
-import { CaptureScreenshot, step } from 'serenity';
-import { Enter } from 'serenity/lib/screenplay-protractor';
-import { PerformsTasks, Task } from 'serenity/lib/serenity/screenplay';
+import { CaptureScreenshot, Enter, PerformsTasks, Task, step } from 'serenity/lib/screenplay-protractor';
 
 export class AddATodoItem implements Task {
 

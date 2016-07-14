@@ -1,9 +1,7 @@
-export function defer<T>(promise: PromiseLike<T>) {
-    let deferred = new Deferred<T>();
-
-    promise.then(v => deferred.resolve(v), e => deferred.reject(e));
-
-    return deferred.promise;
+export function defer<T>(fn: () => PromiseLike<T>): Promise<T> {
+    return new Promise<T>( (resolve, reject) => {
+       fn().then(resolve, reject);
+    });
 }
 
 export class Deferred<T> {

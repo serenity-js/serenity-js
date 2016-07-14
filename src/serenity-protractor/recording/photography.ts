@@ -1,7 +1,7 @@
 import { Screenshot, Step } from '../../serenity/domain/model';
 import { Outlet } from '../../serenity/reporting/outlet';
 import { UsesAbilities } from '../../serenity/screenplay/actor';
-import { BrowseTheWeb } from '../abilities/browse_the_web';
+import { BrowseTheWeb } from '../screenplay/abilities/browse_the_web';
 import { Md5 } from 'ts-md5/dist/md5';
 
 export class Photographer {

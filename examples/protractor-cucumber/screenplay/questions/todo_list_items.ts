@@ -1,7 +1,6 @@
 import { TodoList } from '../user_interface/todo_list';
 
-import { BrowseTheWeb } from 'serenity/lib/screenplay-protractor/abilities';
-import { Question, UsesAbilities } from 'serenity/lib/serenity/screenplay';
+import { BrowseTheWeb, Question, UsesAbilities } from 'serenity/lib/screenplay-protractor';
 
 export class TodoListItems {
     static displayed() { return new TodoListItemsDisplayed(); };

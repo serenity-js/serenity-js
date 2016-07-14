@@ -1,7 +1,7 @@
 import sinon = require('sinon');
 
 import expect = require('../expect');
-import { Target } from '../../src/screenplay-protractor/ui/target';
+import { Target } from '../../src/screenplay-protractor';
 
 import * as webdriver from 'selenium-webdriver';
 

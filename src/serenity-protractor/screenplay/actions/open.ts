@@ -1,6 +1,5 @@
-import {step} from '../../screenplay/recording/annotations';
-import { PerformsTasks, UsesAbilities } from '../../serenity/screenplay/actor';
-import {Action} from '../../serenity/screenplay/performables';
+import { Action, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Open implements Action {

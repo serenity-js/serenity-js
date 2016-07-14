@@ -1,9 +1,6 @@
 import { listOf } from '../../../text';
 import { AddTodoItems } from './add_todo_items';
-
-import { step } from 'serenity';
-import { Open } from 'serenity/lib/screenplay-protractor';
-import { PerformsTasks, Task } from 'serenity/lib/serenity/screenplay';
+import { Open, PerformsTasks, Task, step } from 'serenity/lib/screenplay-protractor';
 
 export class Start implements Task {
     public static withAnEmptyTodoList(): Start {

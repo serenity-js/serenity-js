@@ -1,6 +1,6 @@
-import { defer } from '../../serenity/recording/async';
-import { Ability } from '../../serenity/screenplay/ability';
-import { UsesAbilities } from '../../serenity/screenplay/actor';
+import { defer } from '../../../serenity/recording/async';
+import { Ability } from '../../../serenity/screenplay/ability';
+import { UsesAbilities } from '../../../serenity/screenplay/actor';
 import { Target, WebElement, WebElements } from '../ui/target';
 
 export class BrowseTheWeb implements Ability {
@@ -36,11 +36,11 @@ export class BrowseTheWeb implements Ability {
     }
 
     takeScreenshot(): Promise<String> {
-        return defer(this.browser.takeScreenshot());
+        return defer(() => this.browser.takeScreenshot());
     }
 
     get(destination: string, timeout?: number): Promise<void> {
-        return defer(browser.get(destination, timeout));
+        return defer(() => browser.get(destination, timeout));
     }
 
     // todo: is this needed?
