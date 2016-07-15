@@ -3,7 +3,7 @@ import expect = require('../../expect');
 
 import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
 import { Md5HashedPictureNames, Photographer, PictureNamingStrategy } from '../../../src/serenity-protractor/recording/photographer';
-import { Screenshot, Step } from '../../../src/serenity/domain/model';
+import { Screenshot } from '../../../src/serenity/domain/model';
 import { FileSystemOutlet } from '../../../src/serenity/reporting/outlet';
 
 describe('serenity-protractor.recording', () => {
@@ -18,15 +18,12 @@ describe('serenity-protractor.recording', () => {
                 picturePath     = 'target/serenity/site/' + pictureName,
                 outlet          = <any> sinon.createStubInstance(FileSystemOutlet);
 
+            let photographer    = new Photographer(outlet, new DummyNamingStrategy(pictureName)),
+                actor           = Actor.named('Claire').whoCan(BrowseTheWeb.using(fakeBrowserShowing(image)));
+
             outlet.sendPicture.withArgs(pictureName, image).returns(picturePath);
 
-            let photographer    = new Photographer(outlet, new DummyNamingStrategy(pictureName)),
-
-                actor           = Actor.named('Claire').whoCan(BrowseTheWeb.using(fakeBrowserShowing(image))),
-
-                step            = new Step('Claire adds a product to her basket');
-
-            return expect(photographer.takeAPictureOf(actor, step)).to.eventually.eql(new Screenshot(step, picturePath));
+            return expect(photographer.photographWorkOf(actor)).to.eventually.eql(new Screenshot(picturePath));
         });
 
         function fakeBrowserShowing(picture: string) {

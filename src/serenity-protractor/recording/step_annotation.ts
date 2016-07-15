@@ -26,7 +26,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
     function beforeStep(actor: UsesAbilities, step: Step) {
 
         if (CaptureScreenshot.BEFORE_STEP & captureScreenshotStage) {
-            Serenity.instance.stepStarts(step.withScreenshot(photographer.takeAPictureOf(actor, step)));
+            Serenity.instance.stepStarts(step.withScreenshot(photographer.photographWorkOf(actor)));
         } else {
             Serenity.instance.stepStarts(step);
         }
@@ -35,7 +35,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
     function afterStep(actor: UsesAbilities, step: Step) {
 
         if (CaptureScreenshot.AFTER_STEP & captureScreenshotStage) {
-            Serenity.instance.stepCompleted(step.withScreenshot(photographer.takeAPictureOf(actor, step)), Result.SUCCESS);
+            Serenity.instance.stepCompleted(step.withScreenshot(photographer.photographWorkOf(actor)), Result.SUCCESS);
         } else {
             Serenity.instance.stepCompleted(step, Result.SUCCESS);
         }
@@ -43,7 +43,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
 
     function onFailure(actor: UsesAbilities, step: Step, e: Error) {
         // todo: sniff the exception to find out about the Result
-        Serenity.instance.stepCompleted(step.withScreenshot(photographer.takeAPictureOf(actor, step)), Result.FAILURE, e);
+        Serenity.instance.stepCompleted(step.withScreenshot(photographer.photographWorkOf(actor)), Result.FAILURE, e);
     }
 
     return (target: STEP, propertyKey: string, descriptor: TypedPropertyDescriptor<(PerformsTasks) => Promise<void>>) => {

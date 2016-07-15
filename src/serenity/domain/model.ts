@@ -63,5 +63,5 @@ export class Outcome<T> {
 }
 
 export class Screenshot {
-    constructor(public step: Step, public path: string) {}
+    constructor(public path: string) {}
 }
