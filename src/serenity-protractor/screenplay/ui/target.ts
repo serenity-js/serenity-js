@@ -1,3 +1,4 @@
+import { defer } from '../../../serenity/recording/async';
 import * as webdriver from 'selenium-webdriver';
 
 export class Target {
@@ -37,7 +38,7 @@ export class WebElements /* should implement something akin to protractor.Elemen
     // todo: this API barely scratches the surface of what's needed ...
 
     text(): Promise<string[]> {
-        return promise(() => this.finder.getText());
+        return defer(() => this.finder.getText());
     }
 
     constructor(private finder: protractor.ElementArrayFinder) {
@@ -187,74 +188,68 @@ export class WebElement {
     }
 
     click(): Promise<void> {
-        return promise(() => this.element.click());
+        return defer(() => this.element.click());
     }
 
     sendKeys(...var_args): Promise<void> {
-        return promise<void>(() => this.element.sendKeys.apply(this.element, var_args));
+        return defer<void>(() => this.element.sendKeys.apply(this.element, var_args));
     }
 
     tagName(): Promise<string> {
-        return promise(() => this.element.getTagName());
+        return defer(() => this.element.getTagName());
     }
 
     cssValue(cssStyleProperty: string): Promise<string> {
-        return promise(() => this.element.getCssValue(cssStyleProperty));
+        return defer(() => this.element.getCssValue(cssStyleProperty));
     }
 
     attribute(attributeName: string): Promise<string> {
-        return promise(() => this.element.getAttribute(attributeName));
+        return defer(() => this.element.getAttribute(attributeName));
     }
 
     text(): Promise<string> {
-        return promise(() => this.element.getText());
+        return defer(() => this.element.getText());
     }
 
     size(): Promise<webdriver.ISize> {
-        return promise(() => this.element.getSize());
+        return defer(() => this.element.getSize());
     }
 
     location(): Promise<webdriver.ILocation> {
-        return promise(() => this.element.getLocation());
+        return defer(() => this.element.getLocation());
     }
 
     isEnabled(): Promise<boolean> {
-        return promise(() => this.element.isEnabled());
+        return defer(() => this.element.isEnabled());
     }
 
     isSelected(): Promise<boolean> {
-        return promise(() => this.element.isSelected());
+        return defer(() => this.element.isSelected());
     }
 
     submit(): Promise<void> {
-        return promise(() => this.element.submit());
+        return defer(() => this.element.submit());
     }
 
     clear(): Promise<void> {
-        return promise(() => this.element.clear());
+        return defer(() => this.element.clear());
     }
 
     isDisplayed(): Promise<boolean> {
-        return promise(() => this.element.isDisplayed());
+        return defer(() => this.element.isDisplayed());
     }
 
     outerHtml(): Promise<string> {
-        return promise(() => this.element.getOuterHtml());
+        return defer(() => this.element.getOuterHtml());
     }
 
     id(): Promise<webdriver.IWebElementId> {
-        return promise(() => this.element.getId());
+        return defer(() => this.element.getId());
     }
 
     innerHtml(): Promise<string> {
-        return promise(() => this.element.getInnerHtml());
+        return defer(() => this.element.getInnerHtml());
     }
-}
-
-function promise<T>(fn: () => webdriver.promise.Promise<T>): Promise<T> {
-    return new Promise( (resolve, reject) => {
-        fn().then(resolve, resolve);
-    });
 }
 
 // function head<T>(list: T[]): T {
