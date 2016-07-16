@@ -1,7 +1,7 @@
 // todo: clean up
 
 import { Result, Step } from '../../serenity/domain/model';
-import { NamedStep } from '../../serenity/recording/named_step';
+import { NamedStepTemplate } from '../../serenity/recording/named_step';
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
 import { Actor, Performable, UsesAbilities } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
@@ -21,7 +21,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
             new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
             new Md5HashedPictureNames('.png')
         ),
-        interpolated = new NamedStep(stepDescriptionTemplate);
+        interpolated = new NamedStepTemplate(stepDescriptionTemplate);
 
     function beforeStep(actor: UsesAbilities, step: Step) {
 
@@ -53,7 +53,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
         descriptor.value = function(...args: any[]): Promise<void> {
 
             let actor: Actor = args[0],
-                step: Step   = interpolated.from(this, args);
+                step: Step   = interpolated.interpolateWith(this, args);
 
             return Promise.resolve()
                 .then(() => beforeStep(actor, step))

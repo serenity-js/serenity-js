@@ -1,13 +1,13 @@
 import {Step} from '../domain/model';
 import {Performable} from '../screenplay/performables';
 
-export class NamedStep {
+export class NamedStepTemplate {
     private argToken   = /{(\d+)}/g;
     private fieldToken = /#(\w+)/g;
 
     constructor(private template) { }
 
-    from(performable: Performable, argumentsOfThePerformAsMethod: any[]): Step {
+    interpolateWith(performable: Performable, argumentsOfThePerformAsMethod: any[]): Step {
         let name = this.determineStepName(this.template, performable, argumentsOfThePerformAsMethod);
 
         return new Step(name);
