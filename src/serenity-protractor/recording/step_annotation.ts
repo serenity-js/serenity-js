@@ -1,6 +1,6 @@
 // todo: clean up
 
-import { Result, Step } from '../../serenity/domain/model';
+import { Activity, Result } from '../../serenity/domain/model';
 import { NamedStepTemplate } from '../../serenity/recording/named_step';
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
 import { Actor, Performable, UsesAbilities } from '../../serenity/screenplay';
@@ -19,11 +19,11 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
     // todo: should be configurable
     let photographer = new Photographer(
             new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
-            new Md5HashedPictureNames('.png')
+            new Md5HashedPictureNames('png')
         ),
         interpolated = new NamedStepTemplate(stepDescriptionTemplate);
 
-    function beforeStep(actor: UsesAbilities, step: Step) {
+    function beforeStep(actor: UsesAbilities, step: Activity) {
 
         if (CaptureScreenshot.BEFORE_STEP & captureScreenshotStage) {
             Serenity.instance.stepStarts(step.withScreenshot(photographer.photographWorkOf(actor)));
@@ -32,7 +32,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
         }
     }
 
-    function afterStep(actor: UsesAbilities, step: Step) {
+    function afterStep(actor: UsesAbilities, step: Activity) {
 
         if (CaptureScreenshot.AFTER_STEP & captureScreenshotStage) {
             Serenity.instance.stepCompleted(step.withScreenshot(photographer.photographWorkOf(actor)), Result.SUCCESS);
@@ -41,7 +41,7 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
         }
     }
 
-    function onFailure(actor: UsesAbilities, step: Step, e: Error) {
+    function onFailure(actor: UsesAbilities, step: Activity, e: Error) {
         // todo: sniff the exception to find out about the Result
         Serenity.instance.stepCompleted(step.withScreenshot(photographer.photographWorkOf(actor)), Result.FAILURE, e);
     }
@@ -52,8 +52,8 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
 
         descriptor.value = function(...args: any[]): Promise<void> {
 
-            let actor: Actor = args[0],
-                step: Step   = interpolated.interpolateWith(this, args);
+            let actor: Actor   = args[0],
+                step: Activity = interpolated.interpolateWith(this, args);
 
             return Promise.resolve()
                 .then(() => beforeStep(actor, step))

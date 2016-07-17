@@ -1,6 +1,6 @@
-import {DomainEvent, ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from './domain/events';
-import {Outcome, Result, Scenario, Step} from './domain/model';
-import {Chronicle, Chronicler} from './recording/chronicles';
+import { ActivityFinished, ActivityStarts, DomainEvent, SceneFinished, SceneStarts } from './domain/events';
+import { Activity, Outcome, Result, Scene } from './domain/model';
+import { Chronicle, Chronicler } from './recording/chronicles';
 
 export class Serenity {
     private static serenity: Serenity;
@@ -33,10 +33,10 @@ export class Serenity {
     /**
      * Notify Serenity that a test scenario is about to start
      *
-     * @param scenario  The Scenario that is about to start
+     * @param scenario  The Scene that is about to start
      */
-    public scenarioStarts(scenario: Scenario) {
-        this.chronicler.record(new ScenarioStarted(scenario));
+    public scenarioStarts(scenario: Scene) {
+        this.chronicler.record(new SceneStarts(scenario));
     }
 
     /**
@@ -44,8 +44,8 @@ export class Serenity {
      *
      * @param name      The name of the step, such as "When Bob views his profile"
      */
-    public stepStarts(step: Step) {
-        this.chronicler.record(new StepStarted(step));
+    public stepStarts(step: Activity) {
+        this.chronicler.record(new ActivityStarts(step));
     }
 
     /**
@@ -55,8 +55,8 @@ export class Serenity {
      * @param result    The result of the step, such as Result.SUCCESS or Result.Failure
      * @param error     Optional error object telling Serenity what went wrong with the step
      */
-    public stepCompleted(step: Step, result: Result, error?: Error) {
-        this.chronicler.record(new StepCompleted(new Outcome(step, result, error)));
+    public stepCompleted(step: Activity, result: Result, error?: Error) {
+        this.chronicler.record(new ActivityFinished(new Outcome(step, result, error)));
     }
 
     /**
@@ -66,7 +66,7 @@ export class Serenity {
      * @param result    The result of the scenario, such as Result.SUCCESS or Result.Failure
      * @param error     Optional error object telling Serenity what went wrong with the scenario
      */
-    public scenarioCompleted(scenario: Scenario, result: Result, error?: Error) {
-        this.chronicler.record(new ScenarioCompleted(new Outcome(scenario, result, error)));
+    public scenarioCompleted(scenario: Scene, result: Result, error?: Error) {
+        this.chronicler.record(new SceneFinished(new Outcome(scenario, result, error)));
     }
 }

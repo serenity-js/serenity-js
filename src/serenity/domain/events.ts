@@ -1,4 +1,4 @@
-import {Outcome, Scenario, Step} from './model';
+import { Activity, Outcome, PictureReceipt, Scene } from './model';
 import * as moment from 'moment';
 
 export class DomainEvent<T> {
@@ -7,7 +7,8 @@ export class DomainEvent<T> {
     }
 }
 
-export class ScenarioStarted    extends DomainEvent<Scenario> {}
-export class StepStarted        extends DomainEvent<Step> {}
-export class StepCompleted      extends DomainEvent<Outcome<Step>> {}
-export class ScenarioCompleted  extends DomainEvent<Outcome<Scenario>> {}
+export class SceneStarts        extends DomainEvent<Scene> {}
+export class ActivityStarts     extends DomainEvent<Activity> {}
+export class ActivityFinished   extends DomainEvent<Outcome<Activity>> {}
+export class SceneFinished      extends DomainEvent<Outcome<Scene>> {}
+export class PictureTaken       extends DomainEvent<PictureReceipt> {}

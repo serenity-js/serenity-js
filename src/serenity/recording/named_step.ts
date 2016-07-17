@@ -1,4 +1,4 @@
-import {Step} from '../domain/model';
+import {Activity} from '../domain/model';
 import {Performable} from '../screenplay/performables';
 
 export class NamedStepTemplate {
@@ -7,10 +7,10 @@ export class NamedStepTemplate {
 
     constructor(private template) { }
 
-    interpolateWith(performable: Performable, argumentsOfThePerformAsMethod: any[]): Step {
+    interpolateWith(performable: Performable, argumentsOfThePerformAsMethod: any[]): Activity {
         let name = this.determineStepName(this.template, performable, argumentsOfThePerformAsMethod);
 
-        return new Step(name);
+        return new Activity(name);
     }
 
     private using(source: any) {

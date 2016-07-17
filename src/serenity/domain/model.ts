@@ -1,15 +1,15 @@
 export enum Result {
     /**
-     * Scenario failures due to external events or systems that compromise the validity of the test.
+     * Failures due to external events or systems that compromise the validity of the test.
      */
     COMPROMISED,
     /**
-     *  Scenario failure, due to some other exception.
+     * Failure, due to some other exception.
      */
     ERROR,
 
     /**
-     * Scenario failure, due to an assertion error
+     * Failure, due to an assertion error
      * For a test case, this means one of the tests in the test case failed.
      */
     FAILURE,
@@ -46,15 +46,16 @@ export interface Identifiable {
     id: string;
 }
 
-export class Scenario implements Identifiable {
+export class Scene implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
 }
 
-export class Step implements Identifiable {
+// todo: should include the Actor
+export class Activity implements Identifiable {
     constructor(public name: string, public id: string = name, public promisedScreenshots: PromiseLike<Screenshot>[] = []) { }
 
     withScreenshot(screenshot: PromiseLike<Screenshot>) {
-        return new Step(this.name, this.id, this.promisedScreenshots.concat(screenshot));
+        return new Activity(this.name, this.id, this.promisedScreenshots.concat(screenshot));
     }
 }
 
@@ -62,6 +63,15 @@ export class Outcome<T> {
     constructor(public subject: T, public result: Result, public error?: Error) {}
 }
 
+// todo: remove
 export class Screenshot {
     constructor(public path: string) {}
+}
+
+export class Picture {
+    constructor(public path: string) {}
+}
+
+export class PictureReceipt {
+    constructor(public activity: Activity, public picture: Promise<Picture>) {}
 }

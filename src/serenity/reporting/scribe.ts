@@ -1,10 +1,12 @@
-import {DomainEvent, ScenarioCompleted, ScenarioStarted, StepCompleted, StepStarted} from '../domain/events';
-import {Outcome, Result, Scenario, Screenshot, Step} from '../domain/model';
-import {Outlet} from './outlet';
-import {parse} from 'stack-trace';
+import {
+    ActivityFinished, ActivityStarts, DomainEvent, PictureTaken, SceneFinished, SceneStarts,
+} from '../domain/events';
+import { Activity, Outcome, Picture, PictureReceipt, Result, Scene, Screenshot } from '../domain/model';
+import { Outlet } from './outlet';
 
 import * as _ from 'lodash';
 import * as path from 'path';
+import { parse } from 'stack-trace';
 
 export class Scribe {
 
@@ -17,26 +19,28 @@ export class Scribe {
 
 // states:
 // - ready to report scenario - initial state
-// - reporting scenario       - after ScenarioStarted
+// - reporting scenario       - after SceneStarts
 // todo: maybe FSM per report?
 
-export class SerenityReporter {
+export class RehearsalReport {
 
-    reportOn(events: DomainEvent<any>[]): Promise<any[]> {
+    of(events: DomainEvent<any>[]): Promise<any[]> {
 
         return events.reduce( (reports, event, index, list) => {
 
             switch (event.constructor.name) {
 
-                case ScenarioStarted.name:      return reports.scenarioStarted(event.value, event.timestamp);
+                case SceneStarts.name:      return reports.sceneStarted(event.value, event.timestamp);
 
-                case StepStarted.name:          return reports.stepStarted(event.value, event.timestamp);
+                case ActivityStarts.name:   return reports.activityStarted(event.value, event.timestamp);
 
-                case StepCompleted.name:        return reports.stepCompleted(event.value, event.timestamp);
+                case ActivityFinished.name: return reports.activityFinished(event.value, event.timestamp);
 
-                case ScenarioCompleted.name:    return reports.scenarioCompleted(event.value, event.timestamp);
+                case SceneFinished.name:    return reports.sceneFinished(event.value, event.timestamp);
 
-                default:                        break;
+                case PictureTaken.name:     return reports.pictureTaken(event.value, event.timestamp);
+
+                default:                    break;
             }
 
             return reports;
@@ -45,43 +49,58 @@ export class SerenityReporter {
 }
 
 class SerenityReports {
-    private reports: {[key: string]: ScenarioReport} = {};
-    private last: SerenityReport<any>;
+    private reports:    {[key: string]: SceneReport} = {};
+    private current:    SerenityReport<any>;
+    private previous:   SerenityReport<any>;
 
-    scenarioStarted(scenario: Scenario, timestamp: number) {
-        let report = new ScenarioReport(scenario, timestamp);
+    sceneStarted(scenario: Scene, timestamp: number) {
+        let report = new SceneReport(scenario, timestamp);
 
         this.reports[scenario.id] = report;
-        this.last                 = report;
+        this.current              = report;
+        this.previous             = report;
 
         return this;
     }
 
-    stepStarted(step: Step, timestamp: number) {
-        let report = new StepReport(step, timestamp);
+    activityStarted(step: Activity, timestamp: number) {
+        let report = new ActivityReport(step, timestamp);
 
-        this.last.append(report);
-        this.last = report;
-
-        return this;
-    }
-
-    stepCompleted(outcome: Outcome<Step>, timestamp: number) {
-
-        this.last.completedWith(outcome, timestamp);
-        this.last = this.last.parent;
+        this.current.append(report);
+        this.current = report;
 
         return this;
     }
 
-    scenarioCompleted(outcome: Outcome<Scenario>, timestamp: number) {
+    activityFinished(outcome: Outcome<Activity>, timestamp: number) {
+
+        this.current.completedWith(outcome, timestamp);
+        this.previous   = this.current;
+        this.current    = this.current.parent;
+
+        return this;
+    }
+
+    pictureTaken(receipt: PictureReceipt, timestamp: number) {
+
+        if (this.current.constructor.name === ActivityReport.name) {
+            // todo: double check if the activity is the same?
+            (<ActivityReport> this.current).attachPicture(receipt.picture);
+        } else {
+            (<ActivityReport> this.previous).attachPicture(receipt.picture);
+        }
+
+        return this;
+    }
+
+    sceneFinished(outcome: Outcome<Scene>, timestamp: number) {
         this.reports[outcome.subject.id].completedWith(outcome, timestamp);
 
         return this;
     }
 
     extract(): Promise<any[]> {
-        return Promise.all(_.values<ScenarioReport>(this.reports).map((report) => report.toJSON()));
+        return Promise.all(_.values<SceneReport>(this.reports).map((report) => report.toJSON()));
     }
 }
 
@@ -93,7 +112,7 @@ interface ErrorStackFrame {
 }
 
 abstract class SerenityReport<T> {
-    protected children:  StepReport[] = [];
+    protected children:  ActivityReport[] = [];
     protected result:    Result;
     protected error:     Error;
     protected startedAt: number;
@@ -104,7 +123,7 @@ abstract class SerenityReport<T> {
         this.startedAt = startTimestamp;
     }
 
-    append(stepExecutionReport: StepReport) {
+    append(stepExecutionReport: ActivityReport) {
         let report = stepExecutionReport;
 
         report.parent = this;
@@ -152,9 +171,9 @@ abstract class SerenityReport<T> {
     }
 }
 
-class ScenarioReport extends SerenityReport<Scenario> {
+class SceneReport extends SerenityReport<Scene> {
 
-    constructor(private scenario: Scenario, startTimestamp: number) {
+    constructor(private scenario: Scene, startTimestamp: number) {
         super(startTimestamp);
     }
 
@@ -193,16 +212,20 @@ class ScenarioReport extends SerenityReport<Scenario> {
     }
 }
 
-class StepReport extends SerenityReport<Step> {
+class ActivityReport extends SerenityReport<Activity> {
     private promisedScreenshots: PromiseLike<Screenshot>[];
 
-    constructor(private step: Step, startTimestamp: number) {
+    constructor(private step: Activity, startTimestamp: number) {
         super(startTimestamp);
 
         this.promisedScreenshots = step.promisedScreenshots;
     }
 
-    completedWith(outcome: Outcome<Step>, finishedAt: number) {
+    attachPicture(promisedPicture: Promise<Picture>) {
+        this.promisedScreenshots.push(promisedPicture);
+    }
+
+    completedWith(outcome: Outcome<Activity>, finishedAt: number) {
         super.completedWith(outcome, finishedAt);
 
         this.promisedScreenshots = this.promisedScreenshots.concat(outcome.subject.promisedScreenshots);

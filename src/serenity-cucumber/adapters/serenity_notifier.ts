@@ -1,4 +1,4 @@
-import { Result, Scenario, Step } from '../../serenity/domain/model';
+import { Activity, Result, Scene } from '../../serenity/domain/model';
 import { Serenity } from '../../serenity/serenity';
 import { EventListener, Listener, events } from 'cucumber';
 
@@ -59,8 +59,8 @@ export function scenarioLifeCycleNotifier(): EventListener {
 
     // --
 
-    function asSerenityStep(step: events.StepPayload): Step {
-        return new Step(step.getKeyword() + step.getName());
+    function asSerenityStep(step: events.StepPayload): Activity {
+        return new Activity(step.getKeyword() + step.getName());
     }
 
     function asSerenityResult(event: {getStatus(): string}): Result {
@@ -85,7 +85,7 @@ export function scenarioLifeCycleNotifier(): EventListener {
     return self;
 }
 
-class CucumberScenario extends Scenario {
+class CucumberScenario extends Scene {
     constructor(scenario: events.ScenarioPayload) {
         super(
             scenario.getName(),

@@ -1,7 +1,6 @@
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
-import { Scribe, SerenityReporter } from '../../serenity/reporting/scribe';
+import { RehearsalReport, Scribe } from '../../serenity/reporting/scribe';
 import { Serenity } from '../../serenity/serenity';
-
 import { ProtractorPlugin } from 'protractor/built/plugins';
 import { Md5 } from 'ts-md5/dist/md5';
 
@@ -14,7 +13,7 @@ export class SerenityProtractorPlugin extends ProtractorPlugin {
 
     // todo: register Serenity Json Reporter
 
-    private reporter   = new SerenityReporter();
+    private reporter   = new RehearsalReport();
     private chronicler = Serenity.instance.chronicles();
     // todo: the path should be configurable and FileSystemOutlet retrieved from some DIC
     private scribe     = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
@@ -24,7 +23,7 @@ export class SerenityProtractorPlugin extends ProtractorPlugin {
 
     postTest(passed: boolean, info: TestInfo): Promise<void> {
 
-        return this.reporter.reportOn(this.chronicler.readNewEntriesAs(this.id)).then( (reports) => {
+        return this.reporter.of(this.chronicler.readNewEntriesAs(this.id)).then( (reports) => {
             this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
         });
     }
