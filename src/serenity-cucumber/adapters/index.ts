@@ -1,4 +1,4 @@
-import { scenarioLifeCycleNotifier } from './serenity_notifier';
+import { scenarioLifeCycleNotifier } from './cucumber_serenity_notifier';
 import { synchroniseCucumberWithWebdriverControlFlow } from './webdriver_synchroniser';
 
 import { Hooks, StepDefinitions } from 'cucumber';
