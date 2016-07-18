@@ -1,5 +1,5 @@
 import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/recording/photographer';
-import { ActivityFinished, ActivityStarts, DomainEvent, PhotoTaken } from './domain/events';
+import { ActivityStarts, DomainEvent, PhotoAttempted } from './domain/events';
 import { PhotoReceipt } from './domain/model';
 import { Journal, StageManager } from './recording/stage_management';
 import { FileSystemOutlet } from './reporting/outlet';
@@ -34,26 +34,18 @@ export class Serenity {
     }
 
     constructor() {
-        this.theStageManager.on(ActivityFinished, (event: ActivityStarts) => {
+        this.theStageManager.on(ActivityStarts, (event: ActivityStarts) => {
 
-            if (this.theStage.theShowHasStarted()) {
+            // todo: externalise
+            // todo: verify the Significance
+            // todo: check config, are we interested in "activity starts" events?
+
+            if (!! this.theStage && this.theStage.theShowHasStarted()) {
 
                 let promisedPicture = this.photographer.photographWorkOf(this.theStage.theActorInTheSpotlight());
 
-                this.theStageManager.record(new PhotoTaken(new PhotoReceipt(event.value, promisedPicture), event.timestamp));
+                this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value, promisedPicture), event.timestamp));
             }
-
-        //
-        //     // todo: verify the Significance
-        //     // todo: check config, are we interested in "activity starts" events?
-        //
-        //     if (event.value.actor) {
-        //         let promisedpicture = this.photographer.photographWorkOf(event.value.actor);
-
-        //  todo: Actor.inTheSpotlight()?
-        //
-        //         this.sm.record(new PhotoTaken(new PhotoReceipt(event.value, promisedpicture), event.timestamp));
-        //     }
         });
     }
 

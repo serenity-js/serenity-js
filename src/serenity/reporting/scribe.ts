@@ -1,5 +1,5 @@
 import {
-    ActivityFinished, ActivityStarts, DomainEvent, PhotoTaken, SceneFinished, SceneStarts,
+    ActivityFinished, ActivityStarts, DomainEvent, PhotoAttempted, SceneFinished, SceneStarts,
 } from '../domain/events';
 import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../domain/model';
 import { Outlet } from './outlet';
@@ -17,12 +17,17 @@ export class Scribe {
     }
 }
 
-// states:
-// - ready to report scenario - initial state
-// - reporting scenario       - after SceneStarts
-// todo: maybe FSM per report?
+export interface FormatsEvents {
+    of(events: DomainEvent<any>[]): Promise<any[]>;
+}
 
-export class RehearsalReport {
+export class EventLog implements FormatsEvents {
+    of(events: DomainEvent<any>[]): Promise<string[]> {
+        return Promise.resolve(events.map( event => event.toString() ));
+    };
+}
+
+export class RehearsalReport implements FormatsEvents {
 
     of(events: DomainEvent<any>[]): Promise<any[]> {
 
@@ -38,7 +43,7 @@ export class RehearsalReport {
 
                 case SceneFinished.name:    return reports.sceneFinished(event.value, event.timestamp);
 
-                case PhotoTaken.name:       return reports.photoTaken(event.value, event.timestamp);
+                case PhotoAttempted.name:       return reports.photoTaken(event.value, event.timestamp);
 
                 default:                    break;
             }
@@ -53,21 +58,21 @@ class SerenityReports {
     private current:    SerenityReport<any>;
     private previous:   SerenityReport<any>;
 
-    sceneStarted(scenario: Scene, timestamp: number) {
-        let report = new SceneReport(scenario, timestamp);
+    sceneStarted(scene: Scene, timestamp: number) {
+        let sceneReport = new SceneReport(scene, timestamp);
 
-        this.reports[scenario.id] = report;
-        this.current              = report;
-        this.previous             = report;
+        this.reports[scene.id] = sceneReport;
+        this.current           = sceneReport;
+        this.previous          = sceneReport;
 
         return this;
     }
 
     activityStarted(step: Activity, timestamp: number) {
-        let report = new ActivityReport(step, timestamp);
+        let activityReport = new ActivityReport(step, timestamp);
 
-        this.current.append(report);
-        this.current = report;
+        this.current.append(activityReport);
+        this.current  = activityReport;
 
         return this;
     }
@@ -83,11 +88,16 @@ class SerenityReports {
 
     photoTaken(receipt: PhotoReceipt, timestamp: number) {
 
-        if (this.current.constructor.name === ActivityReport.name) {
-            // todo: double check if the activity is the same?
-            (<ActivityReport> this.current).attachPhoto(receipt.photo);
+        let previousReport = <ActivityReport> this.previous; // todo: this might not be the case if event out of sync, add guards
+        let currentReport = <ActivityReport> this.current;
+
+        // todo: messy, clean up
+        if (this.previous.constructor.name === ActivityReport.name && previousReport.concerns(receipt.activity)) {
+            previousReport.attachPhoto(receipt.photo);
+        } else if (this.current.constructor.name === ActivityReport.name && currentReport.concerns(receipt.activity)) {
+            currentReport.attachPhoto(receipt.photo);
         } else {
-            (<ActivityReport> this.previous).attachPhoto(receipt.photo);
+            throw new Error(`There's no Activity that the following Photo could be matched with: ${receipt}`);
         }
 
         return this;
@@ -152,7 +162,9 @@ abstract class SerenityReport<T> {
     }
 
     protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x) => x): PromiseLike<any[]> {
-        return Promise.all<I>(items).then( (all) => all.map(mapper) );
+        let onlyDefined = (item) => item !== undefined;
+
+        return Promise.all<I>(items).then( (all) => all.filter(onlyDefined).map(mapper) );
     }
 
     protected ifNotEmpty<T>(list: T[]): T[] {
@@ -215,8 +227,12 @@ class SceneReport extends SerenityReport<Scene> {
 class ActivityReport extends SerenityReport<Activity> {
     private promisedPhotos: PromiseLike<Photo>[] = [];
 
-    constructor(private step: Activity, startTimestamp: number) {
+    constructor(private activity: Activity, startTimestamp: number) {
         super(startTimestamp);
+    }
+
+    concerns(activity: Activity): boolean {
+        return this.activity.equals(activity);
     }
 
     attachPhoto(promisedPhoto: Promise<Photo>) {
@@ -231,7 +247,7 @@ class ActivityReport extends SerenityReport<Activity> {
         return this.mapAll(this.promisedPhotos, this.serialise).then( (serialisedPhotos) => {
             return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
                 return {
-                    description: this.step.name,
+                    description: this.activity.name,
                     startTime:   this.startedAt,
                     duration:    this.duration,
                     result:      Result[this.result],

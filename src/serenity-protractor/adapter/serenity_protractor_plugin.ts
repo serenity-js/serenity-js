@@ -21,11 +21,16 @@ export class SerenityProtractorPlugin extends ProtractorPlugin {
         this.scribe = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
     };
 
-    postTest(passed: boolean, info: TestInfo): Promise<void> {
+    postTest(passed: boolean, info: TestInfo): Promise<any> {
 
-        return this.reporter.of(Serenity.instance.stageManager().readNewJournalEntriesAs(this.id)).then( (reports) => {
-            this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
-        });
+        return Promise.all([
+            this.reporter.of(Serenity.instance.stageManager().readNewJournalEntriesAs(this.id)).then( (reports) => {
+                this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
+            }),
+            // this.debug.of(Serenity.instance.stageManager().readNewJournalEntriesAs('debug')).then( entries => {
+            //     entries.forEach(entry => console.log(entry));
+            // }),
+        ]);
     }
 
     postResults(): Promise<void> {

@@ -48,14 +48,30 @@ export interface Identifiable {
 
 export class Scene implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
+
+    toString() {
+        return `${this.name} (category: ${this.category}, path: ${this.path}${when(this.id !== this.name, ', id: ' + this.id)})`;
+    }
 }
 
 export class Activity implements Identifiable {
     constructor(public name: string, public id: string = name) { }
+
+    equals(another: Activity): boolean {
+        return this.name === another.name && this.id === another.id;
+    }
+
+    toString() {
+        return `${this.name}${when(this.id !== this.name, ' (id: ' + this.id + ')')}`;
+    }
 }
 
 export class Outcome<T> {
     constructor(public subject: T, public result: Result, public error?: Error) {}
+
+    toString() {
+        return `${this.subject.toString()} (result: ${Result[this.result]}${when(!! this.error, ', error:' + this.error)})`;
+    }
 }
 
 export class Photo {
@@ -64,4 +80,12 @@ export class Photo {
 
 export class PhotoReceipt {
     constructor(public activity: Activity, public photo: Promise<Photo>) {}
+
+    toString() {
+        return this.activity.toString();
+    }
+}
+
+function when(condition: boolean, value: string): string {
+    return condition ? value : '';
 }

@@ -13,9 +13,20 @@ export class Photographer {
 
         let saveScreenshot = (data) => this.outlet.sendPicture(this.naming.nameFor(data), data);
 
+        let ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
+            if (error.message.match(/does not have a valid session ID/)) {
+                return undefined;
+            }
+
+            throw error;
+        };
+
         return BrowseTheWeb.as(actor).takeScreenshot()
             .then(saveScreenshot)
-            .then(path => new Photo(path));
+            .then(
+                path => new Photo(path),
+                error => ignoreInactiveBrowserButReportAnyOther(error)
+            );
     }
 }
 
