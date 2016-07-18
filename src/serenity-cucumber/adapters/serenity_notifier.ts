@@ -1,4 +1,5 @@
-import { Activity, Result, Scene } from '../../serenity/domain/model';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '../../serenity/domain/events';
+import { Activity, Outcome, Result, Scene } from '../../serenity/domain/model';
 import { Serenity } from '../../serenity/serenity';
 import { EventListener, Listener, events } from 'cucumber';
 
@@ -8,14 +9,14 @@ export function scenarioLifeCycleNotifier(): EventListener {
 
     self.handleBeforeScenarioEvent = (scenario: events.ScenarioPayload, callback: () => void) => {
 
-        Serenity.instance.scenarioStarts(new CucumberScenario(scenario));
+        Serenity.notify(new SceneStarts(sceneFrom(scenario)));
 
         callback();
     };
 
     self.handleBeforeStepEvent = (step: events.StepPayload, callback: () => void) => {
         if (!step.isHidden()) {
-            Serenity.instance.stepStarts(asSerenityStep(step));
+            Serenity.notify(new ActivityStarts(activityFrom(step)));
         }
 
         callback();
@@ -24,14 +25,9 @@ export function scenarioLifeCycleNotifier(): EventListener {
     self.handleStepResultEvent = (result: events.StepResultPayload, callback: () => void) => {
         let step = result.getStep();
 
-        // "before" and "after" steps emit an event, even if they keywords themselves are not present in the test...
+        // "before" and "after" steps emit an event even if they keywords themselves are not present in the test...
         if (!step.isHidden()) {
-
-            Serenity.instance.stepCompleted(
-                asSerenityStep(step),
-                asSerenityResult(result),
-                result.getFailureException()
-            );
+            Serenity.notify(new ActivityFinished(new Outcome(activityFrom(step), translated(result), result.getFailureException())));
         }
 
         callback();
@@ -40,30 +36,30 @@ export function scenarioLifeCycleNotifier(): EventListener {
     self.handleScenarioResultEvent = (result: events.ScenarioResultPayload, callback: () => void) => {
         let scenario = result.getScenario();
 
-        Serenity.instance.scenarioCompleted(
-            new CucumberScenario(scenario),
-            asSerenityResult(result),
-            result.getFailureException()
-        );
+        Serenity.notify(new SceneFinished(new Outcome(sceneFrom(scenario), translated(result), result.getFailureException())));
 
         callback();
     };
 
-    self.handleAfterStepEvent = (step: events.StepPayload, callback: () => void) => callback();
-    self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: () => void) => callback();
-    self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: () => void) => callback();
-    self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: () => void) => callback();
-    self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: () => void) => callback();
-    self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: () => void) => callback();
-    self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: () => void) => callback();
+    // self.handleAfterStepEvent = (step: events.StepPayload, callback: () => void) => callback();
+    // self.handleBeforeFeaturesEvent = (features: events.FeaturesPayload, callback: () => void) => callback();
+    // self.handleBeforeFeatureEvent = (feature: events.FeaturePayload, callback: () => void) => callback();
+    // self.handleAfterScenarioEvent = (scenario: events.ScenarioPayload, callback: () => void) => callback();
+    // self.handleAfterFeatureEvent = (feature: events.FeaturePayload, callback: () => void) => callback();
+    // self.handleFeaturesResultEvent = (featuresResult: events.FeaturesResultPayload, callback: () => void) => callback();
+    // self.handleAfterFeaturesEvent = (features: events.FeaturesPayload, callback: () => void) => callback();
 
     // --
 
-    function asSerenityStep(step: events.StepPayload): Activity {
+    function sceneFrom(scenario: events.ScenarioPayload): Scene {
+        return new CucumberScene(scenario);
+    }
+
+    function activityFrom(step: events.StepPayload): Activity {
         return new Activity(step.getKeyword() + step.getName());
     }
 
-    function asSerenityResult(event: {getStatus(): string}): Result {
+    function translated(event: {getStatus(): string}): Result {
         switch (event.getStatus()) {
             // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
             //     return 'ambiguousCucumberStatus';
@@ -85,7 +81,7 @@ export function scenarioLifeCycleNotifier(): EventListener {
     return self;
 }
 
-class CucumberScenario extends Scene {
+class CucumberScene extends Scene {
     constructor(scenario: events.ScenarioPayload) {
         super(
             scenario.getName(),

@@ -1,8 +1,8 @@
 import { listOf } from '../../text';
 import { TodoListItems } from '../screenplay/questions/todo_list_items';
 import { AddATodoItem } from '../screenplay/tasks/add_a_todo_item';
-import { Start } from '../screenplay/tasks/start';
 import { Actors } from '../screenplay/actors';
+import { Start } from '../screenplay/tasks/start';
 
 import { binding, given, then, when } from 'cucumber-tsflow';
 import { Serenity } from 'serenity';
@@ -12,7 +12,7 @@ import expect = require('../../../spec/expect');
 @binding()
 class TodoUserSteps {
 
-    private stage = Serenity.callToStage(new Actors());
+    private stage = Serenity.callToStageFor(new Actors());
 
     @given(/^.*that (.*) has an empty todo list$/)
     starts_with_an_empty_list (name: string) {

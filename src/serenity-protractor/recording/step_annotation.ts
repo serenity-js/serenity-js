@@ -20,16 +20,16 @@ export function step<STEP extends Performable>(stepDescriptionTemplate: string, 
     let interpolated = new NamedStepTemplate(stepDescriptionTemplate);
 
     function beforeStep(activity: Activity) {
-        Serenity.instance.record(new ActivityStarts(activity));
+        Serenity.notify(new ActivityStarts(activity));
     }
 
     function afterStep(activity: Activity) {
-        Serenity.instance.record(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
+        Serenity.notify(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
     }
 
     function onFailure(activity: Activity, error: Error) {
         // todo: sniff the exception to find out about the Result
-        Serenity.instance.record(new ActivityFinished(new Outcome(activity, Result.FAILURE, error)));
+        Serenity.notify(new ActivityFinished(new Outcome(activity, Result.FAILURE, error)));
     }
 
     return (target: STEP, propertyKey: string, descriptor: TypedPropertyDescriptor<(PerformsTasks) => Promise<void>>) => {
