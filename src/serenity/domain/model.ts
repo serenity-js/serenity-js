@@ -50,28 +50,18 @@ export class Scene implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
 }
 
-// todo: should include the Actor
 export class Activity implements Identifiable {
-    constructor(public name: string, public id: string = name, public promisedScreenshots: PromiseLike<Screenshot>[] = []) { }
-
-    withScreenshot(screenshot: PromiseLike<Screenshot>) {
-        return new Activity(this.name, this.id, this.promisedScreenshots.concat(screenshot));
-    }
+    constructor(public name: string, public id: string = name) { }
 }
 
 export class Outcome<T> {
     constructor(public subject: T, public result: Result, public error?: Error) {}
 }
 
-// todo: remove
-export class Screenshot {
+export class Photo {
     constructor(public path: string) {}
 }
 
-export class Picture {
-    constructor(public path: string) {}
-}
-
-export class PictureReceipt {
-    constructor(public activity: Activity, public picture: Promise<Picture>) {}
+export class PhotoReceipt {
+    constructor(public activity: Activity, public photo: Promise<Photo>) {}
 }

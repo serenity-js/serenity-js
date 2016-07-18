@@ -1,19 +1,19 @@
 import {DomainEvent} from '../../src/serenity/domain/events';
-import {Chronicle, Chronicler} from '../../src/serenity/recording/chronicles';
+import {Journal, StageManager} from '../../src/serenity/recording/stage_management';
 import sinon = require('sinon');
 
 import expect = require('../expect');
 
 describe('Recording what happened during the test', () => {
 
-    describe('The Chronicler', () => {
+    describe('The Stage Manager', () => {
         const now = 1467395872000;
 
-        let chronicle: Chronicle;
+        let chronicle: Journal;
 
-        beforeEach(() => { chronicle = new Chronicle(); });
+        beforeEach(() => { chronicle = new Journal(); });
 
-        describe('Reading the Chronicle', () => {
+        describe('Reading the Journal', () => {
             it('provides a record of what happened', () => {
 
                 let event   = new DomainEvent<string>('You would not believe what just happened!');
@@ -180,13 +180,13 @@ describe('Recording what happened during the test', () => {
         });
     });
 
-    describe('The Chronicler', () => {
+    describe('The Stage Manager', () => {
 
-        describe('Chronicle Maintenance', () => {
-            it('maintains a Chronicle of what happened during the test', () => {
+        describe('Journal Maintenance', () => {
+            it('maintains a Journal of what happened during the test', () => {
 
-                let chronicle = <any> sinon.createStubInstance(Chronicle),
-                    scribe    = new Chronicler(chronicle),
+                let chronicle = <any> sinon.createStubInstance(Journal),
+                    scribe    = new StageManager(chronicle),
                     event     = new DomainEvent('A');
 
                 scribe.record(event);
@@ -196,21 +196,21 @@ describe('Recording what happened during the test', () => {
 
             it('provides means to access the contents of the chronicle', () => {
 
-                let chronicle = <any> sinon.createStubInstance(Chronicle),
-                    scribe  = new Chronicler(chronicle);
+                let chronicle = <any> sinon.createStubInstance(Journal),
+                    scribe  = new StageManager(chronicle);
 
-                scribe.readTheChronicle();
+                scribe.readTheJournal();
                 expect(chronicle.read).to.have.been.called;
 
-                scribe.readNewEntriesAs('some reader');
+                scribe.readNewJournalEntriesAs('some reader');
                 expect(chronicle.readAs).to.have.been.calledWith('some reader');
             });
         });
 
         describe('Notifications', () => {
             it('will notify you defer something of interest happens', () => {
-                let chronicle = <any> sinon.createStubInstance(Chronicle),
-                    scribe  = new Chronicler(chronicle),
+                let chronicle = <any> sinon.createStubInstance(Journal),
+                    scribe  = new StageManager(chronicle),
                     event   = new DomainEvent('A'),
                     spy     = sinon.spy();
 
@@ -226,8 +226,8 @@ describe('Recording what happened during the test', () => {
                 class DomainEventA extends DomainEvent<string> {}
                 class DomainEventB extends DomainEvent<string> {}
 
-                let chronicle = new Chronicle(),
-                    scribe  = new Chronicler(chronicle),
+                let chronicle = new Journal(),
+                    scribe  = new StageManager(chronicle),
                     A       = new DomainEventA('A'),
                     B       = new DomainEventB('B'),
                     spyA    = sinon.spy(),
@@ -251,8 +251,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('does not allow the listener to alter the event it received', () => {
-                let chronicle = new Chronicle(),
-                    scribe  = new Chronicler(chronicle),
+                let chronicle = new Journal(),
+                    scribe  = new StageManager(chronicle),
                     event   = new DomainEvent('original');
 
                 scribe.on(DomainEvent, (e) => {
@@ -261,7 +261,7 @@ describe('Recording what happened during the test', () => {
 
                 scribe.record(event);
 
-                expect(scribe.readTheChronicle().pop().value).to.deep.equal('original');
+                expect(scribe.readTheJournal().pop().value).to.deep.equal('original');
             });
         });
     });

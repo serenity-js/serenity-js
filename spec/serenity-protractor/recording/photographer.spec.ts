@@ -3,7 +3,7 @@ import expect = require('../../expect');
 
 import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
 import { Md5HashedPictureNames, Photographer, PictureNamingStrategy } from '../../../src/serenity-protractor/recording/photographer';
-import { Screenshot } from '../../../src/serenity/domain/model';
+import { Photo } from '../../../src/serenity/domain/model';
 import { FileSystemOutlet } from '../../../src/serenity/reporting/outlet';
 
 describe('serenity-protractor.recording', () => {
@@ -12,18 +12,18 @@ describe('serenity-protractor.recording', () => {
 
     describe('Photographer', () => {
 
-        it('Takes a picture nameFor what an Actor sees in their Browser', () => {
+        it('Takes a photo of what an Actor sees in their Browser', () => {
 
-            let pictureName     = 'picture.png',
-                picturePath     = 'target/serenity/site/' + pictureName,
+            let photoName       = 'photo.png',
+                photoPath       = 'target/serenity/site/' + photoName,
                 outlet          = <any> sinon.createStubInstance(FileSystemOutlet);
 
-            let photographer    = new Photographer(outlet, new DummyNamingStrategy(pictureName)),
+            let photographer    = new Photographer(outlet, new DummyNamingStrategy(photoName)),
                 actor           = Actor.named('Claire').whoCan(BrowseTheWeb.using(fakeBrowserShowing(image)));
 
-            outlet.sendPicture.withArgs(pictureName, image).returns(picturePath);
+            outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
 
-            return expect(photographer.photographWorkOf(actor)).to.eventually.eql(new Screenshot(picturePath));
+            return expect(photographer.photographWorkOf(actor)).to.eventually.eql(new Photo(photoPath));
         });
 
         function fakeBrowserShowing(picture: string) {
@@ -45,7 +45,7 @@ describe('serenity-protractor.recording', () => {
 
         describe('Md5HashedPictureNames', () => {
 
-            it('gives a picture a name based on an MD5 hash of its contents', () => {
+            it('gives a photo a name based on an MD5 hash of its contents', () => {
 
                 let names = new Md5HashedPictureNames();
 

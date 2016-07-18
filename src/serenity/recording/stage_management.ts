@@ -1,14 +1,14 @@
 import {DomainEvent} from '../domain/events';
 import * as _ from 'lodash';
 
-export class Chronicler {
+export class StageManager {
 
     private listeners: DomainEventListeners[] = [];
 
-    constructor(private chronicle: Chronicle) { }
+    constructor(private journal: Journal) { }
 
     record(event: DomainEvent<any>) {
-        this.chronicle.record(event);
+        this.journal.record(event);
 
         if (this.listeners[event.constructor.name]) {
             this.listeners[event.constructor.name].notify(event);
@@ -24,16 +24,16 @@ export class Chronicler {
         this.listeners[eventType.name].register(listener);
     }
 
-    readTheChronicle(): DomainEvent<any>[] {
-        return this.chronicle.read();
+    readTheJournal(): DomainEvent<any>[] {
+        return this.journal.read();
     }
 
-    readNewEntriesAs(readerId: string): DomainEvent<any>[] {
-        return this.chronicle.readAs(readerId);
+    readNewJournalEntriesAs(readerId: string): DomainEvent<any>[] {
+        return this.journal.readAs(readerId);
     }
 }
 
-export class Chronicle {
+export class Journal {
     private events:     DomainEvent<any>[]       = [];
     private bookmarks:  { [id: string]: number } = {};
 

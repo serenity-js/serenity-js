@@ -1,7 +1,7 @@
 import {
-    ActivityFinished, ActivityStarts, DomainEvent, PictureTaken, SceneFinished, SceneStarts,
+    ActivityFinished, ActivityStarts, DomainEvent, PhotoTaken, SceneFinished, SceneStarts,
 } from '../domain/events';
-import { Activity, Outcome, Picture, PictureReceipt, Result, Scene, Screenshot } from '../domain/model';
+import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../domain/model';
 import { Outlet } from './outlet';
 
 import * as _ from 'lodash';
@@ -38,7 +38,7 @@ export class RehearsalReport {
 
                 case SceneFinished.name:    return reports.sceneFinished(event.value, event.timestamp);
 
-                case PictureTaken.name:     return reports.pictureTaken(event.value, event.timestamp);
+                case PhotoTaken.name:       return reports.photoTaken(event.value, event.timestamp);
 
                 default:                    break;
             }
@@ -81,13 +81,13 @@ class SerenityReports {
         return this;
     }
 
-    pictureTaken(receipt: PictureReceipt, timestamp: number) {
+    photoTaken(receipt: PhotoReceipt, timestamp: number) {
 
         if (this.current.constructor.name === ActivityReport.name) {
             // todo: double check if the activity is the same?
-            (<ActivityReport> this.current).attachPicture(receipt.picture);
+            (<ActivityReport> this.current).attachPhoto(receipt.photo);
         } else {
-            (<ActivityReport> this.previous).attachPicture(receipt.picture);
+            (<ActivityReport> this.previous).attachPhoto(receipt.photo);
         }
 
         return this;
@@ -213,26 +213,22 @@ class SceneReport extends SerenityReport<Scene> {
 }
 
 class ActivityReport extends SerenityReport<Activity> {
-    private promisedScreenshots: PromiseLike<Screenshot>[];
+    private promisedPhotos: PromiseLike<Photo>[] = [];
 
     constructor(private step: Activity, startTimestamp: number) {
         super(startTimestamp);
-
-        this.promisedScreenshots = step.promisedScreenshots;
     }
 
-    attachPicture(promisedPicture: Promise<Picture>) {
-        this.promisedScreenshots.push(promisedPicture);
+    attachPhoto(promisedPhoto: Promise<Photo>) {
+        this.promisedPhotos.push(promisedPhoto);
     }
 
     completedWith(outcome: Outcome<Activity>, finishedAt: number) {
         super.completedWith(outcome, finishedAt);
-
-        this.promisedScreenshots = this.promisedScreenshots.concat(outcome.subject.promisedScreenshots);
     }
 
     toJSON(): PromiseLike<any> {
-        return this.mapAll(this.promisedScreenshots, this.serialise).then( (serialisedScreenshots) => {
+        return this.mapAll(this.promisedPhotos, this.serialise).then( (serialisedPhotos) => {
             return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
                 return {
                     description: this.step.name,
@@ -241,13 +237,13 @@ class ActivityReport extends SerenityReport<Activity> {
                     result:      Result[this.result],
                     children:    serialisedChildren,
                     exception:   this.errorIfPresent(),
-                    screenshots: this.ifNotEmpty(serialisedScreenshots),
+                    screenshots: this.ifNotEmpty(serialisedPhotos),
                 };
             });
         });
     }
 
-    private serialise(screenshot: Screenshot) {
-        return { screenshot: path.basename(screenshot.path) };
+    private serialise(photo: Photo) {
+        return { screenshot: path.basename(photo.path) };
     }
 }

@@ -2,34 +2,35 @@ import { listOf } from '../../text';
 import { TodoListItems } from '../screenplay/questions/todo_list_items';
 import { AddATodoItem } from '../screenplay/tasks/add_a_todo_item';
 import { Start } from '../screenplay/tasks/start';
+import { Actors } from '../screenplay/actors';
 
 import { binding, given, then, when } from 'cucumber-tsflow';
-import { Actor, BrowseTheWeb } from 'serenity/lib/screenplay-protractor';
+import { Serenity } from 'serenity';
 
 import expect = require('../../../spec/expect');
 
 @binding()
 class TodoUserSteps {
 
-    private james: Actor = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
+    private stage = Serenity.callToStage(new Actors());
 
-    @given(/^.*has an empty todo list$/)
-    starts_with_an_empty_list () {
-        return this.james.attemptsTo(
+    @given(/^.*that (.*) has an empty todo list$/)
+    starts_with_an_empty_list (name: string) {
+        return this.stage.theActorCalled(name).attemptsTo(
             Start.withAnEmptyTodoList()
         );
     };
 
-    @given(/^.*has a todo list containing (.*)$/)
-    has_a_list_with (items: string) {
-        return this.james.attemptsTo(
+    @given(/^.*that (.*) has a todo list containing (.*)$/)
+    has_a_list_with (name: string, items: string) {
+        return this.stage.theActorCalled(name).attemptsTo(
             Start.withATodoListContaining(items)
         );
     }
 
     @when(/^s?he adds '(.*?)' to (?:his|her) list$/)
     adds (itemName: string) {
-        return this.james.attemptsTo(
+        return this.stage.theActorInTheSpotlight().attemptsTo(
             AddATodoItem.called(itemName)
         );
     }
@@ -42,7 +43,7 @@ class TodoUserSteps {
 
     @then(/^.* todo list should contain (.*?)$/)
     should_see_todo_list_with_following (items: string): PromiseLike<any> {
-        return expect(this.james.toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
+        return expect(this.stage.theActorInTheSpotlight().toSee(TodoListItems.displayed())).eventually.eql(listOf(items));
     }
 }
 

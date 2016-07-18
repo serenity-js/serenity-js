@@ -11,27 +11,24 @@ export interface TestInfo {
 
 export class SerenityProtractorPlugin extends ProtractorPlugin {
 
-    // todo: register Serenity Json Reporter
+    private reporter        = new RehearsalReport();                    // todo: register Serenity Json Reporter
 
-    private reporter   = new RehearsalReport();
-    private chronicler = Serenity.instance.chronicles();
-    // todo: the path should be configurable and FileSystemOutlet retrieved from some DIC
-    private scribe     = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
+    private scribe;
     private id = 'serenity-protractor-plugin';
 
-    // setup() { };
+    setup() {
+        // todo: the path should be configurable and FileSystemOutlet retrieved from some DIC
+        this.scribe = new Scribe(new FileSystemOutlet(`${process.cwd()}/target/site/serenity`));
+    };
 
     postTest(passed: boolean, info: TestInfo): Promise<void> {
 
-        return this.reporter.of(this.chronicler.readNewEntriesAs(this.id)).then( (reports) => {
+        return this.reporter.of(Serenity.instance.stageManager().readNewJournalEntriesAs(this.id)).then( (reports) => {
             this.scribe.write(reports.pop(), `${this.hash(info.category, info.name)}.json`);
         });
     }
 
     postResults(): Promise<void> {
-
-       // console.log(this.chronicler.readTheChronicle().map((entry) => entry.value));
-
         return Promise.resolve();
     }
 

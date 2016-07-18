@@ -1,11 +1,11 @@
 import {
     ActivityFinished,
     ActivityStarts,
-    PictureTaken,
+    PhotoTaken,
     SceneFinished,
     SceneStarts,
 } from '../../src/serenity/domain/events';
-import { Activity, Outcome, Picture, PictureReceipt, Result, Scene } from '../../src/serenity/domain/model';
+import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../../src/serenity/domain/model';
 import { RehearsalReport } from '../../src/serenity/reporting/scribe';
 
 import expect = require('../expect');
@@ -15,16 +15,16 @@ describe('Reporting what happened during the test', () => {
     describe('Rehearsal Report', () => {
 
         const
-            startTime = 1467201010000,
-            duration  = 42,
-            scene     = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
+            startTime        = 1467201010000,
+            duration         = 42,
+            scene            = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
 
-            sceneStarted     = (s: Scene, timestamp: number)                        => new SceneStarts(s, timestamp),
-            activityStarted  = (name: string, timestamp: number)                    => new ActivityStarts(new Activity(name), timestamp),
-            activityFinished = (name: string, r: Result, ts: number, e?: Error)     => new ActivityFinished(new Outcome(new Activity(name), r, e), ts),
-            sceneFinished    = (s: Scene, r: Result, timestamp: number, e?: Error)  => new SceneFinished(new Outcome(s, r, e), timestamp),
-            pictureTaken     = (name: string, path: string, timestamp: number) => new PictureTaken(
-                new PictureReceipt(new Activity(name), Promise.resolve(new Picture(path))), timestamp
+            sceneStarted     = (s: Scene, timestamp: number) => new SceneStarts(s, timestamp),
+            activityStarted  = (name: string, timestamp: number) => new ActivityStarts(new Activity(name), timestamp),
+            activityFinished = (name: string, r: Result, ts: number, e?: Error) => new ActivityFinished(new Outcome(new Activity(name), r, e), ts),
+            sceneFinished    = (s: Scene, r: Result, timestamp: number, e?: Error) => new SceneFinished(new Outcome(s, r, e), timestamp),
+            pictureTaken     = (name: string, path: string, timestamp: number) => new PhotoTaken(
+                new PhotoReceipt(new Activity(name), Promise.resolve(new Photo(path))), timestamp
             );
 
         function expectedReportWith(overrides: any) {
@@ -58,14 +58,15 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.SUCCESS, startTime + duration),
             ];
 
-            let reports = new RehearsalReport().of(events);
+            return new RehearsalReport().of(events).then(reports => {
 
-            expect(reports).to.eventually.have.length(1);
-            expect(reports).to.eventually.deep.equal([expectedReportWith({
-                startTime: startTime,
-                duration:  duration,
-                result:    Result[Result.SUCCESS],
-            })]);
+                expect(reports).to.have.length(1);
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    startTime: startTime,
+                    duration:  duration,
+                    result:    Result[Result.SUCCESS],
+                }) ]);
+            });
         });
 
         it('includes the details of what happened during specific activities', () => {
@@ -76,21 +77,23 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.SUCCESS, startTime + 3),
             ];
 
-            let reports = new RehearsalReport().of(events);
+            return new RehearsalReport().of(events).then(reports => {
 
-            expect(reports).to.eventually.have.length(1);
+                expect(reports).to.have.length(1);
 
-            expect(reports).to.eventually.deep.equal([expectedReportWith({
-                duration:  3,
-                testSteps: [{
-                    description: 'Opens a browser',
-                    startTime:   startTime + 1,
-                    duration:    1,
-                    result:      'SUCCESS',
-                    children:    [],
-                    exception:   undefined,
-                }],
-            })]);
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    duration: 3,
+                    testSteps: [ {
+                        description: 'Opens a browser',
+                        startTime:   startTime + 1,
+                        duration:    1,
+                        result:      'SUCCESS',
+                        children:    [],
+                        screenshots: undefined,
+                        exception:   undefined,
+                    } ],
+                }) ]);
+            });
 
         });
 
@@ -104,24 +107,24 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.SUCCESS, startTime + 3),
             ];
 
-            return new RehearsalReport().of(events).then( (reports) => {
+            return new RehearsalReport().of(events).then((reports) => {
                 expect(reports).to.have.length(1);
 
-                expect(reports).to.deep.equal([expectedReportWith({
-                    duration:  3,
-                    testSteps: [{
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    duration: 3,
+                    testSteps: [ {
                         description: 'Specifies the default email address',
-                        startTime:   startTime + 1,
-                        duration:    1,
-                        result:      'SUCCESS',
-                        children:    [],
-                        exception:   undefined,
+                        startTime: startTime + 1,
+                        duration: 1,
+                        result: 'SUCCESS',
+                        children: [],
+                        exception: undefined,
                         screenshots: [
                             { screenshot: 'picture1.png' },
                             { screenshot: 'picture2.png' },
                         ],
-                    }],
-                })]);
+                    } ],
+                }) ]);
             });
         });
 
@@ -135,29 +138,29 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.SUCCESS, startTime + 5),
             ];
 
-            return new RehearsalReport().of(events).then( reports => {
+            return new RehearsalReport().of(events).then(reports => {
                 expect(reports).to.have.length(1);
 
-                expect(reports).to.deep.equal([expectedReportWith({
-                    duration:  5,
-                    testSteps: [{
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    duration: 5,
+                    testSteps: [ {
                         description: 'Opens a browser',
-                        startTime:   startTime + 1,
-                        duration:    1,
-                        result:      'SUCCESS',
-                        children:    [],
-                        exception:   undefined,
+                        startTime: startTime + 1,
+                        duration: 1,
+                        result: 'SUCCESS',
+                        children: [],
+                        exception: undefined,
                         screenshots: undefined,
                     }, {
                         description: 'Navigates to amazon.com',
-                        startTime:   startTime + 3,
-                        duration:    1,
-                        result:      'SUCCESS',
-                        children:    [],
-                        exception:   undefined,
+                        startTime: startTime + 3,
+                        duration: 1,
+                        result: 'SUCCESS',
+                        children: [],
+                        exception: undefined,
                         screenshots: undefined,
-                    }],
-                })]);
+                    } ],
+                }) ]);
             });
         });
 
@@ -175,45 +178,45 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.SUCCESS, startTime + 9),
             ];
 
-            return new RehearsalReport().of(events).then( reports => {
+            return new RehearsalReport().of(events).then(reports => {
                 expect(reports).to.have.length(1);
 
-                expect(reports).to.deep.equal([expectedReportWith({
-                    duration:  9,
-                    testSteps: [{
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    duration: 9,
+                    testSteps: [ {
                         description: 'Buys a discounted e-book reader',
-                        startTime:   startTime + 1,
-                        duration:    7,
-                        result:      'SUCCESS',
-                        exception:   undefined,
+                        startTime: startTime + 1,
+                        duration: 7,
+                        result: 'SUCCESS',
+                        exception: undefined,
                         screenshots: undefined,
-                        children: [{
+                        children: [ {
                             description: 'Opens a browser',
-                            startTime:   startTime + 2,
-                            duration:    1,
-                            result:      'SUCCESS',
-                            children:    [],
-                            exception:   undefined,
+                            startTime: startTime + 2,
+                            duration: 1,
+                            result: 'SUCCESS',
+                            children: [],
+                            exception: undefined,
                             screenshots: undefined,
                         }, {
                             description: 'Searches for discounted e-book readers',
-                            startTime:   startTime + 4,
-                            duration:    3,
-                            result:      'SUCCESS',
-                            children: [{
+                            startTime: startTime + 4,
+                            duration: 3,
+                            result: 'SUCCESS',
+                            children: [ {
                                 description: 'Navigates to amazon.com',
-                                startTime:   startTime + 5,
-                                duration:    1,
-                                result:      'SUCCESS',
-                                children:    [],
-                                exception:   undefined,
+                                startTime: startTime + 5,
+                                duration: 1,
+                                result: 'SUCCESS',
+                                children: [],
+                                exception: undefined,
                                 screenshots: undefined,
-                            }],
-                            exception:   undefined,
+                            } ],
+                            exception: undefined,
                             screenshots: undefined,
-                        }],
-                    }],
-                })]);
+                        } ],
+                    } ],
+                }) ]);
             });
         });
 
@@ -221,9 +224,9 @@ describe('Reporting what happened during the test', () => {
             let error = new Error("We're sorry, something happened");
 
             error.stack = [
-            "Error: We're sorry, something happened",
-            '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
-            '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',
+                "Error: We're sorry, something happened",
+                '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
+                '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',
                 // and so on
             ].join('\n');
 
@@ -234,20 +237,20 @@ describe('Reporting what happened during the test', () => {
                 sceneFinished(scene, Result.ERROR, startTime + 3, error),
             ];
 
-            return new RehearsalReport().of(events).then( reports => {
-                expect(reports).to.deep.equal([expectedReportWith({
-                    duration:  3,
-                    testSteps: [{
+            return new RehearsalReport().of(events).then(reports => {
+                expect(reports).to.deep.equal([ expectedReportWith({
+                    duration: 3,
+                    testSteps: [ {
                         description: 'Buys a discounted e-book reader',
-                        startTime:   startTime + 1,
-                        duration:    1,
-                        result:      'ERROR',
-                        children:   [],
+                        startTime: startTime + 1,
+                        duration: 1,
+                        result: 'ERROR',
+                        children: [],
                         screenshots: undefined,
                         exception: {
                             errorType: 'Error',
                             message: "We're sorry, something happened",
-                            stackTrace: [{
+                            stackTrace: [ {
                                 declaringClass: 'Object',
                                 fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                 lineNumber: 326,
@@ -257,14 +260,14 @@ describe('Reporting what happened during the test', () => {
                                 fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                 lineNumber: 319,
                                 methodName: 'Runnable.run',
-                            }],
+                            } ],
                         },
-                    }],
+                    } ],
                     result: 'ERROR',
                     testFailureCause: {
                         errorType: 'Error',
                         message: "We're sorry, something happened",
-                        stackTrace: [{
+                        stackTrace: [ {
                             declaringClass: 'Object',
                             fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                             lineNumber: 326,
@@ -274,9 +277,9 @@ describe('Reporting what happened during the test', () => {
                             fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                             lineNumber: 319,
                             methodName: 'Runnable.run',
-                        }],
+                        } ],
                     },
-                })]);
+                }) ]);
             });
         });
     });

@@ -1,3 +1,1 @@
-import {Serenity} from './serenity';
-
-export = Serenity.instance;
+export { Serenity } from './serenity';
