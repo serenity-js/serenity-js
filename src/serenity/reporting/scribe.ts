@@ -7,6 +7,7 @@ import { Outlet } from './outlet';
 import * as _ from 'lodash';
 import * as path from 'path';
 import { parse } from 'stack-trace';
+import { StackFrame } from 'stack-trace';
 
 export class Scribe {
 
@@ -171,8 +172,14 @@ abstract class SerenityReport<T> {
         return !! list.length ? list : undefined;
     }
 
+    // todo: extract a parser
     private stackTraceOf(error: Error): Array<ErrorStackFrame> {
-        return parse(error).map((frame) => {
+        let serenityCode = /node_modules[\\/]serenity/,
+            onlyIfFound  = (index) => index !== -1 ? index : undefined,
+            firstSerenityStackFrame = (stack: StackFrame[]): number => onlyIfFound(stack.findIndex(frame => !! serenityCode.exec(frame.getFileName()))),
+            parsed = parse(error);
+
+        return parsed.slice(0, firstSerenityStackFrame(parsed)).map((frame) => {
             return {
                 declaringClass: frame.getTypeName() || frame.getFunctionName() || '',
                 methodName:     frame.getMethodName() || frame.getFunctionName() || '',

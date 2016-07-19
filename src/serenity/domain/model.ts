@@ -2,23 +2,23 @@ export enum Result {
     /**
      * Failures due to external events or systems that compromise the validity of the test.
      */
-    COMPROMISED,
+    COMPROMISED = 1 << 0,
     /**
      * Failure, due to some other exception.
      */
-    ERROR,
+    ERROR       = 1 << 1,
 
     /**
      * Failure, due to an assertion error
      * For a test case, this means one of the tests in the test case failed.
      */
-    FAILURE,
+    FAILURE     = 1 << 2,
 
     /**
      * The test step was not executed because a previous step in this test case failed.
      * A whole test case can be skipped using tags or annotations to indicate that it is currently "work-in-progress"
      */
-    SKIPPED,
+    SKIPPED     = 1 << 3,
 
     /**
      * The test or test case was deliberately ignored.
@@ -27,19 +27,19 @@ export enum Result {
      * has been specified, but the corresponding code is yet to be implemented, whereas an
      * ignored test can be a temporarily-deactivated test (during refactoring, for example).
      */
-    IGNORED,
+    IGNORED     = 1 << 4,
 
     /**
      * A pending test is one that has been specified but not yet implemented.
      * In a JUnit test case, you can use the (Thucydides) @Pending annotation to mark this.
      * A pending test case is a test case that has at least one pending test.
      */
-    PENDING,
+    PENDING     = 1 << 5,
 
     /**
      * The test or test case ran as expected.
      */
-    SUCCESS
+    SUCCESS     = 1 << 6,
 }
 
 export interface Identifiable {

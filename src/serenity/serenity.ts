@@ -1,6 +1,6 @@
 import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/recording/photographer';
 import { ActivityFinished, DomainEvent, PhotoAttempted } from './domain/events';
-import { PhotoReceipt } from './domain/model';
+import { PhotoReceipt, Result } from './domain/model';
 import { Journal, StageManager } from './recording/stage_management';
 import { FileSystemOutlet } from './reporting/outlet';
 import { Cast, Stage } from './screenplay/stage';
@@ -34,17 +34,22 @@ export class Serenity {
     }
 
     constructor() {
+        // todo: extract into a plugin perhaps?
         this.theStageManager.on(ActivityFinished, (event: ActivityFinished) => {
 
-            // todo: externalise
-            // todo: verify the Significance
-            // todo: check config, are we interested in "activity starts" events?
+            let skip = Result.COMPROMISED | Result.ERROR | Result.FAILURE | Result.SUCCESS;
 
-            if (!! this.theStage && this.theStage.theShowHasStarted()) {
+            if (event.value.result & skip) {
 
-                let promisedPicture = this.photographer.photographWorkOf(this.theStage.theActorInTheSpotlight());
+                // todo: verify the Significance
+                // todo: check config, are we interested in "activity starts" events?
 
-                this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value.subject, promisedPicture), event.timestamp));
+                if (!! this.theStage && this.theStage.theShowHasStarted()) {
+
+                    let promisedPicture = this.photographer.photographWorkOf(this.theStage.theActorInTheSpotlight());
+
+                    this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value.subject, promisedPicture), event.timestamp));
+                }
             }
         });
     }
