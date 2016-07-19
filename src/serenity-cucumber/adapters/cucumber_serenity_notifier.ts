@@ -63,8 +63,8 @@ export function scenarioLifeCycleNotifier(): EventListener {
         switch (event.getStatus()) {
             // case 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
             //     return 'ambiguousCucumberStatus';
-            // case 'undefined':
-            //     return 'undefinedCucumberStatus';
+            case 'undefined':
+                return Result.PENDING;
             case 'failed':
                 return Result.FAILURE;
             case 'pending':
