@@ -1,19 +1,17 @@
-# Exploration by Example
+# Exploration by Example: Serenity.js with Protractor and Cucumber.js
 
-## Protractor and Cucumber.js
-
-### The big picture
+## The big picture
 
 The goal of this tutorial is to show you how Serenity.js and the Screenplay Pattern can be used together
 with Protractor and Cucumber.js to test a deployed application, such as the popular [TodoMVC angular.js app](http://todomvc.com/examples/angularjs/).
 
-This tutorial comes in two flavours, so just pick the one you prefer:
-- "A Guided Tour" - shows you around the structure of an existing project. Good if you're in a hurry and want a general understanding of what's where.
-- "Do It Yourself" - a deep dive into the code so expect to get your hands dirty. Great if you like learning by doing.
+This tutorial comes in two flavours:
+- [A Guided Tour](#a-guided-tour) - shows you around the structure of an existing project. Good if you're in a hurry and want a general understanding of what's where.
+- [Do It Yourself](#do-it-yourself) - a deep dive into the code so expect to get your hands dirty! Great if you like learning by doing, and a good next step after taking [the Guided Tour](#a-guided-tour)
 
-### A Guided Tour
+## A Guided Tour
 
-#### Capabilities and Features
+### Capabilities and Features
 
 The most prominent thing you'll notice on any [Cucumber](https://github.com/cucumber/cucumber-js) project
 is the `.feature` files written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
@@ -29,16 +27,15 @@ describing a given Feature of your application.
 A popular way of organising those files is to put them all directly under the `features` directory.
 This strategy however can quickly become unwieldy when the project grows and more `.feature` files are added.
 
-For this reason Serenity.js allows you to optionally organise `.feature` files by _Business Capability_ they enable.
+For this reason, Serenity.js allows you to optionally organise `.feature` files by _Business Capability_ they enable.
 
 > Within a project, we deliver the stakeholder’s goals by providing people and the system with different _capabilities_.
 > The capabilities show us how we will achieve the goals within the scope of a particular project, but aren't concrete;
 > it still doesn't matter how we achieve the capabilities.
-> The word “capability” means to be able to do something really well.
-> - Liz Keogh, [Goals vs. Capabilities](https://lizkeogh.com/2014/06/06/goals-vs-capabilities/)
+> The word “capability” means to be able to do something really well. - _Liz Keogh, [Goals vs. Capabilities](https://lizkeogh.com/2014/06/06/goals-vs-capabilities/)_
 
 Other than improving the maintainability of the codebase and making it easier to navigate,
-grouping features by capability has one more advantage. It helps Serenity to produce more meaningful test reports
+grouping features by capability has one more advantage. It helps Serenity produce more meaningful test reports
 telling you not only what tests have been executed, but more importantly, what requirements have been tested.
 
 To organise Features by Capability, we group them into Capability-specific directories:
@@ -52,9 +49,9 @@ To organise Features by Capability, we group them into Capability-specific direc
 └── ...
 ```
 
-#### Features and Steps
+### Features and Steps
 
-A typical Cucumber feature file looks more or less like this:
+A [typical Cucumber feature file](features/record_todos/add_new_items.feature) looks more or less like this:
 
 ```gherkin
 Feature: Add new items to the todo list                             <- Name of the feature
@@ -70,9 +67,9 @@ Feature: Add new items to the todo list                             <- Name of t
     Then 'Buy some milk' should be recorded in his list             <- Steps such as this one make up a Scenario
 ```
 
-Of course simply writing Gherkin Scenarios in plain English is not enough to make them executable.
-We need Cucumber to map those Scenario Steps to [Step Definitions](https://github.com/cucumber/cucumber/wiki/Step-Definitions),
-such as the ones below written in [TypeScript](https://www.typescriptlang.org/) and using [`cucumber-tsflow`](https://github.com/timjroberts/cucumber-js-tsflow):
+Of course, simply writing Gherkin Scenarios in plain English is not enough to make them executable.
+We need Cucumber to map the Given/When/Then Steps to [Step Definitions](https://github.com/cucumber/cucumber/wiki/Step-Definitions),
+such as the ones below written in [TypeScript](https://www.typescriptlang.org/) with [`cucumber-tsflow`](https://github.com/timjroberts/cucumber-js-tsflow):
 
 ```typescript
 // features/todo_user.steps.ts
@@ -109,9 +106,9 @@ As you have probably noticed, the step definitions are stored
 in the [`features/todo_user.steps.ts`](features/todo_user.steps.ts) file.
 
 Again, it helps to improve the maintainability of your codebase if steps specific to a given type of user
-are kept together. You could have for example: `admin.steps.ts`, `moderator.steps.ts`, etc.
+are kept together. This means that we could have `admin.steps.ts`, `moderator.steps.ts`, and so on.
 
-#### Steps and Activities
+### Steps and Activities
 
 
-### Do It Yourself
+## Do It Yourself
