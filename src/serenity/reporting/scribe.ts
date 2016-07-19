@@ -198,6 +198,7 @@ class SceneReport extends SerenityReport<Scene> {
                 description:    '',                     // todo: missing
                 tags: [],                               // todo: missing
                 // driver                               // todo: missing
+                testSource:     'cucumber',             // todo: hard-coded, should be configurable
                 startTime:      this.startedAt,
                 manual:         false,
                 duration:       this.duration,

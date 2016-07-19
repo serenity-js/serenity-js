@@ -47,6 +47,7 @@ describe('Reporting what happened during the test', () => {
                 startTime: startTime,
                 duration:  undefined,
                 result:    'SUCCESS',
+                testSource: 'cucumber',
                 testFailureCause: undefined,
             };
 
