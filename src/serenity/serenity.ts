@@ -20,7 +20,7 @@ export class Serenity {
 
     public static callToStageFor(cast: Cast): Stage {
 
-        Serenity.serenity.theStage = new Stage(cast);
+        Serenity.instance.theStage = new Stage(cast);
 
         return Serenity.instance.theStage;
     }
