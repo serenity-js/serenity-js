@@ -12,6 +12,7 @@ export interface TestInfo {
 export class SerenityProtractorPlugin extends ProtractorPlugin {
 
     private reporter        = new RehearsalReport();                    // todo: register Serenity Json Reporter
+    // private debug = new EventLog();
 
     private scribe;
     private id = 'serenity-protractor-plugin';
