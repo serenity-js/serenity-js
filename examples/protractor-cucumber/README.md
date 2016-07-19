@@ -1,12 +1,14 @@
-# Exploration by Example: Serenity.js with Protractor and Cucumber.js
+# Exploration by Example: Serenity.js, Protractor and Cucumber.js
 
 ## The big picture
 
-The goal of this tutorial is to show you how Serenity.js and the Screenplay Pattern can be used together
-with Protractor and Cucumber.js to test a deployed application, such as the popular [TodoMVC angular.js app](http://todomvc.com/examples/angularjs/).
+The goal of this tutorial is to demonstrate how Serenity.js and the Screenplay Pattern
+can help you create high quality executable specifications, reduce the maintenance overhead and improve code reuse
+in the context of a Cucumber.js/Protractor test suite exercising a deployed, browser-based application such as the popular
+[TodoMVC angular.js app](http://todomvc.com/examples/angularjs/).
 
 This tutorial comes in two flavours:
-- [A Guided Tour](#a-guided-tour) - shows you around the structure of an existing project. Good if you're in a hurry and want a general understanding of what's where.
+- [A Guided Tour](#a-guided-tour) - shows you around the structure of an existing project. Good if you're in a hurry and want a general understanding of what's where and why.
 - [Do It Yourself](#do-it-yourself) - a deep dive into the code so expect to get your hands dirty! Great if you like learning by doing, and a good next step after taking [the Guided Tour](#a-guided-tour)
 
 ## A Guided Tour
