@@ -21,4 +21,4 @@ for non-web tests such as those that exercise web services or even call applicat
 
 ## Getting started
 
-Have a look at the [examples and tutorials](examples/README.md) and create your first project now!
+Have a look at the [examples and tutorials](examples/) and create your first project now!
