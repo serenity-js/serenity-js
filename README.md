@@ -13,7 +13,7 @@ Serenity uses the test results to produce illustrated, narrative reports that do
 Serenity tells you not only what tests have been executed, but more importantly, what requirements have been tested.
 
 One key advantage of using Serenity JS is that you do not have to invest time in building and maintaining your own automation framework,
-but you also don't have to drop the tools that you've used before.
+but you also don't have to drop the tools that you've used before either.
 Serenity JS works well with [Protractor](https://github.com/angular/protractor) and [Cucumber.js](https://github.com/cucumber/cucumber-js).
 
 Although Serenity JS provides strong support for automating web tests using Selenium 2, it's also works very effectively
