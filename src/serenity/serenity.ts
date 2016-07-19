@@ -1,5 +1,5 @@
 import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/recording/photographer';
-import { ActivityStarts, DomainEvent, PhotoAttempted } from './domain/events';
+import { ActivityFinished, DomainEvent, PhotoAttempted } from './domain/events';
 import { PhotoReceipt } from './domain/model';
 import { Journal, StageManager } from './recording/stage_management';
 import { FileSystemOutlet } from './reporting/outlet';
@@ -34,7 +34,7 @@ export class Serenity {
     }
 
     constructor() {
-        this.theStageManager.on(ActivityStarts, (event: ActivityStarts) => {
+        this.theStageManager.on(ActivityFinished, (event: ActivityFinished) => {
 
             // todo: externalise
             // todo: verify the Significance
@@ -44,7 +44,7 @@ export class Serenity {
 
                 let promisedPicture = this.photographer.photographWorkOf(this.theStage.theActorInTheSpotlight());
 
-                this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value, promisedPicture), event.timestamp));
+                this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value.subject, promisedPicture), event.timestamp));
             }
         });
     }
