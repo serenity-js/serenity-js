@@ -1,13 +1,21 @@
 import {DomainEvent} from '../domain/events';
+import { Stage } from './stage';
 import * as _ from 'lodash';
+
+export interface StageCrewMember {
+    assignTo(stageManager: Stage);
+
+    notifyOf(event: DomainEvent<any>): void;
+}
 
 export class StageManager {
 
-    private listeners: DomainEventListeners[] = [];
+    private listeners: CrewMembersCommunicationChannel[] = [];
 
-    constructor(private journal: Journal) { }
+    constructor(private journal: Journal) {
+    }
 
-    record(event: DomainEvent<any>) {
+    notifyOf(event: DomainEvent<any>) {
         this.journal.record(event);
 
         if (this.listeners[event.constructor.name]) {
@@ -15,13 +23,16 @@ export class StageManager {
         }
     }
 
-    on<T>(eventType: {new (T): DomainEvent<T>}, listener: (DomainEvent) => void) {
+    registerInterestIn(eventsOfInterest: { new (value: any): DomainEvent<any>}[], crewMember: StageCrewMember) {
 
-        if (! this.listeners[eventType.name]) {
-            this.listeners[eventType.name] = new DomainEventListeners();
-        }
+        eventsOfInterest.forEach(eventType => {
 
-        this.listeners[eventType.name].register(listener);
+            if (! this.listeners[eventType.name]) {
+                this.listeners[eventType.name] = new CrewMembersCommunicationChannel();
+            }
+
+            this.listeners[eventType.name].register(crewMember);
+        });
     }
 
     readTheJournal(): DomainEvent<any>[] {
@@ -70,14 +81,14 @@ export class Journal {
     }
 }
 
-class DomainEventListeners {
-    private listeners: Array<(DomainEvent) => void> = [];
+class CrewMembersCommunicationChannel {
+    private listeners: StageCrewMember[] = [];
 
-    register(listener: (DomainEvent) => void) {
+    register(listener: StageCrewMember) {
         this.listeners.push(listener);
     }
 
     notify(event: DomainEvent<any>) {
-        this.listeners.forEach( (listener) => listener(_.cloneDeep(event)) );
+        this.listeners.forEach( (listener) => listener.notifyOf(_.cloneDeep(event)) );
     }
 }

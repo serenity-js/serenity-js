@@ -6,16 +6,9 @@ import { NamedStepTemplate } from '../../serenity/recording/named_step';
 import { Performable } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
 
-export enum CaptureScreenshot {
-    DO_NOT      = 1 << 0,
-    BEFORE_STEP = 1 << 1,
-    AFTER_STEP  = 1 << 2,
-    BEFORE_AND_AFTER = BEFORE_STEP | AFTER_STEP,
-}
-
 // todo: add Significance
 
-export function step<STEP extends Performable>(stepDescriptionTemplate: string, captureScreenshotStage = CaptureScreenshot.DO_NOT) {
+export function step<STEP extends Performable>(stepDescriptionTemplate: string) {
 
     let interpolated = new NamedStepTemplate(stepDescriptionTemplate);
 

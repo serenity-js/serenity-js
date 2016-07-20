@@ -1,5 +1,5 @@
-import {DomainEvent} from '../../src/serenity/domain/events';
-import {Journal, StageManager} from '../../src/serenity/recording/stage_management';
+import { DomainEvent } from '../../src/serenity/domain/events';
+import { Journal, Stage, StageCrewMember, StageManager } from '../../src/serenity/stage';
 import sinon = require('sinon');
 
 import expect = require('../expect');
@@ -186,10 +186,10 @@ describe('Recording what happened during the test', () => {
             it('maintains a Journal of what happened during the test', () => {
 
                 let chronicle = <any> sinon.createStubInstance(Journal),
-                    scribe    = new StageManager(chronicle),
+                    manager    = new StageManager(chronicle),
                     event     = new DomainEvent('A');
 
-                scribe.record(event);
+                manager.notifyOf(event);
 
                 expect(chronicle.record).to.have.been.calledWith(event);
             });
@@ -197,28 +197,29 @@ describe('Recording what happened during the test', () => {
             it('provides means to access the contents of the chronicle', () => {
 
                 let chronicle = <any> sinon.createStubInstance(Journal),
-                    scribe  = new StageManager(chronicle);
+                    manager  = new StageManager(chronicle);
 
-                scribe.readTheJournal();
+                manager.readTheJournal();
                 expect(chronicle.read).to.have.been.called;
 
-                scribe.readNewJournalEntriesAs('some reader');
+                manager.readNewJournalEntriesAs('some reader');
                 expect(chronicle.readAs).to.have.been.calledWith('some reader');
             });
         });
 
+        // todo: extract into the 'stage' package
         describe('Notifications', () => {
             it('will notify you defer something of interest happens', () => {
                 let chronicle = <any> sinon.createStubInstance(Journal),
-                    scribe  = new StageManager(chronicle),
+                    manager  = new StageManager(chronicle),
                     event   = new DomainEvent('A'),
-                    spy     = sinon.spy();
+                    spy     = <any> sinon.createStubInstance(StageSpy);
 
-                scribe.on(DomainEvent, spy);
+                manager.registerInterestIn([DomainEvent], spy);
 
-                scribe.record(event);
+                manager.notifyOf(event);
 
-                expect(spy).to.have.been.calledWith(event);
+                expect(spy.notifyOf).to.have.been.calledWith(event);
             });
 
             it('will only notify the listeners interested in a specific type of an event', () => {
@@ -227,42 +228,61 @@ describe('Recording what happened during the test', () => {
                 class DomainEventB extends DomainEvent<string> {}
 
                 let chronicle = new Journal(),
-                    scribe  = new StageManager(chronicle),
-                    A       = new DomainEventA('A'),
-                    B       = new DomainEventB('B'),
-                    spyA    = sinon.spy(),
-                    spyB    = sinon.spy(),
-                    spyDE   = sinon.spy();
+                    manager   = new StageManager(chronicle),
+                    A         = new DomainEventA('A'),
+                    B         = new DomainEventB('B'),
+                    spyA      = <any> sinon.createStubInstance(StageSpy),
+                    spyB      = <any> sinon.createStubInstance(StageSpy),
+                    spyDE     = <any> sinon.createStubInstance(StageSpy);
 
-                scribe.on(DomainEventA, spyA);
-                scribe.on(DomainEventB, spyB);
-                scribe.on(DomainEvent, spyDE);
+                manager.registerInterestIn([DomainEventA], spyA);
+                manager.registerInterestIn([DomainEventB], spyB);
+                manager.registerInterestIn([DomainEvent], spyDE);
 
-                scribe.record(A);
-                scribe.record(B);
+                manager.notifyOf(A);
+                manager.notifyOf(B);
 
-                expect(spyA).to.have.been.calledWith(A);
-                expect(spyA).to.not.have.been.calledWith(B);
+                expect(spyA.notifyOf).to.have.been.calledWith(A);
+                expect(spyA.notifyOf).to.not.have.been.calledWith(B);
 
-                expect(spyB).to.have.been.calledWith(B);
-                expect(spyB).to.not.have.been.calledWith(A);
+                expect(spyB.notifyOf).to.have.been.calledWith(B);
+                expect(spyB.notifyOf).to.not.have.been.calledWith(A);
 
-                expect(spyDE).to.not.have.been.called;
+                expect(spyDE.notifyOf).to.not.have.been.called;
             });
 
             it('does not allow the listener to alter the event it received', () => {
                 let chronicle = new Journal(),
-                    scribe  = new StageManager(chronicle),
-                    event   = new DomainEvent('original');
+                    manager   = new StageManager(chronicle),
+                    event     = new DomainEvent('original'),
+                    noughty   = new StageHacker();
 
-                scribe.on(DomainEvent, (e) => {
-                    e.value = 'modified';
-                });
+                manager.registerInterestIn([DomainEvent], noughty);
 
-                scribe.record(event);
+                manager.notifyOf(event);
 
-                expect(scribe.readTheJournal().pop().value).to.deep.equal('original');
+                expect(manager.readTheJournal().pop().value).to.deep.equal('original');
             });
+
+            class StageSpy implements StageCrewMember {
+                assignTo(stageManager: Stage) {
+                    return null;
+                }
+
+                notifyOf(event: DomainEvent<any>): void {
+                    return null;
+                }
+            }
+
+            class StageHacker implements StageCrewMember {
+                assignTo(stageManager: Stage) {
+                    return null;
+                }
+
+                notifyOf(event: DomainEvent<any>): void {
+                    event.value = 'modified';
+                }
+            }
         });
     });
 });

@@ -1,61 +1,36 @@
-import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/recording/photographer';
-import { ActivityFinished, DomainEvent, PhotoAttempted } from './domain/events';
-import { PhotoReceipt, Result } from './domain/model';
-import { Journal, StageManager } from './recording/stage_management';
+import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/stage/photographer';
+import { DomainEvent } from './domain/events';
 import { FileSystemOutlet } from './reporting/outlet';
-import { Cast, Stage } from './screenplay/stage';
+import { Cast, Journal, Stage, StageManager } from './stage';
 
 export class Serenity {
     private static serenity: Serenity;
 
-    // todo: get DI, seriously. http://stackoverflow.com/questions/12795666/ioc-for-typescript
-
-    private theStageManager = new StageManager(new Journal());
-    private theStage: Stage;
-
-    private photographer = new Photographer(
-        new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
-        new Md5HashedPictureNames('png')
-    );
+    private stage: Stage = new Stage(new StageManager(new Journal()));
 
     public static callToStageFor(cast: Cast): Stage {
-
-        Serenity.instance.theStage = new Stage(cast);
-
-        return Serenity.instance.theStage;
-    }
-
-    public static get instance() {
-        return Serenity.serenity || (Serenity.serenity = new Serenity());
+        return Serenity.instance.stage.enter(cast);
     }
 
     public static notify(event: DomainEvent<any>) {
-        Serenity.instance.theStageManager.record(event);
+        Serenity.instance.stage.manager.notifyOf(event);
+    }
+
+    // todo: rename and clean up
+    public static readNewJournalEntriesAs(id: string): DomainEvent<any>[] {
+        return Serenity.instance.stage.manager.readNewJournalEntriesAs(id);
+    }
+
+    private static get instance() {
+        return Serenity.serenity || (Serenity.serenity = new Serenity());
     }
 
     constructor() {
-        // todo: extract into a plugin perhaps?
-        this.theStageManager.on(ActivityFinished, (event: ActivityFinished) => {
 
-            let skip = Result.COMPROMISED | Result.ERROR | Result.FAILURE | Result.SUCCESS;
-
-            if (event.value.result & skip) {
-
-                // todo: verify the Significance
-                // todo: check config, are we interested in "activity starts" events?
-
-                if (!! this.theStage && this.theStage.theShowHasStarted()) {
-
-                    let promisedPicture = this.photographer.photographWorkOf(this.theStage.theActorInTheSpotlight());
-
-                    this.theStageManager.record(new PhotoAttempted(new PhotoReceipt(event.value.subject, promisedPicture), event.timestamp));
-                }
-            }
-        });
-    }
-
-    // todo: rename or get from a DIC
-    public stageManager() {
-        return this.theStageManager;
+        // todo: make the crew members configurable
+        new Photographer(
+            new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
+            new Md5HashedPictureNames('png')
+        ).assignTo(this.stage);
     }
 }
