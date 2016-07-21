@@ -8,15 +8,16 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 export class Photographer implements StageCrewMember {
     private stage: Stage;
+    private eventsOfInterest: { new (v: any): DomainEvent<any>} [] = [];
 
-    constructor(private outlet: Outlet, private naming: PictureNamingStrategy) {
+    constructor(eventsOfInterest: { new (v: any): DomainEvent<any>} [], private outlet: Outlet, private naming: PictureNamingStrategy) {
+        this.eventsOfInterest = this.eventsOfInterest.concat(eventsOfInterest);
     }
 
     assignTo(stage: Stage) {
         this.stage = stage;
 
-        // todo: make it configurable what stages of performance the Photographer should be interested in.
-        this.stage.manager.registerInterestIn([ ActivityStarts, ActivityFinished ], this);
+        this.stage.manager.registerInterestIn(this.eventsOfInterest, this);
     }
 
     notifyOf(event: DomainEvent<any>): void {

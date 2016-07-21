@@ -44,7 +44,7 @@ describe('Photography', () => {
                 activity;
 
             beforeEach(() => {
-                photographer = new Photographer(outlet, new CallsEveryPhotoTheSame(photoName));
+                photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName));
                 activity     = new Activity('Adds an item to the basket');
 
                 photographer.assignTo(stage);
@@ -221,7 +221,7 @@ describe('Photography', () => {
         describe('When the show has not started', () => {
 
             it('Won\'t take a photo if there\'s no Cast on the Stage', () => {
-                let photographer = new Photographer(outlet, new CallsEveryPhotoTheSame(photoName)),
+                let photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
                     activity     = new Activity('Given the props are ready');
 
                 photographer.assignTo(stage);
@@ -232,12 +232,26 @@ describe('Photography', () => {
             });
 
             it('Won\'t take a photo unless there\'s an Actor in the spotlight', () => {
-                let photographer = new Photographer(outlet, new CallsEveryPhotoTheSame(photoName)),
+                let photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
                     activity     = new Activity('Given the props are ready');
 
                 photographer.assignTo(stage);
 
                 stage.enter(new Actors());
+
+                photographer.notifyOf(new ActivityStarts(activity));
+
+                expect(stageManager.readTheJournal()).to.be.empty;
+            });
+        });
+
+        describe('When there is nothing of interest', () => {
+
+            it('Won\'t take a photo if the events it\'s notified of are not of interest', () => {
+                let photographer = new Photographer([ ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
+                    activity     = new Activity('Given the props are ready');
+
+                photographer.assignTo(stage);
 
                 photographer.notifyOf(new ActivityStarts(activity));
 

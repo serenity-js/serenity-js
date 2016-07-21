@@ -1,5 +1,5 @@
 import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/stage/photographer';
-import { DomainEvent } from './domain/events';
+import { ActivityFinished, DomainEvent } from './domain/events';
 import { FileSystemOutlet } from './reporting/outlet';
 import { Cast, Journal, Stage, StageManager } from './stage';
 
@@ -27,8 +27,9 @@ export class Serenity {
 
     constructor() {
 
-        // todo: make the crew members configurable
+        // todo: make the crew members configurable externally
         new Photographer(
+            [ ActivityFinished ],
             new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
             new Md5HashedPictureNames('png')
         ).assignTo(this.stage);
