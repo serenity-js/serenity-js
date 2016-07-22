@@ -12,6 +12,11 @@ export class Serenity {
         return Serenity.instance.stage.enter(cast);
     }
 
+    // todo: instead of exposing the StageManager, the Step factory should be available from DI
+    public static stageManager() {
+        return Serenity.instance.stage.manager;
+    }
+
     public static notify(event: DomainEvent<any>) {
         Serenity.instance.stage.manager.notifyOf(event);
     }

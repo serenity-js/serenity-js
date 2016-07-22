@@ -1,11 +1,15 @@
 import {Activity} from '../domain/model';
 import {Performable} from '../screenplay/performables';
 
-export class NamedStepTemplate {
+export class StepDescription {
     private argToken   = /{(\d+)}/g;
     private fieldToken = /#(\w+)/g;
 
-    constructor(private template) { }
+    public static from(template: string) {
+        return new StepDescription(template);
+    }
+
+    constructor(private template: string) { }
 
     interpolateWith(performable: Performable, argumentsOfThePerformAsMethod: any[]): Activity {
         let name = this.determineStepName(this.template, performable, argumentsOfThePerformAsMethod);

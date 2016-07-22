@@ -1,44 +1,64 @@
-// todo: clean up
-
 import { ActivityFinished, ActivityStarts } from '../../serenity/domain/events';
 import { Activity, Outcome, Result } from '../../serenity/domain/model';
-import { NamedStepTemplate } from '../../serenity/recording/named_step';
+import { StepDescription } from '../../serenity/recording/step_description';
 import { Performable } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
+import { StageManager } from '../../serenity/stage/stage_management';
 
-// todo: add Significance
+import * as _ from 'lodash';
 
-export function step<STEP extends Performable>(stepDescriptionTemplate: string) {
+// todo: move to Serenity module
+// todo: add Significance to the @step
+// todo: a singleton factory?
+export class Step {
 
-    let interpolated = new NamedStepTemplate(stepDescriptionTemplate);
-
-    function beforeStep(activity: Activity) {
-        Serenity.notify(new ActivityStarts(activity));
+    constructor(private stageManager: StageManager) {
     }
 
-    function afterStep(activity: Activity) {
-        Serenity.notify(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
-    }
+    describedUsing<T extends Performable>(template: string): StepAnnotation<T> {
 
-    function onFailure(activity: Activity, error: Error) {
-        // todo: sniff the exception to find out about the Result
-        Serenity.notify(new ActivityFinished(new Outcome(activity, Result.FAILURE, error)));
-    }
+        let description = new StepDescription(template),
+            decorated   = this;
 
-    return (target: STEP, propertyKey: string, descriptor: TypedPropertyDescriptor<(PerformsTasks) => Promise<void>>) => {
+        return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
 
-        let performAs = descriptor.value;
+            let performAs = descriptor.value,
+                decorator = _.cloneDeep(descriptor);
 
-        descriptor.value = function(...args: any[]): Promise<void> {
+            decorator.value = function(...args: any[]): Promise<void> {
 
-            let activity: Activity = interpolated.interpolateWith(this, args);
+                let activity: Activity = description.interpolateWith(this, args);
 
-            return Promise.resolve()
-                .then(() => beforeStep(activity))
-                .then(() => performAs.apply(this, args))
-                .then(() => afterStep(activity), (e) => onFailure(activity, e));
+                return Promise.resolve()
+                    .then(() => decorated.beforeStep(activity))
+                    .then(() => performAs.apply(this, args))
+                    .then(() => decorated.afterStep(activity), (e) => decorated.onFailure(activity, e));
+            };
+
+            return decorator;
         };
+    }
 
-        return descriptor;
-    };
+    private beforeStep(activity: Activity) {
+        this.stageManager.notifyOf(new ActivityStarts(activity));
+    }
+
+    private afterStep(activity: Activity) {
+        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
+    }
+
+    private onFailure(activity: Activity, error: Error) {
+        // todo: sniff the exception to find out about the Result. Did the test fail, or was it compromised?
+        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error)));
+    }
+}
+
+export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
+    return new Step(Serenity.stageManager()).describedUsing(stepDescriptionTemplate);
+}
+
+export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => Promise<void>>;
+
+export interface StepAnnotation<T extends Performable> {
+    (target: T, propertyKey: string, descriptor: PerformAsMethodSignature): PerformAsMethodSignature;
 }
