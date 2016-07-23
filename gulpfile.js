@@ -68,10 +68,12 @@ gulp.task('test', ['pre-test'], () => {
         .on('end', remapToTypescript);
 });
 
-gulp.task('prepublish', ['lint', 'test'], () => {
+gulp.task('package', [ 'lint', 'test' ], () => {
     return gulp
         .src(dirs.staging.traspiled.export)
         .pipe(gulp.dest(dirs.export));
 });
 
-gulp.task('default', ['lint', 'test'], () => {});
+gulp.task('prepublish', (done) => runSequence('clean', 'package'));
+
+gulp.task('default', [ 'prepublish' ], () => {});
