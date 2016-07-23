@@ -4,7 +4,7 @@
   "description": "Integrating Protractor/Cucumber with Serenity.js",
   "main": "index.js",
   "scripts": {
-    "test":               "npm run protractor",
+    "test":               "npm run protractor --silent",
 
     "preprotractor":      "npm run webdriver:update -- --standalone",
     "protractor":         "node ./node_modules/protractor/built/cli.js ./protractor.conf.js",
