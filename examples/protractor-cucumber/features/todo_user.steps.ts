@@ -1,11 +1,11 @@
 import { listOf } from '../../text';
+import { Actors } from '../screenplay/actors';
 import { TodoListItems } from '../screenplay/questions/todo_list_items';
 import { AddATodoItem } from '../screenplay/tasks/add_a_todo_item';
-import { Actors } from '../screenplay/actors';
 import { Start } from '../screenplay/tasks/start';
 
 import { binding, given, then, when } from 'cucumber-tsflow';
-import { Serenity } from 'serenity';
+import { Serenity } from 'serenity-bdd';
 
 import expect = require('../../../spec/expect');
 

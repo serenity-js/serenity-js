@@ -1,41 +1,41 @@
 {
-  "name": "serenity",
+  "name": "serenity-bdd",
   "version": "0.0.1",
   "description": "Serenity BDD for JavaScript and TypeScript",
   "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
-  "homepage": "https://github.com/jan-molak/screenplay-js-demo",
+  "homepage": "https://github.com/smartcodeltd/serenity-js",
   "license": "Apache-2.0",
-
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
-
   "scripts": {
     "test": "npm run clean && npm run unit-tests && npm run verify --silent",
     "clean": "rm -rf ./target",
     "unit-tests": "mocha --opts mocha.opts",
     "verify": "npm run protractor",
-    "prepublish": "node ./node_modules/gulp/bin/gulp.js prepublish",
+    "prepublish": "gulp prepublish",
     "postinstall": "npm run typings -- install",
     "preprotractor": "npm run webdriver:update -- --standalone",
     "protractor": "node ./node_modules/protractor/built/cli.js ./config/protractor.conf.js",
     "typings": "typings",
-    "webdriver-manager": "webdriver-manager",
-    "webdriver:update": "npm run webdriver-manager update",
-    "webdriver:start": "npm run webdriver-manager start"
+    "webdriver:update": "webdriver-manager update",
+    "webdriver:start": "webdriver-manager start"
   },
   "dependencies": {
+    "cucumber": "1.2.1",
+    "cucumber-tsflow": "1.1.0",
     "graceful-fs": "4.1.4",
     "lodash": "4.13.1",
     "mkdirp": "0.5.1",
     "moment": "2.14.1",
+    "protractor": "3.3.0",
+    "protractor-cucumber-framework": "0.6.0",
+    "serenity-cli": "^0.1.1",
     "stack-trace": "0.0.9",
     "util-arity": "1.0.2"
   },
   "devDependencies": {
     "chai": "3.5.0",
     "chai-as-promised": "5.3.0",
-    "cucumber": "1.2.1",
-    "cucumber-tsflow": "1.1.0",
     "es7-reflect-metadata": "^1.6.0",
     "gulp": "3.9.1",
     "gulp-clean": "0.3.2",
@@ -46,11 +46,9 @@
     "gulp-tslint": "5.0.0",
     "gulp-typescript": "2.13.6",
     "merge2": "1.0.2",
-    "mocha": "^2.5.3",
+    "mocha": "2.5.3",
     "mock-fs": "3.9.0",
     "phantomjs-prebuilt": "2.1.7",
-    "protractor": "3.3.0",
-    "protractor-cucumber-framework": "0.6.0",
     "remap-istanbul": "0.6.4",
     "run-sequence": "1.2.2",
     "selenium-webdriver": "2.53.3",
@@ -65,10 +63,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/smartcodeltd/screenplay-js-demo.git"
+    "url": "https://github.com/smartcodeltd/serenity-js.git"
   },
   "bugs": {
-    "url": "https://github.com/smartcodeltd/screenplay-js-demo/issues"
+    "url": "https://github.com/smartcodeltd/serenity-js/issues"
   },
   "engines": {
     "node": ">= 4.2.1",

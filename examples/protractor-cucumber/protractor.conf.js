@@ -20,7 +20,7 @@ exports.config = {
     },
 
     plugins: [
-        { path: 'node_modules/serenity/lib/serenity-protractor/adapter' }
+        { path: 'node_modules/serenity-bdd/lib/serenity-protractor/adapter' }
     ],
 
     capabilities: {
