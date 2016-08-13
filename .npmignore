@@ -1,17 +1,28 @@
-*.iml
+# IntelliJ
 .idea
-config
-examples
-staging
-spec
-src
-typings
+*.iml
 
-target
+# Node
+node_modules
+typings
+!typings.json
+npm-debug.log
+.npmignore
+
+# Build process
+staging
 gulpfile.config.js
 gulpfile.js
-*.json
-!typings.json
 mocha.opts
-.npmignore
+
+# Pre-transpiled sources
+examples
+spec
+src
+
+target
+*.json
 TODO.md
+
+# Runtime caches
+.cache

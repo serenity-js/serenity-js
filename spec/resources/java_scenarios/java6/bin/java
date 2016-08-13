@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+>&2 echo "Exception in thread "main" java.lang.UnsupportedClassVersionError: net/serenitybdd/cli/Serenity : Unsupported major.minor version 51.0"
+>&2 echo "	at java.lang.ClassLoader.defineClass1(Native Method)"
+>&2 echo "	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:631)"
+>&2 echo "	at java.lang.ClassLoader.defineClass(ClassLoader.java:615)"
+>&2 echo "	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)"
+>&2 echo "	at java.net.URLClassLoader.defineClass(URLClassLoader.java:283)"
+>&2 echo "	at java.net.URLClassLoader.access$000(URLClassLoader.java:58)"
+>&2 echo "	at java.net.URLClassLoader$1.run(URLClassLoader.java:197)"
+>&2 echo "	at java.security.AccessController.doPrivileged(Native Method)"
+>&2 echo "	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)"
+>&2 echo "	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)"
+>&2 echo "	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)"
+>&2 echo "	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)"
+
+exit 1;

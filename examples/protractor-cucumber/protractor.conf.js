@@ -19,14 +19,14 @@ exports.config = {
         compiler:   'ts:ts-node/register'
     },
 
-    plugins: [
-        { path: 'node_modules/serenity-bdd/lib/serenity-protractor/adapter' }
-    ],
+    plugins: [{
+        path: 'node_modules/serenity-bdd/lib/serenity-protractor/adapter'
+    }],
 
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-            // args: ['show-fps-counter=false']
+             args: ['show-fps-counter=false']
         }
     },
 

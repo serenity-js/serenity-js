@@ -1,3 +1,5 @@
+// import { handler as runSerenityCli } from '../../serenity-cli/commands/run';
+// import { defaults } from '../../serenity-cli/config';
 import { FileSystemOutlet } from '../../serenity/reporting/outlet';
 import { RehearsalReport, Scribe } from '../../serenity/reporting/scribe';
 import { Serenity } from '../../serenity/serenity';
@@ -36,6 +38,7 @@ export class SerenityProtractorPlugin extends ProtractorPlugin {
 
     postResults(): Promise<void> {
         return Promise.resolve();
+        // return runSerenityCli(Object.assign({}, defaults, this.config));
     }
 
     private hash(...values: string[]): string {

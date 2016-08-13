@@ -19,8 +19,10 @@ gulp.task('clean', () => gulp.src([dirs.staging.all, dirs.export], { read: false
 
 gulp.task("lint", () =>
     gulp.src([ dirs.src, dirs.spec, '!**/*.d.ts' ])
-        .pipe(tslint())
-        .pipe(tslint.report("prose"))
+        .pipe(tslint({
+            formatter: "verbose"
+        }))
+        .pipe(tslint.report())
 );
 
 gulp.task('transpile', () => {
@@ -64,7 +66,7 @@ gulp.task('test', ['pre-test'], () => {
             dir: dirs.staging.reports.coverage,
             reporters: [ 'json' ],
         }))
-        .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
+        // .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
         .on('end', remapToTypescript);
 });
 
