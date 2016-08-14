@@ -6,6 +6,6 @@ export class TodoListItems {
     static displayed() { return new TodoListItemsDisplayed(); };
 }
 
-class TodoListItemsDisplayed implements Question<string[]> {
+export class TodoListItemsDisplayed implements Question<string[]> {
     answeredBy = (actor: UsesAbilities) => BrowseTheWeb.as(actor).locateAll(TodoList.Items).text();
 }

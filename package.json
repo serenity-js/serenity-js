@@ -8,17 +8,12 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "npm run clean && npm run unit-tests && npm run verify --silent",
-    "clean": "rm -rf ./target",
-    "unit-tests": "mocha --opts mocha.opts",
-    "verify": "npm run protractor",
-    "prepublish": "gulp prepublish",
-    "postinstall": "npm run typings -- install",
-    "preprotractor": "npm run webdriver:update -- --standalone",
-    "protractor": "node ./node_modules/protractor/built/cli.js ./config/protractor.conf.js",
-    "typings": "typings",
-    "webdriver:update": "webdriver-manager update",
-    "webdriver:start": "webdriver-manager start"
+    "setup": "npm run typings -- install",
+    "clean": "gulp clean",
+    "package": "gulp package",
+    "test": "gulp test",
+    "prepublish": "npm run setup && npm run clean && npm run package",
+    "typings": "typings"
   },
   "dependencies": {
     "cucumber": "1.2.1",

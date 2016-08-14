@@ -1,4 +1,3 @@
-import { listOf } from '../../../text';
 import { AddTodoItems } from './add_todo_items';
 import { Open, PerformsTasks, Task, step } from 'serenity-bdd/lib/screenplay-protractor';
 
@@ -8,6 +7,8 @@ export class Start implements Task {
     }
 
     public static withATodoListContaining(comma_separated_items: string): Start {
+        const listOf = (comma_separated_values: string) => comma_separated_values.split(',').map(i => i.trim());
+
         return new Start(listOf(comma_separated_items));
     }
 
