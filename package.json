@@ -7,9 +7,6 @@
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
-  "bin": {
-    "serenity": "bin/serenity"
-  },
   "scripts": {
     "test": "npm run clean && npm run unit-tests && npm run verify --silent",
     "clean": "rm -rf ./target",
@@ -33,15 +30,7 @@
     "protractor": "3.3.0",
     "protractor-cucumber-framework": "0.6.0",
     "stack-trace": "0.0.9",
-    "util-arity": "1.0.2",
-    "java-home": "1.0.2",
-    "mvn-artifact-download": "1.1.4",
-    "mvn-artifact-filename": "1.0.5",
-    "mvn-artifact-name-parser": "1.0.4",
-    "rimraf": "2.5.4",
-    "split": "1.0.0",
-    "winston": "2.2.0",
-    "yargs": "4.8.1"
+    "util-arity": "1.0.2"
   },
   "devDependencies": {
     "chai": "3.5.0",
