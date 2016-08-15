@@ -25,7 +25,7 @@ module.exports = function () {
     this.Given(/^.*that (.*) has a todo list containing (.*)$/, (name, items) => {
 
         return stage.theActorCalled(name).attemptsTo(
-            Start.withATodoListContaining(items)
+            Start.withATodoListContaining(listOf(items))
         );
     });
 

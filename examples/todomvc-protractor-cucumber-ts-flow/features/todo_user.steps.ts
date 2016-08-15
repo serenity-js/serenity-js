@@ -40,7 +40,7 @@ class TodoUserSteps {
     has_a_list_with (name: string, items: string) {
 
         return this.stage.theActorCalled(name).attemptsTo(
-            Start.withATodoListContaining(items)
+            Start.withATodoListContaining(listOf(items))
         );
     }
 

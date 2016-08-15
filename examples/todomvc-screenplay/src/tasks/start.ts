@@ -6,10 +6,8 @@ export class Start implements Task {
         return new Start();
     }
 
-    public static withATodoListContaining(comma_separated_items: string): Start {
-        const listOf = (comma_separated_values: string) => comma_separated_values.split(',').map(i => i.trim());
-
-        return new Start(listOf(comma_separated_items));
+    public static withATodoListContaining(items: string[]): Start {
+        return new Start(items);
     }
 
     @step('{0} starts with a todo list containing #todoListDescription')
