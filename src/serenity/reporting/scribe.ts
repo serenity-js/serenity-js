@@ -44,7 +44,7 @@ export class RehearsalReport implements FormatsEvents {
 
                 case SceneFinished.name:    return reports.sceneFinished(event.value, event.timestamp);
 
-                case PhotoAttempted.name:       return reports.photoTaken(event.value, event.timestamp);
+                case PhotoAttempted.name:   return reports.photoTaken(event.value, event.timestamp);
 
                 default:                    break;
             }
