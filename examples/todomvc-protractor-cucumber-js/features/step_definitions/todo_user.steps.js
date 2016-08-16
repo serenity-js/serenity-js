@@ -5,7 +5,7 @@ let Serenity        = require('serenity-bdd').Serenity,
     AddATodoItem    = require('todomvc-screenplay').AddATodoItem,
     Start           = require('todomvc-screenplay').Start,
     TodoListItems   = require('todomvc-screenplay').TodoListItems,
-    expect          = require('./../src/expect');
+    expect          = require('./../../src/expect');
 
 module.exports = function () {
 
