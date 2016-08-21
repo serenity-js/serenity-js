@@ -3,7 +3,7 @@ import { Stage } from './stage';
 import * as _ from 'lodash';
 
 export interface StageCrewMember {
-    assignTo(stageManager: Stage);
+    assignTo(stage: Stage);
 
     notifyOf(event: DomainEvent<any>): void;
 }
@@ -11,6 +11,7 @@ export interface StageCrewMember {
 export class StageManager {
 
     private listeners: CrewMembersCommunicationChannel[] = [];
+    private wip: Promise<any>[] = [];
 
     constructor(private journal: Journal) {
     }
@@ -21,6 +22,19 @@ export class StageManager {
         if (this.listeners[event.constructor.name]) {
             this.listeners[event.constructor.name].notify(event);
         }
+
+        // for the "catch-all" crew members
+        if (this.listeners[DomainEvent.name]) {
+            this.listeners[DomainEvent.name].notify(event);
+        }
+    }
+
+    informOfWorkInProgress<T>(promise: Promise<T>): void {
+        this.wip.push(promise);
+    }
+
+    allDone(): Promise<any[]> {
+        return Promise.all(this.wip);
     }
 
     registerInterestIn(eventsOfInterest: { new (value: any): DomainEvent<any>}[], crewMember: StageCrewMember) {

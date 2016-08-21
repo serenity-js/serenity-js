@@ -1,7 +1,5 @@
-import { Md5HashedPictureNames, Photographer } from '../serenity-protractor/stage/photographer';
-import { ActivityFinished, DomainEvent } from './domain/events';
-import { FileSystemOutlet } from './reporting/outlet';
-import { Cast, Journal, Stage, StageManager } from './stage';
+import { DomainEvent } from './domain/events';
+import { Cast, Journal, Stage, StageCrewMember, StageManager } from './stage';
 
 export class Serenity {
     private static serenity: Serenity;
@@ -12,7 +10,6 @@ export class Serenity {
         return Serenity.instance.stage.enter(cast);
     }
 
-    // todo: instead of exposing the StageManager, the Step factory should be available from DI
     public static stageManager() {
         return Serenity.instance.stage.manager;
     }
@@ -21,22 +18,11 @@ export class Serenity {
         Serenity.instance.stage.manager.notifyOf(event);
     }
 
-    // todo: rename and clean up
-    public static readNewJournalEntriesAs(id: string): DomainEvent<any>[] {
-        return Serenity.instance.stage.manager.readNewJournalEntriesAs(id);
+    public static assignCrewMembers(...crewMembers: StageCrewMember[]) {
+        crewMembers.forEach(crewMember => crewMember.assignTo(Serenity.instance.stage));
     }
 
     private static get instance() {
         return Serenity.serenity || (Serenity.serenity = new Serenity());
-    }
-
-    constructor() {
-
-        // todo: make the crew members configurable externally
-        new Photographer(
-            [ ActivityFinished ],
-            new FileSystemOutlet(`${process.cwd()}/target/site/serenity/`),
-            new Md5HashedPictureNames('png')
-        ).assignTo(this.stage);
     }
 }

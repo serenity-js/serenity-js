@@ -1,81 +1,93 @@
 import {
-    ActivityFinished, ActivityStarts, DomainEvent, PhotoAttempted, SceneFinished, SceneStarts,
-} from '../domain/events';
-import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../domain/model';
-import { Outlet } from './outlet';
-
-import * as _ from 'lodash';
+    Activity,
+    ActivityFinished,
+    ActivityStarts,
+    DomainEvent,
+    Outcome,
+    Photo,
+    PhotoAttempted,
+    PhotoReceipt,
+    Result,
+    Scene,
+    SceneFinished,
+    SceneStarts,
+} from '../domain';
+import { Stage, StageCrewMember } from '../stage';
+import { FileSystem } from './file_system';
 import * as path from 'path';
-import { parse } from 'stack-trace';
-import { StackFrame } from 'stack-trace';
+import { StackFrame, parse } from 'stack-trace';
 
-export class Scribe {
+import { Md5 } from 'ts-md5/dist/md5';
 
-    constructor(private outlet: Outlet) { }
+export class JsonReporter implements StageCrewMember {
+    private static Events_of_Interest = [ SceneStarts, ActivityStarts, ActivityFinished, PhotoAttempted, SceneFinished ];
+    private stage: Stage;
 
-    write(report: any, pathToFile: string): PromiseLike<string> {
-        return this.outlet.sendJSON(pathToFile, report);
+    private rehearsal: Rehearsal;
+
+    constructor(private fs: FileSystem) {
+    }
+
+    assignTo(stage: Stage) {
+        this.stage = stage;
+
+        this.stage.manager.registerInterestIn(JsonReporter.Events_of_Interest, this);
+    }
+
+    notifyOf(event: DomainEvent<any>): void {
+        switch (event.constructor.name) {
+            case SceneStarts.name:      return this.sceneStarts(event);
+            case ActivityStarts.name:   return this.activityStarts(event);
+            case ActivityFinished.name: return this.activityFinished(event);
+            case SceneFinished.name:    return this.sceneFinished(event);
+            case PhotoAttempted.name:   return this.photoAttempted(event);
+            default: break; // ignore any other events
+        }
+    }
+
+    private sceneStarts({ value, timestamp }: SceneStarts): void {
+        this.rehearsal = new Rehearsal(value, timestamp);
+    }
+
+    private activityStarts({ value, timestamp }: ActivityStarts): void {
+        this.rehearsal.activityStarts(value, timestamp);
+    }
+
+    private activityFinished({ value, timestamp }: ActivityFinished): void {
+        this.rehearsal.activityFinished(value, timestamp);
+    }
+
+    private photoAttempted({ value, timestamp }: PhotoAttempted): void {
+        this.rehearsal.photoTaken(value, timestamp);
+    }
+
+    private sceneFinished({ value, timestamp }: SceneFinished): void {
+        let filename = `${ Md5.hashStr(value.subject.id) }.json`;
+
+        this.rehearsal.finished(value, timestamp);
+
+        this.stage.manager.informOfWorkInProgress(
+            this.rehearsal.report().then(report => this.fs.store(filename, JSON.stringify(report)))
+        );
     }
 }
 
-export interface FormatsEvents {
-    of(events: DomainEvent<any>[]): Promise<any[]>;
-}
-
-export class EventLog implements FormatsEvents {
-    of(events: DomainEvent<any>[]): Promise<string[]> {
-        return Promise.resolve(events.map( event => event.toString() ));
-    };
-}
-
-export class RehearsalReport implements FormatsEvents {
-
-    of(events: DomainEvent<any>[]): Promise<any[]> {
-
-        return events.reduce( (reports, event, index, list) => {
-
-            switch (event.constructor.name) {
-
-                case SceneStarts.name:      return reports.sceneStarted(event.value, event.timestamp);
-
-                case ActivityStarts.name:   return reports.activityStarted(event.value, event.timestamp);
-
-                case ActivityFinished.name: return reports.activityFinished(event.value, event.timestamp);
-
-                case SceneFinished.name:    return reports.sceneFinished(event.value, event.timestamp);
-
-                case PhotoAttempted.name:   return reports.photoTaken(event.value, event.timestamp);
-
-                default:                    break;
-            }
-
-            return reports;
-        }, new SerenityReports()).extract();
-    }
-}
-
-class SerenityReports {
-    private reports:    {[key: string]: SceneReport} = {};
+class Rehearsal {
     private current:    SerenityReport<any>;
     private previous:   SerenityReport<any>;
 
-    sceneStarted(scene: Scene, timestamp: number) {
+    constructor(scene: Scene, timestamp: number) {
         let sceneReport = new SceneReport(scene, timestamp);
 
-        this.reports[scene.id] = sceneReport;
-        this.current           = sceneReport;
-        this.previous          = sceneReport;
-
-        return this;
+        this.current  = sceneReport;
+        this.previous = sceneReport;
     }
 
-    activityStarted(step: Activity, timestamp: number) {
+    activityStarts(step: Activity, timestamp: number) {
         let activityReport = new ActivityReport(step, timestamp);
 
         this.current.append(activityReport);
         this.current  = activityReport;
-
-        return this;
     }
 
     activityFinished(outcome: Outcome<Activity>, timestamp: number) {
@@ -83,35 +95,23 @@ class SerenityReports {
         this.current.completedWith(outcome, timestamp);
         this.previous   = this.current;
         this.current    = this.current.parent;
+    }
 
-        return this;
+    finished(outcome: Outcome<Scene>, timestamp: number) {
+        this.current.completedWith(outcome, timestamp);
     }
 
     photoTaken(receipt: PhotoReceipt, timestamp: number) {
 
-        let previousReport = <ActivityReport> this.previous; // todo: this might not be the case if event out of sync, add guards
-        let currentReport = <ActivityReport> this.current;
-
-        // todo: messy, clean up
-        if (this.previous.constructor.name === ActivityReport.name && previousReport.concerns(receipt.activity)) {
-            previousReport.attachPhoto(receipt.photo);
-        } else if (this.current.constructor.name === ActivityReport.name && currentReport.concerns(receipt.activity)) {
-            currentReport.attachPhoto(receipt.photo);
-        } else {
-            throw new Error(`There's no Activity that the following Photo could be matched with: ${receipt}`);
-        }
-
-        return this;
+        [ this.previous, this.current ]
+            .filter(_ => _ instanceof ActivityReport)
+            .map(_ => <ActivityReport> _)
+            .filter(_ => _.concerns(receipt.activity))
+            .map(_ => _.attachPhoto(receipt.photo));
     }
 
-    sceneFinished(outcome: Outcome<Scene>, timestamp: number) {
-        this.reports[outcome.subject.id].completedWith(outcome, timestamp);
-
-        return this;
-    }
-
-    extract(): Promise<any[]> {
-        return Promise.all(_.values<SceneReport>(this.reports).map((report) => report.toJSON()));
+    report(): Promise<any> {
+        return this.current.toJSON();
     }
 }
 
@@ -148,7 +148,7 @@ abstract class SerenityReport<T> {
         this.duration = finishedAt - this.startedAt;
     }
 
-    abstract toJSON(): PromiseLike<any>;
+    abstract toJSON(): Promise<any>;
 
     protected errorIfPresent() {
         if (! this.error) {
@@ -162,7 +162,7 @@ abstract class SerenityReport<T> {
         };
     }
 
-    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x) => x): PromiseLike<any[]> {
+    protected mapAll<I>(items: Promise<I>[], mapper: (I) => any = (x) => x): Promise<any[]> {
         let onlyDefined = (item) => item !== undefined;
 
         return Promise.all<I>(items).then( (all) => all.filter(onlyDefined).map(mapper) );
@@ -196,7 +196,7 @@ class SceneReport extends SerenityReport<Scene> {
         super(startTimestamp);
     }
 
-    toJSON(): PromiseLike<any> {
+    toJSON(): Promise<any> {
         return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
 
             return {
@@ -233,7 +233,7 @@ class SceneReport extends SerenityReport<Scene> {
 }
 
 class ActivityReport extends SerenityReport<Activity> {
-    private promisedPhotos: PromiseLike<Photo>[] = [];
+    private promisedPhotos: Promise<Photo>[] = [];
 
     constructor(private activity: Activity, startTimestamp: number) {
         super(startTimestamp);
@@ -251,7 +251,7 @@ class ActivityReport extends SerenityReport<Activity> {
         super.completedWith(outcome, finishedAt);
     }
 
-    toJSON(): PromiseLike<any> {
+    toJSON(): Promise<any> {
         return this.mapAll(this.promisedPhotos, this.serialise).then( (serialisedPhotos) => {
             return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
                 return {

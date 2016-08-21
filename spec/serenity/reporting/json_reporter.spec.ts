@@ -1,89 +1,80 @@
+import * as fs from 'fs';
+import * as mockfs from 'mock-fs';
+
 import {
+    Activity,
     ActivityFinished,
     ActivityStarts,
+    DomainEvent,
+    Outcome,
+    Photo,
     PhotoAttempted,
+    PhotoReceipt,
+    Result,
+    Scene,
     SceneFinished,
     SceneStarts,
-} from '../../src/serenity/domain/events';
-import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../../src/serenity/domain/model';
-import { RehearsalReport } from '../../src/serenity/reporting/scribe';
+} from '../../../src/serenity/domain';
+import { FileSystem } from '../../../src/serenity/reporting/file_system';
+import { JsonReporter } from '../../../src/serenity/reporting/json_reporter';
+import { Journal, Stage, StageManager } from '../../../src/serenity/stage';
+import { Md5 } from 'ts-md5/dist/md5';
 
-import expect = require('../expect');
+import expect = require('../../expect');
 
-describe('Reporting what happened during the test', () => {
+describe('When reporting on what happened during the rehearsal', () => {
 
-    describe('Rehearsal Report', () => {
+    describe('JSON Report', () => {
 
         const
-            startTime        = 1467201010000,
-            duration         = 42,
-            scene            = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
+            startTime = 1467201010000,
+            duration  = 42,
+            scene     = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
+            sceneId   = Md5.hashStr(scene.id),
+            filename  = `${ sceneId }.json`,
+            rootDir   = '/some/path/to/reports';
 
-            sceneStarted     = (s: Scene, timestamp: number) => new SceneStarts(s, timestamp),
-            activityStarted  = (name: string, timestamp: number) => new ActivityStarts(new Activity(name), timestamp),
-            activityFinished = (name: string, r: Result, ts: number, e?: Error) => new ActivityFinished(new Outcome(new Activity(name), r, e), ts),
-            sceneFinished    = (s: Scene, r: Result, timestamp: number, e?: Error) => new SceneFinished(new Outcome(s, r, e), timestamp),
-            photoTaken       = (name: string, path: string, timestamp: number) => new PhotoAttempted(
-                new PhotoReceipt(new Activity(name), Promise.resolve(new Photo(path))), timestamp
-            ),
-            photoFailed      = (name, timestamp) => new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(undefined)), timestamp);
+        let stageManager: StageManager,
+            stage: Stage,
+            fileSystem: FileSystem,
+            reporter: JsonReporter;
 
-        function expectedReportWith(overrides: any) {
-            let report = {
-                name: 'Paying with a default card',
-                testSteps: [],
-                userStory: {
-                    id: 'checkout',
-                    storyName: 'Checkout',
-                    path: 'features/checkout.feature',
-                    // narrative: '\nIn order to make me feel a sense of accomplishment\nAs a forgetful person\nI want to ...',
-                    type: 'feature',
-                },
-                title:       'Paying with a default card',
-                description: '',
-                tags: [],
-                // driver: 'chrome:jane',
-                manual:    false,
-                startTime: startTime,
-                duration:  undefined,
-                result:    'SUCCESS',
-                testSource: 'cucumber',
-                testFailureCause: undefined,
-            };
+        beforeEach( () => {
+            fileSystem   = new FileSystem(rootDir);
+            stageManager = new StageManager(new Journal());
+            stage        = new Stage(stageManager);
 
-            return Object.assign(report, overrides);
-        }
+            reporter = new JsonReporter(fileSystem);
+            reporter.assignTo(stage);
+        });
 
-        it('contains the story of what happened during the scene', () => {
-            let events = [
+        beforeEach(() => mockfs({ '/Users/jan/projects/serenityjs': {} }));
+        afterEach (() => mockfs.restore());
+
+        it('contains the story of what happened during a scene', () => {
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
-                sceneFinished(scene, Result.SUCCESS, startTime + duration),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + duration)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-
-                expect(reports).to.have.length(1);
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     startTime: startTime,
                     duration:  duration,
                     result:    Result[Result.SUCCESS],
-                }) ]);
-            });
+                })));
         });
 
         it('includes the details of what happened during specific activities', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Opens a browser', startTime + 1),
                 activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
-                sceneFinished(scene, Result.SUCCESS, startTime + 3),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 3)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 3,
                     testSteps: [ {
                         description: 'Opens a browser',
@@ -91,28 +82,22 @@ describe('Reporting what happened during the test', () => {
                         duration:    1,
                         result:      'SUCCESS',
                         children:    [],
-                        screenshots: undefined,
-                        exception:   undefined,
                     } ],
-                }) ]);
-            });
-
+                })));
         });
 
         it('contains pictures', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Specifies the default email address', startTime + 1),
                 photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
                 activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
                 photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
-                sceneFinished(scene, Result.SUCCESS, startTime + 3),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 3)
+            );
 
-            return new RehearsalReport().of(events).then((reports) => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 3,
                     testSteps: [ {
                         description: 'Specifies the default email address',
@@ -120,30 +105,26 @@ describe('Reporting what happened during the test', () => {
                         duration: 1,
                         result: 'SUCCESS',
                         children: [],
-                        exception: undefined,
                         screenshots: [
                             { screenshot: 'picture1.png' },
                             { screenshot: 'picture2.png' },
                         ],
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('covers multiple activities', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Opens a browser', startTime + 1),
                 activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
                 activityStarted('Navigates to amazon.com', startTime + 3),
                 activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 4),
-                sceneFinished(scene, Result.SUCCESS, startTime + 5),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 5)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 5,
                     testSteps: [ {
                         description: 'Opens a browser',
@@ -151,23 +132,18 @@ describe('Reporting what happened during the test', () => {
                         duration: 1,
                         result: 'SUCCESS',
                         children: [],
-                        exception: undefined,
-                        screenshots: undefined,
                     }, {
                         description: 'Navigates to amazon.com',
                         startTime: startTime + 3,
                         duration: 1,
                         result: 'SUCCESS',
                         children: [],
-                        exception: undefined,
-                        screenshots: undefined,
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('covers activities in detail, including sub-activities', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Buys a discounted e-book reader', startTime + 1),
                 activityStarted('Opens a browser', startTime + 2),
@@ -177,29 +153,23 @@ describe('Reporting what happened during the test', () => {
                 activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
                 activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
                 activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
-                sceneFinished(scene, Result.SUCCESS, startTime + 9),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 9)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 9,
                     testSteps: [ {
                         description: 'Buys a discounted e-book reader',
                         startTime: startTime + 1,
                         duration: 7,
                         result: 'SUCCESS',
-                        exception: undefined,
-                        screenshots: undefined,
                         children: [ {
                             description: 'Opens a browser',
                             startTime: startTime + 2,
                             duration: 1,
                             result: 'SUCCESS',
                             children: [],
-                            exception: undefined,
-                            screenshots: undefined,
                         }, {
                             description: 'Searches for discounted e-book readers',
                             startTime: startTime + 4,
@@ -211,19 +181,14 @@ describe('Reporting what happened during the test', () => {
                                 duration: 1,
                                 result: 'SUCCESS',
                                 children: [],
-                                exception: undefined,
-                                screenshots: undefined,
                             } ],
-                            exception: undefined,
-                            screenshots: undefined,
                         } ],
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('covers activities in detail, including photos for sub-activities', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),                                                         // current: scene
                 activityStarted('Buys a discounted e-book reader', startTime + 1),                      // current: buys,   previous: scene
                 activityStarted('Opens a browser', startTime + 2),                                      // current: opens,  previous: buys
@@ -237,20 +202,17 @@ describe('Reporting what happened during the test', () => {
                 photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 7),
                 activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
                 photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 8),
-                sceneFinished(scene, Result.SUCCESS, startTime + 9),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 9)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 9,
                     testSteps: [ {
                         description: 'Buys a discounted e-book reader',
                         startTime: startTime + 1,
                         duration: 7,
                         result: 'SUCCESS',
-                        exception: undefined,
                         screenshots: [
                             { screenshot: 'buys.png' },
                         ],
@@ -260,7 +222,6 @@ describe('Reporting what happened during the test', () => {
                             duration: 1,
                             result: 'SUCCESS',
                             children: [],
-                            exception: undefined,
                             screenshots: [
                                 { screenshot: 'opens_browser.png' },
                             ],
@@ -275,51 +236,43 @@ describe('Reporting what happened during the test', () => {
                                 duration: 1,
                                 result: 'SUCCESS',
                                 children: [],
-                                exception: undefined,
                                 screenshots: [
                                     { screenshot: 'navigates.png' },
                                 ],
                             } ],
-                            exception: undefined,
                             screenshots: [
                                 { screenshot: 'searches.png' },
                             ],
                         } ],
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('ignores the photos that have been attempted but failed (ie. because webdriver was not ready)', () => {
 
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Buys a discounted e-book reader', startTime + 1),
                 activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
                 photoFailed('Buys a discounted e-book reader', startTime + 2),
-                sceneFinished(scene, Result.SUCCESS, startTime + 3),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 3)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 3,
                     testSteps: [ {
                         description: 'Buys a discounted e-book reader',
                         startTime: startTime + 1,
                         duration: 1,
                         result: 'SUCCESS',
-                        exception: undefined,
-                        screenshots: undefined,
                         children: [],
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('covers activities in detail, including photos for sub-activities, even those deeply nested ones', () => {
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                     activityStarted('Buys a discounted e-book reader', startTime + 1),
                         activityStarted('Searches for discounted e-book readers', startTime + 4),
@@ -333,20 +286,17 @@ describe('Reporting what happened during the test', () => {
                         photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 8),
                     activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 9),
                     photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 9),
-                sceneFinished(scene, Result.SUCCESS, startTime + 10),
-            ];
+                sceneFinished(scene, Result.SUCCESS, startTime + 10)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.have.length(1);
-
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 10,
                     testSteps: [ {
                         description: 'Buys a discounted e-book reader',
                         startTime: startTime + 1,
                         duration: 8,
                         result: 'SUCCESS',
-                        exception: undefined,
                         screenshots: [
                             { screenshot: 'buys.png' },
                         ],
@@ -366,24 +316,20 @@ describe('Reporting what happened during the test', () => {
                                     duration: 1,
                                     result: 'SUCCESS',
                                     children: [],
-                                    exception: undefined,
                                     screenshots: [
                                         { screenshot: 'enters_url.png' },
                                     ],
                                 }],
-                                exception: undefined,
                                 screenshots: [
                                     { screenshot: 'navigates.png' },
                                 ],
                             } ],
-                            exception: undefined,
                             screenshots: [
                                 { screenshot: 'searches.png' },
                             ],
                         } ],
                     } ],
-                }) ]);
-            });
+                })));
         });
 
         it('describes problems encountered', () => {
@@ -396,15 +342,15 @@ describe('Reporting what happened during the test', () => {
                 // and so on
             ].join('\n');
 
-            let events = [
+            givenFollowingEvents(
                 sceneStarted(scene, startTime),
                 activityStarted('Buys a discounted e-book reader', startTime + 1),
                 activityFinished('Buys a discounted e-book reader', Result.ERROR, startTime + 2, error),
-                sceneFinished(scene, Result.ERROR, startTime + 3, error),
-            ];
+                sceneFinished(scene, Result.ERROR, startTime + 3, error)
+            );
 
-            return new RehearsalReport().of(events).then(reports => {
-                expect(reports).to.deep.equal([ expectedReportWith({
+            return stageManager.allDone().then(_ =>
+                expect(producedReport()).to.deep.equal(expectedReportWith({
                     duration: 3,
                     testSteps: [ {
                         description: 'Buys a discounted e-book reader',
@@ -412,7 +358,6 @@ describe('Reporting what happened during the test', () => {
                         duration: 1,
                         result: 'ERROR',
                         children: [],
-                        screenshots: undefined,
                         exception: {
                             errorType: 'Error',
                             message: "We're sorry, something happened",
@@ -445,8 +390,64 @@ describe('Reporting what happened during the test', () => {
                             methodName: 'Runnable.run',
                         } ],
                     },
-                }) ]);
-            });
+                })));
         });
+
+        function givenFollowingEvents(...events: DomainEvent<any>[]) {
+            events.forEach(event => stage.manager.notifyOf(event));
+        }
+
+        function sceneStarted(s: Scene, timestamp: number) {
+            return new SceneStarts(s, timestamp);
+        }
+
+        function activityStarted(name: string, timestamp: number) {
+            return new ActivityStarts(new Activity(name), timestamp);
+        }
+
+        function activityFinished(name: string, r: Result, ts: number, e?: Error) {
+            return new ActivityFinished(new Outcome(new Activity(name), r, e), ts);
+        }
+
+        function sceneFinished(s: Scene, r: Result, timestamp: number, e?: Error) {
+            return new SceneFinished(new Outcome(s, r, e), timestamp);
+        }
+
+        function photoTaken(name: string, path: string, timestamp: number) {
+            return new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(new Photo(path))), timestamp);
+        }
+
+        function photoFailed(name, timestamp) {
+            return new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(undefined)), timestamp);
+        }
+
+        function expectedReportWith(overrides: any) {
+            let report = {
+                name: 'Paying with a default card',
+                testSteps: [],
+                userStory: {
+                    id: 'checkout',
+                    storyName: 'Checkout',
+                    path: 'features/checkout.feature',
+                    // narrative: '\nIn order to make me feel a sense of accomplishment\nAs a forgetful person\nI want to ...',
+                    type: 'feature',
+                },
+                title:       'Paying with a default card',
+                description: '',
+                tags: [],
+                // driver: 'chrome:jane',
+                manual:    false,
+                startTime: startTime,
+                duration:  undefined,
+                result:    'SUCCESS',
+                testSource: 'cucumber',
+            };
+
+            return Object.assign(report, overrides);
+        }
+
+        function producedReport() {
+            return JSON.parse(fs.readFileSync(`${rootDir}/${filename}`).toString('ascii'));
+        }
     });
 });

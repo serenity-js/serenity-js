@@ -2,15 +2,26 @@ import sinon = require('sinon');
 import expect = require('../../expect');
 
 import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
-import { Md5HashedPictureNames, Photographer, PictureNamingStrategy } from '../../../src/serenity-protractor/stage/photographer';
-import { ActivityFinished, ActivityStarts, PhotoAttempted, SceneFinished, SceneStarts } from '../../../src/serenity/domain/events';
+import {
+    Md5HashedPictureNames,
+    Photographer,
+    PictureNamingStrategy,
+} from '../../../src/serenity-protractor/stage/photographer';
+import {
+    ActivityFinished,
+    ActivityStarts,
+    PhotoAttempted,
+    SceneFinished,
+    SceneStarts,
+} from '../../../src/serenity/domain/events';
 import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../../../src/serenity/domain/model';
-import { FileSystemOutlet } from '../../../src/serenity/reporting/outlet';
+import { FileSystem } from '../../../src/serenity/reporting/file_system';
 import { Cast, Journal, Stage, StageManager } from '../../../src/serenity/stage';
 
 describe('Photography', () => {
 
-    const image = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=';
+    const image = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
+          imageBuffer = new Buffer(image, 'base64');
 
     describe('Photographer', () => {
 
@@ -22,7 +33,7 @@ describe('Photography', () => {
             now       = 1469028588000;
 
         beforeEach( () => {
-            outlet       = <any> sinon.createStubInstance(FileSystemOutlet);
+            outlet       = <any> sinon.createStubInstance(FileSystem);
 
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
@@ -75,7 +86,7 @@ describe('Photography', () => {
 
                 it('Promises to tell the Stage Manager where they can collect the Photo when it\'s ready', () => {
 
-                    outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
+                    outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                     photographer.notifyOf(new ActivityStarts(activity, now));
 
@@ -113,7 +124,7 @@ describe('Photography', () => {
 
                     it('finished with a Success', () => {
 
-                        outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
+                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS), now));
 
@@ -131,7 +142,7 @@ describe('Photography', () => {
 
                         let failure = new Error('Expected the list of items to contain 5 items but it only had 4');
 
-                        outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
+                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.FAILURE, failure), now));
 
@@ -149,7 +160,7 @@ describe('Photography', () => {
 
                         let error = new Error('The element was not found');
 
-                        outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
+                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error), now));
 
@@ -167,7 +178,7 @@ describe('Photography', () => {
 
                         let error = new Error('Client database is offline');
 
-                        outlet.sendPicture.withArgs(photoName, image).returns(photoPath);
+                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.COMPROMISED, error), now));
 

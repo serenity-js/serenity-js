@@ -226,6 +226,7 @@ describe('Recording what happened during the test', () => {
 
                 class DomainEventA extends DomainEvent<string> {}
                 class DomainEventB extends DomainEvent<string> {}
+                class DomainEventC extends DomainEvent<string> {}
 
                 let chronicle = new Journal(),
                     manager   = new StageManager(chronicle),
@@ -233,11 +234,11 @@ describe('Recording what happened during the test', () => {
                     B         = new DomainEventB('B'),
                     spyA      = <any> sinon.createStubInstance(StageSpy),
                     spyB      = <any> sinon.createStubInstance(StageSpy),
-                    spyDE     = <any> sinon.createStubInstance(StageSpy);
+                    spyC      = <any> sinon.createStubInstance(StageSpy);
 
                 manager.registerInterestIn([DomainEventA], spyA);
                 manager.registerInterestIn([DomainEventB], spyB);
-                manager.registerInterestIn([DomainEvent], spyDE);
+                manager.registerInterestIn([DomainEventC], spyC);
 
                 manager.notifyOf(A);
                 manager.notifyOf(B);
@@ -248,7 +249,23 @@ describe('Recording what happened during the test', () => {
                 expect(spyB.notifyOf).to.have.been.calledWith(B);
                 expect(spyB.notifyOf).to.not.have.been.calledWith(A);
 
-                expect(spyDE.notifyOf).to.not.have.been.called;
+                expect(spyC.notifyOf).to.not.have.been.called;
+            });
+
+            it('will notify the "catch-all" listeners, listening an all DomainEvents', () => {
+
+                class DomainEventA extends DomainEvent<string> {}
+
+                let chronicle = new Journal(),
+                    manager   = new StageManager(chronicle),
+                    A         = new DomainEventA('A'),
+                    spyDE     = <any> sinon.createStubInstance(StageSpy);
+
+                manager.registerInterestIn([DomainEvent],  spyDE);
+
+                manager.notifyOf(A);
+
+                expect(spyDE.notifyOf).to.have.been.calledWith(A);
             });
 
             it('does not allow the listener to alter the event it received', () => {

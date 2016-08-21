@@ -1,6 +1,6 @@
 import { ActivityFinished, ActivityStarts, DomainEvent, PhotoAttempted } from '../../serenity/domain/events';
 import { Activity, Photo, PhotoReceipt, Result } from '../../serenity/domain/model';
-import { Outlet } from '../../serenity/reporting/outlet';
+import { FileSystem } from '../../serenity/reporting/file_system';
 import { UsesAbilities } from '../../serenity/screenplay/actor';
 import { Stage, StageCrewMember } from '../../serenity/stage';
 import { BrowseTheWeb } from '../screenplay/abilities/browse_the_web';
@@ -10,7 +10,11 @@ export class Photographer implements StageCrewMember {
     private stage: Stage;
     private eventsOfInterest: { new (v: any): DomainEvent<any>} [] = [];
 
-    constructor(eventsOfInterest: { new (v: any): DomainEvent<any>} [], private outlet: Outlet, private naming: PictureNamingStrategy) {
+    constructor(
+        eventsOfInterest: { new (v: any): DomainEvent<any>} [],
+        private fs: FileSystem,
+        private naming: PictureNamingStrategy = new Md5HashedPictureNames('png'))
+    {
         this.eventsOfInterest = this.eventsOfInterest.concat(eventsOfInterest);
     }
 
@@ -52,7 +56,7 @@ export class Photographer implements StageCrewMember {
 
     private photographWorkOf(actor: UsesAbilities): Promise<Photo> {
 
-        let saveScreenshot = (data) => this.outlet.sendPicture(this.naming.nameFor(data), data);
+        let saveScreenshot = (data) => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
 
         let ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
             if (error.message.indexOf('does not have a valid session ID') > -1) {
