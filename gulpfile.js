@@ -10,7 +10,9 @@ const gulp      = require('gulp'),
     mocha       = require('gulp-mocha'),
     istanbul    = require('gulp-istanbul'),
     remap       = require('remap-istanbul/lib/gulpRemapIstanbul'),
+    report      = require('gulp-istanbul-report'),
     runSequence = require('run-sequence'),
+    path        = require('path'),
     project     = ts.createProject('tsconfig.json'),
     dirs        = require('./gulpfile.config');
 
@@ -18,7 +20,7 @@ const gulp      = require('gulp'),
 gulp.task('clean', () => gulp.src([dirs.staging.all, dirs.export], { read: false }).pipe(clean()));
 
 gulp.task("lint", () =>
-    gulp.src([ dirs.src, dirs.spec, '!**/*.d.ts' ])
+    gulp.src([ dirs.src, dirs.spec, dirs.behaviour.spec, '!**/*.d.ts' ])
         .pipe(tslint({
             formatter: "verbose"
         }))
@@ -26,7 +28,7 @@ gulp.task("lint", () =>
 );
 
 gulp.task('transpile', () => {
-    let transpiled = gulp.src([ dirs.src, dirs.spec, dirs.typings ])
+    let transpiled = gulp.src([ dirs.src, dirs.spec, dirs.behaviour.spec, dirs.typings ])
         .pipe(sourcemaps.init())
         .pipe(ts(project, { sortOutput: true }));
 
@@ -39,43 +41,64 @@ gulp.task('transpile', () => {
     ]);
 });
 
-gulp.task('pre-test', ['transpile'], () =>
+gulp.task('prepare-examples', () =>
+    gulp.src(dirs.behaviour.examples).pipe(gulp.dest(dirs.staging.traspiled.all + '/behaviour'))
+);
+
+gulp.task('pre-test', [ 'transpile' ], () =>
     gulp.src(dirs.staging.traspiled.src)
         .pipe(istanbul())
         .pipe(istanbul.hookRequire())
 );
 
-gulp.task('test', ['pre-test'], () => {
-    let remapToTypescript = () => gulp
-        .src(dirs.staging.reports.coverage + '/coverage-final.json')
+function remapCoverageToTypescript(dir) {
+    return () => gulp
+        .src(path.join(dir, 'coverage-final.json'))
         .pipe(remap({
             basePath: '.',
             useAbsolutePaths: true,
-            reports: {
-                'json':         dirs.staging.reports.coverage + '/coverage-typescript.json',
-                'html':         dirs.staging.reports.coverage + 'html',
-                'text-summary': null,
-                'lcovonly':     dirs.staging.reports.coverage + '/lcov.info',
-                'cobertura':    dirs.staging.reports.coverage + '/cobertura.xml'
-            }
-        }));
+            reports: { 'json': path.join(dir, 'coverage-final-remaped.json') }
+        }))
+}
 
-    return gulp.src(dirs.staging.traspiled.spec)
+gulp.task('test', ['pre-test'], () =>
+    gulp.src(dirs.staging.traspiled.spec)
         .pipe(mocha())
         .pipe(istanbul.writeReports({
-            dir: dirs.staging.reports.coverage,
-            reporters: [ 'json' ],
+            dir: dirs.staging.reports.coverage.spec,
+            reporters: ['json'],
         }))
         // .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
-        .on('end', remapToTypescript);
-});
+        .on('end', remapCoverageToTypescript(dirs.staging.reports.coverage.spec))
+);
 
-gulp.task('package', [ 'lint', 'test' ], () => {
-    return gulp
+gulp.task('verify', ['pre-test', 'prepare-examples'], () =>
+    gulp.src(dirs.staging.traspiled.behaviour)
+        .pipe(mocha())
+        // istanbul invoked directly by the integration tests
+        .on('end', remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour))
+);
+
+gulp.task('aggregate', () =>
+    gulp
+        .src(dirs.staging.reports.coverage.all + '/**/coverage-final-remaped.json')
+        .pipe(
+            report({
+                dir: dirs.staging.reports.coverage.all,
+                reporters: [
+                    'text-summary',
+                    { name: 'html', dir: dirs.staging.reports.coverage.all + 'html' },
+                    { name: 'lcovonly', file: 'lcov.info' }
+                ]
+            }))
+);
+
+gulp.task('export', () =>
+    gulp
         .src(dirs.staging.traspiled.export)
-        .pipe(gulp.dest(dirs.export));
-});
+        .pipe(gulp.dest(dirs.export))
+);
 
-gulp.task('prepublish', (done) => runSequence('clean', 'package'));
+gulp.task('package', (done) => runSequence('clean', 'lint', 'test', 'verify', 'aggregate', 'export'));
 
-gulp.task('default', [ 'prepublish' ], () => {});
+gulp.task('default', [ 'package' ], () => {});

@@ -1,21 +1,30 @@
 module.exports = {
     staging:   {
-        all:        'staging',
+        all:                'staging',
         reports:   {
-            all:      'staging/reports',
-            coverage: 'staging/reports/coverage'
+            all:            'staging/reports',
+            coverage:   {
+                all:        'staging/reports/coverage',
+                spec:       'staging/reports/coverage/spec',
+                behaviour:  'staging/reports/coverage/behaviour',
+            }
         },
         traspiled: {
-            all:    'staging/transpiled',
-            src:    'staging/transpiled/src/**/*.js',
-            spec:   'staging/transpiled/spec/**/*.js',
-            export: 'staging/transpiled/src/**/*'
+            all:        'staging/transpiled',
+            src:        'staging/transpiled/src/**/*.js',
+            spec:       'staging/transpiled/spec/**/*.js',
+            behaviour:  'staging/transpiled/behaviour/**/*.js',
+            export:     'staging/transpiled/src/**/*'
         }
     },
-    export:   'lib',
+    export:     'lib',
 
-    src:      'src/**/*.ts',
-    spec:     'spec/**/*.ts',
+    src:        'src/**/*.ts',
+    spec:       'spec/**/*.ts',
+    behaviour:   {
+        spec:       'behaviour/**/*.ts',
+        examples:   'behaviour/**/cucumber/features/**/*'
+    },
 
-    typings:  'typings/index.d.ts'
+    typings:    'typings/index.d.ts'
 };

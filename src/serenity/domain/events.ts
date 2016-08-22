@@ -2,8 +2,11 @@ import { Activity, Outcome, PhotoReceipt, Scene } from './model';
 import * as moment from 'moment';
 
 export class DomainEvent<T> {
+    private type: string;
+
     constructor(public value: T, public timestamp?: number) {
         this.timestamp = timestamp || moment().valueOf();
+        this.type = this.constructor.name;
     }
 
     toString() {
