@@ -1,17 +1,15 @@
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '../../serenity/domain/events';
-import { Activity, Outcome, Result, Scene } from '../../serenity/domain/model';
+import { Activity, Outcome, Result, Scene, Tag } from '../../serenity/domain/model';
 import { Serenity } from '../../serenity/serenity';
-import { EventListener, Listener, events } from 'cucumber';
+import * as cucumber from 'cucumber';
 
-export function scenarioLifeCycleNotifier(): EventListener {
+export function scenarioLifeCycleNotifier(): cucumber.EventListener {
 
-    console.log('registering scenarioLifeCycleNotifier on ', process.pid); // tslint:disable-line
-
-    return Object.assign(Listener(), {
-        handleBeforeScenarioEvent: handleBeforeScenarioEvent,
-        handleBeforeStepEvent: handleBeforeStepEvent,
-        handleStepResultEvent: handleStepResultEvent,
-        handleScenarioResultEvent: handleScenarioResultEvent,
+    return Object.assign(cucumber.Listener(), {
+        handleBeforeScenarioEvent:  handleBeforeScenarioEvent,
+        handleBeforeStepEvent:      handleBeforeStepEvent,
+        handleStepResultEvent:      handleStepResultEvent,
+        handleScenarioResultEvent:  handleScenarioResultEvent,
     });
 
     // handleAfterStepEvent      (step: events.StepPayload, callback: () => void) => callback();
@@ -23,14 +21,15 @@ export function scenarioLifeCycleNotifier(): EventListener {
     // handleAfterFeaturesEvent  (features: events.FeaturesPayload, callback: () => void) => callback();
 }
 
-function handleBeforeScenarioEvent (scenario: events.ScenarioPayload, callback: () => void) {
+function handleBeforeScenarioEvent (scenario: cucumber.events.ScenarioPayload, callback: () => void) {
 
     Serenity.notify(new SceneStarts(sceneFrom(scenario)));
 
     callback();
 }
 
-function handleBeforeStepEvent (step: events.StepPayload, callback: () => void) {
+function handleBeforeStepEvent (step: cucumber.events.StepPayload, callback: () => void) {
+
     if (! step.isHidden()) {
         Serenity.notify(new ActivityStarts(activityFrom(step)));
     }
@@ -38,7 +37,8 @@ function handleBeforeStepEvent (step: events.StepPayload, callback: () => void) 
     callback();
 }
 
-function handleStepResultEvent (result: events.StepResultPayload, callback: () => void) {
+function handleStepResultEvent (result: cucumber.events.StepResultPayload, callback: () => void) {
+
     let step = result.getStep();
 
     // "before" and "after" steps emit an event even if they keywords themselves are not present in the test...
@@ -49,7 +49,8 @@ function handleStepResultEvent (result: events.StepResultPayload, callback: () =
     callback();
 }
 
-function handleScenarioResultEvent (result: events.ScenarioResultPayload, callback: () => void) {
+function handleScenarioResultEvent (result: cucumber.events.ScenarioResultPayload, callback: () => void) {
+
     let scenario = result.getScenario();
 
     Serenity.notify(new SceneFinished(outcome(sceneFrom(scenario), result.getStatus(), result.getFailureException())));
@@ -59,11 +60,11 @@ function handleScenarioResultEvent (result: events.ScenarioResultPayload, callba
 
 // --
 
-function sceneFrom(scenario: events.ScenarioPayload): Scene {
+function sceneFrom(scenario: cucumber.events.ScenarioPayload): Scene {
     return new CucumberScene(scenario);
 }
 
-function activityFrom(step: events.StepPayload): Activity {
+function activityFrom(step: cucumber.events.StepPayload): Activity {
     return new Activity(step.getKeyword() + step.getName());
 }
 
@@ -88,12 +89,17 @@ function serenityResultFrom(status: string): Result {
     return results[status];
 }
 
+function toSerenityTag(cucumberTag: cucumber.Tag): Tag {
+    return Tag.from(cucumberTag.getName());
+}
+
 class CucumberScene extends Scene {
-    constructor(scenario: events.ScenarioPayload) {
+    constructor(scenario: cucumber.events.ScenarioPayload) {
         super(
             scenario.getName(),
             scenario.getFeature().getName(),
             scenario.getUri(),
+            scenario.getTags().map(toSerenityTag),
             `${scenario.getFeature().getName()}:${scenario.getLine()}:${scenario.getName()}`
         );
     }

@@ -11,13 +11,14 @@ import {
     Scene,
     SceneFinished,
     SceneStarts,
+    Tag,
 } from '../domain';
 import { Stage, StageCrewMember } from '../stage';
 import { FileSystem } from './file_system';
 import * as path from 'path';
 import { StackFrame, parse } from 'stack-trace';
-
 import { Md5 } from 'ts-md5/dist/md5';
+import _ = require('lodash');
 
 export class JsonReporter implements StageCrewMember {
     private static Events_of_Interest = [ SceneStarts, ActivityStarts, ActivityFinished, PhotoAttempted, SceneFinished ];
@@ -104,10 +105,10 @@ class Rehearsal {
     photoTaken(receipt: PhotoReceipt, timestamp: number) {
 
         [ this.previous, this.current ]
-            .filter(_ => _ instanceof ActivityReport)
-            .map(_ => <ActivityReport> _)
-            .filter(_ => _.concerns(receipt.activity))
-            .map(_ => _.attachPhoto(receipt.photo));
+            .filter(report => report instanceof ActivityReport)
+            .map(report => <ActivityReport> report)
+            .filter(report => report.concerns(receipt.activity))
+            .map(report => report.attachPhoto(receipt.photo));
     }
 
     report(): Promise<any> {
@@ -192,7 +193,7 @@ abstract class SerenityReport<T> {
 
 class SceneReport extends SerenityReport<Scene> {
 
-    constructor(private scenario: Scene, startTimestamp: number) {
+    constructor(private scene: Scene, startTimestamp: number) {
         super(startTimestamp);
     }
 
@@ -200,10 +201,10 @@ class SceneReport extends SerenityReport<Scene> {
         return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
 
             return {
-                name:           this.scenario.name,
-                title:          this.scenario.name,     // todo: do we need both the name and the title?
+                name:           this.scene.name,
+                title:          this.scene.name,        // todo: do we need both the name and the title?
                 description:    '',                     // todo: missing
-                tags: [],                               // todo: missing
+                tags:           this.tagsFor(this.scene),
                 // driver                               // todo: missing
                 testSource:     'cucumber',             // todo: hard-coded, should be configurable
                 startTime:      this.startedAt,
@@ -211,10 +212,11 @@ class SceneReport extends SerenityReport<Scene> {
                 duration:       this.duration,
                 result:         Result[this.result],
                 testSteps:      serialisedChildren,
+                issues:         this.issuesCoveredBy(this.scene),
                 userStory: {
-                    id:         this.dashify(this.scenario.category),
-                    storyName:  this.scenario.category,
-                    path:       path.relative(process.cwd(), this.scenario.path),   // todo: introduce some relative path resolver
+                    id:         this.dashify(this.scene.category),
+                    storyName:  this.scene.category,
+                    path:       path.relative(process.cwd(), this.scene.path),   // todo: introduce some relative path resolver
                     type:       'feature',
                 },
                 testFailureCause: this.errorIfPresent(),
@@ -229,6 +231,52 @@ class SceneReport extends SerenityReport<Scene> {
             .replace(/^-+|-+$/g, '');
 
         return dashified.toLowerCase();
+    }
+
+    private isAnIssue(tag: Tag): boolean {
+        return ['issue', 'issues'].indexOf(tag.type) !== -1;
+    }
+
+    private issuesCoveredBy(scene: Scene) {
+        const onlyIssueTags = this.isAnIssue,
+              toIssueIds    = (tag) => tag.values;
+
+        return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value();
+    }
+
+    private tagsFor(scene: Scene) {
+
+        const isAnIssue = this.isAnIssue;
+
+        function serialise(tag: Tag) {
+            const noValue   = (t: Tag) => { return { name: t.type,  type: 'tag' }; },
+                  withValue = (t: Tag) => { return { name: t.values.join(','), type: t.type }; };
+
+            return tag.values.length === 0
+                ? noValue(tag)
+                : withValue(tag);
+        }
+
+        function breakDownIssues(tag: Tag) {
+            return isAnIssue(tag)
+                ? tag.values.map(issueId => new Tag('issue', [ issueId ]))
+                : tag;
+        }
+
+        function featureTag(featureName: string) {
+            return {
+                name: featureName,
+                type: 'feature',
+            };
+        }
+
+        return _.chain(scene.tags)
+            .map(breakDownIssues)
+            .flatten()
+            .map(serialise)
+            .uniqBy('name')
+            .concat(featureTag(scene.category))
+            .value();
     }
 }
 

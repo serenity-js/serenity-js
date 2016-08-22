@@ -6,35 +6,35 @@
 
 declare namespace cucumber {
 
-    export interface CallbackStepDefinition{
-        pending : () => PromiseLike<any>;
-        (errror?:any):void;
+    export interface CallbackStepDefinition {
+        pending: () => PromiseLike<any>;
+        (errror?: any): void;
     }
 
     interface StepDefinitionCode {
         (...stepArgs: Array<string |CallbackStepDefinition>): PromiseLike<any> | any | void;
     }
 
-    interface StepDefinitionOptions{
+    interface StepDefinitionOptions {
         timeout?: number;
     }
 
     export interface StepDefinitions {
         Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
         Given(pattern: RegExp | string, code: StepDefinitionCode): void;
-        When(pattern: RegExp | string,  options: StepDefinitionOptions, code: StepDefinitionCode): void;
-        When(pattern: RegExp | string,  code: StepDefinitionCode): void;
-        Then(pattern: RegExp | string,  options: StepDefinitionOptions, code: StepDefinitionCode): void;
-        Then(pattern: RegExp | string,  code: StepDefinitionCode): void;
-        setDefaultTimeout(time:number): void;
+        When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+        When(pattern: RegExp | string, code: StepDefinitionCode): void;
+        Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+        Then(pattern: RegExp | string, code: StepDefinitionCode): void;
+        setDefaultTimeout(time: number): void;
     }
 
     export interface Hooks {
         Before(code: SimpleHook): void;
         After(code: SimpleHook): void;
-        Around(code: AroundHook):void;
-        setDefaultTimeout(time:number): void;
-        registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
+        Around(code: AroundHook): void;
+        setDefaultTimeout(time: number): void;
+        registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) =>void): void;
         registerListener(listener: EventListener): void;
     }
 
@@ -42,15 +42,19 @@ declare namespace cucumber {
 
     export class EventListener {
         hear(event: Event, callback: ()=>void);
+
         hasHandlerForEvent(event: Event): boolean;
+
         buildHandlerNameForEvent(event: Event);
+
         getHandlerForEvent(event: Event): EventHook;
+
         buildHandlerName(shortName: string): string;
+
         setHandlerForEvent(shortName: string, handler: EventListener);
     }
 
-    export function Listener() : EventListener;
-
+    export function Listener(): EventListener;
 
     // todo: review the interface signatures
     export namespace events {
@@ -60,7 +64,8 @@ declare namespace cucumber {
             getPayloadItem(name: string): EventPayload;
         }
 
-        interface EventPayload { }
+        interface EventPayload {
+        }
 
         interface FeaturesPayload extends EventPayload {
             addFeature(feature): any;
@@ -86,11 +91,11 @@ declare namespace cucumber {
             getDescription(): string;
             getUri(): string;
             getLine(): number;
-            getTags(): string[];
+            getTags(): Tag[];
             getScenarios(): ScenarioPayload[]; // todo ?
             getPayloadItem(): FeaturePayload;
         }
-        
+
         interface ScenarioPayload extends EventPayload {
             getName(): string;
             getKeyword(): string;
@@ -101,18 +106,17 @@ declare namespace cucumber {
             getUris(): string[]; // todo: ?
             getLine(): number;
             getLines(): number[]; // todo: ?
-            getTags(): string[]; // todo: ?
+            getTags(): Tag[];
             getSteps(): any[];
             getPayloadItem(): ScenarioPayload;
         }
-
 
         interface ScenarioResultPayload extends EventPayload {
             getFailureException(): Error;
             getScenario(): any;
             getStatus(): any;
             witnessStepResult(stepResult): void;
-            witnessStepWithStatis(stepStatus):void;
+            witnessStepWithStatis(stepStatus): void;
         }
 
         interface StepPayload extends EventPayload {
@@ -161,26 +165,28 @@ declare namespace cucumber {
 
     }
 
-    // todo: rename, they're terrible
-
+    interface Tag {
+        getName(): string;
+        getLine(): number;
+    }
 
     export interface Scenario {
-        getKeyword():string;
-        getName():string;
-        getDescription():string;
-        getUri():string;
-        getLine():number;
-        getTags():string[];
-        getException():Error;
-        getAttachments():any[];
-        attach(data:any, mimeType?:string, callback?:(err?:any) => void):void;
-        isSuccessful():boolean;
-        isFailed():boolean;
-        isPending():boolean;
-        isUndefined():boolean;
-        isSkipped():boolean;
+        getKeyword(): string;
+        getName(): string;
+        getDescription(): string;
+        getUri(): string;
+        getLine(): number;
+        getTags(): Tag[];
+        getException(): Error;
+        getAttachments(): any[];
+        attach(data: any, mimeType?: string, callback?: (err?: any) => void): void;
+        isSuccessful(): boolean;
+        isFailed(): boolean;
+        isPending(): boolean;
+        isUndefined(): boolean;
+        isSkipped(): boolean;
     }
-    
+
     interface EventHook {
         (event: Event, callback?: ()=>void): void;
     }
@@ -189,11 +195,11 @@ declare namespace cucumber {
         (scenario: Scenario, callback?: CallbackStepDefinition): void;
     }
 
-    interface AroundHook{
-        (scenario: Scenario, runScenario?: (error:string, callback?:Function)=>void): void;
+    interface AroundHook {
+        (scenario: Scenario, runScenario?: (error: string, callback?: Function)=>void): void;
     }
 }
 
-declare module 'cucumber'{
+declare module 'cucumber' {
     export = cucumber;
 }

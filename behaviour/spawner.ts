@@ -12,6 +12,7 @@ import { ForkOptions } from 'child_process';
 
 import childProcess = require('child_process');
 import path = require('path');
+import { Tag } from '../src/serenity/domain/model';
 
 const dirs: any = require(process.cwd() + '/gulpfile.config');   // tslint:disable-line:no-var-requires
 const istanbul = process.cwd() + '/node_modules/.bin/istanbul';
@@ -51,7 +52,8 @@ export class Spawned {
 }
 
 function deserialised(event: any): DomainEvent<any> {
-    const scene    = ({ name, category, path, id }: Scene): Scene => new Scene(name, category, path, id),
+    const tagsFrom = (tags: Tag[]) => tags.map(_ => new Tag(_.type, _.values)),
+          scene    = ({ name, category, path, tags, id }: Scene): Scene => new Scene(name, category, path, tagsFrom(tags), id),
           activity = ({ name, id }: Activity): Activity => new Activity(name, id),
           outcome  = <T>(type: (T) => T, { subject, result, error }: Outcome<T>) => new Outcome(type(subject), result, error);
 

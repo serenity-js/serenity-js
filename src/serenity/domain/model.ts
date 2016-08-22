@@ -46,8 +46,28 @@ export interface Identifiable {
     id: string;
 }
 
+export class Tag {
+    private static Pattern = /^@([\w-]+)[:\s]?(.*)/i;
+
+    public static from(text: string): Tag {
+        let [, type, values] = Tag.Pattern.exec(text);
+
+        return new Tag(
+            type,
+            values.split(',').filter(_ => _.length > 0).map(_ => _.trim())
+        );
+    }
+
+    constructor(public type: string, public values: string[] = []) {
+    }
+
+    public get value() {
+        return this.values.join(', ');
+    }
+}
+
 export class Scene implements Identifiable {
-    constructor(public name: string, public category: string, public path: string, public id: string = `${category}:${name}`) { }
+    constructor(public name: string, public category: string, public path: string, public tags: Tag[] = [], public id: string = `${category}:${name}`) { }
 
     toString() {
         return `${this.name} (category: ${this.category}, path: ${this.path}${when(this.id !== this.name, ', id: ' + this.id)})`;

@@ -21,6 +21,7 @@ import { Journal, Stage, StageManager } from '../../../src/serenity/stage';
 import { Md5 } from 'ts-md5/dist/md5';
 
 import expect = require('../../expect');
+import { Tag } from '../../../src/serenity/domain/model';
 
 describe('When reporting on what happened during the rehearsal', () => {
 
@@ -82,33 +83,6 @@ describe('When reporting on what happened during the rehearsal', () => {
                         duration:    1,
                         result:      'SUCCESS',
                         children:    [],
-                    } ],
-                })));
-        });
-
-        it('contains pictures', () => {
-            givenFollowingEvents(
-                sceneStarted(scene, startTime),
-                activityStarted('Specifies the default email address', startTime + 1),
-                photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
-                activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
-                photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
-                sceneFinished(scene, Result.SUCCESS, startTime + 3)
-            );
-
-            return stageManager.allDone().then(_ =>
-                expect(producedReport()).to.deep.equal(expectedReportWith({
-                    duration: 3,
-                    testSteps: [ {
-                        description: 'Specifies the default email address',
-                        startTime: startTime + 1,
-                        duration: 1,
-                        result: 'SUCCESS',
-                        children: [],
-                        screenshots: [
-                            { screenshot: 'picture1.png' },
-                            { screenshot: 'picture2.png' },
-                        ],
                     } ],
                 })));
         });
@@ -187,178 +161,227 @@ describe('When reporting on what happened during the rehearsal', () => {
                 })));
         });
 
-        it('covers activities in detail, including photos for sub-activities', () => {
-            givenFollowingEvents(
-                sceneStarted(scene, startTime),                                                         // current: scene
-                activityStarted('Buys a discounted e-book reader', startTime + 1),                      // current: buys,   previous: scene
-                activityStarted('Opens a browser', startTime + 2),                                      // current: opens,  previous: buys
-                activityFinished('Opens a browser', Result.SUCCESS, startTime + 3),                     // current: buys,   previous: _
-                photoTaken('Opens a browser', 'opens_browser.png', startTime + 3),                      // current: opens,  previous:
-                activityStarted('Searches for discounted e-book readers', startTime + 4),
-                activityStarted('Navigates to amazon.com', startTime + 5),
-                activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
-                photoTaken('Navigates to amazon.com', 'navigates.png', startTime + 6),
-                activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
-                photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 7),
-                activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
-                photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 8),
-                sceneFinished(scene, Result.SUCCESS, startTime + 9)
-            );
+        describe('When working with photos', () => {
 
-            return stageManager.allDone().then(_ =>
-                expect(producedReport()).to.deep.equal(expectedReportWith({
-                    duration: 9,
-                    testSteps: [ {
-                        description: 'Buys a discounted e-book reader',
-                        startTime: startTime + 1,
-                        duration: 7,
-                        result: 'SUCCESS',
-                        screenshots: [
-                            { screenshot: 'buys.png' },
-                        ],
-                        children: [ {
-                            description: 'Opens a browser',
-                            startTime: startTime + 2,
+            it('contains pictures', () => {
+                givenFollowingEvents(
+                    sceneStarted(scene, startTime),
+                    activityStarted('Specifies the default email address', startTime + 1),
+                    photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
+                    activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
+                    photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
+                    sceneFinished(scene, Result.SUCCESS, startTime + 3)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 3,
+                        testSteps: [ {
+                            description: 'Specifies the default email address',
+                            startTime: startTime + 1,
                             duration: 1,
                             result: 'SUCCESS',
                             children: [],
                             screenshots: [
-                                { screenshot: 'opens_browser.png' },
+                                { screenshot: 'picture1.png' },
+                                { screenshot: 'picture2.png' },
                             ],
-                        }, {
-                            description: 'Searches for discounted e-book readers',
-                            startTime: startTime + 4,
-                            duration: 3,
+                        } ],
+                    })));
+            });
+
+            it('ignores the photos that have been attempted but failed (ie. because webdriver was not ready)', () => {
+
+                givenFollowingEvents(
+                    sceneStarted(scene, startTime),
+                    activityStarted('Buys a discounted e-book reader', startTime + 1),
+                    activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
+                    photoFailed('Buys a discounted e-book reader', startTime + 2),
+                    sceneFinished(scene, Result.SUCCESS, startTime + 3)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 3,
+                        testSteps: [ {
+                            description: 'Buys a discounted e-book reader',
+                            startTime: startTime + 1,
+                            duration: 1,
                             result: 'SUCCESS',
+                            children: [],
+                        } ],
+                    })));
+            });
+
+            it('covers activities in detail, including photos for sub-activities', () => {
+                givenFollowingEvents(
+                    sceneStarted(scene, startTime),                                                                 // current: scene
+                        activityStarted('Buys a discounted e-book reader', startTime + 1),                          // current: buys,   previous: scene
+                            activityStarted('Opens a browser', startTime + 2),                                      // current: opens,  previous: buys
+                            activityFinished('Opens a browser', Result.SUCCESS, startTime + 3),                     // current: buys,   previous: _
+                            photoTaken('Opens a browser', 'opens_browser.png', startTime + 3),                      // current: opens,  previous:
+                            activityStarted('Searches for discounted e-book readers', startTime + 4),
+                                activityStarted('Navigates to amazon.com', startTime + 5),
+                                activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
+                                photoTaken('Navigates to amazon.com', 'navigates.png', startTime + 6),
+                            activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
+                            photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 7),
+                        activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
+                        photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 8),
+                    sceneFinished(scene, Result.SUCCESS, startTime + 9)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 9,
+                        testSteps: [ {
+                            description: 'Buys a discounted e-book reader',
+                            startTime: startTime + 1,
+                            duration: 7,
+                            result: 'SUCCESS',
+                            screenshots: [
+                                { screenshot: 'buys.png' },
+                            ],
                             children: [ {
-                                description: 'Navigates to amazon.com',
-                                startTime: startTime + 5,
+                                description: 'Opens a browser',
+                                startTime: startTime + 2,
                                 duration: 1,
                                 result: 'SUCCESS',
                                 children: [],
                                 screenshots: [
-                                    { screenshot: 'navigates.png' },
+                                    { screenshot: 'opens_browser.png' },
                                 ],
-                            } ],
-                            screenshots: [
-                                { screenshot: 'searches.png' },
-                            ],
-                        } ],
-                    } ],
-                })));
-        });
-
-        it('ignores the photos that have been attempted but failed (ie. because webdriver was not ready)', () => {
-
-            givenFollowingEvents(
-                sceneStarted(scene, startTime),
-                activityStarted('Buys a discounted e-book reader', startTime + 1),
-                activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
-                photoFailed('Buys a discounted e-book reader', startTime + 2),
-                sceneFinished(scene, Result.SUCCESS, startTime + 3)
-            );
-
-            return stageManager.allDone().then(_ =>
-                expect(producedReport()).to.deep.equal(expectedReportWith({
-                    duration: 3,
-                    testSteps: [ {
-                        description: 'Buys a discounted e-book reader',
-                        startTime: startTime + 1,
-                        duration: 1,
-                        result: 'SUCCESS',
-                        children: [],
-                    } ],
-                })));
-        });
-
-        it('covers activities in detail, including photos for sub-activities, even those deeply nested ones', () => {
-            givenFollowingEvents(
-                sceneStarted(scene, startTime),
-                    activityStarted('Buys a discounted e-book reader', startTime + 1),
-                        activityStarted('Searches for discounted e-book readers', startTime + 4),
-                            activityStarted('Navigates to amazon.com', startTime + 5),
-                                activityStarted('Enters https://amazon.com in the search bar', startTime + 5),
-                                activityFinished('Enters https://amazon.com in the search bar', Result.SUCCESS, startTime + 6),
-                                photoTaken('Enters https://amazon.com in the search bar', 'enters_url.png', startTime + 6),
-                            activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 7),
-                            photoTaken('Navigates to amazon.com', 'navigates.png', startTime + 7),
-                        activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 8),
-                        photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 8),
-                    activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 9),
-                    photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 9),
-                sceneFinished(scene, Result.SUCCESS, startTime + 10)
-            );
-
-            return stageManager.allDone().then(_ =>
-                expect(producedReport()).to.deep.equal(expectedReportWith({
-                    duration: 10,
-                    testSteps: [ {
-                        description: 'Buys a discounted e-book reader',
-                        startTime: startTime + 1,
-                        duration: 8,
-                        result: 'SUCCESS',
-                        screenshots: [
-                            { screenshot: 'buys.png' },
-                        ],
-                        children: [ {
-                            description: 'Searches for discounted e-book readers',
-                            startTime: startTime + 4,
-                            duration: 4,
-                            result: 'SUCCESS',
-                            children: [ {
-                                description: 'Navigates to amazon.com',
-                                startTime: startTime + 5,
-                                duration: 2,
+                            }, {
+                                description: 'Searches for discounted e-book readers',
+                                startTime: startTime + 4,
+                                duration: 3,
                                 result: 'SUCCESS',
-                                children: [{
-                                    description: 'Enters https://amazon.com in the search bar',
+                                children: [ {
+                                    description: 'Navigates to amazon.com',
                                     startTime: startTime + 5,
                                     duration: 1,
                                     result: 'SUCCESS',
                                     children: [],
                                     screenshots: [
-                                        { screenshot: 'enters_url.png' },
+                                        { screenshot: 'navigates.png' },
                                     ],
-                                }],
+                                } ],
                                 screenshots: [
-                                    { screenshot: 'navigates.png' },
+                                    { screenshot: 'searches.png' },
                                 ],
                             } ],
-                            screenshots: [
-                                { screenshot: 'searches.png' },
-                            ],
                         } ],
-                    } ],
-                })));
+                    })));
+            });
+
+            it('covers activities in detail, including photos for sub-activities, even those deeply nested ones', () => {
+                givenFollowingEvents(
+                    sceneStarted(scene, startTime),
+                        activityStarted('Buys a discounted e-book reader', startTime + 1),
+                            activityStarted('Searches for discounted e-book readers', startTime + 4),
+                                activityStarted('Navigates to amazon.com', startTime + 5),
+                                    activityStarted('Enters https://amazon.com in the search bar', startTime + 5),
+                                    activityFinished('Enters https://amazon.com in the search bar', Result.SUCCESS, startTime + 6),
+                                    photoTaken('Enters https://amazon.com in the search bar', 'enters_url.png', startTime + 6),
+                                activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 7),
+                                photoTaken('Navigates to amazon.com', 'navigates.png', startTime + 7),
+                            activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 8),
+                            photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 8),
+                        activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 9),
+                        photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 9),
+                    sceneFinished(scene, Result.SUCCESS, startTime + 10)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 10,
+                        testSteps: [ {
+                            description: 'Buys a discounted e-book reader',
+                            startTime: startTime + 1,
+                            duration: 8,
+                            result: 'SUCCESS',
+                            screenshots: [
+                                { screenshot: 'buys.png' },
+                            ],
+                            children: [ {
+                                description: 'Searches for discounted e-book readers',
+                                startTime: startTime + 4,
+                                duration: 4,
+                                result: 'SUCCESS',
+                                children: [ {
+                                    description: 'Navigates to amazon.com',
+                                    startTime: startTime + 5,
+                                    duration: 2,
+                                    result: 'SUCCESS',
+                                    children: [{
+                                        description: 'Enters https://amazon.com in the search bar',
+                                        startTime: startTime + 5,
+                                        duration: 1,
+                                        result: 'SUCCESS',
+                                        children: [],
+                                        screenshots: [
+                                            { screenshot: 'enters_url.png' },
+                                        ],
+                                    }],
+                                    screenshots: [
+                                        { screenshot: 'navigates.png' },
+                                    ],
+                                } ],
+                                screenshots: [
+                                    { screenshot: 'searches.png' },
+                                ],
+                            } ],
+                        } ],
+                    })));
+            });
         });
 
-        it('describes problems encountered', () => {
-            let error = new Error("We're sorry, something happened");
+        describe('When problems are encountered', () => {
 
-            error.stack = [
-                "Error: We're sorry, something happened",
-                '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
-                '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',
-                // and so on
-            ].join('\n');
+            it('describes problems encountered', () => {
+                let error = new Error("We're sorry, something happened");
 
-            givenFollowingEvents(
-                sceneStarted(scene, startTime),
-                activityStarted('Buys a discounted e-book reader', startTime + 1),
-                activityFinished('Buys a discounted e-book reader', Result.ERROR, startTime + 2, error),
-                sceneFinished(scene, Result.ERROR, startTime + 3, error)
-            );
+                error.stack = [
+                    "Error: We're sorry, something happened",
+                    '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
+                    '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',
+                    // and so on
+                ].join('\n');
 
-            return stageManager.allDone().then(_ =>
-                expect(producedReport()).to.deep.equal(expectedReportWith({
-                    duration: 3,
-                    testSteps: [ {
-                        description: 'Buys a discounted e-book reader',
-                        startTime: startTime + 1,
-                        duration: 1,
+                givenFollowingEvents(
+                    sceneStarted(scene, startTime),
+                    activityStarted('Buys a discounted e-book reader', startTime + 1),
+                    activityFinished('Buys a discounted e-book reader', Result.ERROR, startTime + 2, error),
+                    sceneFinished(scene, Result.ERROR, startTime + 3, error)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 3,
+                        testSteps: [ {
+                            description: 'Buys a discounted e-book reader',
+                            startTime: startTime + 1,
+                            duration: 1,
+                            result: 'ERROR',
+                            children: [],
+                            exception: {
+                                errorType: 'Error',
+                                message: "We're sorry, something happened",
+                                stackTrace: [ {
+                                    declaringClass: 'Object',
+                                    fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
+                                    lineNumber: 326,
+                                    methodName: 'callFn',
+                                }, {
+                                    declaringClass: 'Test',
+                                    fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
+                                    lineNumber: 319,
+                                    methodName: 'Runnable.run',
+                                } ],
+                            },
+                        } ],
                         result: 'ERROR',
-                        children: [],
-                        exception: {
+                        testFailureCause: {
                             errorType: 'Error',
                             message: "We're sorry, something happened",
                             stackTrace: [ {
@@ -373,24 +396,147 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 methodName: 'Runnable.run',
                             } ],
                         },
-                    } ],
-                    result: 'ERROR',
-                    testFailureCause: {
-                        errorType: 'Error',
-                        message: "We're sorry, something happened",
-                        stackTrace: [ {
-                            declaringClass: 'Object',
-                            fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
-                            lineNumber: 326,
-                            methodName: 'callFn',
-                        }, {
-                            declaringClass: 'Test',
-                            fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
-                            lineNumber: 319,
-                            methodName: 'Runnable.run',
+                    })));
+            });
+
+        });
+
+        describe('When scenarios are tagged', () => {
+
+            it('adds a tag for the feature covered', () => {
+                let aScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
+
+                givenFollowingEvents(
+                    sceneStarted(aScene, startTime),
+                    sceneFinished(aScene, Result.SUCCESS, startTime + 1)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 1,
+                        result: 'SUCCESS',
+                        tags: [ {
+                            name: 'Checkout',
+                            type: 'feature',
                         } ],
-                    },
-                })));
+                    })));
+            });
+
+            it('describes the simple tags encountered', () => {
+                let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    new Tag('regression'),
+                ]);
+
+                givenFollowingEvents(
+                    sceneStarted(taggedScene, startTime),
+                    sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 1,
+                        result: 'SUCCESS',
+                        tags: [{
+                            name: 'regression',
+                            type: 'tag',
+                        }, {
+                            name: 'Checkout',
+                            type: 'feature',
+                        }],
+                    })));
+            });
+
+            it('describes the complex tags encountered', () => {
+                let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    new Tag('priority', [ 'must-have' ]),
+                ]);
+
+                givenFollowingEvents(
+                    sceneStarted(taggedScene, startTime),
+                    sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 1,
+                        result: 'SUCCESS',
+                        tags: [{
+                            name: 'must-have',
+                            type: 'priority',
+                        }, {
+                            name: 'Checkout',
+                            type: 'feature',
+                        }],
+                    })));
+            });
+
+            it('extracts the value of any @issues tags encountered and breaks them down to one tag per issue', () => {
+                let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
+                    new Tag('issues', [ 'MY-PROJECT-789' ]),
+                ]);
+
+                givenFollowingEvents(
+                    sceneStarted(taggedScene, startTime),
+                    sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 1,
+                        result: 'SUCCESS',
+                        tags: [{
+                            name: 'MY-PROJECT-123',
+                            type: 'issue',
+                        }, {
+                            name: 'MY-PROJECT-456',
+                            type: 'issue',
+                        }, {
+                            name: 'MY-PROJECT-789',
+                            type: 'issue',
+                        }, {
+                            name: 'Checkout',
+                            type: 'feature',
+                        }],
+                        issues: [
+                            'MY-PROJECT-123',
+                            'MY-PROJECT-456',
+                            'MY-PROJECT-789',
+                        ],
+                    })));
+            });
+
+            it('ensures that the extracted issue ids are unique', () => {
+                let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
+                    new Tag('issue',  [ 'MY-PROJECT-123' ]),
+                ]);
+
+                givenFollowingEvents(
+                    sceneStarted(taggedScene, startTime),
+                    sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                );
+
+                return stageManager.allDone().then(_ =>
+                    expect(producedReport()).to.deep.equal(expectedReportWith({
+                        duration: 1,
+                        result: 'SUCCESS',
+                        tags: [{
+                            name: 'MY-PROJECT-123',
+                            type: 'issue',
+                        }, {
+                            name: 'MY-PROJECT-456',
+                            type: 'issue',
+                        }, {
+                            name: 'Checkout',
+                            type: 'feature',
+                        }],
+                        issues: [
+                            'MY-PROJECT-123',
+                            'MY-PROJECT-456',
+                        ],
+                    })));
+            });
         });
 
         function givenFollowingEvents(...events: DomainEvent<any>[]) {
@@ -425,6 +571,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             let report = {
                 name: 'Paying with a default card',
                 testSteps: [],
+                issues: [],
                 userStory: {
                     id: 'checkout',
                     storyName: 'Checkout',
@@ -434,7 +581,10 @@ describe('When reporting on what happened during the rehearsal', () => {
                 },
                 title:       'Paying with a default card',
                 description: '',
-                tags: [],
+                tags: [{
+                    name: 'Checkout',
+                    type: 'feature',
+                }],
                 // driver: 'chrome:jane',
                 manual:    false,
                 startTime: startTime,
