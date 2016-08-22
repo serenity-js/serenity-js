@@ -1,6 +1,6 @@
 import { Ability } from '../../src/serenity/screenplay/ability';
 import { Actor, PerformsTasks, UsesAbilities } from '../../src/serenity/screenplay/actor';
-import { Action, Task } from '../../src/serenity/screenplay/performables';
+import { Interaction, Task } from '../../src/serenity/screenplay/performables';
 import expect = require('../expect');
 import sinon = require('sinon');
 import SinonSpyCall = Sinon.SinonSpyCall;
@@ -82,7 +82,7 @@ describe('Screenplay Pattern', () => {
         });
     });
 
-    describe('Action', () => {
+    describe('Interaction', () => {
         it('describes low-level, Interface-focused activity, directly exercising the Actor\'s Ability to interact with said Interface', () => {
             let ability = PlayAnInstrument.suchAs(acousticGuitar),
                 play    = sinon.stub(ability, 'play'),
@@ -145,7 +145,7 @@ describe('Screenplay Pattern', () => {
         }
     }
 
-    class PlayAChord implements Action {
+    class PlayAChord implements Interaction {
         static called(chord: Chord) {
             return new PlayAChord(chord);
         }

@@ -1,8 +1,8 @@
-import { Action, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
 import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
-export class Open implements Action {
+export class Open implements Interaction {
 
     static browserOn(website: string): Open {
         return new Open(website);

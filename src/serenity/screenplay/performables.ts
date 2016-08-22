@@ -4,7 +4,7 @@ export interface Task extends Performable {
     performAs(actor: PerformsTasks): Promise<void>;
 }
 
-export interface Action extends Performable {
+export interface Interaction extends Performable {
     performAs(actor: PerformsTasks & UsesAbilities): Promise<void>;
 }
 

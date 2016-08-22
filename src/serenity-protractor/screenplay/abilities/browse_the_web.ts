@@ -18,7 +18,7 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-     * Used to access the Actor's ability to BrowseTheWeb from within the Action classes, such as Click or Enter
+     * Used to access the Actor's ability to BrowseTheWeb from within the Interaction classes, such as Click or Enter
      *
      * @param actor
      * @return {BrowseTheWeb}

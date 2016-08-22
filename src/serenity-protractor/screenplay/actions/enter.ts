@@ -1,9 +1,9 @@
-import { Action, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
 import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
-export class Enter implements Action {
+export class Enter implements Interaction {
 
     private target: Target;
     private key: string;

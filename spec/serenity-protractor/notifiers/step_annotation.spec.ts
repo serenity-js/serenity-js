@@ -20,7 +20,7 @@ describe('Notifiers', () => {
 
     describe('@step', () => {
 
-        describe('When an annotated Task or Action is performed by the Actor', () => {
+        describe('When an annotated Task or Interaction is performed by the Actor', () => {
 
             describe('When all goes well', () => {
 
@@ -37,7 +37,7 @@ describe('Notifiers', () => {
                     }
                 }
 
-                it('wNotifies the Stage Manager when the Activity starts', () => {
+                it('Notifies the Stage Manager when the Activity starts', () => {
 
                     return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
 

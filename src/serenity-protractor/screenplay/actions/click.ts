@@ -1,9 +1,9 @@
-import { Action, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
 import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
-export class Click implements Action {
+export class Click implements Interaction {
 
     public static on(target: Target): Click {
         return new Click(target);
