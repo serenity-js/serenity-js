@@ -51,16 +51,6 @@ gulp.task('pre-test', [ 'transpile' ], () =>
         .pipe(istanbul.hookRequire())
 );
 
-function remapCoverageToTypescript(dir) {
-    return () => gulp
-        .src(path.join(dir, 'coverage-final.json'))
-        .pipe(remap({
-            basePath: '.',
-            useAbsolutePaths: true,
-            reports: { 'json': path.join(dir, 'coverage-final-remaped.json') }
-        }))
-}
-
 gulp.task('test', ['pre-test'], () =>
     gulp.src(dirs.staging.traspiled.spec)
         .pipe(mocha())
@@ -69,29 +59,37 @@ gulp.task('test', ['pre-test'], () =>
             reporters: ['json'],
         }))
         // .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
-        .on('end', remapCoverageToTypescript(dirs.staging.reports.coverage.spec))
 );
 
 gulp.task('verify', ['pre-test', 'prepare-examples'], () =>
     gulp.src(dirs.staging.traspiled.behaviour)
         .pipe(mocha())
-        // istanbul invoked directly by the integration tests
-        .on('end', remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour))
 );
 
-gulp.task('aggregate', () =>
-    gulp
-        .src(dirs.staging.reports.coverage.all + '/**/coverage-final-remaped.json')
-        .pipe(
-            report({
-                dir: dirs.staging.reports.coverage.all,
-                reporters: [
-                    'text-summary',
-                    { name: 'html', dir: dirs.staging.reports.coverage.all + 'html' },
-                    { name: 'lcovonly', file: 'lcov.info' }
-                ]
+gulp.task('aggregate', () => {
+    function remapCoverageToTypescript(dir) {
+        return gulp
+            .src(path.join(dir, 'coverage-final.json'))
+            .pipe(remap({
+                basePath: '.',
+                useAbsolutePaths: true,
+                reports: { 'json': path.join(dir, 'coverage-final-remaped.json') }
             }))
-);
+    }
+
+    return merge([
+        remapCoverageToTypescript(dirs.staging.reports.coverage.spec),
+        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour)
+    ]).pipe(report({
+        dir: dirs.staging.reports.coverage.all,
+        reporters: [
+            'text-summary',
+            {name: 'html', dir: dirs.staging.reports.coverage.all + 'html'},
+            {name: 'lcovonly', file: 'lcov.info'},
+            {name: 'json'}
+        ]
+    }));
+});
 
 gulp.task('export', () =>
     gulp
