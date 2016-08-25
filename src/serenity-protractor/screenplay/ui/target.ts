@@ -3,39 +3,54 @@ import * as webdriver from 'selenium-webdriver';
 
 export class Target {
 
-    private locator: ElementLocator;
-
     static the(name: string) {
-        return new Target(name);
+        return new TargetBuilder(name);
     }
 
-    // todo: add locator chaining
-    // todo: add token substitution
+    of(...tokenReplacements: string[]): Target {
+        let locator = Object.assign({}, this.locator);
+        locator.__proto__ = Object.getPrototypeOf(this.locator);
+        locator.value = interpolated(this.locator.value, tokenReplacements);
 
-    located(byLocator: webdriver.Locator): Target {
-        this.locator = new SingleElementLocator(byLocator);
+        return new Target(this.name, locator);
+    }
 
-        return this;
+    called(newName: string): Target {
+        return new Target(newName, this.locator);
     }
 
     resolveUsing(resolver: (locator: webdriver.Locator) => protractor.ElementFinder): WebElement {
-        return new WebElement(resolver(this.locator.webdriverLocator));
+        return new WebElement(resolver(this.locator));
     }
 
     resolveAllUsing(resolver: { all: (locator: webdriver.Locator) => protractor.ElementArrayFinder }): WebElements {
-        return new WebElements(resolver.all(this.locator.webdriverLocator));
+        return new WebElements(resolver.all(this.locator));
     }
 
     toString(): string {
-        return `the ${this.name}`;
+        return `the ${ this.name }`;
     }
 
+    constructor(private name: string, private locator: webdriver.Locator) {
+    }
+}
+
+export class TargetBuilder {
+
     constructor(private name: string) {
+    }
+
+    located(byLocator: webdriver.Locator): Target {
+        return new Target(this.name, byLocator);
+    }
+
+    toString(): string {
+        return `TargetBuilder for the ${ this.name }`;
     }
 }
 
 export class WebElements /* should implement something akin to protractor.ElementFinder */ {
-    // todo: this API barely scratches the surface of what's needed ...
+    // todo: this API barely scratches the surface of what's probably needed ...
 
     text(): Promise<string[]> {
         return defer(() => this.finder.getText());
@@ -252,24 +267,9 @@ export class WebElement {
     }
 }
 
-// function head<T>(list: T[]): T {
-//     return list[0];
-// }
-//
-// function tail<T>(list: T[]): T[] {
-//     return list.slice(1);
-// }
+function interpolated(template: string, replacements: string[]) {
+    let argToken     = /{(\d+)}/g,
+        interpolator = (token: string, field: number) => replacements[ field ];
 
-interface ElementLocator {
-    webdriverLocator: webdriver.Locator;
-}
-
-class SingleElementLocator implements ElementLocator {
-    constructor(public webdriverLocator: webdriver.Locator) {
-    }
-}
-
-class ElementSetLocator implements ElementLocator {
-    constructor(public webdriverLocator: webdriver.Locator) {
-    }
+    return template.replace(argToken, interpolator);
 }
