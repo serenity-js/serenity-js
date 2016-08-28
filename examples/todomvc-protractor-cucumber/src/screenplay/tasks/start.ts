@@ -1,5 +1,6 @@
-import { AddTodoItems } from './add_todo_items';
 import { Open, PerformsTasks, Task, step } from 'serenity-bdd/lib/screenplay-protractor';
+
+import { AddTodoItems } from './add_todo_items';
 
 export class Start implements Task {
     public static withAnEmptyTodoList(): Start {

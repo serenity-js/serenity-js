@@ -1,7 +1,15 @@
 import { Serenity } from 'serenity-bdd';
-import { Actors, AddATodoItem, Start, TodoListItems } from 'todomvc-screenplay';
 
-import { CompleteATodoItem } from '../../src/complete_a_todo_item';
+import {
+    Actors,
+    AddATodoItem,
+    CompleteATodoItem,
+    FilterItems,
+    ItemStatus,
+    Start,
+    TodoListItems,
+} from '../../src/screenplay';
+
 import { expect } from '../../src/expect';
 import { listOf } from '../../src/text';
 
@@ -12,7 +20,7 @@ module.exports = function () {
      */
     let stage = Serenity.callToStageFor(new Actors());
 
-    this.Given(/^.*that (.*) has an empty todo list$/, (name: string) => {
+    this.Given(/^.*that (.*) has an empty todo list$/, (name) => {
 
         return stage.theActorCalled(name).attemptsTo(
             Start.withAnEmptyTodoList());
@@ -39,6 +47,12 @@ module.exports = function () {
         );
     });
 
+    this.When(/^s?he filters (?:her|his) list to show (?:only )?(.*) tasks$/, (taskType: string) => {
+        return stage.theActorInTheSpotlight().attemptsTo(
+            FilterItems.toShowOnly(taskType)
+        );
+    });
+
     this.Then(/^(.*?) should be recorded in his list$/, (item: string) => {
 
         return expect(stage.theActorInTheSpotlight().toSee(TodoListItems.displayed()))
@@ -47,7 +61,8 @@ module.exports = function () {
 
     this.Then(/^(.*?) should be marked as completed$/, (item: string) => {
 
-        return Promise.resolve();
+        return expect(stage.theActorInTheSpotlight().toSee(ItemStatus.of(item)))
+            .eventually.equal('completed');
     });
 
     this.Then(/^.* todo list should contain (.*?)$/, (items: string) => {
