@@ -1,3 +1,3 @@
 export * from './abilities';
-export * from './actions';
+export * from './interactions';
 export * from './ui';
