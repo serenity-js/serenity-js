@@ -25,7 +25,7 @@ export class Enter implements Interaction {
     }
 
     @step("{0} enters '#value' into #target")
-    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value, this.key);
     }
 

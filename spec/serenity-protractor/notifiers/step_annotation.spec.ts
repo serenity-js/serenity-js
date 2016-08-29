@@ -32,7 +32,7 @@ describe('Notifiers', () => {
                     constructor(private cardNumber: string) {}
 
                     @step('{0} pays with a credit card number #cardNumber')
-                    performAs(actor: PerformsTasks): Promise<void> {
+                    performAs(actor: PerformsTasks): PromiseLike<void> {
                         return actor.attemptsTo( /*...*/ );
                     }
                 }
@@ -78,7 +78,7 @@ describe('Notifiers', () => {
                     constructor(private cardNumber: string) {}
 
                     @step('{0} pays with an invalid credit card number #cardNumber')
-                    performAs(actor: PerformsTasks): Promise<void> {
+                    performAs(actor: PerformsTasks): PromiseLike<void> {
                         throw new Error('Payment failed');
                     }
                 }
@@ -106,7 +106,7 @@ describe('Notifiers', () => {
                     }
 
                     @step('{0} pays with an invalid credit card number #cardNumber')
-                    performAs(actor: PerformsTasks): Promise<void> {
+                    performAs(actor: PerformsTasks): PromiseLike<void> {
                         return Promise.reject(new Error('Payment failed'));
                     }
                 }

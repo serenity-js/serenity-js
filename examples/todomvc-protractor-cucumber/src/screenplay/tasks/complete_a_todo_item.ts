@@ -9,7 +9,7 @@ export class CompleteATodoItem implements Task {
     }
 
     @step('{0} marks "#itemName" as completed')
-    performAs(actor: PerformsTasks): Promise<void> {
+    performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
             Click.on(
                 TodoList.Complete_Item_Checkbox.of(this.itemName).called(this.itemName)

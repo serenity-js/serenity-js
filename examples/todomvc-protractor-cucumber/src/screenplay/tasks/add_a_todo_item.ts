@@ -9,7 +9,7 @@ export class AddATodoItem implements Task {
     }
 
     @step('{0} adds a todo item called: #name')
-    performAs(actor: PerformsTasks): Promise<void> {
+    performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
             Enter.theValue(this.name)
                 .into(TodoList.What_Needs_To_Be_Done)

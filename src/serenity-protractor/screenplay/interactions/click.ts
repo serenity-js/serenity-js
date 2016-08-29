@@ -10,7 +10,7 @@ export class Click implements Interaction {
     }
 
     @step('{0} clicks on #target')
-    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).click();
     }
 

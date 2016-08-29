@@ -9,7 +9,7 @@ export class AddTodoItems implements Task {
     }
 
     @step('{0} adds #description')
-    performAs(actor: PerformsTasks): Promise<void> {
+    performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(...this.addAll(this.items));        // array -> var args conversion
     }
 

@@ -9,7 +9,7 @@ export class Open implements Interaction {
     }
 
     @step('{0} opens the #targetWebsite')
-    performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).get(this.targetWebsite);
     }
 

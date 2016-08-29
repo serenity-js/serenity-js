@@ -1,7 +1,6 @@
 import { defer } from '../../../serenity/recording/async';
-import { Ability } from '../../../serenity/screenplay/ability';
-import { UsesAbilities } from '../../../serenity/screenplay/actor';
-import { Target, WebElement, WebElements } from '../ui/target';
+import { Ability, UsesAbilities } from '../../../serenity/screenplay';
+import { Target } from '../ui/target';
 
 export class BrowseTheWeb implements Ability {
 
@@ -27,11 +26,11 @@ export class BrowseTheWeb implements Ability {
         return actor.abilityTo(BrowseTheWeb);
     }
 
-    locate(target: Target): WebElement {
+    locate(target: Target): protractor.ElementFinder {
         return target.resolveUsing(this.browser.element);
     }
 
-    locateAll(target: Target): WebElements {
+    locateAll(target: Target): protractor.ElementArrayFinder {
         return target.resolveAllUsing(<any> this.browser.element);      // see: https://github.com/angular/protractor/issues/3350
     }
 
@@ -39,8 +38,8 @@ export class BrowseTheWeb implements Ability {
         return defer(() => this.browser.takeScreenshot());
     }
 
-    get(destination: string, timeout?: number): Promise<void> {
-        return defer(() => browser.get(destination, timeout));
+    get(destination: string, timeout?: number): PromiseLike<void> {
+        return browser.get(destination, timeout);
     }
 
     // todo: is this needed?

@@ -25,7 +25,7 @@ export class Step {
             let performAs = descriptor.value,
                 decorator = _.cloneDeep(descriptor);
 
-            decorator.value = function(...args: any[]): Promise<void> {
+            decorator.value = function(...args: any[]): PromiseLike<void> {
 
                 let activity: Activity = description.interpolateWith(this, args);
 
@@ -57,7 +57,7 @@ export function step<T extends Performable>(stepDescriptionTemplate: string): St
     return new Step(Serenity.stageManager()).describedUsing(stepDescriptionTemplate);
 }
 
-export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => Promise<void>>;
+export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;
 
 export interface StepAnnotation<T extends Performable> {
     (target: T, propertyKey: string, descriptor: PerformAsMethodSignature): PerformAsMethodSignature;

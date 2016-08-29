@@ -8,7 +8,7 @@ export class ItemStatus implements Question<string> {
         return new ItemStatus(itemName);
     }
 
-    answeredBy(actor: UsesAbilities): Promise<string> {
+    answeredBy(actor: UsesAbilities): PromiseLike<string> {
         return BrowseTheWeb.as(actor)
             .locate(TodoList.Complete_Item_Checkbox.of(this.itemName))
             .isSelected()

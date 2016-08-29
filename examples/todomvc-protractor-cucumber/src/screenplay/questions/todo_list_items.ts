@@ -7,5 +7,5 @@ export class TodoListItems {
 }
 
 export class TodoListItemsDisplayed implements Question<string[]> {
-    answeredBy = (actor: UsesAbilities) => BrowseTheWeb.as(actor).locateAll(TodoList.Items).text();
+    answeredBy = (actor: UsesAbilities) => BrowseTheWeb.as(actor).locateAll(TodoList.Items).getText();
 }
