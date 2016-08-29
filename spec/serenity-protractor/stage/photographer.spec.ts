@@ -2,21 +2,30 @@ import sinon = require('sinon');
 import expect = require('../../expect');
 
 import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
+
 import {
     Md5HashedPictureNames,
     Photographer,
     PictureNamingStrategy,
 } from '../../../src/serenity-protractor/stage/photographer';
+
 import {
+    Activity,
     ActivityFinished,
     ActivityStarts,
+    Outcome,
+    Photo,
     PhotoAttempted,
+    PhotoReceipt,
+    Result,
+    Scene,
     SceneFinished,
     SceneStarts,
-} from '../../../src/serenity/domain/events';
-import { Activity, Outcome, Photo, PhotoReceipt, Result, Scene } from '../../../src/serenity/domain/model';
-import { FileSystem } from '../../../src/serenity/reporting/file_system';
+} from '../../../src/serenity/domain';
+
 import { Cast, Journal, Stage, StageManager } from '../../../src/serenity/stage';
+
+import { FileSystem } from '../../../src/serenity/stage_crew';
 
 describe('Photography', () => {
 

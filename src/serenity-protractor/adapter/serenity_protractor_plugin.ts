@@ -1,8 +1,6 @@
 import { ActivityFinished } from '../../serenity/domain/events';
-import { ConsoleReporter } from '../../serenity/reporting/console_reporter';
-import { FileSystem } from '../../serenity/reporting/file_system';
-import { JsonReporter } from '../../serenity/reporting/json_reporter';
 import { Serenity } from '../../serenity/serenity';
+import { ConsoleReporter, FileSystem, JsonReporter } from '../../serenity/stage_crew';
 import { Photographer } from '../stage/photographer';
 import { ProtractorPlugin } from 'protractor/built/plugins';
 

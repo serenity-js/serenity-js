@@ -1,6 +1,5 @@
 import { DomainEvent } from '../domain/events';
-import { Stage } from '../stage/stage';
-import { StageCrewMember } from '../stage/stage_management';
+import { Stage, StageCrewMember } from '../stage';
 
 import moment = require('moment');
 

@@ -1,9 +1,18 @@
-import { ActivityFinished, ActivityStarts, DomainEvent, PhotoAttempted } from '../../serenity/domain/events';
-import { Activity, Photo, PhotoReceipt, Result } from '../../serenity/domain/model';
-import { FileSystem } from '../../serenity/reporting/file_system';
-import { UsesAbilities } from '../../serenity/screenplay/actor';
+import {
+    Activity,
+    ActivityFinished,
+    ActivityStarts,
+    DomainEvent,
+    Photo,
+    PhotoAttempted,
+    PhotoReceipt,
+    Result,
+} from '../../serenity/domain';
+
+import { UsesAbilities } from '../../serenity/screenplay';
 import { Stage, StageCrewMember } from '../../serenity/stage';
-import { BrowseTheWeb } from '../screenplay/abilities/browse_the_web';
+import { FileSystem } from '../../serenity/stage_crew';
+import { BrowseTheWeb } from '../screenplay/abilities';
 import { Md5 } from 'ts-md5/dist/md5';
 
 export class Photographer implements StageCrewMember {

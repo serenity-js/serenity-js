@@ -1,2 +1,2 @@
-export * from './stage_management'
 export * from './stage'
+export * from './stage_manager'

@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
+import { Md5 } from 'ts-md5/dist/md5';
 
 import {
     Activity,
@@ -14,14 +15,13 @@ import {
     Scene,
     SceneFinished,
     SceneStarts,
+    Tag,
 } from '../../../src/serenity/domain';
-import { FileSystem } from '../../../src/serenity/reporting/file_system';
-import { JsonReporter } from '../../../src/serenity/reporting/json_reporter';
+
 import { Journal, Stage, StageManager } from '../../../src/serenity/stage';
-import { Md5 } from 'ts-md5/dist/md5';
+import { FileSystem, JsonReporter } from '../../../src/serenity/stage_crew';
 
 import expect = require('../../expect');
-import { Tag } from '../../../src/serenity/domain/model';
 
 describe('When reporting on what happened during the rehearsal', () => {
 

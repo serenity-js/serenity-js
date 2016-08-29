@@ -1,8 +1,8 @@
-import { DomainEvent } from '../../src/serenity/domain/events';
-import { Journal, Stage, StageCrewMember, StageManager } from '../../src/serenity/stage';
+import { DomainEvent } from '../../../src/serenity/domain/events';
+import { Journal, Stage, StageCrewMember, StageManager } from '../../../src/serenity/stage';
 import sinon = require('sinon');
 
-import expect = require('../expect');
+import expect = require('../../expect');
 
 describe('Recording what happened during the test', () => {
 

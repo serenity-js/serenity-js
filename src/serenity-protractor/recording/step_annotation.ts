@@ -3,7 +3,7 @@ import { Activity, Outcome, Result } from '../../serenity/domain/model';
 import { StepDescription } from '../../serenity/recording/step_description';
 import { Performable } from '../../serenity/screenplay';
 import { Serenity } from '../../serenity/serenity';
-import { StageManager } from '../../serenity/stage/stage_management';
+import { StageManager } from '../../serenity/stage';
 
 import * as _ from 'lodash';
 

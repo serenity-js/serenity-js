@@ -2,7 +2,7 @@ import { Step, StepAnnotation } from '../../../src/serenity-protractor/recording
 import { Actor, PerformsTasks } from '../../../src/serenity/screenplay/actor';
 import { Performable, Task } from '../../../src/serenity/screenplay/performables';
 
-import { Journal, StageManager } from '../../../src/serenity/stage/stage_management';
+import { Journal, StageManager } from '../../../src/serenity/stage';
 
 import expect = require('../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../src/serenity/domain/events';
