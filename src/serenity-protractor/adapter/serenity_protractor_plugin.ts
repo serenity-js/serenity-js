@@ -2,9 +2,10 @@ import { ActivityFinished } from '../../serenity/domain/events';
 import { Serenity } from '../../serenity/serenity';
 import { ConsoleReporter, FileSystem, JsonReporter } from '../../serenity/stage_crew';
 import { Photographer } from '../stage/photographer';
-import { ProtractorPlugin } from 'protractor/built/plugins';
 
-export class SerenityProtractorPlugin extends ProtractorPlugin {
+import { ProtractorPlugin } from 'protractor';
+
+export class SerenityProtractorPlugin implements ProtractorPlugin {
 
     setup() {
 
@@ -19,7 +20,7 @@ export class SerenityProtractorPlugin extends ProtractorPlugin {
             new JsonReporter(fs),
             new ConsoleReporter()
         );
-    };
+    }
 
     teardown() {
         return Serenity.stageManager().allDone();

@@ -13,7 +13,7 @@ import {
 import { expect } from '../../src/expect';
 import { listOf } from '../../src/text';
 
-module.exports = function () {
+export = function todoUserSteps() {
 
     /**
      *  Initialises Serenity with a custom Cast of Actors, specific to your domain

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "npm run typings -- install",
+    "prepublish": "npm run setup",
     "clean": "rimraf target",
     "lint": "tslint --config ../../tslint.json --project ./tsconfig.json --format stylish",
     "pretest": "serenity update",
@@ -24,7 +25,7 @@
     "chai-as-promised": "5.3.0",
     "cucumber": "1.2.2",
     "npm-failsafe": "^0.1.0",
-    "protractor": "3.3.0",
+    "protractor": "4.0.4",
     "protractor-cucumber-framework": "0.6.0",
     "rimraf": "2.5.4",
     "serenity-bdd": "file:../../",

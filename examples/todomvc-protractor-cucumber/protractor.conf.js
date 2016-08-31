@@ -23,6 +23,7 @@ exports.config = {
         browserName: 'chrome',
         chromeOptions: {
              // args: ['show-fps-counter=false']
+            args: [ 'incognito', 'disable-extensions']
         }
     },
 

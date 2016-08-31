@@ -1,4 +1,4 @@
-import * as webdriver from 'selenium-webdriver';
+import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
 
 export class Target {
 
@@ -9,7 +9,9 @@ export class Target {
     of(...tokenReplacements: string[]): Target {
         let locator = Object.assign({}, this.locator);
         locator.__proto__ = Object.getPrototypeOf(this.locator);
-        locator.value = interpolated(this.locator.value, tokenReplacements);
+
+        // fixme: remove the cast once the protractor issue is fixed: https://github.com/angular/protractor/issues/3508
+        locator.value = interpolated((<any> this.locator).value, tokenReplacements);
 
         return new Target(this.name, locator);
     }
@@ -18,11 +20,11 @@ export class Target {
         return new Target(newName, this.locator);
     }
 
-    resolveUsing(resolver: (locator: webdriver.Locator) => protractor.ElementFinder): protractor.ElementFinder {
+    resolveUsing(resolver: (locator: Locator) => ElementFinder): ElementFinder {
         return resolver(this.locator);
     }
 
-    resolveAllUsing(resolver: { all: (locator: webdriver.Locator) => protractor.ElementArrayFinder }): protractor.ElementArrayFinder {
+    resolveAllUsing(resolver: { all: (locator: Locator) => ElementArrayFinder }): ElementArrayFinder {
         return resolver.all(this.locator);
     }
 
@@ -30,7 +32,7 @@ export class Target {
         return `the ${ this.name }`;
     }
 
-    constructor(private name: string, private locator: webdriver.Locator) {
+    constructor(private name: string, private locator: Locator) {
     }
 }
 
@@ -39,7 +41,7 @@ export class TargetBuilder {
     constructor(private name: string) {
     }
 
-    located(byLocator: webdriver.Locator): Target {
+    located(byLocator: Locator): Target {
         return new Target(this.name, byLocator);
     }
 

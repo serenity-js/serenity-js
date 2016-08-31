@@ -2,6 +2,8 @@ import { TodoList } from '../user_interface/todo_list';
 
 import { Enter, PerformsTasks, Task, step } from 'serenity-bdd/lib/screenplay-protractor';
 
+import { protractor } from 'protractor/globals';
+
 export class AddATodoItem implements Task {
 
     public static called(name: string): AddATodoItem {

@@ -1,7 +1,8 @@
 import { Deferred } from '../../serenity/recording/async';
 import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
-import ControlFlow = protractor.promise.ControlFlow;
+
+import * as webdriver from 'selenium-webdriver';
 
 /**
  * Monkey-patches Cucumber.js Given/When/Then step generators to ensure that any step definition they create
@@ -10,7 +11,7 @@ import ControlFlow = protractor.promise.ControlFlow;
  * @param cucumber
  * @param controlFlow
  */
-export function synchroniseCucumberWithWebdriverControlFlow (cucumber: StepDefinitions, controlFlow: ControlFlow) {
+export function synchroniseCucumberWithWebdriverControlFlow (cucumber: StepDefinitions, controlFlow: webdriver.promise.ControlFlow) {
 
     [
         'Given',

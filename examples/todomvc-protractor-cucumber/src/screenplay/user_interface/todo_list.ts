@@ -1,3 +1,4 @@
+import { by } from 'protractor/globals';
 import { Target } from 'serenity-bdd/lib/screenplay-protractor';
 
 export class TodoList {
