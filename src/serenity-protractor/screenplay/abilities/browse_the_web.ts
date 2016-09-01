@@ -4,6 +4,8 @@ import { Target } from '../ui/target';
 
 import { ElementArrayFinder, ElementFinder, ProtractorBrowser } from 'protractor';
 
+import * as webdriver from 'selenium-webdriver';
+
 export class BrowseTheWeb implements Ability {
 
     private actor: UsesAbilities;
@@ -42,6 +44,10 @@ export class BrowseTheWeb implements Ability {
 
     get(destination: string, timeout?: number): PromiseLike<void> {
         return this.browser.get(destination, timeout);
+    }
+
+    manage(): webdriver.WebDriverOptions {
+        return this.browser.driver.manage();
     }
 
     // todo: is this needed?

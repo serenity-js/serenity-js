@@ -1,4 +1,4 @@
-import { Open, PerformsTasks, Task, step } from 'serenity-bdd/lib/screenplay-protractor';
+import { Open, PerformsTasks, ResizeBrowserWindow, Task, step } from 'serenity-bdd/lib/screenplay-protractor';
 
 import { AddTodoItems } from './add_todo_items';
 
@@ -14,7 +14,8 @@ export class Start implements Task {
     @step('{0} starts with a todo list containing #todoListDescription')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            Open.browserOn('http://todomvc.dev/examples/angularjs/'),                           // todo: get from config
+            Open.browserOn('/examples/angularjs/'),                           // todo: get from config
+            ResizeBrowserWindow.toMaximum(),
             AddTodoItems.called(this.initialItems)
         );
     }

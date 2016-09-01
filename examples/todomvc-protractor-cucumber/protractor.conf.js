@@ -2,7 +2,7 @@ require('ts-node/register');
 
 exports.config = {
 
-    exclude: [],
+    baseUrl: 'http://todomvc.dev',
 
     allScriptsTimeout: 110000,
 
@@ -22,8 +22,11 @@ exports.config = {
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-             // args: ['show-fps-counter=false']
-            args: [ 'incognito', 'disable-extensions']
+            args: [
+                'incognito',
+                'disable-extensions',
+                // 'show-fps-counter=true'
+            ]
         }
     },
 
