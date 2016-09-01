@@ -40,4 +40,16 @@ describe('Target', () => {
 
         expect(element).to.have.been.calledWith(webdriver.By.css('button#sign-up.active'));
     });
+
+    it('complains if it cannot replace the tokens defined in the locator (Protractor issue #3508)', () => {
+        let byModelTemplate = {
+                findElementsOverride: () => {},                                          // tslint:disable-line:no-empty
+                toString: () => 'by.model("checkbox")',
+            },
+            target      = Target.the('checkbox').located(byModelTemplate);
+
+        expect(() => {
+            target.of('some-replacement');
+        }).to.throw('by.model("checkbox") is not a webdriver-compatible locator so you won\'t be able to use token replacement with it');
+    });
 });
