@@ -12,7 +12,7 @@ export class CompleteATodoItem implements Task {
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
             Click.on(
-                TodoList.Complete_Item_Checkbox.of(this.itemName).called(this.itemName)
+                TodoList.Complete_Item_Checkbox.of(this.itemName).called(`"${ this.itemName }" checkbox`)
             )
         );
     }

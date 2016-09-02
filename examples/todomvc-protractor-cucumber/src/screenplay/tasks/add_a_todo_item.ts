@@ -10,7 +10,7 @@ export class AddATodoItem implements Task {
         return new AddATodoItem(name);
     }
 
-    @step('{0} adds a todo item called: #name')
+    @step('{0} adds a todo item called "#name"')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
             Enter.theValue(this.name)

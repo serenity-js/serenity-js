@@ -19,7 +19,7 @@ export class AddTodoItems implements Task {
     // used in @step as #description
     private description() {                                         // tslint:disable-line:no-unused-variable
         return !! this.items.length
-            ? `todo items called: ${this.items.join(', ')}`
+            ? `todo items called: "${ this.items.join('", "') }"`
             : 'no items';
     }
 

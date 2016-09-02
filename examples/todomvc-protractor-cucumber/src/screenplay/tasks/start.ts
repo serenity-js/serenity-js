@@ -25,7 +25,7 @@ export class Start implements Task {
 
     public todoListDescription(): string {
         return !! this.initialItems.length
-            ? this.initialItems.join(', ')
+            ? `"${ this.initialItems.join('", "') }"`
             : 'no items';
     }
 }
