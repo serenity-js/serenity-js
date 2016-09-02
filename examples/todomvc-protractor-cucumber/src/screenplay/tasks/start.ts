@@ -14,7 +14,7 @@ export class Start implements Task {
     @step('{0} starts with a todo list containing #todoListDescription')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            Open.browserOn('/examples/angularjs/'),                           // todo: get from config
+            Open.browserOn('/examples/angularjs/'),
             ResizeBrowserWindow.toMaximum(),
             AddTodoItems.called(this.initialItems)
         );
