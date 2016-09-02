@@ -1,4 +1,4 @@
-import { Step, StepAnnotation } from '../../../src/serenity-protractor/recording/step_annotation';
+import { Step, StepAnnotation } from '../../../src/serenity/recording/step_annotation';
 import { Actor, PerformsTasks } from '../../../src/serenity/screenplay/actor';
 import { Performable, Task } from '../../../src/serenity/screenplay/performables';
 

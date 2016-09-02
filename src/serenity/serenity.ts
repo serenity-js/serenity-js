@@ -1,6 +1,8 @@
 import { DomainEvent } from './domain/events';
 import { Cast, Journal, Stage, StageCrewMember, StageManager } from './stage';
 
+export const Default_Path_To_Reports = `${process.cwd()}/target/site/serenity/`;
+
 export class Serenity {
     private static serenity: Serenity;
 

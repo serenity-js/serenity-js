@@ -1,5 +1,5 @@
+import { step } from '../../../serenity/recording/step_annotation';
 import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
-import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 

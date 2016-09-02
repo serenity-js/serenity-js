@@ -7,6 +7,8 @@ import {
     Md5HashedPictureNames,
     Photographer,
     PictureNamingStrategy,
+    TakeAPicture,
+    photographer,
 } from '../../../src/serenity-protractor/stage/photographer';
 
 import {
@@ -25,7 +27,7 @@ import {
 
 import { Cast, Journal, Stage, StageManager } from '../../../src/serenity/stage';
 
-import { FileSystem } from '../../../src/serenity/stage_crew';
+import { FileSystem } from '../../../src/serenity/io/file_system';
 
 describe('Photography', () => {
 
@@ -321,6 +323,23 @@ describe('Photography', () => {
                 expect(names.nameFor(image)).to.equal('e06827c6a8d3b787d15170da9e0aeeba.png');
             });
         });
+    });
 
+    describe('Easy instantiation', () => {
+
+        describe('When assigning stage crew members in the protractor conf file', () => {
+
+            it('can be instantiated using sensible defaults', () => {
+                expect(photographer()).to.be.instanceOf(Photographer);
+            });
+
+            it('allows for the time of taking the screenshot to be overridden', () => {
+                expect(photographer(TakeAPicture.Before_And_After_Activity)).to.be.instanceOf(Photographer);
+            });
+
+            it('allows for path to the reports to be overridden', () => {
+                expect(photographer(TakeAPicture.After_Activity, '/tmp/reports')).to.be.instanceOf(Photographer);
+            });
+        });
     });
 });

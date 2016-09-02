@@ -9,11 +9,26 @@ import {
     Result,
 } from '../../serenity/domain';
 
+import { FileSystem } from '../../serenity/io/file_system';
 import { UsesAbilities } from '../../serenity/screenplay';
+import { Default_Path_To_Reports } from '../../serenity/serenity';
 import { Stage, StageCrewMember } from '../../serenity/stage';
-import { FileSystem } from '../../serenity/stage_crew';
 import { BrowseTheWeb } from '../screenplay/abilities';
+
 import { Md5 } from 'ts-md5/dist/md5';
+
+export const TakeAPicture = {
+    Before_Activity:           [ ActivityStarts ],
+    After_Activity:            [ ActivityFinished ],
+    Before_And_After_Activity: [ ActivityStarts, ActivityFinished ],
+};
+
+export function photographer(
+    eventsOfInterest: { new (v: any): DomainEvent<any>}[] = TakeAPicture.After_Activity,
+    pathToReports: string = Default_Path_To_Reports): StageCrewMember
+{
+    return new Photographer(eventsOfInterest, new FileSystem(pathToReports));
+}
 
 export class Photographer implements StageCrewMember {
     private stage: Stage;

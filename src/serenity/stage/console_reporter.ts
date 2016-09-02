@@ -1,7 +1,11 @@
 import { DomainEvent } from '../domain/events';
-import { Stage, StageCrewMember } from '../stage';
+import { Stage, StageCrewMember } from './';
 
 import moment = require('moment');
+
+export function consoleReporter(): StageCrewMember {
+    return new ConsoleReporter();
+}
 
 export class ConsoleReporter implements StageCrewMember {
     private static Events_of_Interest = [ DomainEvent ];

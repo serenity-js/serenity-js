@@ -1,5 +1,5 @@
+import { step } from '../../../serenity/recording/step_annotation';
 import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
-import { step } from '../../recording/step_annotation';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
@@ -24,7 +24,7 @@ export class Enter implements Interaction {
         return this;
     }
 
-    @step("{0} enters '#value' into #target")
+    @step('{0} enters "#value" into #target')
     performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value, this.key);
     }

@@ -13,12 +13,18 @@ import {
     SceneStarts,
     Tag,
 } from '../domain';
-import { Stage, StageCrewMember } from '../stage';
-import { FileSystem } from './file_system';
+import { FileSystem } from '../io/file_system';
+import { Default_Path_To_Reports } from '../serenity';
+import { Stage, StageCrewMember } from './';
+
 import * as path from 'path';
 import { StackFrame, parse } from 'stack-trace';
 import { Md5 } from 'ts-md5/dist/md5';
 import _ = require('lodash');
+
+export function jsonReporter(pathToReports: string = Default_Path_To_Reports): StageCrewMember {
+    return new JsonReporter(new FileSystem(pathToReports));
+}
 
 export class JsonReporter implements StageCrewMember {
     private static Events_of_Interest = [ SceneStarts, ActivityStarts, ActivityFinished, PhotoAttempted, SceneFinished ];

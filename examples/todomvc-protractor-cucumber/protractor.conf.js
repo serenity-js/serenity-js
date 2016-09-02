@@ -1,5 +1,7 @@
 require('ts-node/register');
 
+const crew = require('serenity-bdd/lib/stage_crew');
+
 exports.config = {
 
     baseUrl: 'http://todomvc.dev',
@@ -16,7 +18,12 @@ exports.config = {
     },
 
     plugins: [{
-        path: 'node_modules/serenity-bdd/lib/serenity-protractor/adapter'
+        path: 'node_modules/serenity-bdd/lib/serenity-protractor/plugin',
+        crew: [
+            crew.jsonReporter(),
+            crew.photographer(),
+            crew.consoleReporter()
+        ]
     }],
 
     capabilities: {

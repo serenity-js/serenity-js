@@ -1,15 +1,12 @@
-import { ActivityFinished, ActivityStarts } from '../../serenity/domain/events';
-import { Activity, Outcome, Result } from '../../serenity/domain/model';
-import { StepDescription } from '../../serenity/recording/step_description';
-import { Performable } from '../../serenity/screenplay';
-import { Serenity } from '../../serenity/serenity';
-import { StageManager } from '../../serenity/stage';
+import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
+import { Performable } from '../screenplay';
+import { Serenity } from '../serenity';
+import { StageManager } from '../stage';
+import { StepDescription } from './step_description';
 
 import * as _ from 'lodash';
 
-// todo: move to Serenity module
 // todo: add Significance to the @step
-// todo: a singleton factory?
 export class Step {
 
     constructor(private stageManager: StageManager) {

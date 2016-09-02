@@ -1,1 +1,1 @@
-export * from './step_annotation';
+export * from '../../serenity/recording/step_annotation';

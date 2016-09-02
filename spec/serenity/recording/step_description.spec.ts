@@ -1,6 +1,5 @@
-import {StepDescription} from '../../../src/serenity/recording/step_description';
-import {Actor, PerformsTasks} from '../../../src/serenity/screenplay/actor';
-import {Task} from '../../../src/serenity/screenplay/performables';
+import { StepDescription } from '../../../src/serenity/recording/step_description';
+import { Actor, PerformsTasks, Task } from '../../../src/serenity/screenplay';
 
 import expect = require('../../expect');
 

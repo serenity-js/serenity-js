@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 
-import { FileSystem } from '../../../src/serenity/stage_crew/file_system';
+import { FileSystem } from '../../../src/serenity/io/file_system';
 
 import expect = require('../../expect');
 
-describe('FileSystemOutlet', () => {
+describe('FileSystem', () => {
 
     let image      = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
         imageBuffer = new Buffer(image, 'base64'),
