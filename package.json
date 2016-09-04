@@ -11,9 +11,12 @@
     "setup": "npm run typings -- install",
     "clean": "gulp clean",
     "package": "gulp package",
+    "pretest": "npm run webdriver:update -- --standalone",
     "test": "gulp test",
     "prepublish": "npm run setup && npm run package",
-    "typings": "typings"
+    "typings": "typings",
+    "webdriver-manager": "webdriver-manager",
+    "webdriver:update": "npm run webdriver-manager update"
   },
   "dependencies": {
     "graceful-fs": "4.1.4",
@@ -46,6 +49,7 @@
     "mock-fs": "3.11.0",
     "nock": "8.0.0",
     "phantomjs-prebuilt": "2.1.7",
+    "protractor-cucumber-framework": "0.6.0",
     "remap-istanbul": "0.6.4",
     "run-sequence": "1.2.2",
     "selenium-webdriver": "2.53.3",

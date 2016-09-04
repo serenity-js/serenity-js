@@ -5,18 +5,22 @@ import expect = require('../expect');
 import { SceneStarts } from '../../src/serenity/domain/events';
 import { Scene, Tag } from '../../src/serenity/domain/model';
 
-describe('When working with Cucumber', () => {
+describe('When working with Cucumber', function () {
 
-    const cucumberjs = spawner(
-        process.cwd() + '/node_modules/.bin/cucumber-js',
+    this.timeout(30 * 1000);    // it might take a while to start up the selenium server
+
+    const protractor = spawner(
+        process.cwd() + '/node_modules/.bin/protractor',
         { cwd: __dirname, silent: true }
     );
 
     describe('Serenity/JS', () => {
 
-        it('recognises scenario tags when the Scene starts', () => {
+        it('recognises single-value scenario tags', () => {
 
-            let spawned = cucumberjs('--name', 'A regression test covering one issue');
+            let spawned = protractor('protractor.conf.js',
+                '--specs', '**/recognises_single_value_tags.feature'
+            );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 let sceneStarts = spawned.messages[0];
@@ -28,14 +32,36 @@ describe('When working with Cucumber', () => {
                     new Tag('regression'),
                     new Tag('issue', [ 'MY-PROJECT-123' ]),
                 ]);
+
+                let sceneFinished = spawned.messages.pop();
+
+                expect(sceneFinished).to.be.instanceOf(SceneFinished);
+                expect(sceneFinished.value.subject).to.be.instanceOf(Scene);
+                expect(sceneFinished.value.subject.tags).to.deep.equal([
+                    new Tag('cucumber'),
+                    new Tag('regression'),
+                    new Tag('issue', [ 'MY-PROJECT-123' ]),
+                ]);
             });
         });
 
-        it('recognises scenario tags when the Scene is finished', () => {
+        it('recognises multi-value scenario tags', () => {
 
-            let spawned = cucumberjs('--name', 'A regression test covering two issues');
+            let spawned = protractor('protractor.conf.js',
+                '--specs', '**/recognises_multi_value_tags.feature'
+            );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
+                let sceneStarts = spawned.messages[0];
+
+                expect(sceneStarts).to.be.instanceOf(SceneStarts);
+                expect(sceneStarts.value).to.be.instanceOf(Scene);
+                expect(sceneStarts.value.tags).to.deep.equal([
+                    new Tag('cucumber'),
+                    new Tag('regression'),
+                    new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-789' ]),
+                ]);
+
                 let sceneFinished = spawned.messages.pop();
 
                 expect(sceneFinished).to.be.instanceOf(SceneFinished);

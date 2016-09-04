@@ -1,5 +1,3 @@
-'use strict';
-
 export = function () {
 
     this.Given(/^a step that passes$/, () => {

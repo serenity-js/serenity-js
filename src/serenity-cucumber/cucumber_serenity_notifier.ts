@@ -1,6 +1,6 @@
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '../../serenity/domain/events';
-import { Activity, Outcome, Result, Scene, Tag } from '../../serenity/domain/model';
-import { Serenity } from '../../serenity/serenity';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '../serenity/domain/events';
+import { Activity, Outcome, Result, Scene, Tag } from '../serenity/domain/model';
+import { Serenity } from '../serenity/serenity';
 import * as cucumber from 'cucumber';
 
 export function scenarioLifeCycleNotifier(): cucumber.EventListener {

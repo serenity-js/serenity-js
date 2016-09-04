@@ -23,7 +23,7 @@ module.exports = {
     spec:       'spec/**/*.ts',
     behaviour:   {
         spec:       'behaviour/**/*.ts',
-        examples:   'behaviour/**/cucumber/features/**/*'
+        examples:   [ 'behaviour/**/cucumber/features/**/*', 'behaviour/**/cucumber/**/*.js' ]
     },
 
     typings:    'typings/index.d.ts'

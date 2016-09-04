@@ -1,2 +1,2 @@
-export * from './recording';
 export * from './screenplay';
+export * from './stage';

@@ -1,4 +1,4 @@
-import { Deferred } from '../../serenity/recording/async';
+import { Deferred } from '../serenity/recording/async';
 import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
 
@@ -11,7 +11,7 @@ import * as webdriver from 'selenium-webdriver';
  * @param cucumber
  * @param controlFlow
  */
-export function synchroniseCucumberWithWebdriverControlFlow (cucumber: StepDefinitions, controlFlow: webdriver.promise.ControlFlow) {
+export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.promise.ControlFlow) {
 
     [
         'Given',

@@ -8,10 +8,11 @@ export class FilterItems implements Task {
         return new FilterItems(taskType);
     }
 
-    @step('{0} filters the list to show only #taskType items')
+    @step('{0} filters the list to show #taskType items')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            Click.on(TodoList.Filter.of(this.taskType).called('filter by ' + this.taskType))
+            Click.on(TodoList.Filter.of(this.taskType)
+                .called(`filter to show ${ this.taskType } items`))
         );
     }
 

@@ -1,8 +1,8 @@
-import { Step, StepAnnotation } from '../../../src/serenity/recording/step_annotation';
 import { Actor, PerformsTasks } from '../../../src/serenity/screenplay/actor';
 import { Performable, Task } from '../../../src/serenity/screenplay/performables';
-
 import { Journal, StageManager } from '../../../src/serenity/stage';
+
+import { Step, StepAnnotation } from '../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../src/serenity/domain/events';
