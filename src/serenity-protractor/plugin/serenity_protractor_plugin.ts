@@ -1,5 +1,5 @@
 import { Serenity } from '../../serenity/serenity';
-import { StageCrewMember } from '../../serenity/stage/stage_manager';
+import { StageCrewMember, jsonReporter } from '../../serenity/stage';
 
 import { PluginConfig, ProtractorPlugin } from 'protractor';
 
@@ -18,7 +18,7 @@ export class SerenityProtractorPlugin implements ProtractorPlugin {
     private crewMembers(): StageCrewMember[] {
         return (!! this.config.crew)
             ? this.config.crew
-            : [];
+            : [ jsonReporter() ];
     }
 }
 

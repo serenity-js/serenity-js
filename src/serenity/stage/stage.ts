@@ -33,15 +33,15 @@ export class Stage {
         return !! this.actorInTheSpotlight;
     }
 
-    castIsReady(): boolean {
-        return !! this.cast;
-    }
-
     theActorInTheSpotlight(): Actor {
         if (! this.theShowHasStarted()) {
             throw new Error('There\'s no actor in the spotlight yet.');
         }
 
         return this.actorInTheSpotlight;
+    }
+
+    private castIsReady(): boolean {
+        return !! this.cast;
     }
 }
