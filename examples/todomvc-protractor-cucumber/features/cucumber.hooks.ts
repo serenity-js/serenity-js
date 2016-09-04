@@ -1,5 +1,5 @@
 import { protractor } from 'protractor/globals';
-import * as serenity from 'serenity-bdd/lib/serenity-cucumber';
+import * as serenity from 'serenity-js/lib/serenity-cucumber';
 
 export = function () {
 

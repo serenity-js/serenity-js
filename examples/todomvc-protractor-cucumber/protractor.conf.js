@@ -1,6 +1,6 @@
 require('ts-node/register');
 
-const crew = require('serenity-bdd/lib/stage_crew');
+const crew = require('serenity-js/lib/stage_crew');
 
 exports.config = {
 
@@ -18,7 +18,7 @@ exports.config = {
     },
 
     plugins: [{
-        path: 'node_modules/serenity-bdd/lib/serenity-protractor/plugin',
+        path: 'node_modules/serenity-js/lib/serenity-protractor/plugin',
         crew: [
             crew.jsonReporter(),
             crew.photographer(),

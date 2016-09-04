@@ -1,5 +1,5 @@
 import { by } from 'protractor/globals';
-import { Target } from 'serenity-bdd/lib/screenplay-protractor';
+import { Target } from 'serenity-js/lib/screenplay-protractor';
 
 export class TodoList {
     static What_Needs_To_Be_Done  = Target

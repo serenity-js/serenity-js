@@ -1,5 +1,5 @@
 import { protractor } from 'protractor/globals';
-import { Actor, BrowseTheWeb, Cast } from 'serenity-bdd/lib/screenplay-protractor';
+import { Actor, BrowseTheWeb, Cast } from 'serenity-js/lib/screenplay-protractor';
 
 // note: it's important to use `protractor.browser` not simply `browser`
 //       a bug in Protractor makes the latter to fail upon a browser restart

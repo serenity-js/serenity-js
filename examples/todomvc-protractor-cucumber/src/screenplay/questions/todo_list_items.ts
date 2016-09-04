@@ -1,6 +1,6 @@
 import { TodoList } from '../user_interface/todo_list';
 
-import { BrowseTheWeb, Question, UsesAbilities } from 'serenity-bdd/lib/screenplay-protractor';
+import { BrowseTheWeb, Question, UsesAbilities } from 'serenity-js/lib/screenplay-protractor';
 
 export class TodoListItems {
     static displayed() { return new TodoListItemsDisplayed(); };

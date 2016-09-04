@@ -1,4 +1,4 @@
-import { Serenity } from 'serenity-bdd';
+import { Serenity } from 'serenity-js';
 
 import {
     Actors,
