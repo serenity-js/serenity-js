@@ -24,10 +24,11 @@ it works very effectively for non-web tests too! Those include tests that exerci
 
 The below tutorials will help you get started with Serenity/JS and better understand the [Screenplay Pattern](docs/screenplay-pattern.md):
 
-* **From Scripts to Screenplay**
-    * [Part 1: Getting Started with Serenity/JS](docs/from-scripts-to-screenplay-getting-started-with-serenity-js.md)
-    * [Part 2: Finding the Right Abstraction](docs/from-scripts-to-screenplay-finding-the-right-abstraction.md)
-    * [Part 3: Asking the Right Questions](docs/from-scripts-to-screenplay-asking-the-right-questions.md)
+* **From scripts to Serenity**
+    * [Part 1: Speaking the right language](docs/from-scripts-to-serenity-speaking-the-right-language.md)
+    * [Part 2: Finding the right abstraction](docs/from-scripts-to-serenity-finding-the-right-abstraction)
+    * [Part 3: Asking the right questions](docs/from-scripts-to-serenity-asking-the-right-questions.md)
+    * [Part 4: Making it visible](docs/from-scripts-to-serenity-making-it-visible.md)
 
 ## Getting Help
 
