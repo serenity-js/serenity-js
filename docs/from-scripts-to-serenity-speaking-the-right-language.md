@@ -181,8 +181,11 @@ system that's easy to extend, maintain and scale to multiple projects and teams.
 
 So far it looks like the acceptance tests are not speaking the right language and there's an abstraction missing.
 
-Which leads us onto the **next article**:
-[Finding the right abstraction](from-scripts-to-serenity-finding-the-right-abstraction.md)
+Which leads us onto the next article.
+
+## Next
+
+[From Scripts to Serenity: Writing what you'd like to read](from-scripts-to-serenity-writing-what-you-would-like-to-read.md)
 
 ---
 

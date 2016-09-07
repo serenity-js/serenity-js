@@ -8,7 +8,7 @@ declare namespace cucumber {
 
     export interface CallbackStepDefinition {
         pending: () => PromiseLike<any>;
-        (errror?: any): void;
+        (errror?: any, pending?: string): void;
     }
 
     interface StepDefinitionCode {

@@ -26,7 +26,7 @@ The below tutorials will help you get started with Serenity/JS and better unders
 
 * **From scripts to Serenity**
     * [Part 1: Speaking the right language](docs/from-scripts-to-serenity-speaking-the-right-language.md)
-    * [Part 2: Finding the right abstraction](docs/from-scripts-to-serenity-finding-the-right-abstraction)
+    * [Part 2: Writing what you'd like to read](docs/from-scripts-to-serenity-writing-what-you-would-like-to-read.md)
     * [Part 3: Asking the right questions](docs/from-scripts-to-serenity-asking-the-right-questions.md)
     * [Part 4: Making it visible](docs/from-scripts-to-serenity-making-it-visible.md)
 
@@ -45,7 +45,7 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 ## License
 
-Serenity/JS and all its components are licensed under the terms of permissive open source software licenses.
+Serenity/JS is licensed under the [Apache-2.0](LICENSE.md) license.
 
 If you're interested in a commercial license, training or support - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
 

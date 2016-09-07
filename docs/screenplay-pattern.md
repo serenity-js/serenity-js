@@ -26,3 +26,18 @@ projects thanks to Serenity/JS.
 ## The Model
 
 TODO: to be continued
+
+
+### Actor
+
+### Goal
+
+### Role
+
+### Task
+
+### Interaction
+
+### Ability
+
+### Stage
