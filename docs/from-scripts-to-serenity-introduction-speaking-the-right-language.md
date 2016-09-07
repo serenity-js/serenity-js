@@ -185,7 +185,7 @@ Which leads us onto the next article.
 
 ## Next
 
-[From Scripts to Serenity: Writing what you'd like to read](from-scripts-to-serenity-writing-what-you-would-like-to-read.md)
+[From Scripts to Serenity: Writing what you'd like to read](from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
 
 ---
 
@@ -197,3 +197,6 @@ Found a typo or a broken link? Raise [an issue](https://github.com/jan-molak/ser
 or submit a pull request.
 
 Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
+
+If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
+development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).

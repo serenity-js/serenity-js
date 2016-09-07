@@ -17,7 +17,7 @@ it works very effectively for non-web tests too! Those include tests that exerci
 
 |           | Please note |
 | --------- | ----------- |
-| :warning: | Serenity/JS is an experimental project. This means that although it has a **very high test coverage**, follows **semantic versioning** and **you can use it straight away**, its structure and APIs might and most likely will change over the coming weeks. Is that a problem? We hope not! The feedback from the Community will help us shape Serenity/JS to your needs. Together we can build the best acceptance testing library the JavaScript world has ever seen! ... or at least something useful :wink: |
+| :warning: | Serenity/JS is a young project. This means that although it has a **very high test coverage**, follows **semantic versioning** and **you can use it straight away**, its structure and APIs might and most likely will change over the coming weeks as it matures to become `1.0`. Is that a problem? We hope not! The feedback from the Community will help us shape Serenity/JS to your needs. Together we can build the best acceptance testing library the JavaScript world has ever seen! ... or at least something useful :wink: |
 
 
 ## Tutorials
@@ -25,10 +25,9 @@ it works very effectively for non-web tests too! Those include tests that exerci
 The below tutorials will help you get started with Serenity/JS and better understand the [Screenplay Pattern](docs/screenplay-pattern.md):
 
 * **From scripts to Serenity**
-    * [Part 1: Speaking the right language](docs/from-scripts-to-serenity-speaking-the-right-language.md)
-    * [Part 2: Writing what you'd like to read](docs/from-scripts-to-serenity-writing-what-you-would-like-to-read.md)
-    * [Part 3: Asking the right questions](docs/from-scripts-to-serenity-asking-the-right-questions.md)
-    * [Part 4: Making it visible](docs/from-scripts-to-serenity-making-it-visible.md)
+    * [Introduction: Speaking the right language](docs/from-scripts-to-serenity-introduction-speaking-the-right-language.md)
+    * [Getting started: Writing what you'd like to read](docs/from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
+    * [Reporting: Making the tests speak for themselves](docs/from-scripts-to-serenity-reporting-making-the-tests-speak-for-themselves.md)
 
 ## Getting Help
 
@@ -47,7 +46,8 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 Serenity/JS is licensed under the [Apache-2.0](LICENSE.md) license.
 
-If you're interested in a commercial license, training or support - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
+If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
+development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
 
 ----
 

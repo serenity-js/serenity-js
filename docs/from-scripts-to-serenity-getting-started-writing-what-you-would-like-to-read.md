@@ -1,6 +1,6 @@
 # From Scripts to Serenity: Writing what you'd like to read
 
-In the [previous article](from-scripts-to-serenity-speaking-the-right-language.md)
+In the [previous article](from-scripts-to-serenity-introduction-speaking-the-right-language.md)
 we looked at how taking
 [the scripting approach](from-scripts-to-serenity-speaking-the-right-language.md#a-test-script)
 to test automation can result in a codebase that's brittle and difficult to maintain.
@@ -14,7 +14,7 @@ us design test systems that are easier to extend, maintain and scale to meet the
 ## Something practical
 
 Let's look again at the Cucumber scenario we know
-from the [previous article](from-scripts-to-serenity-speaking-the-right-language.md).
+from the [previous article](from-scripts-to-serenity-introduction-speaking-the-right-language.md).
 This time we'll automate it from
 [outside-in](https://en.wikipedia.org/wiki/Outside%E2%80%93in_software_development), while gradually introducing
 the concepts of the [Screenplay Pattern](screenplay-pattern.md).
@@ -42,7 +42,7 @@ Feature: Add new items to the todo list
 First, let's add [Serenity/JS library](https://www.npmjs.com/package/serenity-js) to the project:
 
 ```
-npm install serenity-js --save
+λ ~/serenity-js-getting-started/ npm install serenity-js --save
 ```
 
 Now have a look at the Cucumber steps defined in `features/step_definitions/todo_user.steps.ts`,
@@ -494,7 +494,7 @@ export class TodoListItems {
 
 And the Target:
 
-```
+```typescript
 // src/screenplay/ui/todo_list.ts
 
 import { Target } from 'serenity-js/lib/screenplay-protractor';
@@ -504,7 +504,7 @@ export class TodoList {
     static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box')
                                          .located(by.id('new-todo'));
 
-    static Items                  = Target.the('List of Items')
+    static Items                 = Target.the('List of Items')
                                           .located(by.repeater('todo in todos'));
 }
 ```
@@ -521,12 +521,13 @@ However, in an effort to make working with asynchronous calls easier for develop
 WebDriver implements its own [Promise Manager](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs#understanding-the-promise-manager),
 also known as the [Control Flow](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/promise.html).
 
-What this means is that any interaction with a WebDriver JavaScript API returns a `webdriver.Promise`,
+What this means is that any interaction with a WebDriver JavaScript API (such as clicking a button or opening a website)
+schedules an asynchronous operation using WebDriver's internal mechanism and returns a `webdriver.Promise`,
 rather than the standard [ES6 Promise](https://promisesaplus.com/). Since Cucumber.js and many other tools such as
 [Chai.js](https://github.com/domenic/chai-as-promised/issues/160) are not WebDriver-aware (nor they should be),
 we need to reconcile the two worlds.
 
-To do this, call the Serenity/JS synchroniser from the `cucumber_hooks.ts`:
+To do this, call the Serenity/JS WebDriver Synchroniser in your `cucumber_hooks.ts` file:
 
 ```typescript
 // features/cucumber_hooks.ts
@@ -545,6 +546,8 @@ You can run the test again and see the scenario succeed:
 ```
 λ ~/serenity-js-getting-started/ npm test
 ```
+
+## Before you go
 
 To see what happens when a scenario fails, you can add a new one to the feature file and call `npm test` again:
 
@@ -566,7 +569,7 @@ the next tutorial will focus on generating narrative, illustrated and meaningful
 
 ## Next
 
-[From Scripts to Serenity: Rehearsal Reports](from-scripts-to-serenity-rehearsal-reports.md)
+[From Scripts to Serenity: Making the reports speak for themselves](from-scripts-to-serenity-reporting-making-the-tests-speak-for-themselves.md)
 
 ---
 
@@ -578,3 +581,6 @@ Found a typo or a broken link? Raise [an issue](https://github.com/jan-molak/ser
 or submit a pull request.
 
 Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
+
+If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
+development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
