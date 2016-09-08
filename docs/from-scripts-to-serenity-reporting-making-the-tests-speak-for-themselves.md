@@ -295,7 +295,7 @@ Head back to the `Start` Task we have created as part of our last tutorial and a
 giving the Task a more descriptive name:
 
 ```typescript
-# src/screenplay/tasks/start.ts
+// src/screenplay/tasks/start.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Open, step } from 'serenity-js/lib/screenplay-protractor';     // imports the @step
@@ -332,7 +332,7 @@ export class Start implements Task {
 Now, repeat the process with the `AddATodoItem` task:
 
 ``` typescript
-# src/screenplay/tasks/add_a_todo_item.ts
+// src/screenplay/tasks/add_a_todo_item.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Enter, step } from 'serenity-js/lib/screenplay-protractor';    // imports the @step

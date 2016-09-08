@@ -25,7 +25,12 @@ the concepts of the [Screenplay Pattern](screenplay-pattern.md).
 ```
 $> git clone https://github.com/jan-molak/serenity-js-getting-started
 $> cd serenity-js-getting-started
+$> npm install
+$> npm test
 ```
+
+The last command - `npm test` should tell you that there is one scenario pending. We're going
+to implement it now.
 
 You'll find the example scenario in the `features` directory:
 
@@ -98,8 +103,8 @@ export = function todoUserSteps() {
 
     let actor: Actor;
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (name: string, items: string, callback) => {
-        actor = Actor.named(name);
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (actorName: string, items: string, callback) => {
+        actor = Actor.named(actorName);
 
         callback();
     });
@@ -110,13 +115,17 @@ export = function todoUserSteps() {
 
 :bulb: **PRO TIP**: Notice how can now get the name of the actor ('James') from the Cucumber scenario, rather than directly hard-coding it? This means we can use this step definition for any actor, and not just James.
 
-Actors have Goals, and need to perform Tasks to achieve these Goals. In this case, James's goal is to add "Buy some cereal" to his todo list. But before he can do this, our scenario needs James to start with todo list that already contains a couple of items - more specifically, "Buy some cookies" and "Walk the dog":
+Actors have Goals, and need to perform Tasks to achieve these Goals.
+In this case, James's goal is to add "Buy some cereal" to his todo list.
+But before he can do this, our scenario needs James to start with todo list that already contains
+a couple of items - more specifically, "Buy some cookies" and "Walk the dog":
 
 ```gherkin
 Given that James has a todo list containing Buy some cookies, Walk the dog
 ```
 
-Let's make the implementation reflect this:
+Let's make the implementation reflect this (don't worry about your editor complaining that the `Start` class doesn't exist,
+we'll implement it in the next step):
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
@@ -155,7 +164,10 @@ Let's look at how a task like this is written.
 
 ## The first Task
 
-Tasks are implemented as simple Typescript classes. A Task class needs to implement the `Task` interface, so that it can be performed by an Actor:
+Tasks are implemented as simple Typescript classes.
+A Task class needs to implement the `Task` interface, so that it can be performed by an Actor.
+Let's create a directory to store the tasks - `src/screenplay/tasks`, and a `start.ts` file in it with
+the following content:
 
 ```typescript
 // src/screenplay/tasks/start.ts
@@ -178,6 +190,9 @@ export class Start implements Task {
     }                                                       // to a private field
 }
 ```
+
+:bulb: **PRO TIP**: You'll find that some of the directories the below code samples refer to don't exist yet.
+Please go ahead and create them when needed.
 
 ## Building a Domain-Specific Language
 
@@ -348,9 +363,9 @@ export = function todoUserSteps() {
 
     let actor: Actor;
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (name: string, items: string) => {
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (actorName: string, items: string) => {
 
-        actor = Actor.named(name).whoCan(BrowseTheWeb.using(protractor.browser));
+        actor = Actor.named(actorName).whoCan(BrowseTheWeb.using(protractor.browser));
 
         return actor.attemptsTo(
             Start.withATodoListContaining(listOf(items))
@@ -426,7 +441,7 @@ export class AddATodoItem implements Task {
 
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            Enter.theValue(this.name)                       // enter the value of the item name
+            Enter.theValue(this.itemName)                   // enter the value of the item name
                 .into(TodoList.What_Needs_To_Be_Done)       // into a "What needs to be done" field
                 .thenHit(protractor.Key.ENTER)              // then hit enter...
         );
@@ -487,6 +502,11 @@ In order to verify the state of the application, an Actor can ask [Questions](sc
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
+
+import { expect } from '../../src/expect';
+import { TodoListItems } from '../../src/screenplay/questions/todo_list_items';
+
+// ...
 
 export = function todoUserSteps() {
 
