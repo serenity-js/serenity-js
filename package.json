@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Serenity BDD for JavaScript and TypeScript",
   "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
-  "homepage": "https://github.com/smartcodeltd/serenity-js",
+  "homepage": "https://github.com/jan-molak/serenity-js",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -13,10 +13,12 @@
     "package": "gulp package",
     "pretest": "npm run webdriver:update -- --standalone",
     "test": "gulp test",
+    "commit": "git-cz",
     "prepublish": "npm run setup && npm run package",
     "typings": "typings",
     "webdriver-manager": "webdriver-manager",
-    "webdriver:update": "npm run webdriver-manager update"
+    "webdriver:update": "npm run webdriver-manager update",
+    "report-coverage": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "graceful-fs": "4.1.4",
@@ -65,10 +67,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/smartcodeltd/serenity-js.git"
+    "url": "https://github.com/jan-molak/serenity-js.git"
   },
   "bugs": {
-    "url": "https://github.com/smartcodeltd/serenity-js/issues"
+    "url": "https://github.com/jan-molak/serenity-js/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
