@@ -49,29 +49,24 @@ describe ('When reporting on what happened during the rehearsal', () => {
 
             expect(print).to.have.callCount(5);
 
-            expect(print.getCall(0).args[0]).to.equal(
-                '12:50:10.000 | ' +
+            expect(print.getCall(0).args[0]).to.contain(
                 'SceneStarts: Paying with a default card ' +
                 '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card)'
             );
 
-            expect(print.getCall(1).args[0]).to.equal(
-                '12:50:10.001 | ' +
+            expect(print.getCall(1).args[0]).to.contain(
                 'ActivityStarts: Configures a default payment method'
             );
 
-            expect(print.getCall(2).args[0]).to.equal(
-                '12:50:10.002 | ' +
+            expect(print.getCall(2).args[0]).to.contain(
                 'ActivityFinished: Configures a default payment method (result: SUCCESS)'
             );
 
-            expect(print.getCall(3).args[0]).to.equal(
-                '12:50:10.003 | ' +
+            expect(print.getCall(3).args[0]).to.contain(
                 'PhotoAttempted: Configures a default payment method'
             );
 
-            expect(print.getCall(4).args[0]).to.equal(
-                '12:50:10.004 | ' +
+            expect(print.getCall(4).args[0]).to.contain(
                 'SceneFinished: Paying with a default card ' +
                 '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card) (result: SUCCESS)'
             );
