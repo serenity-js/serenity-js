@@ -46,14 +46,14 @@ We believe that the feature described in the above scenario will be useful to a 
 
 ### Actor
 
-Each [Role](#Role) we discover needs an Actor to play it.
+Each [Role](#role) we discover needs an Actor to play it.
 In Serenity/JS, an Actor is defined as follows:
 
 ``` typescript
 let james = Actor.named('James');
 ```
 
-Such Actor can perform [Tasks](#Task):
+Such Actor can perform [Tasks](#task):
 
 ``` typescript
 james.attemptsTo(
@@ -62,7 +62,7 @@ james.attemptsTo(
 )
 ```
 
-and ask [Questions](#Question) about the state of the application in order to verify its correctness:
+and ask [Questions](#question) about the state of the application in order to verify its correctness:
 
 ``` typescript
 expect(james.toSee(TodoListItems.Displayed)).eventually.equal([ 'Buy some milk' ]);
@@ -99,7 +99,7 @@ this.When(/^he adds (.*?) to his list$/, (name: string) => {
 
 ### Interaction
 
-An Interaction is a low-level activity directly exercising the [Actor](#Actor)'s [Ability](#Ability) to interact
+An Interaction is a low-level activity directly exercising the [Actor](#actor)'s [Ability](#ability) to interact
 with a specific external interface of the system - such as a website, a mobile app or a web service.
 
 Interactions are named using the vocabulary of the
@@ -107,7 +107,7 @@ Interactions are named using the vocabulary of the
 "Click a button", "Enter password into a form field" or "Submit JSON request".
 
 Actors should not exercise Interactions directly in the Cucumber step definitions. Instead, a group of one of more
-Interactions should be encapsulated and represented as a [Task](#Task). For example:
+Interactions should be encapsulated and represented as a [Task](#task). For example:
 
 ```typescript
 
@@ -129,7 +129,7 @@ export class Login implements Task {
 
 ### Question
 
-Similarly to an [Interaction](#Interaction), a Question directly exercises [Actor](#Actor)'s [Ability](#Ability) to interact
+Similarly to an [Interaction](#interaction), a Question directly exercises [Actor](#actor)'s [Ability](#ability) to interact
 with a specific external interface of the system - such as a website, a mobile app or a web service.
 
 Asking a Question results in a [promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)
@@ -186,7 +186,7 @@ Those clients could be a web browser, a web service client, a mobile device driv
 let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser);
 ```
 
-Once the Actor has the Ability, it can be used in an [Interaction](#Interaction),
+Once the Actor has the Ability, it can be used in an [Interaction](#interaction),
 such as `Click.on(LoginForm.Submit_Button)`:
 
 ``` typescript
@@ -203,7 +203,7 @@ export class Click implements Interaction {
 }
 ```
 
-or a [Question](#Question), such as `Text.of(Address.Post_Code)`:
+or a [Question](#question), such as `Text.of(Address.Post_Code)`:
 
 ``` typescript
 export class Text implements Question<string> {
