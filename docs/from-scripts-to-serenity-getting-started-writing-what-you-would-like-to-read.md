@@ -19,7 +19,15 @@ This time we'll automate it from the
 [outside-in](https://en.wikipedia.org/wiki/Outside%E2%80%93in_software_development), while gradually introducing
 the concepts of the [Screenplay Pattern](screenplay-pattern.md).
 
-:bulb: **PRO TIP:** If you like learning by doing, clone the [tutorial project](https://github.com/jan-molak/serenity-js-getting-started) and code along!
+:bulb: **PRO TIP:** If you like learning by doing, clone the
+[tutorial project](https://github.com/jan-molak/serenity-js-getting-started) and code along!
+
+```
+$> git clone https://github.com/jan-molak/serenity-js-getting-started
+$> cd serenity-js-getting-started
+```
+
+You'll find the example scenario in the `features` directory:
 
 ```gherkin
 # features/add_new_items.feature
@@ -173,9 +181,11 @@ export class Start implements Task {
 
 ## Building a Domain-Specific Language
 
-While we could simply create new instances of the tasks and pass them to the actor to perform, by convention we use a static factory method so that we can write `Start.withATodoListContaining(items)` rather than `new Start(items)`:
+While we could simply create new instances of the tasks and pass them to the actor to perform,
+by convention we use a static factory method so that we can write `Start.withATodoListContaining(items)`
+rather than `new Start(items)`:
 
-```
+```typescript
     static withATodoListContaining(items: string[]) {
         return new Start(items);
     }
@@ -219,7 +229,7 @@ Given that James has a todo list containing Buy some cookies, Walk the dog
 
 Let's expand our vocabulary of custom Tasks then. First, write the code you'd like to have in the Cucumber step. In this case, we want to add a todo item called 'Buys some cereal', so we could imagine a task that reads like this:
 
-```
+```typescript
 AddATodoItem.called('Buy some cereal')
 ```
 
