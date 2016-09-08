@@ -18,7 +18,8 @@
     "typings": "typings",
     "webdriver-manager": "webdriver-manager",
     "webdriver:update": "npm run webdriver-manager update",
-    "report-coverage": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js"
+    "report-coverage": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "graceful-fs": "4.1.4",
@@ -63,7 +64,8 @@
     "ts-node": "1.2.2",
     "tslint": "3.14.0",
     "typescript": "1.8.10",
-    "typings": "1.3.2"
+    "typings": "1.3.2",
+    "semantic-release": "^4.3.5"
   },
   "repository": {
     "type": "git",
