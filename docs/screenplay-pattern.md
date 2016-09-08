@@ -2,20 +2,22 @@
 
 The Screenplay Pattern is a [user-centred](https://en.wikipedia.org/wiki/User-centered_design) model,
 which helps you shift the focus of automated acceptance tests from low-level interactions with the system
-to thinking about who the users of your system are,
+to thinking about who the users of your system are, 
 what is that they want to achieve by their interaction with your system
 and how exactly they're going to do it.
 
 The Serenity/JS implementation of the Pattern focuses on making developers and testers more productive,
 by making acceptance test faster to write, cheaper to maintain and easier to scale to multiple projects and teams.
 
-## Screenplay by example
-_Examples presented in this section are based on
-["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp)
-<br />and ["Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay)
-<br />by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak_
+The ScreenPlay pattern is new to JavaScript but has been around for a while in various forms, and was originally proposed by Antony Marcano in 2007. You can learn more about the origin and history of this model in ["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp) (by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak) and [at the end of this article](#the-history).
 
-Consider the following scenario:
+## Background
+
+## Screenplay by example
+
+_Examples presented in this section are based on the project described in [Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay)._
+
+The best way to illustrate the ScreenPlay pattern is through a practical example. Suppose we are writing some tests for a Todo application like the one you can find on the [TodoMVC site](http://todomvc.com/examples/angularjs/#/). Consider the following scenario:
 
 ```gherkin
 Feature: Add new items to the todo list
@@ -31,7 +33,7 @@ Feature: Add new items to the todo list
      Then his todo list should contain Buy some milk
 ```
 
-Now analyse it applying the following thinking:
+Let's think about this scenario from a couple of different angles:
 
 * **Who** is this for? What **Role** do they play?
 * **Why** are they here and what outcome do they hope for? What is their **Goal**?
@@ -40,9 +42,7 @@ Now analyse it applying the following thinking:
 
 ### Role
 
-We believe that the feature described in the above scenario will be useful to a "just-in-time kinda guy".
-
-"James" is a [persona](https://articles.uie.com/goodwin_interview/) we are using to understand a specific role.
+We believe that the feature described in the above scenario will be useful to a "just-in-time kinda guy". "James" is a [persona](https://articles.uie.com/goodwin_interview/) that we are using to understand this specific role.
 
 ### Actor
 
@@ -230,16 +230,15 @@ by Jan Molak_
 
 ## The History
 
-It has all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.
+It all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.
 
-["In praise of abstraction"](http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html),
-a talk given by Kevin Lawrence, has inspired [Antony Marcano](http://antonymarcano.com/Site/Home.html)
+["In praise of abstraction"](http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html), a talk given by Kevin Lawrence, inspired [Antony Marcano](http://antonymarcano.com/Site/Home.html)
 to implement a fluent DSL based on Kevin's idea to use the language of Interaction Designers
 to model the layers of abstraction in an acceptance test.
-With help of [Andy Palmer](http://andypalmer.com), this fluent DSL is what became
+With the help of [Andy Palmer](http://andypalmer.com), this fluent DSL is what became
 [JNarrate](https://bitbucket.org/testingreflections/jnarrate/wiki/Home) a year later (2008).
 
-In the late 2012, Antony and Andy joined their forces with [Jan Molak](https://janmolak.com/).
+In the late 2012, Antony and Andy joined forces with [Jan Molak](https://janmolak.com/).
 Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of
 the [PageObject Pattern](https://github.com/SeleniumHQ/selenium/wiki/PageObjects)
 and apply [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
@@ -247,7 +246,7 @@ to acceptance testing is what [became known in 2013](http://www.slideshare.net/R
 as [screenplay-jvm](https://github.com/screenplay/screenplay-jvm).
 
 In 2015, when Antony, Andy and Jan started working with [John Ferguson Smart](http://johnfergusonsmart.com/),
-what became known as the Screenplay Pattern, found its way into [Serenity BDD](http://serenity-bdd.info),
+what became known as the Screenplay Pattern found its way into [Serenity BDD](http://serenity-bdd.info),
 a popular acceptance testing library written in Java.
 
 It's 2016 now and you can use both the Screenplay Pattern and the powerful Serenity BDD reports on JavaScript
