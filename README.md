@@ -4,7 +4,7 @@ Serenity/JS is a node.js library designed to make acceptance and regression test
 faster, more collaborative and easier to scale.
 
 Serenity/JS gives you:
-* the scalability and expressiveness of the [Screenplay Pattern](docs/screenplay-pattern.md),
+* the scalability and expressiveness of the [Screenplay Pattern](https://github.com/jan-molak/serenity-js/blob/master/docs/screenplay-pattern.md),
 * the power and visibility of [Serenity BDD](http://serenity-bdd.info/#/documentation)
 [narrative reports](http://serenity-bdd.info/docs/serenity/#_detailed_description_of_aggregation_reports),
 * an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)),
@@ -25,9 +25,9 @@ it works very effectively for non-web tests too! Those include tests that exerci
 The below tutorials will help you get started with Serenity/JS and better understand the [Screenplay Pattern](docs/screenplay-pattern.md):
 
 * **From scripts to Serenity**
-    * [Introduction: Speaking the right language](docs/from-scripts-to-serenity-introduction-speaking-the-right-language.md)
-    * [Getting started: Writing what you'd like to read](docs/from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
-    * [Reporting: Making the tests speak for themselves](docs/from-scripts-to-serenity-reporting-making-the-tests-speak-for-themselves.md)
+    * [Introduction: Speaking the right language](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-introduction-speaking-the-right-language.md)
+    * [Getting started: Writing what you'd like to read](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
+    * [Reporting: Making the tests speak for themselves](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-reporting-making-the-tests-speak-for-themselves.md)
 
 ## Getting Help
 
@@ -44,7 +44,7 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 ## License
 
-Serenity/JS is licensed under the [Apache-2.0](LICENSE.md) license.
+Serenity/JS library is licensed under the [Apache-2.0](LICENSE.md) license.
 
 If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
 development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
