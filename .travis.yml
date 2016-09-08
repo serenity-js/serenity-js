@@ -11,7 +11,9 @@ before_install:
   - npm i -g npm@^2.0.0
 before_script:
   - npm prune
-script: gulp
+script:
+  - npm run pretest
+  - npm run package
 after_success:
   - npm run report-coverage
   - npm run semantic-release
