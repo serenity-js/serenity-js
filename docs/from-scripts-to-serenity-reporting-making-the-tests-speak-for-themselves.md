@@ -325,7 +325,7 @@ export class Start implements Task {
 
 Now, repeat the process with the `AddATodoItem` task:
 
-```
+``` typescript
 # src/screenplay/tasks/add_a_todo_item.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
@@ -460,7 +460,7 @@ This time however you should be able to see a screenshot accompanying each Inter
 
 ## Summary
 
-By organising the code of our acceptance testing system
+By organising the code of our automated acceptance testing system
 to follow the [Screenplay Pattern](screenplay-pattern.md)
 and adding `@step` annotations to the business-level tasks, we managed to generate meaningful, narrative and illustrated
 reports that can form part of the [living documentation](https://en.wikipedia.org/wiki/Specification_by_example)
