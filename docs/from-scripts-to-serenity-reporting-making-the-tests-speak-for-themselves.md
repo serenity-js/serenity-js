@@ -18,6 +18,12 @@ or grab a fresh copy
 from the [`1-first-scenario-implemented`](https://github.com/jan-molak/serenity-js-getting-started/tree/1-first-scenario-implemented)
 branch.
 
+```
+$> git clone https://github.com/jan-molak/serenity-js-getting-started
+$> cd serenity-js-getting-started
+$> git checkout 1-first-scenario-implemented
+```
+
 To help Serenity/JS produce those narrative,
 illustrated reports anyone on the team can read and understand we first need to tell the library
 a bit more about the life cycle of the scenarios we execute.
@@ -59,13 +65,13 @@ exports.config = {
 When you run the tests again:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 you'll notice that a new directory was created, with a JSON file in it:
 
 ```
-λ ~/serenity-js-getting-started/ ls target/site/serenity
+$> ls target/site/serenity
 
 704ff39d93ac1503afb0ba8a5ad03c71.json
 ```
@@ -101,7 +107,7 @@ which is a Java library and therefore requires a [Java Runtime Environment](http
 To verify that you have Java 7 or newer installed, run:
 
 ```
-λ ~/serenity-js-getting-started/ java -version
+$> java -version
 
 java version "1.8.0_25"
 Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
@@ -112,7 +118,7 @@ To make invoking a Java program from Node.js easier,
 we'll need a new dependency - [`serenity-cli`](https://www.npmjs.com/package/serenity-cli):
 
 ```
-λ ~/serenity-js-getting-started/ npm install serenity-cli --save-dev
+$> npm install serenity-cli --save-dev
 ```
 
 :bulb: **PRO TIP:** Even though `serenity-cli` is a command line program, we're installing it in the scope
@@ -152,7 +158,7 @@ command is executed.
 When you call `npm test` with the new script in place, you should see the output similar to the following:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 
 info: Looks like you need the latest Serenity BDD CLI jar. Let me download it for you...
 info: Downloaded to /Users/jan/serenity-js-getting-started/node_modules/serenity-cli/.cache/serenity-cli-0.0.1-rc.3-all.jar
@@ -181,11 +187,11 @@ another NPM script - `"report": "serenity run"`:
 We can now execute both scripts in a sequence to see the HTML report we've been waiting for:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 ```
-λ ~/serenity-js-getting-started/ npm run report
+$> npm run report
 ```
 
 :bulb: **PRO TIP**: As opposed to `test` and `pretest`, `report` is not a [standard NPM script](https://docs.npmjs.com/misc/scripts).
@@ -205,7 +211,7 @@ the `target` directory is empty before executing the suite.
 To create the script that does it for us, install the [`rimraf` module](https://www.npmjs.com/package/rimraf):
 
 ```
-λ ~/serenity-js-getting-started/ npm install rimraf --save-dev
+$> npm install rimraf --save-dev
 ```
 
 and define a `clean` script:
@@ -239,7 +245,7 @@ It would be much easier if instead of calling three separate commands we could j
 Thankfully, the [`npm-failsafe`](https://www.npmjs.com/package/npm-failsafe) can help us with that:
 
 ```
-λ ~/serenity-js-getting-started/ npm install npm-failsafe --save-dev
+$> npm install npm-failsafe --save-dev
 ```
 
 :bulb: **PRO TIP**: We're using the `npm-failsafe` module instead of the more traditional `&&` and `||` operators.
@@ -357,7 +363,7 @@ export class AddATodoItem implements Task {
 
 And run the test suite again to see that the scenario report now also mentions all the business-level tasks:
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 ![Serenity BDD Scenario Report with Business Tasks](images/scenario_report_tasks.png)
@@ -399,7 +405,7 @@ A Photographer will take a photo of whichever Actor is in the Spotlight, as soon
 of interest to the Photographer.
 
 In order to have the Actor in a Spotlight though, we need to have the Stage first,
-so let's make the following changes to the `todo_user.steps.ts`
+so let's make the following changes to the `todo_user.steps.ts`:
 
 ``` typescript
 # features/step_definitions/todo_user.steps.ts
@@ -451,7 +457,7 @@ We'll look in detail into how the Stage works in the future tutorials when we ta
 For now, since we have both the Stage and the Stage Crew assigned to it, we can again run the tests:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 This time however you should be able to see a screenshot accompanying each Interaction and Task:

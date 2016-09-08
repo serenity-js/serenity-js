@@ -21,6 +21,13 @@ the concepts of the [Screenplay Pattern](screenplay-pattern.md).
 
 :bulb: **PRO TIP:** If you like learning by doing, clone the [tutorial project](https://github.com/jan-molak/serenity-js-getting-started) and code along!
 
+```
+$> git clone https://github.com/jan-molak/serenity-js-getting-started
+$> cd serenity-js-getting-started
+```
+
+You'll find the example scenario in the `features` directory:
+
 ```gherkin
 # features/add_new_items.feature
 
@@ -42,7 +49,7 @@ Feature: Add new items to the todo list
 First, let's add [Serenity/JS library](https://www.npmjs.com/package/serenity-js) to the project:
 
 ```
-λ ~/serenity-js-getting-started/ npm install serenity-js --save
+$> npm install serenity-js --save
 ```
 
 Now have a look at the Cucumber steps defined in `features/step_definitions/todo_user.steps.ts`,
@@ -356,7 +363,7 @@ If you've been coding along, you can see for yourself that the browser is really
 to navigate to the TodoMVC app by running `npm test`:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 How did that work?
@@ -437,7 +444,7 @@ If you run the test now you'll notice that both the first and the second step of
 have now started to work and interact with the application, adding items to the Todo List:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 :bulb: Because we've designed our test system from outside-in,
@@ -545,7 +552,7 @@ export = function () {
 You can run the test again and see the scenario succeed:
 
 ```
-λ ~/serenity-js-getting-started/ npm test
+$> npm test
 ```
 
 ## Before you go
