@@ -9,7 +9,7 @@ describe('When working with Cucumber', function () {
 
     const protractor = spawner(
         process.cwd() + '/node_modules/.bin/protractor',
-        { cwd: __dirname, silent: true }
+        { cwd: __dirname, silent: false }
     );
 
     describe('Serenity/JS', () => {
