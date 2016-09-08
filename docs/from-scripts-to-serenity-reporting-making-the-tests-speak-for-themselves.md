@@ -3,9 +3,9 @@
 In the [last tutorial](from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
 we looked at the basics of writing acceptance tests that are focused, readable and free of
 [accidental complexity](https://en.wikipedia.org/wiki/No_Silver_Bullet).
-Those characteristics make even the more sophisticated test suites easy to understand, maintain and extend.
+Those characteristics make even the most sophisticated test suites easy to understand, maintain and extend.
 We've also introduced the concepts behind the [Screenplay Pattern](screenplay-pattern.md),
-an innovative new way to designing automated test systems.
+an innovative new way of designing automated test systems.
 
 In this article, we'll look at ways of making the results of the tests visible and accessible
 to everyone on the team. Including the guys sponsoring our projects.
@@ -25,7 +25,7 @@ $> git checkout 1-first-scenario-implemented
 ```
 
 To help Serenity/JS produce those narrative,
-illustrated reports anyone on the team can read and understand we first need to tell the library
+illustrated reports that anyone on the team can read and understand we first need to tell the library
 a bit more about the life cycle of the scenarios we execute.
 
 To do this, let's register the Serenity/JS Notifier in the `features/cucumber.hooks.ts`:
