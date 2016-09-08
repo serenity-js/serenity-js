@@ -223,8 +223,6 @@ export class Text implements Question<string> {
 
 ## The Model
 
-
-
 ![Serenity BDD Scenario Report with Interactions only](images/screenplay_pattern_model.png)
 _The Screenplay Pattern domain model,
 from ["Designing SOLID Actors"](https://janmolak.com/serenity-bdd-and-the-screenplay-pattern-27819d0db780#.j25mfpfxn)

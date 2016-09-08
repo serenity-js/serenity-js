@@ -69,11 +69,11 @@ export = function todoUserSteps() {
 
 The [Screenplay Pattern](screenplay-pattern.md)
 is a [user-centered model](https://en.wikipedia.org/wiki/User-centered_design),
-which puts an emphasis on [Actors](screenplay-pattern.md#Actor) - the external parties interacting with our system,
-their [Goals](screenplay-pattern.md#Goal) and [Tasks](screenplay-pattern.md#Task) they perform to achieve them.
+which puts an emphasis on [Actors](screenplay-pattern.md#actor) - the external parties interacting with our system,
+their [Goals](screenplay-pattern.md#goal) and [Tasks](screenplay-pattern.md#task) they perform to achieve them.
 
 To automate a Cucumber scenario using the [Screenplay Pattern](screenplay-pattern.md),
-we first need an [Actor](screenplay-pattern.md#Actor):
+we first need an [Actor](screenplay-pattern.md#actor):
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
@@ -285,7 +285,8 @@ we need to give him the ability to use a web browser:
 Actor.named(name).whoCan(BrowseTheWeb.using(protractor.browser));
 ```
 
-In the example above, `BrowseTheWeb` is an [Ability](screenplay-pattern.md#Ability), which enables [Interacting](screenplay-pattern.md#Interaction)
+In the example above, `BrowseTheWeb` is an [Ability](screenplay-pattern.md#ability),
+which enables [Interacting](screenplay-pattern.md#interaction)
 with `protractor.browser` object and therefore with the web interface of the application.
 
 Why do we need this indirection here? Why not use the global `protractor.browser` object directly
@@ -360,7 +361,7 @@ to navigate to the TodoMVC app by running `npm test`:
 
 How did that work?
 
-`Open` is an [`Interaction`](screenplay-pattern.md#Interaction), which means that is uses an `Ability`,
+`Open` is an [`Interaction`](screenplay-pattern.md#interaction), which means that is uses an `Ability`,
 in this case to `BrowseTheWeb`, to interact with the system.
 
 `Open` is one of the
@@ -448,7 +449,7 @@ such as `AddATodoItem`, we only had to implement the change in one place.
 Our test scenario will be much more useful when we add an assertion to it.
 What we'll do next is check if the items are getting added correctly to the list.
 
-In order to verify the state of the application, an Actor can ask [Questions](screenplay-pattern.md#Question):
+In order to verify the state of the application, an Actor can ask [Questions](screenplay-pattern.md#question):
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
@@ -465,7 +466,7 @@ export = function todoUserSteps() {
 };
 ```
 
-A [Question](screenplay-pattern.md#Question) is similar to an [Interaction](screenplay-pattern.md#Interaction),
+A [Question](screenplay-pattern.md#question) is similar to an [Interaction](screenplay-pattern.md#interaction),
 as it uses the Actor's Ability to interact with the system.
 
 When the Actor answers a Question, it returns a [Promise](https://promisesaplus.com/),
