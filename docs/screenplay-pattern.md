@@ -9,7 +9,10 @@ and how exactly they're going to do it.
 The Serenity/JS implementation of the Pattern focuses on making developers and testers more productive,
 by making acceptance test faster to write, cheaper to maintain and easier to scale to multiple projects and teams.
 
-The ScreenPlay pattern is new to JavaScript but has been around for a while in various forms, and was originally proposed by Antony Marcano in 2007. You can learn more about the origin and history of this model in ["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp) (by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak) and [at the end of this article](#the-history).
+The Screenplay pattern is new to JavaScript but has been around for a while in various forms.
+It was originally proposed by Antony Marcano in 2007. You can learn more about the origin and history of this model
+in ["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp)
+(by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak) and [at the end of this article](#the-history).
 
 ## Background
 
@@ -17,7 +20,10 @@ The ScreenPlay pattern is new to JavaScript but has been around for a while in v
 
 _Examples presented in this section are based on the project described in [Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay)._
 
-The best way to illustrate the ScreenPlay pattern is through a practical example. Suppose we are writing some tests for a Todo application like the one you can find on the [TodoMVC site](http://todomvc.com/examples/angularjs/#/). Consider the following scenario:
+The best way to illustrate the Screenplay pattern is through a practical example.
+Suppose we are writing some tests for a Todo application like the one you can find
+on the [TodoMVC site](http://todomvc.com/examples/angularjs/#/).
+Consider the following scenario:
 
 ```gherkin
 Feature: Add new items to the todo list
@@ -76,7 +82,7 @@ The Goal of an Actor is represented by the subject of the scenario:
 Scenario: Adding the first todo item
 ```
 
-Here, James should be able to add the first todo item to his list
+Here, James should be able to add the first todo item to his list.
 
 ### Task
 
