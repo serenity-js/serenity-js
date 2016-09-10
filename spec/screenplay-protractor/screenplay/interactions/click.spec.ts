@@ -16,6 +16,8 @@ describe('Interactions', () => {
             let element = <any> sinon.createStubInstance(webdriver.WebElement),
                 actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element)));
 
+            element.click.returns(Promise.resolve());
+
             let promise = Click.on(target).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {

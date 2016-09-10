@@ -14,6 +14,8 @@ describe('Interactions', () => {
 
             let url    = '/home/index.html';
 
+            (<any> browser.get).withArgs(url).returns(Promise.resolve());
+
             let promise = Open.browserOn(url).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
