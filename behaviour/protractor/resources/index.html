@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+<head>
+    <script src="angular.min.js"></script>
+    <title>demo app</title>
+</head>
+<body ng-controller="main">
+
+
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+
+    <form>
+        <label for="item">name</label>
+        <input id="item" type="text" ng-model="item" />
+        <input type="submit" ng-click="add(item)" value="add" />
+    </form>
+
+    <ul>
+        <li ng-repeat="item in items track by $index">{{ item }}</li>
+    </ul>
+
+    <script>
+        angular.module('demo', []).
+        controller('main', ['$scope', function ($scope) {
+            $scope.title = 'Angular demo app';
+            $scope.items = [];
+
+            $scope.add = function (item) {
+                $scope.items.push(item);
+            }
+        }]);
+    </script>
+</body>
+</html>

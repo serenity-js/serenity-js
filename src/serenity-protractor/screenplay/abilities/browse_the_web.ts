@@ -38,12 +38,16 @@ export class BrowseTheWeb implements Ability {
         return target.resolveAllUsing(<any> this.browser.element);      // see: https://github.com/angular/protractor/issues/3350
     }
 
-    takeScreenshot(): Promise<String> {
+    takeScreenshot(): Promise<string> {
         return defer(() => this.browser.takeScreenshot());
     }
 
     get(destination: string, timeout?: number): PromiseLike<void> {
         return this.browser.get(destination, timeout);
+    }
+
+    getTitle(): PromiseLike<string> {
+        return this.browser.getTitle();
     }
 
     manage(): webdriver.WebDriverOptions {

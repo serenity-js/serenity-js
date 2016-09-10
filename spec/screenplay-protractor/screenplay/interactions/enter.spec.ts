@@ -30,7 +30,8 @@ describe('Interactions', () => {
             let promise = Enter.theValue('Jan').into(target).thenHit(webdriver.Key.ENTER).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
-                expect(element.sendKeys).to.have.been.calledWithExactly('Jan', webdriver.Key.ENTER);
+                expect(element.sendKeys).to.have.been.calledWith('Jan');
+                expect(element.sendKeys).to.have.been.calledWith(webdriver.Key.ENTER);
             });
         });
     });

@@ -16,7 +16,7 @@ import { ConsoleReporter, Journal, Stage, StageManager } from '../../../src/sere
 import sinon = require('sinon');
 
 import expect = require('../../expect');
-import { consoleReporter } from '../../../src/serenity/stage/console_reporter';
+import { consoleReporter } from '../../../src/stage_crew';
 
 describe ('When reporting on what happened during the rehearsal', () => {
 

@@ -1,7 +1,6 @@
 'use strict';
 
 const gulp      = require('gulp'),
-    clean       = require('gulp-clean'),
     tslint      = require("gulp-tslint"),
     ts          = require('gulp-typescript'),
     merge       = require('merge2'),
@@ -16,10 +15,7 @@ const gulp      = require('gulp'),
     project     = ts.createProject('tsconfig.json'),
     dirs        = require('./gulpfile.config');
 
-
-gulp.task('clean', () => gulp.src([dirs.staging.all, dirs.export], { read: false }).pipe(clean()));
-
-gulp.task("lint", () =>
+gulp.task('lint', () =>
     gulp.src([ dirs.src, dirs.spec, dirs.behaviour.spec, '!**/*.d.ts' ])
         .pipe(tslint({
             formatter: "verbose"
@@ -61,8 +57,8 @@ gulp.task('test', ['pre-test'], () =>
         // .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
 );
 
-gulp.task('verify', ['pre-test', 'prepare-examples'], () =>
-    gulp.src(dirs.staging.traspiled.behaviour)
+gulp.task('verify:cucumber', ['pre-test', 'prepare-examples'], () =>
+    gulp.src(dirs.staging.traspiled.behaviour.cucumber)
         .pipe(mocha())
 );
 
@@ -79,8 +75,12 @@ gulp.task('aggregate', () => {
 
     return merge([
         remapCoverageToTypescript(dirs.staging.reports.coverage.spec),
-        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour)
-    ]).pipe(report({
+        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.protractor),
+        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.cucumber)
+    ])
+        // .pipe(gulp.dest(dirs.staging.reports.coverage.all));
+
+    .pipe(report({
         dir: dirs.staging.reports.coverage.all,
         reporters: [
             'text-summary',
@@ -97,6 +97,4 @@ gulp.task('export', () =>
         .pipe(gulp.dest(dirs.export))
 );
 
-gulp.task('package', (done) => runSequence('clean', 'lint', 'test', 'verify', 'aggregate', 'export'));
-
-gulp.task('default', [ 'package' ], () => {});
+gulp.task('package', (done) => runSequence('lint', 'test', 'export'));

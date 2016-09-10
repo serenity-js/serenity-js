@@ -18,7 +18,8 @@ import {
     Tag,
 } from '../../../src/serenity/domain';
 import { FileSystem } from '../../../src/serenity/io/file_system';
-import { Journal, JsonReporter, Stage, StageManager, jsonReporter } from '../../../src/serenity/stage';
+import { Journal, JsonReporter, Stage, StageManager } from '../../../src/serenity/stage';
+import { jsonReporter } from '../../../src/stage_crew';
 
 import expect = require('../../expect');
 

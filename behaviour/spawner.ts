@@ -24,10 +24,8 @@ export class Spawned {
 
     constructor(pathToScript: string, args: string[], options: ForkOptions) {
 
-        // let spawned = childProcess.fork(pathToScript, args, options);
-
         let spawned = childProcess.fork(istanbul, ['cover',
-            '--dir', `${ process.cwd() }/${ dirs.staging.reports.coverage.behaviour }`,
+            '--dir', `${ process.cwd() }/${ dirs.staging.reports.coverage.behaviour.cucumber }`,
             '--root', src,
             '--report', 'json',
             '--include-pid',

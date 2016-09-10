@@ -14,20 +14,20 @@ export class Text {
 
 class TextOf implements Question<string> {
 
-    constructor(private target: Target) {
+    answeredBy(actor: UsesAbilities): PromiseLike<string> {
+        return BrowseTheWeb.as(actor).locate(this.target).getText();
     }
 
-    answeredBy(actor: UsesAbilities): PromiseLike<string> {
-        return BrowseTheWeb.as(actor).locateAll(this.target).getText();
+    constructor(private target: Target) {
     }
 }
 
 class TextOfAll implements Question<string[]> {
 
-    constructor(private target: Target) {
-    }
-
     answeredBy(actor: UsesAbilities): PromiseLike<string[]> {
         return BrowseTheWeb.as(actor).locateAll(this.target).getText();
+    }
+
+    constructor(private target: Target) {
     }
 }
