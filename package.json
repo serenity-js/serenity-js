@@ -18,6 +18,7 @@
     "aggregate": "gulp aggregate",
     "verify": "npm run clean && npm run package && npm run behaviour && npm run aggregate",
     "verify:protractor": "npm run clean && npm run package && gulp pre-test prepare-examples && npm run behaviour:protractor && npm run aggregate",
+    "rebuild": "npm run clean && npm run verify",
     "setup:typings": "npm run typings -- install",
     "setup:webdriver": "npm run webdriver:update -- --standalone",
     "setup": "npm run setup:typings && npm run setup:webdriver",
