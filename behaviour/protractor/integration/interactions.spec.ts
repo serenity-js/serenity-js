@@ -3,6 +3,7 @@ import { by, protractor } from 'protractor/globals';
 import {
     BrowseTheWeb,
     Click,
+    DoubleClick,
     Enter,
     Open,
     Target,
@@ -22,6 +23,8 @@ class DemoApp {
     static Item_Field    = Target.the('name field').located(by.model('item'));
     static Items         = Target.the('list of items').located(by.repeater('item in items'));
     static Submit_Button = Target.the('submit button').located(by.css('input[type="submit"]'));
+
+    static Event_Trigger = Target.the('event-triggering button').located(by.id('event-tester-{0}'));
 }
 
 test.describe ('Interactions', () => {
@@ -53,4 +56,18 @@ test.describe ('Interactions', () => {
 
     test.it ('should allow to read the value of an arbitrary attribute', () =>
         expect(james.toSee(Attribute.of(DemoApp.Item_Field).called('id'))).eventually.equal('item') );
+
+    test.it ('should allow to click elements of the UI', () =>
+        james.attemptsTo(
+            Click.on(DemoApp.Event_Trigger.of('click'))
+        ).then(() =>
+            expect(james.toSee(Text.of(DemoApp.Event_Trigger.of('click'))))
+                .eventually.equal('click works!')));
+
+    test.it ('should allow to double-click elements of the UI', () =>
+        james.attemptsTo(
+            DoubleClick.on(DemoApp.Event_Trigger.of('dblclick'))
+        ).then(() =>
+            expect(james.toSee(Text.of(DemoApp.Event_Trigger.of('dblclick'))))
+                .eventually.equal('dblclick works!')));
 });

@@ -50,6 +50,10 @@ export class BrowseTheWeb implements Ability {
         return this.browser.getTitle();
     }
 
+    actions(): webdriver.ActionSequence {
+        return this.browser.actions();
+    }
+
     manage(): webdriver.WebDriverOptions {
         return this.browser.driver.manage();
     }
