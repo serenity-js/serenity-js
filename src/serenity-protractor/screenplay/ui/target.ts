@@ -55,7 +55,7 @@ class Interpolated {
     }
 
     private interpolated(template: string, replacements: string[]) {
-        let argToken     = /{(\d+)}/g,
+        let argToken     = /\\?\{(\d+)\\?\}/g,
             interpolator = (token: string, field: number) => replacements[ field ];
 
         return template.replace(argToken, interpolator);

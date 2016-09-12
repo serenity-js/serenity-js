@@ -31,7 +31,7 @@ describe ('Target', () => {
         expect(target.called('"Sign Up" button').toString()).to.equal('the "Sign Up" button');
     });
 
-    it ('can have a locator defined using tokens to be resolved at a later stage', () => {
+    it ('can have a CSS locator defined using tokens to be resolved at a later stage', () => {
         let byLocatorTemplate = webdriver.By.css('{0}#sign-up.{1}'),
             element     = sinon.spy(),
             target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
@@ -41,12 +41,31 @@ describe ('Target', () => {
         expect(element).to.have.been.calledWith(webdriver.By.css('button#sign-up.active'));
     });
 
+    it ('can have an ID locator defined using tokens to be resolved at a later stage', () => {
+        let byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
+            element     = sinon.spy(),
+            target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
+
+        target.of('button').resolveUsing(element);
+
+        expect(element).to.have.been.calledWith(webdriver.By.id('sign-up-button'));
+    });
+
+    it ('correctly overrides the toString method of the cloned locator', () => {
+        let byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
+            target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
+
+        let result = (<any> target.of('button')).locator.toString();
+
+        expect(result).to.equal('By(css selector, *[id="sign-up-button"])');
+    });
+
     it ('can describe a locator matching multiple elements', () => {
         let byGroupLocator = webdriver.By.css('ul>li'),
             element        = { all: sinon.spy() },
             target         = Target.the('items').located(byGroupLocator);
 
-        target.of('button', 'active').resolveAllUsing(element);
+        target.resolveAllUsing(element);
 
         expect(element.all).to.have.been.calledWith(webdriver.By.css('ul>li'));
     });
