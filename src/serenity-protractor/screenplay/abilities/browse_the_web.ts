@@ -11,7 +11,7 @@ export class BrowseTheWeb implements Ability {
     private actor: UsesAbilities;
 
     /**
-     * Instantiates the Ability to PlayAnInstrument an Instrument, allowing the Actor to PerformASong
+     * Instantiates the Ability to BrowseTheWeb, allowing the Actor to interact with a Web UI
      *
      * @param browser
      * @return {BrowseTheWeb}
