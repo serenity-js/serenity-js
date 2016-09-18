@@ -9,22 +9,12 @@ exports.config = {
     seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
 
     framework: 'mocha',
-    specs: [ 'integration/**/*.js' ],
+    specs: [ 'interactions/**/*.js' ],
 
     capabilities: {
         'browserName': 'phantomjs',
         'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
     },
-
-    // capabilities: {
-    //     browserName: 'chrome',
-    //     chromeOptions: {
-    //         args: [
-    //             'incognito'
-    //             // 'show-fps-counter=true'
-    //         ]
-    //     }
-    // },
 
     baseUrl: 'file://' + __dirname + '/',
     

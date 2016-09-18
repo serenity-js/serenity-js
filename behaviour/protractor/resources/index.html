@@ -28,6 +28,14 @@
         <event-tester event-name="dblclick"></event-tester>
     </section>
 
+    <section id="selecting-an-option">
+        <select name="select">
+            <option value="london">London</option>
+            <option value="warsaw" selected>Warsaw</option>
+            <option value="barcelona">Barcelona</option>
+        </select>
+    </section>
+
     <script>
         angular.module('demo', []).
         controller('main', ['$scope', function ($scope) {
