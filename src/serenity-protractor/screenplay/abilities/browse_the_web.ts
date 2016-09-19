@@ -8,9 +8,8 @@ import * as webdriver from 'selenium-webdriver';
 
 export class BrowseTheWeb implements Ability {
 
-    private actor: UsesAbilities;
-
     /**
+     *
      * Instantiates the Ability to BrowseTheWeb, allowing the Actor to interact with a Web UI
      *
      * @param browser
@@ -56,13 +55,6 @@ export class BrowseTheWeb implements Ability {
 
     manage(): webdriver.WebDriverOptions {
         return this.browser.driver.manage();
-    }
-
-    // todo: is this needed?
-    usedBy<U extends UsesAbilities>(actor: U): BrowseTheWeb {
-        this.actor = actor;
-
-        return this;
     }
 
     constructor(private browser: ProtractorBrowser) {

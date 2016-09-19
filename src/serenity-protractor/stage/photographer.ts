@@ -24,7 +24,7 @@ export const TakeAPicture = {
 };
 
 export function photographer(
-    eventsOfInterest: { new (v: any): DomainEvent<any>}[] = TakeAPicture.After_Activity,
+    eventsOfInterest: typeof DomainEvent[] = TakeAPicture.After_Activity,
     pathToReports: string = Default_Path_To_Reports): StageCrewMember
 {
     return new Photographer(eventsOfInterest, new FileSystem(pathToReports));
@@ -32,10 +32,10 @@ export function photographer(
 
 export class Photographer implements StageCrewMember {
     private stage: Stage;
-    private eventsOfInterest: { new (v: any): DomainEvent<any>} [] = [];
+    private eventsOfInterest: typeof DomainEvent[] = [];
 
     constructor(
-        eventsOfInterest: { new (v: any): DomainEvent<any>} [],
+        eventsOfInterest: typeof DomainEvent[],
         private fs: FileSystem,
         private naming: PictureNamingStrategy = new Md5HashedPictureNames('png'))
     {

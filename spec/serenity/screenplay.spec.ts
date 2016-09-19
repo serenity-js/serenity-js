@@ -1,10 +1,8 @@
-import { Ability } from '../../src/serenity/screenplay/ability';
-import { Actor, PerformsTasks, UsesAbilities } from '../../src/serenity/screenplay/actor';
-import { Interaction, Task } from '../../src/serenity/screenplay/performables';
+import { Ability, Actor, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../src/serenity/screenplay';
+
 import expect = require('../expect');
 import sinon = require('sinon');
 import SinonSpyCall = Sinon.SinonSpyCall;
-import { Question } from '../../src/serenity/screenplay/question';
 
 describe('Screenplay Pattern', () => {
 
@@ -182,8 +180,6 @@ describe('Screenplay Pattern', () => {
 
     class PlayAnInstrument implements Ability {
 
-        private actor: UsesAbilities;
-
         /**
          * Instantiates the Ability to PlayAnInstrument, allowing the Actor to PerformASong
          *
@@ -213,13 +209,6 @@ describe('Screenplay Pattern', () => {
          */
         play(chord: Chord): Promise<void> {
             return this.instrument.play(chord);
-        }
-
-        // todo: is this association needed?
-        usedBy<U extends UsesAbilities>(actor: U): PlayAnInstrument {
-            this.actor = actor;
-
-            return this;
         }
 
         /**

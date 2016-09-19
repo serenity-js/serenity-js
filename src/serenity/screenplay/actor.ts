@@ -1,6 +1,9 @@
-import {Ability} from './ability';
-import {Performable} from './performables';
+import { Performable } from './performables';
 import { Question } from './question';
+
+export interface Ability { }
+
+export type CustomAbility<T extends Ability> = { new (...args): T };
 
 export interface PerformsTasks {
     attemptsTo(...tasks: Performable[]): Promise<void>;
@@ -19,7 +22,7 @@ export interface UsesAbilities {
      *
      * @param doSomething   Ability class name
      */
-    abilityTo<T extends Ability>(doSomething: {new (T): T }): T;
+    abilityTo<T extends Ability>(doSomething: CustomAbility<T>): T;
 }
 
 export interface AnswersQuestions {
@@ -36,13 +39,13 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(ability => {
-            this.abilities[ability.constructor.name] = ability.usedBy(this);
+            this.abilities[ability.constructor.name] = ability;
         });
 
         return this;
     }
 
-    abilityTo<T extends Ability>(doSomething: {new (T): T }): T {
+    abilityTo<T extends Ability>(doSomething: CustomAbility<T>): T {
         if (! this.can(doSomething)) {
             throw new Error(`I don't have the ability to ${this.nameOf(doSomething)}, said ${this} sadly.`);
         }
@@ -66,11 +69,11 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     constructor(private name: string) { }
 
-    private can<T extends Ability> (doSomething: {new (T): T }): boolean {
+    private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
         return !! this.abilities[this.nameOf(doSomething)];
     }
 
-    private nameOf<T extends Ability>(ability: {new (T): T }): string {
+    private nameOf<T extends Ability>(ability: CustomAbility<T>): string {
         return ability.name;
     }
 }

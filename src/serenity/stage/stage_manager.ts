@@ -37,7 +37,7 @@ export class StageManager {
         return Promise.all(this.wip);
     }
 
-    registerInterestIn(eventsOfInterest: { new (value: any): DomainEvent<any>}[], crewMember: StageCrewMember) {
+    registerInterestIn(eventsOfInterest: typeof DomainEvent[], crewMember: StageCrewMember) {
 
         eventsOfInterest.forEach(eventType => {
 
