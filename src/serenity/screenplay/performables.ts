@@ -5,9 +5,9 @@ export interface Task extends Performable {
 }
 
 export interface Interaction extends Performable {
-    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void>;
+    performAs(actor: UsesAbilities): PromiseLike<void>;
 }
 
 export interface Performable {
-    performAs(actor: PerformsTasks): PromiseLike<void>;
+    performAs(actor: PerformsTasks | UsesAbilities): PromiseLike<void>;
 }

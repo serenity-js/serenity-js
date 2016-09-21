@@ -1,7 +1,6 @@
-import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
-
 import { by } from 'protractor/globals';
 
 export class Select {
@@ -18,7 +17,7 @@ export class Select {
 }
 
 class SelectOption implements Interaction {
-    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
+    performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).element(by.cssContainingText('option', this.value)).click();
     }
 

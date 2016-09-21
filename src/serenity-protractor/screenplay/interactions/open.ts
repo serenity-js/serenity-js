@@ -1,5 +1,5 @@
 import { step } from '../../../serenity/recording/step_annotation';
-import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Open implements Interaction {
@@ -9,7 +9,7 @@ export class Open implements Interaction {
     }
 
     @step('{0} opens the browser at "#targetWebsite"')
-    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
+    performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).get(this.targetWebsite);
     }
 

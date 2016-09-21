@@ -1,5 +1,5 @@
 import { step } from '../../../serenity/recording/step_annotation';
-import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { keyNameOf } from '../../keys';
 import { BrowseTheWeb } from '../abilities';
 import { Target } from '../ui/target';
@@ -19,7 +19,7 @@ export class Hit {
 class HitKeyIntoTarget implements Interaction {
 
     @step('Hits the #keyname key')
-    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
+    performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.key);
     }
 
