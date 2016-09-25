@@ -59,10 +59,10 @@ export = function todoUserSteps() {
             .eventually.eql([ item ]);
     });
 
-    this.Then(/^(.*?) should be marked as completed$/, (item: string) => {
+    this.Then(/^(.*?) should be marked as (.*?)$/, (item: string, status: string) => {
 
         return expect(stage.theActorInTheSpotlight().toSee(ItemStatus.of(item)))
-            .eventually.equal('completed');
+            .eventually.equal(status);
     });
 
     this.Then(/^.* todo list should contain (.*?)$/, (items: string) => {
