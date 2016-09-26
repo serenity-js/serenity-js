@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+rm -rf node_modules/serenity-js
+rm -rf ~/.npm/serenity-js
+pushd ../../
+npm run rebuild
+popd
+npm install
