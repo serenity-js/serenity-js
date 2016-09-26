@@ -7,4 +7,4 @@ Feature: Complete items
   Scenario: Completing an item
     Given that James has a todo list containing Write an article
      When he completes Write an article
-     Then Write an article should be marked as active
+     Then Write an article should be marked as completed

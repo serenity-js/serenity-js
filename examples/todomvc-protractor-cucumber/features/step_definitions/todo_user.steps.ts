@@ -55,8 +55,8 @@ export = function todoUserSteps() {
 
     this.Then(/^(.*?) should be recorded in his list$/, (item: string) => {
 
-        return expect(stage.theActorInTheSpotlight().toSee(TodoListItems.displayed()))
-            .eventually.eql([ item ]);
+        return expect(stage.theActorInTheSpotlight().toSee(TodoListItems.Displayed))
+            .eventually.contain(item);
     });
 
     this.Then(/^(.*?) should be marked as (.*?)$/, (item: string, status: string) => {
@@ -67,7 +67,7 @@ export = function todoUserSteps() {
 
     this.Then(/^.* todo list should contain (.*?)$/, (items: string) => {
 
-        return expect(stage.theActorInTheSpotlight().toSee(TodoListItems.displayed()))
+        return expect(stage.theActorInTheSpotlight().toSee(TodoListItems.Displayed))
             .eventually.eql(listOf(items));
     });
 };
