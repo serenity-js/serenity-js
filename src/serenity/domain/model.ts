@@ -40,6 +40,9 @@ export enum Result {
      * The test or test case ran as expected.
      */
     SUCCESS     = 1 << 6,
+
+    Failed      = COMPROMISED | ERROR | FAILURE,
+    Finished    = Failed | SUCCESS,
 }
 
 export interface Identifiable {

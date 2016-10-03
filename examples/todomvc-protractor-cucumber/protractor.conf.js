@@ -4,7 +4,7 @@ const crew = require('serenity-js/lib/stage_crew');
 
 exports.config = {
 
-    baseUrl: 'http://todomvc.com',
+    baseUrl: 'http://todomvc.dev',
 
     allScriptsTimeout: 110000,
 
@@ -21,8 +21,11 @@ exports.config = {
         path: 'node_modules/serenity-js/lib/serenity-protractor/plugin',
         crew: [
             crew.jsonReporter(),
-            crew.photographer(),
-            crew.consoleReporter()
+            crew.consoleReporter(),
+            crew.Photographer.who(_ => _
+                 .takesPhotosOf(_.Tasks_and_Interactions)
+                 .takesPhotosWhen(_.Activity_Finishes)
+            )
         ]
     }],
 

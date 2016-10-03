@@ -4,10 +4,10 @@ import expect = require('../../expect');
 import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
 
 import {
+    ActivityOfInterest,
     Md5HashedPictureNames,
     Photographer,
     PictureNamingStrategy,
-    TakeAPicture,
     photographer,
 } from '../../../src/serenity-protractor/stage/photographer';
 
@@ -25,29 +25,39 @@ import {
     SceneStarts,
 } from '../../../src/serenity/domain';
 
+import { TakeAPhoto, TimingBehaviour } from '../../../src/serenity-protractor/stage/photographer-timing';
+import { FileSystem } from '../../../src/serenity/io/file_system';
 import { Cast, Journal, Stage, StageManager } from '../../../src/serenity/stage';
 
-import { FileSystem } from '../../../src/serenity/io/file_system';
-
-describe('Photography', () => {
+describe('Photographer', () => {
 
     const image = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
           imageBuffer = new Buffer(image, 'base64');
 
-    describe('Photographer', () => {
+    describe('with default configuration', () => {
 
-        let stageManager: StageManager,
+        let thePhotographer: Photographer,
+            stageManager: StageManager,
             stage: Stage,
-            outlet: any,
+            fileSystem: any,
+
+            activity  = new Activity('Adds an item to the basket'),
             photoName = 'photo.png',
             photoPath = 'target/serenity/site/' + photoName,
             now       = 1469028588000;
 
         beforeEach( () => {
-            outlet       = <any> sinon.createStubInstance(FileSystem);
+            fileSystem   = <any> sinon.createStubInstance(FileSystem);
 
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
+
+            thePhotographer = new Photographer(
+                new ActivityOfInterest(Result.Finished),
+                new TimingBehaviour(new TakeAPhoto(), new TakeAPhoto()),
+                fileSystem,
+                new CallsEveryPhotoTheSame(photoName)
+            );
         });
 
         class Actors implements Cast {
@@ -62,14 +72,8 @@ describe('Photography', () => {
 
         describe('When the show has started and there is an Actor in the spotlight', () => {
 
-            let photographer,
-                activity;
-
             beforeEach(() => {
-                photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName));
-                activity     = new Activity('Adds an item to the basket');
-
-                photographer.assignTo(stage);
+                thePhotographer.assignTo(stage);
 
                 stage.enter(new Actors());
                 stage.theActorCalled('Sybil');
@@ -79,14 +83,14 @@ describe('Photography', () => {
 
                 it('Attempts to take a photo of what the Actor sees in their Browser', () => {
 
-                    photographer.notifyOf(new ActivityStarts(activity, now));
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
                     expect(stageManager.readTheJournal().pop()).to.be.instanceOf(PhotoAttempted);
                 });
 
                 it('Issues a Receipt for the Photo, with the same timestamp as the Activity concerned', () => {
 
-                    photographer.notifyOf(new ActivityStarts(activity, now));
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
                     let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -97,9 +101,9 @@ describe('Photography', () => {
 
                 it('Promises to tell the Stage Manager where they can collect the Photo when it\'s ready', () => {
 
-                    outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
+                    fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
-                    photographer.notifyOf(new ActivityStarts(activity, now));
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
                     let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -110,7 +114,7 @@ describe('Photography', () => {
 
                     stage.theActorCalled('Basil');
 
-                    photographer.notifyOf(new ActivityStarts(activity, now));
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
                     let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -121,7 +125,7 @@ describe('Photography', () => {
 
                     stage.theActorCalled('Manuel');
 
-                    photographer.notifyOf(new ActivityStarts(activity, now));
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
                     let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -135,9 +139,9 @@ describe('Photography', () => {
 
                     it('finished with a Success', () => {
 
-                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
+                        fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS), now));
 
                         let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -153,9 +157,9 @@ describe('Photography', () => {
 
                         let failure = new Error('Expected the list of items to contain 5 items but it only had 4');
 
-                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
+                        fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.FAILURE, failure), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.FAILURE, failure), now));
 
                         let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -171,9 +175,9 @@ describe('Photography', () => {
 
                         let error = new Error('The element was not found');
 
-                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
+                        fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error), now));
 
                         let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -189,9 +193,9 @@ describe('Photography', () => {
 
                         let error = new Error('Client database is offline');
 
-                        outlet.store.withArgs(photoName, imageBuffer).returns(photoPath);
+                        fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.COMPROMISED, error), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.COMPROMISED, error), now));
 
                         let photoAttempted = stageManager.readTheJournal().pop();
 
@@ -208,21 +212,21 @@ describe('Photography', () => {
 
                     it('was Skipped', () => {
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SKIPPED), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SKIPPED), now));
 
                         expect(stageManager.readTheJournal()).to.be.empty;
                     });
 
                     it('was Ignored', () => {
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.IGNORED), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.IGNORED), now));
 
                         expect(stageManager.readTheJournal()).to.be.empty;
                     });
 
                     it('is Pending', () => {
 
-                        photographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.PENDING), now));
+                        thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.PENDING), now));
 
                         expect(stageManager.readTheJournal()).to.be.empty;
                     });
@@ -233,8 +237,8 @@ describe('Photography', () => {
 
                 let scene = new Scene('A user adds a product to their basket', 'Checkout', 'checkout.feature');
 
-                photographer.notifyOf(new SceneStarts(scene, now));
-                photographer.notifyOf(new SceneFinished(new Outcome(scene, Result.SUCCESS), now));
+                thePhotographer.notifyOf(new SceneStarts(scene, now));
+                thePhotographer.notifyOf(new SceneFinished(new Outcome(scene, Result.SUCCESS), now));
 
                 expect(stageManager.readTheJournal()).to.be.empty;
             });
@@ -243,25 +247,19 @@ describe('Photography', () => {
         describe('When the show has not started', () => {
 
             it('Won\'t take a photo if there\'s no Cast on the Stage', () => {
-                let photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
-                    activity     = new Activity('Given the props are ready');
+                thePhotographer.assignTo(stage);
 
-                photographer.assignTo(stage);
-
-                photographer.notifyOf(new ActivityStarts(activity));
+                thePhotographer.notifyOf(new ActivityStarts(activity));
 
                 expect(stageManager.readTheJournal()).to.be.empty;
             });
 
             it('Won\'t take a photo unless there\'s an Actor in the spotlight', () => {
-                let photographer = new Photographer([ ActivityStarts, ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
-                    activity     = new Activity('Given the props are ready');
-
-                photographer.assignTo(stage);
+                thePhotographer.assignTo(stage);
 
                 stage.enter(new Actors());
 
-                photographer.notifyOf(new ActivityStarts(activity));
+                thePhotographer.notifyOf(new ActivityStarts(activity));
 
                 expect(stageManager.readTheJournal()).to.be.empty;
             });
@@ -270,12 +268,9 @@ describe('Photography', () => {
         describe('When there is nothing of interest', () => {
 
             it('Won\'t take a photo if the events it\'s notified of are not of interest', () => {
-                let photographer = new Photographer([ ActivityFinished ], outlet, new CallsEveryPhotoTheSame(photoName)),
-                    activity     = new Activity('Given the props are ready');
+                thePhotographer.assignTo(stage);
 
-                photographer.assignTo(stage);
-
-                photographer.notifyOf(new ActivityStarts(activity));
+                thePhotographer.notifyOf(new ActivityStarts(activity));
 
                 expect(stageManager.readTheJournal()).to.be.empty;
             });
@@ -334,11 +329,15 @@ describe('Photography', () => {
             });
 
             it('allows for the time of taking the screenshot to be overridden', () => {
-                expect(photographer(TakeAPicture.Before_And_After_Activity)).to.be.instanceOf(Photographer);
+                expect(Photographer.who(_ => _.takesPhotosOf(_.Failures))).to.be.instanceOf(Photographer);
+            });
+
+            it('allows for the time of taking the screenshot to be overridden', () => {
+                expect(Photographer.who(_ => _.takesPhotosWhen(_.Activity_Finishes))).to.be.instanceOf(Photographer);
             });
 
             it('allows for path to the reports to be overridden', () => {
-                expect(photographer(TakeAPicture.After_Activity, '/tmp/reports')).to.be.instanceOf(Photographer);
+                expect(Photographer.who(_ => _.storesPhotosAt('/tmp/reports'))).to.be.instanceOf(Photographer);
             });
         });
     });

@@ -14,65 +14,107 @@ import { UsesAbilities } from '../../serenity/screenplay';
 import { Default_Path_To_Reports } from '../../serenity/serenity';
 import { Stage, StageCrewMember } from '../../serenity/stage';
 import { BrowseTheWeb } from '../screenplay/abilities';
+import { NoPhoto, TakeAPhoto, TimingBehaviour } from './photographer-timing';
 
 import { Md5 } from 'ts-md5/dist/md5';
 
-export const TakeAPicture = {
-    Before_Activity:           [ ActivityStarts ],
-    After_Activity:            [ ActivityFinished ],
-    Before_And_After_Activity: [ ActivityStarts, ActivityFinished ],
-};
+export function photographer(): StageCrewMember {
+    return Photographer.who(_ => _);
+}
 
-export function photographer(
-    eventsOfInterest: typeof DomainEvent[] = TakeAPicture.After_Activity,
-    pathToReports: string = Default_Path_To_Reports): StageCrewMember
-{
-    return new Photographer(eventsOfInterest, new FileSystem(pathToReports));
+export class ActivityOfInterest {
+
+    constructor(private resultsOfInterest: Result) {
+    }
+
+    isAResultOfInterest(result: Result): boolean {
+        return !! (result & this.resultsOfInterest);
+    }
+
+    isAnActivityOfInterest(activity: Activity): boolean {
+        return true;
+    }
+}
+
+export class PhotographySchedule {
+
+    Failures                 = new ActivityOfInterest(Result.Failed);
+    Tasks_and_Interactions   = new ActivityOfInterest(Result.Finished);
+
+    Activity_Starts_and_Finishes = new TimingBehaviour(new TakeAPhoto(), new TakeAPhoto());
+    Activity_Starts              = new TimingBehaviour(new TakeAPhoto(), new NoPhoto());
+    Activity_Finishes            = new TimingBehaviour(new NoPhoto(),    new TakeAPhoto());
+
+    private activityOfInterest: ActivityOfInterest     = this.Tasks_and_Interactions;
+    private photoTiming: TimingBehaviour               = this.Activity_Finishes;
+    private pathToPhotos: string                       = Default_Path_To_Reports;
+    private photoNamingStrategy: PictureNamingStrategy = new Md5HashedPictureNames('png');
+
+    takesPhotosOf(activityOfInterest: ActivityOfInterest): PhotographySchedule {
+        this.activityOfInterest = activityOfInterest;
+
+        return this;
+    }
+
+    takesPhotosWhen(photoTiming: TimingBehaviour): PhotographySchedule {
+        this.photoTiming = photoTiming;
+
+        return this;
+    }
+
+    storesPhotosAt(pathToPhotos: string): PhotographySchedule {
+        this.pathToPhotos = pathToPhotos;
+
+        return this;
+    }
+
+    build(): Photographer {
+        return new Photographer(
+            this.activityOfInterest,
+            this.photoTiming,
+            new FileSystem(this.pathToPhotos),
+            this.photoNamingStrategy
+        );
+    }
 }
 
 export class Photographer implements StageCrewMember {
-    private stage: Stage;
-    private eventsOfInterest: typeof DomainEvent[] = [];
+    private static Events_of_Interest = [ ActivityStarts, ActivityFinished ];
 
-    constructor(
-        eventsOfInterest: typeof DomainEvent[],
-        private fs: FileSystem,
-        private naming: PictureNamingStrategy = new Md5HashedPictureNames('png'))
-    {
-        this.eventsOfInterest = this.eventsOfInterest.concat(eventsOfInterest);
+    private stage: Stage;
+    private strategy: PhotoTakingStrategy;
+
+    static who(scheduler: (schedule: PhotographySchedule) => PhotographySchedule): Photographer {
+        return scheduler(new PhotographySchedule()).build();
+    }
+
+    constructor(private fieldOfInterest: ActivityOfInterest,
+                behaviour: TimingBehaviour,
+                private fs: FileSystem,
+                private naming: PictureNamingStrategy = new Md5HashedPictureNames('png')) {
+        this.strategy = new PhotoTakingStrategy(fieldOfInterest, behaviour);
     }
 
     assignTo(stage: Stage) {
         this.stage = stage;
 
-        this.stage.manager.registerInterestIn(this.eventsOfInterest, this);
+        this.stage.manager.registerInterestIn(Photographer.Events_of_Interest, this);
     }
 
     notifyOf(event: DomainEvent<any>): void {
 
         switch (event.constructor.name) {
-            case ActivityStarts.name:   this.whenActivityStarts(event);   break;
-            case ActivityFinished.name: this.whenActivityFinished(event); break;
+            case ActivityStarts.name:   this.strategy.activityStarts(event, this);   break;
+            case ActivityFinished.name: this.strategy.activityFinished(event, this); break;
             default: break;
         }
     }
 
-    private whenActivityStarts(event: ActivityStarts) {
-        if (!! this.stage && this.stage.theShowHasStarted()) {
-            this.takeAPhotoAndSendAReceipt(event.value, event.timestamp);
-        }
+    public canWork(): boolean {
+        return !! this.stage && this.stage.theShowHasStarted();
     }
 
-    private whenActivityFinished(event: ActivityFinished) {
-        let skip = Result.COMPROMISED | Result.ERROR | Result.FAILURE | Result.SUCCESS;
-
-        if (event.value.result & skip) {
-            this.takeAPhotoAndSendAReceipt(event.value.subject, event.timestamp);
-        }
-    }
-
-    // todo: verify the Significance
-    private takeAPhotoAndSendAReceipt(subject: Activity, timestamp: number) {
+    public photograph(subject: Activity, timestamp: number) {
         let promisedPicture = this.photographWorkOf(this.stage.theActorInTheSpotlight());
 
         this.stage.manager.notifyOf(new PhotoAttempted(new PhotoReceipt(subject, promisedPicture), timestamp));
@@ -99,6 +141,7 @@ export class Photographer implements StageCrewMember {
     }
 }
 
+// todo extract
 export interface PictureNamingStrategy {
     nameFor(base64encodedData: string): string;
 }
@@ -114,5 +157,22 @@ export class Md5HashedPictureNames implements PictureNamingStrategy {
 
     private extension() {
         return !! this.fileExtension ? '.' + this.fileExtension : '';
+    }
+}
+
+class PhotoTakingStrategy {
+    constructor(private interests: ActivityOfInterest, private timing: TimingBehaviour) {
+    }
+
+    activityStarts(event: ActivityStarts, photographer: Photographer) {
+        if (photographer.canWork() && this.interests.isAnActivityOfInterest(event.value) ) {
+            this.timing.takeABeforePhoto(event, photographer);
+        }
+    }
+
+    activityFinished(event: ActivityFinished, photographer: Photographer) {
+        if (photographer.canWork() && this.interests.isAnActivityOfInterest(event.value.subject) && this.interests.isAResultOfInterest(event.value.result)) {
+            this.timing.takeAnAfterPhoto(event, photographer);
+        }
     }
 }
