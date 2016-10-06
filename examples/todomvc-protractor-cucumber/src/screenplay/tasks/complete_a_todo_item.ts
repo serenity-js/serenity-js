@@ -1,7 +1,6 @@
+import { TodoList } from '../user_interface';
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Click, step } from 'serenity-js/lib/screenplay-protractor';
-
-import { TodoList } from '../user_interface';
 
 export class CompleteATodoItem implements Task {
     static called(itemName: string) {
@@ -12,7 +11,9 @@ export class CompleteATodoItem implements Task {
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
             Click.on(
-                TodoList.Complete_Item_Checkbox.of(this.itemName).called(`"${ this.itemName }" checkbox`)
+                TodoList.Complete_Item_Checkbox
+                    .of(this.itemName)
+                    .called(`"${ this.itemName }" checkbox`)
             )
         );
     }
@@ -20,3 +21,4 @@ export class CompleteATodoItem implements Task {
     constructor(private itemName: string) {
     }
 }
+
