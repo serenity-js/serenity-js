@@ -163,9 +163,9 @@ abstract class SerenityReport<T> {
         }
 
         return {
-            'errorType':    this.error.name,
-            'message':      this.error.message,
-            'stackTrace':   this.stackTraceOf(this.error),
+            errorType:    this.error.name,
+            message:      this.error.message,
+            stackTrace:   this.stackTraceOf(this.error),
         };
     }
 

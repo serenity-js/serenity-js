@@ -14,7 +14,7 @@ module.exports = function (chai, utils) {
         if (! Assertion._overwritePropFlags.hasOwnProperty(prop)) {
             Assertion._overwritePropFlags[ prop ] = [];
         }
-        Assertion._overwritePropFlags[ prop ].push({ prop: prop, flag: currentFlag, func: func });
+        Assertion._overwritePropFlags[ prop ].push({ prop, flag: currentFlag, func });
     };
 
     // TODO weird static/instance hybrid.. refactor too get rid of this

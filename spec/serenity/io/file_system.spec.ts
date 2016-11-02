@@ -43,7 +43,7 @@ describe ('FileSystem', () => {
             mockfs({ '/sys': mockfs.directory({
                 mode: 400,
                 items: {
-                    'dir': { /** empty directory */ },
+                    dir: { /** empty directory */ },
                 },
             })});
 

@@ -6,10 +6,10 @@ import * as cucumber from 'cucumber';
 export function scenarioLifeCycleNotifier(): cucumber.EventListener {
 
     return Object.assign(cucumber.Listener(), {
-        handleBeforeScenarioEvent:  handleBeforeScenarioEvent,
-        handleBeforeStepEvent:      handleBeforeStepEvent,
-        handleStepResultEvent:      handleStepResultEvent,
-        handleScenarioResultEvent:  handleScenarioResultEvent,
+        handleBeforeScenarioEvent,
+        handleBeforeStepEvent,
+        handleStepResultEvent,
+        handleScenarioResultEvent,
     });
 
     // handleAfterStepEvent      (step: events.StepPayload, callback: () => void) => callback();
@@ -75,11 +75,11 @@ function outcome<T>(subject: T, status: string, error?: Error): Outcome<T> {
 function serenityResultFrom(status: string): Result {
     const results = {
         // 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?'
-        'undefined': Result.PENDING,
-        'failed':    Result.FAILURE,
-        'pending':   Result.PENDING,
-        'passed':    Result.SUCCESS,
-        'skipped':   Result.SKIPPED,
+        undefined: Result.PENDING,
+        failed:    Result.FAILURE,
+        pending:   Result.PENDING,
+        passed:    Result.SUCCESS,
+        skipped:   Result.SKIPPED,
     };
 
     if (! results[status]) {

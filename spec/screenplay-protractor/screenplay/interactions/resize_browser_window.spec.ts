@@ -11,7 +11,7 @@ describe('Interactions', () => {
         it ('can maximise the browser window', () => {
 
             let maximize = sinon.stub().returns(Promise.resolve()),
-                browser  = fakeBrowser({ maximize: maximize }),
+                browser  = fakeBrowser({ maximize }),
                 actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
 
             let promise = ResizeBrowserWindow.toMaximum().performAs(actor);
@@ -24,7 +24,7 @@ describe('Interactions', () => {
         it ('can set the window size to an arbitrary width and height', () => {
 
             let setSize  = sinon.stub().returns(Promise.resolve()),
-                browser  = fakeBrowser({ setSize: setSize }),
+                browser  = fakeBrowser({ setSize }),
                 actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
 
             let promise = ResizeBrowserWindow.to(1024, 768).performAs(actor);
@@ -37,9 +37,9 @@ describe('Interactions', () => {
         function fakeBrowser(windowOptions): ProtractorBrowser {
             let browser: ProtractorBrowser = <any> sinon.createStubInstance(ProtractorBrowser),
                 window = () => { return windowOptions; },
-                manage = () => { return { window: window }; };
+                manage = () => { return { window }; };
 
-            browser.driver = { manage: manage };
+            browser.driver = { manage };
 
             return browser;
         }

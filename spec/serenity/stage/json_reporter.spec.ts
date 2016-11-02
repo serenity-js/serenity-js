@@ -70,8 +70,8 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                 return stageManager.allDone().then(_ =>
                     expect(producedReport()).to.deep.equal(expectedReportWith({
-                        startTime: startTime,
-                        duration:  duration,
+                        startTime,
+                        duration,
                         result:    Result[Result.SUCCESS],
                     })));
             });
@@ -597,7 +597,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     }],
                     // driver: 'chrome:jane',
                     manual:    false,
-                    startTime: startTime,
+                    startTime,
                     duration:  undefined,
                     result:    'SUCCESS',
                     testSource: 'cucumber',
