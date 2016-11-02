@@ -1,4 +1,4 @@
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 import { Actor, BrowseTheWeb, Cast } from 'serenity-js/lib/screenplay-protractor';
 
 // note: it's important to use `protractor.browser` not simply `browser`
