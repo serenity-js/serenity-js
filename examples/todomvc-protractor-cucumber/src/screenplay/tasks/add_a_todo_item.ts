@@ -17,6 +17,6 @@ export class AddATodoItem implements Task {
         );
     }
 
-    constructor(public name: string) {
+    constructor(private name: string) {
     }
 }
