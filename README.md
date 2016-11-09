@@ -25,6 +25,9 @@ it works very effectively for non-web tests too! Those include tests that exerci
 | --------- | ----------- |
 | :warning: | Serenity/JS is a young project. This means that although it has a **very high test coverage**, follows **semantic versioning** and **you can use it straight away**, its structure and APIs might and most likely will change over the coming weeks as it matures to become `1.0`. Is that a problem? We hope not! The feedback from the Community will help us shape Serenity/JS to your needs. Together we can build the best acceptance testing library the JavaScript world has ever seen! ... or at least something useful :wink: |
 
+## Introduction
+
+[![Serenity/JS: Next Generation Acceptance Testing for Angular Apps](http://img.youtube.com/vi/YYgkFgBxEwc/0.jpg)](http://www.youtube.com/watch?v=YYgkFgBxEwc "Serenity/JS: Next Generation Acceptance Testing for Angular Apps")
 
 ## Tutorials
 
