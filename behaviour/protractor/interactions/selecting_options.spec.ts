@@ -10,7 +10,7 @@ import { DemoApp } from './ui/demo_app';
 
 import test = require('selenium-webdriver/testing');
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import expect = require('../../expect');
 

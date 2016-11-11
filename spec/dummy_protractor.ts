@@ -1,4 +1,4 @@
-// so that `import { by } from 'protractor/globals'`
+// so that `import { by } from 'protractor'`
 // can be used in the Interaction classes
 // without having to use the protractor itself
 

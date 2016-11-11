@@ -360,7 +360,7 @@ Let's update the Cucumber step definitions to include our new code:
 import { Actor } from 'serenity-js/lib/screenplay';
 import { BrowseTheWeb } from 'serenity-js/lib/screenplay-protractor';
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 // ...
 
@@ -434,7 +434,7 @@ we can use another built-in Interaction - `Enter`:
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Enter } from 'serenity-js/lib/screenplay-protractor';
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import { TodoList } from '../ui/todo_list';
 
@@ -463,7 +463,7 @@ There's one thing missing though: we haven't defined what `TodoList.What_Needs_T
 // src/screenplay/ui/todo_list.ts
 
 import { Target } from 'serenity-js/lib/screenplay-protractor';
-import { by } from 'protractor/globals';
+import { by } from 'protractor';
 
 export class TodoList {
     static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box')
@@ -558,7 +558,7 @@ And the Target:
 // src/screenplay/ui/todo_list.ts
 
 import { Target } from 'serenity-js/lib/screenplay-protractor';
-import { by } from 'protractor/globals';
+import { by } from 'protractor';
 
 export class TodoList {
     static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box')
@@ -592,7 +592,7 @@ To do this, call the Serenity/JS WebDriver Synchroniser in your `cucumber_hooks.
 ```typescript
 // features/cucumber_hooks.ts
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 import * as serenity from 'serenity-js/lib/serenity-cucumber';
 
 export = function () {

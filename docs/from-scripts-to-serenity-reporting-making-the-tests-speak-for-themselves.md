@@ -33,7 +33,7 @@ To do this, let's register the Serenity/JS Notifier in the `features/cucumber.ho
 ```typescript
 // features/cucumber.hooks.ts
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 import * as serenity from 'serenity-js/lib/serenity-cucumber';
 
 export = function () {
@@ -337,7 +337,7 @@ Now, repeat the process with the `AddATodoItem` task:
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Enter, step } from 'serenity-js/lib/screenplay-protractor';    // imports the @step
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import { TodoList } from '../ui/todo_list';
 
@@ -412,7 +412,7 @@ so let's make the following changes to the `todo_user.steps.ts`:
 
 import { Serenity } from 'serenity-js';
 import { Actor, BrowseTheWeb } from 'serenity-js/lib/screenplay-protractor';
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import { Start } from '../../src/screenplay/tasks/start';
 import { AddATodoItem } from '../../src/screenplay/tasks/add_a_todo_item';

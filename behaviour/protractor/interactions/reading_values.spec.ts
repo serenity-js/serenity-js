@@ -1,4 +1,4 @@
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import {
     BrowseTheWeb,

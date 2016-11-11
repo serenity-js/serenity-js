@@ -1,6 +1,6 @@
 import { Target } from '../../../../src/serenity-protractor/screenplay';
 
-import { by } from 'protractor/globals';
+import { by } from 'protractor';
 
 export class DemoApp {
     static Header        = Target.the('header').located(by.css('header>h1'));

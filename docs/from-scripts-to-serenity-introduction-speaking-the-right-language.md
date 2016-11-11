@@ -43,7 +43,7 @@ to low-level Protractor/WebDriver APIs:
 One common approach would be to implement each step as a "test script" that makes a series of calls to low-level Protractor/WebDriver APIs:
 
 ```typescript
-import { browser, by, element, protractor } from 'protractor/globals';
+import { browser, by, element, protractor } from 'protractor';
 
 export = function todoUserSteps() {
 
@@ -102,7 +102,7 @@ that the page contained. The implementation below uses that refined version, as 
 Let's refactor the code from the previous example using the Page Objects pattern:
 
 ```typescript
-import { browser, by, element, protractor } from 'protractor/globals';
+import { browser, by, element, protractor } from 'protractor';
 
 class TodoList {
     What_Needs_To_Be_Done = element(by.id('new-todo'));

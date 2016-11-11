@@ -2,7 +2,7 @@ import { BrowseTheWeb, Open, WebElement } from '../../../src/serenity-protractor
 import { Actor } from '../../../src/serenity/screenplay';
 import { DemoApp } from './ui/demo_app';
 
-import { protractor } from 'protractor/globals';
+import { protractor } from 'protractor';
 
 import test = require('selenium-webdriver/testing');
 

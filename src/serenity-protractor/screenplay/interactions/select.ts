@@ -1,7 +1,7 @@
 import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
-import { by } from 'protractor/globals';
+import { by } from 'protractor';
 
 export class Select {
     static theValue(value: string) {

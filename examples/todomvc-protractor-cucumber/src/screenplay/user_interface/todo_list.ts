@@ -1,4 +1,4 @@
-import { by } from 'protractor/globals';
+import { by } from 'protractor';
 import { Target } from 'serenity-js/lib/screenplay-protractor';
 
 export class TodoList {
