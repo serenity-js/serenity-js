@@ -1,6 +1,7 @@
 import { Deferred } from '../serenity/recording/async';
 import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
+import {fn as isGeneratorFn} from 'is-generator';
 
 import * as webdriver from 'selenium-webdriver';
 
@@ -23,7 +24,7 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
     // ---
 
     /**
-     * Creates a synchronising StepGenerator, which looks like a regular StepGenerator but with this signifficant
+     * Creates a synchronising StepGenerator, which looks like a regular StepGenerator but with this significant
      * difference, that any step function passed to it will be wrapped and executed in the context of WebDriver
      * Control Flow
      *
@@ -59,13 +60,31 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
             let deferred = new Deferred<void>(),
                 context  = this;
 
+            if (isGeneratorFn(originalStep)) {
+                throw 'Synchronizing e6 generator style steps is not supported by serenity-js yet';
+            }
+
             controlFlow
                 .execute(() => originalStep.apply(context, args) )
                 .then(deferred.resolve, deferred.reject);
 
-            return deferred.promise;
+            if (!hasCallbackInterface(originalStep, args)) {
+                return deferred.promise;
+            }
         };
     }
+}
+
+/**
+ * Assumes that step definition has a callback interface if the number of parameters passed by cucumber
+ * matches its signature
+ *
+ * @return boolean
+ * @param step
+ * @param params
+ */
+function hasCallbackInterface(step: SomeFunction, params: any[]): boolean {
+    return step.length === params.length;
 }
 
 /**
