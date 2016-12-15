@@ -102,7 +102,7 @@ export class Photo {
 }
 
 export class PhotoReceipt {
-    constructor(public activity: Activity, public photo: Promise<Photo>) {}
+    constructor(public activity: Activity, public photo: PromiseLike<Photo>) {}
 
     toString() {
         return this.activity.toString();

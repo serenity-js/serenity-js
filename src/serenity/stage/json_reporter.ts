@@ -169,7 +169,7 @@ abstract class SerenityReport<T> {
         };
     }
 
-    protected mapAll<I>(items: Promise<I>[], mapper: (I) => any = (x) => x): Promise<any[]> {
+    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x) => x): Promise<any[]> {
         let onlyDefined = (item) => item !== undefined;
 
         return Promise.all<I>(items).then( (all) => all.filter(onlyDefined).map(mapper) );
@@ -287,7 +287,7 @@ class SceneReport extends SerenityReport<Scene> {
 }
 
 class ActivityReport extends SerenityReport<Activity> {
-    private promisedPhotos: Promise<Photo>[] = [];
+    private promisedPhotos: PromiseLike<Photo>[] = [];
 
     constructor(private activity: Activity, startTimestamp: number) {
         super(startTimestamp);
@@ -297,7 +297,7 @@ class ActivityReport extends SerenityReport<Activity> {
         return this.activity.equals(activity);
     }
 
-    attachPhoto(promisedPhoto: Promise<Photo>) {
+    attachPhoto(promisedPhoto: PromiseLike<Photo>) {
         this.promisedPhotos.push(promisedPhoto);
     }
 

@@ -25,7 +25,9 @@ class TextOf implements Question<string> {
 class TextOfAll implements Question<string[]> {
 
     answeredBy(actor: UsesAbilities): PromiseLike<string[]> {
-        return BrowseTheWeb.as(actor).locateAll(this.target).getText();
+        // protractor ignores type definitions for the ElementArrayFinder
+        // https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92
+        return <any> BrowseTheWeb.as(actor).locateAll(this.target).getText();
     }
 
     constructor(private target: Target) {

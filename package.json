@@ -28,7 +28,9 @@
     "webdriver-manager": "webdriver-manager",
     "webdriver:update": "npm run webdriver-manager update",
     "report-coverage": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+
+    "cookbook": "NODE_ENV=test nyc protractor cookbook/protractor.conf.js"
   },
   "peerDependencies": {
     "protractor": ">= 4.0.10 < 5"
@@ -52,6 +54,7 @@
     "coveralls": "2.11.12",
     "cucumber": "1.2.2",
     "cz-conventional-changelog": "1.1.7",
+    "express": "4.14.0",
     "gulp": "3.9.1",
     "gulp-concat": "2.6.0",
     "gulp-istanbul": "1.0.0",
@@ -65,8 +68,9 @@
     "mocha": "3.0.0",
     "mock-fs": "3.11.0",
     "nock": "8.0.0",
+    "nyc": "10.0.0",
     "phantomjs-prebuilt": "2.1.7",
-    "protractor": "4.0.11",
+    "protractor": "4.0.13",
     "protractor-cucumber-framework": "0.6.0",
     "remap-istanbul": "0.6.4",
     "rimraf": "2.5.4",
@@ -76,7 +80,7 @@
     "sinon-chai": "2.8.0",
     "split": "1.0.0",
     "ts-helper": "0.0.1",
-    "ts-node": "1.6.1",
+    "ts-node": "1.7.2",
     "tslint": "3.15.1",
     "typescript": "2.0.6",
     "typings": "1.3.2"
@@ -96,5 +100,28 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "spec",
+      "typings",
+      "examples/**",
+      "node_modules"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+    ],
+    "reporter": [
+      "json",
+      "text-summary"
+    ],
+    "report-dir": "./staging/reports/coverage/cookbook",
+    "all": true
   }
 }

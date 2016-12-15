@@ -6,6 +6,7 @@ module.exports = {
             coverage:   {
                 all:        'staging/reports/coverage',
                 spec:       'staging/reports/coverage/spec',
+                cookbook:   'staging/reports/coverage/cookbook/coverage-final.json',
                 behaviour:  {
                     all:        'staging/reports/coverage/behaviour',
                     cucumber:   'staging/reports/coverage/behaviour/cucumber',

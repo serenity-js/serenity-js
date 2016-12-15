@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/lib/angular.min.js"></script>
+    <title>Basic Forms</title>
+    <style>
+        fieldset {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            padding:10px;
+            margin:10px;
+            border:1px solid grey;
+            border-radius: 5px;
+        }
+
+        pre {
+            border: 1px dashed lightgrey;
+            padding:10px;
+        }
+    </style>
+</head>
+<body ng-app="demo">
+
+    <form>
+
+        <fieldset name="text-input" ng-controller="text-input">
+            <legend>Working with text</legend>
+
+            <label for="text">
+                Username:
+                <input type="text" ng-model="text.username" id="text" />
+                <pre>{{ text.username }}</pre>
+            </label>
+
+            <label for="textarea">
+                Bio:
+                <textarea id="textarea" ng-model="text.bio"></textarea>
+                <pre>{{ text.bio }}</pre>
+            </label>
+
+        </fieldset>
+
+        <fieldset name="checkboxes" ng-controller="checkboxes">
+            <legend>Working with checkboxes</legend>
+
+            <label for="checkbox">
+                <input type="checkbox" ng-model="checkboxes.weekly_newsletter" id="checkbox" />
+                Select to receive the weekly newsletter
+                <pre>{{ checkboxes.weekly_newsletter }}</pre>
+            </label>
+        </fieldset>
+
+        <fieldset name="options" ng-controller="options">
+            <legend>Working with options</legend>
+
+            <label for="single-option">
+                Country
+                <select ng-options="country as country.name for country in countries track by country.id"
+                        ng-model="selected_country" id="single-option"></select>
+
+                <pre>{{ selected_country.name }}</pre>
+            </label>
+
+            <label for="multiple-options">
+                Country
+                <select ng-options="country as country.name for country in countries track by country.id"
+                        ng-model="selected_countries" multiple id="multiple-options"></select>
+
+                <pre>{{ list_countries() }}</pre>
+            </label>
+        </fieldset>
+
+    </form>
+
+    <script>
+        angular.module('demo', [])
+            .controller('text-input', ['$scope', function ($scope) {
+                $scope.checkboxes = {
+                    weekly_newsletter: false
+                };
+            }])
+
+            .controller('checkboxes', ['$scope', function ($scope) {
+                $scope.checkboxes = {
+                    weekly_newsletter: false
+                };
+            }])
+
+            .controller('options', ['$scope', function ($scope) {
+                $scope.countries = [{
+                    id: 'GB',
+                    name: 'United Kingdom'
+                }, {
+                    id: 'PL',
+                    name: 'Poland'
+                }, {
+                    id: 'DE',
+                    name: 'Germany'
+                }, {
+                    id: 'FR',
+                    name: 'France'
+                }];
+
+                $scope.selected_country = $scope.countries[0];
+
+                $scope.selected_countries = [ $scope.countries[0] ];
+
+                $scope.list_countries = function() {
+                    return $scope.selected_countries.map(country => country.name).join(', ');
+                }
+            }]);
+    </script>
+</body>
+</html>

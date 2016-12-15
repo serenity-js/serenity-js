@@ -14,3 +14,16 @@ export class SelectedValue implements Question<string> {
     constructor(private target: Target) {
     }
 }
+
+export class SelectedValues implements Question<string> {
+    static of(target: Target) {
+        return new SelectedValues(target);
+    }
+
+    answeredBy(actor: UsesAbilities): PromiseLike<string> {
+        return BrowseTheWeb.as(actor).locate(this.target).$$('option').filter(option => option.isSelected()).getText();
+    }
+
+    constructor(private target: Target) {
+    }
+}

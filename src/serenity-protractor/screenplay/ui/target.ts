@@ -1,4 +1,5 @@
-import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
+import { ElementArrayFinder, ElementFinder } from 'protractor';
+import { Locator } from 'protractor/built/locators';
 
 export class Target {
 

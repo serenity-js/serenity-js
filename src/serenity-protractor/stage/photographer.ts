@@ -120,7 +120,7 @@ export class Photographer implements StageCrewMember {
         this.stage.manager.notifyOf(new PhotoAttempted(new PhotoReceipt(subject, promisedPicture), timestamp));
     }
 
-    private photographWorkOf(actor: UsesAbilities): Promise<Photo> {
+    private photographWorkOf(actor: UsesAbilities): PromiseLike<Photo> {
 
         let saveScreenshot = (data) => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
 

@@ -37,7 +37,7 @@ export class BrowseTheWeb implements Ability {
         return target.resolveAllUsing(<any> this.browser.element);      // see: https://github.com/angular/protractor/issues/3350
     }
 
-    takeScreenshot(): Promise<string> {
+    takeScreenshot(): PromiseLike<string> {
         return defer(() => this.browser.takeScreenshot());
     }
 
@@ -53,7 +53,7 @@ export class BrowseTheWeb implements Ability {
         return this.browser.actions();
     }
 
-    manage(): webdriver.WebDriverOptions {
+    manage(): webdriver.Options {
         return this.browser.driver.manage();
     }
 
