@@ -5,17 +5,9 @@ export class AppServer {
 
     private instance?: Server;
 
-    constructor() {}
-
     start(port: number = 0) {
         return () => new Promise<AppServer>((resolve, reject) => {
-
-            let app = express();
-
-            app.use('/lib', express.static(__dirname + '/lib'));
-            app.use(express.static(__dirname + '/../apps'));
-
-            let server = app.listen(port, () => {
+            let server = configured(express()).listen(port, () => {
                 this.instance = server;
 
                 resolve(this);
@@ -31,10 +23,14 @@ export class AppServer {
 }
 
 export function start(port: number = 8080) {
-    let app = express();
+    return configured(express()).listen(port);
+}
 
-    app.use('/lib', express.static(__dirname + '/lib'));
+function configured(app) {
+    app.use('/js',  express.static(__dirname + '/js'));
+    app.use('/css', express.static(__dirname + '/css'));
+
     app.use(express.static(__dirname + '/../apps'));
 
-    return app.listen(port);
+    return app;
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/lib/angular.min.js"></script>
     <title>Basic Forms</title>
     <style>
         fieldset {
@@ -21,6 +20,46 @@
             padding:10px;
         }
     </style>
+
+    <script type="text/javascript" src="/js/angular.js"></script>
+    <script type="text/javascript">
+        angular.module('demo', [])
+            .controller('text-input', ['$scope', function ($scope) {
+                $scope.checkboxes = {
+                    weekly_newsletter: false
+                };
+            }])
+
+            .controller('checkboxes', ['$scope', function ($scope) {
+                $scope.checkboxes = {
+                    weekly_newsletter: false
+                };
+            }])
+
+            .controller('options', ['$scope', function ($scope) {
+                $scope.countries = [{
+                    id: 'GB',
+                    name: 'United Kingdom'
+                }, {
+                    id: 'PL',
+                    name: 'Poland'
+                }, {
+                    id: 'DE',
+                    name: 'Germany'
+                }, {
+                    id: 'FR',
+                    name: 'France'
+                }];
+
+                $scope.selected_country = $scope.countries[0];
+
+                $scope.selected_countries = [ $scope.countries[0] ];
+
+                $scope.list_countries = function() {
+                    return $scope.selected_countries.map(function(country) { return country.name; } ).join(', ');
+                }
+            }]);
+    </script>
 </head>
 <body ng-app="demo">
 
@@ -74,44 +113,5 @@
         </fieldset>
 
     </form>
-
-    <script>
-        angular.module('demo', [])
-            .controller('text-input', ['$scope', function ($scope) {
-                $scope.checkboxes = {
-                    weekly_newsletter: false
-                };
-            }])
-
-            .controller('checkboxes', ['$scope', function ($scope) {
-                $scope.checkboxes = {
-                    weekly_newsletter: false
-                };
-            }])
-
-            .controller('options', ['$scope', function ($scope) {
-                $scope.countries = [{
-                    id: 'GB',
-                    name: 'United Kingdom'
-                }, {
-                    id: 'PL',
-                    name: 'Poland'
-                }, {
-                    id: 'DE',
-                    name: 'Germany'
-                }, {
-                    id: 'FR',
-                    name: 'France'
-                }];
-
-                $scope.selected_country = $scope.countries[0];
-
-                $scope.selected_countries = [ $scope.countries[0] ];
-
-                $scope.list_countries = function() {
-                    return $scope.selected_countries.map(country => country.name).join(', ');
-                }
-            }]);
-    </script>
 </body>
 </html>

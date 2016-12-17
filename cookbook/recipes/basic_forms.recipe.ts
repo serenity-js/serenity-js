@@ -32,7 +32,9 @@ class MultiCountry {
     static Result   = Target.the('country result').located(by.css('[name="options"] label[for="multiple-options"] pre'));
 }
 
-synced.describe ('When demonstrating the usage of an HTML form, a test scenario', () => {
+synced.describe ('When demonstrating the usage of an HTML form, a test scenario', function () {
+
+    this.timeout(10000);
 
     let app   = new AppServer();
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
