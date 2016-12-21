@@ -76,8 +76,7 @@ gulp.task('aggregate', () => {
     return merge([
         remapCoverageToTypescript(dirs.staging.reports.coverage.spec),
         remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.protractor),
-        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.cucumber),
-        gulp.src(dirs.staging.reports.coverage.cookbook)
+        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.cucumber)
     ])
         // .pipe(gulp.dest(dirs.staging.reports.coverage.all));
 
