@@ -16,7 +16,7 @@
     "behaviour:protractor": "istanbul cover --dir staging/reports/coverage/behaviour/protractor --root staging/transpiled/src --report json --include-pid --include-all-sources protractor -- staging/transpiled/behaviour/protractor/protractor.conf.js",
     "behaviour": "npm run behaviour:cucumber && npm run behaviour:protractor",
     "aggregate": "gulp aggregate",
-    "verify": "npm run clean && npm run package && npm run behaviour && npm run aggregate",
+    "verify": "npm run clean && npm run package && npm run behaviour && npm run cookbook && npm run aggregate",
     "verify:protractor": "npm run clean && npm run package && gulp pre-test prepare-examples && npm run behaviour:protractor && npm run aggregate",
     "rebuild": "npm run clean && npm run verify",
     "setup:typings": "npm run typings -- install",
