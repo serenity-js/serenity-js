@@ -51,13 +51,23 @@ or submit a pull request.
 
 Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
+## Friends of Serenity/JS
+
+Serenity/JS is continuously delivered to you thanks to:
+* the time and commitment of [the author](https://janmolak.com/) and [the contributors](https://github.com/jan-molak/serenity-js/graphs/contributors)
+* a battery of browsers provided by [BrowserStack](https://www.browserstack.com)
+
+[![tested on BrowserStack](docs/images/browserstack-logo.png)](http://bit.ly/JBMBS)
+
 ## License
 
 Serenity/JS library is licensed under the [Apache-2.0](LICENSE.md) license.
+
+## Commercial support
 
 If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
 development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
 
 ----
 
-_- [Jan Molak](https://janmolak.com) and the Serenity Team_
+_- Copyright &copy; 2016- [Jan Molak](https://janmolak.com) and the Serenity Team_
