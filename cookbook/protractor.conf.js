@@ -30,6 +30,8 @@ exports.config = {
         'version':            'ANY',
         build:                process.env.BROWSERSTACK_AUTOMATE_BUILD,
         project:              process.env.BROWSERSTACK_AUTOMATE_PROJECT,
+
+        'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
         'browserstack.local': true,
     },
 
