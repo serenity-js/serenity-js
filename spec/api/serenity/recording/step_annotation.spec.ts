@@ -1,12 +1,12 @@
-import { Actor, PerformsTasks } from '../../../src/serenity/screenplay/actor';
-import { Performable, Task } from '../../../src/serenity/screenplay/performables';
-import { Journal, StageManager } from '../../../src/serenity/stage';
+import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor';
+import { Performable, Task } from '../../../../src/serenity/screenplay/performables';
+import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { Step, StepAnnotation } from '../../../src/serenity/recording/step_annotation';
+import { Step, StepAnnotation } from '../../../../src/serenity/recording/step_annotation';
 
-import expect = require('../../expect');
-import { ActivityFinished, ActivityStarts } from '../../../src/serenity/domain/events';
-import { Activity, Outcome, Result } from '../../../src/serenity/domain/model';
+import expect = require('../../../expect');
+import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
+import { Activity, Outcome, Result } from '../../../../src/serenity/domain/model';
 
 describe('Notifiers', () => {
 

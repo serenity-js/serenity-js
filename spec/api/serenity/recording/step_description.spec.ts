@@ -1,7 +1,7 @@
-import { StepDescription } from '../../../src/serenity/recording/step_description';
-import { Actor, PerformsTasks, Task } from '../../../src/serenity/screenplay';
+import { StepDescription } from '../../../../src/serenity/recording/step_description';
+import { Actor, PerformsTasks, Task } from '../../../../src/serenity/screenplay';
 
-import expect = require('../../expect');
+import expect = require('../../../expect');
 
 describe('StepDescription', () => {
 

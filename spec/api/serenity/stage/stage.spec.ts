@@ -1,10 +1,10 @@
-import { Serenity } from '../../../src/serenity';
-import { Actor } from '../../../src/serenity/screenplay';
-import { Cast, Stage, StageManager } from '../../../src/serenity/stage';
+import { Serenity } from '../../../../src/serenity';
+import { Actor } from '../../../../src/serenity/screenplay';
+import { Cast, Stage, StageManager } from '../../../../src/serenity/stage';
 
 import sinon = require('sinon');
 
-import expect = require('../../expect');
+import expect = require('../../../expect');
 
 describe ('The Stage', () => {
 

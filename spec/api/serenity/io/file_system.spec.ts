@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 
-import { FileSystem } from '../../../src/serenity/io/file_system';
+import { FileSystem } from '../../../../src/serenity/io/file_system';
 
-import expect = require('../../expect');
+import expect = require('../../../expect');
 
 describe ('FileSystem', () => {
 

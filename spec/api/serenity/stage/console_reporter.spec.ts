@@ -10,13 +10,13 @@ import {
     Scene,
     SceneFinished,
     SceneStarts,
-} from '../../../src/serenity/domain';
-import { ConsoleReporter, Journal, Stage, StageManager } from '../../../src/serenity/stage';
+} from '../../../../src/serenity/domain';
+import { ConsoleReporter, Journal, Stage, StageManager } from '../../../../src/serenity/stage';
 
 import sinon = require('sinon');
 
-import expect = require('../../expect');
-import { consoleReporter } from '../../../src/stage_crew';
+import expect = require('../../../expect');
+import { consoleReporter } from '../../../../src/stage_crew';
 
 describe ('When reporting on what happened during the rehearsal', () => {
 

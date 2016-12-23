@@ -47,49 +47,10 @@ gulp.task('pre-test', [ 'transpile' ], () =>
         .pipe(istanbul.hookRequire())
 );
 
-gulp.task('test', ['pre-test'], () =>
-    gulp.src(dirs.staging.traspiled.spec)
-        .pipe(mocha())
-        .pipe(istanbul.writeReports({
-            dir: dirs.staging.reports.coverage.spec,
-            reporters: ['json'],
-        }))
-        // .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }))
-);
-
 gulp.task('verify:cucumber', ['pre-test', 'prepare-examples'], () =>
     gulp.src(dirs.staging.traspiled.behaviour.cucumber)
         .pipe(mocha())
 );
-
-gulp.task('aggregate', () => {
-    function remapCoverageToTypescript(dir) {
-        return gulp
-            .src(path.join(dir, 'coverage-final.json'))
-            .pipe(remap({
-                basePath: '.',
-                useAbsolutePaths: true,
-                reports: { 'json': path.join(dir, 'coverage-final-remaped.json') }
-            }))
-    }
-
-    return merge([
-        remapCoverageToTypescript(dirs.staging.reports.coverage.spec),
-        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.protractor),
-        remapCoverageToTypescript(dirs.staging.reports.coverage.behaviour.cucumber)
-    ])
-        // .pipe(gulp.dest(dirs.staging.reports.coverage.all));
-
-    .pipe(report({
-        dir: dirs.staging.reports.coverage.all,
-        reporters: [
-            'text-summary',
-            {name: 'html', dir: dirs.staging.reports.coverage.all + 'html'},
-            {name: 'lcovonly', file: 'lcov.info'},
-            {name: 'json'}
-        ]
-    }));
-});
 
 gulp.task('export', () =>
     gulp
@@ -97,4 +58,4 @@ gulp.task('export', () =>
         .pipe(gulp.dest(dirs.export))
 );
 
-gulp.task('package', (done) => runSequence('lint', 'test', 'export'));
+gulp.task('package', (done) => runSequence('lint', 'export'));

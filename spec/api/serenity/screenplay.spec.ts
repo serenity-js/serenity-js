@@ -1,6 +1,6 @@
-import { Ability, Actor, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../src/serenity/screenplay';
+import { Ability, Actor, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/serenity/screenplay';
 
-import expect = require('../expect');
+import expect = require('../../expect');
 import sinon = require('sinon');
 import SinonSpyCall = Sinon.SinonSpyCall;
 

@@ -1,7 +1,8 @@
-import { keyNameOf } from '../../src/serenity-protractor/keys';
+import expect = require('../../expect');
 
-import expect = require('../expect');
 import * as webdriver from 'selenium-webdriver';
+
+import { keyNameOf } from '../../../src/serenity-protractor/keys';
 
 describe('Protractor', () => {
 

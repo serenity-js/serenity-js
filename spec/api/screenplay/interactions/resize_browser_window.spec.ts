@@ -1,6 +1,8 @@
 import sinon = require('sinon');
 import expect = require('../../../expect');
+
 import { ProtractorBrowser } from 'protractor';
+import { WebDriver } from 'selenium-webdriver';
 
 import { BrowseTheWeb, ResizeBrowserWindow } from '../../../../src/serenity-protractor/screenplay';
 import { Actor } from '../../../../src/serenity/screenplay';
@@ -36,10 +38,13 @@ describe('Interactions', () => {
 
         function fakeBrowser(windowOptions): ProtractorBrowser {
             let browser: ProtractorBrowser = <any> sinon.createStubInstance(ProtractorBrowser),
+                driver:  WebDriver         = <any> sinon.createStubInstance(WebDriver),
                 window = () => { return windowOptions; },
-                manage = () => { return { window }; };
+                manage = (): any => { return { window }; };
 
-            browser.driver = { manage };
+            driver.manage = manage;
+
+            browser.driver = driver;
 
             return browser;
         }

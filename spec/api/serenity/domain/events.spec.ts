@@ -1,6 +1,6 @@
-import { DomainEvent } from '../../../src/serenity/domain';
+import expect = require('../../../expect');
 
-import expect = require('../../expect');
+import { DomainEvent } from '../../../../src/serenity/domain';
 
 describe ('Serenity Domain Events', () => {
 

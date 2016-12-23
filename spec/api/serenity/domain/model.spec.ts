@@ -1,6 +1,6 @@
-import { Activity, Tag } from '../../../src/serenity/domain/model';
+import expect = require('../../../expect');
 
-import expect = require('../../expect');
+import { Activity, Tag } from '../../../../src/serenity/domain/model';
 
 describe ('Serenity Domain Model', () => {
 

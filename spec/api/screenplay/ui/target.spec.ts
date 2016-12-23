@@ -1,6 +1,6 @@
 import sinon = require('sinon');
-
 import expect = require('../../../expect');
+
 import { Target } from '../../../../src/screenplay-protractor';
 
 import * as webdriver from 'selenium-webdriver';
@@ -71,8 +71,7 @@ describe ('Target', () => {
     });
 
     it ('complains if it cannot replace the tokens defined in the locator (Protractor issue #3508)', () => {
-        let byModelTemplate = {
-                findElementsOverride: () => {},                                          // tslint:disable-line:no-empty
+        let byModelTemplate: any = {
                 toString: () => 'by.model("checkbox")',
             },
             target      = Target.the('checkbox').located(byModelTemplate);

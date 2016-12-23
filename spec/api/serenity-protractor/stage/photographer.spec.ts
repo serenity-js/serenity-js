@@ -1,7 +1,7 @@
 import sinon = require('sinon');
-import expect = require('../../expect');
+import expect = require('../../../expect');
 
-import { Actor, BrowseTheWeb } from '../../../src/screenplay-protractor';
+import { Actor, BrowseTheWeb } from '../../../../src/screenplay-protractor';
 
 import {
     ActivityOfInterest,
@@ -9,7 +9,7 @@ import {
     Photographer,
     PictureNamingStrategy,
     photographer,
-} from '../../../src/serenity-protractor/stage/photographer';
+} from '../../../../src/serenity-protractor/stage/photographer';
 
 import {
     Activity,
@@ -23,11 +23,11 @@ import {
     Scene,
     SceneFinished,
     SceneStarts,
-} from '../../../src/serenity/domain';
+} from '../../../../src/serenity/domain';
 
-import { TakeAPhoto, TimingBehaviour } from '../../../src/serenity-protractor/stage/photographer-timing';
-import { FileSystem } from '../../../src/serenity/io/file_system';
-import { Cast, Journal, Stage, StageManager } from '../../../src/serenity/stage';
+import { TakeAPhoto, TimingBehaviour } from '../../../../src/serenity-protractor/stage/photographer-timing';
+import { FileSystem } from '../../../../src/serenity/io/file_system';
+import { Cast, Journal, Stage, StageManager } from '../../../../src/serenity/stage';
 
 describe('Photographer', () => {
 
