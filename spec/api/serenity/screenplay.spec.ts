@@ -2,7 +2,7 @@ import { Ability, Actor, Interaction, PerformsTasks, Question, Task, UsesAbiliti
 
 import expect = require('../../expect');
 import sinon = require('sinon');
-import SinonSpyCall = Sinon.SinonSpyCall;
+import { SinonSpyCall } from '@types/sinon';
 
 describe('Screenplay Pattern', () => {
 
