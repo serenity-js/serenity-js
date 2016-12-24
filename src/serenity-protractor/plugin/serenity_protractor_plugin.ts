@@ -1,14 +1,17 @@
 import { Serenity } from '../../serenity/serenity';
 import { StageCrewMember, jsonReporter } from '../../serenity/stage';
 
-import { PluginConfig, ProtractorPlugin } from 'protractor';
+import { PluginConfig } from 'protractor/built/plugins';
 
-export class SerenityProtractorPlugin implements ProtractorPlugin {
+// todo: implement ProtractorPlugin when https://github.com/angular/protractor/issues/3790 is fixed and I don't need Q
+export class SerenityProtractorPlugin /* implements ProtractorPlugin */  {
 
     config: SerenityProtractorPluginConfig = {};
 
-    setup() {
+    setup(): Promise<any> {
         Serenity.assignCrewMembers(...this.crewMembers());
+
+        return Promise.resolve();
     }
 
     teardown() {

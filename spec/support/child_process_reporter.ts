@@ -1,5 +1,5 @@
-import { DomainEvent } from '../src/serenity/domain/events';
-import { StageCrewMember } from '../src/stage_crew';
+import { DomainEvent } from '../../src/serenity/domain/events';
+import { StageCrewMember } from '../../src/serenity/stage/stage_manager';
 
 export class ChildProcessReporter implements StageCrewMember {
     assignTo(stage) {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="mouse-events">
+<head>
+    <script type="text/javascript" src="/js/angular.js"></script>
+    <title>Mouse events</title>
+</head>
+<body>
+
+
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+
+    <section id="mouse-events">
+        <event-tester event-name="click"></event-tester>
+        <hr />
+        <event-tester event-name="dblclick"></event-tester>
+    </section>
+
+<script>
+    angular.module('mouse-events', []).directive('eventTester', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            template: '<div id="{{ id }}"><button>{{ name }}</button><pre>{{ result }}</pre></div>',
+            link: function (scope, elem, attrs) {
+                scope.id        = 'event-tester-' + attrs.eventName;
+                scope.name      = attrs.eventName;
+                scope.result    = attrs.eventName + ' the button above please!';
+                scope.eventName = attrs.eventName;
+
+                elem.bind(attrs.eventName, function () {
+                    scope.$apply(function () {
+                        scope.result = attrs.eventName + ' works!';
+                    });
+                });
+            }
+        };
+    })
+</script>
+</body>
+</html>

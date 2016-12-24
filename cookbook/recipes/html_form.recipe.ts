@@ -41,7 +41,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
 
     synced.before(app.start());
     synced.before(() => james.attemptsTo(
-        Open.browserOn(app.demonstrating('basic_forms'))
+        Open.browserOn(app.demonstrating('html_form'))
     ));
     synced.after(app.stop());
 

@@ -1,9 +1,7 @@
-import { SceneFinished } from '../../src/serenity/domain';
-import { spawner } from '../spawner';
+import expect = require('../../expect');
 
-import expect = require('../expect');
-import { SceneStarts } from '../../src/serenity/domain/events';
-import { Scene, Tag } from '../../src/serenity/domain/model';
+import { Scene, SceneFinished, SceneStarts, Tag } from '../../../src/serenity/domain';
+import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function () {
 

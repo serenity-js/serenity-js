@@ -4,7 +4,7 @@ const crew = require('serenity-js/lib/stage_crew');
 
 exports.config = {
 
-    baseUrl: 'http://todomvc.com',
+    baseUrl: 'http://todomvc.dev',
 
     allScriptsTimeout: 110000,
 

@@ -7,16 +7,12 @@ import {
     Scene,
     SceneFinished,
     SceneStarts,
-} from '../src/serenity/domain';
+    Tag,
+} from '../../src/serenity/domain';
+
 import { ForkOptions } from 'child_process';
 
 import childProcess = require('child_process');
-import path = require('path');
-import { Tag } from '../src/serenity/domain/model';
-
-const dirs: any = require(process.cwd() + '/gulpfile.config');   // tslint:disable-line:no-var-requires
-const istanbul = process.cwd() + '/node_modules/.bin/istanbul';
-const src = path.join(process.cwd(), dirs.staging.traspiled.all, 'src');
 
 export class Spawned {
     messages: any[] = [];
@@ -24,16 +20,7 @@ export class Spawned {
 
     constructor(pathToScript: string, args: string[], options: ForkOptions) {
 
-        let spawned = childProcess.fork(istanbul, ['cover',
-            '--dir', `${ process.cwd() }/${ dirs.staging.reports.coverage.behaviour.cucumber }`,
-            '--root', src,
-            '--report', 'json',
-            '--include-pid',
-            '--include-all-sources',
-            pathToScript,
-            '--'].concat(args),
-            options
-        );
+        let spawned = childProcess.fork(pathToScript, args, options);
 
         spawned.on('message', event => this.messages.push(deserialised(event)));
 
