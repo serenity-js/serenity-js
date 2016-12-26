@@ -1,11 +1,12 @@
 import synced = require('selenium-webdriver/testing');
-import expect = require('../../expect');
+import expect = require('../expect');
 
 import { by, protractor } from 'protractor';
 
-import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../../src/screenplay-protractor';
-import { Open, Text, WebElement } from '../../../src/serenity-protractor';
-import { AppServer } from '../server';
+import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../src/screenplay-protractor';
+import { Open, Text, WebElement } from '../../src/serenity-protractor';
+
+import { AppServer } from '../support/server';
 
 /*
  * Minimalistic page objects; each one of the below represents a UI widget from the cookbook/apps/basic_forms.html app.

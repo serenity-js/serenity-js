@@ -30,7 +30,7 @@ function configured(app) {
     app.use('/js',  express.static(__dirname + '/js'));
     app.use('/css', express.static(__dirname + '/css'));
 
-    app.use(express.static(__dirname + '/../apps'));
+    app.use(express.static(__dirname + '/../../cookbook/apps', { extensions: ['html'] }));
 
     return app;
 }

@@ -9,7 +9,7 @@ exports.config = {
     seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
 
     framework: 'mocha',
-    specs: [ 'recipes/**/*.recipe.ts' ],
+    specs: [ 'cookbook/**/*.recipe.ts' ],
 
     browserstackUser: process.env.BROWSERSTACK_USERNAME,
     browserstackKey:  process.env.BROWSERSTACK_KEY,

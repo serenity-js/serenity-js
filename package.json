@@ -19,7 +19,7 @@
     "webdriver-manager": "webdriver-manager",
     "webdriver:update": "npm run webdriver-manager update",
     "spec:api": "nyc --report-dir=./staging/reports/coverage/api mocha --opts ./spec/mocha.opts 'spec/api/**/*.spec.*'",
-    "spec:cookbook": "nyc --report-dir=./staging/reports/coverage/cookbook protractor ./spec/cookbook/protractor.conf.js",
+    "spec:cookbook": "nyc --report-dir=./staging/reports/coverage/cookbook protractor ./spec/protractor-cookbook.conf.js",
     "spec:integration": "nyc --report-dir=./staging/reports/coverage/integration mocha --opts ./spec/mocha.opts 'spec/integration/cucumber/*.ts'",
     "spec": "npm run spec:api && npm run spec:cookbook && npm run spec:integration",
     "coverage:merge": "istanbul-merge --out=./staging/reports/coverage/coverage-final.json ./staging/reports/coverage/**/coverage-final.json",

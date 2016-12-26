@@ -1,11 +1,12 @@
 import synced = require('selenium-webdriver/testing');
-import expect = require('../../expect');
+import expect = require('../expect');
 
 import { by, protractor } from 'protractor';
 
-import { Actor, BrowseTheWeb, Target } from '../../../src/screenplay-protractor';
-import { Click, DoubleClick, Open, Text } from '../../../src/serenity-protractor';
-import { AppServer } from '../server';
+import { Actor, BrowseTheWeb, Target } from '../../src/screenplay-protractor';
+import { Click, DoubleClick, Open, Text } from '../../src/serenity-protractor';
+
+import { AppServer } from '../support/server';
 
 class MouseEvents {
     static Event_Trigger    = Target.the('event-triggering button').located(by.css('#event-tester-{0} button'));
