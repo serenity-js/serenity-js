@@ -51,24 +51,24 @@ describe ('When reporting on what happened during the rehearsal', () => {
 
             expect(print.getCall(0).args[0]).to.contain(
                 'SceneStarts: Paying with a default card ' +
-                '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card)'
+                '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card)',
             );
 
             expect(print.getCall(1).args[0]).to.contain(
-                'ActivityStarts: Configures a default payment method'
+                'ActivityStarts: Configures a default payment method',
             );
 
             expect(print.getCall(2).args[0]).to.contain(
-                'ActivityFinished: Configures a default payment method (result: SUCCESS)'
+                'ActivityFinished: Configures a default payment method (result: SUCCESS)',
             );
 
             expect(print.getCall(3).args[0]).to.contain(
-                'PhotoAttempted: Configures a default payment method'
+                'PhotoAttempted: Configures a default payment method',
             );
 
             expect(print.getCall(4).args[0]).to.contain(
                 'SceneFinished: Paying with a default card ' +
-                '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card) (result: SUCCESS)'
+                '(category: Checkout, path: features/checkout.feature, id: Checkout:Paying with a default card) (result: SUCCESS)',
             );
         });
 

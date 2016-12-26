@@ -24,7 +24,7 @@ describe('Screenplay Pattern', () => {
             let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             return actor.attemptsTo(
-                PlayAChord.called(Chords.AMajor)
+                PlayAChord.called(Chords.AMajor),
             )
             .then(() => {
                 expect(acousticGuitar.play).to.have.been.calledWith(Chords.AMajor);
@@ -36,7 +36,7 @@ describe('Screenplay Pattern', () => {
             let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             return actor.attemptsTo(
-                PerformASong.from(MusicSheets.Wild_Thing)
+                PerformASong.from(MusicSheets.Wild_Thing),
             )
             .then(() => {
                 expect(invocation(0, acousticGuitar.play)).to.have.been.calledWith(Chords.AMajor);
@@ -75,7 +75,7 @@ describe('Screenplay Pattern', () => {
             expect(actor.attemptsTo).to.have.been.calledWith(
                 PlayAChord.called(Chords.AMajor),
                 PlayAChord.called(Chords.DMajor),
-                PlayAChord.called(Chords.EMajor)
+                PlayAChord.called(Chords.EMajor),
             );
         });
     });

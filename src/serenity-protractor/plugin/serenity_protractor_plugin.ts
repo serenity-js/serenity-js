@@ -1,5 +1,5 @@
 import { Serenity } from '../../serenity/serenity';
-import { StageCrewMember, jsonReporter } from '../../serenity/stage';
+import { jsonReporter, StageCrewMember } from '../../serenity/stage';
 
 import { PluginConfig } from 'protractor/built/plugins';
 

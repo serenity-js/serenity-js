@@ -1,6 +1,7 @@
+import * as _ from 'lodash';
+
 import {DomainEvent} from '../domain/events';
 import { Stage } from './stage';
-import * as _ from 'lodash';
 
 export interface StageCrewMember {
     assignTo(stage: Stage);
@@ -11,7 +12,7 @@ export interface StageCrewMember {
 export class StageManager {
 
     private listeners: CrewMembersCommunicationChannel[] = [];
-    private wip: Promise<any>[] = [];
+    private wip: Array<Promise<any>> = [];
 
     constructor(private journal: Journal) {
     }
@@ -37,7 +38,7 @@ export class StageManager {
         return Promise.all(this.wip);
     }
 
-    registerInterestIn(eventsOfInterest: typeof DomainEvent[], crewMember: StageCrewMember) {
+    registerInterestIn(eventsOfInterest: Array<typeof DomainEvent>, crewMember: StageCrewMember) {
 
         eventsOfInterest.forEach(eventType => {
 
@@ -49,17 +50,17 @@ export class StageManager {
         });
     }
 
-    readTheJournal(): DomainEvent<any>[] {
+    readTheJournal(): Array<DomainEvent<any>> {
         return this.journal.read();
     }
 
-    readNewJournalEntriesAs(readerId: string): DomainEvent<any>[] {
+    readNewJournalEntriesAs(readerId: string): Array<DomainEvent<any>> {
         return this.journal.readAs(readerId);
     }
 }
 
 export class Journal {
-    private events:     DomainEvent<any>[]       = [];
+    private events:     Array<DomainEvent<any>>  = [];
     private bookmarks:  { [id: string]: number } = {};
 
     /**
@@ -76,8 +77,8 @@ export class Journal {
      *
      * @return {Event[]} a list of events
      */
-    public read(): DomainEvent<any>[] {
-        return _.sortBy(_.cloneDeep(this.events), (event) => event.timestamp );
+    public read(): Array<DomainEvent<any>> {
+        return _.sortBy(_.cloneDeep(this.events), event => event.timestamp );
     }
 
     /**
@@ -85,7 +86,7 @@ export class Journal {
      *
      * @return {Event[]} a list of events
      */
-    public readAs(readerId: string): DomainEvent<any>[] {
+    public readAs(readerId: string): Array<DomainEvent<any>> {
         let events   = this.read(),
             bookmark = this.bookmarks[readerId] || 0;
 
@@ -103,6 +104,6 @@ class CrewMembersCommunicationChannel {
     }
 
     notify(event: DomainEvent<any>) {
-        this.listeners.forEach( (listener) => listener.notifyOf(_.cloneDeep(event)) );
+        this.listeners.forEach(listener => listener.notifyOf(_.cloneDeep(event)) );
     }
 }

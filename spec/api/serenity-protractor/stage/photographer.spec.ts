@@ -7,8 +7,8 @@ import {
     ActivityOfInterest,
     Md5HashedPictureNames,
     Photographer,
-    PictureNamingStrategy,
     photographer,
+    PictureNamingStrategy,
 } from '../../../../src/serenity-protractor/stage/photographer';
 
 import {
@@ -56,7 +56,7 @@ describe('Photographer', () => {
                 new ActivityOfInterest(Result.Finished),
                 new TimingBehaviour(new TakeAPhoto(), new TakeAPhoto()),
                 fileSystem,
-                new CallsEveryPhotoTheSame(photoName)
+                new CallsEveryPhotoTheSame(photoName),
             );
         });
 

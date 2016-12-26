@@ -27,7 +27,7 @@ export class ConsoleReporter implements StageCrewMember {
         this.print(util.format('%s | %s: %s',
             moment(event.timestamp).format('HH:mm:ss.SSS'),
             event.constructor.name,
-            event.value
+            event.value,
         ));
     }
 }

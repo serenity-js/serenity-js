@@ -1,10 +1,11 @@
 import synced = require('selenium-webdriver/testing');
-import expect = require('../expect');
+import expect = require('../../expect');
+
+import { by, protractor } from 'protractor';
 
 import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../../src/screenplay-protractor';
 import { Open, Text, WebElement } from '../../../src/serenity-protractor';
 import { AppServer } from '../server';
-import { by, protractor } from 'protractor';
 
 /*
  * Minimalistic page objects; each one of the below represents a UI widget from the cookbook/apps/basic_forms.html app.
@@ -29,9 +30,7 @@ synced.describe ('When demonstrating the usage of a HTML page, a test scenario',
         // this is a standard, non-angular website; no need for angular-specific synchronisation here
         protractor.browser.ignoreSynchronization = true;
     });
-    synced.before(() => james.attemptsTo(
-        Open.browserOn(app.demonstrating('static_website'))
-    ));
+    synced.before(() => james.attemptsTo(Open.browserOn(app.demonstrating('static_website'))));
     synced.after(app.stop());
 
     synced.it ('can read the text of on-screen elements', () => Promise.all([
@@ -42,23 +41,21 @@ synced.describe ('When demonstrating the usage of a HTML page, a test scenario',
     ]));
 
     synced.it ('can read the text of all elements matching the target', () =>
+
         expect(james.toSee(Text.ofAll(Cookbook.Table_of_Contents)))
-            .eventually.deep.include('Working with static websites')
-    );
+            .eventually.deep.include('Working with static websites'));
 
     synced.it ('can read the title of the website', () =>
+
         expect(james.toSee(Website.title()))
-            .eventually.equal('Serenity/JS Cookbook')
-    );
+            .eventually.equal('Serenity/JS Cookbook'));
 
     synced.it ('can read an attribute of an on-screen element', () =>
 
         expect(james.toSee(Attribute.of(Cookbook.Article).called('class')))
-            .eventually.equal('container')
-    );
+            .eventually.equal('container'));
 
     synced.it ('can check the visibility of an on-screen element', () =>
 
-        expect(james.toSee(WebElement.of(Cookbook.Article))).displayed
-    );
+        expect(james.toSee(WebElement.of(Cookbook.Article))).displayed);
 });

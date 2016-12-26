@@ -1,5 +1,5 @@
 import synced = require('selenium-webdriver/testing');
-import expect = require('../expect');
+import expect = require('../../expect');
 import { Actor, BrowseTheWeb, Target } from '../../../src/screenplay-protractor';
 import { Click, Enter, Open, Select, SelectedValue, SelectedValues, Text, Value } from '../../../src/serenity-protractor';
 
@@ -40,58 +40,51 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     synced.before(app.start());
-    synced.before(() => james.attemptsTo(
-        Open.browserOn(app.demonstrating('html_form'))
-    ));
+    synced.before(() => james.attemptsTo(Open.browserOn(app.demonstrating('html_form'))));
     synced.after(app.stop());
 
     synced.it ('can interact with a single-line text input', () =>
 
         james.attemptsTo(
-            Enter.theValue('James').into(Username.Field)
+            Enter.theValue('James').into(Username.Field),
         ).then(() => Promise.all([
             expect(james.toSee(Value.of(Username.Field))).eventually.equal('James'),
             expect(james.toSee(Text.of(Username.Result))).eventually.equal('James'),
-        ]))
-    );
+        ])));
 
     synced.it ('can interact with a text area', () =>
 
         james.attemptsTo(
-            Enter.theValue('Lorem ipsum\ndolor\nsit amet').into(Bio.Field)
+            Enter.theValue('Lorem ipsum\ndolor\nsit amet').into(Bio.Field),
         ).then(() => Promise.all([
             expect(james.toSee(Value.of(Bio.Field))).eventually.equal('Lorem ipsum\ndolor\nsit amet'),
             expect(james.toSee(Text.of(Bio.Result))).eventually.equal('Lorem ipsum\ndolor\nsit amet'),
-        ]))
-    );
+        ])));
 
     synced.it ('can interact with a checkbox', () =>
 
         james.attemptsTo(
-            Click.on(Newsletter.Checkbox)
+            Click.on(Newsletter.Checkbox),
         ).then(() => Promise.all([
             expect(james.toSee(Value.of(Newsletter.Checkbox))).eventually.equal('on'),
             expect(james.toSee(Text.of(Newsletter.Result))).eventually.equal('true'),
-        ]))
-    );
+        ])));
 
     synced.it ('can interact with a select box', () =>
 
         james.attemptsTo(
-            Select.theValue('France').from(SingleCountry.Selector)
+            Select.theValue('France').from(SingleCountry.Selector),
         ).then(() => Promise.all([
             expect(james.toSee(SelectedValue.of(SingleCountry.Selector))).eventually.equal('France'),
             expect(james.toSee(Text.of(SingleCountry.Result))).eventually.equal('France'),
-        ]))
-    );
+        ])));
 
     synced.it ('can interact with multi-choice select box', () =>
 
         james.attemptsTo(
-            Select.values('Poland', 'France').from(MultiCountry.Selector)
+            Select.values('Poland', 'France').from(MultiCountry.Selector),
         ).then(() => Promise.all([
             expect(james.toSee(SelectedValues.of(MultiCountry.Selector))).eventually.deep.equal(['Poland', 'France']),
             expect(james.toSee(Text.of(MultiCountry.Result))).eventually.equal('Poland, France'),
-        ]))
-    );
+        ])));
 });

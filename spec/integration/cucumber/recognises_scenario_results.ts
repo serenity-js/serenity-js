@@ -9,14 +9,14 @@ describe('When working with Cucumber', function () {
 
     const protractor = spawner(
         process.cwd() + '/node_modules/.bin/protractor',
-        { cwd: __dirname, silent: true }
+        { cwd: __dirname, silent: true },
     );
 
     describe('Serenity/JS', () => {
 
         it ('reports passing scenarios', () => {
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*passing_scenario.feature'
+                '--specs', '**/*passing_scenario.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -32,7 +32,7 @@ describe('When working with Cucumber', function () {
         it ('ignores skipped scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*skipped_scenario.feature',
-                '--cucumberOpts.tags', '~@wip'
+                '--cucumberOpts.tags', '~@wip',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -42,7 +42,7 @@ describe('When working with Cucumber', function () {
 
         it ('reports pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*pending_scenario.feature'
+                '--specs', '**/*pending_scenario.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -58,7 +58,7 @@ describe('When working with Cucumber', function () {
         it('reports failing scenarios', () => {
 
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*failing_scenario.feature'
+                '--specs', '**/*failing_scenario.feature',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {

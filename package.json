@@ -13,7 +13,7 @@
     "test": "npm run spec",
     "lint": "tslint --project=tsconfig.json --config=tslint.json --format=prose",
     "package": "tsc --project tsconfig-export.json",
-    "verify": "npm run clean && npm test && npm run package && npm run report",
+    "verify": "npm run clean && npm run lint && npm test && npm run package && npm run report",
     "rebuild": "npm run clean && npm run verify",
     "commit": "git-cz",
     "webdriver-manager": "webdriver-manager",

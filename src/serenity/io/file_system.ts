@@ -36,7 +36,7 @@ export class FileSystem {
 
     private write(path: string, data: any): Promise<string> {
         return new Promise((resolve, reject) => {
-            fs.writeFile(path, data, (error) => {
+            fs.writeFile(path, data, error => {
                 if (error) {
                     reject(error);
                 }

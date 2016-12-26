@@ -29,7 +29,7 @@ export class Step {
                 return Promise.resolve()
                     .then(() => decorated.beforeStep(activity))
                     .then(() => performAs.apply(this, args))
-                    .then(() => decorated.afterStep(activity), (e) => decorated.onFailure(activity, e));
+                    .then(() => decorated.afterStep(activity), e => decorated.onFailure(activity, e));
             };
 
             return decorator;

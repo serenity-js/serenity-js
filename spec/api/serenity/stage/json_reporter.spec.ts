@@ -65,7 +65,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             it('contains the story of what happened during a scene', () => {
                 givenFollowingEvents(
                     sceneStarted(scene, startTime),
-                    sceneFinished(scene, Result.SUCCESS, startTime + duration)
+                    sceneFinished(scene, Result.SUCCESS, startTime + duration),
                 );
 
                 return stageManager.allDone().then(_ =>
@@ -81,7 +81,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     sceneStarted(scene, startTime),
                     activityStarted('Opens a browser', startTime + 1),
                     activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
-                    sceneFinished(scene, Result.SUCCESS, startTime + 3)
+                    sceneFinished(scene, Result.SUCCESS, startTime + 3),
                 );
 
                 return stageManager.allDone().then(_ =>
@@ -104,7 +104,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
                     activityStarted('Navigates to amazon.com', startTime + 3),
                     activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 4),
-                    sceneFinished(scene, Result.SUCCESS, startTime + 5)
+                    sceneFinished(scene, Result.SUCCESS, startTime + 5),
                 );
 
                 return stageManager.allDone().then(_ =>
@@ -137,7 +137,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
                     activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
                     activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
-                    sceneFinished(scene, Result.SUCCESS, startTime + 9)
+                    sceneFinished(scene, Result.SUCCESS, startTime + 9),
                 );
 
                 return stageManager.allDone().then(_ =>
@@ -180,7 +180,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
                         activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
                         photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
-                        sceneFinished(scene, Result.SUCCESS, startTime + 3)
+                        sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -207,7 +207,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         activityStarted('Buys a discounted e-book reader', startTime + 1),
                         activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
                         photoFailed('Buys a discounted e-book reader', startTime + 2),
-                        sceneFinished(scene, Result.SUCCESS, startTime + 3)
+                        sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -238,7 +238,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 7),
                             activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
                             photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 8),
-                        sceneFinished(scene, Result.SUCCESS, startTime + 9)
+                        sceneFinished(scene, Result.SUCCESS, startTime + 9),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -299,7 +299,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 photoTaken('Searches for discounted e-book readers', 'searches.png', startTime + 8),
                             activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 9),
                             photoTaken('Buys a discounted e-book reader', 'buys.png', startTime + 9),
-                        sceneFinished(scene, Result.SUCCESS, startTime + 10)
+                        sceneFinished(scene, Result.SUCCESS, startTime + 10),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -362,7 +362,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneStarted(scene, startTime),
                         activityStarted('Buys a discounted e-book reader', startTime + 1),
                         activityFinished('Buys a discounted e-book reader', Result.ERROR, startTime + 2, error),
-                        sceneFinished(scene, Result.ERROR, startTime + 3, error)
+                        sceneFinished(scene, Result.ERROR, startTime + 3, error),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -418,7 +418,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
-                        sceneFinished(aScene, Result.SUCCESS, startTime + 1)
+                        sceneFinished(aScene, Result.SUCCESS, startTime + 1),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -439,7 +439,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(taggedScene, startTime),
-                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -463,7 +463,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(taggedScene, startTime),
-                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -488,7 +488,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(taggedScene, startTime),
-                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -524,7 +524,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(taggedScene, startTime),
-                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1)
+                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
                     return stageManager.allDone().then(_ =>
@@ -549,7 +549,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
             });
 
-            function givenFollowingEvents(...events: DomainEvent<any>[]) {
+            function givenFollowingEvents(...events: Array<DomainEvent<any>>) {
                 events.forEach(event => stage.manager.notifyOf(event));
             }
 

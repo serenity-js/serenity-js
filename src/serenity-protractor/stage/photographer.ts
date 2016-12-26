@@ -73,7 +73,7 @@ export class PhotographySchedule {
             this.activityOfInterest,
             this.photoTiming,
             new FileSystem(this.pathToPhotos),
-            this.photoNamingStrategy
+            this.photoNamingStrategy,
         );
     }
 }
@@ -122,7 +122,7 @@ export class Photographer implements StageCrewMember {
 
     private photographWorkOf(actor: UsesAbilities): PromiseLike<Photo> {
 
-        let saveScreenshot = (data) => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
+        let saveScreenshot = data => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
 
         let ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
             if (error.message.indexOf('does not have a valid session ID') > -1) {
@@ -136,7 +136,7 @@ export class Photographer implements StageCrewMember {
             .then(saveScreenshot)
             .then(
                 path  => new Photo(path),
-                error => ignoreInactiveBrowserButReportAnyOther(error)
+                error => ignoreInactiveBrowserButReportAnyOther(error),
             );
     }
 }

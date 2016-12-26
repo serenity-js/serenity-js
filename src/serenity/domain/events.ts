@@ -1,5 +1,5 @@
-import { Activity, Outcome, PhotoReceipt, Scene } from './model';
 import * as moment from 'moment';
+import { Activity, Outcome, PhotoReceipt, Scene } from './model';
 
 export class DomainEvent<T> {
     private type: string;

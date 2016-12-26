@@ -25,7 +25,7 @@ export class Spawned {
         spawned.on('message', event => this.messages.push(deserialised(event)));
 
         this.result = new Promise( (resolve, reject) => {
-            spawned.on('close', (exitCode) => {
+            spawned.on('close', exitCode => {
                 if (exitCode !== 0) {
                     reject(exitCode);
                 } else {
@@ -46,22 +46,22 @@ function deserialised(event: any): DomainEvent<any> {
         case 'SceneStarts':
             return new SceneStarts(
                 scene(event.value),
-                event.timestamp
+                event.timestamp,
             );
         case 'ActivityStarts':
             return new ActivityStarts(
                 activity(event.value),
-                event.timestamp
+                event.timestamp,
             );
         case 'ActivityFinished':
             return new ActivityFinished(
                 outcome<Activity>(activity, event.value),
-                event.timestamp
+                event.timestamp,
             );
         case 'SceneFinished':
             return new SceneFinished(
                 outcome<Scene>(scene, event.value),
-                event.timestamp
+                event.timestamp,
             );
         default:
             return event;

@@ -57,7 +57,7 @@ export class Tag {
 
         return new Tag(
             type,
-            values.split(',').filter(_ => _.length > 0).map(_ => _.trim())
+            values.split(',').filter(_ => _.length > 0).map(_ => _.trim()),
         );
     }
 

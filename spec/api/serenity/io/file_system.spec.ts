@@ -20,7 +20,7 @@ describe ('FileSystem', () => {
         it ('stores a JSON file at a desired location', () => {
             let out = new FileSystem(processCWD);
 
-            return out.store('outlet/some.json', JSON.stringify(originalJSON)).then((absolutePath) => {
+            return out.store('outlet/some.json', JSON.stringify(originalJSON)).then(absolutePath => {
 
                 expect(fs.existsSync(absolutePath)).to.be.true;
                 expect(jsonFrom(absolutePath)).to.eql(originalJSON);
@@ -76,7 +76,7 @@ describe ('FileSystem', () => {
         it ('stores a base64-encoded picture at a desired location', () => {
             let out = new FileSystem(processCWD);
 
-            return out.store('outlet/some.png', imageBuffer).then((absolutePath) => {
+            return out.store('outlet/some.png', imageBuffer).then(absolutePath => {
                 expect(fs.existsSync(absolutePath)).to.be.true;
                 expect(pictureAt(absolutePath)).to.eql(image);
             });

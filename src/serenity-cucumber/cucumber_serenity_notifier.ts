@@ -100,7 +100,7 @@ class CucumberScene extends Scene {
             scenario.getFeature().getName(),
             scenario.getUri(),
             scenario.getTags().map(toSerenityTag),
-            `${scenario.getFeature().getName()}:${scenario.getLine()}:${scenario.getName()}`
+            `${scenario.getFeature().getName()}:${scenario.getLine()}:${scenario.getName()}`,
         );
     }
 }

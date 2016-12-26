@@ -28,7 +28,7 @@ export class Enter implements Interaction {
 
     performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
         return actor.attemptsTo(
-            ...this.interactions
+            ...this.interactions,
         );
     }
 

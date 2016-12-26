@@ -18,9 +18,10 @@ import { Default_Path_To_Reports } from '../serenity';
 import { Stage, StageCrewMember } from './';
 
 import * as path from 'path';
-import { StackFrame, parse } from 'stack-trace';
-import { Md5 } from 'ts-md5/dist/md5';
 import _ = require('lodash');
+
+import { parse, StackFrame } from 'stack-trace';
+import { Md5 } from 'ts-md5/dist/md5';
 
 export function jsonReporter(pathToReports: string = Default_Path_To_Reports): StageCrewMember {
     return new JsonReporter(new FileSystem(pathToReports));
@@ -74,7 +75,7 @@ export class JsonReporter implements StageCrewMember {
         this.rehearsal.finished(value, timestamp);
 
         this.stage.manager.informOfWorkInProgress(
-            this.rehearsal.report().then(report => this.fs.store(filename, JSON.stringify(report)))
+            this.rehearsal.report().then(report => this.fs.store(filename, JSON.stringify(report))),
         );
     }
 }
@@ -169,10 +170,10 @@ abstract class SerenityReport<T> {
         };
     }
 
-    protected mapAll<I>(items: PromiseLike<I>[], mapper: (I) => any = (x) => x): Promise<any[]> {
-        let onlyDefined = (item) => item !== undefined;
+    protected mapAll<I>(items: Array<PromiseLike<I>>, mapper: (I) => any = x => x): Promise<any[]> {
+        let onlyDefined = item => item !== undefined;
 
-        return Promise.all<I>(items).then( (all) => all.filter(onlyDefined).map(mapper) );
+        return Promise.all<I>(items).then(all => all.filter(onlyDefined).map(mapper) );
     }
 
     protected ifNotEmpty<T>(list: T[]): T[] {
@@ -180,13 +181,13 @@ abstract class SerenityReport<T> {
     }
 
     // todo: extract a parser
-    private stackTraceOf(error: Error): Array<ErrorStackFrame> {
+    private stackTraceOf(error: Error): ErrorStackFrame[] {
         let serenityCode = /node_modules[\\/]serenity/,
-            onlyIfFound  = (index) => index !== -1 ? index : undefined,
+            onlyIfFound  = index => index !== -1 ? index : undefined,
             firstSerenityStackFrame = (stack: StackFrame[]): number => onlyIfFound(stack.findIndex(frame => !! serenityCode.exec(frame.getFileName()))),
             parsed = parse(error);
 
-        return parsed.slice(0, firstSerenityStackFrame(parsed)).map((frame) => {
+        return parsed.slice(0, firstSerenityStackFrame(parsed)).map(frame => {
             return {
                 declaringClass: frame.getTypeName() || frame.getFunctionName() || '',
                 methodName:     frame.getMethodName() || frame.getFunctionName() || '',
@@ -204,7 +205,7 @@ class SceneReport extends SerenityReport<Scene> {
     }
 
     toJSON(): Promise<any> {
-        return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
+        return this.mapAll(this.children.map(r => r.toJSON())).then(serialisedChildren => {
 
             return {
                 name:           this.scene.name,
@@ -245,7 +246,7 @@ class SceneReport extends SerenityReport<Scene> {
 
     private issuesCoveredBy(scene: Scene) {
         const onlyIssueTags = this.isAnIssue,
-              toIssueIds    = (tag) => tag.values;
+              toIssueIds    = tag => tag.values;
 
         return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value();
     }
@@ -287,7 +288,7 @@ class SceneReport extends SerenityReport<Scene> {
 }
 
 class ActivityReport extends SerenityReport<Activity> {
-    private promisedPhotos: PromiseLike<Photo>[] = [];
+    private promisedPhotos: Array<PromiseLike<Photo>> = [];
 
     constructor(private activity: Activity, startTimestamp: number) {
         super(startTimestamp);
@@ -306,8 +307,8 @@ class ActivityReport extends SerenityReport<Activity> {
     }
 
     toJSON(): Promise<any> {
-        return this.mapAll(this.promisedPhotos, this.serialise).then( (serialisedPhotos) => {
-            return this.mapAll(this.children.map((r) => r.toJSON())).then( (serialisedChildren) => {
+        return this.mapAll(this.promisedPhotos, this.serialise).then(serialisedPhotos => {
+            return this.mapAll(this.children.map(r => r.toJSON())).then(serialisedChildren => {
                 return {
                     description: this.activity.name,
                     startTime:   this.startedAt,

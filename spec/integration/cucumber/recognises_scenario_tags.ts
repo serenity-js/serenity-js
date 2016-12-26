@@ -9,7 +9,7 @@ describe('When working with Cucumber', function () {
 
     const protractor = spawner(
         process.cwd() + '/node_modules/.bin/protractor',
-        { cwd: __dirname, silent: true }
+        { cwd: __dirname, silent: true },
     );
 
     describe('Serenity/JS', () => {
@@ -17,7 +17,7 @@ describe('When working with Cucumber', function () {
         it('recognises single-value scenario tags', () => {
 
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/recognises_single_value_tags.feature'
+                '--specs', '**/recognises_single_value_tags.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -46,7 +46,7 @@ describe('When working with Cucumber', function () {
         it('recognises multi-value scenario tags', () => {
 
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/recognises_multi_value_tags.feature'
+                '--specs', '**/recognises_multi_value_tags.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
