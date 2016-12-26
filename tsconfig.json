@@ -10,13 +10,18 @@
     "outDir": "./staging/transpiled"
   },
 
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+
   "files": [
     "node_modules/chai-smoothie/lib/chai-smoothie.d.ts",
     "src/serenity-cucumber/cucumber.d.ts"
   ],
 
-  "typeRoots": [
-    "node_modules/@types"
+  "include": [
+    "src/**/*.ts",
+    "spec/**/*.ts"
   ],
 
   "exclude": [
