@@ -644,3 +644,5 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
 development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
+
+[![Analytics](https://ga-beacon.appspot.com/UA-85788349-2/serenity-js/docs/from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md?pixel)](https://github.com/igrigorik/ga-beacon)

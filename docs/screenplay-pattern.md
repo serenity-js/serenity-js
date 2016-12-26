@@ -268,3 +268,5 @@ Found a typo or a broken link? Raise [an issue](https://github.com/jan-molak/ser
 or submit a pull request.
 
 Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
+
+[![Analytics](https://ga-beacon.appspot.com/UA-85788349-2/serenity-js/docs/screenplay-pattern.md?pixel)](https://github.com/igrigorik/ga-beacon)
