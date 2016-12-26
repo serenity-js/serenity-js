@@ -7,12 +7,27 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./staging/transpiled"
-  },
+    "outDir": "./staging/transpiled",
 
-  "typeRoots": [
-    "node_modules/@types"
-  ],
+    "types": [
+      "graceful-fs",
+      "lodash",
+      "mkdirp",
+      "stack-trace",
+      "node",
+      "selenium-webdriver",
+
+      "chai",
+      "chai-as-promised",
+      "express",
+      "express-serve-static-core",
+      "mocha",
+      "mock-fs",
+      "nock",
+      "sinon",
+      "sinon-chai"
+    ]
+  },
 
   "files": [
     "node_modules/chai-smoothie/lib/chai-smoothie.d.ts",
