@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
+    "lib": [ "es5", "es6" ],
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "staging/transpiled"
+    "outDir": "./staging/transpiled"
   },
+
+  "files": [
+    "node_modules/chai-smoothie/lib/chai-smoothie.d.ts",
+    "src/serenity-cucumber/cucumber.d.ts"
+  ],
 
   "typeRoots": [
     "node_modules/@types"

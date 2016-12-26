@@ -43,7 +43,7 @@ synced.describe ('When demonstrating the usage of a HTML page, a test scenario',
 
     synced.it ('can read the text of all elements matching the target', () =>
         expect(james.toSee(Text.ofAll(Cookbook.Table_of_Contents)))
-            .eventually.deep.contain('Working with static websites')
+            .eventually.deep.include('Working with static websites')
     );
 
     synced.it ('can read the title of the website', () =>

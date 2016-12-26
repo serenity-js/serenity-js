@@ -41,13 +41,13 @@ declare namespace cucumber {
     // -- Listener
 
     export class EventListener {
-        hear(event: Event, callback: ()=>void);
+        hear(event: events.Event, callback: ()=>void);
 
-        hasHandlerForEvent(event: Event): boolean;
+        hasHandlerForEvent(event: events.Event): boolean;
 
-        buildHandlerNameForEvent(event: Event);
+        buildHandlerNameForEvent(event: events.Event);
 
-        getHandlerForEvent(event: Event): EventHook;
+        getHandlerForEvent(event: events.Event): EventHook;
 
         buildHandlerName(shortName: string): string;
 
@@ -188,7 +188,7 @@ declare namespace cucumber {
     }
 
     interface EventHook {
-        (event: Event, callback?: ()=>void): void;
+        (event: events.Event, callback?: ()=>void): void;
     }
 
     interface SimpleHook {
