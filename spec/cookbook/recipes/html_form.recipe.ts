@@ -1,7 +1,7 @@
 import synced = require('selenium-webdriver/testing');
 import expect = require('../expect');
-import { Actor, BrowseTheWeb, Target } from '../../src/screenplay-protractor';
-import { Click, Enter, Open, Select, SelectedValue, SelectedValues, Text, Value } from '../../src/serenity-protractor';
+import { Actor, BrowseTheWeb, Target } from '../../../src/screenplay-protractor';
+import { Click, Enter, Open, Select, SelectedValue, SelectedValues, Text, Value } from '../../../src/serenity-protractor';
 
 import { AppServer } from '../server';
 
@@ -81,7 +81,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
             Select.theValue('France').from(SingleCountry.Selector)
         ).then(() => Promise.all([
             expect(james.toSee(SelectedValue.of(SingleCountry.Selector))).eventually.equal('France'),
-            expect(james.toSee(Text.of(SingleCountry.Result))).eventually.equal('France')
+            expect(james.toSee(Text.of(SingleCountry.Result))).eventually.equal('France'),
         ]))
     );
 

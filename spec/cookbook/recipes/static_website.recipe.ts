@@ -1,8 +1,8 @@
 import synced = require('selenium-webdriver/testing');
 import expect = require('../expect');
 
-import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../src/screenplay-protractor';
-import { Open, Text, WebElement } from '../../src/serenity-protractor';
+import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../../src/screenplay-protractor';
+import { Open, Text, WebElement } from '../../../src/serenity-protractor';
 import { AppServer } from '../server';
 import { by, protractor } from 'protractor';
 
