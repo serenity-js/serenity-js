@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/js/angular.min.js"></script>
+    <title>demo app</title>
+</head>
+<body ng-app="demo">
+
+    <section ng-controller="timeouts" id="timeouts" ng-cloak>
+
+        <div id="angular">
+            <button ng-click="ngTimeout()">Trigger Angular "$timeout"</button>
+            <pre ng-show="ngTimeoutWorks" class="ng-hide">Angular timeout works!</pre>
+        </div>
+
+        <div id="setTimeout">
+            <button ng-click="jsTimeout()">Trigger JavaScript "setTimeout"</button>
+            <pre ng-show="jsTimeoutWorks" class="ng-hide">JavaScript timeout works!</pre>
+        </div>
+
+    </section>
+
+    <script>
+        angular.module('demo', []).controller('timeouts', ['$scope', '$timeout', function ($scope, $timeout) {
+
+            $scope.ngTimeoutWorks = false;
+            $scope.ngTimeout = () => {
+                $timeout(() => {
+                    $scope.ngTimeoutWorks = true;
+                }, 500);
+            };
+
+            $scope.jsTimeoutWorks = false;
+            $scope.jsTimeout = () => {
+                setTimeout(function () {
+                    $scope.jsTimeoutWorks = true;
+                    $scope.$apply();
+                }, 500);
+            };
+        }]);
+    </script>
+</body>
+</html>

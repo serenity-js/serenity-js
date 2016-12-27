@@ -57,6 +57,21 @@ export class BrowseTheWeb implements Ability {
         return this.browser.driver.manage();
     }
 
+    sleep(millis: number): PromiseLike<void> {
+        return defer(() => this.browser.sleep(millis));
+    }
+
+    wait(condition: webdriver.promise.Promise<any> | webdriver.until.Condition<any> | Function,
+         timeout?: number,
+         message?: string): PromiseLike<void>
+    {
+        return this.browser.wait(
+            condition,
+            timeout,
+            message,
+        );
+    }
+
     constructor(private browser: ProtractorBrowser) {
     }
 }
