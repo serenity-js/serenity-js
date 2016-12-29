@@ -9,7 +9,7 @@ export class Enter implements Interaction {
     private target: Target;
     private interactions: Interaction[] = [];
 
-    static theValue(value: string): Enter {
+    static theValue(value: string | number): Enter {
         return new Enter(value);
     }
 
@@ -32,15 +32,15 @@ export class Enter implements Interaction {
         );
     }
 
-    constructor(private value: string) { }
+    constructor(private value: string | number) { }
 }
 
 class EnterValue implements Interaction {
 
     @step('{0} enters "#value" into #target')
     performAs(actor: UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value);
+        return BrowseTheWeb.as(actor).locate(this.target).sendKeys(<string> this.value);
     }
 
-    constructor(private value: string, private target: Target) { }
+    constructor(private value: string | number, private target: Target) { }
 }
