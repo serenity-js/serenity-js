@@ -3,26 +3,70 @@ import expect = require('../expect');
 
 import { by, protractor } from 'protractor';
 
-import { Actor, BrowseTheWeb, Click, Duration, Is, Open, Target, Wait, WebElement } from '../../src/screenplay-protractor';
+import {
+    Actor,
+    BrowseTheWeb,
+    Clear,
+    Click,
+    Duration,
+    Enter,
+    Is,
+    Open,
+    PerformsTasks,
+    Select,
+    Target,
+    Task,
+    Wait,
+    WebElement,
+} from '../../src/screenplay-protractor';
 
 import { AppServer } from '../support/server';
 
-export class AngularTimeout {
-    static Button                 = Target.the('NG $timeout trigger').located(by.css('#timeouts #angular button'));
-    static Result = Target.the('NG $timeout result').located(by.css('#timeouts #angular pre'));
+export class Playground {
+    static Examples       = Target.the('example type').located(by.id('example_type'));
+    static Timeout_Type        = Target.the('timeout function type').located(by.id('timeout_type'));
+    static Timeout_Length      = Target.the('timeout length').located(by.id('timeout_length'));
+    static Trigger = Target.the('trigger button').located(by.css('#timeouts button'));
+    static Result  = Target.the('result').located(by.css('#timeouts #example .result'));
 }
 
-export class JavaScriptTimeout {
-    static Button = Target.the('JS timeout trigger').located(by.css('#timeouts #setTimeout button'));
-    static Result = Target.the('JS timeout result').located(by.css('#timeouts #setTimeout pre'));
+class ChooseAnExample implements Task {
+    private timeout_length = Duration.ofMillis(500);
+    private timeout_type   = '$timeout' ;
+
+    static whereElementBecomes = (example: string) => new ChooseAnExample(example);
+
+    using = (timeout_type: string) => {
+        this.timeout_type = timeout_type;
+
+        return this;
+    }
+
+    after = (length: Duration) => {
+        this.timeout_length = length;
+
+        return this;
+    }
+
+    performAs = (actor: PerformsTasks) => actor.attemptsTo(
+        Select.theValue(this.example).from(Playground.Examples),
+        Select.theValue(this.timeout_type).from(Playground.Timeout_Type),
+        Clear.theValueOf(Playground.Timeout_Length),
+        Enter.theValue(this.timeout_length.toMillis()).into(Playground.Timeout_Length),
+        Click.on(Playground.Trigger),
+    );
+
+    constructor(private example: string) {
+    }
 }
 
 synced.describe ('When waiting for things to happen, a test scenario', function () {
 
     this.timeout(10000);
 
-    const Not_Long_Enough = Duration.ofMillis(200),
-          Long_Enough     = Duration.ofMillis(1500);
+    const Trigger_Delay   = Duration.ofMillis(500),
+          Not_Long_Enough = Duration.ofMillis(100),
+          Long_Enough     = Duration.ofMillis(1000);
 
     let app   = new AppServer();
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
@@ -31,93 +75,179 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
     synced.after(app.stop());
 
     synced.beforeEach(() =>
+
         james.attemptsTo(
             Open.browserOn(app.demonstrating('waiting')),
-        ).then(() => Promise.all([
-            expect(james.toSee(WebElement.of(AngularTimeout.Result))).not.displayed,
-            expect(james.toSee(WebElement.of(JavaScriptTimeout.Result))).not.displayed,
-        ])));
+        ).
 
-    synced.describe('using Passive Wait', () => {
+        then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
 
-        synced.it ('will fail if the timeout is too short', () =>
-            james.attemptsTo(
-                Click.on(AngularTimeout.Button),
-                Wait.for(Not_Long_Enough),
-            ).then(() => expect(james.toSee(WebElement.of(AngularTimeout.Result))).not.displayed));
+    [
+        'setTimeout',
+        '$timeout',
+        '$interval',
+    ].forEach(timeoutFunction => {
 
-        synced.it ('will pass if the timeout is long enough', () =>
-            james.attemptsTo(
-                Click.on(AngularTimeout.Button),
-                Wait.for(Long_Enough),
-            ).then(() => expect(james.toSee(WebElement.of(AngularTimeout.Result))).displayed));
-    });
+        synced.describe(`using Passive Wait (${ timeoutFunction })`, () => {
 
-    synced.describe('using Active Wait', () => {
+            synced.it ('will fail if the timeout is too short', () =>
 
-        synced.describe('with Angular apps', () => {
-            synced.describe('to determine if an element is visible', () => {
+                james.attemptsTo(
+                    ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
+                    Wait.for(Not_Long_Enough),
+                ).
 
-                synced.it('will fail if the condition is not met within the timeout (timeout not triggered)', () =>
-                    expect(james.attemptsTo(
-                        Wait.until(AngularTimeout.Result, Is.visible()),
-                    )).to.be.rejectedWith('"the NG $timeout result" did not become visible'));
+                then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
 
-                synced.it('will fail if the condition is not met within the timeout (timeout triggered)', () =>
-                    expect(james.attemptsTo(
-                        Click.on(AngularTimeout.Button),
-                        Wait.upTo(Not_Long_Enough).until(AngularTimeout.Result, Is.visible()),
-                    )).to.be.rejectedWith('"the NG $timeout result" did not become visible'));
+            synced.it ('will pass if the timeout is long enough', () =>
 
-                synced.it('will pass if the condition is met within the timeout', () =>
-                    expect(james.attemptsTo(
-                        Click.on(AngularTimeout.Button),
-                        Wait.upTo(Long_Enough).until(AngularTimeout.Result, Is.visible()),
-                    )).to.be.fulfilled.then(() => Promise.all([
-                        expect(james.toSee(WebElement.of(AngularTimeout.Result))).displayed,
-                        expect(james.toSee(WebElement.of(AngularTimeout.Result))).present,
-                    ])));
-            });
+                james.attemptsTo(
+                    ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
+                    Wait.for(Long_Enough),
+                ).
 
-            synced.describe('to determine if an element is invisible', () => {
-
-                synced.it('will pass if the element is already invisible', () =>
-                    james.attemptsTo(
-                        Wait.until(AngularTimeout.Result, Is.invisible()),
-                    ).then(() => expect(james.toSee(WebElement.of(AngularTimeout.Result))).not.displayed));
-            });
+                then(() => expect(james.toSee(WebElement.of(Playground.Result))).displayed));
         });
 
-        synced.describe('with non-Angular apps', () => {
+        synced.describe(`using Active Wait (${ timeoutFunction })`, () => {
+
+            synced.it('can rely on a default timeout provided by Wait.until(..) to be sensibly long enough', () =>
+
+                expect(james.attemptsTo(
+                    ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
+                    Wait.until(Playground.Result, Is.visible()),
+                )).to.be.fulfilled);
+
             synced.describe('to determine if an element is visible', () => {
 
-                synced.it('will fail if the condition is not met within the timeout (timeout not triggered)', () =>
-                    expect(james.attemptsTo(
-                        Wait.until(JavaScriptTimeout.Result, Is.visible()),
-                    )).to.be.rejectedWith('"the JS timeout result" did not become visible'));
+                synced.it('will fail if the condition is not met within the timeout', () =>
 
-                synced.it('will fail if the condition is not met within the timeout (timeout triggered)', () =>
                     expect(james.attemptsTo(
-                        Click.on(JavaScriptTimeout.Result),
-                        Wait.upTo(Not_Long_Enough).until(JavaScriptTimeout.Result, Is.visible()),
-                    )).to.be.rejectedWith('"the JS timeout result" did not become visible'));
+                        ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.visible()),
+                    )).to.be.rejectedWith('The result did not become visible'));
 
                 synced.it('will pass if the condition is met within the timeout', () =>
+
                     expect(james.attemptsTo(
-                        Click.on(JavaScriptTimeout.Button),
-                        Wait.upTo(Long_Enough).until(JavaScriptTimeout.Result, Is.visible()),
-                    )).to.be.fulfilled.then(() => Promise.all([
-                        expect(james.toSee(WebElement.of(JavaScriptTimeout.Result))).displayed,
-                        expect(james.toSee(WebElement.of(JavaScriptTimeout.Result))).present,
+                        ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.visible()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).displayed,
+                        expect(james.toSee(WebElement.of(Playground.Result))).present,
                     ])));
             });
 
             synced.describe('to determine if an element is invisible', () => {
 
-                synced.it('will pass if the element is already invisible', () =>
-                    james.attemptsTo(
-                        Wait.until(JavaScriptTimeout.Result, Is.invisible()),
-                    ).then(() => expect(james.toSee(WebElement.of(JavaScriptTimeout.Result))).not.displayed));
+                synced.it('will fail if the condition is not met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Invisible').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.invisible()),
+                    )).to.be.rejectedWith('The result did not become invisible'));
+
+                synced.it('will pass if the condition is met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Invisible').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.invisible()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).not.displayed,
+                        expect(james.toSee(WebElement.of(Playground.Result))).present,
+                    ])));
+            });
+
+            synced.describe('to determine if an element is present', () => {
+
+                synced.it('will fail if the condition is not met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.present()),
+                    )).to.be.rejectedWith('The result did not become invisible'));
+
+                synced.it('will pass if the condition is met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.present()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).displayed,
+                        expect(james.toSee(WebElement.of(Playground.Result))).present,
+                    ])));
+            });
+
+            synced.describe('to determine if an element is stale (detached from the DOM)', () => {
+
+                synced.it('will fail if the condition is not met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Stale').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.stale()),
+                    )).to.be.rejectedWith('The result did not become stale'));
+
+                synced.it('will pass if the condition is met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Stale').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.stale()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).not.present,
+                    ])));
+            });
+
+            synced.describe('to determine if an element is selected', () => {
+
+                synced.it('will fail if the condition is not met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Selected').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.selected()),
+                    )).to.be.rejectedWith('The result did not become selected'));
+
+                synced.it('will pass if the condition is met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Selected').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.selected()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).present,
+                        expect(james.toSee(WebElement.of(Playground.Result))).displayed,
+                        expect(james.toSee(WebElement.of(Playground.Result))).selected,
+                    ])));
+            });
+
+            synced.describe('to determine if an element is clickable', () => {
+
+                synced.it('will fail if the condition is not met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Clickable').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.clickable()),
+                    )).to.be.rejectedWith('The result did not become clickable'));
+
+                synced.it('will pass if the condition is met within the timeout', () =>
+
+                    expect(james.attemptsTo(
+                        ChooseAnExample.whereElementBecomes('Clickable').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.clickable()),
+                    )).to.be.fulfilled.
+
+                    then(() => Promise.all([
+                        expect(james.toSee(WebElement.of(Playground.Result))).present,
+                        expect(james.toSee(WebElement.of(Playground.Result))).displayed,
+                    ])));
             });
         });
     });

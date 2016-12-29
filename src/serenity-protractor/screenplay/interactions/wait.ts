@@ -5,7 +5,6 @@ import { Target } from '../ui/target';
 import { ElementFinder, protractor } from 'protractor';
 
 export class Duration {
-
     static ofMillis  = (milliseconds: number) => new Duration(milliseconds);
     static ofSeconds = (seconds: number)      => Duration.ofMillis(seconds * 1000);
 
@@ -16,34 +15,37 @@ export class Duration {
     }
 }
 
-export type TimeoutCondition<T> = (s: T, timeout: Duration) => Performable;
-export type TargetTimeoutCondition = TimeoutCondition<Target>;
+export type SuccessCondition<T> = (subject: T, timeout: Duration) => Performable;
 
 export class Wait {
     static for   = (duration: Duration): Interaction => new PassiveWait(duration);
-    static upTo  = (timeout: Duration)  => new ActiveWait(timeout);
-    static until<T> (somethingToWaitFor: T, condition: TimeoutCondition<T>) {
+    static upTo  = (timeout: Duration) => new ActiveWait(timeout);
+    static until<T> (somethingToWaitFor: T, condition: SuccessCondition<T>) {
         return new ActiveWait().until(somethingToWaitFor, condition);
     }
 }
 
 export class ActiveWait {
-    until<T> (somethingToWaitFor: T, condition: TimeoutCondition<T>): Performable {
+    private static Default_Timeout = Duration.ofSeconds(2);
+
+    until<T> (somethingToWaitFor: T, condition: SuccessCondition<T>): Performable {
         return condition(somethingToWaitFor, this.timeout);
     }
 
-    constructor(private timeout: Duration = Duration.ofSeconds(1)) {
+    constructor(private timeout: Duration = ActiveWait.Default_Timeout) {
     }
 }
 
 export class Is {
+    static visible   = () => Is.aTargetThat(new IsVisible());
+    static invisible = () => Is.aTargetThat(new IsInvisible());
+    static present   = () => Is.aTargetThat(new IsPresent());
+    static stale     = () => Is.aTargetThat(new IsStale());
+    static selected  = () => Is.aTargetThat(new IsSelected());
+    static clickable = () => Is.aTargetThat(new IsClickable());
 
-    static visible(): TargetTimeoutCondition {
-        return (target: Target, timeout: Duration) => new WaitUntil(target, new Visibility(), timeout);
-    }
-
-    static invisible(): TargetTimeoutCondition {
-        return (target: Target, timeout: Duration) => new WaitUntil(target, new Invisibility(), timeout);
+    private static aTargetThat(condition: Condition<ElementFinder>): SuccessCondition<Target>{
+        return (target: Target, timeout: Duration) => new WaitUntil(target, condition, timeout);
     }
 }
 
@@ -61,14 +63,34 @@ interface Condition<T> {
     name(): string;
 }
 
-class Visibility implements Condition<ElementFinder> {
+class IsVisible implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.visibilityOf(thing);
     name  = () => 'visible';
 }
 
-class Invisibility implements Condition<ElementFinder> {
+class IsInvisible implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.invisibilityOf(thing);
     name  = () => 'invisible';
+}
+
+class IsPresent implements Condition<ElementFinder> {
+    check = (thing: ElementFinder): Function => protractor.ExpectedConditions.presenceOf(thing);
+    name  = () => 'invisible';
+}
+
+class IsStale implements Condition<ElementFinder> {
+    check = (thing: ElementFinder): Function => protractor.ExpectedConditions.stalenessOf(thing);
+    name  = () => 'stale';
+}
+
+class IsSelected implements Condition<ElementFinder> {
+    check = (thing: ElementFinder): Function => protractor.ExpectedConditions.elementToBeSelected(thing);
+    name  = () => 'selected';
+}
+
+class IsClickable implements Condition<ElementFinder> {
+    check = (thing: ElementFinder): Function => protractor.ExpectedConditions.elementToBeClickable(thing);
+    name  = () => 'clickable';
 }
 
 class WaitUntil implements Interaction {
@@ -77,23 +99,28 @@ class WaitUntil implements Interaction {
         return BrowseTheWeb.as(actor).wait(
             this.condition.check(BrowseTheWeb.as(actor).locate(this.target)),
             this.timeout.toMillis(),
-            `"${ this.target }" did not become ${ this.condition.name() } within ${this.timeout}`,
+            `${ this.uppercased(this.target) } did not become ${ this.condition.name() } within ${this.timeout}`,
         );
     }
 
     constructor(private target: Target, private condition: Condition<ElementFinder>, private timeout: Duration) {
+    }
+
+    private uppercased(target: Target) {
+        let name = target.toString();
+        return name[0].toUpperCase() + name.slice(1);
     }
 }
 
 /*
  [x] visibilityOf(elementFinder: ElementFinder): Function {
  [x] invisibilityOf(elementFinder: ElementFinder): Function {
- [ ] presenceOf(elementFinder: ElementFinder): Function {
- [ ] stalenessOf(elementFinder: ElementFinder): Function {
- [ ] elementToBeSelected(elementFinder: ElementFinder): Function {
+ [x] presenceOf(elementFinder: ElementFinder): Function {
+ [x] stalenessOf(elementFinder: ElementFinder): Function {
+ [x] elementToBeSelected(elementFinder: ElementFinder): Function {
+ [x] elementToBeClickable(elementFinder: ElementFinder): Function {
 
  [ ] alertIsPresent(): Function {
- [ ] elementToBeClickable(elementFinder: ElementFinder): Function {
  [ ] textToBePresentInElement(elementFinder: ElementFinder, text: string): Function {
  [ ] textToBePresentInElementValue(elementFinder: ElementFinder, text: string): Function {
  [ ] titleContains(title: string): Function {
