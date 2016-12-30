@@ -184,20 +184,20 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is stale (detached from the DOM)', () => {
+            synced.describe('to determine if an element is not present in the DOM', () => {
 
                 synced.it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
-                        ChooseAnExample.whereElementBecomes('Stale').after(Trigger_Delay).using(timeoutFunction),
-                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.stale()),
-                    )).to.be.rejectedWith('The result did not become stale'));
+                        ChooseAnExample.whereElementBecomes('Absent').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.absent()),
+                    )).to.be.rejectedWith('The result did not become absent'));
 
                 synced.it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
-                        ChooseAnExample.whereElementBecomes('Stale').after(Trigger_Delay).using(timeoutFunction),
-                        Wait.upTo(Long_Enough).until(Playground.Result, Is.stale()),
+                        ChooseAnExample.whereElementBecomes('Absent').after(Trigger_Delay).using(timeoutFunction),
+                        Wait.upTo(Long_Enough).until(Playground.Result, Is.absent()),
                     )).to.be.fulfilled.
 
                     then(() => Promise.all([

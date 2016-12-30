@@ -37,12 +37,12 @@ export class ActiveWait {
 }
 
 export class Is {
-    static visible   = () => Is.aTargetThat(new IsVisible());
-    static invisible = () => Is.aTargetThat(new IsInvisible());
-    static present   = () => Is.aTargetThat(new IsPresent());
-    static stale     = () => Is.aTargetThat(new IsStale());
-    static selected  = () => Is.aTargetThat(new IsSelected());
-    static clickable = () => Is.aTargetThat(new IsClickable());
+    static visible    = () => Is.aTargetThat(new IsVisible());
+    static invisible  = () => Is.aTargetThat(new IsInvisible());
+    static present    = () => Is.aTargetThat(new IsPresent());
+    static absent     = () => Is.aTargetThat(new Absent());
+    static selected   = () => Is.aTargetThat(new IsSelected());
+    static clickable  = () => Is.aTargetThat(new IsClickable());
 
     private static aTargetThat(condition: Condition<ElementFinder>): SuccessCondition<Target>{
         return (target: Target, timeout: Duration) => new WaitUntil(target, condition, timeout);
@@ -78,9 +78,9 @@ class IsPresent implements Condition<ElementFinder> {
     name  = () => 'invisible';
 }
 
-class IsStale implements Condition<ElementFinder> {
+class Absent implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.stalenessOf(thing);
-    name  = () => 'stale';
+    name  = () => 'absent';
 }
 
 class IsSelected implements Condition<ElementFinder> {
