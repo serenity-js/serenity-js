@@ -7,6 +7,7 @@ import { AppServer } from '../support/server';
 
 import { by, protractor } from 'protractor';
 
+/// [pageobjects]
 class Username {
     static Field  = Target.the('username field').located(by.css('[name="text-input"] label[for="text"] input'));
     static Result = Target.the('username value').located(by.css('[name="text-input"] label[for="text"] pre'));
@@ -31,6 +32,7 @@ class MultiCountry {
     static Selector = Target.the('country selector').located(by.css('[name="options"] label[for="multiple-options"] select'));
     static Result   = Target.the('country result').located(by.css('[name="options"] label[for="multiple-options"] pre'));
 }
+/// [pageobjects]
 
 synced.describe ('When demonstrating the usage of an HTML form, a test scenario', function () {
 

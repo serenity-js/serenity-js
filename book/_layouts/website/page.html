@@ -1,0 +1,8 @@
+{% extends template.self %}
+
+{% block javascript %}
+{{ super() }}
+{% for scriptUrl in config.custom.scripts %}
+<script type="text/javascript" src="{{ scriptUrl }}"></script>
+{% endfor %}
+{% endblock %}

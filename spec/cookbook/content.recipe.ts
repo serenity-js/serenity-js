@@ -31,7 +31,7 @@ synced.describe ('When demonstrating the usage of a HTML page, a test scenario',
         // this is a standard, non-angular website; no need for angular-specific synchronisation here
         protractor.browser.ignoreSynchronization = true;
     });
-    synced.before(() => james.attemptsTo(Open.browserOn(app.demonstrating('static_website'))));
+    synced.before(() => james.attemptsTo(Open.browserOn(app.demonstrating('content'))));
     synced.after(app.stop());
 
     synced.it ('can read the text of on-screen elements', () => Promise.all([
