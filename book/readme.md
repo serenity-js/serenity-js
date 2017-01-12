@@ -1,4 +1,4 @@
-<h1><img alt="Serenity/JS" src="../images/serenity-js.svg" id="cover-logo" /></h1>
+<h1><img alt="Serenity/JS" src="images/serenity-js.svg" id="cover-logo" /></h1>
 
 A handbook by [Jan Molak](https://janmolak.com)
 

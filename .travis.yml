@@ -15,6 +15,7 @@ script:
 - npm run verify
 after_success:
 - npm run publish-coverage-report
+- npm run publish-book
 - npm run semantic-release
 branches:
   except:

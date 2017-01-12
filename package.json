@@ -26,6 +26,7 @@
     "coverage:report": "nyc report --reporter=html --reporter=lcov --temp-directory=./staging/reports/coverage --report-dir=./staging/reports/coverage",
     "report": "npm run coverage:merge && npm run coverage:report",
     "publish-coverage-report": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
+    "publish-book": "rimraf _book && gitbook build && gh-pages -d _book",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "peerDependencies": {
@@ -66,6 +67,7 @@
     "cucumber": "1.3.1",
     "cz-conventional-changelog": "1.2.0",
     "express": "4.14.0",
+    "gh-pages": "0.12.0",
     "gitbook-cli": "2.3.0",
     "gitbook-plugin-addcssjs": "1.0.2",
     "gitbook-plugin-advanced-emoji": "0.2.1",
