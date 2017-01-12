@@ -1,0 +1,531 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Speaking the right language · Serenity/JS Handbook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="Jan Molak">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-advanced-emoji/emoji-website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../website-1484186551313.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="writing-what-you-would-like-to-read.html" />
+    
+    
+    <link rel="prev" href="readme.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Serenity/JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../introduction.html">
+            
+                <a href="../introduction.html">
+            
+                    
+                    Introduction (video)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="readme.html">
+            
+                <a href="readme.html">
+            
+                    
+                    From scripts to serenity (tutorial)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.2.1" data-path="speaking-the-right-language.html">
+            
+                <a href="speaking-the-right-language.html">
+            
+                    
+                    Speaking the right language
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="writing-what-you-would-like-to-read.html">
+            
+                <a href="writing-what-you-would-like-to-read.html">
+            
+                    
+                    Writing what you'd like to read
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="making-the-tests-speak-for-themselves.html">
+            
+                <a href="making-the-tests-speak-for-themselves.html">
+            
+                    
+                    Making the tests speak for themselves
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Writing Scenarios</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../scenarios/screenplay-pattern.html">
+            
+                <a href="../scenarios/screenplay-pattern.html">
+            
+                    
+                    The Screenplay Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../license.html">
+            
+                <a href="../license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../support.html">
+            
+                <a href="../support.html">
+            
+                    
+                    Support
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Speaking the right language</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="from-scripts-to-serenity-speaking-the-right-language"><a name="from-scripts-to-serenity-speaking-the-right-language" class="plugin-anchor" href="#from-scripts-to-serenity-speaking-the-right-language"><i class="fa fa-link" aria-hidden="true"></i></a>From Scripts to Serenity: Speaking the right language</h1>
+<p>As applications get more complex, it becomes a priority for test automation systems to capture and clearly express business intent, to ensure that the most important functionality of the system is sufficiently covered. They need to be easy to scale to multiple projects and teams, and all this while keeping maintenance costs to a minimum.</p>
+<p><a href="https://github.com/angular/protractor" target="_blank">Protractor</a> is a leading test automation framework for <a href="https://angularjs.org/" target="_blank">Angular</a> applications. However, the low-level APIs it provides are not in themselves sufficient to design test automation systems that could meet the requirements of a modern business. 
+In this article, we look at the limitations of using Protractor APIs directly in your tests, and at Page Objects, a commonly-proposed way to address these limitations while introducing some new ones.</p>
+<p>I will be illustrating this using the <a href="http://www.todomvc.com/examples/angularjs/" target="_blank">TodoMVC app</a>, a simple demo application that lets you manage a todo list in a number of JavaScript frameworks.</p>
+<p><img src="images/todomvc.gif" alt="TodoMVC Angular.js app by Christoph Burgdorf, Eric Bidelman, Jacob Mumm and Igor Minar" style="display: block; margin:0 auto; width:320px;"></p>
+<h2 id="expressing-test-scenarios-in-business-language"><a name="expressing-test-scenarios-in-business-language" class="plugin-anchor" href="#expressing-test-scenarios-in-business-language"><i class="fa fa-link" aria-hidden="true"></i></a>Expressing test scenarios in business language</h2>
+<p>More and more teams nowadays are adopting a more collaborative approach to defining requirements, using tools like <a href="https://github.com/cucumber/cucumber-js" target="_blank">Cucumber</a> to define executable acceptance criteria in a more human-readable form.</p>
+<p><a href="https://github.com/cucumber/cucumber/wiki/Given-When-Then" target="_blank">Cucumber scenarios</a> are typically expressed using a high-level business language, so you won&apos;t see any mentions of clicking on buttons or entering values into fields. This helps the scenario play its role as a <a href="https://cucumber.io/blog/2014/03/03/the-worlds-most-misunderstood-collaboration-tool" target="_blank">collaboration and documentation tool</a>, without getting too tied down to how the application is implemented under the hood.</p>
+<p>For example, imagine that you need to write an acceptance test
+of the <a href="http://todomvc.com/examples/angularjs/" target="_blank">TodoMVC app</a> that describes how a user might add a new task to the todo list. Using Cucumber, you might write something like this:</p>
+<pre><code class="lang-gherkin"><span class="hljs-keyword">Feature</span>: Add new items to the todo list
+
+  In order to avoid having to remember things that need doing
+  As a forgetful person
+  I want to be able to record what I need to do in a place where I won&apos;t forget about them
+
+  <span class="hljs-keyword">Scenario</span>: Adding an item to a list with other items
+
+    <span class="hljs-keyword">Given</span> that James has a todo list containing Buy some cookies, Walk the dog
+     <span class="hljs-keyword">When</span> he adds Buy some cereal to his list
+     <span class="hljs-keyword">Then</span> his todo list should contain Buy some cookies, Walk the dog, Buy some cereal
+</code></pre>
+<p>High-level scenarios like the one above tend to change less frequently than the screens, fields and buttons used to implement them. This separation helps to keep the scenarios stable and the maintenance costs lower.</p>
+<p>For a Cucumber scenario to become an automated test, Ineed to implement the <a href="https://github.com/cucumber/cucumber/wiki/Step-Definitions" target="_blank">Given/When/Then</a> steps in the scenario using a programming language such as JavaScript.</p>
+<hr>
+<h2 id="a-test-script"><a name="a-test-script" class="plugin-anchor" href="#a-test-script"><i class="fa fa-link" aria-hidden="true"></i></a>A Test Script</h2>
+<p>The most common implementation would follow what I like to call &quot;the scripting approach&quot;.</p>
+<p>In this style of implementation, every Cucumber step is directly mapped to a series of calls
+to low-level Protractor/WebDriver APIs:</p>
+<p>One common approach would be to implement each step as a &quot;test script&quot; that makes a series of calls to low-level Protractor/WebDriver APIs:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { browser, by, element, protractor } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (name: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+
+        browser.get(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>);
+        browser.driver.manage().window().maximize();
+
+        listOf(items).forEach(item =&gt; {
+            element(by.id(<span class="hljs-string">&apos;new-todo&apos;</span>)).sendKeys(item, protractor.Key.ENTER);
+        });
+
+        browser.driver.controlFlow().execute(callback);
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^s?he adds (.*?) to (?:his|her) list$/</span>, (itemName: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+        element(by.id(<span class="hljs-string">&apos;new-todo&apos;</span>))
+            .sendKeys(itemName, protractor.Key.ENTER)
+            .then(callback);
+    });
+
+    <span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (items: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+        expect(element.all(by.repeater(<span class="hljs-string">&apos;todo in todos&apos;</span>)).getText())
+            .to.eventually.eql(listOf(items))
+            .and.notify(callback);
+    });
+};
+</code></pre>
+<p><em>In the above listing, <code>expect</code> is a reference to the <a href="https://github.com/domenic/chai-as-promised" target="_blank"><code>chai-as-promised</code></a>
+<a href="http://chaijs.com/guide/styles/#expect" target="_blank"><code>expect</code> interface</a> and <code>listOf</code> is a helper function
+that converts a comma-separated string coming from cucumber into a list of strings.
+The example is implemented in <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, so if you&apos;re not familiar
+with it yet, you might want to watch
+Anders Hejlsberg&apos;s <a href="https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript" target="_blank">&quot;Introducing TypeScript&quot;</a>.</em></p>
+<p>The code shown here does separate the business steps defined in the Given/When/Then statements from the test automation code. But the implementation is not ideal, for a number of reasons:</p>
+<ul>
+<li>There is a lot of duplication - for example, we add tasks to the list in both the Given and the When step definitions.</li>
+<li>The low-level, detail-focused code makes it hard to see at a glance if the step definitions are actually doing their job correctly. It also makes it impossible for a non-technical business person to read and verify the logic.</li>
+<li>Even small changes to the screens tend to have <a href="https://sourcemaking.com/refactoring/smells/shotgun-surgery" target="_blank">a big impact</a> on the test code, making it difficult for the tests to keep pace with the application.</li>
+<li>When a test suite like this expands, developers need to spend more and more time tackling the widespread duplication and keeping the test suite up to date with the application, which makes it harder and harder to add new tests for new functionality.</li>
+</ul>
+<p>What we need is a way to encapsulate and reuse some of the common parts.</p>
+<hr>
+<h2 id="first-step-in-the-journey-the-page-objects-pattern"><a name="first-step-in-the-journey-the-page-objects-pattern" class="plugin-anchor" href="#first-step-in-the-journey-the-page-objects-pattern"><i class="fa fa-link" aria-hidden="true"></i></a>First step in the journey: the Page Object(s) Pattern</h2>
+<p>As Selenium WebDriver became more popular in the late 2000s, and test suites began to grow bigger, developers and testers new to browser-based test automation needed a way to address these issues. In response to this, the <a href="http://docs.seleniumhq.org/" target="_blank">Selenium team</a> proposed
+the <a href="http://docs.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern" target="_blank">Page Object Pattern</a>. This simple pattern models the user interface in terms of pages, where each page is represented by a distinct class encapsulating both the definition of the page structure and the interactions that a user can perform on that page.</p>
+<p><em>It is worth noting that the original Page Object Pattern was later
+<a href="http://martinfowler.com/bliki/Page Object.html" target="_blank">refined by Martin Fowler</a>, who proposed that instead of thinking of
+the entire application as a set of pages, each page should be considered in terms of smaller page objects or &quot;widgets&quot;
+that the page contained. The implementation below uses that refined version, as it makes it slighted slightly simpler.</em></p>
+<p>Let&apos;s refactor the code from the previous example using the Page Objects pattern:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { browser, by, element, protractor } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">class</span> TodoList {
+    What_Needs_To_Be_Done = element(by.id(<span class="hljs-string">&apos;new-todo&apos;</span>));
+    Items = element.all(by.repeater(<span class="hljs-string">&apos;todo in todos&apos;</span>));
+
+    addATodoItemCalled(itemName: <span class="hljs-built_in">string</span>): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.What_Needs_To_Be_Done.sendKeys(itemName, protractor.Key.ENTER);
+    }
+
+    displayedItems(): PromiseLike&lt;<span class="hljs-built_in">string</span>[]&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.Items.getText();
+    }
+}
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">let</span> todoList = <span class="hljs-keyword">new</span> TodoList();
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (name: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+
+        browser.get(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>);
+        browser.driver.manage().window().maximize();
+
+        listOf(items).forEach(item =&gt; {
+            todoList.addATodoItemCalled(item);
+        });
+
+        browser.driver.controlFlow().execute(callback);
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^s?he adds (.*?) to (?:his|her) list$/</span>, (itemName: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+        todoList.addATodoItemCalled(itemName).then(() =&gt; callback());
+    });
+
+    <span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (items: <span class="hljs-built_in">string</span>, callback: <span class="hljs-built_in">Function</span>) =&gt; {
+        expect(todoList.displayedItems())
+            .to.eventually.eql(listOf(items))
+            .and.notify(callback);
+    });
+};
+</code></pre>
+<p>As you can see above, some of the calls to the low-level Protractor APIs, such as <code>element</code> and <code>element.all</code>,
+have been extracted into a Page Object representing the <code>TodoList</code>. This change brings a number of improvements in readability and ease of maintenance:</p>
+<ul>
+<li>We can start to implement the step definitions using business terms like <code>addATodoItemCalled</code> and <code>displayedItems</code>, rather than using Protractor calls like <code>sendKeys</code>.</li>
+<li>We&apos;ve introduced two <a href="http://refactoring.com/catalog/extractVariable.html" target="_blank">meaningful variables</a> representing
+the elements of the <code>TodoList</code> we would like to interact with: <code>What_Needs_To_Be_Done</code> and <code>Items</code>.</li>
+<li>We&apos;ve also avoided the duplication we saw previously between the <code>Given</code> and the <code>When</code> step definitions, as both of these now call the <code>addATodoItemCalled</code> method of the <code>TodoList</code> Page Object.</li>
+</ul>
+<p>Since a Page Object works with two distinct concepts, there are two reasons why it might need to be changed. The page structure may have changed, or a test might need to describe a new user interaction with that page. In both cases, deliberate or unintended changes to the page object carry a risk of having a negative impact on existing tests that use it. The more interactions and page elements a given page object describes, the higher the likelihood of the problem occurring.</p>
+<p>Page Objects also introduce a more subtle problem. As the name implies, Page Objects reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects the way you think about the application too. Instead of placing the primary focus on <strong>what</strong> the user needs to do with the application, Page Objects lead you to focus on <strong>how</strong> the user interacts with individual pages. As a result, the tests become tightly coupled to the user interface, making them more brittle and more likely to be affected by UI changes.</p>
+<p>Even though Page Objects reduce code duplication and encourage reuse across tests within a single project
+and a single test suite, the design falls short if we need to enable code reuse across multiple projects and teams.
+This of course <strong>affects the scalability</strong>.</p>
+<p>Also, the fact that each page object is tightly coupled to Protractor APIs: <code>element</code> and <code>by</code> -
+global functions that are browser instance-specific - makes it impossible to use this design &quot;as is&quot; for multi-browser
+testing (chat systems, workflow systems, multi-player games, etc.).</p>
+<p>Not to mention that even after <a href="http://refactoring.com/catalog/extractClass.html" target="_blank">extracting</a> a Page Object from the original test script,
+there&apos;s still plenty of low-level Protractor/WebDriver API calls left in the Cucumber steps. They are important as they
+deal with managing the browser window and synchronising
+WebDriver <a href="http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/promise.html" target="_blank">Control Flow</a>,
+with Cucumber callbacks, but which also cloud the business logic of the implementation.</p>
+<hr>
+<h2 id="summary"><a name="summary" class="plugin-anchor" href="#summary"><i class="fa fa-link" aria-hidden="true"></i></a>Summary</h2>
+<p>As you can see, even though Protractor and WebDriver are excellent test automation tools, their APIs
+are simply too low-level to express intent of the interactions with the system in business terms
+and free of implementation noise.</p>
+<p>The Page Object(s) Pattern addresses some of the problems, but it falls short if what you want is a test automation
+system that&apos;s easy to extend, maintain and scale to multiple projects and teams.</p>
+<p>So far it looks like the acceptance tests are not speaking the right language and there&apos;s an abstraction missing.</p>
+<p>Which leads us onto the next article: <a href="writing-what-you-would-like-to-read.html">&quot;Writing what you&apos;d like to read&quot;</a>.</p>
+<hr>
+<h3 id="your-feedback-matters"><a name="your-feedback-matters" class="plugin-anchor" href="#your-feedback-matters"><i class="fa fa-link" aria-hidden="true"></i></a>Your feedback matters!</h3>
+<p>Please feel free to <a href="https://github.com/jan-molak/serenity-js/issues" target="_blank">suggest features and improvements</a>,
+<a href="https://github.com/jan-molak/serenity-js/edit/master/from-scripts-to-serenity/speaking-the-right-language.md" target="_blank">correct any typos or broken links</a>
+and get in touch on twitter <a href="https://twitter.com/JanMolak" target="_blank">@JanMolak</a> to let me know your thoughts!</p>
+<p>If you find Serenity/JS useful, don&apos;t forget to give it a &#x2605; on github!</p>
+<p><a class="github-button" href="https://github.com/jan-molak/serenity-js" data-icon="octicon-star" data-style="mega" data-count-href="/jan-molak/serenity-js/stargazers" data-count-api="/repos/jan-molak/serenity-js#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star jan-molak/serenity-js on GitHub" target="_blank">Star</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="readme.html" class="navigation navigation-prev " aria-label="Previous page: From scripts to serenity (tutorial)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="writing-what-you-would-like-to-read.html" class="navigation navigation-next " aria-label="Next page: Writing what you'd like to read">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Speaking the right language","level":"2.2.1","depth":2,"next":{"title":"Writing what you'd like to read","level":"2.2.2","depth":2,"path":"from-scripts-to-serenity/writing-what-you-would-like-to-read.md","ref":"from-scripts-to-serenity/writing-what-you-would-like-to-read.md","articles":[]},"previous":{"title":"From scripts to serenity (tutorial)","level":"2.2","depth":1,"path":"from-scripts-to-serenity/readme.md","ref":"from-scripts-to-serenity/readme.md","articles":[{"title":"Speaking the right language","level":"2.2.1","depth":2,"path":"from-scripts-to-serenity/speaking-the-right-language.md","ref":"from-scripts-to-serenity/speaking-the-right-language.md","articles":[]},{"title":"Writing what you'd like to read","level":"2.2.2","depth":2,"path":"from-scripts-to-serenity/writing-what-you-would-like-to-read.md","ref":"from-scripts-to-serenity/writing-what-you-would-like-to-read.md","articles":[]},{"title":"Making the tests speak for themselves","level":"2.2.3","depth":2,"path":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","ref":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","include-codeblock","ga","styles-less","youtube"],"root":"./book","styles":{"website":"website-1484186551313.css"},"pluginsConfig":{"youtube":{},"styles-less":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-85788349-2"},"advanced-emoji":{"embedEmojis":false},"include-codeblock":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Jan Molak","custom":{"scripts":["https://buttons.github.io/buttons.js"]},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"api_version":"0.0.1"},"title":"Serenity/JS Handbook","gitbook":"*","description":"A comprehensive reference manual and tutorials for Serenity/JS, a next generation automated testing library"},"file":{"path":"from-scripts-to-serenity/speaking-the-right-language.md","mtime":"2017-01-12T00:48:07.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-01-12T02:02:29.765Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+
+<script type="text/javascript" src="https://buttons.github.io/buttons.js"></script>
+
+
+    </body>
+</html>
+

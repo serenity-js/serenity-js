@@ -1,0 +1,862 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Writing what you'd like to read · Serenity/JS Handbook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="Jan Molak">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-advanced-emoji/emoji-website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../website-1484186551313.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="making-the-tests-speak-for-themselves.html" />
+    
+    
+    <link rel="prev" href="speaking-the-right-language.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Serenity/JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../introduction.html">
+            
+                <a href="../introduction.html">
+            
+                    
+                    Introduction (video)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="readme.html">
+            
+                <a href="readme.html">
+            
+                    
+                    From scripts to serenity (tutorial)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="speaking-the-right-language.html">
+            
+                <a href="speaking-the-right-language.html">
+            
+                    
+                    Speaking the right language
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2.2" data-path="writing-what-you-would-like-to-read.html">
+            
+                <a href="writing-what-you-would-like-to-read.html">
+            
+                    
+                    Writing what you'd like to read
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="making-the-tests-speak-for-themselves.html">
+            
+                <a href="making-the-tests-speak-for-themselves.html">
+            
+                    
+                    Making the tests speak for themselves
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Writing Scenarios</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../scenarios/screenplay-pattern.html">
+            
+                <a href="../scenarios/screenplay-pattern.html">
+            
+                    
+                    The Screenplay Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../license.html">
+            
+                <a href="../license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../support.html">
+            
+                <a href="../support.html">
+            
+                    
+                    Support
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Writing what you'd like to read</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="from-scripts-to-serenity-writing-what-youd-like-to-read"><a name="from-scripts-to-serenity-writing-what-youd-like-to-read" class="plugin-anchor" href="#from-scripts-to-serenity-writing-what-youd-like-to-read"><i class="fa fa-link" aria-hidden="true"></i></a>From Scripts to Serenity: Writing what you&apos;d like to read</h1>
+<p>In the <a href="speaking-the-right-language.html">previous article</a>
+we looked at how taking
+<a href="speaking-the-right-language.html#a-test-script">the scripting approach</a>
+to test automation can result in a code base that&apos;s brittle and difficult to maintain.
+We&apos;ve also talked about how the
+<a href="speaking-the-right-language.html#first-step-in-the-journey-the-page-objects-pattern">Page Object(s) pattern</a>
+succeeded in addressing some of those problems, but also introduced some new ones.</p>
+<p>In this article we&apos;ll look at how Serenity/JS and the <a href="../scenarios/screenplay-pattern.html">Screenplay Pattern</a> can help
+us design test suites that are easier to extend, maintain and scale to meet the requirements of a modern business.</p>
+<h2 id="something-practical"><a name="something-practical" class="plugin-anchor" href="#something-practical"><i class="fa fa-link" aria-hidden="true"></i></a>Something practical</h2>
+<p>Let&apos;s look again at the Cucumber scenario we know
+from the <a href="speaking-the-right-language.html">previous article</a>.
+This time we&apos;ll automate it from the 
+<a href="https://en.wikipedia.org/wiki/Outside%E2%80%93in_software_development" target="_blank">outside-in</a>, while gradually introducing
+the concepts of the <a href="../scenarios/screenplay-pattern.html">Screenplay Pattern</a>.</p>
+<p><img align="absmiddle" alt=":bulb:" class="emoji" src="../gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png" title=":bulb:"> <strong>PRO TIP:</strong> If you like learning by doing, clone the
+<a href="https://github.com/jan-molak/serenity-js-getting-started" target="_blank">tutorial project</a> and code along!</p>
+<pre><code>$&gt; git clone https://github.com/jan-molak/serenity-js-getting-started
+$&gt; cd serenity-js-getting-started
+$&gt; npm install
+$&gt; npm test
+</code></pre><p>The last command - <code>npm test</code> should tell you that there is one scenario pending. We&apos;re going
+to implement it now.</p>
+<p>You&apos;ll find the example scenario in the <code>features</code> directory:</p>
+<pre><code class="lang-gherkin"><span class="hljs-comment"># features/add_new_items.feature</span>
+
+<span class="hljs-keyword">Feature</span>: Add new items to the todo list
+
+  In order to avoid having to remember things that need doing
+  As a forgetful person
+  I want to be able to record what I need to do in a place where I won&apos;t forget about them
+
+  <span class="hljs-keyword">Scenario</span>: Adding an item to a list with other items
+
+    <span class="hljs-keyword">Given</span> that James has a todo list containing Buy some cookies, Walk the dog
+     <span class="hljs-keyword">When</span> he adds Buy some cereal to his list
+     <span class="hljs-keyword">Then</span> his todo list should contain Buy some cookies, Walk the dog, Buy some cereal
+</code></pre>
+<h2 id="getting-started"><a name="getting-started" class="plugin-anchor" href="#getting-started"><i class="fa fa-link" aria-hidden="true"></i></a>Getting started</h2>
+<p>First, let&apos;s add <a href="https://www.npmjs.com/package/serenity-js" target="_blank">Serenity/JS library</a> to the project:</p>
+<pre><code>$&gt; npm install serenity-js --save
+</code></pre><p>Now have a look at the Cucumber steps defined in <code>features/step_definitions/todo_user.steps.ts</code>.
+These are the default empty step defintions generated by Cucumber
+(you can learn more about how Cucumber step definitions work
+on the <a href="https://github.com/cucumber/cucumber-js" target="_blank">CucumberJS site</a>.
+In the examples below, we will be using <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>,
+hence the <code>.ts</code> file extensions. The code should be easy to follow even if you are not yet familiar with TypeScript.
+If you are curious, you might want to watch Anders Hejlsberg&apos;s <a href="https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript" target="_blank">&quot;Introducing TypeScript&quot;</a>.</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (name: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>, callback) =&gt; {
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">&apos;pending&apos;</span>);
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^s?he adds (.*?) to (?:his|her) list$/</span>, (itemName: <span class="hljs-built_in">string</span>, callback) =&gt; {
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">&apos;pending&apos;</span>);
+    });
+
+    <span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (items: <span class="hljs-built_in">string</span>, callback) =&gt; {
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">&apos;pending&apos;</span>);
+    });
+};
+</code></pre>
+<p>The <a href="../scenarios/screenplay-pattern.html">Screenplay Pattern</a>
+is a <a href="https://en.wikipedia.org/wiki/User-centered_design" target="_blank">user-centered model</a>,
+which puts an emphasis on <a href="../scenarios/screenplay-pattern.html#actor">Actors</a> - the external parties interacting with our system,
+their <a href="../scenarios/screenplay-pattern.html#goal">Goals</a> and <a href="../scenarios/screenplay-pattern.html#task">Tasks</a> they perform to achieve them.</p>
+<p>To automate a Cucumber scenario using the <a href="../scenarios/screenplay-pattern.html">Screenplay Pattern</a>,
+we first need an <a href="../scenarios/screenplay-pattern.html#actor">Actor</a>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> james = Actor.named(<span class="hljs-string">&apos;James&apos;</span>);
+</code></pre>
+<p>If we add our actor to the Cucumber step definition, we would get something like this:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">import</span> { Actor } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (actorName: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>, callback) =&gt; {
+        actor = Actor.named(actorName);
+
+        callback();
+    });
+
+    <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<p><img align="absmiddle" alt=":bulb:" class="emoji" src="../gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png" title=":bulb:"> <strong>PRO TIP</strong>: Notice how can now get the name of the actor (&apos;James&apos;) from the Cucumber scenario, rather than directly hard-coding it? This means we can use this step definition for any actor, and not just James.</p>
+<p>Actors have Goals, and need to perform Tasks to achieve these Goals.
+In this case, James&apos;s goal is to add &quot;Buy some cereal&quot; to his todo list.
+But before he can do this, our scenario needs James to start with todo list that already contains
+a couple of items - more specifically, &quot;Buy some cookies&quot; and &quot;Walk the dog&quot;:</p>
+<pre><code class="lang-gherkin"><span class="hljs-keyword">Given</span> that James has a todo list containing Buy some cookies, Walk the dog
+</code></pre>
+<p>Let&apos;s make the implementation reflect this (don&apos;t worry about your editor complaining that the <code>Start</code> class doesn&apos;t exist,
+we&apos;ll implement it in the next step):</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">import</span> { Start } from <span class="hljs-string">&apos;../../src/screenplay/tasks/start&apos;</span>;
+<span class="hljs-keyword">import</span> { listOf } from <span class="hljs-string">&apos;../../src/text&apos;</span>;
+
+<span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (actorName: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>, callback) =&gt; {
+        actor = Actor.named(actorName);
+
+        actor.attemptsTo(
+            Start.withATodoListContaining(listOf(items))
+        );
+
+        callback();
+    });
+
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Notice the code we used to actually add the initial items to the list? This might be a little different to the sort of test code you have seem before:</p>
+<pre><code>        actor.attemptsTo(
+            Start.withATodoListContaining(listOf(items))
+        );
+</code></pre><p>Here, rather than executing a sequence of Protractor or WebDriver calls to type into fields and click on buttons, we instantiate a Task object - <code>Start.withATodoListContaining(items)</code> - using a naming and coding style that closely mimics the domain language of our application. When you call <code>actor.attemptsTo(...)</code>, the actor performs the sequence of tasks that you pass in as parameters.  While this requires a bit of a shift in your way of thinking initially, it really helps you write code that&apos;s easy to read and understand.</p>
+<p>Let&apos;s look at how a task like this is written.</p>
+<h2 id="the-first-task"><a name="the-first-task" class="plugin-anchor" href="#the-first-task"><i class="fa fa-link" aria-hidden="true"></i></a>The first Task</h2>
+<p>Tasks are implemented as simple Typescript classes.
+A Task class needs to implement the <code>Task</code> interface, so that it can be performed by an Actor.
+Let&apos;s create a directory to store the tasks - <code>src/screenplay/tasks</code>, and a <code>start.ts</code> file in it with
+the following content:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/tasks/start.ts</span>
+
+<span class="hljs-keyword">import</span> { PerformsTasks, Task } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Start <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-keyword">static</span> withATodoListContaining(items: <span class="hljs-built_in">string</span>[]) {       <span class="hljs-comment">// static method to improve the readability</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Start(items);
+    }
+
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {    <span class="hljs-comment">// required by the Task interface</span>
+        <span class="hljs-keyword">return</span> actor.attemptsTo(                            <span class="hljs-comment">// delegates the work to lower-level tasks</span>
+            <span class="hljs-comment">// todo: add each item to the Todo List</span>
+        );
+    }
+
+    <span class="hljs-keyword">constructor</span>(private items: string[]) {                  <span class="hljs-comment">// constructor assigning the list of items</span>
+    }                                                       <span class="hljs-comment">// to a private field</span>
+}
+</code></pre>
+<p><img align="absmiddle" alt=":bulb:" class="emoji" src="../gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png" title=":bulb:"> <strong>PRO TIP</strong>: You&apos;ll find that some of the directories the below code samples refer to don&apos;t exist yet.
+Please go ahead and create them when needed.</p>
+<h2 id="building-a-domain-specific-language"><a name="building-a-domain-specific-language" class="plugin-anchor" href="#building-a-domain-specific-language"><i class="fa fa-link" aria-hidden="true"></i></a>Building a Domain-Specific Language</h2>
+<p>While we could simply create new instances of the tasks and pass them to the actor to perform,
+by convention we use a static factory method so that we can write <code>Start.withATodoListContaining(items)</code>
+rather than <code>new Start(items)</code>:</p>
+<pre><code class="lang-typescript">    <span class="hljs-keyword">static</span> withATodoListContaining(items: <span class="hljs-built_in">string</span>[]) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Start(items);
+    }
+</code></pre>
+<h2 id="dont-call-me-back"><a name="dont-call-me-back" class="plugin-anchor" href="#dont-call-me-back"><i class="fa fa-link" aria-hidden="true"></i></a>&quot;Don&apos;t call me back&quot;</h2>
+<p>Since the <code>performAs</code> method is required to return
+a <a href="https://promisesaplus.com/#point-7" target="_blank"><code>PromiseLike</code>, <code>thenable</code> object</a>, we can remove the <code>callback</code> from the
+Cucumber step definition and make the code a bit simpler and cleaner:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (actorName: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>) =&gt; {
+        actor = Actor.named(actorName);
+
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            Start.withATodoListContaining(listOf(items));
+        );
+    });
+
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<h2 id="dont-repeat-yourself"><a name="dont-repeat-yourself" class="plugin-anchor" href="#dont-repeat-yourself"><i class="fa fa-link" aria-hidden="true"></i></a>Don&apos;t Repeat Yourself</h2>
+<p>All the Tasks implement a common interface - <code>Task</code>.  This makes them easy to reuse and compose: tasks can do their job by calling other tasks, which in turn allows you to build high-level Tasks from the lower-level ones.</p>
+<p>That&apos;s exactly what we&apos;ll do next as it seems that both the first and the second step of our Cucumber scenario
+require James to add items to his Todo List:</p>
+<pre><code class="lang-gherkin"><span class="hljs-keyword">Given</span> that James has a todo list containing Buy some cookies, Walk the dog
+ <span class="hljs-keyword">When</span> he adds Buy some cereal to his list
+</code></pre>
+<p>Let&apos;s expand our vocabulary of custom Tasks then. First, write the code you&apos;d like to have in the Cucumber step. In this case, we want to add a todo item called &apos;Buys some cereal&apos;, so we could imagine a task that reads like this:</p>
+<pre><code class="lang-typescript">AddATodoItem.called(<span class="hljs-string">&apos;Buy some cereal&apos;</span>)
+</code></pre>
+<p>Using this task, the full step definition would look like this:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">import</span> { AddATodoItem } from <span class="hljs-string">&apos;../../src/screenplay/tasks/add_a_todo_item&apos;</span>;
+<span class="hljs-keyword">import</span> { listOf } from <span class="hljs-string">&apos;../../src/text&apos;</span>;
+
+<span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^he adds (.*?) to his list$/</span>, (itemName: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            AddATodoItem.called(itemName)
+        )
+    });
+
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Now we can define the <code>AddATodoItem</code> Task:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/tasks/add_a_todo_item.ts</span>
+
+<span class="hljs-keyword">import</span> { PerformsTasks, Task } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddATodoItem <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-keyword">static</span> called(itemName: <span class="hljs-built_in">string</span>) {                       <span class="hljs-comment">// static method to improve the readability</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddATodoItem(itemName);
+    }
+
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {    <span class="hljs-comment">// required by the Task interface</span>
+        <span class="hljs-keyword">return</span> actor.attemptsTo(                            <span class="hljs-comment">// delegates the work to lower-level tasks</span>
+            <span class="hljs-comment">// todo: interact with the UI</span>
+        );
+    }
+
+    <span class="hljs-keyword">constructor</span>(private itemName: string) {                 <span class="hljs-comment">// constructor assigning the name of the item</span>
+    }                                                       <span class="hljs-comment">// to a private field</span>
+}
+</code></pre>
+<p>And now that we have the <code>AddATodoItem</code>, we can reuse it in the original <code>Start</code> Task:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/tasks/start.ts</span>
+
+<span class="hljs-keyword">import</span> { PerformsTasks, Task } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { AddATodoItem } from <span class="hljs-string">&apos;./add_a_todo_item&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Start <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-keyword">static</span> withATodoListContaining(items: <span class="hljs-built_in">string</span>[]) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Start(items);
+    }
+
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            ...this.addAll(<span class="hljs-keyword">this</span>.items)                          <span class="hljs-comment">// ``...` is a spread operator,</span>
+        );                                                      <span class="hljs-comment">// which converts a list to vararg</span>
+    }
+
+    <span class="hljs-keyword">constructor</span>(private items: string[]) {
+    }
+
+    <span class="hljs-keyword">private</span> addAll(items: <span class="hljs-built_in">string</span>[]): Task[] {                   <span class="hljs-comment">// transforms a list of item names</span>
+        <span class="hljs-keyword">return</span> items.map(item =&gt; AddATodoItem.called(item));    <span class="hljs-comment">// into a list of Tasks</span>
+    }
+}
+</code></pre>
+<p>Now that we have a seed of a nice and readable <a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank">Domain-Specific Language</a>,
+it&apos;s time to make our acceptance test interact with the application.</p>
+<h2 id="interacting-with-the-system"><a name="interacting-with-the-system" class="plugin-anchor" href="#interacting-with-the-system"><i class="fa fa-link" aria-hidden="true"></i></a>Interacting with the system</h2>
+<p>In order for James to be able to interact with the <a href="http://todomvc.com/examples/angularjs/" target="_blank">TodoMVC app</a>,
+we need to give him the ability to use a web browser:</p>
+<pre><code class="lang-typescript">Actor.named(<span class="hljs-string">&apos;James&apos;</span>).whoCan(BrowseTheWeb.using(protractor.browser));
+</code></pre>
+<p>In the example above, <code>BrowseTheWeb</code> is an <a href="../scenarios/screenplay-pattern.html#ability">Ability</a>,
+which enables James to <a href="../scenarios/screenplay-pattern.html#interaction">interact</a>
+with <code>protractor.browser</code> object and therefore with the web interface of the application.</p>
+<p>Why do we need this indirection here? Why not use the global <code>protractor.browser</code> object directly
+in our code? First of all, making the dependency on <code>protractor.browser</code> explicit makes our intent more obvious to the reader. Secondly, it enables multi-browser testing of applications like chat systems, workflow systems or multi-player games. We&apos;ll talk about it more in future articles.</p>
+<p><img align="absmiddle" alt=":bulb:" class="emoji" src="../gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png" title=":bulb:"> <strong>PRO TIP:</strong> Thanks to the Abilities, you can teach the Actors to use different interfaces of your system. For example,
+you could imagine using a REST API to set up the test data,
+web UI to perform the test and maybe then FTP to a server to see if the image was correctly uploaded.</p>
+<p>Let&apos;s update the Cucumber step definitions to include our new code:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">import</span> { Actor } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">import</span> { protractor } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has a todo list containing (.*)$/</span>, (actorName: <span class="hljs-built_in">string</span>, items: <span class="hljs-built_in">string</span>) =&gt; {
+
+        actor = Actor.named(actorName).whoCan(BrowseTheWeb.using(protractor.browser));
+
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            Start.withATodoListContaining(listOf(items))
+        );
+    });
+
+    <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<p>Now that James has the Ability to interact with the application, it&apos;s time to use it.</p>
+<p>Let&apos;s wire up the <code>Start</code> Task first and make it do something useful, opening the browser and navigating
+to the application could be a good start:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">import</span> { Open } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Start <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-comment">// ...</span>
+
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            Open.browserOn(<span class="hljs-string">&apos;/examples/angularjs/&apos;</span>),
+            ...this.addAll(<span class="hljs-keyword">this</span>.items)                          <span class="hljs-comment">// ``...` is a spread operator,</span>
+        );                                                      <span class="hljs-comment">// which converts a list to vararg</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>If you&apos;ve been coding along, you can see for yourself that the browser is really being used here
+to navigate to the TodoMVC app by running <code>npm test</code>:</p>
+<pre><code>$&gt; npm test
+</code></pre><p>How did that work?</p>
+<p><code>Open</code> is an <a href="../scenarios/screenplay-pattern.html#interaction"><code>Interaction</code></a>, which means that is uses an <code>Ability</code>,
+in this case to <code>BrowseTheWeb</code>, to interact with the system.</p>
+<p><code>Open</code> is one of the
+<a href="https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/interactions" target="_blank">Interactions that ship with Serenity/JS</a>.</p>
+<h2 id="adding-items"><a name="adding-items" class="plugin-anchor" href="#adding-items"><i class="fa fa-link" aria-hidden="true"></i></a>Adding items</h2>
+<p>Now that we can open the browser and navigate to the application it&apos;s time to add some items to the list.</p>
+<p>As this interaction requires us to enter some text into the text field and hit the enter key,
+we can use another built-in Interaction - <code>Enter</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/tasks/add_a_todo_item.ts</span>
+
+<span class="hljs-keyword">import</span> { PerformsTasks, Task } from <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Enter } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">import</span> { protractor } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">import</span> { TodoList } from <span class="hljs-string">&apos;../ui/todo_list&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddATodoItem <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-keyword">static</span> called(itemName: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddATodoItem(itemName);
+    }
+
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            Enter.theValue(<span class="hljs-keyword">this</span>.itemName)                   <span class="hljs-comment">// enter the value of the item name</span>
+                .into(TodoList.What_Needs_To_Be_Done)       <span class="hljs-comment">// into a &quot;What needs to be done&quot; field</span>
+                .thenHit(protractor.Key.ENTER)              <span class="hljs-comment">// then hit enter...</span>
+        );
+    }                                                       <span class="hljs-comment">// see? we didn&apos;t even need this explanation!</span>
+
+    <span class="hljs-keyword">constructor</span>(private itemName: string) {
+    }
+}
+</code></pre>
+<p>There&apos;s one thing missing though: we haven&apos;t defined what <code>TodoList.What_Needs_To_Be_Done</code> means. Let&apos;s do this next:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/ui/todo_list.ts</span>
+
+<span class="hljs-keyword">import</span> { Target } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoList {
+    <span class="hljs-keyword">static</span> What_Needs_To_Be_Done = Target.the(<span class="hljs-string">&apos;&quot;What needs to be done?&quot; input box&apos;</span>)
+                                         .located(by.id(<span class="hljs-string">&apos;new-todo&apos;</span>));
+}
+</code></pre>
+<p>The <code>TodoList</code> class is the Screenplay equivalent of a Page Object - it encapsulates all the information you need to locate elements on a screen or on a component that appears on the screen. In this case, the <code>TodoList</code> is responsible for knowing how to find the HTML elements that make up the todo list in the TodoMVC application.</p>
+<p>Another thing that you&apos;ve probably noticed is the <code>Target</code> object.
+A <code>Target</code> is a light-weight wrapper around Protractor and WebDriver <code>Locators</code>.
+<code>by.id(&apos;new-todo&apos;)</code> represents such a locator, identifying an input field by its <code>id</code> attribute:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;new-todo&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;What needs to be done?&quot;</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">&quot;newTodo&quot;</span> <span class="hljs-attr">ng-disabled</span>=<span class="hljs-string">&quot;saving&quot;</span> <span class="hljs-attr">autofocus</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span>
+</code></pre>
+<p>The difference between a <code>Target</code> and a <code>Locator</code> is that a <code>Target</code> can be given a meaningful description,
+such as <code>&quot;What needs to be done?&quot; input box</code> or <code>Default payment method</code> etc.
+This helps to generate narrative reports we&apos;ll talk about in the next tutorial. It also helps with diagnosing application
+failures.</p>
+<p>If you run the test now you&apos;ll notice that both the first and the second step of our original scenario
+have now started to work and interact with the application, adding items to the Todo List:</p>
+<pre><code>$&gt; npm test
+</code></pre><p><img align="absmiddle" alt=":bulb:" class="emoji" src="../gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png" title=":bulb:"> Because we&apos;ve designed our test system from outside-in,
+composing high-level Tasks such as <code>Start</code> from lower-level ones,
+such as <code>AddATodoItem</code>, we only had to implement the change in one place.</p>
+<h2 id="asking-the-right-questions"><a name="asking-the-right-questions" class="plugin-anchor" href="#asking-the-right-questions"><i class="fa fa-link" aria-hidden="true"></i></a>Asking the right Questions</h2>
+<p>Our test scenario will be much more useful when we add an assertion to it.
+What we&apos;ll do next is check if the items are getting added correctly to the list.</p>
+<p>In order to verify the state of the application, an Actor can ask <a href="../scenarios/screenplay-pattern.html#question">Questions</a>:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/step_definitions/todo_user.steps.ts</span>
+
+<span class="hljs-keyword">import</span> { expect } from <span class="hljs-string">&apos;../../src/expect&apos;</span>;
+<span class="hljs-keyword">import</span> { TodoListItems } from <span class="hljs-string">&apos;../../src/screenplay/questions/todo_list_items&apos;</span>;
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todoUserSteps</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">let</span> actor: Actor;
+
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (items: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-keyword">return</span> expect(actor.toSee(TodoListItems.Displayed)).eventually.deep.equal(listOf(items));
+    });
+};
+</code></pre>
+<p>A <a href="../scenarios/screenplay-pattern.html#question">Question</a> is similar to an <a href="../scenarios/screenplay-pattern.html#interaction">Interaction</a>,
+as it uses the Actor&apos;s Ability to interact with the system.</p>
+<p>When the Actor answers a Question, it returns a <a href="https://promisesaplus.com/" target="_blank">Promise</a>,
+which resolves to a value, such as a string of text or a number, which then can be asserted on.
+That&apos;s why in the example above we could use <code>Actor.toSee(question)</code> together with <a href="http://chaijs.com/" target="_blank">chai.js</a>
+and <a href="https://github.com/domenic/chai-as-promised" target="_blank">chai-as-promised</a>.</p>
+<p>There are several <a href="https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/questions" target="_blank">Questions that ship with Serenity/JS</a>
+which you can use in your test scenarios.</p>
+<p>Right now we&apos;ll use <code>Text</code>,
+which returns the text value of an element - <code>Text.of()</code> or elements - <code>Text.ofAll()</code>
+identified by a <code>Target</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/questions/todo_list_items.ts</span>
+
+<span class="hljs-keyword">import</span> { Text } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">import</span> { TodoList } from <span class="hljs-string">&apos;../ui/todo_list&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoListItems {
+    <span class="hljs-keyword">static</span> Displayed = Text.ofAll(TodoList.Items);
+}
+</code></pre>
+<p>And the Target:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// src/screenplay/ui/todo_list.ts</span>
+
+<span class="hljs-keyword">import</span> { Target } from <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } from <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoList {
+    <span class="hljs-keyword">static</span> What_Needs_To_Be_Done = Target.the(<span class="hljs-string">&apos;&quot;What needs to be done?&quot; input box&apos;</span>)
+                                         .located(by.id(<span class="hljs-string">&apos;new-todo&apos;</span>));
+
+    <span class="hljs-keyword">static</span> Items                 = Target.the(<span class="hljs-string">&apos;List of Items&apos;</span>)
+                                          .located(by.repeater(<span class="hljs-string">&apos;todo in todos&apos;</span>));
+}
+</code></pre>
+<p>As with Abilities, Tasks and Interactions, you can also define custom Questions
+and we&apos;ll talk about the ways to do that in future articles.</p>
+<h2 id="getting-webdriver-and-cucumber-in-sync"><a name="getting-webdriver-and-cucumber-in-sync" class="plugin-anchor" href="#getting-webdriver-and-cucumber-in-sync"><i class="fa fa-link" aria-hidden="true"></i></a>Getting WebDriver and Cucumber in sync</h2>
+<p>There&apos;s one more thing we need to cover.</p>
+<p>WebDriver&apos;s JavaScript API is entirely asynchronous.
+However, in an effort to make working with asynchronous calls easier for developers,
+WebDriver implements its own <a href="https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs#understanding-the-promise-manager" target="_blank">Promise Manager</a>,
+also known as the <a href="http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/promise.html" target="_blank">Control Flow</a>.</p>
+<p>What this means is that any interaction with a WebDriver JavaScript API (such as clicking a button or opening a website)
+schedules an asynchronous operation using WebDriver&apos;s internal mechanism and returns a <code>webdriver.Promise</code>,
+rather than the standard <a href="https://promisesaplus.com/" target="_blank">ES6 Promise</a>. Since Cucumber.js and many other tools such as
+<a href="https://github.com/domenic/chai-as-promised/issues/160" target="_blank">Chai.js</a> are not WebDriver-aware (nor should they be),
+we need to reconcile these two worlds.</p>
+<p>To do this, call the Serenity/JS WebDriver Synchroniser in your <code>cucumber_hooks.ts</code> file:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// features/cucumber_hooks.ts</span>
+
+<span class="hljs-keyword">import</span> { protractor } from <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> * as serenity from <span class="hljs-string">&apos;serenity-js/lib/serenity-cucumber&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    serenity.synchronise(<span class="hljs-keyword">this</span>, protractor.browser.driver.controlFlow());
+};
+</code></pre>
+<p>You can run the test again and see the scenario succeed:</p>
+<pre><code>$&gt; npm test
+</code></pre><h2 id="before-you-go"><a name="before-you-go" class="plugin-anchor" href="#before-you-go"><i class="fa fa-link" aria-hidden="true"></i></a>Before you go</h2>
+<p>To see what happens when a scenario fails, you can add a new one to the feature file and call <code>npm test</code> again:</p>
+<pre><code class="lang-gherkin"><span class="hljs-comment"># features/add_new_items.feature</span>
+
+<span class="hljs-comment"># ...</span>
+
+  <span class="hljs-keyword">Scenario</span>: Adding an item and failing
+    <span class="hljs-keyword">Given</span> that James has a todo list containing Walk the dog
+     <span class="hljs-keyword">When</span> he adds Buy some cereal to his list
+     <span class="hljs-keyword">Then</span> his todo list should contain Herd the cats, Buy a cake
+</code></pre>
+<p>This execution should result in a message notifying you that the test has failed, accompanied by a lengthy stack trace.</p>
+<p>As reading through stack traces is not necessarily the most efficient way to diagnose failures,
+the next tutorial will focus on generating narrative, illustrated and meaningful reports of our interaction with the app.</p>
+<p>Ready? Time to <a href="making-the-tests-speak-for-themselves.html">make the tests speak for themselves</a></p>
+<hr>
+<h3 id="your-feedback-matters"><a name="your-feedback-matters" class="plugin-anchor" href="#your-feedback-matters"><i class="fa fa-link" aria-hidden="true"></i></a>Your feedback matters!</h3>
+<p>Please feel free to <a href="https://github.com/jan-molak/serenity-js/issues" target="_blank">suggest features and improvements</a>,
+<a href="https://github.com/jan-molak/serenity-js/edit/master/from-scripts-to-serenity/writing-what-you-would-like-to-read.md" target="_blank">correct any typos or broken links</a>
+and get in touch on twitter <a href="https://twitter.com/JanMolak" target="_blank">@JanMolak</a> to let me know your thoughts!</p>
+<p>If you find Serenity/JS useful, don&apos;t forget to give it a &#x2605; on github!</p>
+<p><a class="github-button" href="https://github.com/jan-molak/serenity-js" data-icon="octicon-star" data-style="mega" data-count-href="/jan-molak/serenity-js/stargazers" data-count-api="/repos/jan-molak/serenity-js#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star jan-molak/serenity-js on GitHub" target="_blank">Star</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="speaking-the-right-language.html" class="navigation navigation-prev " aria-label="Previous page: Speaking the right language">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="making-the-tests-speak-for-themselves.html" class="navigation navigation-next " aria-label="Next page: Making the tests speak for themselves">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Writing what you'd like to read","level":"2.2.2","depth":2,"next":{"title":"Making the tests speak for themselves","level":"2.2.3","depth":2,"path":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","ref":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","articles":[]},"previous":{"title":"Speaking the right language","level":"2.2.1","depth":2,"path":"from-scripts-to-serenity/speaking-the-right-language.md","ref":"from-scripts-to-serenity/speaking-the-right-language.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","include-codeblock","ga","styles-less","youtube"],"root":"./book","styles":{"website":"website-1484186551313.css"},"pluginsConfig":{"youtube":{},"styles-less":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-85788349-2"},"advanced-emoji":{"embedEmojis":false},"include-codeblock":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Jan Molak","custom":{"scripts":["https://buttons.github.io/buttons.js"]},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"api_version":"0.0.1"},"title":"Serenity/JS Handbook","gitbook":"*","description":"A comprehensive reference manual and tutorials for Serenity/JS, a next generation automated testing library"},"file":{"path":"from-scripts-to-serenity/writing-what-you-would-like-to-read.md","mtime":"2017-01-12T00:59:24.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-01-12T02:02:29.765Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+
+<script type="text/javascript" src="https://buttons.github.io/buttons.js"></script>
+
+
+    </body>
+</html>
+

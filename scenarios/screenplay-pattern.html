@@ -1,0 +1,558 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>The Screenplay Pattern · Serenity/JS Handbook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="Jan Molak">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-advanced-emoji/emoji-website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../website-1484186551313.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../license.html" />
+    
+    
+    <link rel="prev" href="../from-scripts-to-serenity/making-the-tests-speak-for-themselves.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Serenity/JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../introduction.html">
+            
+                <a href="../introduction.html">
+            
+                    
+                    Introduction (video)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../from-scripts-to-serenity/readme.html">
+            
+                <a href="../from-scripts-to-serenity/readme.html">
+            
+                    
+                    From scripts to serenity (tutorial)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="../from-scripts-to-serenity/speaking-the-right-language.html">
+            
+                <a href="../from-scripts-to-serenity/speaking-the-right-language.html">
+            
+                    
+                    Speaking the right language
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="../from-scripts-to-serenity/writing-what-you-would-like-to-read.html">
+            
+                <a href="../from-scripts-to-serenity/writing-what-you-would-like-to-read.html">
+            
+                    
+                    Writing what you'd like to read
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="../from-scripts-to-serenity/making-the-tests-speak-for-themselves.html">
+            
+                <a href="../from-scripts-to-serenity/making-the-tests-speak-for-themselves.html">
+            
+                    
+                    Making the tests speak for themselves
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Writing Scenarios</li>
+        
+        
+    
+        <li class="chapter active" data-level="3.1" data-path="screenplay-pattern.html">
+            
+                <a href="screenplay-pattern.html">
+            
+                    
+                    The Screenplay Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../license.html">
+            
+                <a href="../license.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../support.html">
+            
+                <a href="../support.html">
+            
+                    
+                    Support
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >The Screenplay Pattern</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="the-screenplay-pattern"><a name="the-screenplay-pattern" class="plugin-anchor" href="#the-screenplay-pattern"><i class="fa fa-link" aria-hidden="true"></i></a>The Screenplay Pattern</h1>
+<p>The Screenplay Pattern is a <a href="https://en.wikipedia.org/wiki/User-centered_design" target="_blank">user-centred</a> model,
+which helps you shift the focus of automated acceptance tests from low-level interactions with the system
+to thinking about who the users of your system are, 
+what is that they want to achieve by their interaction with your system
+and how exactly they&apos;re going to do it.</p>
+<p>The Serenity/JS implementation of the Pattern focuses on making developers and testers more productive,
+by making acceptance test faster to write, cheaper to maintain and easier to scale to multiple projects and teams.</p>
+<p>The Screenplay pattern is new to JavaScript but has been around for a while in various forms.
+It was originally proposed by Antony Marcano in 2007. You can learn more about the origin and history of this model
+in <a href="https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp" target="_blank">&quot;Page Objects Refactored: SOLID Steps to the Screenplay Pattern&quot;</a>
+(by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak) and <a href="#the-history">at the end of this article</a>.</p>
+<h2 id="screenplay-by-example"><a name="screenplay-by-example" class="plugin-anchor" href="#screenplay-by-example"><i class="fa fa-link" aria-hidden="true"></i></a>Screenplay by example</h2>
+<p><em>Examples presented in this section are based on the project described in <a href="https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay" target="_blank">Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern</a>.</em></p>
+<p>The best way to illustrate the Screenplay pattern is through a practical example.
+Suppose we are writing some tests for a Todo application like the one you can find
+on the <a href="http://todomvc.com/examples/angularjs/#/" target="_blank">TodoMVC site</a>.
+Consider the following scenario:</p>
+<pre><code class="lang-gherkin"><span class="hljs-keyword">Feature</span>: Add new items to the todo list
+
+  As James (the just-in-time kinda guy)
+  I want to capture the most important things I need to do
+  So that I don&#x2019;t leave so many things until the last minute
+
+  <span class="hljs-keyword">Scenario</span>: Adding the first todo item
+
+    <span class="hljs-keyword">Given</span> that James has an empty todo list
+     <span class="hljs-keyword">When</span> he adds Buy some milk to his list
+     <span class="hljs-keyword">Then</span> his todo list should contain Buy some milk
+</code></pre>
+<p>Let&apos;s think about this scenario from a couple of different angles:</p>
+<ul>
+<li><strong>Who</strong> is this for? What <strong>Role</strong> do they play?</li>
+<li><strong>Why</strong> are they here and what outcome do they hope for? What is their <strong>Goal</strong>?</li>
+<li><strong>What</strong> will they need to do to achieve their goal? What <strong>Tasks</strong> do they need to perform?</li>
+<li><strong>How</strong> will they complete each task? How will their specific <strong>Interactions</strong> with the system look like?</li>
+</ul>
+<h3 id="role"><a name="role" class="plugin-anchor" href="#role"><i class="fa fa-link" aria-hidden="true"></i></a>Role</h3>
+<p>We believe that the feature described in the above scenario will be useful to a &quot;just-in-time kinda guy&quot;. &quot;James&quot; is a <a href="https://articles.uie.com/goodwin_interview/" target="_blank">persona</a> that we are using to understand this specific role.</p>
+<h3 id="actor"><a name="actor" class="plugin-anchor" href="#actor"><i class="fa fa-link" aria-hidden="true"></i></a>Actor</h3>
+<p>Each <a href="#role">Role</a> we discover needs an Actor to play it.
+In Serenity/JS, an Actor is defined as follows:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> james = Actor.named(<span class="hljs-string">&apos;James&apos;</span>);
+</code></pre>
+<p>Such Actor can perform <a href="#task">Tasks</a>:</p>
+<pre><code class="lang-typescript">james.attemptsTo(
+    Start.withAnEmptyTodoList(),
+    AddATodoItem.called(<span class="hljs-string">&apos;Buy some milk&apos;</span>)
+)
+</code></pre>
+<p>and ask <a href="#question">Questions</a> about the state of the application in order to verify its correctness:</p>
+<pre><code class="lang-typescript">expect(james.toSee(TodoListItems.Displayed)).eventually.equal([ <span class="hljs-string">&apos;Buy some milk&apos;</span> ]);
+</code></pre>
+<h3 id="goal"><a name="goal" class="plugin-anchor" href="#goal"><i class="fa fa-link" aria-hidden="true"></i></a>Goal</h3>
+<p>The Goal of an Actor is represented by the subject of the scenario:</p>
+<pre><code class="lang-gherkin"><span class="hljs-keyword">Scenario</span>: Adding the first todo item
+</code></pre>
+<p>Here, James should be able to add the first todo item to his list.</p>
+<h3 id="task"><a name="task" class="plugin-anchor" href="#task"><i class="fa fa-link" aria-hidden="true"></i></a>Task</h3>
+<p>Tasks represent high-level activities that an Actor needs to perform in order to achieve their Goal.</p>
+<p>Tasks are named using the vocabulary of
+the <a href="http://blog.mattwynne.net/2013/01/17/the-problem-with-solutions/" target="_blank">Problem Domain</a>, such as:
+&quot;Pay with a default credit card&quot;, &quot;Book a plane ticket&quot; or &quot;Add item to the basket&quot;.</p>
+<p>A good example of a Task in our scenario could be to <code>AddATodoItem.called(&apos;Buy some milk&apos;)</code>,
+which mapped to a Cucumber.js step definition would look like this:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^he adds (.*?) to his list$/</span>, (name: <span class="hljs-built_in">string</span>) =&gt; {
+    <span class="hljs-keyword">return</span> james.attemptsTo(
+        AddATodoItem.called(itemName)
+    );
+});
+</code></pre>
+<h3 id="interaction"><a name="interaction" class="plugin-anchor" href="#interaction"><i class="fa fa-link" aria-hidden="true"></i></a>Interaction</h3>
+<p>An Interaction is a low-level activity directly exercising the <a href="#actor">Actor</a>&apos;s <a href="#ability">Ability</a> to interact
+with a specific external interface of the system - such as a website, a mobile app or a web service.</p>
+<p>Interactions are named using the vocabulary of the
+<a href="http://blog.mattwynne.net/2013/01/17/the-problem-with-solutions/" target="_blank">Solution Domain</a>, such as:
+&quot;Click a button&quot;, &quot;Enter password into a form field&quot; or &quot;Submit JSON request&quot;.</p>
+<p>Actors should not exercise Interactions directly in the Cucumber step definitions. Instead, a group of one of more
+Interactions should be encapsulated and represented as a <a href="#task">Task</a>. For example:</p>
+<pre><code class="lang-typescript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Login <span class="hljs-keyword">implements</span> Task {
+
+    performAs(actor: PerformsTasks) {
+
+        <span class="hljs-comment">// The Login Task is composed of three Interactions:</span>
+
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            Enter.theValue(<span class="hljs-string">&apos;James&apos;</span>).into(LoginForm.Username_Field),
+            Enter.theValue(<span class="hljs-string">&apos;correct-horse-battery-staple&apos;</span>).into(LoginForm.Password_Field),
+            Click.on(LoginForm.Submit_Button)
+        );
+    }
+}
+</code></pre>
+<h3 id="question"><a name="question" class="plugin-anchor" href="#question"><i class="fa fa-link" aria-hidden="true"></i></a>Question</h3>
+<p>Similarly to an <a href="#interaction">Interaction</a>, a Question directly exercises <a href="#actor">Actor</a>&apos;s <a href="#ability">Ability</a> to interact
+with a specific external interface of the system - such as a website, a mobile app or a web service.</p>
+<p>Asking a Question results in a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">promise</a>
+that is eventually resolved to a specific value or a list of values.</p>
+<p>Consider a &quot;web question&quot; used in the example scenario:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoListItems {
+    <span class="hljs-keyword">static</span> Displayed = Text.ofAll(TodoList.Items);
+}
+</code></pre>
+<p>Calling <code>Text.ofAll(...)</code> returns a Question implementing the <code>Question&lt;string[]&gt;</code> interface.</p>
+<p>When such question is applied to <code>TodoList.Items</code> defined as:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoList {
+    <span class="hljs-keyword">static</span> Items = Target.the(<span class="hljs-string">&apos;List of Items&apos;</span>).located(by.repeater(<span class="hljs-string">&apos;todo in todos&apos;</span>));
+}
+</code></pre>
+<p>it eventually resolves to a list of strings, representing the text of the web elements matched by the <code>TodoList.Items</code>
+Target.</p>
+<p>All this means that we can have a Cucumber step defined as follows:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (expectedItems: <span class="hljs-built_in">string</span>) =&gt; {
+    <span class="hljs-keyword">let</span> answer = james.toSee(TodoListItems.Displayed);
+
+    <span class="hljs-keyword">return</span> expect(answer).to.eventually.equal(expectedItems);
+});
+</code></pre>
+<p>or simply:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">this</span>.Then(<span class="hljs-regexp">/^.* todo list should contain (.*?)$/</span>, (expectedItems: <span class="hljs-built_in">string</span>) =&gt; {
+    <span class="hljs-keyword">return</span> expect(james.toSee(TodoListItems.Displayed)).eventually.equal(expectedItems);
+});
+</code></pre>
+<h3 id="ability"><a name="ability" class="plugin-anchor" href="#ability"><i class="fa fa-link" aria-hidden="true"></i></a>Ability</h3>
+<p>In order to interact with the system, an Actor needs Abilities, which encapsulate interface-specific clients.</p>
+<p>Those clients could be a web browser, a web service client, a mobile device driver and so on.</p>
+<p><code>BrowseTheWeb</code> is a good example of an Ability that ships with Serenity/JS. To assign the Ability to an Actor:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> james = Actor.named(<span class="hljs-string">&apos;James&apos;</span>).whoCan(BrowseTheWeb.using(protractor.browser);
+</code></pre>
+<p>Once the Actor has the Ability, it can be used in an <a href="#interaction">Interaction</a>,
+such as <code>Click.on(LoginForm.Submit_Button)</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Click <span class="hljs-keyword">implements</span> Interaction {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> on(target: Target): Click {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Click(target);
+    }
+
+    performAs(actor: PerformsTasks &amp; UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-keyword">this</span>.target).click();
+    }
+
+    <span class="hljs-keyword">constructor</span>(private target: Target) { }
+}
+</code></pre>
+<p>or a <a href="#question">Question</a>, such as <code>Text.of(Address.Post_Code)</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Text <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-built_in">string</span>&gt; {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> of(target: Target): Text {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Text(target);
+    }
+
+    answeredBy(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">string</span>[]&gt; {
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-keyword">this</span>.target).getText();
+    }
+
+    <span class="hljs-keyword">constructor</span>(private target: Target) {
+    }
+}
+</code></pre>
+<h2 id="the-model"><a name="the-model" class="plugin-anchor" href="#the-model"><i class="fa fa-link" aria-hidden="true"></i></a>The Model</h2>
+<p><img src="images/screenplay_pattern_model.png" alt="Serenity BDD Scenario Report with Interactions only">
+<em>The Screenplay Pattern domain model,
+from <a href="https://janmolak.com/serenity-bdd-and-the-screenplay-pattern-27819d0db780#.j25mfpfxn" target="_blank">&quot;Designing SOLID Actors&quot;</a>
+by Jan Molak</em></p>
+<h2 id="the-history"><a name="the-history" class="plugin-anchor" href="#the-history"><i class="fa fa-link" aria-hidden="true"></i></a>The History</h2>
+<p>It all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.</p>
+<p><a href="http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html" target="_blank">&quot;In praise of abstraction&quot;</a>, a talk given by Kevin Lawrence, inspired <a href="http://antonymarcano.com/Site/Home.html" target="_blank">Antony Marcano</a>
+to implement a fluent DSL based on Kevin&apos;s idea to use the language of Interaction Designers
+to model the layers of abstraction in an acceptance test.
+With the help of <a href="http://andypalmer.com" target="_blank">Andy Palmer</a>, this fluent DSL is what became
+<a href="https://bitbucket.org/testingreflections/jnarrate/wiki/Home" target="_blank">JNarrate</a> a year later (2008).</p>
+<p>In the late 2012, Antony and Andy joined forces with <a href="https://janmolak.com/" target="_blank">Jan Molak</a>.
+Their experiments with Kevin&apos;s model, combined with a desire to address problems with shortcomings of
+the <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects" target="_blank">PageObject Pattern</a>
+and apply <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank">SOLID design principles</a>
+to acceptance testing is what <a href="http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern" target="_blank">became known in 2013</a>
+as <a href="https://github.com/screenplay/screenplay-jvm" target="_blank">screenplay-jvm</a>.</p>
+<p>In 2015, when Antony, Andy and Jan started working with <a href="http://johnfergusonsmart.com/" target="_blank">John Ferguson Smart</a>,
+what became known as the Screenplay Pattern found its way into <a href="http://serenity-bdd.info" target="_blank">Serenity BDD</a>,
+a popular acceptance testing library written in Java.</p>
+<p>Now starting from 2016, you can use both the Screenplay Pattern and the powerful Serenity BDD reports on your JavaScript
+projects thanks to Serenity/JS!</p>
+<hr>
+<h3 id="your-feedback-matters"><a name="your-feedback-matters" class="plugin-anchor" href="#your-feedback-matters"><i class="fa fa-link" aria-hidden="true"></i></a>Your feedback matters!</h3>
+<p>Please feel free to <a href="https://github.com/jan-molak/serenity-js/issues" target="_blank">suggest features and improvements</a>,
+<a href="https://github.com/jan-molak/serenity-js/edit/master/scenarios/screenplay-pattern.md" target="_blank">correct any typos or broken links</a>
+and get in touch on twitter <a href="https://twitter.com/JanMolak" target="_blank">@JanMolak</a> to let me know your thoughts!</p>
+<p>If you find Serenity/JS useful, don&apos;t forget to give it a &#x2605; on github!</p>
+<p><a class="github-button" href="https://github.com/jan-molak/serenity-js" data-icon="octicon-star" data-style="mega" data-count-href="/jan-molak/serenity-js/stargazers" data-count-api="/repos/jan-molak/serenity-js#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star jan-molak/serenity-js on GitHub" target="_blank">Star</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../from-scripts-to-serenity/making-the-tests-speak-for-themselves.html" class="navigation navigation-prev " aria-label="Previous page: Making the tests speak for themselves">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../license.html" class="navigation navigation-next " aria-label="Next page: License">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"The Screenplay Pattern","level":"3.1","depth":1,"next":{"title":"License","level":"4.1","depth":1,"path":"license.md","ref":"license.md","articles":[]},"previous":{"title":"Making the tests speak for themselves","level":"2.2.3","depth":2,"path":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","ref":"from-scripts-to-serenity/making-the-tests-speak-for-themselves.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","include-codeblock","ga","styles-less","youtube"],"root":"./book","styles":{"website":"website-1484186551313.css"},"pluginsConfig":{"youtube":{},"styles-less":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"ga":{"configuration":"auto","token":"UA-85788349-2"},"advanced-emoji":{"embedEmojis":false},"include-codeblock":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Jan Molak","custom":{"scripts":["https://buttons.github.io/buttons.js"]},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"api_version":"0.0.1"},"title":"Serenity/JS Handbook","gitbook":"*","description":"A comprehensive reference manual and tutorials for Serenity/JS, a next generation automated testing library"},"file":{"path":"scenarios/screenplay-pattern.md","mtime":"2017-01-11T04:44:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-01-12T02:02:29.765Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+
+<script type="text/javascript" src="https://buttons.github.io/buttons.js"></script>
+
+
+    </body>
+</html>
+
