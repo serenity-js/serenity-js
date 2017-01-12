@@ -26,8 +26,10 @@
     "coverage:report": "nyc report --reporter=html --reporter=lcov --temp-directory=./staging/reports/coverage --report-dir=./staging/reports/coverage",
     "report": "npm run coverage:merge && npm run coverage:report",
     "publish-coverage-report": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "publish-book": "rimraf _book && gitbook build && gh-pages -d _book",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "book:build": "rimraf _book && gitbook build",
+    "book:publish": "node ./gh-pages.js -d _book",
+    "publish": "failsafe publish-coverage-report semantic-release book:build book:publish"
   },
   "peerDependencies": {
     "protractor": ">= 4.0.10 < 5"
@@ -82,6 +84,7 @@
     "mocha": "3.2.0",
     "mock-fs": "4.0.0-beta.1",
     "nock": "8.0.0",
+    "npm-failsafe": "0.2.1",
     "nyc": "10.0.0",
     "phantomjs-prebuilt": "2.1.14",
     "protractor": "4.0.14",

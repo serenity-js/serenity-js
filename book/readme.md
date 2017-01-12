@@ -37,7 +37,3 @@ or get your hands dirty with [the tutorial](from-scripts-to-serenity/readme.md)!
 <a class="image" href="https://david-dm.org/jan-molak/serenity-js" target="_blank"><img src="https://david-dm.org/jan-molak/serenity-js.svg" alt="Dependencies"></a>
 <a class="image" href="https://github.com/semantic-release/semantic-release" target="_blank"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
 </p>
-
-_Serenity/JS Handbook was generated on the {{ gitbook.time | date('Do of MMMM YYYY') }} 
-and covers Serenity/JS version 
-[{{ book.api_version }}](https://github.com/jan-molak/serenity-js/releases/tag/v{{ book.api_version }})._
