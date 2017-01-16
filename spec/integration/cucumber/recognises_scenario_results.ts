@@ -1,5 +1,6 @@
 import expect = require('../../expect');
 
+import * as _ from 'lodash';
 import { Result, SceneFinished } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
@@ -40,9 +41,9 @@ describe('When working with Cucumber', function () {
             });
         });
 
-        it ('reports pending scenarios', () => {
+        it ('reports implicitly pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*pending_scenario.feature',
+                '--specs', '**/*implicitly_pending_scenario.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -52,6 +53,23 @@ describe('When working with Cucumber', function () {
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
+            });
+        });
+
+        it ('reports explicitly pending scenarios', () => {
+            let spawned = protractor('protractor.conf.js',
+                '--specs', '**/*explicitly_pending_scenarios.feature',
+            );
+
+            return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
+                expect(spawned.messages).to.have.lengthOf(16);
+
+                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
+
+                lastMessages.forEach(lastMessage => {
+                    expect(lastMessage).to.be.instanceOf(SceneFinished);
+                    expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
+                });
             });
         });
 

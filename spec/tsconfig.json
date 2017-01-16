@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [ "es5", "es6" ],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+
+    "types": [
+      "graceful-fs",
+      "lodash",
+      "mkdirp",
+      "stack-trace",
+      "node",
+      "selenium-webdriver",
+
+      "chai",
+      "chai-as-promised",
+      "express",
+      "express-serve-static-core",
+      "mocha",
+      "mock-fs",
+      "nock",
+      "sinon",
+      "sinon-chai"
+    ]
+  },
+
+  "files": [
+    "../node_modules/chai-smoothie/lib/chai-smoothie.d.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "examples"
+  ]
+}
