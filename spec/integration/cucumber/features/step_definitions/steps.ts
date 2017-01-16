@@ -2,50 +2,47 @@ enum StepInterface {
     SYNCHRONOUS,
     CALLBACK,
     PROMISE,
-    GENERATOR
+    GENERATOR,
 }
 
 enum StepResult {
     SUCCESS,
     FAILURE,
-    PENDING
+    PENDING,
 }
 
 function createFailingStep(stepInterface: StepInterface) {
     switch (stepInterface) {
-        case StepInterface.SYNCHRONOUS:
-            return () => {
-                throw new Error('Assertion failed');
-            };
         case StepInterface.CALLBACK:
-            return (cb) => {
+            return cb => {
                 process.nextTick(cb.bind(null, new Error('Assertion failed')));
             };
         case StepInterface.PROMISE:
             return () => {
                 return new Promise((resolve, reject) => {
                     process.nextTick(() => {
-                        reject(new Error('Assertion failed'))
-                    })
+                        reject(new Error('Assertion failed'));
+                    });
                 });
             };
         case StepInterface.GENERATOR:
             return function*() {
                 yield new Promise(process.nextTick);
                 throw new Error('Assertion failed');
-            }
+            };
+        case StepInterface.SYNCHRONOUS:
+        default:
+            return () => {
+                throw new Error('Assertion failed');
+            };
     }
 }
 
 function createPassingStep(stepInterface: StepInterface, result: StepResult) {
     const resultValue = StepResult[result].toLowerCase();
     switch (stepInterface) {
-        case StepInterface.SYNCHRONOUS:
-            return () => {
-                return resultValue;
-            };
         case StepInterface.CALLBACK:
-            return (cb) => {
+            return cb => {
                 process.nextTick(cb.bind(null, null, resultValue));
             };
         case StepInterface.PROMISE:
@@ -56,7 +53,12 @@ function createPassingStep(stepInterface: StepInterface, result: StepResult) {
             return function*() {
                 yield new Promise(process.nextTick);
                 return resultValue;
-            }
+            };
+        case StepInterface.SYNCHRONOUS:
+        default:
+            return () => {
+                return resultValue;
+            };
     }
 }
 
@@ -81,7 +83,6 @@ export = function () {
     this.Given(/^a step that passes with a generator interface$/,
         createStep(StepInterface.GENERATOR, StepResult.SUCCESS));
 
-
     this.Given(/^a step that fails with a synchronous interface$/,
         createStep(StepInterface.SYNCHRONOUS, StepResult.FAILURE));
 
@@ -93,7 +94,6 @@ export = function () {
 
     this.Given(/^a step that fails with a generator interface$/,
         createStep(StepInterface.GENERATOR, StepResult.FAILURE));
-
 
     this.Given(/^a pending step with a synchronous interface$/,
         createStep(StepInterface.SYNCHRONOUS, StepResult.PENDING));

@@ -60,7 +60,7 @@ describe('When working with Cucumber', function () {
 
         it ('reports explicitly pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*explicitly_pending_scenarios.feature',
+                '--specs', '**/*explicitly_pending_scenario.feature',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
