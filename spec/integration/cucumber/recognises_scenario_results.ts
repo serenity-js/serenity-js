@@ -21,12 +21,14 @@ describe('When working with Cucumber', function () {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(4);
+                expect(spawned.messages).to.have.lengthOf(16);
 
-                let lastMessage = spawned.messages.pop();
+                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.SUCCESS]);
+                lastMessages.forEach(lastMessage => {
+                    expect(lastMessage).to.be.instanceOf(SceneFinished);
+                    expect(Result[lastMessage.value.result]).to.equal(Result[Result.SUCCESS]);
+                });
             });
         });
 
@@ -80,12 +82,14 @@ describe('When working with Cucumber', function () {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(4);
+                expect(spawned.messages).to.have.lengthOf(16);
 
-                let lastMessage = spawned.messages.pop();
+                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
+                lastMessages.forEach(lastMessage => {
+                    expect(lastMessage).to.be.instanceOf(SceneFinished);
+                    expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
+                });
             });
         });
     });

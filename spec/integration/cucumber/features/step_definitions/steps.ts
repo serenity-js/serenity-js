@@ -6,9 +6,9 @@ enum StepInterface {
 }
 
 enum StepResult {
-    success,
-    failure,
-    pending
+    SUCCESS,
+    FAILURE,
+    PENDING
 }
 
 function createFailingStep(stepInterface: StepInterface) {
@@ -38,7 +38,7 @@ function createFailingStep(stepInterface: StepInterface) {
 }
 
 function createPassingStep(stepInterface: StepInterface, result: StepResult) {
-    const resultValue = StepResult[result];
+    const resultValue = StepResult[result].toLowerCase();
     switch (stepInterface) {
         case StepInterface.SYNCHRONOUS:
             return () => {
@@ -61,7 +61,7 @@ function createPassingStep(stepInterface: StepInterface, result: StepResult) {
 }
 
 function createStep(stepInterface: StepInterface, result: StepResult) {
-    if (result === StepResult.failure) {
+    if (result === StepResult.FAILURE) {
         return createFailingStep(stepInterface);
     }
     return createPassingStep(stepInterface, result);
@@ -69,23 +69,41 @@ function createStep(stepInterface: StepInterface, result: StepResult) {
 
 export = function () {
 
-    this.Given(/^a step that passes$/,
-        createStep(StepInterface.SYNCHRONOUS, StepResult.success));
+    this.Given(/^a step that passes with a synchronous interface$/,
+        createStep(StepInterface.SYNCHRONOUS, StepResult.SUCCESS));
 
-    this.Given(/^a step that fails$/,
-        createStep(StepInterface.SYNCHRONOUS, StepResult.failure));
+    this.Given(/^a step that passes with a callback interface$/,
+        createStep(StepInterface.CALLBACK, StepResult.SUCCESS));
+
+    this.Given(/^a step that passes with a promise interface$/,
+        createStep(StepInterface.PROMISE, StepResult.SUCCESS));
+
+    this.Given(/^a step that passes with a generator interface$/,
+        createStep(StepInterface.GENERATOR, StepResult.SUCCESS));
+
+
+    this.Given(/^a step that fails with a synchronous interface$/,
+        createStep(StepInterface.SYNCHRONOUS, StepResult.FAILURE));
+
+    this.Given(/^a step that fails with a callback interface$/,
+        createStep(StepInterface.CALLBACK, StepResult.FAILURE));
+
+    this.Given(/^a step that fails with a promise interface$/,
+        createStep(StepInterface.PROMISE, StepResult.FAILURE));
+
+    this.Given(/^a step that fails with a generator interface$/,
+        createStep(StepInterface.GENERATOR, StepResult.FAILURE));
 
 
     this.Given(/^a pending step with a synchronous interface$/,
-        createStep(StepInterface.SYNCHRONOUS, StepResult.pending));
+        createStep(StepInterface.SYNCHRONOUS, StepResult.PENDING));
 
     this.Given(/^a pending step with a callback interface$/,
-        createStep(StepInterface.CALLBACK, StepResult.pending));
-
+        createStep(StepInterface.CALLBACK, StepResult.PENDING));
 
     this.Given(/^a pending step with a promise interface$/,
-        createStep(StepInterface.PROMISE, StepResult.pending));
+        createStep(StepInterface.PROMISE, StepResult.PENDING));
 
     this.Given(/^a pending step with a generator interface$/,
-        createStep(StepInterface.GENERATOR, StepResult.pending));
+        createStep(StepInterface.GENERATOR, StepResult.PENDING));
 };
