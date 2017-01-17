@@ -32,8 +32,13 @@
     "../node_modules/chai-smoothie/lib/chai-smoothie.d.ts"
   ],
 
+  "include": [
+    "../src/**/*.ts",
+    "./**/*.ts"
+  ],
+
   "exclude": [
-    "node_modules",
-    "examples"
+    "../node_modules",
+    "../examples"
   ]
 }
