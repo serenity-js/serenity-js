@@ -8,9 +8,14 @@ describe('When working with Cucumber', function () {
 
     this.timeout(30 * 1000);    // it might take a while to start up the selenium server
 
-    const protractor = spawner(
+    const protractorSpawner = spawner(
         process.cwd() + '/node_modules/.bin/protractor',
         { cwd: __dirname, silent: true },
+    );
+
+    const protractor = (specs: string) => protractorSpawner('protractor.conf.js',
+        '--specs', specs,
+        '--cucumberOpts.tags', '~@wip',
     );
 
     describe('Serenity/JS', () => {
@@ -21,10 +26,7 @@ describe('When working with Cucumber', function () {
         const messagesPerFeature = stepApiTypes * messagesPerStep;
 
         it ('reports passing scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*passing_scenario.feature',
-                '--cucumberOpts.tags', '~@wip',
-            );
+            let spawned = protractor('**/*passing_scenario.feature');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
@@ -39,10 +41,7 @@ describe('When working with Cucumber', function () {
         });
 
         it ('ignores skipped scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*skipped_scenario.feature',
-                '--cucumberOpts.tags', '~@wip',
-            );
+            let spawned = protractor('**/*skipped_scenario.feature');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(0);
@@ -50,10 +49,7 @@ describe('When working with Cucumber', function () {
         });
 
         it ('reports implicitly pending scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*implicitly_pending_scenario.feature',
-                '--cucumberOpts.tags', '~@wip',
-            );
+            let spawned = protractor('**/*implicitly_pending_scenario.feature');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerStep);
@@ -66,10 +62,7 @@ describe('When working with Cucumber', function () {
         });
 
         it ('reports explicitly pending scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*explicitly_pending_scenario.feature',
-                '--cucumberOpts.tags', '~@wip',
-            );
+            let spawned = protractor('**/*explicitly_pending_scenario.feature');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
@@ -84,11 +77,7 @@ describe('When working with Cucumber', function () {
         });
 
         it('reports failing scenarios', () => {
-
-            let spawned = protractor('protractor.conf.js',
-                '--specs', '**/*failing_scenario.feature',
-                '--cucumberOpts.tags', '~@wip',
-            );
+            let spawned = protractor('**/*failing_scenario.feature');
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
