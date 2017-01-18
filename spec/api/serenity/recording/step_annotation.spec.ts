@@ -83,16 +83,16 @@ describe('Notifiers', () => {
                     }
                 }
 
-                it('Notifies the Stage Manager when the Activity fails', () => {
+                it('Notifies the Stage Manager when the Activity fails', () =>
 
-                    return bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234')).then(() => {
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234'))                    ).
+                        to.be.rejected.then(() => {
 
-                        let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
-                        expect(lastEntry.value.error.message).to.equal('Payment failed');
-                        expect(lastEntry.value.result).to.equal(Result.ERROR);
-                    });
-                });
+                            expect(lastEntry.value.error.message).to.equal('Payment failed');
+                            expect(lastEntry.value.result).to.equal(Result.ERROR);
+                        }));
             });
 
             describe('When things go wrong and the Activity throws an Error', () => {
@@ -111,16 +111,16 @@ describe('Notifiers', () => {
                     }
                 }
 
-                it('Notifies the Stage Manager when the Activity fails due to a promise being rejected', () => {
+                it('Notifies the Stage Manager when the Activity fails due to a promise being rejected', () =>
 
-                    return bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234')).then(() => {
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234'))).
+                        to.be.rejected.then(() => {
 
-                        let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
-                        expect(lastEntry.value.error.message).to.equal('Payment failed');
-                        expect(lastEntry.value.result).to.equal(Result.ERROR);
-                    });
-                });
+                            expect(lastEntry.value.error.message).to.equal('Payment failed');
+                            expect(lastEntry.value.result).to.equal(Result.ERROR);
+                        }));
             });
         });
 

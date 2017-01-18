@@ -47,6 +47,8 @@ export class Step {
     private onFailure(activity: Activity, error: Error) {
         // todo: sniff the exception to find out about the Result. Did the test fail, or was it compromised?
         this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error)));
+
+        return Promise.reject(error);
     }
 }
 
