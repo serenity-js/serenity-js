@@ -20,8 +20,7 @@ describe('When working with Cucumber', function () {
 
     describe('Serenity/JS', () => {
 
-        // TODO: stepApiTypes = 4 when TS compile target e6 works and generator steps can be tested
-        const stepApiTypes = 3;
+        const stepApiTypes = 4;
         const messagesPerStep = 4;
         const messagesPerFeature = stepApiTypes * messagesPerStep;
 

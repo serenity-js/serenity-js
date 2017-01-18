@@ -9,6 +9,5 @@ Feature: Recognises an explicitly pending scenarios
   Scenario: An explicitly pending promise scenario
     Given a pending step with a promise interface
 
-  @wip
   Scenario: An explicitly pending generator scenario
     Given a pending step with a generator interface
