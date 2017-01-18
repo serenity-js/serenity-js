@@ -9,5 +9,6 @@ Feature: Recognises a passing scenario
   Scenario: A passing scenario with a promise interface
     Given a step that passes with a promise interface
 
+  @wip
   Scenario: A passing scenario with a generator interface
     Given a step that passes with a generator interface

@@ -15,15 +15,21 @@ describe('When working with Cucumber', function () {
 
     describe('Serenity/JS', () => {
 
+        // TODO: stepApiTypes = 4 when TS compile target e6 works and generator steps can be tested
+        const stepApiTypes = 3;
+        const messagesPerStep = 4;
+        const messagesPerFeature = stepApiTypes * messagesPerStep;
+
         it ('reports passing scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*passing_scenario.feature',
+                '--cucumberOpts.tags', '~@wip',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(16);
+                expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
 
-                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
+                let lastMessages = _.chunk(spawned.messages, messagesPerStep).map(chunk => chunk.pop());
 
                 lastMessages.forEach(lastMessage => {
                     expect(lastMessage).to.be.instanceOf(SceneFinished);
@@ -46,10 +52,11 @@ describe('When working with Cucumber', function () {
         it ('reports implicitly pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*implicitly_pending_scenario.feature',
+                '--cucumberOpts.tags', '~@wip',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(4);
+                expect(spawned.messages).to.have.lengthOf(messagesPerStep);
 
                 let lastMessage = spawned.messages.pop();
 
@@ -61,12 +68,13 @@ describe('When working with Cucumber', function () {
         it ('reports explicitly pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*explicitly_pending_scenario.feature',
+                '--cucumberOpts.tags', '~@wip',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(16);
+                expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
 
-                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
+                let lastMessages = _.chunk(spawned.messages, messagesPerStep).map(chunk => chunk.pop());
 
                 lastMessages.forEach(lastMessage => {
                     expect(lastMessage).to.be.instanceOf(SceneFinished);
@@ -79,12 +87,13 @@ describe('When working with Cucumber', function () {
 
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*failing_scenario.feature',
+                '--cucumberOpts.tags', '~@wip',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(16);
+                expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
 
-                let lastMessages = _.chunk(spawned.messages, 4).map(chunk => chunk.pop());
+                let lastMessages = _.chunk(spawned.messages, messagesPerStep).map(chunk => chunk.pop());
 
                 lastMessages.forEach(lastMessage => {
                     expect(lastMessage).to.be.instanceOf(SceneFinished);

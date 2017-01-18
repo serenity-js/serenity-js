@@ -26,10 +26,12 @@ function createFailingStep(stepInterface: StepInterface) {
                 });
             };
         case StepInterface.GENERATOR:
+/*
             return function*() {
                 yield new Promise(process.nextTick);
                 throw new Error('Assertion failed');
             };
+*/
         case StepInterface.SYNCHRONOUS:
         default:
             return () => {
@@ -50,10 +52,12 @@ function createPassingStep(stepInterface: StepInterface, result: StepResult) {
                 return new Promise(resolve => process.nextTick(() => resolve(resultValue)));
             };
         case StepInterface.GENERATOR:
+/*
             return function*() {
                 yield new Promise(process.nextTick);
                 return resultValue;
             };
+*/
         case StepInterface.SYNCHRONOUS:
         default:
             return () => {
