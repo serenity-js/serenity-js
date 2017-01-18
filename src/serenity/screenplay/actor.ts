@@ -54,7 +54,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     attemptsTo(...tasks: Performable[]): Promise<void> {
-        return tasks.reduce((previous: Promise<void>, current: Performable, index, list) => {
+        return tasks.reduce((previous: Promise<void>, current: Performable) => {
             return previous.then(() => current.performAs(this));
         }, Promise.resolve(null));
     }
