@@ -18,6 +18,7 @@ describe('When working with Cucumber', function () {
 
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/recognises_single_value_tags.feature',
+                '--disableChecks',  // until https://github.com/angular/protractor/issues/3978 is fixed
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -47,6 +48,7 @@ describe('When working with Cucumber', function () {
 
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/recognises_multi_value_tags.feature',
+                '--disableChecks',  // until https://github.com/angular/protractor/issues/3978 is fixed
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {

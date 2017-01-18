@@ -38,7 +38,7 @@ describe('Interactions', () => {
 
         function fakeBrowser(windowOptions): ProtractorBrowser {
             let browser: ProtractorBrowser = <any> sinon.createStubInstance(ProtractorBrowser),
-                driver:  WebDriver         = <any> sinon.createStubInstance(WebDriver),
+                driver:  any               = <any> sinon.createStubInstance(WebDriver),
                 window = () => { return windowOptions; },
                 manage = (): any => { return { window }; };
 

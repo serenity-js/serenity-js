@@ -1,4 +1,3 @@
-import synced = require('selenium-webdriver/testing');
 import expect = require('../expect');
 
 import { by, protractor } from 'protractor';
@@ -60,21 +59,21 @@ class ChooseAnExample implements Task {
     }
 }
 
-synced.describe ('When waiting for things to happen, a test scenario', function () {
+describe ('When waiting for things to happen, a test scenario', function () {
 
     this.timeout(10000);
 
     const Trigger_Delay   = Duration.ofMillis(500),
           Not_Long_Enough = Duration.ofMillis(100),
-          Long_Enough     = Duration.ofMillis(1000);
+          Long_Enough     = Duration.ofMillis(1500);
 
     let app   = new AppServer();
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
-    synced.before(app.start());
-    synced.after(app.stop());
+    before(app.start());
+    after(app.stop());
 
-    synced.beforeEach(() =>
+    beforeEach(() =>
 
         james.attemptsTo(
             Open.browserOn(app.demonstrating('waiting')),
@@ -88,9 +87,9 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
         '$interval',
     ].forEach(timeoutFunction => {
 
-        synced.describe(`using Passive Wait (${ timeoutFunction })`, () => {
+        describe(`using Passive Wait (${ timeoutFunction })`, () => {
 
-            synced.it ('will fail if the timeout is too short', () =>
+            it ('will fail if the timeout is too short', () =>
 
                 james.attemptsTo(
                     ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
@@ -99,7 +98,7 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
 
                 then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
 
-            synced.it ('will pass if the timeout is long enough', () =>
+            it ('will pass if the timeout is long enough', () =>
 
                 james.attemptsTo(
                     ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
@@ -109,25 +108,25 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                 then(() => expect(james.toSee(WebElement.of(Playground.Result))).displayed));
         });
 
-        synced.describe(`using Active Wait (${ timeoutFunction })`, () => {
+        describe(`using Active Wait (${ timeoutFunction })`, () => {
 
-            synced.it('can rely on a default timeout provided by Wait.until(..) to be sensibly long enough', () =>
+            it('can rely on a default timeout provided by Wait.until(..) to be sensibly long enough', () =>
 
                 expect(james.attemptsTo(
                     ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
                     Wait.until(Playground.Result, Is.visible()),
                 )).to.be.fulfilled);
 
-            synced.describe('to determine if an element is visible', () => {
+            describe('to determine if an element is visible', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.visible()),
                     )).to.be.rejectedWith('The result did not become visible'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
@@ -140,16 +139,16 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is invisible', () => {
+            describe('to determine if an element is invisible', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Invisible').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.invisible()),
                     )).to.be.rejectedWith('The result did not become invisible'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Invisible').after(Trigger_Delay).using(timeoutFunction),
@@ -162,16 +161,16 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is present', () => {
+            describe('to determine if an element is present', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.present()),
                     )).to.be.rejectedWith('The result did not become invisible'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
@@ -184,16 +183,16 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is not present in the DOM', () => {
+            describe('to determine if an element is not present in the DOM', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Absent').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.absent()),
                     )).to.be.rejectedWith('The result did not become absent'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Absent').after(Trigger_Delay).using(timeoutFunction),
@@ -205,16 +204,16 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is selected', () => {
+            describe('to determine if an element is selected', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Selected').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.selected()),
                     )).to.be.rejectedWith('The result did not become selected'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Selected').after(Trigger_Delay).using(timeoutFunction),
@@ -228,16 +227,16 @@ synced.describe ('When waiting for things to happen, a test scenario', function 
                     ])));
             });
 
-            synced.describe('to determine if an element is clickable', () => {
+            describe('to determine if an element is clickable', () => {
 
-                synced.it('will fail if the condition is not met within the timeout', () =>
+                it('will fail if the condition is not met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Clickable').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.clickable()),
                     )).to.be.rejectedWith('The result did not become clickable'));
 
-                synced.it('will pass if the condition is met within the timeout', () =>
+                it('will pass if the condition is met within the timeout', () =>
 
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Clickable').after(Trigger_Delay).using(timeoutFunction),

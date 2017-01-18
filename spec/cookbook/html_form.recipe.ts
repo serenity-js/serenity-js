@@ -1,4 +1,3 @@
-import synced = require('selenium-webdriver/testing');
 import expect = require('../expect');
 import { Actor, BrowseTheWeb, Target } from '../../src/screenplay-protractor';
 import { Click, Enter, Open, Select, SelectedValue, SelectedValues, Text, Value } from '../../src/serenity-protractor';
@@ -34,18 +33,18 @@ class MultiCountry {
 }
 /// [pageobjects]
 
-synced.describe ('When demonstrating the usage of an HTML form, a test scenario', function () {
+describe ('When demonstrating the usage of an HTML form, a test scenario', function () {
 
     this.timeout(10000);
 
     let app   = new AppServer();
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
-    synced.before(app.start());
-    synced.before(() => james.attemptsTo(Open.browserOn(app.demonstrating('html_form'))));
-    synced.after(app.stop());
+    before(app.start());
+    before(() => james.attemptsTo(Open.browserOn(app.demonstrating('html_form'))));
+    after(app.stop());
 
-    synced.it ('can interact with a single-line text input', () =>
+    it ('can interact with a single-line text input', () =>
 
         james.attemptsTo(
             Enter.theValue('James').into(Username.Field),
@@ -54,7 +53,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
             expect(james.toSee(Text.of(Username.Result))).eventually.equal('James'),
         ])));
 
-    synced.it ('can interact with a text area', () =>
+    it ('can interact with a text area', () =>
 
         james.attemptsTo(
             Enter.theValue('Lorem ipsum\ndolor\nsit amet').into(Bio.Field),
@@ -63,7 +62,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
             expect(james.toSee(Text.of(Bio.Result))).eventually.equal('Lorem ipsum\ndolor\nsit amet'),
         ])));
 
-    synced.it ('can interact with a checkbox', () =>
+    it ('can interact with a checkbox', () =>
 
         james.attemptsTo(
             Click.on(Newsletter.Checkbox),
@@ -72,7 +71,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
             expect(james.toSee(Text.of(Newsletter.Result))).eventually.equal('true'),
         ])));
 
-    synced.it ('can interact with a select box', () =>
+    it ('can interact with a select box', () =>
 
         james.attemptsTo(
             Select.theValue('France').from(SingleCountry.Selector),
@@ -81,7 +80,7 @@ synced.describe ('When demonstrating the usage of an HTML form, a test scenario'
             expect(james.toSee(Text.of(SingleCountry.Result))).eventually.equal('France'),
         ])));
 
-    synced.it ('can interact with multi-choice select box', () =>
+    it ('can interact with multi-choice select box', () =>
 
         james.attemptsTo(
             Select.values('Poland', 'France').from(MultiCountry.Selector),
