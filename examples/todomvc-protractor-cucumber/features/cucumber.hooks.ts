@@ -1,7 +1,7 @@
 import { protractor } from 'protractor';
 import * as serenity from 'serenity-js/lib/serenity-cucumber';
 
-export = function () {
+export = function() {
 
     this.registerListener(serenity.scenarioLifeCycleNotifier());
 

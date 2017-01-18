@@ -1,4 +1,4 @@
-import { Open, PerformsTasks, ResizeBrowserWindow, Task, step } from 'serenity-js/lib/screenplay-protractor';
+import { Open, PerformsTasks, ResizeBrowserWindow, step, Task } from 'serenity-js/lib/screenplay-protractor';
 
 import { AddTodoItems } from './add_todo_items';
 

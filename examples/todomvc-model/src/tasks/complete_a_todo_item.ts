@@ -1,6 +1,6 @@
+import { Click, step, PerformsTasks, Task } from 'serenity-js/lib/screenplay-protractor';
+
 import { TodoList } from '../user_interface';
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Click, step } from 'serenity-js/lib/screenplay-protractor';
 
 export class CompleteATodoItem implements Task {
     static called(itemName: string) {

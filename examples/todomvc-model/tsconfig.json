@@ -6,8 +6,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "outDir": "./lib"
   },
+
+  "include": [
+    "src/**/*.ts"
+  ],
 
   "exclude": [
     "node_modules"

@@ -8,7 +8,7 @@ import {
     ItemStatus,
     Start,
     TodoListItems,
-} from '../../src/screenplay';
+} from 'todomvc-model';
 
 import { expect } from '../../src/expect';
 import { listOf } from '../../src/text';
@@ -18,9 +18,9 @@ export = function todoUserSteps() {
     /**
      *  Initialises Serenity with a custom Cast of Actors, specific to your domain
      */
-    let stage = Serenity.callToStageFor(new Actors());
+    const stage = Serenity.callToStageFor(new Actors());
 
-    this.Given(/^.*that (.*) has an empty todo list$/, (name) => {
+    this.Given(/^.*that (.*) has an empty todo list$/, (name: string) => {
 
         return stage.theActorCalled(name).attemptsTo(
             Start.withAnEmptyTodoList());
@@ -29,27 +29,27 @@ export = function todoUserSteps() {
     this.Given(/^.*that (.*) has a todo list containing (.*)$/, (name: string, items: string) => {
 
         return stage.theActorCalled(name).attemptsTo(
-            Start.withATodoListContaining(listOf(items))
+            Start.withATodoListContaining(listOf(items)),
         );
     });
 
     this.When(/^s?he adds (.*?) to (?:his|her) list$/, (itemName: string) => {
 
         return stage.theActorInTheSpotlight().attemptsTo(
-            AddATodoItem.called(itemName)
+            AddATodoItem.called(itemName),
         );
     });
 
     this.When(/^s?he completes (.*)$/, (itemName: string) => {
 
         return stage.theActorInTheSpotlight().attemptsTo(
-            CompleteATodoItem.called(itemName)
+            CompleteATodoItem.called(itemName),
         );
     });
 
     this.When(/^s?he filters (?:her|his) list to show (?:only )?(.*) tasks$/, (taskType: string) => {
         return stage.theActorInTheSpotlight().attemptsTo(
-            FilterItems.toShowOnly(taskType)
+            FilterItems.toShowOnly(taskType),
         );
     });
 

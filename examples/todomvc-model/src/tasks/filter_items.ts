@@ -1,5 +1,4 @@
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Click, step } from 'serenity-js/lib/screenplay-protractor';
+import { Click, PerformsTasks, step, Task } from 'serenity-js/lib/screenplay-protractor';
 
 import { TodoList } from '../user_interface';
 

@@ -41,6 +41,7 @@ exports.config = {
     },
 
     restartBrowserBetweenTests: true,
+    disableChecks: true,
 
     onPrepare: function() {
         browser.ignoreSynchronization = false;
