@@ -45,10 +45,18 @@ export class Step {
     }
 
     private onFailure(activity: Activity, error: Error) {
-        // todo: sniff the exception to find out about the Result. Did the test fail, or was it compromised?
-        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error)));
+        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, this.resultFrom(error), error)));
 
         return Promise.reject(error);
+    }
+
+    private resultFrom(error: Error): Result {
+        const constructorOf = e => e && e.constructor ? e.constructor.name : '';
+
+        // todo: sniff the exception to find out about the Result. Did the test fail, or was it compromised?
+        return /AssertionError/.test(constructorOf(error))
+            ? Result.FAILURE
+            : Result.ERROR;
     }
 }
 

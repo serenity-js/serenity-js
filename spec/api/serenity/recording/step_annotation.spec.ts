@@ -83,7 +83,20 @@ describe('Notifiers', () => {
                     }
                 }
 
-                it('Notifies the Stage Manager when the Activity fails', () =>
+                class PayWithInvalidCreditCardThrowingAnAssertionError implements Task {
+                    static number(creditCardNumber: string) {
+                        return new PayWithInvalidCreditCardThrowingAnAssertionError(creditCardNumber);
+                    }
+
+                    constructor(private cardNumber: string) {}
+
+                    @step('{0} pays with an invalid credit card number #cardNumber')
+                    performAs(actor: PerformsTasks): PromiseLike<void> {
+                        return expect(Promise.resolve(false)).to.eventually.equal(true);
+                    }
+                }
+
+                it('Notifies the Stage Manager when the Activity throws an Error', () =>
 
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234'))                    ).
                         to.be.rejected.then(() => {
@@ -93,6 +106,17 @@ describe('Notifiers', () => {
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);
                         }));
+
+                it('Notifies the Stage Manager when the Activity fails', () =>
+
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnAssertionError.number('1234 1234 1234 1234'))).
+                    to.be.rejected.then(() => {
+
+                        let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+
+                        expect(lastEntry.value.error.message).to.equal('expected false to equal true');
+                        expect(Result[lastEntry.value.result]).to.equal(Result[Result.FAILURE]);
+                    }));
             });
 
             describe('When things go wrong and the Activity throws an Error', () => {
