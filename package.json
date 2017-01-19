@@ -122,12 +122,15 @@
     "exclude": [
       "spec",
       "examples/**",
-      "node_modules"
+      "node_modules",
+      "typings"
     ],
     "extension": [
       ".ts"
     ],
-    "require": [],
+    "require": [
+      "ts-node/register"
+    ],
     "reporter": [
       "json",
       "text-summary"
