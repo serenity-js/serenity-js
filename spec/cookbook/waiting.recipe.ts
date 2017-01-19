@@ -63,9 +63,9 @@ describe ('When waiting for things to happen, a test scenario', function () {
 
     this.timeout(10000);
 
-    const Trigger_Delay   = Duration.ofMillis(500),
-          Not_Long_Enough = Duration.ofMillis(100),
-          Long_Enough     = Duration.ofMillis(1000);
+    const Trigger_Delay   = Duration.ofMillis(2000),
+          Not_Long_Enough = Duration.ofMillis(500),
+          Long_Enough     = Duration.ofMillis(4000);
 
     let app   = new AppServer();
     let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));

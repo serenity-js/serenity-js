@@ -26,7 +26,7 @@ export class Wait {
 }
 
 export class ActiveWait {
-    private static Default_Timeout = Duration.ofSeconds(2);
+    private static Default_Timeout = Duration.ofSeconds(5);
 
     until<T> (somethingToWaitFor: T, condition: SuccessCondition<T>): Performable {
         return condition(somethingToWaitFor, this.timeout);
