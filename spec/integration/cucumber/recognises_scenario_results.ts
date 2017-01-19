@@ -17,7 +17,6 @@ describe('When working with Cucumber', function () {
         it ('reports passing scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*passing_scenario.feature',
-                '--disableChecks',  // until https://github.com/angular/protractor/issues/3978 is fixed
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
@@ -45,7 +44,6 @@ describe('When working with Cucumber', function () {
         it ('reports pending scenarios', () => {
             let spawned = protractor('protractor.conf.js',
                 '--specs', '**/*pending_scenario.feature',
-                '--disableChecks',  // until https://github.com/angular/protractor/issues/3978 is fixed
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
