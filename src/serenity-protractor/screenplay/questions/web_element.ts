@@ -16,4 +16,6 @@ export class WebElement implements Question<ElementFinder> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the element representing ${ this.target }`;
 }

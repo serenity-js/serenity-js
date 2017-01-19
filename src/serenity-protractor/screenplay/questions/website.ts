@@ -12,4 +12,6 @@ class WebsiteTitle implements Question<string> {
     answeredBy(actor: UsesAbilities): PromiseLike<string> {
         return BrowseTheWeb.as(actor).getTitle();
     }
+
+    toString = () => `the title of the current page`;
 }

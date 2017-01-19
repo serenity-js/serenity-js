@@ -20,6 +20,8 @@ class TextOf implements Question<string> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the text of ${ this.target}`;
 }
 
 class TextOfAll implements Question<string[]> {
@@ -32,4 +34,6 @@ class TextOfAll implements Question<string[]> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the text of all ${ this.target}`;
 }

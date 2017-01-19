@@ -24,4 +24,6 @@ class AttributeValue implements Question<string> {
 
     constructor(private target: Target, private attribute: string) {
     }
+
+    toString = () => `the value of the '${ this.attribute }' attribute of ${ this.target}`;
 }

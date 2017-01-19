@@ -1,4 +1,4 @@
-import { PerformsTasks, UsesAbilities } from './actor';
+import { AnswersQuestions, PerformsTasks, UsesAbilities } from './actor';
 
 export interface Task extends Performable {
     performAs(actor: PerformsTasks): PromiseLike<void>;
@@ -9,5 +9,5 @@ export interface Interaction extends Performable {
 }
 
 export interface Performable {
-    performAs(actor: PerformsTasks | UsesAbilities): PromiseLike<void>;
+    performAs(actor: PerformsTasks | UsesAbilities | AnswersQuestions): PromiseLike<void>;
 }

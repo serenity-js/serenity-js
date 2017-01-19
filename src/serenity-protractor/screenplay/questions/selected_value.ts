@@ -13,6 +13,8 @@ export class SelectedValue implements Question<string> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the selected value of ${ this.target }`;
 }
 
 export class SelectedValues implements Question<string> {
@@ -26,4 +28,6 @@ export class SelectedValues implements Question<string> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the selected values of ${ this.target }`;
 }

@@ -14,4 +14,6 @@ export class Value implements Question<string> {
 
     constructor(private target: Target) {
     }
+
+    toString = () => `the value of ${ this.target}`;
 }
