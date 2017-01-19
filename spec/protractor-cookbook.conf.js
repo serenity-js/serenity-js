@@ -16,7 +16,6 @@ exports.config = {
 
     capabilities: {
         browserName:          'chrome',
-        'version':            'ANY',
         build:                process.env.BROWSERSTACK_AUTOMATE_BUILD,
         project:              process.env.BROWSERSTACK_AUTOMATE_PROJECT,
 
