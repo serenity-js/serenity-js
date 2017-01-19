@@ -17,4 +17,6 @@ export class ItemStatus implements Question<string> {
 
     constructor(private itemName: string) {
     }
+
+    toString = () => `the status of '${ this.itemName}'`;
 }

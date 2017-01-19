@@ -24,6 +24,6 @@ export class AddTodoItems implements Task {
     }
 
     private addAll(items: string[]): Performable[] {
-        return items.map((item) => AddATodoItem.called(item));
+        return items.map(item => AddATodoItem.called(item));
     }
 }
