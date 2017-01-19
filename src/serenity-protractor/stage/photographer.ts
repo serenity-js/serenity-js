@@ -125,19 +125,24 @@ export class Photographer implements StageCrewMember {
         let saveScreenshot = data => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
 
         let ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
-            if (error.message.indexOf('does not have a valid session ID') > -1) {
+            // todo: this needs further investigation; sometimes webdriver session dies before we can take a screenshot
+            if (~error.message.indexOf('does not have a valid session ID') || ~error.message.indexOf('Session ID is null')) {
+                // tslint:disable-next-line:no-console
+                console.warn(`[Photographer] Looks like there was a problem with taking a photo of ${ actor }: `, error.message);
+
                 return undefined;
             }
 
             throw error;
         };
 
-        return BrowseTheWeb.as(actor).takeScreenshot()
-            .then(saveScreenshot)
-            .then(
-                path  => new Photo(path),
+        return this.stage.manager.informOfWorkInProgress(
+            BrowseTheWeb.as(actor).takeScreenshot()
+                .then(saveScreenshot).then(
+                path => new Photo(path),
                 error => ignoreInactiveBrowserButReportAnyOther(error),
-            );
+            ),
+        );
     }
 }
 

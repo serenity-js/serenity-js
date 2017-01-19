@@ -12,7 +12,7 @@ export interface StageCrewMember {
 export class StageManager {
 
     private listeners: CrewMembersCommunicationChannel[] = [];
-    private wip: Array<Promise<any>> = [];
+    private wip: Array<PromiseLike<any>> = [];
 
     constructor(private journal: Journal) {
     }
@@ -30,11 +30,13 @@ export class StageManager {
         }
     }
 
-    informOfWorkInProgress<T>(promise: Promise<T>): void {
+    informOfWorkInProgress<T>(promise: PromiseLike<T>): PromiseLike<T> {
         this.wip.push(promise);
+
+        return promise;
     }
 
-    allDone(): Promise<any[]> {
+    allDone(): PromiseLike<any[]> {
         return Promise.all(this.wip);
     }
 

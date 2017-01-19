@@ -15,7 +15,13 @@ export class SerenityProtractorPlugin /* implements ProtractorPlugin */  {
     }
 
     teardown() {
-        return Serenity.stageManager().allDone();
+        return Serenity.stageManager().allDone().then(
+            _      => _,
+            error  => {
+                console.error('[SerenityProtractorPlugin] An error occurred during teardown', error); // tslint:disable-line:no-console
+                return Promise.reject(error);
+            },
+        );
     }
 
     private crewMembers(): StageCrewMember[] {

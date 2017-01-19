@@ -131,6 +131,18 @@ describe('Photographer', () => {
 
                     return expect(photoAttempted.value.photo).to.eventually.be.rejectedWith(unknownError);
                 });
+
+                it('Notifies the Stage Manager of any work in progress', () => {
+
+                    fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
+
+                    thePhotographer.notifyOf(new ActivityStarts(activity, now));
+
+                    return expect(stageManager.allDone()).to.eventually.be.fulfilled.then(tasks => {
+                        expect(tasks).to.have.length(1);
+                        expect(tasks.pop()).to.be.instanceOf(Photo);
+                    });
+                });
             });
 
             describe('When the Actor in the spotlight finished to perform an Activity', () => {
