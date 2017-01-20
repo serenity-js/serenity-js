@@ -32,7 +32,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "book:build": "rimraf _book && gitbook build",
     "book:publish": "node ./gh-pages.js -d _book",
-    "publish": "failsafe publish-coverage-report semantic-release book:build book:publish"
+    "publish-all": "failsafe publish-coverage-report semantic-release book:build book:publish"
   },
   "peerDependencies": {
     "protractor": ">= 5.0.0 < 6"
