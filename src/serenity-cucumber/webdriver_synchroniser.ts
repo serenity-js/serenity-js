@@ -1,10 +1,10 @@
 import { Deferred } from '../serenity/recording/async';
 import withArityOf = require('util-arity');
-import co from 'co';
 import { StepDefinitions } from 'cucumber';
 import * as webdriver from 'selenium-webdriver';
 
 let isGeneratorFn = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
+let co = require('co');                         // tslint:disable-line:no-var-requires - JS module with no typings
 
 /**
  * Monkey-patches Cucumber.js Given/When/Then step generators to ensure that any step definition they create
