@@ -4,6 +4,7 @@ import { StepDefinitions } from 'cucumber';
 import * as webdriver from 'selenium-webdriver';
 
 let isGeneratorFn = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
+let co = require('co');                         // tslint:disable-line:no-var-requires - JS module with no typings
 
 /**
  * Monkey-patches Cucumber.js Given/When/Then step generators to ensure that any step definition they create
@@ -36,7 +37,7 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
         function synchronisingStepGenerator (pattern: string, options: any, code?: SomeFunction) {
 
             let originalStep = code || options,
-                synchronised = mimic(originalStep, synchronisedStep(originalStep));
+                synchronised = mimicArity(originalStep, synchronisedStep(originalStep));
 
             let params = !! code
                 ? [ pattern, options, synchronised ]
@@ -45,33 +46,32 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
             return originalStepGenerator.apply(cucumber, params);
         }
 
-        return mimic (originalStepGenerator, synchronisingStepGenerator);
+        return mimicArity (originalStepGenerator, synchronisingStepGenerator);
     }
 
     /**
      * Provides a synchronised wrapper around the user-defined step
      *
      * @param originalStep
-     * @return {(args:...[any])=>Promise<void>}
+     * @return {(...args:any[])=>(Promise<void> | void)}
      */
     function synchronisedStep (originalStep: SomeFunction) {
-        return function (...args: any[]) {
+
+        return mimicInterface(originalStep, function stepWrapper (...args: any[]) {
 
             let deferred = new Deferred<void>(),
                 context  = this;
 
             if (isGeneratorFn(originalStep)) {
-                throw 'Synchronizing e6 generator style steps is not supported by serenity-js yet';
+                originalStep = co.wrap(originalStep);
             }
 
             controlFlow
                 .execute(() => originalStep.apply(context, args) )
                 .then(deferred.resolve, deferred.reject);
 
-            if (!hasCallbackInterface(originalStep, args)) {
-                return deferred.promise;
-            }
-        };
+            return deferred.promise;
+        });
     }
 }
 
@@ -88,18 +88,45 @@ function hasCallbackInterface(step: SomeFunction, params: any[]): boolean {
 }
 
 /**
+ * Makes the pretender function conform to original function interface (i.e. callback- or promise-based)
+ *
+ * @param original
+ * @param pretender
+ * @return {StepDefinition}
+ */
+function mimicInterface (original: StepDefinition, pretender: SomeFunctionReturningPromise): StepDefinition {
+    return function stepWrapper (...args: any[]): Promise<void> | void {
+
+        let context  = this,
+            result = pretender.apply(context, args);
+
+        if (!hasCallbackInterface(original, args)) {
+            return result;
+        }
+    };
+}
+
+/**
  * Makes the pretender function of the same arity as the original one to deceive cucumber.
  *
  * @param original
  * @param pretender
- * @return {(args:...[any])=>any}
+ * @return {(...args:any[])=>any}
  */
-function mimic (original: SomeFunction, pretender: SomeFunction): SomeFunction {
+function mimicArity (original: SomeFunction, pretender: SomeFunction): SomeFunction {
     return withArityOf(original.length, pretender);
 }
 
 interface SomeFunction {
     (...args: any[]): any;
+}
+
+interface SomeFunctionReturningPromise {
+    (...args: any[]): Promise<void>;
+}
+
+interface StepDefinition {
+    (...args: any[]): Promise<void> | void;
 }
 
 interface StepGenerator {
