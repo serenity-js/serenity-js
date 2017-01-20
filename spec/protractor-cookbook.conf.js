@@ -1,9 +1,26 @@
 'use strict';
 require('ts-node/register');
 
-var path         = require('path'),
+var _            = require('lodash'),
+    path         = require('path'),
     protractor   = require.resolve('protractor'),
     node_modules = protractor.substring(0, protractor.lastIndexOf('node_modules') + 12);
+
+var capabilities = {
+    chrome: {
+        browserName:          'chrome',
+        build:                process.env.BROWSERSTACK_AUTOMATE_BUILD,
+        project:              process.env.BROWSERSTACK_AUTOMATE_PROJECT,
+
+        'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
+        'browserstack.local': true,
+    },
+
+    phantomjs: {
+        'browserName': 'phantomjs',
+        'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
+    }
+}
 
 exports.config = {
     seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
@@ -14,14 +31,14 @@ exports.config = {
     browserstackUser: process.env.BROWSERSTACK_USERNAME,
     browserstackKey:  process.env.BROWSERSTACK_KEY,
 
-    capabilities: {
-        browserName:          'chrome',
-        build:                process.env.BROWSERSTACK_AUTOMATE_BUILD,
-        project:              process.env.BROWSERSTACK_AUTOMATE_PROJECT,
+    restartBrowserBetweenTests: false,
 
-        'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
-        'browserstack.local': true,
-    },
+    getMultiCapabilities: function() {
+        var browsers = (this.params.browsers || 'chrome').split(',');
 
-    restartBrowserBetweenTests: false
+        return _(capabilities)
+            .pick(browsers)
+            .values()
+            .value();
+    }
 };

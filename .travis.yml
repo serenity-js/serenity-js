@@ -12,7 +12,8 @@ before_install:
 before_script:
 - npm prune
 script:
-- npm run verify
+- 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run verify:pull-request; fi'
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run verify; fi'
 after_success:
 - npm run publish
 branches:
