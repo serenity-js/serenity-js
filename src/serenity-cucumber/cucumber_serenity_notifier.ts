@@ -60,12 +60,32 @@ function handleScenarioResultEvent (result: cucumber.events.ScenarioResultPayloa
 
 // --
 
+function fullNameOf(step: cucumber.events.StepPayload): string {
+
+    const serialise = (argument: any) => {
+        switch (argument.getType()) {
+            case 'DataTable':
+                return '\n' + argument.raw().map(row => `| ${row.join(' | ')} |`).join('\n');
+            case 'DocString':
+                return `\n${ argument.getContent() }`;
+            default:
+                return '';
+        }
+    };
+
+    return [
+        step.getKeyword(),
+        step.getName(),
+        (step as any).getArguments().map(serialise).join('\n'),    // todo: submit getArguments() to DefinitelyTyped
+    ].join('').trim();
+}
+
 function sceneFrom(scenario: cucumber.events.ScenarioPayload): Scene {
     return new CucumberScene(scenario);
 }
 
 function activityFrom(step: cucumber.events.StepPayload): Activity {
-    return new Activity(step.getKeyword() + step.getName());
+    return new Activity(fullNameOf(step));
 }
 
 function outcome<T>(subject: T, status: string, error?: Error): Outcome<T> {

@@ -106,4 +106,8 @@ export = function () {
 
     this.Given(/^a pending step with a generator interface$/,
         createStep(StepInterface.GENERATOR, StepResult.PENDING));
+
+    this.Given(/^the following.*$/, data => Promise.resolve());
+
+    this.Given(/^an example.ts file with the following content:$/, docstring => Promise.resolve());
 };
