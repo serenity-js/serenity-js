@@ -52,7 +52,7 @@ describe('When working with Cucumber', function () {
                     cucumberStepDescriptionFromActivityFinishedMessage = spawned.messages[2].value.subject.name;
 
                 expect(cucumberStepDescriptionFromActivityStartedMessage).to.equal([
-                    'Given an example.ts file with the following content:',
+                    'Given an example.ts file with the following contents:',
                     'export const noop = (_) => _;',
                     'export const sum  = (a, b) => a + b;',
                 ].join('\n'));

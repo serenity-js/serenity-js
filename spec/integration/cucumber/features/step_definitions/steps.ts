@@ -109,5 +109,5 @@ export = function () {
 
     this.Given(/^the following.*$/, data => Promise.resolve());
 
-    this.Given(/^an example.ts file with the following content:$/, docstring => Promise.resolve());
+    this.Given(/^an example.ts file with the following contents:$/, docstring => Promise.resolve());
 };

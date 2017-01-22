@@ -12,7 +12,7 @@ Feature: Recognises special step arguments
   @docstring
   Scenario: Reports a DocString argument
 
-    Given an example.ts file with the following content:
+    Given an example.ts file with the following contents:
       """
       export const noop = (_) => _;
       export const sum  = (a, b) => a + b;
