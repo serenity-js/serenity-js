@@ -3,8 +3,8 @@ import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
 import * as webdriver from 'selenium-webdriver';
 
-let isGeneratorFn = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
-let co = require('co');                         // tslint:disable-line:no-var-requires - JS module with no typings
+let isGenerator = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
+let co = require('co');                       // tslint:disable-line:no-var-requires - JS module with no typings
 
 /**
  * Monkey-patches Cucumber.js Given/When/Then step generators to ensure that any step definition they create
@@ -62,7 +62,7 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
             let deferred = new Deferred<void>(),
                 context  = this;
 
-            if (isGeneratorFn(originalStep)) {
+            if (isGenerator.fn(originalStep)) {
                 originalStep = co.wrap(originalStep);
             }
 
