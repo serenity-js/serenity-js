@@ -1,4 +1,4 @@
-Feature: Recognises an explicitly pending scenarios
+Feature: Recognises explicitly pending scenarios
 
   Scenario: An explicitly pending synchronous scenario
     Given a pending step with a synchronous interface
