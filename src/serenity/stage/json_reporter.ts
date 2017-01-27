@@ -43,13 +43,13 @@ export class JsonReporter implements StageCrewMember {
     }
 
     notifyOf(event: DomainEvent<any>): void {
+        // tslint:disable-next-line:switch-default  - ignore any other events
         switch (event.constructor.name) {
             case SceneStarts.name:      return this.sceneStarts(event);
             case ActivityStarts.name:   return this.activityStarts(event);
             case ActivityFinished.name: return this.activityFinished(event);
             case SceneFinished.name:    return this.sceneFinished(event);
             case PhotoAttempted.name:   return this.photoAttempted(event);
-            default: break; // ignore any other events
         }
     }
 

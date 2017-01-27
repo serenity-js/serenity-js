@@ -1,6 +1,15 @@
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '../serenity/domain/events';
-import { Activity, Outcome, Result, Scene, Tag } from '../serenity/domain/model';
-import { Serenity } from '../serenity/serenity';
+import { serenity } from '..';
+import {
+    Activity,
+    ActivityFinished,
+    ActivityStarts,
+    Outcome,
+    Result,
+    Scene,
+    SceneFinished,
+    SceneStarts,
+    Tag,
+} from '../serenity/domain';
 
 import * as cucumber from 'cucumber';
 
@@ -24,7 +33,7 @@ export function scenarioLifeCycleNotifier(): cucumber.EventListener {
 
 function handleBeforeScenarioEvent (scenario: cucumber.events.ScenarioPayload, callback: () => void) {
 
-    Serenity.notify(new SceneStarts(sceneFrom(scenario)));
+    serenity.notify(new SceneStarts(sceneFrom(scenario)));
 
     callback();
 }
@@ -32,7 +41,7 @@ function handleBeforeScenarioEvent (scenario: cucumber.events.ScenarioPayload, c
 function handleBeforeStepEvent (step: cucumber.events.StepPayload, callback: () => void) {
 
     if (! step.isHidden()) {
-        Serenity.notify(new ActivityStarts(activityFrom(step)));
+        serenity.notify(new ActivityStarts(activityFrom(step)));
     }
 
     callback();
@@ -44,7 +53,7 @@ function handleStepResultEvent (result: cucumber.events.StepResultPayload, callb
 
     // "before" and "after" steps emit an event even if they keywords themselves are not present in the test...
     if (!step.isHidden()) {
-        Serenity.notify(new ActivityFinished(outcome(activityFrom(step), result.getStatus(), result.getFailureException())));
+        serenity.notify(new ActivityFinished(outcome(activityFrom(step), result.getStatus(), result.getFailureException())));
     }
 
     callback();
@@ -54,7 +63,7 @@ function handleScenarioResultEvent (result: cucumber.events.ScenarioResultPayloa
 
     let scenario = result.getScenario();
 
-    Serenity.notify(new SceneFinished(outcome(sceneFrom(scenario), result.getStatus(), result.getFailureException())));
+    serenity.notify(new SceneFinished(outcome(sceneFrom(scenario), result.getStatus(), result.getFailureException())));
 
     callback();
 }
@@ -64,13 +73,12 @@ function handleScenarioResultEvent (result: cucumber.events.ScenarioResultPayloa
 function fullNameOf(step: cucumber.events.StepPayload): string {
 
     const serialise = (argument: any) => {
+        // tslint:disable-next-line:switch-default  - the only possible values are DataTable and DocString
         switch (argument.getType()) {
             case 'DataTable':
                 return '\n' + argument.raw().map(row => `| ${row.join(' | ')} |`).join('\n');
             case 'DocString':
                 return `\n${ argument.getContent() }`;
-            default:
-                return '';
         }
     };
 
@@ -95,7 +103,7 @@ function outcome<T>(subject: T, status: string, error?: Error): Outcome<T> {
 
 function serenityResultFrom(status: string): Result {
     const results = {
-        // 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?'
+        // 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
         undefined: Result.PENDING,
         failed:    Result.FAILURE,
         pending:   Result.PENDING,

@@ -11,7 +11,13 @@ exports.config = {
     seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
 
     framework: 'custom',
-    frameworkPath: require.resolve('protractor-cucumber-framework'),
+
+    frameworkPath: path.resolve(__dirname, '../../../src'),
+    serenity: {
+        dialect: 'cucumber',
+        crew: [ crew.childProcessReporter() ],
+    },
+
     specs: [ 'features/**/*.feature' ],
     cucumberOpts: {
         require:    [
@@ -20,11 +26,6 @@ exports.config = {
         format:     'pretty',
         compiler:   'ts:ts-node/register',
     },
-
-    plugins: [{
-        path: path.resolve(src, 'serenity-protractor/plugin'),
-        crew: [ crew.childProcessReporter() ],
-    }],
 
     capabilities: {
         'browserName': 'phantomjs',

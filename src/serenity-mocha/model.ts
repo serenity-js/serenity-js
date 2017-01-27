@@ -1,41 +1,8 @@
-import { Result, Scene } from '../serenity/domain';
+import { Outcome, Result, Scene, SceneFinished, SceneStarts } from '../serenity/domain';
 
-function fullNameOf(scenario: ScenarioOrSuite) {
-    return !! scenario.parent
-        ? `${ fullNameOf(scenario.parent) } ${ scenario.title }`.trim()
-        : scenario.title;
-}
-
-export function nameOf(scenario: ScenarioOrSuite) {
-    return fullNameOf(scenario).substring(categoryOf(scenario).length).trim();
-}
-
-export function categoryOf(scenario: ScenarioOrSuite) {
-    return !! scenario.parent && scenario.parent.title.trim() !== ''
-        ? categoryOf(scenario.parent)
-        : scenario.title;
-}
-
-export function finalStateOf(scenario: ExecutedScenario): Result {
-
-    if (scenario.pending) {
-        return Result.PENDING;
-    }
-
-    if (scenario.state === 'passed') {
-        return Result.SUCCESS;
-    }
-
-    if (scenario.state === 'failed') {
-        return Result.FAILURE;
-    }
-
-    if (scenario.timedOut) {
-        return Result.COMPROMISED;
-    }
-
-    return Result.COMPROMISED;
-}
+export const startOf   = (scenario: Scenario) => new SceneStarts(new MochaScene(scenario));
+export const endOf     = (scenario: ExecutedScenario) => new SceneFinished(new Outcome(new MochaScene(scenario), finalStateOf(scenario), scenario.err));
+export const isPending = (scenario: ExecutedScenario) => finalStateOf(scenario) === Result.PENDING;
 
 export interface TestError {
     name: string;
@@ -69,7 +36,7 @@ export interface ExecutedScenario extends Scenario {
     err?: TestError;
 }
 
-export class MochaScene extends Scene {
+class MochaScene extends Scene {
     constructor(scenario: Scenario) {
         super(
             nameOf(scenario),
@@ -81,4 +48,41 @@ export class MochaScene extends Scene {
     }
 }
 
-export type ScenarioOrSuite = { title: string, parent: ScenarioOrSuite };
+function finalStateOf(scenario: ExecutedScenario): Result {
+
+    if (scenario.pending) {
+        return Result.PENDING;
+    }
+
+    if (scenario.state === 'passed') {
+        return Result.SUCCESS;
+    }
+
+    if (scenario.state === 'failed') {
+        return Result.FAILURE;
+    }
+
+    if (scenario.timedOut) {
+        return Result.COMPROMISED;
+    }
+
+    return Result.COMPROMISED;
+}
+
+type ScenarioOrSuite = { title: string, parent: ScenarioOrSuite };
+
+function fullNameOf(scenario: ScenarioOrSuite) {
+    return !! scenario.parent
+        ? `${ fullNameOf(scenario.parent) } ${ scenario.title }`.trim()
+        : scenario.title;
+}
+
+function nameOf(scenario: ScenarioOrSuite) {
+    return fullNameOf(scenario).substring(categoryOf(scenario).length).trim();
+}
+
+function categoryOf(scenario: ScenarioOrSuite) {
+    return !! scenario.parent && scenario.parent.title.trim() !== ''
+        ? categoryOf(scenario.parent)
+        : scenario.title;
+}

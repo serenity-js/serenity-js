@@ -14,7 +14,7 @@ describe ('The Stage', () => {
 
     describe ('when used in an acceptance test', () => {
         it ('can be instantiated from Serenity', () => {
-            let stage = Serenity.callToStageFor(new MyActors());
+            let stage = new Serenity().callToStageFor(new MyActors());
 
             let james = stage.theActorCalled('James');
             expect(james.toString()).to.equal('James');

@@ -1,4 +1,4 @@
-import { Serenity } from 'serenity-js';
+import { serenity } from 'serenity-js';
 
 import {
     Actors,
@@ -18,7 +18,7 @@ export = function todoUserSteps() {
     /**
      *  Initialises Serenity with a custom Cast of Actors, specific to your domain
      */
-    const stage = Serenity.callToStageFor(new Actors());
+    const stage = serenity.callToStageFor(new Actors());
 
     this.Given(/^.*that (.*) has an empty todo list$/, (name: string) => {
 

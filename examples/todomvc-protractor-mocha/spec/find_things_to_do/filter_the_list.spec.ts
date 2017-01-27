@@ -1,12 +1,11 @@
-import { Serenity } from 'serenity-js';
+import { serenity } from 'serenity-js';
 import { Actors, CompleteATodoItem, FilterItems, Start } from 'todomvc-model';
-
 import { Ensure } from '../../src/tasks/ensure';
 
 describe('Finding things to do', function() {
     this.timeout(10000);
 
-    const stage = Serenity.callToStageFor(new Actors());
+    const stage = serenity.callToStageFor(new Actors());
 
     describe('James can use filters so that the list', () => {
 

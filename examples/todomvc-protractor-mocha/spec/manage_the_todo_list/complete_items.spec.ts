@@ -1,12 +1,11 @@
-import { Serenity } from 'serenity-js';
-import { Actors, CompleteATodoItem, ItemStatus, Start } from 'todomvc-model';
-
+import { serenity } from 'serenity-js';
+import { Actors, CompleteATodoItem, Start } from 'todomvc-model';
 import { Ensure } from '../../src/tasks/ensure';
 
 describe('Managing a Todo List', function() {
     this.timeout(10000);
 
-    const stage = Serenity.callToStageFor(new Actors());
+    const stage = serenity.callToStageFor(new Actors());
 
     describe('James', () => {
 

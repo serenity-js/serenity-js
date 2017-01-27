@@ -1,6 +1,6 @@
+import { serenity } from '../../';
 import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
 import { Performable } from '../screenplay';
-import { Serenity } from '../serenity';
 import { StageManager } from '../stage';
 import { StepDescription } from './step_description';
 
@@ -61,7 +61,7 @@ export class Step {
 }
 
 export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
-    return new Step(Serenity.stageManager()).describedUsing(stepDescriptionTemplate);
+    return new Step(serenity.stageManager()).describedUsing(stepDescriptionTemplate);
 }
 
 export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;

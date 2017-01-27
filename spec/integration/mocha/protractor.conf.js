@@ -11,14 +11,18 @@ exports.config = {
     seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
 
     framework: 'custom',
-    frameworkPath: src + '/serenity-mocha/index.ts',
+
+    frameworkPath: path.resolve(__dirname, '../../../src'),
+    serenity: {
+        dialect: 'mocha',
+        crew: [ crew.childProcessReporter() ],
+    },
 
     specs: [ 'spec/**.ts' ],
 
-    plugins: [{
-        path: path.resolve(src, 'serenity-protractor/plugin'),
-        crew: [ crew.childProcessReporter() ],
-    }],
+    mochaOpts: {
+        ui: 'bdd'
+    },
 
     capabilities: {
         'browserName': 'phantomjs',

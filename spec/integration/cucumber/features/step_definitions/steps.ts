@@ -71,6 +71,9 @@ function createStep(stepInterface: StepInterface, result: StepResult) {
 
 export = function () {
 
+    this.Given(/^a step that passes$/,
+        createStep(StepInterface.PROMISE, StepResult.SUCCESS));
+
     this.Given(/^a step that passes with a synchronous interface$/,
         createStep(StepInterface.SYNCHRONOUS, StepResult.SUCCESS));
 

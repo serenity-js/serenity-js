@@ -9,20 +9,20 @@ exports.config = {
     allScriptsTimeout: 110000,
 
     framework: 'custom',
-    frameworkPath: 'node_modules/serenity-js/lib/serenity-mocha',
-    specs: [ 'spec/**/*.spec.ts' ],
-
-    plugins: [{
-        path: 'node_modules/serenity-js/lib/serenity-protractor/plugin',
+    frameworkPath: require.resolve('serenity-js'),
+    serenity: {
+        dialect: 'mocha',
         crew: [
             crew.jsonReporter(),
             crew.consoleReporter(),
             crew.Photographer.who(_ => _
-                 .takesPhotosOf(_.Tasks_and_Interactions)
-                 .takesPhotosWhen(_.Activity_Finishes)
+                .takesPhotosOf(_.Tasks_and_Interactions)
+                .takesPhotosWhen(_.Activity_Finishes)
             )
         ]
-    }],
+    },
+
+    specs: [ 'spec/**/*.spec.ts' ],
 
     capabilities: {
         browserName: 'chrome',

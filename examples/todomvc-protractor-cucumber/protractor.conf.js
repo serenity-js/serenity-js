@@ -1,4 +1,4 @@
-require('ts-node/register');
+// require('ts-node/register');
 
 const crew = require('serenity-js/lib/stage_crew');
 
@@ -9,25 +9,25 @@ exports.config = {
     allScriptsTimeout: 110000,
 
     framework: 'custom',
-    frameworkPath: require.resolve('protractor-cucumber-framework'),
+    frameworkPath: require.resolve('serenity-js'),
+    serenity: {
+        dialect: 'cucumber',
+        crew: [
+            crew.jsonReporter(),
+            crew.consoleReporter(),
+            crew.Photographer.who(_ => _
+                .takesPhotosOf(_.Tasks_and_Interactions)
+                .takesPhotosWhen(_.Activity_Finishes)
+            )
+        ]
+    },
+
     specs: [ 'features/**/*.feature' ],
     cucumberOpts: {
         require:    [ 'features/**/*.ts' ],
         format:     'pretty',
         compiler:   'ts:ts-node/register'
     },
-
-    plugins: [{
-        path: 'node_modules/serenity-js/lib/serenity-protractor/plugin',
-        crew: [
-            crew.jsonReporter(),
-            crew.consoleReporter(),
-            crew.Photographer.who(_ => _
-                 .takesPhotosOf(_.Tasks_and_Interactions)
-                 .takesPhotosWhen(_.Activity_Finishes)
-            )
-        ]
-    }],
 
     capabilities: {
         browserName: 'chrome',
@@ -41,9 +41,5 @@ exports.config = {
     },
 
     restartBrowserBetweenTests: true,
-    disableChecks: true,
-
-    onPrepare: function() {
-        browser.ignoreSynchronization = false;
-    }
+    disableChecks: true
 };

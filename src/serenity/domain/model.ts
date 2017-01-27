@@ -72,6 +72,14 @@ export class Tag {
 export class Scene implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public tags: Tag[] = [], public id: string = `${category}:${name}`) { }
 
+    equals(another: Scene): boolean {
+        return (another instanceof Scene) &&
+            this.name === another.name &&
+            this.category === another.category &&
+            this.path === another.path;
+        // todo: tags are _probably_ not necessary ?
+    }
+
     toString() {
         return `${this.name} (category: ${this.category}, path: ${this.path}${when(this.id !== this.name, ', id: ' + this.id)})`;
     }
@@ -81,7 +89,7 @@ export class Activity implements Identifiable {
     constructor(public name: string, public id: string = name) { }
 
     equals(another: Activity): boolean {
-        return this.name === another.name && this.id === another.id;
+        return (another instanceof Activity) && this.name === another.name && this.id === another.id;
     }
 
     toString() {

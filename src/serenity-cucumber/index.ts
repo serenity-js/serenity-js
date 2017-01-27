@@ -1,2 +1,11 @@
-export { scenarioLifeCycleNotifier } from './cucumber_serenity_notifier';
-export { synchronise } from './webdriver_synchroniser';
+import { protractor } from 'protractor';
+
+import { scenarioLifeCycleNotifier } from './cucumber_serenity_notifier';
+import { synchronise } from './webdriver_synchroniser';
+
+export = function () {
+
+    this.registerListener(scenarioLifeCycleNotifier());
+
+    synchronise(this, protractor.browser.driver.controlFlow());
+};

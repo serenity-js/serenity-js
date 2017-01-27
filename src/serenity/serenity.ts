@@ -4,27 +4,19 @@ import { Cast, Journal, Stage, StageCrewMember, StageManager } from './stage';
 export const Default_Path_To_Reports = `${process.cwd()}/target/site/serenity/`;
 
 export class Serenity {
-    private static serenity: Serenity;
-
     private stage: Stage = new Stage(new StageManager(new Journal()));
 
-    public static callToStageFor(cast: Cast): Stage {
-        return Serenity.instance.stage.enter(cast);
+    callToStageFor = (cast: Cast): Stage => this.stage.enter(cast);
+
+    notify(event: DomainEvent<any>) {
+        this.stage.manager.notifyOf(event);
     }
 
-    public static stageManager() {
-        return Serenity.instance.stage.manager;
-    }
+    stageManager = () => this.stage.manager;
 
-    public static notify(event: DomainEvent<any>) {
-        Serenity.instance.stage.manager.notifyOf(event);
-    }
+    waitForAnyOutstandingTasks = () => this.stage.manager.allDone();
 
-    public static assignCrewMembers(...crewMembers: StageCrewMember[]) {
-        crewMembers.forEach(crewMember => crewMember.assignTo(Serenity.instance.stage));
-    }
-
-    private static get instance() {
-        return Serenity.serenity || (Serenity.serenity = new Serenity());
+    assignCrewMembers(...crewMembers: StageCrewMember[]) {
+        crewMembers.forEach(crewMember => crewMember.assignTo(this.stage));
     }
 }
