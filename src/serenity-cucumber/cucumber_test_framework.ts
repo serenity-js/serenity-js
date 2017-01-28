@@ -3,27 +3,24 @@ import { SerenityProtractorFramework, TestFramework } from '../serenity-protract
 import _ = require('lodash');
 import glob = require('glob');
 import path = require('path');
-
-// todo: maybe some conditional loading, checking if the module exists?
-const Cucumber: any = require('cucumber');   // tslint:disable-line:no-var-requires
+import { attemptToRequire } from '../serenity/io/attempt_require';
 
 export class CucumberTestFramework implements TestFramework {
 
-    constructor(private serenity: SerenityProtractorFramework, private config: CucumberConfig) {
+    private args: string[] = [];
+
+    constructor(private serenity: SerenityProtractorFramework, config: CucumberConfig) {
+        this.args = ['node', 'cucumberjs'].
+            concat([ '--require', this.serenityCucumberModule() ]).
+            concat(this.argumentsFrom(config));
     }
 
     run(specs: string[]): PromiseLike<any> {
 
-        // so that it works with ts-node and with TypeScript transpiled to JavaScript
-        let serenityCucumber = glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/index.?s').pop();
-
-        let args = ['node', 'cucumberjs'].
-            concat([ '--require', serenityCucumber ]).
-            concat(this.argumentsFrom(this.config)).
-            concat(specs);
-
         return new Promise((resolve, reject) => {
-            Cucumber.Cli(args).run(wasSuccessful => {
+            const Cucumber = attemptToRequire('cucumber');
+
+            Cucumber.Cli(this.args.concat(specs)).run(wasSuccessful => {
                 if (wasSuccessful) {
                     resolve(wasSuccessful);
                 } else {
@@ -32,6 +29,8 @@ export class CucumberTestFramework implements TestFramework {
             });
         });
     }
+
+    private serenityCucumberModule = () => glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/index.?s').pop();
 
     private argumentsFrom (config: CucumberConfig): string[]{
         const resolveGlobs = (path: string)       => glob.sync(path, { cwd: this.serenity.config.configDir });

@@ -6,6 +6,8 @@ import { endOf, ExecutedScenario, isPending, Scenario, startOf } from './model';
 import _ = require('lodash');
 import glob = require('glob');
 import path = require('path');
+import { attemptToRequire } from '../serenity/io';
+
 import { MochaConfig } from './mocha_config';
 
 export class MochaTestFramework implements TestFramework {
@@ -13,7 +15,7 @@ export class MochaTestFramework implements TestFramework {
     private mocha;
 
     constructor(private config: MochaConfig) {
-        let Mocha = require('mocha');
+        const Mocha = attemptToRequire('mocha');
 
         this.mocha = new Mocha(config);
 

@@ -35,15 +35,24 @@ export class SerenityProtractorFramework {
         return this.runner.runTestPreparer().then(() => {
             return framework.
                 run(specs).
-                // cucumber returns "false" when the run fails,
-                // but we don't care as it's Protractor's responsibility to return the correct error code
-                // based on the test results, hence `noop`
-                then(noop, console.warn).
+                then(noop, this.analyzeTheFailure).
                 then(() => serenity.waitForAnyOutstandingTasks()).
                 then(() => this.waitForOtherProtractorPlugins()).
                 then(() => this.reporter.finalResults());
         });
     }
+
+    private analyzeTheFailure = (issue: any) => new Promise((resolve, reject) => {
+        if (issue instanceof Error) {
+            return reject(issue);
+        }
+        else {
+            // Cucumber returns "false" when the run fails and Mocha returns the number of failed tests.
+            // both cases are handled by Protractor based on the final test results reported by Serenity/JS,
+            // so we don't need any additional error handling here.
+            return resolve(issue);
+        }
+    })
 
     private testFrameworkBasedOn(config: SerenityFrameworkConfig): TestFramework {
         switch (config.serenity.dialect.toLowerCase()) {
