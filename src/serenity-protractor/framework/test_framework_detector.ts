@@ -1,5 +1,5 @@
 import { CucumberTestFramework } from '../../serenity-cucumber/cucumber_test_framework';
-import { MochaTestFramework } from '../../serenity-mocha/mocha_test_framework';
+import { MochaTestFramework } from '../../serenity-mocha';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
 import { TestFramework } from './test_framework';
 

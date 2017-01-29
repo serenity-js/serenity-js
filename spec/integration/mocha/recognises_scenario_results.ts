@@ -61,10 +61,10 @@ describe('When working with Mocha', function () {
             });
         });
 
-        it('reports failing scenarios', () => {
+        it('reports sync scenarios failing due to an AssertionError', () => {
 
             let spawned = protractor('protractor.conf.js',
-                '--mochaOpts.grep', 'A sample test that fails',
+                '--mochaOpts.grep', 'A sample test that fails due to an AssertionError',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
@@ -74,6 +74,80 @@ describe('When working with Mocha', function () {
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
+            });
+        });
+
+        it('reports async scenarios failing due to an AssertionError', () => {
+
+            let spawned = protractor('protractor.conf.js',
+                '--mochaOpts.grep', 'ails due to an async AssertionError',
+            );
+
+            return expect(spawned.result).to.be.eventually.rejected.then(() => {
+                expect(spawned.messages).to.have.lengthOf(2);
+
+                let lastMessage = spawned.messages.pop();
+
+                expect(lastMessage).to.be.instanceOf(SceneFinished);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
+                expect(lastMessage.value.error).to.deep.equal({
+                    actual: 'async pass',
+                    expected: 'async fail',
+                    message: 'expected \'async pass\' to equal \'async fail\'',
+                    name: 'AssertionError',
+                    showDiff: true,
+                });
+            });
+        });
+
+        it('reports scenarios that timed out', function () {
+
+            let spawned = protractor('protractor.conf.js',
+                '--mochaOpts.grep', 'A sample test that times out',
+            );
+
+            return expect(spawned.result).to.be.eventually.rejected.then(() => {
+                expect(spawned.messages).to.have.lengthOf(2);
+
+                let lastMessage = spawned.messages.pop();
+
+                expect(lastMessage).to.be.instanceOf(SceneFinished);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(lastMessage.value.error.message).to.match(/Timeout of 5ms exceeded./);
+            });
+        });
+
+        it('reports scenarios that failed with an error', function () {
+
+            let spawned = protractor('protractor.conf.js',
+                '--mochaOpts.grep', 'A sample test that fails with an error',
+            );
+
+            return expect(spawned.result).to.be.eventually.rejected.then(() => {
+                expect(spawned.messages).to.have.lengthOf(2);
+
+                let lastMessage = spawned.messages.pop();
+
+                expect(lastMessage).to.be.instanceOf(SceneFinished);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(lastMessage.value.error.message).to.match(/Expected problem/);
+            });
+        });
+
+        it('reports scenarios that failed with an error asynchronously', function () {
+
+            let spawned = protractor('protractor.conf.js',
+                '--mochaOpts.grep', 'A sample test that asynchronously fails with an error',
+            );
+
+            return expect(spawned.result).to.be.eventually.rejected.then(() => {
+                expect(spawned.messages).to.have.lengthOf(2);
+
+                let lastMessage = spawned.messages.pop();
+
+                expect(lastMessage).to.be.instanceOf(SceneFinished);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(lastMessage.value.error.message).to.match(/Expected async problem/);
             });
         });
 

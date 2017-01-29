@@ -77,24 +77,23 @@ function seal(fn) {
  * @return {!Function}
  */
 function makeAsyncTestFn(fn) {
-    var isAsync = fn.length > 0;
-    var isGenerator = promise.isGenerator(fn);
+    const isAsync = fn.length > 0;
+    const isGenerator = promise.isGenerator(fn);
     if (isAsync && isGenerator) {
-        throw new TypeError(
+        throw TypeError(
             'generator-based tests must not take a callback; for async testing,'
             + ' return a promise (or yield on a promise)');
     }
 
-    var ret = /** @type {function(this: mocha.Context)}*/ function(done) {
-        var self = this;
-        var runTest = function(resolve, reject) {
+    var ret = /** @type {function(this: mocha.Context)}*/ (function(done) {
+        const runTest = (resolve, reject) => {
             try {
-                if (self.isAsync) {
-                    fn.call(self, function(err) { err ? reject(err) : resolve(); });
-                } else if (self.isGenerator) {
-                    resolve(promise.consume(fn, self));
+                if (isAsync) {
+                    fn.call(this, err => err ? reject(err) : resolve());
+                } else if (isGenerator) {
+                    resolve(promise.consume(fn, this));
                 } else {
-                    resolve(fn.call(self));
+                    resolve(fn.call(this));
                 }
             } catch (ex) {
                 reject(ex);
@@ -102,7 +101,7 @@ function makeAsyncTestFn(fn) {
         };
 
         if (!promise.USE_PROMISE_MANAGER) {
-            new promise.Promise(runTest).then(seal(done), done);
+            new Promise(runTest).then(seal(done), done);
             return;
         }
 
@@ -118,7 +117,7 @@ function makeAsyncTestFn(fn) {
                 return runTest(fulfill, reject);
             }, flow);
         }, runnable.fullTitle()).then(seal(done), done);
-    };
+    });
 
     ret.toString = function() {
         return fn.toString();
