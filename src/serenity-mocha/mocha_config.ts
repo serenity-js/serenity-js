@@ -32,7 +32,7 @@ export interface MochaConfig {
     /**
      * String or regexp to filter tests with
      */
-    grep: string | RegExp;
+    grep?: string | RegExp;
 
     /**
      * Number of times to retry failed tests

@@ -2,9 +2,6 @@ import sinon = require('sinon');
 import expect = require('../../../expect');
 import { given } from 'mocha-testdata';
 import { Runner } from 'protractor/built/runner';
-
-import { ProtractorReportExporter } from '../../../../src/serenity-protractor/framework';
-import { ProtractorReporter } from '../../../../src/serenity-protractor/framework/protractor_reporter';
 import {
     Activity,
     ActivityFinished,
@@ -16,6 +13,9 @@ import {
     SceneFinished,
     SceneStarts,
 } from '../../../../src/serenity/domain';
+
+import { ProtractorReporter } from '../../../../src/serenity-protractor/reporting';
+import { ProtractorReportExporter } from '../../../../src/serenity-protractor/reporting/protractor_reporter';
 import { RehearsalReport } from '../../../../src/serenity/reporting';
 
 describe('serenity-protractor', () => {

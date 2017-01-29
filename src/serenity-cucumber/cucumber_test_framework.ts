@@ -1,4 +1,4 @@
-import { SerenityProtractorFramework, TestFramework } from '../serenity-protractor/framework';
+import { TestFramework } from '../serenity-protractor/framework';
 
 import _ = require('lodash');
 import glob = require('glob');
@@ -9,7 +9,7 @@ export class CucumberTestFramework implements TestFramework {
 
     private args: string[] = [];
 
-    constructor(private serenity: SerenityProtractorFramework, config: CucumberConfig) {
+    constructor(private requireRoot: string, config: CucumberConfig) {
         this.args = ['node', 'cucumberjs'].
             concat([ '--require', this.serenityCucumberModule() ]).
             concat(this.argumentsFrom(config));
@@ -33,7 +33,7 @@ export class CucumberTestFramework implements TestFramework {
     private serenityCucumberModule = () => glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/index.?s').pop();
 
     private argumentsFrom (config: CucumberConfig): string[]{
-        const resolveGlobs = (path: string)       => glob.sync(path, { cwd: this.serenity.config.configDir });
+        const resolveGlobs = (path: string)       => glob.sync(path, { cwd: this.requireRoot });
         const resolvePaths = (globPath: string[]) => _.chain(globPath).map(resolveGlobs).flatten().value();
 
         const resolvedConfig = Object.assign({}, config, { require: resolvePaths(config.require || []) } );
@@ -54,12 +54,12 @@ export interface CucumberConfig {
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
      */
-    format?: string[];
+    format?: string;
 
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
      */
-    formatOptions: string;
+    formatOptions?: string;
 
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features
@@ -69,7 +69,7 @@ export interface CucumberConfig {
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles
      */
-    profile: string[];
+    profile?: string[];
 
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files
@@ -79,10 +79,10 @@ export interface CucumberConfig {
     /**
      * @link https://docs.cucumber.io/tag-expressions/
      */
-    tags: string;
+    tags?: string;
 
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */
-    worldParameters: string;
+    worldParameters?: string;
 }

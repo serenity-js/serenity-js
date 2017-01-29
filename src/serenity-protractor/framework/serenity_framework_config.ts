@@ -5,7 +5,7 @@ import { MochaConfig } from '../../serenity-mocha';
 import { StageCrewMember } from '../../serenity/stage';
 
 export interface SerenityFrameworkConfig extends Config {
-    serenity: {
+    serenity?: {
         crew?: StageCrewMember[];
         dialect?: 'cucumber' | 'mocha';
     };
