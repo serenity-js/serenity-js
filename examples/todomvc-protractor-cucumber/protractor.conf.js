@@ -13,7 +13,7 @@ exports.config = {
     serenity: {
         dialect: 'cucumber',
         crew: [
-            crew.jsonReporter(),
+            crew.serenityBDDReporter(),
             crew.consoleReporter(),
             crew.Photographer.who(_ => _
                 .takesPhotosOf(_.Tasks_and_Interactions)
@@ -37,7 +37,11 @@ exports.config = {
                 'disable-extensions',
                 // 'show-fps-counter=true'
             ]
-        }
+        },
+
+        // execute tests using 2 browsers running in parallel
+        shardTestFiles: true,
+        maxInstances: 2
     },
 
     restartBrowserBetweenTests: true,

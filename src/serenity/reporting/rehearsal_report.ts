@@ -4,6 +4,8 @@ import {
     ActivityStarts,
     DomainEvent,
     Outcome,
+    Photo,
+    PhotoAttempted,
     Scene,
     SceneFinished,
     SceneStarts,
@@ -12,7 +14,8 @@ import { ReportExporter } from './report_exporter';
 
 export class RehearsalReport {
     static from(events: Array<DomainEvent<any>>): RehearsalPeriod {
-        let currentNode = undefined;
+        let previousNode: ReportPeriod<Scene | Activity> = undefined;
+        let currentNode:  ReportPeriod<Scene | Activity> = undefined;
 
         return events.reduce((fullReport, event) => {
             switch (event.constructor) {    // tslint:disable-line:switch-default   - ignore other events
@@ -26,7 +29,15 @@ export class RehearsalReport {
                     currentNode = currentNode.concludeWith(event);
                     break;
                 case ActivityFinished:
-                    currentNode = currentNode.concludeWith(event);
+                    // The Photographer triggers a PhotoAttempted event after the ActivityFinished,
+                    // that's why we need to cache both the previous and the current node
+                    previousNode = currentNode;
+                    currentNode  = currentNode.concludeWith(event);
+                    break;
+                case PhotoAttempted:
+                    [previousNode, currentNode]
+                        .filter(node => !! node && node.matches(event.value.activity))
+                        .forEach(node => node.attach(event.value.photo));
                     break;
             }
 
@@ -36,30 +47,47 @@ export class RehearsalReport {
 }
 
 export abstract class ReportPeriod<T> {
-    protected startedAt:  number;
-    protected finishedAt: number;
-
     public parent:    ReportPeriod<any>;
     public value:     T;
+
     public children:  Array<ReportPeriod<any>> = [];
     public outcome:   Outcome<T>;
+
+    public startedAt:  number;
+    protected finishedAt: number;
+
+    private promisedPhotos: Array<PromiseLike<Photo>> = [];
 
     constructor(start: DomainEvent<T>) {
         this.value     = start.value;
         this.startedAt = start.timestamp;
     }
 
-    abstract matches(finished: DomainEvent<Outcome<any>>): boolean;
+    abstract matches(finished: T): boolean;
 
     concludeWith(finished: DomainEvent<Outcome<any>>) {
         this.finishedAt = finished.timestamp;
         this.outcome    = finished.value;
 
-        return this.parent;
+        if (! this.parent) {
+            return this;
+        }
+
+        return this.matches(finished.value.subject)
+            ? this.parent
+            : this.parent.concludeWith(finished);
+    }
+
+    attach(promisedPhoto: PromiseLike<Photo>) {
+        this.promisedPhotos.push(promisedPhoto);
+    }
+
+    photos(): PromiseLike<Photo[]> {
+        // todo: maybe use some constant rather than a blunt "undefined"?
+        return Promise.all(this.promisedPhotos).then(photos => photos.filter(p => p !== undefined));
     }
 
     duration() {
-        // todo: error handling on incomplete object;
         return this.finishedAt - this.startedAt;
     }
 
@@ -74,7 +102,7 @@ export abstract class ReportPeriod<T> {
 }
 
 export class RehearsalPeriod extends ReportPeriod<Rehearsal> {
-    matches(finished: DomainEvent<Outcome<any>>): boolean {
+    matches(finished: Rehearsal): boolean {
         return false;
     }
 
@@ -84,7 +112,7 @@ export class RehearsalPeriod extends ReportPeriod<Rehearsal> {
 
     constructor() {
         super(new DomainEvent(new Rehearsal()));    // todo: DomainEvent? Meh. Can I do better?
-        this.parent = this;
+        this.parent = undefined;
     }
 }
 
@@ -92,8 +120,8 @@ export class Rehearsal {
 }
 
 export class ActivityPeriod extends ReportPeriod<Activity> {
-    matches(finished: DomainEvent<Outcome<any>>): boolean {
-        return this.value.equals(finished.value.subject);
+    matches(another: Activity): boolean {
+        return this.value.equals(another);
     }
 
     exportedUsing<FORMAT>(exporter: ReportExporter<FORMAT>): PromiseLike<FORMAT> {
@@ -102,8 +130,8 @@ export class ActivityPeriod extends ReportPeriod<Activity> {
 }
 
 export class ScenePeriod extends ReportPeriod<Scene> {
-    matches(finished: DomainEvent<Outcome<any>>): boolean {
-        return this.value.equals(finished.value.subject);
+    matches(another: Scene): boolean {
+        return this.value.equals(another);
     }
 
     exportedUsing<FORMAT>(exporter: ReportExporter<FORMAT>): PromiseLike<FORMAT> {

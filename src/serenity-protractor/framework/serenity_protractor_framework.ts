@@ -1,6 +1,6 @@
 import { Runner } from 'protractor';
 import { serenity, Serenity } from '../..';
-import { jsonReporter } from '../../serenity/stage/json_reporter';
+import { serenityBDDReporter } from '../../serenity/reporting';
 import { ProtractorReport, ProtractorReporter } from '../reporting';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
 import { TestFramework } from './test_framework';
@@ -48,7 +48,7 @@ export class SerenityProtractorFramework {
 
     private defaultConfig = (): SerenityFrameworkConfig => ({
         serenity: {
-            crew: [ jsonReporter() ],
+            crew: [ serenityBDDReporter() ],
         },
     })
 }

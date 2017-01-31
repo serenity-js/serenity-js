@@ -13,7 +13,7 @@ exports.config = {
     serenity: {
         dialect: 'mocha',
         crew: [
-            crew.jsonReporter(),
+            crew.serenityBDDReporter(),
             crew.consoleReporter(),
             crew.Photographer.who(_ => _
                 .takesPhotosOf(_.Tasks_and_Interactions)

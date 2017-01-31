@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 import { Md5 } from 'ts-md5/dist/md5';
-
 import {
     Activity,
     ActivityFinished,
@@ -18,14 +17,15 @@ import {
     Tag,
 } from '../../../../src/serenity/domain';
 import { FileSystem } from '../../../../src/serenity/io/file_system';
-import { Journal, JsonReporter, Stage, StageManager } from '../../../../src/serenity/stage';
-import { jsonReporter } from '../../../../src/stage_crew';
+import { Journal, Stage, StageManager } from '../../../../src/serenity/stage';
+
+import { SerenityBDDReporter, serenityBDDReporter } from '../../../../src/serenity/reporting/serenity_bdd_reporter';
 
 import expect = require('../../../expect');
 
 describe('When reporting on what happened during the rehearsal', () => {
 
-    describe ('JSON Reporter', () => {
+    describe ('SerenityBDDReporter', () => {
 
         const
             startTime = 1467201010000,
@@ -38,14 +38,14 @@ describe('When reporting on what happened during the rehearsal', () => {
         let stageManager: StageManager,
             stage: Stage,
             fileSystem: FileSystem,
-            reporter: JsonReporter;
+            reporter: SerenityBDDReporter;
 
         beforeEach( () => {
             fileSystem   = new FileSystem(rootDir);
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
 
-            reporter = new JsonReporter(fileSystem);
+            reporter = new SerenityBDDReporter(fileSystem);
             reporter.assignTo(stage);
         });
 
@@ -53,11 +53,11 @@ describe('When reporting on what happened during the rehearsal', () => {
         afterEach (() => mockfs.restore());
 
         it ('can be instantiated using a default path to the reports directory', () => {
-            expect(jsonReporter()).to.be.instanceOf(JsonReporter);
+            expect(serenityBDDReporter()).to.be.instanceOf(SerenityBDDReporter);
         });
 
         it ('can be instantiated using a factory method so that explicit instantiation of the File System can be avoided', () => {
-            expect(jsonReporter('/some/path/to/reports')).to.be.instanceOf(JsonReporter);
+            expect(serenityBDDReporter('/some/path/to/reports')).to.be.instanceOf(SerenityBDDReporter);
         });
 
         describe ('the Rehearsal Report', () => {
@@ -79,8 +79,8 @@ describe('When reporting on what happened during the rehearsal', () => {
             it('includes the details of what happened during specific activities', () => {
                 givenFollowingEvents(
                     sceneStarted(scene, startTime),
-                    activityStarted('Opens a browser', startTime + 1),
-                    activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
+                        activityStarted('Opens a browser', startTime + 1),
+                        activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
                     sceneFinished(scene, Result.SUCCESS, startTime + 3),
                 );
 
@@ -100,10 +100,10 @@ describe('When reporting on what happened during the rehearsal', () => {
             it('covers multiple activities', () => {
                 givenFollowingEvents(
                     sceneStarted(scene, startTime),
-                    activityStarted('Opens a browser', startTime + 1),
-                    activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
-                    activityStarted('Navigates to amazon.com', startTime + 3),
-                    activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 4),
+                        activityStarted('Opens a browser', startTime + 1),
+                        activityFinished('Opens a browser', Result.SUCCESS, startTime + 2),
+                        activityStarted('Navigates to amazon.com', startTime + 3),
+                        activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 4),
                     sceneFinished(scene, Result.SUCCESS, startTime + 5),
                 );
 
@@ -129,14 +129,14 @@ describe('When reporting on what happened during the rehearsal', () => {
             it('covers activities in detail, including sub-activities', () => {
                 givenFollowingEvents(
                     sceneStarted(scene, startTime),
-                    activityStarted('Buys a discounted e-book reader', startTime + 1),
-                    activityStarted('Opens a browser', startTime + 2),
-                    activityFinished('Opens a browser', Result.SUCCESS, startTime + 3),
-                    activityStarted('Searches for discounted e-book readers', startTime + 4),
-                    activityStarted('Navigates to amazon.com', startTime + 5),
-                    activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
-                    activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
-                    activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
+                        activityStarted('Buys a discounted e-book reader', startTime + 1),
+                            activityStarted('Opens a browser', startTime + 2),
+                            activityFinished('Opens a browser', Result.SUCCESS, startTime + 3),
+                            activityStarted('Searches for discounted e-book readers', startTime + 4),
+                                activityStarted('Navigates to amazon.com', startTime + 5),
+                                activityFinished('Navigates to amazon.com', Result.SUCCESS, startTime + 6),
+                            activityFinished('Searches for discounted e-book readers', Result.SUCCESS, startTime + 7),
+                        activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 8),
                     sceneFinished(scene, Result.SUCCESS, startTime + 9),
                 );
 
@@ -176,10 +176,10 @@ describe('When reporting on what happened during the rehearsal', () => {
                 it('contains pictures', () => {
                     givenFollowingEvents(
                         sceneStarted(scene, startTime),
-                        activityStarted('Specifies the default email address', startTime + 1),
-                        photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
-                        activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
-                        photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
+                            activityStarted('Specifies the default email address', startTime + 1),
+                            photoTaken('Specifies the default email address', 'picture1.png', startTime + 1),
+                            activityFinished('Specifies the default email address', Result.SUCCESS, startTime + 2),
+                            photoTaken('Specifies the default email address', 'picture2.png', startTime + 2),
                         sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
@@ -204,9 +204,9 @@ describe('When reporting on what happened during the rehearsal', () => {
 
                     givenFollowingEvents(
                         sceneStarted(scene, startTime),
-                        activityStarted('Buys a discounted e-book reader', startTime + 1),
-                        activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
-                        photoFailed('Buys a discounted e-book reader', startTime + 2),
+                            activityStarted('Buys a discounted e-book reader', startTime + 1),
+                            activityFinished('Buys a discounted e-book reader', Result.SUCCESS, startTime + 2),
+                            photoFailed('Buys a discounted e-book reader', startTime + 2),
                         sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
@@ -409,6 +409,39 @@ describe('When reporting on what happened during the rehearsal', () => {
                         })));
                 });
 
+                it('describes test infrastructure problems encountered during the test', () => {
+                    let error = new Error('Timeout of 1000ms exceeded.');
+                    error.stack = '';   // we don't care about the stack in this test
+
+                    givenFollowingEvents(
+                        sceneStarted(scene, startTime),
+                        activityStarted('Buys a discounted e-book reader', startTime + 1),
+                        sceneFinished(scene, Result.ERROR, startTime + 1001, error),
+                    );
+
+                    return stageManager.allDone().then(_ =>
+                        expect(producedReport()).to.deep.equal(expectedReportWith({
+                            duration: 1001,
+                            testSteps: [ {
+                                description: 'Buys a discounted e-book reader',
+                                startTime: startTime + 1,
+                                duration: 1000,
+                                result: 'ERROR',
+                                children: [],
+                                exception: {
+                                    errorType: 'Error',
+                                    message: 'Timeout of 1000ms exceeded.',
+                                    stackTrace: [ ],
+                                },
+                            } ],
+                            result: 'ERROR',
+                            testFailureCause: {
+                                errorType: 'Error',
+                                message: 'Timeout of 1000ms exceeded.',
+                                stackTrace: [],
+                            },
+                        })));
+                });
             });
 
             describe('When scenarios are tagged', () => {
@@ -595,7 +628,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         name: 'Checkout',
                         type: 'feature',
                     }],
-                    // driver: 'chrome:jane',
+                    driver:    'unknown',
                     manual:    false,
                     startTime,
                     duration:  undefined,
