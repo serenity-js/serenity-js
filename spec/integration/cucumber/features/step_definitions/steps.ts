@@ -62,6 +62,24 @@ function createPassingStep(stepInterface: StepInterface, result: StepResult) {
     }
 }
 
+function createSlowStep(stepInterface: StepInterface, timeout: number) {
+    switch (stepInterface) {
+        case StepInterface.CALLBACK:
+            return cb => {
+                setTimeout(cb, timeout);
+            };
+        case StepInterface.GENERATOR:
+            return function*() {
+                yield new Promise(resolve => setTimeout(resolve, timeout));
+            };
+        case StepInterface.PROMISE:
+        default:
+            return () => {
+                return new Promise(resolve => setTimeout(resolve, timeout));
+            };
+    }
+}
+
 function createStep(stepInterface: StepInterface, result: StepResult) {
     if (result === StepResult.FAILURE) {
         return createFailingStep(stepInterface);
@@ -113,4 +131,8 @@ export = function () {
     this.Given(/^the following.*$/, data => Promise.resolve());
 
     this.Given(/^an example.ts file with the following contents:$/, docstring => Promise.resolve());
+
+    this.Given(/^a slow, callback step$/,  { timeout: 100 }, createSlowStep(StepInterface.CALLBACK,  10000));
+    this.Given(/^a slow, generator step$/, { timeout: 100 }, createSlowStep(StepInterface.GENERATOR, 10000));
+    this.Given(/^a slow, promise step$/,   { timeout: 100 }, createSlowStep(StepInterface.PROMISE,   10000));
 };

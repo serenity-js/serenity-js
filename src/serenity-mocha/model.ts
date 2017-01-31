@@ -58,8 +58,8 @@ function finalStateOf(scenario: ExecutedScenario): Result {
         return Result.SUCCESS;
     }
 
-    if (wasCompromised(scenario)) {
-        return Result.COMPROMISED;
+    if (timedOut(scenario) || hasErrors(scenario)) {
+        return Result.ERROR;
     }
 
     if (scenario.state === 'failed') {
@@ -69,14 +69,13 @@ function finalStateOf(scenario: ExecutedScenario): Result {
     return Result.COMPROMISED;
 }
 
-function wasCompromised(scenario: ExecutedScenario) {
+function timedOut(scenario: ExecutedScenario) {
     // Mocha sets the `timedOut` flag *after* notifying the reporter of a test failure, hence the regex check.
-    const timedOut = s => s.timedOut || (s.err && /^Timeout.*exceeded/.test(s.err.message));
+    return scenario.timedOut || (scenario.err && /^Timeout.*exceeded/.test(scenario.err.message));
+}
 
-    // anything other than an assertion error
-    const blewUp = s => s.err && s.err.constructor && ! /AssertionError/.test(s.err.constructor.name);
-
-    return timedOut(scenario) || blewUp(scenario);
+function hasErrors(scenario: ExecutedScenario) {
+    return scenario.err && scenario.err.constructor && ! /AssertionError/.test(scenario.err.constructor.name);
 }
 
 type ScenarioOrSuite = { title: string, parent: ScenarioOrSuite };

@@ -97,13 +97,25 @@ function activityFrom(step: cucumber.events.StepPayload): Activity {
     return new Activity(fullNameOf(step));
 }
 
-function outcome<T>(subject: T, status: string, error?: Error): Outcome<T> {
-    return new Outcome(subject, serenityResultFrom(status), error);
+function outcome<T>(subject: T, stepStatus: string, maybeError?: Error | string | undefined): Outcome<T> {
+
+    let error = errorFrom(maybeError);
+
+    return new Outcome(subject, serenityResultFrom(stepStatus, error), error);
 }
 
-function serenityResultFrom(status: string): Result {
+function errorFrom(pseudoError: string | Error | undefined): Error {
+    switch (typeof pseudoError) {
+        case 'string': return new Error(pseudoError as string);
+        case 'object': return pseudoError as Error;
+        default:       return undefined;
+    }
+}
+
+function serenityResultFrom(stepStatus: string, error?: Error): Result {
+    const timeOut = (e: Error) => e && /timed out/.test(e.message);
+
     const results = {
-        // 'ambiguous':       // todo: do we care? will cucumber ever tell us about ambiguous steps?
         undefined: Result.PENDING,
         failed:    Result.FAILURE,
         pending:   Result.PENDING,
@@ -111,11 +123,13 @@ function serenityResultFrom(status: string): Result {
         skipped:   Result.SKIPPED,
     };
 
-    if (! results[status]) {
-        throw new Error(`Couldn't map the '${ status }' to a Serenity Result`);
+    if (! results[stepStatus]) {
+        throw new Error(`Couldn't map the '${ stepStatus }' to a Serenity Result`);
     }
 
-    return results[status];
+    return timeOut(error)
+        ? Result.ERROR
+        : results[stepStatus];
 }
 
 function toSerenityTag(cucumberTag: cucumber.Tag): Tag {

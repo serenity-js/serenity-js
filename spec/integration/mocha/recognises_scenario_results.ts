@@ -112,7 +112,7 @@ describe('When working with Mocha', function () {
                 let lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
                 expect(lastMessage.value.error.message).to.match(/Timeout of 5ms exceeded./);
             });
         });
@@ -129,7 +129,7 @@ describe('When working with Mocha', function () {
                 let lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
                 expect(lastMessage.value.error.message).to.match(/Expected problem/);
             });
         });
@@ -146,7 +146,7 @@ describe('When working with Mocha', function () {
                 let lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.COMPROMISED]);
+                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
                 expect(lastMessage.value.error.message).to.match(/Expected async problem/);
             });
         });
