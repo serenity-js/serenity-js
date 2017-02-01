@@ -20,7 +20,7 @@ export class Stage {
     }
 
     theActorCalled(actorName: string): Actor {
-        if (! this.castIsReady()) {
+        if (! this.actorsAreReady()) {
             throw new Error('The cast has not entered the stage yet.');
         }
 
@@ -41,7 +41,7 @@ export class Stage {
         return this.actorInTheSpotlight;
     }
 
-    private castIsReady(): boolean {
+    actorsAreReady(): boolean {
         return !! this.cast;
     }
 }

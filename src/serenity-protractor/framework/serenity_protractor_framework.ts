@@ -2,7 +2,9 @@ import { Runner } from 'protractor';
 import { serenity, Serenity } from '../..';
 import { serenityBDDReporter } from '../../serenity/reporting';
 import { ProtractorReport, ProtractorReporter } from '../reporting';
+import { photographer } from '../stage/photographer';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
+import { StandIns } from './stand_ins';
 import { TestFramework } from './test_framework';
 import { TestFrameworkDetector } from './test_framework_detector';
 
@@ -26,7 +28,10 @@ export class SerenityProtractorFramework {
         this.reporter  = new ProtractorReporter(runner);
         this.framework = new TestFrameworkDetector().frameworkFor(this.config);
 
-        this.serenity.assignCrewMembers(...this.config.serenity.crew, this.reporter);
+        this.serenity.assignCrewMembers(...this.config.serenity.crew.concat([
+            this.reporter,
+            new StandIns(),
+        ]));
     }
 
     run = (specs: string[]): PromiseLike<ProtractorReport> => this.runner.runTestPreparer().then(() =>
@@ -48,7 +53,10 @@ export class SerenityProtractorFramework {
 
     private defaultConfig = (): SerenityFrameworkConfig => ({
         serenity: {
-            crew: [ serenityBDDReporter() ],
+            crew: [
+                serenityBDDReporter(),
+                photographer(),
+            ],
         },
     })
 }
