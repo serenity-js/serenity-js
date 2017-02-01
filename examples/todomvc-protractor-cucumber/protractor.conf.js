@@ -1,5 +1,3 @@
-// require('ts-node/register');
-
 const crew = require('serenity-js/lib/stage_crew');
 
 exports.config = {
