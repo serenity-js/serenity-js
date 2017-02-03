@@ -5,6 +5,7 @@ import { Click, Enter, Open, Select, SelectedValue, SelectedValues, Text, Value 
 import { AppServer } from '../support/server';
 
 import { by, protractor } from 'protractor';
+import { Execute } from '../../src/serenity-protractor/screenplay/interactions/execute';
 
 /// [pageobjects]
 class Username {
@@ -69,6 +70,13 @@ describe ('When demonstrating the usage of an HTML form, a test scenario', funct
         ).then(() => Promise.all([
             expect(james.toSee(Value.of(Newsletter.Checkbox))).eventually.equal('on'),
             expect(james.toSee(Text.of(Newsletter.Result))).eventually.equal('true'),
+        ])));
+
+    it ('can execute script to click a checkbox, as an example for script execution..', () =>
+        james.attemptsTo(
+            Execute.theScript('arguments[0].click();').on(Newsletter.Checkbox),
+        ).then(() => Promise.all([
+            expect(james.toSee(Value.of(Newsletter.Checkbox))).eventually.equal('on'),
         ])));
 
     it ('can interact with a select box', () =>
