@@ -1,6 +1,6 @@
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { Actor, addDescription, PerformsTasks, step, Task } from '../../../../src/screenplay';
+import { Actor, describeStep, PerformsTasks, step, Task } from '../../../../src/screenplay';
 
 import expect = require('../../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
@@ -147,7 +147,7 @@ describe('Notifiers', () => {
 
                 const PayWithCreditCard = {
                     number(creditCardNumber: string) {
-                        return addDescription(
+                        return describeStep(
                             actor => actor.attemptsTo( /*...*/ ),
                             `{0} pays with a credit card number ${creditCardNumber}`,
                         );
@@ -189,7 +189,7 @@ describe('Notifiers', () => {
 
                 const PayWithInvalidCreditCardThrowingAnError = {
                     number(creditCardNumber: string) {
-                        return addDescription(
+                        return describeStep(
                             (actor: PerformsTasks) => { throw new Error('Payment failed'); },
                             `{0} pays with an invalid credit card number ${creditCardNumber}`,
                         );
@@ -198,7 +198,7 @@ describe('Notifiers', () => {
 
                 const PayWithInvalidCreditCardThrowingAnAssertionError = {
                     number(creditCardNumber: string) {
-                        return addDescription(
+                        return describeStep(
                             (actor: PerformsTasks) => expect(Promise.resolve(false)).to.eventually.equal(true),
                             `{0} pays with an invalid credit card number ${creditCardNumber}`,
                         );
@@ -232,7 +232,7 @@ describe('Notifiers', () => {
 
                 const PayWithInvalidCreditCardRejectingAPromise = {
                     number(creditCardNumber: string) {
-                        return addDescription(
+                        return describeStep(
                             (actor: PerformsTasks) => Promise.reject(new Error('Payment failed')),
                             `{0} pays with an invalid credit card number ${creditCardNumber}`,
                         );

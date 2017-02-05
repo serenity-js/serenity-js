@@ -3,14 +3,14 @@ import { Attemptable, Performable } from '../screenplay/performables';
 // todo: add Significance to the @step
 export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
     return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
-        addDescription(target, stepDescriptionTemplate);
+        describeStep(target, stepDescriptionTemplate);
         return descriptor;
     };
 }
 
 export const StepAnnotationSymbol = Symbol('StepAnnotation');
 
-export function addDescription<T extends Attemptable>(target: T, template: string): T {
+export function describeStep<T extends Attemptable>(target: T, template: string): T {
     target[StepAnnotationSymbol] = template;
     return target;
 }
