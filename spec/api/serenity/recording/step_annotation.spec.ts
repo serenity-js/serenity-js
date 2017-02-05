@@ -2,7 +2,7 @@ import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor'
 import { Performable, Task } from '../../../../src/serenity/screenplay/performables';
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { Step, StepAnnotation } from '../../../../src/serenity/recording/step_annotation';
+import { Step, StepAnnotation, StepNotifier } from '../../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
@@ -15,7 +15,7 @@ describe('Notifiers', () => {
 
     // todo: once the Step factory comes from a DI we can test the actual annotation
     function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
-        return new Step(stageManager).describedUsing(stepDescriptionTemplate);
+        return new Step(new StepNotifier(stageManager)).describedUsing(stepDescriptionTemplate);
     }
 
     describe('@step', () => {

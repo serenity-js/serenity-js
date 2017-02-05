@@ -8,32 +8,44 @@ import * as _ from 'lodash';
 
 // todo: add Significance to the @step
 export class Step {
+    static isDecorated = Symbol('isStepDecorated');
 
-    constructor(private stageManager: StageManager) {
+    constructor(private notifier: StepNotifier) {
     }
 
     describedUsing<T extends Performable>(template: string): StepAnnotation<T> {
 
-        let description = new StepDescription(template),
-            decorated   = this;
+        const notifier = this.notifier;
+        const description = new StepDescription(template);
 
         return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
 
-            let performAs = descriptor.value,
-                decorator = _.cloneDeep(descriptor);
+            const performAs = descriptor.value,
+                  decorator = _.cloneDeep(descriptor);
+
+            target[Step.isDecorated] = true;
 
             decorator.value = function(...args: any[]): PromiseLike<void> {
 
-                let activity: Activity = description.interpolateWith(this, args);
+                const activity: Activity = description.interpolateWith(this, args);
 
-                return Promise.resolve()
-                    .then(() => decorated.beforeStep(activity))
-                    .then(() => performAs.apply(this, args))
-                    .then(() => decorated.afterStep(activity), e => decorated.onFailure(activity, e));
+                return notifier.executeStep(activity, performAs.bind(this, ...args));
             };
 
             return decorator;
         };
+    }
+}
+
+export class StepNotifier {
+    constructor(private stageManager: StageManager) {
+    }
+
+    executeStep<T extends Performable>(activity: Activity, step) {
+        return Promise.resolve()
+            .then(() => this.beforeStep(activity))
+            .then(() => step())
+            .then(() => this.afterStep(activity), e => this.onFailure(activity, e));
     }
 
     private beforeStep(activity: Activity) {
@@ -61,7 +73,7 @@ export class Step {
 }
 
 export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
-    return new Step(Serenity.stageManager()).describedUsing(stepDescriptionTemplate);
+    return new Step(new StepNotifier(Serenity.stageManager())).describedUsing(stepDescriptionTemplate);
 }
 
 export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;
