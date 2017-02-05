@@ -2,7 +2,7 @@ import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor'
 import { Task } from '../../../../src/serenity/screenplay/performables';
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { step, StepNotifier } from '../../../../src/serenity/recording/step_annotation';
+import { addDescription, step, StepNotifier } from '../../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
@@ -135,7 +135,118 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234'))).
                         to.be.rejected.then(() => {
 
-                            let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+
+                            expect(lastEntry.value.error.message).to.equal('Payment failed');
+                            expect(lastEntry.value.result).to.equal(Result.ERROR);
+                        }));
+            });
+        });
+
+        describe('When an annotated FunctionalTask or FunctionalInteraction is performed by the Actor', () => {
+
+            describe('When all goes well', () => {
+
+                const PayWithCreditCard = {
+                    number(creditCardNumber: string) {
+                        return addDescription(
+                            actor => actor.attemptsTo( /*...*/ ),
+                            `{0} pays with a credit card number ${creditCardNumber}`,
+                        );
+                    },
+                };
+
+                it('Notifies the Stage Manager when the Activity starts', () => {
+
+                    return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
+
+                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+
+                        expect(newJournalEntries).to.have.lengthOf(2);
+
+                        expect(newJournalEntries[ 0 ]).to.be.instanceOf(ActivityStarts);
+                        expect(newJournalEntries[ 0 ].value).to.be.instanceOf(Activity);
+                        expect(newJournalEntries[ 0 ].value.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
+                    });
+                });
+
+                it('Notifies the Stage Manager when the Activity finishes successfully', () => {
+
+                    return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
+
+                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+
+                        expect(newJournalEntries).to.have.lengthOf(2);
+
+                        expect(newJournalEntries[ 1 ]).to.be.instanceOf(ActivityFinished);
+                        expect(newJournalEntries[ 1 ].value).to.be.instanceOf(Outcome);
+
+                        expect(newJournalEntries[ 1 ].value.subject).to.be.instanceOf(Activity);
+                        expect(newJournalEntries[ 1 ].value.subject.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
+                    });
+                });
+            });
+
+            describe('When things go wrong and the Activity throws an Error', () => {
+
+                const PayWithInvalidCreditCardThrowingAnError = {
+                    number(creditCardNumber: string) {
+                        return addDescription(
+                            (actor: PerformsTasks) => { throw new Error('Payment failed'); },
+                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
+                        );
+                    },
+                };
+
+                const PayWithInvalidCreditCardThrowingAnAssertionError = {
+                    number(creditCardNumber: string) {
+                        return addDescription(
+                            (actor: PerformsTasks) => expect(Promise.resolve(false)).to.eventually.equal(true),
+                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
+                        );
+                    },
+                };
+
+                it('Notifies the Stage Manager when the Activity throws an Error', () =>
+
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234'))                    ).
+                        to.be.rejected.then(() => {
+
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+
+                            expect(lastEntry.value.error.message).to.equal('Payment failed');
+                            expect(lastEntry.value.result).to.equal(Result.ERROR);
+                        }));
+
+                it('Notifies the Stage Manager when the Activity fails', () =>
+
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnAssertionError.number('1234 1234 1234 1234'))).
+                    to.be.rejected.then(() => {
+
+                        const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+
+                        expect(lastEntry.value.error.message).to.equal('expected false to equal true');
+                        expect(Result[lastEntry.value.result]).to.equal(Result[Result.FAILURE]);
+                    }));
+            });
+
+            describe('When things go wrong and the Activity throws an Error', () => {
+
+                const PayWithInvalidCreditCardRejectingAPromise = {
+                    number(creditCardNumber: string) {
+                        return addDescription(
+                            (actor: PerformsTasks) => Promise.reject(new Error('Payment failed')),
+                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
+                        );
+                    },
+                };
+
+                it('Notifies the Stage Manager when the Activity fails due to a promise being rejected', () =>
+
+                    expect(bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234'))).
+                        to.be.rejected.then(() => {
+
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);

@@ -90,28 +90,30 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     private executeAttemptable(attemptable: Attemptable): PromiseLike<void> {
-        if (isPerformable(attemptable)) {
-            return this.attemptPerformable(attemptable);
+        if (isDescribed(attemptable)) {
+            return this.executeDescribedAttemptable(attemptable);
         }
-        return this.attemptFunctionalTask(attemptable);
+        return this.bindAttemptable(attemptable)();
     }
 
-    private attemptPerformable(performable: Performable): PromiseLike<void> {
-        if (!isDescribed(performable)) {
-            return performable.performAs(this);
-        }
-        return this.attemptDescribedPerformable(performable);
-    }
-
-    private attemptDescribedPerformable(performable: Performable) {
-        const annotation = getDescription(performable);
+    private executeDescribedAttemptable(attemptable: Attemptable): PromiseLike<void> {
+        const annotation = getDescription(attemptable);
         const description = new StepDescription(annotation);
-        const activity = description.interpolateWith(performable, [this]);
-
-        return this.notifier.executeStep(activity, performable.performAs.bind(performable, this));
+        const activity = this.getActivity(attemptable, description);
+        return this.notifier.executeStep(activity, this.bindAttemptable(attemptable));
     }
 
-    private attemptFunctionalTask(task: FunctionalPerformable): PromiseLike<void> {
-        return task(this);
+    private bindAttemptable(attemptable: Attemptable) {
+        if (isPerformable(attemptable)) {
+            return attemptable.performAs.bind(attemptable, this);
+        }
+        return attemptable.bind(null, this);
+    }
+
+    private getActivity(attemptable: Attemptable, description) {
+        if (isPerformable(attemptable)) {
+            return description.interpolateWith(attemptable, [this]);
+        }
+        return description.interpolateWith(null, [this]);
     }
 }

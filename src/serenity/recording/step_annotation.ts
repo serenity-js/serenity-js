@@ -47,8 +47,9 @@ export function step<T extends Performable>(stepDescriptionTemplate: string): St
 
 export const StepAnnotationSymbol = Symbol('StepAnnotation');
 
-export function addDescription<T extends Attemptable>(target: T, template: string) {
+export function addDescription<T extends Attemptable>(target: T, template: string): T {
     target[StepAnnotationSymbol] = template;
+    return target;
 }
 
 export function getDescription<T extends Attemptable>(attemptable: T) {
