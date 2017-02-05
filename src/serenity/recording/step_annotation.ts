@@ -1,6 +1,46 @@
 import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
 import { Attemptable, Performable } from '../screenplay';
+import { Actor } from '../screenplay/actor';
+import { isPerformable } from '../screenplay/performables';
 import { StageManager } from '../stage';
+import { StepDescription } from './step_description';
+
+export class StepExecutor {
+
+    private notifier: StepNotifier;
+
+    constructor(private actor: Actor, private stageManager: StageManager) {
+        this.notifier = new StepNotifier(stageManager);
+    }
+
+    execute(attemptable: Attemptable): PromiseLike<void> {
+        if (isDescribed(attemptable)) {
+            return this.executeDescribed(attemptable);
+        }
+        return this.bindAttemptable(attemptable)();
+    }
+
+    private executeDescribed(attemptable: Attemptable): PromiseLike<void> {
+        const annotation = getDescription(attemptable);
+        const description = new StepDescription(annotation);
+        const activity = this.getActivity(attemptable, description);
+        return this.notifier.executeStep(activity, this.bindAttemptable(attemptable));
+    }
+
+    private bindAttemptable(attemptable: Attemptable) {
+        if (isPerformable(attemptable)) {
+            return attemptable.performAs.bind(attemptable, this.actor);
+        }
+        return attemptable.bind(null, this.actor);
+    }
+
+    private getActivity(attemptable: Attemptable, description) {
+        if (isPerformable(attemptable)) {
+            return description.interpolateWith(attemptable, [this.actor]);
+        }
+        return description.interpolateWith(null, [this.actor]);
+    }
+}
 
 export class StepNotifier {
     constructor(private stageManager: StageManager) {

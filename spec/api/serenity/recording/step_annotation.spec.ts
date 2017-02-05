@@ -2,7 +2,7 @@ import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor'
 import { Task } from '../../../../src/serenity/screenplay/performables';
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { addDescription, step, StepNotifier } from '../../../../src/serenity/recording/step_annotation';
+import { addDescription, step } from '../../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
@@ -11,7 +11,7 @@ import { Activity, Outcome, Result } from '../../../../src/serenity/domain/model
 describe('Notifiers', () => {
 
     let stageManager = new StageManager(new Journal()),
-        bruce        = Actor.named('Bruce').whoNotifies(new StepNotifier(stageManager));
+        bruce        = Actor.named('Bruce').whoNotifies(stageManager);
 
     describe('@step', () => {
 
