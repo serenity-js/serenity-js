@@ -1,4 +1,7 @@
-import {Attemptable, FunctionalPerformable, isPerformable, Performable} from './performables';
+import { getDescription, isDescribed, StepNotifier} from '../recording/step_annotation';
+import { StepDescription } from '../recording/step_description';
+import { Serenity } from '../serenity';
+import { Attemptable, FunctionalPerformable, isPerformable, Performable } from './performables';
 import { Question } from './question';
 
 export interface Ability { }
@@ -67,7 +70,16 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return this.name;
     }
 
-    constructor(private name: string) { }
+    whoNotifies(notifier: StepNotifier): Actor {
+        this.notifier = notifier;
+
+        return this;
+    }
+
+    // todo: get Notifier from DI container
+    constructor(private name: string,
+                private notifier: StepNotifier = new StepNotifier(Serenity.stageManager())) {
+    }
 
     private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
         return !! this.abilities[this.nameOf(doSomething)];
@@ -85,7 +97,18 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     private attemptPerformable(performable: Performable): PromiseLike<void> {
-        return performable.performAs(this);
+        if (!isDescribed(performable)) {
+            return performable.performAs(this);
+        }
+        return this.attemptDescribedPerformable(performable);
+    }
+
+    private attemptDescribedPerformable(performable: Performable) {
+        const annotation = getDescription(performable);
+        const description = new StepDescription(annotation);
+        const activity = description.interpolateWith(performable, [this]);
+
+        return this.notifier.executeStep(activity, performable.performAs.bind(performable, this));
     }
 
     private attemptFunctionalTask(task: FunctionalPerformable): PromiseLike<void> {
