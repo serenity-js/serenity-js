@@ -73,15 +73,14 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     whoNotifies(stageManager: StageManager): Actor {
-        this.executor = new StepExecutor(this, stageManager);
+        this.executor = StepExecutor.for(this).whichNotifies(stageManager);
 
         return this;
     }
 
     // todo: get Executor/StageManager from DI container?
-    constructor(private name: string, private stageManager?: StageManager) {
-        stageManager = stageManager || Serenity.stageManager();
-        this.executor = new StepExecutor(this, stageManager);
+    constructor(private name: string) {
+        this.executor = StepExecutor.for(this).whichNotifies(Serenity.stageManager());
     }
 
     private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {

@@ -6,18 +6,26 @@ import { StepNotifier } from './step_notifier';
 
 export class StepExecutor {
 
-    private notifier: StepNotifier;
+    private notifier?: StepNotifier;
 
-    constructor(private actor: Actor, private stageManager: StageManager) {
+    static for(actor: Actor) {
+        return new StepExecutor(actor);
+    }
+
+    whichNotifies(stageManager: StageManager) {
         this.notifier = new StepNotifier(stageManager);
+
+        return this;
     }
 
     execute(attemptable: Attemptable): PromiseLike<void> {
-        if (isDescribed(attemptable)) {
+        if (this.notifier && isDescribed(attemptable)) {
             return this.executeDescribed(attemptable);
         }
         return this.bindAttemptable(attemptable)();
     }
+
+    private constructor(private actor: Actor) {}
 
     private executeDescribed(attemptable: Attemptable): PromiseLike<void> {
         const annotation = getDescription(attemptable);
