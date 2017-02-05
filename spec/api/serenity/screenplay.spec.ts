@@ -1,4 +1,4 @@
-import { Ability, Actor, FunctionalPerformable, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/serenity/screenplay';
+import { Ability, Actor, FunctionalPerformable, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/screenplay';
 
 import expect = require('../../expect');
 import sinon = require('sinon');

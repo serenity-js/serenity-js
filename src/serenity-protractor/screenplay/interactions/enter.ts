@@ -1,5 +1,4 @@
-import { step } from '../../../serenity/recording/step_annotation';
-import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, PerformsTasks, step, UsesAbilities } from '../../../screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 import { Hit } from './hit';

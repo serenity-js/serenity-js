@@ -1,4 +1,4 @@
-import { StepExecutor} from '../recording/step_annotation';
+import { StepExecutor} from '../recording';
 import { Serenity } from '../serenity';
 import { StageManager } from '../stage/stage_manager';
 import { Attemptable } from './performables';
