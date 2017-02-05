@@ -1,7 +1,7 @@
 import { getDescription, isDescribed, StepNotifier} from '../recording/step_annotation';
 import { StepDescription } from '../recording/step_description';
 import { Serenity } from '../serenity';
-import { Attemptable, FunctionalPerformable, isPerformable, Performable } from './performables';
+import { Attemptable, isPerformable } from './performables';
 import { Question } from './question';
 
 export interface Ability { }
@@ -35,6 +35,8 @@ export interface AnswersQuestions {
 export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private abilities: { [id: string]: Ability } = {};
+
+    private executor: Executor;
 
     static named(name: string): Actor {
         return new Actor(name);
@@ -71,14 +73,15 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     whoNotifies(notifier: StepNotifier): Actor {
-        this.notifier = notifier;
+        this.executor = new Executor(this, notifier);
 
         return this;
     }
 
-    // todo: get Notifier from DI container
-    constructor(private name: string,
-                private notifier: StepNotifier = new StepNotifier(Serenity.stageManager())) {
+    // todo: get Executor/Notifier from DI container?
+    constructor(private name: string, private notifier?: StepNotifier) {
+        notifier = notifier || new StepNotifier(Serenity.stageManager());
+        this.executor = new Executor(this, notifier);
     }
 
     private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
@@ -90,13 +93,21 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     private executeAttemptable(attemptable: Attemptable): PromiseLike<void> {
+        return this.executor.execute(attemptable);
+    }
+}
+
+export class Executor {
+    constructor(private actor: Actor, private notifier: StepNotifier) { }
+
+    execute(attemptable: Attemptable): PromiseLike<void> {
         if (isDescribed(attemptable)) {
-            return this.executeDescribedAttemptable(attemptable);
+            return this.executeDescribed(attemptable);
         }
         return this.bindAttemptable(attemptable)();
     }
 
-    private executeDescribedAttemptable(attemptable: Attemptable): PromiseLike<void> {
+    private executeDescribed(attemptable: Attemptable): PromiseLike<void> {
         const annotation = getDescription(attemptable);
         const description = new StepDescription(annotation);
         const activity = this.getActivity(attemptable, description);
@@ -105,15 +116,15 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private bindAttemptable(attemptable: Attemptable) {
         if (isPerformable(attemptable)) {
-            return attemptable.performAs.bind(attemptable, this);
+            return attemptable.performAs.bind(attemptable, this.actor);
         }
-        return attemptable.bind(null, this);
+        return attemptable.bind(null, this.actor);
     }
 
     private getActivity(attemptable: Attemptable, description) {
         if (isPerformable(attemptable)) {
-            return description.interpolateWith(attemptable, [this]);
+            return description.interpolateWith(attemptable, [this.actor]);
         }
-        return description.interpolateWith(null, [this]);
+        return description.interpolateWith(null, [this.actor]);
     }
 }
