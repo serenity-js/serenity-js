@@ -147,11 +147,9 @@ describe('Notifiers', () => {
             describe('When all goes well', () => {
 
                 const PayWithCreditCard = {
-                    number(creditCardNumber: string) {
-                        return aTask(actor => actor.attemptsTo( /*...*/ ))
-                            .where(`{0} pays with a credit card number ${creditCardNumber}`)
-                            .whichReportsTo(stageManager);
-                    },
+                    number: (creditCardNumber: string) => aTask()
+                        .where(`{0} pays with a credit card number ${creditCardNumber}`)
+                        .whichReportsTo(stageManager),
                 };
 
                 it('Notifies the Stage Manager when the Activity starts', () => {

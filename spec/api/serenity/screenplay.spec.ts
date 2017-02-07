@@ -1,4 +1,4 @@
-import { Ability, Actor, FunctionalPerformable, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/screenplay';
+import { Ability, Actor, aTask, FunctionalPerformable, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/screenplay';
 
 import expect = require('../../expect');
 import sinon = require('sinon');
@@ -112,6 +112,9 @@ describe('Screenplay Pattern', () => {
             performAs: FunctionalPerformable,
         };
 
+        const playThe = chords =>
+            chords.map(chord => PlayAChord.called(chord));
+
         beforeEach(() => {
             PlayAChord = {
                 called: memoize((chord: Chord) =>
@@ -119,16 +122,9 @@ describe('Screenplay Pattern', () => {
                 ),
             };
 
-            PerformASong = (musicSheet: MusicSheet) => {
-                const playThe = chords =>
-                    chords.map(chord => PlayAChord.called(chord));
-
-                return {
-                    performAs(actor: PerformsTasks) {
-                        return actor.attemptsTo(...playThe(musicSheet.chords));
-                    },
-                };
-            };
+            PerformASong = (musicSheet: MusicSheet) => ({
+                performAs: aTask(...playThe(musicSheet.chords)),
+            });
         });
 
         describe('FunctionalTask', () => {
