@@ -1,7 +1,4 @@
-import { StepExecutor} from '../recording';
-import { Serenity } from '../serenity';
-import { StageManager } from '../stage/stage_manager';
-import { Attemptable } from './performables';
+import { Attemptable, isPerformable } from './performables';
 import { Question } from './question';
 
 export interface Ability { }
@@ -35,8 +32,6 @@ export interface AnswersQuestions {
 export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private abilities: { [id: string]: Ability } = {};
-
-    private executor: StepExecutor;
 
     static named(name: string): Actor {
         return new Actor(name);
@@ -72,16 +67,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return this.name;
     }
 
-    whoNotifies(stageManager: StageManager): Actor {
-        this.executor = StepExecutor.for(this).whichNotifies(stageManager);
-
-        return this;
-    }
-
-    // todo: get Executor/StageManager from DI container?
-    constructor(private name: string) {
-        this.executor = StepExecutor.for(this).whichNotifies(Serenity.stageManager());
-    }
+    constructor(private name: string) { }
 
     private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
         return !! this.abilities[this.nameOf(doSomething)];
@@ -92,6 +78,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     private executeAttemptable(attemptable: Attemptable): PromiseLike<void> {
-        return this.executor.execute(attemptable);
+        if (isPerformable(attemptable)) {
+            return attemptable.performAs(this);
+        }
+        return attemptable(this);
     }
 }

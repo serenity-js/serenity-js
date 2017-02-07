@@ -5,7 +5,7 @@ export interface Task extends Performable {
 }
 
 export interface FunctionalPerformable {
-    (actor: PerformsTasks): PromiseLike<void>;
+    <T extends Actor>(actor: T, ...args: any[]): PromiseLike<void>;
 }
 
 export interface Interaction extends Performable {

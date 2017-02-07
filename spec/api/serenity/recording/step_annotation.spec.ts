@@ -1,15 +1,16 @@
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { Actor, describeStep, PerformsTasks, step, Task } from '../../../../src/screenplay';
+import { Actor, aTask, PerformsTasks, Task } from '../../../../src/screenplay';
 
 import expect = require('../../../expect');
-import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
-import { Activity, Outcome, Result } from '../../../../src/serenity/domain/model';
+import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../../../../src/serenity/domain';
+import { createStepDecorator } from '../../../../src/serenity/recording';
 
 describe('Notifiers', () => {
 
-    let stageManager = new StageManager(new Journal()),
-        bruce        = Actor.named('Bruce').whoNotifies(stageManager);
+    const stageManager = new StageManager(new Journal()),
+          bruce        = Actor.named('Bruce'),
+          step         = createStepDecorator(stageManager);
 
     describe('@step', () => {
 
@@ -147,10 +148,9 @@ describe('Notifiers', () => {
 
                 const PayWithCreditCard = {
                     number(creditCardNumber: string) {
-                        return describeStep(
-                            actor => actor.attemptsTo( /*...*/ ),
-                            `{0} pays with a credit card number ${creditCardNumber}`,
-                        );
+                        return aTask(actor => actor.attemptsTo( /*...*/ ))
+                            .where(`{0} pays with a credit card number ${creditCardNumber}`)
+                            .whichReportsTo(stageManager);
                     },
                 };
 
@@ -189,19 +189,17 @@ describe('Notifiers', () => {
 
                 const PayWithInvalidCreditCardThrowingAnError = {
                     number(creditCardNumber: string) {
-                        return describeStep(
-                            (actor: PerformsTasks) => { throw new Error('Payment failed'); },
-                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
-                        );
+                        return aTask((actor: PerformsTasks) => { throw new Error('Payment failed'); })
+                            .where(`{0} pays with an invalid credit card number ${creditCardNumber}`)
+                            .whichReportsTo(stageManager);
                     },
                 };
 
                 const PayWithInvalidCreditCardThrowingAnAssertionError = {
                     number(creditCardNumber: string) {
-                        return describeStep(
-                            (actor: PerformsTasks) => expect(Promise.resolve(false)).to.eventually.equal(true),
-                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
-                        );
+                        return aTask((actor: PerformsTasks) => expect(Promise.resolve(false)).to.eventually.equal(true))
+                            .where(`{0} pays with an invalid credit card number ${creditCardNumber}`)
+                            .whichReportsTo(stageManager);
                     },
                 };
 
@@ -232,10 +230,9 @@ describe('Notifiers', () => {
 
                 const PayWithInvalidCreditCardRejectingAPromise = {
                     number(creditCardNumber: string) {
-                        return describeStep(
-                            (actor: PerformsTasks) => Promise.reject(new Error('Payment failed')),
-                            `{0} pays with an invalid credit card number ${creditCardNumber}`,
-                        );
+                        return aTask((actor: PerformsTasks) => Promise.reject(new Error('Payment failed')))
+                            .where(`{0} pays with an invalid credit card number ${creditCardNumber}`)
+                            .whichReportsTo(stageManager);
                     },
                 };
 

@@ -1,11 +1,12 @@
 import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
+import { Performable } from '../screenplay/performables';
 import { StageManager } from '../stage';
 
 export class StepNotifier {
     constructor(private stageManager: StageManager) {
     }
 
-    executeStep(activity: Activity, step) {
+    executeStep(activity: Activity, step: () => PromiseLike<void>): PromiseLike<void> {
         return Promise.resolve()
             .then(() => this.beforeStep(activity))
             .then(() => step())
@@ -34,4 +35,14 @@ export class StepNotifier {
             ? Result.FAILURE
             : Result.ERROR;
     }
+}
+
+export const StepNotifierSymbol = Symbol('StepNotifier');
+
+export function addNotifier<T extends Performable>(performable: T, notifier: StepNotifier) {
+    performable[StepNotifierSymbol] = notifier;
+}
+
+export function getNotifier<T extends Performable>(performable: T): StepNotifier {
+    return performable[StepNotifierSymbol];
 }
