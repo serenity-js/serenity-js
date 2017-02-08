@@ -1,5 +1,4 @@
 'use strict';
-require('ts-node/register');
 
 var path         = require('path'),
     src          = path.resolve(path.relative(process.cwd(), __dirname), '../../../src'),
@@ -21,7 +20,8 @@ exports.config = {
     specs: [ 'spec/**.ts' ],
 
     mochaOpts: {
-        ui: 'bdd'
+        ui: 'bdd',
+        compiler: 'ts:ts-node/register',
     },
 
     capabilities: {

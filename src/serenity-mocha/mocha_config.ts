@@ -25,6 +25,11 @@ export interface MochaConfig {
         'xunit';
 
     /**
+     * Register a custom compiler, such as 'ts:ts-node/register'
+     */
+    compiler?: string;
+
+    /**
      * Timeout in milliseconds
      */
     timeout?: number;

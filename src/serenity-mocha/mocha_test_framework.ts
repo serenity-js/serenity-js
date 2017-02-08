@@ -16,8 +16,9 @@ export class MochaTestFramework implements TestFramework {
 
     constructor(private config: MochaConfig) {
         const Mocha = attemptToRequire('mocha');
-
         this.mocha = new Mocha(config);
+
+        this.registerCompilerIfNeeded(config.compiler);
 
         this.mocha.suite.on('pre-require', function () {
             let g: any = global;
@@ -63,5 +64,13 @@ export class MochaTestFramework implements TestFramework {
                 serenity.notify(endOf(scenario));
             });
         });
+    }
+
+    private registerCompilerIfNeeded(compiler: string): void {
+        if (!! compiler && !! ~compiler.indexOf(':')) {
+            let [ , module ] = compiler.split(':');
+
+            attemptToRequire(module);
+        }
     }
 }
