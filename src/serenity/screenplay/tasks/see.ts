@@ -1,18 +1,17 @@
 import { AnswersQuestions, Performable, Question } from '..';
 import { step } from '../../recording/step_annotation';
-
-export type Expectation<S> = (subject: S) => PromiseLike<void>;
+import { Assertion } from '../expectations';
 
 export class See<S> implements Performable {
-    static that<S>(subject: Question<S>, verifier: Expectation<S>) {
-        return new See(subject, verifier);
+    static that<T>(question: Question<T>, assertion: Assertion<T>) {
+        return new See<T>(question, assertion);
     }
 
     @step('{0} looks at #question')
     performAs(actor: AnswersQuestions): PromiseLike<void> {
-        return this.expect(actor.toSee(this.question));
+        return this.assert(actor.toSee(this.question));
     }
 
-    constructor(private question: Question<S>, private expect: Expectation<S>) {
+    constructor(private question: Question<S>, private assert: Assertion<S>) {
     }
 }

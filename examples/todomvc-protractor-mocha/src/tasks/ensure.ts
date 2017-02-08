@@ -6,7 +6,6 @@ import chai = require('chai');
 chai.use(require('chai-as-promised'));  // tslint:disable-line:no-var-requires
 
 export class Ensure {
-
     static itemIsMarkedAsCompleted = (item: string): Task => new ItemMarkedAsCompleted(item);
 
     static theListIncludes = (item: string): Task => new Includes(item);
@@ -14,12 +13,14 @@ export class Ensure {
     static theListOnlyContains = (...items: string[]): Task => new Equals(items);
 }
 
+const isMarkedAs = expected => actual => chai.expect(actual).to.eventually.eql(expected);
+
 class ItemMarkedAsCompleted implements Task {
 
     @step('{0} ensures that \'#item\' is marked as complete')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(ItemStatus.of(this.item), status => chai.expect(status).to.eventually.eql('completed')),
+            See.that(ItemStatus.of(this.item), isMarkedAs('completed')),
         );
     }
 
@@ -27,34 +28,29 @@ class ItemMarkedAsCompleted implements Task {
     }
 }
 
-class Equals implements Task {
+const equals = expected => actual => chai.expect(actual).to.eventually.eql(expected);
 
-    private static fn = expected => actual => chai.expect(actual).to.eventually.eql(expected);
+class Equals implements Task {
 
     @step('{0} ensures that the list contains only #expectedItems')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(TodoListItems.Displayed, Equals.fn(this.expectedItems)),
+            See.that(TodoListItems.Displayed, equals(this.expectedItems)),
         );
     }
 
     constructor(private expectedItems: string[]) {
     }
-
-    // used in @step as #description
-    private description() {                                         // tslint:disable-line:no-unused-variable
-        return `"${ this.expectedItems.join('", "') }"`;
-    }
 }
 
-class Includes implements Task {
+const includes = expected => actual => chai.expect(actual).to.eventually.include(expected);
 
-    private static fn = expected => actual => chai.expect(actual).to.eventually.include(expected);
+class Includes implements Task {
 
     @step('{0} ensures that the list includes #expectedItem')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(TodoListItems.Displayed, Includes.fn(this.expectedItem)),
+            See.that(TodoListItems.Displayed, includes(this.expectedItem)),
         );
     }
 
