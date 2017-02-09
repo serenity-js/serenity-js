@@ -1,71 +1,32 @@
-import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
-import { Performable } from '../screenplay';
-import { Serenity } from '../serenity';
-import { StageManager } from '../stage';
-import { StepDescription } from './step_description';
-
-import * as _ from 'lodash';
+import { Attemptable, Performable } from '../screenplay/performables';
 
 // todo: add Significance to the @step
-export class Step {
-
-    constructor(private stageManager: StageManager) {
-    }
-
-    describedUsing<T extends Performable>(template: string): StepAnnotation<T> {
-
-        let description = new StepDescription(template),
-            decorated   = this;
-
-        return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
-
-            let performAs = descriptor.value,
-                decorator = _.cloneDeep(descriptor);
-
-            decorator.value = function(...args: any[]): PromiseLike<void> {
-
-                let activity: Activity = description.interpolateWith(this, args);
-
-                return Promise.resolve()
-                    .then(() => decorated.beforeStep(activity))
-                    .then(() => performAs.apply(this, args))
-                    .then(() => decorated.afterStep(activity), e => decorated.onFailure(activity, e));
-            };
-
-            return decorator;
-        };
-    }
-
-    private beforeStep(activity: Activity) {
-        this.stageManager.notifyOf(new ActivityStarts(activity));
-    }
-
-    private afterStep(activity: Activity) {
-        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
-    }
-
-    private onFailure(activity: Activity, error: Error) {
-        this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, this.resultFrom(error), error)));
-
-        return Promise.reject(error);
-    }
-
-    private resultFrom(error: Error): Result {
-        const constructorOf = e => e && e.constructor ? e.constructor.name : '';
-
-        // todo: sniff the exception to find out about the Result. Did the test fail, or was it compromised?
-        return /AssertionError/.test(constructorOf(error))
-            ? Result.FAILURE
-            : Result.ERROR;
-    }
+export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
+    return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
+        describeStep(target, stepDescriptionTemplate);
+        return descriptor;
+    };
 }
 
-export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
-    return new Step(Serenity.stageManager()).describedUsing(stepDescriptionTemplate);
+export const StepAnnotationSymbol = Symbol('StepAnnotation');
+
+export function describeStep<T extends Attemptable>(target: T, template: string): T {
+    target[StepAnnotationSymbol] = template;
+    return target;
+}
+
+export function getDescription<T extends Attemptable>(attemptable: T) {
+    return attemptable[StepAnnotationSymbol];
+}
+
+// todo: make DescribedAttemptable a type when symbols will work with interfaces
+// https://github.com/Microsoft/TypeScript/issues/5579
+export function isDescribed<T extends Attemptable>(attemptable: T) {
+    return !!getDescription(attemptable);
 }
 
 export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;
 
-export interface StepAnnotation<T extends Performable> {
+export interface StepAnnotation<T extends Attemptable> {
     (target: T, propertyKey: string, descriptor: PerformAsMethodSignature): PerformAsMethodSignature;
 }

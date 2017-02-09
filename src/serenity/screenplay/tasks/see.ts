@@ -1,5 +1,5 @@
 import { AnswersQuestions, Performable, Question } from '..';
-import { step } from '../../recording/step_annotation';
+import { step } from '../../../screenplay';
 
 export type Expectation<S> = (subject: S) => PromiseLike<void>;
 

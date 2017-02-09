@@ -1,8 +1,9 @@
-import { Ability, Actor, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/serenity/screenplay';
+import { Ability, Actor, FunctionalPerformable, Interaction, PerformsTasks, Question, Task, UsesAbilities } from '../../../src/screenplay';
 
 import expect = require('../../expect');
 import sinon = require('sinon');
 import { SinonSpyCall } from '@types/sinon';
+import { memoize } from 'lodash';
 
 describe('Screenplay Pattern', () => {
 
@@ -99,6 +100,86 @@ describe('Screenplay Pattern', () => {
 
             expect(PlayAnInstrument.as(actor)).to.be.instanceOf(PlayAnInstrument);
             expect(PlayAnInstrument.as(actor)).to.have.property('play');
+        });
+    });
+
+    describe('Functional', () => {
+
+        let PlayAChord: {
+            called: (chord: Chord) => FunctionalPerformable,
+        };
+        let PerformASong: (musicSheet: MusicSheet) => {
+            performAs: FunctionalPerformable,
+        };
+
+        beforeEach(() => {
+            PlayAChord = {
+                called: memoize((chord: Chord) =>
+                    actor => PlayAnInstrument.as(actor).play(chord),
+                ),
+            };
+
+            PerformASong = (musicSheet: MusicSheet) => {
+                const playThe = chords =>
+                    chords.map(chord => PlayAChord.called(chord));
+
+                return {
+                    performAs(actor: PerformsTasks) {
+                        return actor.attemptsTo(...playThe(musicSheet.chords));
+                    },
+                };
+            };
+        });
+
+        describe('FunctionalTask', () => {
+
+            it('is a Task written as a plain JS function accepting an actor instance', () => {
+
+                let actor   = <any> sinon.createStubInstance(Actor);
+
+                PerformASong(MusicSheets.Wild_Thing).performAs(actor);
+
+                expect(actor.attemptsTo).to.have.been.calledWith(
+                    PlayAChord.called(Chords.AMajor),
+                    PlayAChord.called(Chords.DMajor),
+                    PlayAChord.called(Chords.EMajor),
+                );
+            });
+
+            it('can be composed of FunctionalInteractions', () => {
+
+                const guitar: AcousticGuitar = <any> sinon.createStubInstance(AcousticGuitar);
+
+                const actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(guitar));
+
+                return actor.attemptsTo(
+                    PerformASong(MusicSheets.Wild_Thing),
+                )
+                .then(() => {
+                    expect(invocation(0, guitar.play)).to.have.been.calledWith(Chords.AMajor);
+                    expect(invocation(1, guitar.play)).to.have.been.calledWith(Chords.DMajor);
+                    expect(invocation(2, guitar.play)).to.have.been.calledWith(Chords.EMajor);
+                });
+            });
+
+            function invocation(n: number, spy: any): SinonSpyCall {
+                return spy.getCall(n);
+            }
+        });
+
+        describe('FunctionalInteraction', () => {
+
+            it('is an Interaction written as a plain JS function accepting an actor instance', () => {
+
+                let ability = PlayAnInstrument.suchAs(acousticGuitar),
+                    play    = sinon.stub(ability, 'play'),
+                    actor   = Actor.named('Chris').whoCan(ability),
+                    action  = PlayAChord.called(Chords.AMajor);
+
+                action(actor);
+
+                expect(play).to.have.been.calledWith(Chords.AMajor);
+            });
         });
     });
 

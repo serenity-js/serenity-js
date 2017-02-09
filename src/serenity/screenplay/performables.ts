@@ -1,7 +1,11 @@
-import { AnswersQuestions, PerformsTasks, UsesAbilities } from './actor';
+import { Actor, PerformsTasks, UsesAbilities } from './actor';
 
 export interface Task extends Performable {
     performAs(actor: PerformsTasks): PromiseLike<void>;
+}
+
+export interface FunctionalPerformable {
+    (actor: PerformsTasks): PromiseLike<void>;
 }
 
 export interface Interaction extends Performable {
@@ -9,5 +13,11 @@ export interface Interaction extends Performable {
 }
 
 export interface Performable {
-    performAs(actor: PerformsTasks | UsesAbilities | AnswersQuestions): PromiseLike<void>;
+    performAs<T extends Actor>(actor: T): PromiseLike<void>;
+}
+
+export type Attemptable = Performable | FunctionalPerformable;
+
+export function isPerformable(attemptable: Attemptable): attemptable is Performable {
+    return (<Performable> attemptable).performAs !== undefined;
 }

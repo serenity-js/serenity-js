@@ -1,4 +1,7 @@
-import { Performable } from './performables';
+import { StepExecutor} from '../recording';
+import { Serenity } from '../serenity';
+import { StageManager } from '../stage/stage_manager';
+import { Attemptable } from './performables';
 import { Question } from './question';
 
 export interface Ability { }
@@ -6,7 +9,7 @@ export interface Ability { }
 export type CustomAbility<T extends Ability> = { new (...args): T };
 
 export interface PerformsTasks {
-    attemptsTo(...tasks: Performable[]): Promise<void>;
+    attemptsTo(...tasks: Attemptable[]): Promise<void>;
 }
 
 export interface UsesAbilities {
@@ -33,6 +36,8 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private abilities: { [id: string]: Ability } = {};
 
+    private executor: StepExecutor;
+
     static named(name: string): Actor {
         return new Actor(name);
     }
@@ -53,9 +58,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return <T> this.abilities[this.nameOf(doSomething)];
     }
 
-    attemptsTo(...tasks: Performable[]): Promise<void> {
-        return tasks.reduce((previous: Promise<void>, current: Performable) => {
-            return previous.then(() => current.performAs(this));
+    attemptsTo(...tasks: Attemptable[]): Promise<void> {
+        return tasks.reduce((previous: Promise<void>, current: Attemptable) => {
+            return previous.then(() => this.executeAttemptable(current));
         }, Promise.resolve(null));
     }
 
@@ -67,7 +72,16 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return this.name;
     }
 
-    constructor(private name: string) { }
+    whoNotifies(stageManager: StageManager): Actor {
+        this.executor = StepExecutor.for(this).whichNotifies(stageManager);
+
+        return this;
+    }
+
+    // todo: get Executor/StageManager from DI container?
+    constructor(private name: string) {
+        this.executor = StepExecutor.for(this).whichNotifies(Serenity.stageManager());
+    }
 
     private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
         return !! this.abilities[this.nameOf(doSomething)];
@@ -75,5 +89,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     private nameOf<T extends Ability>(ability: CustomAbility<T>): string {
         return ability.name;
+    }
+
+    private executeAttemptable(attemptable: Attemptable): PromiseLike<void> {
+        return this.executor.execute(attemptable);
     }
 }

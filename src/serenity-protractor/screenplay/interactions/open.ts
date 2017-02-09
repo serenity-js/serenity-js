@@ -1,5 +1,4 @@
-import { step } from '../../../serenity/recording/step_annotation';
-import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, step, UsesAbilities } from '../../../screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Open implements Interaction {
