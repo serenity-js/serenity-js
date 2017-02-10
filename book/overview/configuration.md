@@ -230,4 +230,4 @@ in the root directory of your Node.js project, the same place where the `protrac
 
 [include](../../examples/todomvc-protractor-cucumber/tsconfig.json)
 
-{% include "../_partials/feedback.md" %} 
+{% include "../feedback.md" %} 

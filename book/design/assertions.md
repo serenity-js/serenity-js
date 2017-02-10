@@ -165,4 +165,4 @@ actor.attemptsTo(
 );
 ```
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

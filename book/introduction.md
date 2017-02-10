@@ -10,4 +10,4 @@ When you're ready to try Serenity/JS yourself - check out the [tutorial](from-sc
 
 {% youtube %}https://www.youtube.com/watch?v=YYgkFgBxEwc{% endyoutube %}
 
-{% include "_partials/feedback.md" %}
+{% include "./feedback.md" %}

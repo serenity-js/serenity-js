@@ -194,4 +194,4 @@ So far it looks like the acceptance tests are not speaking the right language an
 
 Which leads us onto the next article: ["Writing what you'd like to read"](writing-what-you-would-like-to-read.md).
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

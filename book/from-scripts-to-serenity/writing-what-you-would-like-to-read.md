@@ -599,4 +599,4 @@ the next tutorial will focus on generating narrative, illustrated and meaningful
 
 Ready? Time to [make the tests speak for themselves](making-the-tests-speak-for-themselves.md)
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

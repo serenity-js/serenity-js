@@ -174,4 +174,4 @@ That's why we can register the step definitions and the `World` constructor.
 You can now give the actor some [Tasks](../design/screenplay-pattern.md#task) to perform
 or find out how to [execute Cucumber scenarios](./execution.md).
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

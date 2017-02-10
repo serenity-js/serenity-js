@@ -67,4 +67,4 @@ Please check the chapter on [reporting](../overview/reporting.md)
 to learn how to convert those intermediary reports into HTML.
 
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

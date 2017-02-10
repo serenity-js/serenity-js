@@ -53,4 +53,4 @@ To learn more about Serenity BDD reports, please [consult the documentation](htt
 
 Configuration is covered in the [third part of the Serenity/JS tutorial](../from-scripts-to-serenity/making-the-tests-speak-for-themselves.md)
  
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

@@ -128,4 +128,4 @@ this.Then(/^s?he should be able to edit it$/, function() {
 });
 ```
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

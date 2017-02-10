@@ -194,4 +194,4 @@ it('earns standard points', () => stage.theActorCalled('James').attemptsTo(
 With the `attempsTo` in place you can now give the actor some [Tasks](../design/screenplay-pattern.md#task) 
 or [assertions](../design/assertions.md) to perform!
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

@@ -52,4 +52,4 @@ Let's have a quick look at the roles and responsibilities of the Node.js modules
 | [@types/node](https://npmjs.com/package/@types/node)                         | <h4>Type definitions for Node.js</h4><ul><li>IntelliSense support for Node.js core libraries</li></ul> |            
 | [@types/mocha](https://npmjs.com/package/@types/mocha)                       | <h4>Type definitions for Mocha</h4><ul><li>IntelliSense support for Mocha</li></ul> |             
 
-{% include "../_partials/feedback.md" %} 
+{% include "../feedback.md" %} 

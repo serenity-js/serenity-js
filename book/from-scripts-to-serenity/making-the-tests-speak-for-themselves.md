@@ -544,4 +544,4 @@ of our application and help facilitate better communication between the members 
 
 Would you like to [learn more about working with Cucumber](../cucumber/readme.md)?
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

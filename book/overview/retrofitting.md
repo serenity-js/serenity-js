@@ -60,4 +60,4 @@ Now you can learn more about the [configuration options](./configuration.md) sup
 running the tests using their respective test frameworks, or [configure the reporting](reporting.md) to convert
 the intermediary JSON reports produced by `serenity-js` to HTML.
  
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

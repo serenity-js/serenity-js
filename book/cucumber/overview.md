@@ -185,4 +185,4 @@ the capability, both the capability and the feature are marked as "pending imple
 
 Let's see how to [automate a Cucumber scenario now](./automation.md).
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

@@ -124,4 +124,4 @@ and expressiveness of those two tools differ quite significantly.
 Nevertheless, with a little help from Serenity/JS we can still make our tests 
 [capture quite a lot of the domain knowledge](./automation.md).
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}

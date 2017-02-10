@@ -94,4 +94,4 @@ for more details.
 To automate acceptance tests of a web interface, you'll also need a web browser.
 [Google Chrome](https://www.google.com/chrome/) is a great one to start with. 
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}
