@@ -31,7 +31,7 @@
     "publish-coverage-report": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "book:build": "rimraf _book && gitbook build",
-    "book:publish": "node ./gh-pages.js -d _book",
+    "book:publish": "node ./gh-pages.js -d _book --dotfiles",
     "publish-all": "failsafe publish-coverage-report semantic-release book:build book:publish"
   },
   "peerDependencies": {
