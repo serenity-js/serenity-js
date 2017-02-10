@@ -34,4 +34,20 @@ describe ('Integration with Mocha', () => {
 
         it ('asynchronously fails with an error', () => Promise.reject(new Error('Expected async problem')));
     });
+
+    describe ('A test with both setup and teardown that', () => {
+
+        beforeEach(() => {
+            // setup
+        });
+
+        it ('passes', () => {
+            expect('pass').to.equal('pass');
+        });
+
+        afterEach(() => {
+            // teardown
+        });
+    });
+
 });

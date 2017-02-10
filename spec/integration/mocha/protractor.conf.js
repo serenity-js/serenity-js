@@ -1,6 +1,8 @@
 'use strict';
 
-var path         = require('path'),
+require('ts-node/register');    // because of the child_process_reporter.ts
+
+let path         = require('path'),
     src          = path.resolve(path.relative(process.cwd(), __dirname), '../../../src'),
     protractor   = require.resolve('protractor'),
     node_modules = protractor.substring(0, protractor.lastIndexOf('node_modules') + 12),

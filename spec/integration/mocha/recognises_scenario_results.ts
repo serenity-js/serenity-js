@@ -177,5 +177,18 @@ describe('When working with Mocha', function () {
             });
         });
 
+        it ('treats a scenario with setup and teardown just like any other scenario', () => {
+            let spawned = protractor('protractor.conf.js',
+                '--mochaOpts.grep', 'A test with both setup and teardown that passes',
+            );
+
+            return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
+                expect(spawned.messages).to.have.lengthOf(2);
+
+                expect(spawned.messages[0].value.name).to.equal('A test with both setup and teardown that passes');
+                expect(spawned.messages[1].value.subject.name).to.equal('A test with both setup and teardown that passes');
+            });
+        });
+
     });
 });
