@@ -3,11 +3,11 @@ import * as path from 'path';
 import { parse, StackFrame } from 'stack-trace';
 import { Md5 } from 'ts-md5/dist/md5';
 
-import { ActivityPeriod, RehearsalPeriod, ReportExporter, ScenePeriod } from '../../serenity/reporting';
 import { Stage, StageCrewMember } from '../../serenity/stage';
 import { DomainEvent, Photo, Result, Scene, SceneFinished, Tag } from '../domain';
 import { FileSystem, JSONObject } from '../io';
 import { Default_Path_To_Reports } from '../serenity';
+import { ActivityPeriod, RehearsalPeriod, ReportExporter, ScenePeriod } from './index';
 import { RehearsalReport } from './rehearsal_report';
 import {
     ActivityReport,
@@ -94,6 +94,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 issues:         this.issuesCoveredBy(node.value),
                 testSteps:      children,
 
+                annotatedResult:  Result[node.outcome.result],
                 testFailureCause: this.errorExporter.tryToExport(node.outcome.error),
             }));
     }

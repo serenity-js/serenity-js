@@ -72,7 +72,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     expect(producedReport()).to.deep.equal(expectedReportWith({
                         startTime,
                         duration,
-                        result:    Result[Result.SUCCESS],
+                        result:          Result[Result.SUCCESS],
                     })));
             });
 
@@ -391,6 +391,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 },
                             } ],
                             result: 'ERROR',
+                            annotatedResult: 'ERROR',
                             testFailureCause: {
                                 errorType: 'Error',
                                 message: "We're sorry, something happened",
@@ -435,6 +436,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 },
                             } ],
                             result: 'ERROR',
+                            annotatedResult: 'ERROR',
                             testFailureCause: {
                                 errorType: 'Error',
                                 message: 'Timeout of 1000ms exceeded.',
@@ -632,7 +634,8 @@ describe('When reporting on what happened during the rehearsal', () => {
                     manual:    false,
                     startTime,
                     duration:  undefined,
-                    result:    'SUCCESS',
+                    result:          'SUCCESS',
+                    annotatedResult: 'SUCCESS',
                     testSource: 'cucumber',
                 };
 
