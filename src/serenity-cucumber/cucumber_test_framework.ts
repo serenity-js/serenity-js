@@ -1,9 +1,9 @@
 import { TestFramework } from '../serenity-protractor/framework';
+import { attemptToRequire } from '../serenity/io/attempt_require';
 
 import _ = require('lodash');
 import glob = require('glob');
 import path = require('path');
-import { attemptToRequire } from '../serenity/io/attempt_require';
 
 export class CucumberTestFramework implements TestFramework {
 
@@ -79,7 +79,7 @@ export interface CucumberConfig {
     /**
      * @link https://docs.cucumber.io/tag-expressions/
      */
-    tags?: string;
+    tags?: string[];
 
     /**
      * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
