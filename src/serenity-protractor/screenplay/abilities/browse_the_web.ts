@@ -72,6 +72,10 @@ export class BrowseTheWeb implements Ability {
         );
     }
 
+    executeScript(script: string, target: Target): PromiseLike<any> {
+        return this.browser.executeScript(script, target.resolveUsing(this.browser.element));
+    }
+
     constructor(private browser: ProtractorBrowser) {
     }
 }
