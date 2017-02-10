@@ -9,6 +9,7 @@
     "pretest": "serenity update",
     "pree2e": "npm run lint && npm run webdriver:update -- --standalone",
     "e2e": "protractor ./protractor.conf.js",
+    "e2e-single": "protractor ./protractor.conf.js --mochaOpts.grep",
     "report": "serenity run",
     "test": "failsafe e2e report",
     "webdriver-manager": "webdriver-manager",

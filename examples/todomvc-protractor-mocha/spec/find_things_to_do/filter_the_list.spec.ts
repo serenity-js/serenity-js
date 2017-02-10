@@ -7,28 +7,35 @@ describe('Finding things to do', function() {
 
     const stage = serenity.callToStageFor(new Actors());
 
-    describe('James can use filters so that the list', () => {
+    describe('James can', () => {
 
-        it('shows active items only', () => stage.theActorCalled('James').attemptsTo(
-            Start.withATodoListContaining([ 'Write some code', 'Walk the dog' ]),
-            CompleteATodoItem.called('Write some code'),
-            FilterItems.toShowOnly('Active'),
-            Ensure.theListOnlyContains('Walk the dog'),
-        ));
+        describe('apply filters so that the list', () => {
+            beforeEach(() => stage.theActorCalled('James').attemptsTo(
+                Start.withATodoListContaining([ 'Write some code', 'Walk the dog' ]),
+            ));
 
-        it('shows completed items only', () => stage.theActorCalled('James').attemptsTo(
-            Start.withATodoListContaining([ 'Write some code', 'Walk the dog' ]),
-            CompleteATodoItem.called('Write some code'),
-            FilterItems.toShowOnly('Completed'),
-            Ensure.theListOnlyContains('Write some code'),
-        ));
+            it('shows active items only', () => stage.theActorInTheSpotlight().attemptsTo(
+                CompleteATodoItem.called('Write some code'),
+                FilterItems.toShowOnly('Active'),
+                Ensure.theListOnlyContains('Walk the dog'),
+            ));
 
-        it('shows all the items', () => stage.theActorCalled('James').attemptsTo(
-            Start.withATodoListContaining([ 'Write some code', 'Walk the dog' ]),
-            CompleteATodoItem.called('Write some code'),
-            FilterItems.toShowOnly('Active'),
-            FilterItems.toShowOnly('All'),
-            Ensure.theListOnlyContains('Write some code', 'Walk the dog'),
-        ));
+            it('shows completed items only', () => stage.theActorInTheSpotlight().attemptsTo(
+                CompleteATodoItem.called('Write some code'),
+                FilterItems.toShowOnly('Completed'),
+                Ensure.theListOnlyContains('Write some code'),
+            ));
+        });
+
+        describe('remove filters so that the list', () => {
+
+            it('shows all the items', () => stage.theActorCalled('James').attemptsTo(
+                Start.withATodoListContaining([ 'Write some code', 'Walk the dog' ]),
+                CompleteATodoItem.called('Write some code'),
+                FilterItems.toShowOnly('Active'),
+                FilterItems.toShowOnly('All'),
+                Ensure.theListOnlyContains('Write some code', 'Walk the dog'),
+            ));
+        });
     });
 });

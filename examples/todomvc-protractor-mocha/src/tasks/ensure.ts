@@ -20,7 +20,7 @@ class ItemMarkedAsCompleted implements Task {
     @step('{0} ensures that \'#item\' is marked as complete')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(ItemStatus.of(this.item), isMarkedAs('completed')),
+            See.if(ItemStatus.of(this.item), isMarkedAs('completed')),
         );
     }
 
@@ -35,7 +35,7 @@ class Equals implements Task {
     @step('{0} ensures that the list contains only #expectedItems')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(TodoListItems.Displayed, equals(this.expectedItems)),
+            See.if(TodoListItems.Displayed, equals(this.expectedItems)),
         );
     }
 
@@ -50,7 +50,7 @@ class Includes implements Task {
     @step('{0} ensures that the list includes #expectedItem')
     performAs(actor: PerformsTasks): PromiseLike<void> {
         return actor.attemptsTo(
-            See.that(TodoListItems.Displayed, includes(this.expectedItem)),
+            See.if(TodoListItems.Displayed, includes(this.expectedItem)),
         );
     }
 
