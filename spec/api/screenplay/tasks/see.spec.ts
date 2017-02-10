@@ -18,7 +18,7 @@ describe('Tasks', () => {
             let actor   = Actor.named('James');
 
             let promise = See.
-                that(new SomeResult(), r => expect(r).to.eventually.equal('some value')).
+                if(new SomeResult(), r => expect(r).to.eventually.equal('some value')).
                 performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled;
@@ -28,7 +28,7 @@ describe('Tasks', () => {
             let actor   = Actor.named('James');
 
             let promise = See.
-                that(new SomeResult(), r => expect(r).to.eventually.equal('other value')).
+                if(new SomeResult(), r => expect(r).to.eventually.equal('other value')).
                 performAs(actor);
 
             return expect(promise).to.be.eventually.rejectedWith(AssertionError, 'expected \'some value\' to equal \'other value\'');
