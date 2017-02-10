@@ -2,4 +2,4 @@ great for highly technical teams, where everyone interested in contributing to t
 comfortable with basic software development
 
 
-{% include "../_partials/feedback.md" %}
+{% include "../feedback.md" %}
