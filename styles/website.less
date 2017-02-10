@@ -68,6 +68,10 @@
       .text-shadow(none);
       .box-shadow(none);
     }
+
+    code {
+      padding: .2em .2em 0 .2em;
+    }
   }
 
   hr {
@@ -79,7 +83,7 @@
     background: none;
     text-align: center;
 
-    margin-top: 4em;
+    margin-top: 42px;
     margin-bottom: 42px;
 
     &:before {
@@ -120,6 +124,44 @@
       left: -60px;
       color: #e3e3e3;
       content: "\201C";
+    }
+  }
+
+  ul.books {
+    text-align: center;
+    list-style-type: none;
+    margin: 2em 0 0.85em 0;
+
+    li
+    {
+      display:inline-block;
+      margin:0 0.85em;
+
+      position:relative;
+      .box-shadow(~"0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset");
+
+      img {
+        display: block;
+        vertical-align: bottom;
+      }
+    }
+    li:before, li:after
+    {
+      content:"";
+      position:absolute;
+      z-index:-1;
+      .box-shadow(~"0 0 20px rgba(0,0,0,0.8)");
+      top:50%;
+      bottom:0;
+      left:10px;
+      right:10px;
+      .border-radius(~"100px / 10px")
+    }
+    li:after
+    {
+      right:10px;
+      left:auto;
+      .transform(~"skew(8deg) rotate(3deg)");
     }
   }
 }
