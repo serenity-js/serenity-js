@@ -49,5 +49,6 @@ or jump straight to the [guide](./overview/readme.md).
 <a class="image" href="https://travis-ci.org/jan-molak/serenity-js" target="_blank"><img src="https://travis-ci.org/jan-molak/serenity-js.svg?branch=master" alt="Build Status"></a>
 <a class="image" href="https://coveralls.io/github/jan-molak/serenity-js" target="_blank"><img src="https://coveralls.io/repos/github/jan-molak/serenity-js/badge.svg" alt="Coverage Status"></a>
 <a class="image" href="https://david-dm.org/jan-molak/serenity-js" target="_blank"><img src="https://david-dm.org/jan-molak/serenity-js.svg" alt="Dependencies"></a>
+<a class="image" href="https://snyk.io/test/github/jan-molak/serenity-js" target="_blank"><img src="https://snyk.io/test/github/jan-molak/serenity-js/badge.svg" alt="Snyk"></a>
 <a class="image" href="https://github.com/semantic-release/semantic-release" target="_blank"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
 </p>
