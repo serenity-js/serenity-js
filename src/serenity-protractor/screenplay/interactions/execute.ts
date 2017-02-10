@@ -4,11 +4,11 @@ import { Target } from '../ui/target';
 
 export class Execute {
     static theScript(script: string) {
-        return { on: (target: Target): Interaction => new ScriptCode(script, target) };
+        return { on: (target: Target): Interaction => new ExecuteScript(script, target) };
     }
 }
 
-class ScriptCode implements Interaction {
+class ExecuteScript implements Interaction {
     performAs(actor: UsesAbilities): PromiseLike<any> {
         return BrowseTheWeb.as(actor).executeScript(this.script, this.target);
     }
