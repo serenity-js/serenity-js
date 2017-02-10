@@ -8,7 +8,7 @@ We've also talked about how the
 [Page Object(s) pattern](speaking-the-right-language.md#first-step-in-the-journey-the-page-objects-pattern)
 succeeded in addressing some of those problems, but also introduced some new ones.
 
-In this article we'll look at how Serenity/JS and the [Screenplay Pattern](../scenarios/screenplay-pattern.md) can help
+In this article we'll look at how Serenity/JS and the [Screenplay Pattern](../design/screenplay-pattern.md) can help
 us design test suites that are easier to extend, maintain and scale to meet the requirements of a modern business.
 
 ## Something practical
@@ -17,14 +17,14 @@ Let's look again at the Cucumber scenario we know
 from the [previous article](speaking-the-right-language.md).
 This time we'll automate it from the 
 [outside-in](https://en.wikipedia.org/wiki/Outside%E2%80%93in_software_development), while gradually introducing
-the concepts of the [Screenplay Pattern](../scenarios/screenplay-pattern.md).
+the concepts of the [Screenplay Pattern](../design/screenplay-pattern.md).
 
 :bulb: **PRO TIP:** If you like learning by doing, clone the
-[tutorial project](https://github.com/jan-molak/serenity-js-getting-started) and code along!
+[tutorial project](https://github.com/serenity-js/tutorial-from-scripts-to-serenity) and code along!
 
 ```
-$> git clone https://github.com/jan-molak/serenity-js-getting-started
-$> cd serenity-js-getting-started
+$> git clone https://github.com/serenity-js/tutorial-from-scripts-to-serenity
+$> cd tutorial-from-scripts-to-serenity
 $> npm install
 $> npm test
 ```
@@ -71,33 +71,33 @@ If you are curious, you might want to watch Anders Hejlsberg's ["Introducing Typ
 
 export = function todoUserSteps() {
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (name: string, items: string, callback) => {
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, function (name: string, items: string, callback) {
         callback(null, 'pending');
     });
 
-    this.When(/^s?he adds (.*?) to (?:his|her) list$/, (itemName: string, callback) => {
+    this.When(/^s?he adds (.*?) to (?:his|her) list$/, function (itemName: string, callback) {
         callback(null, 'pending');
     });
 
-    this.Then(/^.* todo list should contain (.*?)$/, (items: string, callback) => {
+    this.Then(/^.* todo list should contain (.*?)$/, function (items: string, callback) {
         callback(null, 'pending');
     });
 };
 ```
 
-The [Screenplay Pattern](../scenarios/screenplay-pattern.md)
+The [Screenplay Pattern](../design/screenplay-pattern.md)
 is a [user-centered model](https://en.wikipedia.org/wiki/User-centered_design),
-which puts an emphasis on [Actors](../scenarios/screenplay-pattern.md#actor) - the external parties interacting with our system,
-their [Goals](../scenarios/screenplay-pattern.md#goal) and [Tasks](../scenarios/screenplay-pattern.md#task) they perform to achieve them.
+which puts an emphasis on [Actors](../design/screenplay-pattern.md#actor) - the external parties interacting with our system,
+their [Goals](../design/screenplay-pattern.md#goal) and [Tasks](../design/screenplay-pattern.md#task) they perform to achieve them.
 
-To automate a Cucumber scenario using the [Screenplay Pattern](../scenarios/screenplay-pattern.md),
-we first need an [Actor](../scenarios/screenplay-pattern.md#actor):
+To automate a Cucumber scenario using the [Screenplay Pattern](../design/screenplay-pattern.md),
+we first need an [Actor](../design/screenplay-pattern.md#actor):
 
 ```typescript
 let james = Actor.named('James');
 ```
 
-If we add our actor to the Cucumber step definition, we would get something like this:
+If we added our actor to the Cucumber step definition, we'd get something like this:
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
@@ -108,7 +108,7 @@ export = function todoUserSteps() {
 
     let actor: Actor;
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (actorName: string, items: string, callback) => {
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, function(actorName: string, items: string, callback) {
         actor = Actor.named(actorName);
 
         callback();
@@ -118,31 +118,33 @@ export = function todoUserSteps() {
 };
 ```
 
-:bulb: **PRO TIP**: Notice how can now get the name of the actor ('James') from the Cucumber scenario, rather than directly hard-coding it? This means we can use this step definition for any actor, and not just James.
+:bulb: **PRO TIP**: Notice how we can now get the name of the actor ('James') from the Cucumber scenario, 
+rather than directly hard-coding it? This means we can use this step definition for any actor, 
+not just James.
 
-Actors have Goals, and need to perform Tasks to achieve these Goals.
-In this case, James's goal is to add "Buy some cereal" to his todo list.
-But before he can do this, our scenario needs James to start with todo list that already contains
+Actors have their Goals, and need to perform Tasks to achieve these goals.
+In this case, James has a highly ambitious goal to add "Buy some cereal" to his todo list.
+But before he can do this, our scenario needs James to start with a todo list that already contains
 a couple of items - more specifically, "Buy some cookies" and "Walk the dog":
 
 ```gherkin
 Given that James has a todo list containing Buy some cookies, Walk the dog
 ```
 
-Let's make the implementation reflect this (don't worry about your editor complaining that the `Start` class doesn't exist,
-we'll implement it in the next step):
+Let's make the implementation reflect this (don't worry about your editor complaining that the `Start` class 
+doesn't exist yet, we'll implement it in the next step):
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { Start } from '../../src/screenplay/tasks/start';
-import { listOf } from '../../src/text';
+import { Start } from '../../spec/screenplay/tasks/start';
+import { listOf } from '../../spec/text';
 
 // ...
 
     let actor: Actor;
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (actorName: string, items: string, callback) => {
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, function(actorName: string, items: string, callback) {
         actor = Actor.named(actorName);
 
         actor.attemptsTo(
@@ -155,7 +157,8 @@ import { listOf } from '../../src/text';
 // ...
 ```
 
-Notice the code we used to actually add the initial items to the list? This might be a little different to the sort of test code you have seem before:
+Notice the code we used to actually add the initial items to the list? 
+This might be a little different to the sort of test code you have seen before:
 
 ```
         actor.attemptsTo(
@@ -163,19 +166,25 @@ Notice the code we used to actually add the initial items to the list? This migh
         );
 ```
 
-Here, rather than executing a sequence of Protractor or WebDriver calls to type into fields and click on buttons, we instantiate a Task object - `Start.withATodoListContaining(items)` - using a naming and coding style that closely mimics the domain language of our application. When you call `actor.attemptsTo(...)`, the actor performs the sequence of tasks that you pass in as parameters.  While this requires a bit of a shift in your way of thinking initially, it really helps you write code that's easy to read and understand.
+Here, rather than executing a sequence of Protractor or WebDriver calls to type into fields and click on buttons, 
+we instantiate a Task object - `Start.withATodoListContaining(items)` - using a naming and coding style that 
+closely mimics the domain language of our application. 
+
+When you call `actor.attemptsTo(...)`, the actor performs the sequence of tasks that you pass in as parameters. 
+While this requires a bit of a shift in your way of thinking initially, it really helps you write code 
+that's easy to read and understand.
 
 Let's look at how a task like this is written.
 
 ## The first Task
 
-Tasks are implemented as simple Typescript classes.
+Tasks are implemented as simple TypeScript classes.
 A Task class needs to implement the `Task` interface, so that it can be performed by an Actor.
-Let's create a directory to store the tasks - `src/screenplay/tasks`, and a `start.ts` file in it with
-the following content:
+Let's create a directory to store the tasks - `spec/screenplay/tasks`, and a `start.ts` file in it with
+the following contents:
 
 ```typescript
-// src/screenplay/tasks/start.ts
+// spec/screenplay/tasks/start.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 
@@ -224,7 +233,7 @@ Cucumber step definition and make the code a bit simpler and cleaner:
 
     let actor: Actor;
 
-    this.Given(/^.*that (.*) has a todo list containing (.*)$/, (actorName: string, items: string) => {
+    this.Given(/^.*that (.*) has a todo list containing (.*)$/, function (actorName: string, items: string) {
         actor = Actor.named(actorName);
 
         return actor.attemptsTo(
@@ -258,8 +267,8 @@ Using this task, the full step definition would look like this:
 ```typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { AddATodoItem } from '../../src/screenplay/tasks/add_a_todo_item';
-import { listOf } from '../../src/text';
+import { AddATodoItem } from '../../spec/screenplay/tasks/add_a_todo_item';
+import { listOf } from '../../spec/text';
 
 // ...
 
@@ -279,7 +288,7 @@ import { listOf } from '../../src/text';
 Now we can define the `AddATodoItem` Task:
 
 ```typescript
-// src/screenplay/tasks/add_a_todo_item.ts
+// spec/screenplay/tasks/add_a_todo_item.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 
@@ -303,7 +312,7 @@ export class AddATodoItem implements Task {
 And now that we have the `AddATodoItem`, we can reuse it in the original `Start` Task:
 
 ```typescript
-// src/screenplay/tasks/start.ts
+// spec/screenplay/tasks/start.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { AddATodoItem } from './add_a_todo_item';
@@ -341,8 +350,8 @@ we need to give him the ability to use a web browser:
 Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 ```
 
-In the example above, `BrowseTheWeb` is an [Ability](../scenarios/screenplay-pattern.md#ability),
-which enables James to [interact](../scenarios/screenplay-pattern.md#interaction)
+In the example above, `BrowseTheWeb` is an [`Ability`](../design/screenplay-pattern.md#ability),
+which enables James to [interact](../design/screenplay-pattern.md#interaction)
 with `protractor.browser` object and therefore with the web interface of the application.
 
 Why do we need this indirection here? Why not use the global `protractor.browser` object directly
@@ -381,9 +390,9 @@ export = function todoUserSteps() {
 };
 ```
 
-Now that James has the Ability to interact with the application, it's time to use it.
+Now that James has the ability to interact with the application, it's time to use it.
 
-Let's wire up the `Start` Task first and make it do something useful, opening the browser and navigating
+Let's wire up the `Start` task first and make it do something useful. Opening the browser and navigating
 to the application could be a good start:
 
 ```typescript
@@ -415,11 +424,11 @@ $> npm test
 
 How did that work?
 
-`Open` is an [`Interaction`](../scenarios/screenplay-pattern.md#interaction), which means that is uses an `Ability`,
+`Open` is an [`Interaction`](../design/screenplay-pattern.md#interaction), which means that is uses an `Ability`,
 in this case to `BrowseTheWeb`, to interact with the system.
 
 `Open` is one of the
-[Interactions that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/interactions).
+[Interactions that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/spec/serenity-protractor/screenplay/interactions).
 
 ## Adding items
 
@@ -429,14 +438,14 @@ As this interaction requires us to enter some text into the text field and hit t
 we can use another built-in Interaction - `Enter`:
 
 ```typescript
-// src/screenplay/tasks/add_a_todo_item.ts
+// spec/screenplay/tasks/add_a_todo_item.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
 import { Enter } from 'serenity-js/lib/screenplay-protractor';
 
 import { protractor } from 'protractor';
 
-import { TodoList } from '../ui/todo_list';
+import { TodoList } from '../components/todo_list';
 
 export class AddATodoItem implements Task {
 
@@ -460,7 +469,7 @@ export class AddATodoItem implements Task {
 There's one thing missing though: we haven't defined what `TodoList.What_Needs_To_Be_Done` means. Let's do this next:
 
 ```typescript
-// src/screenplay/ui/todo_list.ts
+// spec/screenplay/components/todo_list.ts
 
 import { Target } from 'serenity-js/lib/screenplay-protractor';
 import { by } from 'protractor';
@@ -495,7 +504,7 @@ $> npm test
 ```
 
 :bulb: Because we've designed our test system from outside-in,
-composing high-level Tasks such as `Start` from lower-level ones,
+composing high-level tasks such as `Start` from lower-level ones,
 such as `AddATodoItem`, we only had to implement the change in one place.
 
 ## Asking the right Questions
@@ -503,13 +512,13 @@ such as `AddATodoItem`, we only had to implement the change in one place.
 Our test scenario will be much more useful when we add an assertion to it.
 What we'll do next is check if the items are getting added correctly to the list.
 
-In order to verify the state of the application, an Actor can ask [Questions](../scenarios/screenplay-pattern.md#question):
+In order to verify the state of the application, an Actor can ask [Questions](../design/screenplay-pattern.md#question):
 
 ```typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { expect } from '../../src/expect';
-import { TodoListItems } from '../../src/screenplay/questions/todo_list_items';
+import { expect } from '../../spec/expect';
+import { TodoList } from '../../spec/screenplay/components/todo_list';
 
 // ...
 
@@ -520,86 +529,47 @@ export = function todoUserSteps() {
     // ...
 
     this.Then(/^.* todo list should contain (.*?)$/, (items: string) => {
-        return expect(actor.toSee(TodoListItems.Displayed)).eventually.deep.equal(listOf(items));
+        return expect(actor.toSee(TodoList.Items_Displayed)).eventually.deep.equal(listOf(items));
     });
 };
 ```
 
-A [Question](../scenarios/screenplay-pattern.md#question) is similar to an [Interaction](../scenarios/screenplay-pattern.md#interaction),
-as it uses the Actor's Ability to interact with the system.
+A [Question](../design/screenplay-pattern.md#question) is similar to an [Interaction](../design/screenplay-pattern.md#interaction),
+as it uses the actor's ability to interact with the system.
 
-When the Actor answers a Question, it returns a [Promise](https://promisesaplus.com/),
+When the actor answers a question, it returns a [`Promise`](https://promisesaplus.com/),
 which resolves to a value, such as a string of text or a number, which then can be asserted on.
 That's why in the example above we could use `Actor.toSee(question)` together with [chai.js](http://chaijs.com/)
 and [chai-as-promised](https://github.com/domenic/chai-as-promised).
 
-There are several [Questions that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/questions)
+There are several [`Questions` that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/questions)
 which you can use in your test scenarios.
 
 Right now we'll use `Text`,
 which returns the text value of an element - `Text.of()` or elements - `Text.ofAll()`
-identified by a `Target`:
+identified by a `Target`, and the `Target` itself
 
 ```typescript
-// src/screenplay/questions/todo_list_items.ts
+// spec/screenplay/components/todo_list.ts
 
-import { Text } from 'serenity-js/lib/screenplay-protractor';
-
-import { TodoList } from '../ui/todo_list';
-
-export class TodoListItems {
-    static Displayed = Text.ofAll(TodoList.Items);
-}
-```
-
-And the Target:
-
-```typescript
-// src/screenplay/ui/todo_list.ts
-
-import { Target } from 'serenity-js/lib/screenplay-protractor';
-import { by } from 'protractor';
+import { Target, Text } from 'serenity-js/lib/screenplay-protractor';
 
 export class TodoList {
     static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box')
                                          .located(by.id('new-todo'));
-
-    static Items                 = Target.the('List of Items')
-                                          .located(by.repeater('todo in todos'));
+    
+    
+    static Items = Target.the('List of Items').located(by.repeater('todo in todos'));
+    static Items_Displayed = Text.ofAll(TodoList.Items);
 }
 ```
-
-As with Abilities, Tasks and Interactions, you can also define custom Questions
+As with Abilities, Tasks and Interactions, you can also define custom, domain-specific Questions
 and we'll talk about the ways to do that in future articles.
 
-## Getting WebDriver and Cucumber in sync
-
-There's one more thing we need to cover.
-
-WebDriver's JavaScript API is entirely asynchronous.
-However, in an effort to make working with asynchronous calls easier for developers,
-WebDriver implements its own [Promise Manager](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs#understanding-the-promise-manager),
-also known as the [Control Flow](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/promise.html).
-
-What this means is that any interaction with a WebDriver JavaScript API (such as clicking a button or opening a website)
-schedules an asynchronous operation using WebDriver's internal mechanism and returns a `webdriver.Promise`,
-rather than the standard [ES6 Promise](https://promisesaplus.com/). Since Cucumber.js and many other tools such as
-[Chai.js](https://github.com/domenic/chai-as-promised/issues/160) are not WebDriver-aware (nor should they be),
-we need to reconcile these two worlds.
-
-To do this, call the Serenity/JS WebDriver Synchroniser in your `cucumber_hooks.ts` file:
-
-```typescript
-// features/cucumber_hooks.ts
-
-import { protractor } from 'protractor';
-import * as serenity from 'serenity-js/lib/serenity-cucumber';
-
-export = function () {
-
-    serenity.synchronise(this, protractor.browser.driver.controlFlow());
-};
-```
+:bulb: **PRO TIP**: In the above example, we've defined _both_ the questions and the targets in
+a single `TodoList` class, which represents the UI component that we're working with.
+Most of the modern UI frameworks such as Angular or React use a similar concept to represent 
+an independent "widget" that a user can interact with.
 
 You can run the test again and see the scenario succeed:
 
@@ -628,7 +598,5 @@ As reading through stack traces is not necessarily the most efficient way to dia
 the next tutorial will focus on generating narrative, illustrated and meaningful reports of our interaction with the app.
 
 Ready? Time to [make the tests speak for themselves](making-the-tests-speak-for-themselves.md)
-
----
 
 {% include "../_partials/feedback.md" %}

@@ -36,7 +36,7 @@ Feature: Add new items to the todo list
 
 High-level scenarios like the one above tend to change less frequently than the screens, fields and buttons used to implement them. This separation helps to keep the scenarios stable and the maintenance costs lower.
 
-For a Cucumber scenario to become an automated test, Ineed to implement the [Given/When/Then](https://github.com/cucumber/cucumber/wiki/Step-Definitions) steps in the scenario using a programming language such as JavaScript.
+For a Cucumber scenario to become an automated test, we need to implement the [Given/When/Then](https://github.com/cucumber/cucumber/wiki/Step-Definitions) steps in the scenario using a programming language such as JavaScript.
 
 ----
 
@@ -106,7 +106,7 @@ the [Page Object Pattern](http://docs.seleniumhq.org/docs/06_test_design_conside
 _It is worth noting that the original Page Object Pattern was later
 [refined by Martin Fowler](http://martinfowler.com/bliki/Page Object.html), who proposed that instead of thinking of
 the entire application as a set of pages, each page should be considered in terms of smaller page objects or "widgets"
-that the page contained. The implementation below uses that refined version, as it makes it slighted slightly simpler._
+that the page contained. The implementation below uses that refined version, as it makes it slightly simpler._
 
 Let's refactor the code from the previous example using the Page Objects pattern:
 
@@ -163,7 +163,7 @@ the elements of the `TodoList` we would like to interact with: `What_Needs_To_Be
 
 Since a Page Object works with two distinct concepts, there are two reasons why it might need to be changed. The page structure may have changed, or a test might need to describe a new user interaction with that page. In both cases, deliberate or unintended changes to the page object carry a risk of having a negative impact on existing tests that use it. The more interactions and page elements a given page object describes, the higher the likelihood of the problem occurring.
 
-Page Objects also introduce a more subtle problem. As the name implies, Page Objects reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects the way you think about the application too. Instead of placing the primary focus on **what** the user needs to do with the application, Page Objects lead you to focus on **how** the user interacts with individual pages. As a result, the tests become tightly coupled to the user interface, making them more brittle and more likely to be affected by UI changes.
+Page Objects also introduce a more subtle problem. As the name implies, Page Objects reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects the way you think about the application too. Instead of placing the primary focus on **what** the user needs to do with the application, Page Objects lead you to focus on **how** the user interacts with individual pages. As a result, the tests become tightly coupled to the structure of the user interface, making them more brittle and more likely to be affected by UI changes.
 
 Even though Page Objects reduce code duplication and encourage reuse across tests within a single project
 and a single test suite, the design falls short if we need to enable code reuse across multiple projects and teams.
@@ -193,7 +193,5 @@ system that's easy to extend, maintain and scale to multiple projects and teams.
 So far it looks like the acceptance tests are not speaking the right language and there's an abstraction missing.
 
 Which leads us onto the next article: ["Writing what you'd like to read"](writing-what-you-would-like-to-read.md).
-
----
 
 {% include "../_partials/feedback.md" %}

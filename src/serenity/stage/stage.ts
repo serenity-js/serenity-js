@@ -1,9 +1,11 @@
 import { Actor } from '../screenplay/actor';
 import { StageManager } from './stage_manager';
 
+/// [cast]
 export interface Cast {
     actor(name: string): Actor;
 }
+/// [cast]
 
 export class Stage {
 

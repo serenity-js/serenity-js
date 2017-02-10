@@ -6,8 +6,8 @@ and easier to change.
 
 When you're ready to try Serenity/JS yourself - check out the [tutorial](from-scripts-to-serenity/readme.md)!
 
-{% youtube %}https://www.youtube.com/watch?v=YYgkFgBxEwc{% endyoutube %}
-
 ----
+
+{% youtube %}https://www.youtube.com/watch?v=YYgkFgBxEwc{% endyoutube %}
 
 {% include "_partials/feedback.md" %}

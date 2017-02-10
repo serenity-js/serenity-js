@@ -3,9 +3,11 @@
 Serenity/JS is a free and open-source project supported by the community on 
 [github](https://github.com/jan-molak/serenity-js), 
 where you can [report a bug](https://github.com/jan-molak/serenity-js/issues) 
-or [suggest a feature](https://github.com/jan-molak/serenity-js/pulls),
-and [Stack Overflow](http://stackoverflow.com/questions/tagged/serenity-js), where questions with a `serenity-js` tag
-will usually get answered by one of the Serenity/JS core developers.
+or [suggest a feature](https://github.com/jan-molak/serenity-js/pulls).
+
+You can [ask questions on Stack Overflow](http://stackoverflow.com/questions/tagged/serenity-js), 
+where posts with a `serenity-js` tag will usually get answered by one of the Serenity/JS 
+core developers.
 
 ----
 

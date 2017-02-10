@@ -5,6 +5,8 @@ const
 
 module.exports = function todoUserSteps() {
 
+    this.setDefaultTimeout(60 * 1000);
+
     this.Given(/^.*that I have an empty todo list$/, () => {
         todoListPage.startWithAnEmptyTodoList();
     });

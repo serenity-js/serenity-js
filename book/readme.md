@@ -1,32 +1,46 @@
-<h1><img alt="Serenity/JS" src="images/serenity-js.svg" id="cover-logo" /></h1>
+<h1><img alt="Serenity/JS" src="assets/images/serenity-js.svg" id="cover-logo" /></h1>
 
 A handbook by [Jan Molak](https://janmolak.com)
 
 ----
 
-> Serenity/JS makes acceptance and regression testing of modern web applications
+> Serenity/JS makes acceptance and regression testing of modern web apps
 faster, more collaborative and easier to scale.
 
-**Serenity/JS is a next generation open-source acceptance testing library which gives you:**
-* **the flexibility and expressiveness of the [Screenplay Pattern](scenarios/screenplay-pattern.md)**,<br />
+### Key Features
+
+**Serenity/JS is a next generation acceptance testing library, expanding the capabilities of 
+[Angular Protractor](https://github.com/angular/protractor) to give you:**
+* **the flexibility and expressiveness of the [Screenplay Pattern](design/screenplay-pattern.md)**,  
   _so that your test scenarios stay free of noise and focused on the business logic_,
 * **the power and visibility of [Serenity BDD](http://serenity-bdd.info/#/documentation)
-[narrative reports](http://serenity-bdd.info/docs/serenity/#_detailed_description_of_aggregation_reports)**,<br />
+[narrative reports](./overview/reporting.md)**,  
   _so that failure analysis and release readiness assessment become more efficient_,
-* **an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_&#40;object-oriented_design&#41;)**,<br />
+* **an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_&#40;object-oriented_design&#41;)**,  
   _to keep your code simple, reusable and easy to extend_,
-* **easy integration with popular test automation tools,
-  like [Protractor](https://github.com/angular/protractor), [Cucumber](https://github.com/cucumber/cucumber-js) and [Chai](http://chaijs.com/)**,<br />
-  _so that you can introduce it into your existing toolchain *today*_!
+* **effortless integration with popular test automation tools like [Cucumber](./cucumber/readme.md), [Mocha](./mocha/readme.md) and [Chai](./design/assertions.md)**,  
+  _so that you can introduce it into your existing toolchain **today**,  
+  with just a single, [one-line code change](./overview/retrofitting.md)_!
 
-----
+### Ready to get started? 
 
-Although Serenity/JS provides a strong support for automating web tests using Protractor and Webdriver,
-it works very effectively for non-web tests too! 
-Those could include tests that exercise web services or even call application code directly.
+See Serenity/JS in action in the [introductory video](introduction.md), 
+get your hands dirty with the [tutorial](from-scripts-to-serenity/readme.md), 
+or jump straight to the [guide](./overview/readme.md).
 
-Check out the [introduction](introduction.md) to see Serenity/JS in action 
-or get your hands dirty with [the tutorial](from-scripts-to-serenity/readme.md)! 
+### Get involved!
+
+<i class="fa fa-github"></i>
+[Star or fork the project](https://github.com/jan-molak/serenity-js) on Github
+
+<i class="fa fa-stack-overflow"></i>
+[Ask questions and find answers](https://stackoverflow.com/questions/tagged/serenity-js) on StackOverflow
+
+<i class="fa fa-twitter"></i>
+[Follow updates](https://twitter.com/JanMolak) on Twitter (via [@JanMolak](https://twitter.com/JanMolak))
+
+<i class="fa fa-edit"></i>
+... and use the pencil button at the top of the page to [improve this documentation](https://github.com/jan-molak/serenity-js/tree/master/book)
 
 ----
 

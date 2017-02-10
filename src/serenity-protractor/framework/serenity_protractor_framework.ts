@@ -54,8 +54,10 @@ export class SerenityProtractorFramework {
     private defaultConfig = (): SerenityFrameworkConfig => ({
         serenity: {
             crew: [
+                /// [default-stage-crew-members]
                 serenityBDDReporter(),
                 photographer(),
+                /// [default-stage-crew-members]
             ],
         },
     })

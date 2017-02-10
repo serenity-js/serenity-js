@@ -256,6 +256,4 @@ a popular acceptance testing library written in Java.
 Now starting from 2016, you can use both the Screenplay Pattern and the powerful Serenity BDD reports on your JavaScript
 projects thanks to Serenity/JS!
 
----
-
 {% include "../_partials/feedback.md" %}

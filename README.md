@@ -9,38 +9,29 @@
 Serenity/JS is a node.js library designed to make acceptance and regression testing of modern web applications
 faster, more collaborative and easier to scale.
 
-Serenity/JS gives you:
-* the scalability and expressiveness of the [Screenplay Pattern](https://github.com/jan-molak/serenity-js/blob/master/docs/screenplay-pattern.md),
-* the power and visibility of [Serenity BDD](http://serenity-bdd.info/#/documentation)
-[narrative reports](http://serenity-bdd.info/docs/serenity/#_detailed_description_of_aggregation_reports),
-* an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)),
-* easy integration with popular test automation tools,
-such as [Protractor](https://github.com/angular/protractor),
-[Cucumber](https://github.com/cucumber/cucumber-js) and [Chai](http://chaijs.com/) (with more to come!)
+**Serenity/JS is a next generation acceptance testing library, expanding the capabilities of 
+[Angular Protractor](https://github.com/angular/protractor) to give you:**
+* **the flexibility and expressiveness of the [Screenplay Pattern](http://serenity-js.org/design/screenplay-pattern.md)**,  
+  _so that your test scenarios stay free of noise and focused on the business logic_,
+* **the power and visibility of [Serenity BDD](http://serenity-bdd.info/#/documentation)
+[narrative reports](http://serenity-bdd.info/docs/serenity/#_detailed_description_of_aggregation_reports)**,  
+  _so that failure analysis and release readiness assessment become more efficient_,
+* **an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_&#40;object-oriented_design&#41;)**,  
+  _to keep your code simple, reusable and easy to extend_,
+* **effortless integration with popular test automation tools like [Cucumber](http://serenity-js.org/cucumber/readme.md), [Mocha](http://serenity-js.org/mocha/readme.md) and Chai**,  
+  _so that you can introduce it into your existing toolchain **today**,  
+  with just a single, [one-line code change](http://serenity-js.org/overview/retrofitting.md)_!
 
 Although Serenity/JS provides strong support for automating web tests using Protractor and Webdriver,
 it works very effectively for non-web tests too! Those include tests that exercise web services or even call application code directly.
 
-|           | Please note |
-| --------- | ----------- |
-| :warning: | Serenity/JS is a young project. This means that although it has a **very high test coverage**, follows **semantic versioning** and **you can use it straight away**, its structure and APIs might and most likely will change over the coming weeks as it matures to become `1.0`. Is that a problem? We hope not! The feedback from the Community will help us shape Serenity/JS to your needs. Together we can build the best acceptance testing library the JavaScript world has ever seen! ... or at least something useful :wink: |
-
-## Introduction
+**Find out more at [serenity-js.org](http://serenity-js.org)!**
 
 [![Serenity/JS: Next Generation Acceptance Testing for Angular Apps](http://img.youtube.com/vi/YYgkFgBxEwc/0.jpg)](http://www.youtube.com/watch?v=YYgkFgBxEwc "Serenity/JS: Next Generation Acceptance Testing for Angular Apps")
 
-## Tutorials
+## Help and Support
 
-The below tutorials will help you get started with Serenity/JS and better understand the [Screenplay Pattern](docs/screenplay-pattern.md):
-
-* **From scripts to Serenity**
-    * [Introduction: Speaking the right language](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-introduction-speaking-the-right-language.md)
-    * [Getting started: Writing what you'd like to read](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-getting-started-writing-what-you-would-like-to-read.md)
-    * [Reporting: Making the tests speak for themselves](https://github.com/jan-molak/serenity-js/blob/master/docs/from-scripts-to-serenity-reporting-making-the-tests-speak-for-themselves.md)
-
-## Getting Help
-
-To ask about the usage and troubleshooting of Serenity/JS [post a **serenity-js** tagged question on StackOverflow](http://stackoverflow.com/questions/tagged/serenity-js).
+[http://serenity-js.org/support.html](http://serenity-js.org/support.html)
 
 ## Your feedback matters!
 
@@ -62,11 +53,6 @@ Serenity/JS is continuously delivered to you thanks to:
 ## License
 
 Serenity/JS library is licensed under the [Apache-2.0](LICENSE.md) license.
-
-## Commercial support
-
-If you're interested in a commercial license, training, support or bringing your team up to speed with modern software
-development practices - [please get in touch](https://janmolak.com/about-the-author-e45e048661c#.kxqp57qn9).
 
 ----
 

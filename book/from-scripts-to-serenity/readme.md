@@ -1,8 +1,10 @@
-<img src="../images/serenity-js-eye.svg" class="opening-logo" />
+<img src="../assets/images/serenity-js-eye.svg" class="opening-logo" />
 
 # From Scripts to Serenity
 
-In this series of 3 tutorials you'll write automated tests for an [Angular.js](https://angular.io/) application using 
+In this series of 3 tutorials you'll learn how to write automated tests
+and generate comprehensive test execution reports 
+in the context of an [Angular](https://angular.io/) application, exercised using 
 [Serenity/JS](https://github.com/jan-molak/serenity-js), 
 [Cucumber](https://github.com/cucumber/cucumber-js), 
 [Protractor](https://github.com/angular/protractor), 
