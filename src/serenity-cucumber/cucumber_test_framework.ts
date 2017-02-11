@@ -32,7 +32,7 @@ export class CucumberTestFramework implements TestFramework {
 
     private serenityCucumberModule = () => glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/index.?s').pop();
 
-    private argumentsFrom (config: CucumberConfig): string[]{
+    private argumentsFrom(config: CucumberConfig): string[]{
         const resolveGlobs = (path: string)       => glob.sync(path, { cwd: this.requireRoot });
         const resolvePaths = (globPath: string[]) => _.chain(globPath).map(resolveGlobs).flatten().value();
 

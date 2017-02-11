@@ -34,7 +34,7 @@ export class BrowseTheWeb implements Ability {
     }
 
     locateAll(target: Target): ElementArrayFinder {
-        return target.resolveAllUsing(<any> this.browser.element);      // see: https://github.com/angular/protractor/issues/3350
+        return target.resolveAllUsing(this.browser.element);
     }
 
     takeScreenshot(): PromiseLike<string> {

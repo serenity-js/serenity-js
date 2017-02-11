@@ -3,7 +3,7 @@ import { protractor } from 'protractor';
 import { scenarioLifeCycleNotifier } from './cucumber_serenity_notifier';
 import { synchronise } from './webdriver_synchroniser';
 
-export = function () {
+export = function() {
 
     this.registerListener(scenarioLifeCycleNotifier());
 

@@ -59,7 +59,7 @@ class ChooseAnExample implements Task {
     }
 }
 
-describe ('When waiting for things to happen, a test scenario', function () {
+describe ('When waiting for things to happen, a test scenario', function() {
 
     this.timeout(10000);
 
@@ -67,8 +67,9 @@ describe ('When waiting for things to happen, a test scenario', function () {
           Not_Long_Enough = Duration.ofMillis(500),
           Long_Enough     = Duration.ofMillis(4000);
 
-    let app   = new AppServer();
-    let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
+    const
+        app   = new AppServer(),
+        james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     before(app.start());
     after(app.stop());

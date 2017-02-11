@@ -3,8 +3,8 @@ import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
 import * as webdriver from 'selenium-webdriver';
 
-let isGenerator = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
-let co = require('co');                       // tslint:disable-line:no-var-requires - JS module with no typings
+const isGenerator = require('is-generator');    // tslint:disable-line:no-var-requires - JS module with no typings
+const co = require('co');                       // tslint:disable-line:no-var-requires - JS module with no typings
 
 /**
  * Monkey-patches Cucumber.js Given/When/Then step generators to ensure that any step definition they create
@@ -13,7 +13,7 @@ let co = require('co');                       // tslint:disable-line:no-var-requ
  * @param cucumber
  * @param controlFlow
  */
-export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.promise.ControlFlow) {
+export function synchronise(cucumber: StepDefinitions, controlFlow: webdriver.promise.ControlFlow) {
 
     [
         'Given',
@@ -32,14 +32,15 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
      * @param originalStepGenerator
      * @return {StepGenerator}
      */
-    function synchronising (originalStepGenerator: StepGenerator): StepGenerator {
+    function synchronising(originalStepGenerator: StepGenerator): StepGenerator {
 
-        function synchronisingStepGenerator (pattern: string, options: any, code?: SomeFunction) {
+        function synchronisingStepGenerator(pattern: string, options: any, code?: SomeFunction) {
 
-            let originalStep = code || options,
+            const
+                originalStep = code || options,
                 synchronised = mimicArity(originalStep, synchronisedStep(originalStep));
 
-            let params = !! code
+            const params = !! code
                 ? [ pattern, options, synchronised ]
                 : [ pattern, synchronised ];
 
@@ -55,11 +56,12 @@ export function synchronise (cucumber: StepDefinitions, controlFlow: webdriver.p
      * @param originalStep
      * @return {(...args:any[])=>(Promise<void> | void)}
      */
-    function synchronisedStep (originalStep: SomeFunction) {
+    function synchronisedStep(originalStep: SomeFunction) {
 
-        return mimicInterface(originalStep, function stepWrapper (...args: any[]) {
+        return mimicInterface(originalStep, function stepWrapper(...args: any[]) {
 
-            let deferred = new Deferred<void>(),
+            const
+                deferred = new Deferred<void>(),
                 context  = this;
 
             if (isGenerator.fn(originalStep)) {
@@ -94,10 +96,11 @@ function hasCallbackInterface(step: SomeFunction, params: any[]): boolean {
  * @param pretender
  * @return {StepDefinition}
  */
-function mimicInterface (original: StepDefinition, pretender: SomeFunctionReturningPromise): StepDefinition {
-    return function stepWrapper (...args: any[]): Promise<void> | void {
+function mimicInterface(original: StepDefinition, pretender: SomeFunctionReturningPromise): StepDefinition {
+    return function stepWrapper(...args: any[]): Promise<void> | void {
 
-        let context  = this,
+        const
+            context  = this,
             result = pretender.apply(context, args);
 
         if (!hasCallbackInterface(original, args)) {
@@ -113,22 +116,11 @@ function mimicInterface (original: StepDefinition, pretender: SomeFunctionReturn
  * @param pretender
  * @return {(...args:any[])=>any}
  */
-function mimicArity (original: SomeFunction, pretender: SomeFunction): SomeFunction {
+function mimicArity(original: SomeFunction, pretender: SomeFunction): SomeFunction {
     return withArityOf(original.length, pretender);
 }
 
-interface SomeFunction {
-    (...args: any[]): any;
-}
-
-interface SomeFunctionReturningPromise {
-    (...args: any[]): Promise<void>;
-}
-
-interface StepDefinition {
-    (...args: any[]): Promise<void> | void;
-}
-
-interface StepGenerator {
-    (pattern: string, options: any, code?: any): void;
-}
+type SomeFunction = (...args: any[]) => any;
+type SomeFunctionReturningPromise = (...args: any[]) => Promise<void>;
+type StepDefinition = (...args: any[]) => Promise<void> | void;
+type StepGenerator = (pattern: string, options: any, code?: any) => void;

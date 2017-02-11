@@ -5,13 +5,12 @@ import { Target } from '../ui/target';
 
 export class DoubleClick implements Interaction {
 
-    public static on(target: Target): DoubleClick {
-        return new DoubleClick(target);
-    }
+    static on = (target: Target): DoubleClick => new DoubleClick(target);
 
     @step('{0} double-clicks on #target')
     performAs(actor: UsesAbilities): PromiseLike<void> {
-        let browse  = BrowseTheWeb.as(actor),
+        const
+            browse  = BrowseTheWeb.as(actor),
             el: any = browse.locate(this.target);
 
         return browse.actions().doubleClick(el).perform();

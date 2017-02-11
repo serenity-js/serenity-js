@@ -11,13 +11,14 @@ describe ('Target', () => {
 
     it ('represents a named locator', () => {
 
-        let target = Target.the('"Sign Up" button').located(byLocator);
+        const target = Target.the('"Sign Up" button').located(byLocator);
 
         expect(target.toString()).to.equal('the "Sign Up" button');
     });
 
     it ('can be resolved using protractor `element` resolver', () => {
-        let element     = sinon.spy(),
+        const
+            element     = sinon.spy(),
             target      = Target.the('"Sign Up" button').located(byLocator);
 
         target.resolveUsing(element);
@@ -26,13 +27,14 @@ describe ('Target', () => {
     });
 
     it ('can have its name changed at a later stage', () => {
-        let target      = Target.the('Nav button').located(byLocator);
+        const target      = Target.the('Nav button').located(byLocator);
 
         expect(target.called('"Sign Up" button').toString()).to.equal('the "Sign Up" button');
     });
 
     it ('can have a CSS locator defined using tokens to be resolved at a later stage', () => {
-        let byLocatorTemplate = webdriver.By.css('{0}#sign-up.{1}'),
+        const
+            byLocatorTemplate = webdriver.By.css('{0}#sign-up.{1}'),
             element     = sinon.spy(),
             target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
 
@@ -42,7 +44,8 @@ describe ('Target', () => {
     });
 
     it ('can have an ID locator defined using tokens to be resolved at a later stage', () => {
-        let byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
+        const
+            byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
             element     = sinon.spy(),
             target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
 
@@ -52,16 +55,18 @@ describe ('Target', () => {
     });
 
     it ('correctly overrides the toString method of the cloned locator', () => {
-        let byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
-            target      = Target.the('"Sign Up" button').located(byLocatorTemplate);
+        const
+            byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
+            target      = Target.the('"Sign Up" button').located(byLocatorTemplate),
 
-        let result = (<any> target.of('button')).locator.toString();
+            result = (target.of('button') as any).locator.toString();
 
         expect(result).to.equal('By(css selector, *[id="sign-up-button"])');
     });
 
     it ('can describe a locator matching multiple elements', () => {
-        let byGroupLocator = webdriver.By.css('ul>li'),
+        const
+            byGroupLocator = webdriver.By.css('ul>li'),
             element        = { all: sinon.spy() },
             target         = Target.the('items').located(byGroupLocator);
 
@@ -71,7 +76,8 @@ describe ('Target', () => {
     });
 
     it ('complains if it cannot replace the tokens defined in the locator (Protractor issue #3508)', () => {
-        let byModelTemplate: any = {
+        const
+            byModelTemplate: any = {
                 toString: () => 'by.model("checkbox")',
             },
             target      = Target.the('checkbox').located(byModelTemplate);
@@ -83,7 +89,7 @@ describe ('Target', () => {
 
     describe ('TargetBuilder', () => {
         it ('is easy to identify', () => {
-            let target = Target.the('sign up form');
+            const target = Target.the('sign up form');
 
             expect(target.toString()).to.equal('TargetBuilder for the sign up form');
         });

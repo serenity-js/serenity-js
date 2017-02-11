@@ -12,11 +12,12 @@ describe('Interactions', () => {
     describe('ResizeBrowserWindow', () => {
         it ('can maximise the browser window', () => {
 
-            let maximize = sinon.stub().returns(Promise.resolve()),
+            const
+                maximize = sinon.stub().returns(Promise.resolve()),
                 browser  = fakeBrowser({ maximize }),
-                actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
+                actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser)),
 
-            let promise = ResizeBrowserWindow.toMaximum().performAs(actor);
+                promise = ResizeBrowserWindow.toMaximum().performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(maximize).to.have.been.calledOnce;
@@ -25,11 +26,12 @@ describe('Interactions', () => {
 
         it ('can set the window size to an arbitrary width and height', () => {
 
-            let setSize  = sinon.stub().returns(Promise.resolve()),
+            const
+                setSize  = sinon.stub().returns(Promise.resolve()),
                 browser  = fakeBrowser({ setSize }),
-                actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
+                actor    = Actor.named('James').whoCan(BrowseTheWeb.using(browser)),
 
-            let promise = ResizeBrowserWindow.to(1024, 768).performAs(actor);
+                promise = ResizeBrowserWindow.to(1024, 768).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(setSize).to.have.been.calledWithExactly(1024, 768);
@@ -37,12 +39,12 @@ describe('Interactions', () => {
         });
 
         function fakeBrowser(windowOptions): ProtractorBrowser {
-            let browser: ProtractorBrowser = <any> sinon.createStubInstance(ProtractorBrowser),
-                driver:  any               = <any> sinon.createStubInstance(WebDriver),
-                window = () => { return windowOptions; },
-                manage = (): any => { return { window }; };
+            const
+                browser: ProtractorBrowser = sinon.createStubInstance(ProtractorBrowser) as any,
+                driver:  any               = sinon.createStubInstance(WebDriver) as any,
+                window = () => windowOptions;
 
-            driver.manage = manage;
+            driver.manage = (): any => ({ window });
 
             browser.driver = driver;
 

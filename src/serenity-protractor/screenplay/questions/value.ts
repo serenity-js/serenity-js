@@ -4,9 +4,7 @@ import { Attribute } from './attribute';
 
 export class Value implements Question<string> {
 
-    static of(target: Target) {
-        return new Value(target);
-    }
+    static of = (target: Target) => new Value(target);
 
     answeredBy(actor: UsesAbilities) {
         return Attribute.of(this.target).called('value').answeredBy(actor);

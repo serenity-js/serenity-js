@@ -2,7 +2,7 @@ import expect = require('../../expect');
 
 import { spawner } from '../../support/spawner';
 
-describe('When working with Cucumber', function () {
+describe('When working with Cucumber', function() {
 
     this.timeout(30 * 1000);    // it might take a while to start up the selenium server
 
@@ -22,12 +22,13 @@ describe('When working with Cucumber', function () {
         const messagesPerStep = 4;
 
         it ('reports data table arguments', () => {
-            let spawned = protractor('**/*special_step_arguments.feature', '@datatable');
+            const spawned = protractor('**/*special_step_arguments.feature', '@datatable');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerStep);
 
-                let cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
+                const
+                    cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
                     cucumberStepDescriptionFromActivityFinishedMessage = spawned.messages[2].value.subject.name;
 
                 expect(cucumberStepDescriptionFromActivityStartedMessage).to.equal([
@@ -43,12 +44,13 @@ describe('When working with Cucumber', function () {
         });
 
         it ('reports DocString arguments', () => {
-            let spawned = protractor('**/*special_step_arguments.feature', '@docstring');
+            const spawned = protractor('**/*special_step_arguments.feature', '@docstring');
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerStep);
 
-                let cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
+                const
+                    cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
                     cucumberStepDescriptionFromActivityFinishedMessage = spawned.messages[2].value.subject.name;
 
                 expect(cucumberStepDescriptionFromActivityStartedMessage).to.equal([

@@ -12,7 +12,7 @@ export class StepDescription {
     constructor(private template: string) { }
 
     interpolateWith(performable: Performable, argumentsOfThePerformAsMethod: any[]): Activity {
-        let name = this.determineStepName(this.template, performable, argumentsOfThePerformAsMethod);
+        const name = this.determineStepName(this.template, performable, argumentsOfThePerformAsMethod);
 
         return new Activity(name);
     }

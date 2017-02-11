@@ -5,15 +5,9 @@ import { BrowseTheWeb } from '../abilities';
 import { Target } from '../ui/target';
 
 export class Hit {
-    static the(key: string) {
-      return new Hit(key);
-    }
-
-    public into(target: Target): Interaction {
-        return new HitKeyIntoTarget(target, this.key);
-    }
-
-    constructor(private key: string) {}
+    static the = (key: string) => ({
+        into: (target: Target): Interaction => new HitKeyIntoTarget(target, key),
+    })
 }
 
 class HitKeyIntoTarget implements Interaction {

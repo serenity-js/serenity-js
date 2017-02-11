@@ -4,9 +4,7 @@ import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Open implements Interaction {
 
-    static browserOn(website: string): Open {
-        return new Open(website);
-    }
+    static browserOn = (website: string) => new Open(website);
 
     @step('{0} opens the browser at "#targetWebsite"')
     performAs(actor: UsesAbilities): PromiseLike<void> {

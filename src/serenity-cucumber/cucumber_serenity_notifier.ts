@@ -31,14 +31,14 @@ export function scenarioLifeCycleNotifier(): cucumber.EventListener {
     // handleAfterFeaturesEvent  (features: events.FeaturesPayload, callback: () => void) => callback();
 }
 
-function handleBeforeScenarioEvent (scenario: cucumber.events.ScenarioPayload, callback: () => void) {
+function handleBeforeScenarioEvent(scenario: cucumber.events.ScenarioPayload, callback: () => void) {
 
     serenity.notify(new SceneStarts(sceneFrom(scenario)));
 
     callback();
 }
 
-function handleBeforeStepEvent (step: cucumber.events.StepPayload, callback: () => void) {
+function handleBeforeStepEvent(step: cucumber.events.StepPayload, callback: () => void) {
 
     if (! step.isHidden()) {
         serenity.notify(new ActivityStarts(activityFrom(step)));
@@ -47,9 +47,9 @@ function handleBeforeStepEvent (step: cucumber.events.StepPayload, callback: () 
     callback();
 }
 
-function handleStepResultEvent (result: cucumber.events.StepResultPayload, callback: () => void) {
+function handleStepResultEvent(result: cucumber.events.StepResultPayload, callback: () => void) {
 
-    let step = result.getStep();
+    const step = result.getStep();
 
     // "before" and "after" steps emit an event even if they keywords themselves are not present in the test...
     if (!step.isHidden()) {
@@ -59,9 +59,9 @@ function handleStepResultEvent (result: cucumber.events.StepResultPayload, callb
     callback();
 }
 
-function handleScenarioResultEvent (result: cucumber.events.ScenarioResultPayload, callback: () => void) {
+function handleScenarioResultEvent(result: cucumber.events.ScenarioResultPayload, callback: () => void) {
 
-    let scenario = result.getScenario();
+    const scenario = result.getScenario();
 
     serenity.notify(new SceneFinished(outcome(sceneFrom(scenario), result.getStatus(), result.getFailureException())));
 
@@ -99,7 +99,7 @@ function activityFrom(step: cucumber.events.StepPayload): Activity {
 
 function outcome<T>(subject: T, stepStatus: string, maybeError?: Error | string | undefined): Outcome<T> {
 
-    let error = errorFrom(maybeError);
+    const error = errorFrom(maybeError);
 
     return new Outcome(subject, serenityResultFrom(stepStatus, error), error);
 }

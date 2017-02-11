@@ -20,7 +20,7 @@ export class Spawned {
 
     constructor(pathToScript: string, args: string[], options: ForkOptions) {
 
-        let spawned = childProcess.fork(pathToScript, args, options);
+        const spawned = childProcess.fork(pathToScript, args, options);
 
         spawned.on('message', event => this.messages.push(deserialised(event)));
 

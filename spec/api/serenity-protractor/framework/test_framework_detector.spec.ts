@@ -17,7 +17,7 @@ describe('serenity-protractor', () => {
                 describe('when the preferred `dialect`', () => {
 
                     it('is set to `cucumber`', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             serenity: {
                                 dialect: 'cucumber',
                             },
@@ -29,7 +29,7 @@ describe('serenity-protractor', () => {
                     });
 
                     it('is set to `mocha`', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             serenity: {
                                 dialect: 'mocha',
                             },
@@ -44,7 +44,7 @@ describe('serenity-protractor', () => {
                 describe('when the `dialect` is not set, but the config', () => {
 
                     it('seems like `cucumber` because of the `cucumberOpts`', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             cucumberOpts: {
                                 require:    [ 'features/**/*.ts' ],
                                 format:     'pretty',
@@ -57,7 +57,7 @@ describe('serenity-protractor', () => {
                     });
 
                     it('seems like `cucumber` because of the `cucumberOpts` defined in capabilities', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             capabilities: {
                                 cucumberOpts: {
                                     require:    [ 'features/**/*.ts' ],
@@ -72,7 +72,7 @@ describe('serenity-protractor', () => {
                     });
 
                     it('seems like `mocha` because of the `mochaOpts`', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             mochaOpts: {
                                 ui:    'bdd',
                             },
@@ -82,7 +82,7 @@ describe('serenity-protractor', () => {
                     });
 
                     it('seems like `mocha` because of the `mochaOpts` defined in capabilities', () => {
-                        let framework = detect.frameworkFor({
+                        const framework = detect.frameworkFor({
                             capabilities: {
                                 mochaOpts: {
                                     ui:    'bdd',

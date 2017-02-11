@@ -14,17 +14,19 @@ export class Step {
 
     describedUsing<T extends Performable>(template: string): StepAnnotation<T> {
 
-        let description = new StepDescription(template),
+        const
+            description = new StepDescription(template),
             decorated   = this;
 
         return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
 
-            let performAs = descriptor.value,
+            const
+                performAs = descriptor.value,
                 decorator = _.cloneDeep(descriptor);
 
             decorator.value = function(...args: any[]): PromiseLike<void> {
 
-                let activity: Activity = description.interpolateWith(this, args);
+                const activity: Activity = description.interpolateWith(this, args);
 
                 return Promise.resolve()
                     .then(() => decorated.beforeStep(activity))
@@ -66,6 +68,4 @@ export function step<T extends Performable>(stepDescriptionTemplate: string): St
 
 export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;
 
-export interface StepAnnotation<T extends Performable> {
-    (target: T, propertyKey: string, descriptor: PerformAsMethodSignature): PerformAsMethodSignature;
-}
+export type StepAnnotation<T extends Performable> = (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => PerformAsMethodSignature;

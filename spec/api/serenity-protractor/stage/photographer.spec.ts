@@ -39,15 +39,16 @@ describe('Photographer', () => {
         let thePhotographer: Photographer,
             stageManager: StageManager,
             stage: Stage,
-            fileSystem: any,
+            fileSystem: any;
 
+        const
             activity  = new Activity('Adds an item to the basket'),
             photoName = 'photo.png',
             photoPath = 'target/serenity/site/' + photoName,
             now       = 1469028588000;
 
         beforeEach( () => {
-            fileSystem   = <any> sinon.createStubInstance(FileSystem);
+            fileSystem   = sinon.createStubInstance(FileSystem) as any;
 
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
@@ -92,7 +93,7 @@ describe('Photographer', () => {
 
                     thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
-                    let photoAttempted = stageManager.readTheJournal().pop();
+                    const photoAttempted = stageManager.readTheJournal().pop();
 
                     expect(photoAttempted.timestamp).to.equal(now);
                     expect(photoAttempted.value).to.be.instanceOf(PhotoReceipt);
@@ -105,7 +106,7 @@ describe('Photographer', () => {
 
                     thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
-                    let photoAttempted = stageManager.readTheJournal().pop();
+                    const photoAttempted = stageManager.readTheJournal().pop();
 
                     return expect(photoAttempted.value.photo).to.eventually.deep.equal(new Photo(photoPath));
                 });
@@ -116,7 +117,7 @@ describe('Photographer', () => {
 
                     thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
-                    let photoAttempted = stageManager.readTheJournal().pop();
+                    const photoAttempted = stageManager.readTheJournal().pop();
 
                     return expect(photoAttempted.value.photo).to.eventually.be.undefined;
                 });
@@ -127,7 +128,7 @@ describe('Photographer', () => {
 
                     thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
-                    let photoAttempted = stageManager.readTheJournal().pop();
+                    const photoAttempted = stageManager.readTheJournal().pop();
 
                     return expect(photoAttempted.value.photo).to.eventually.be.rejectedWith(unknownError);
                 });
@@ -155,7 +156,7 @@ describe('Photographer', () => {
 
                         thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS), now));
 
-                        let photoAttempted = stageManager.readTheJournal().pop();
+                        const photoAttempted = stageManager.readTheJournal().pop();
 
                         expect(photoAttempted).to.be.instanceOf(PhotoAttempted);
                         expect(photoAttempted.timestamp).to.equal(now);
@@ -167,13 +168,13 @@ describe('Photographer', () => {
 
                     it('finished with a Failure', () => {
 
-                        let failure = new Error('Expected the list of items to contain 5 items but it only had 4');
+                        const failure = new Error('Expected the list of items to contain 5 items but it only had 4');
 
                         fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.FAILURE, failure), now));
 
-                        let photoAttempted = stageManager.readTheJournal().pop();
+                        const photoAttempted = stageManager.readTheJournal().pop();
 
                         expect(photoAttempted).to.be.instanceOf(PhotoAttempted);
                         expect(photoAttempted.timestamp).to.equal(now);
@@ -185,13 +186,13 @@ describe('Photographer', () => {
 
                     it('finished with an Error', () => {
 
-                        let error = new Error('The element was not found');
+                        const error = new Error('The element was not found');
 
                         fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.ERROR, error), now));
 
-                        let photoAttempted = stageManager.readTheJournal().pop();
+                        const photoAttempted = stageManager.readTheJournal().pop();
 
                         expect(photoAttempted).to.be.instanceOf(PhotoAttempted);
                         expect(photoAttempted.timestamp).to.equal(now);
@@ -203,13 +204,13 @@ describe('Photographer', () => {
 
                     it('was Compromised (by problems with 3rd party systems for example)', () => {
 
-                        let error = new Error('Client database is offline');
+                        const error = new Error('Client database is offline');
 
                         fileSystem.store.withArgs(photoName, imageBuffer).returns(photoPath);
 
                         thePhotographer.notifyOf(new ActivityFinished(new Outcome(activity, Result.COMPROMISED, error), now));
 
-                        let photoAttempted = stageManager.readTheJournal().pop();
+                        const photoAttempted = stageManager.readTheJournal().pop();
 
                         expect(photoAttempted).to.be.instanceOf(PhotoAttempted);
                         expect(photoAttempted.timestamp).to.equal(now);
@@ -247,7 +248,7 @@ describe('Photographer', () => {
 
             it('is not interested in events other that the Start and Finish of an Activity', () => {
 
-                let scene = new Scene('A user adds a product to their basket', 'Checkout', 'checkout.feature');
+                const scene = new Scene('A user adds a product to their basket', 'Checkout', 'checkout.feature');
 
                 thePhotographer.notifyOf(new SceneStarts(scene, now));
                 thePhotographer.notifyOf(new SceneFinished(new Outcome(scene, Result.SUCCESS), now));
@@ -288,17 +289,17 @@ describe('Photographer', () => {
             });
         });
 
-        let invalidSessionError = new Error(
+        const invalidSessionError = new Error(
                 'This driver instance does not have a valid session ID ' +
                 '(did you call WebDriver.quit()?) and may no longer be used.'),
             unknownError = new Error('Something\'s probably gone wrong ¯\\_(ツ)_/¯');
 
         function fakeBrowserShowing(picture: string) {
-            return <any> { takeScreenshot: ( () => Promise.resolve(picture) ) };
+            return { takeScreenshot: ( () => Promise.resolve(picture) ) } as any;
         }
 
         function fawltyBrowserThrowing(error: Error) {
-            return <any> { takeScreenshot: ( () => { throw error; })};
+            return { takeScreenshot: ( () => { throw error; })} as any;
         }
 
         class CallsEveryPhotoTheSame implements PictureNamingStrategy {
@@ -318,14 +319,14 @@ describe('Photographer', () => {
 
             it('gives a photo a name based on an MD5 hash of its contents', () => {
 
-                let names = new Md5HashedPictureNames();
+                const names = new Md5HashedPictureNames();
 
                 expect(names.nameFor(image)).to.equal('e06827c6a8d3b787d15170da9e0aeeba');
             });
 
             it('appends a file extension if required', () => {
 
-                let names = new Md5HashedPictureNames('png');
+                const names = new Md5HashedPictureNames('png');
 
                 expect(names.nameFor(image)).to.equal('e06827c6a8d3b787d15170da9e0aeeba.png');
             });

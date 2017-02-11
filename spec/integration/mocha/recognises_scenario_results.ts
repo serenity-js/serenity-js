@@ -3,7 +3,7 @@ import expect = require('../../expect');
 import { Result, SceneFinished } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
-describe('When working with Mocha', function () {
+describe('When working with Mocha', function() {
 
     this.timeout(30 * 1000);    // it might take a while to start up the selenium server
 
@@ -17,14 +17,14 @@ describe('When working with Mocha', function () {
     describe('Serenity/JS', () => {
 
         it ('reports passing scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that passes',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.SUCCESS]);
@@ -32,14 +32,14 @@ describe('When working with Mocha', function () {
         });
 
         it ('reports pending scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that is pending',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
@@ -47,14 +47,14 @@ describe('When working with Mocha', function () {
         });
 
         it ('reports skipped scenarios', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that is skipped',
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
@@ -63,14 +63,14 @@ describe('When working with Mocha', function () {
 
         it('reports sync scenarios failing due to an AssertionError', () => {
 
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that fails due to an AssertionError',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
@@ -79,14 +79,14 @@ describe('When working with Mocha', function () {
 
         it('reports async scenarios failing due to an AssertionError', () => {
 
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'ails due to an async AssertionError',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
@@ -100,16 +100,16 @@ describe('When working with Mocha', function () {
             });
         });
 
-        it('reports scenarios that timed out', function () {
+        it('reports scenarios that timed out', () => {
 
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that times out',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
@@ -117,16 +117,16 @@ describe('When working with Mocha', function () {
             });
         });
 
-        it('reports scenarios that failed with an error', function () {
+        it('reports scenarios that failed with an error', () => {
 
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that fails with an error',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
@@ -134,16 +134,16 @@ describe('When working with Mocha', function () {
             });
         });
 
-        it('reports scenarios that failed with an error asynchronously', function () {
+        it('reports scenarios that failed with an error asynchronously', () => {
 
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that asynchronously fails with an error',
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(2);
 
-                let lastMessage = spawned.messages.pop();
+                const lastMessage = spawned.messages.pop();
 
                 expect(lastMessage).to.be.instanceOf(SceneFinished);
                 expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
@@ -152,7 +152,7 @@ describe('When working with Mocha', function () {
         });
 
         it ('recognises the name of the feature under test (the outer-most `describe`)', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that passes',
             );
 
@@ -165,7 +165,7 @@ describe('When working with Mocha', function () {
         });
 
         it ('recognises the name of the scenario', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A sample test that passes',
             );
 
@@ -178,7 +178,7 @@ describe('When working with Mocha', function () {
         });
 
         it ('treats a scenario with setup and teardown just like any other scenario', () => {
-            let spawned = protractor('protractor.conf.js',
+            const spawned = protractor('protractor.conf.js',
                 '--mochaOpts.grep', 'A test with both setup and teardown that passes',
             );
 

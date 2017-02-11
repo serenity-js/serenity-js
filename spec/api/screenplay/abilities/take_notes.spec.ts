@@ -29,9 +29,9 @@ describe('Abilities', () => {
         beforeEach(() => notepad = {});
 
         it ('stores notes in a notepad as promises to be resolved', () => {
-            let displayedVoucher = MyVoucherCode.shownAs('SUMMER2017');
+            const displayedVoucher = MyVoucherCode.shownAs('SUMMER2017');
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
+            const actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
 
             return actor.attemptsTo(
                 TakeNote.of(displayedVoucher).as('my voucher'),
@@ -41,10 +41,11 @@ describe('Abilities', () => {
         });
 
         it('stores notes using a topic name derived from the question', () => {
-            let displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
-                availableVoucher = AvailableVoucher.of('SUMMER2017');
+            const
+                displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
+                availableVoucher = AvailableVoucher.of('SUMMER2017'),
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.usingAnEmptyNotepad());
+                actor = Actor.named('Benjamin').whoCan(TakeNotes.usingAnEmptyNotepad());
 
             return actor.attemptsTo(
                 TakeNote.of(displayedVoucher),
@@ -53,10 +54,11 @@ describe('Abilities', () => {
         });
 
         it ('allows the Actor to remember a thing they\'ve seen', () => {
-            let displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
-                availableVoucher = AvailableVoucher.of('SUMMER2017');
+            const
+                displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
+                availableVoucher = AvailableVoucher.of('SUMMER2017'),
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
+                actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
 
             return actor.attemptsTo(
                 TakeNote.of(displayedVoucher),
@@ -66,11 +68,12 @@ describe('Abilities', () => {
         });
 
         it ('allows the Actor to remember several things they\'ve seen one after another', () => {
-            let displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
+            const
+                displayedVoucher = MyVoucherCode.shownAs('SUMMER2017'),
                 otherDisplayedVoucher = MyVoucherCode.shownAs('50_OFF'),
-                availableVouchers = AvailableVouchers.of('SUMMER2017', '50_OFF');
+                availableVouchers = AvailableVouchers.of('SUMMER2017', '50_OFF'),
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
+                actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
 
             return actor.attemptsTo(
                 TakeNote.of(displayedVoucher).as('my voucher'),
@@ -84,10 +87,11 @@ describe('Abilities', () => {
         });
 
         it ('allows the Actor to remember several things they\'ve seen at once', () => {
-            let displayedVouchers = MyVoucherCodes.shownAs('SUMMER2017', 'SPRINGCLEANING'),
-                availableVouchers = AvailableVouchers.of('SUMMER2017', '50_OFF', 'SPRINGCLEANING');
+            const
+                displayedVouchers = MyVoucherCodes.shownAs('SUMMER2017', 'SPRINGCLEANING'),
+                availableVouchers = AvailableVouchers.of('SUMMER2017', '50_OFF', 'SPRINGCLEANING'),
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
+                actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
 
             return actor.attemptsTo(
                 TakeNote.of(displayedVouchers).as('my vouchers'),
@@ -96,9 +100,10 @@ describe('Abilities', () => {
         });
 
         it ('allows the Actor to complain if you ask them about the thing they have no notes on', () => {
-            let availableVouchers = AvailableVouchers.of('SUMMER2017', '5OFF', 'SPRINGCLEANING');
+            const
+                availableVouchers = AvailableVouchers.of('SUMMER2017', '5OFF', 'SPRINGCLEANING'),
 
-            let actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
+                actor = Actor.named('Benjamin').whoCan(TakeNotes.using(notepad));
 
             return expect(actor.attemptsTo(
                 CompareNotes.toSeeIf(availableVouchers, include, 'my voucher'),

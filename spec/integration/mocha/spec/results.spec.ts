@@ -22,7 +22,7 @@ describe ('Integration with Mocha', () => {
             expect('pass').to.equal('fail');
         });
 
-        it ('times out', function (done) {
+        it ('times out', function(done) {
             this.timeout(5);
 
             setTimeout(done, 100);

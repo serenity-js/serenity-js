@@ -87,7 +87,7 @@ function createStep(stepInterface: StepInterface, result: StepResult) {
     return createPassingStep(stepInterface, result);
 }
 
-export = function () {
+export = function() {
 
     this.Given(/^a step that passes$/,
         createStep(StepInterface.PROMISE, StepResult.SUCCESS));

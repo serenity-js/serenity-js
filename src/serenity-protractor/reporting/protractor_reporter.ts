@@ -57,7 +57,7 @@ export class ProtractorReporter implements StageCrewMember {
     private record = (event: DomainEvent<any>) => this.journal.record(event);
 
     private notifyProtractor(outcome: Outcome<Scene>) {
-        let result = (outcome.result & Result.Failed)
+        const result = (outcome.result & Result.Failed)
             ? 'testFail'
             : 'testPass';
 

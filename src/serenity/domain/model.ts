@@ -53,7 +53,7 @@ export class Tag {
     private static Pattern = /^@([\w-]+)[:\s]?(.*)/i;
 
     public static from(text: string): Tag {
-        let [, type, values] = Tag.Pattern.exec(text);
+        const [, type, values] = Tag.Pattern.exec(text);
 
         return new Tag(
             type,

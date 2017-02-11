@@ -128,7 +128,7 @@ describe('serenity-protractor', () => {
 
                             given(...examplesOfSuccess).it('passed', result => {
 
-                                let report = RehearsalReport.from([
+                                const report = RehearsalReport.from([
                                     new SceneStarts(scene_1, now),
                                     new SceneFinished(new Outcome(scene_1, result), now + scene_1_duration),
                                 ]);
@@ -146,7 +146,7 @@ describe('serenity-protractor', () => {
                             });
 
                             given(...examplesOfFailure).it ('failed', result => {
-                                let report = RehearsalReport.from([
+                                const report = RehearsalReport.from([
                                     new SceneStarts(scene_1, now),
                                     new SceneFinished(new Outcome(scene_1, result), now + scene_1_duration),
                                 ]);
@@ -165,7 +165,7 @@ describe('serenity-protractor', () => {
 
                             describe('out of several', () => {
                                 given(...examplesOfFailure).it ('failed', result => {
-                                    let report = RehearsalReport.from([
+                                    const report = RehearsalReport.from([
                                         new SceneStarts(scene_1, now),
                                         new SceneFinished(new Outcome(scene_1, Result.SUCCESS), now + scene_1_duration),
                                         new SceneStarts(scene_2, now + scene_1_duration),
@@ -200,7 +200,7 @@ describe('serenity-protractor', () => {
                         describe('an activity', () => {
 
                             given(...examplesOfSuccess).it('passed', result => {
-                                let report = RehearsalReport.from([
+                                const report = RehearsalReport.from([
                                     new SceneStarts(scene_1, now),
                                         new ActivityStarts(logsIn, now),
                                         new ActivityFinished(new Outcome(logsIn, result), now + logsIn_duration),
@@ -224,7 +224,7 @@ describe('serenity-protractor', () => {
                             });
 
                             given(...examplesOfFailure).it('failed', result => {
-                                let report = RehearsalReport.from([
+                                const report = RehearsalReport.from([
                                     new SceneStarts(scene_1, now),
                                     new ActivityStarts(logsIn, now),
                                     new ActivityFinished(new Outcome(logsIn, result, error), now + logsIn_duration),
@@ -250,7 +250,7 @@ describe('serenity-protractor', () => {
 
                         describe('some activities', () => {
                             given(...examplesOfFailure).it('failed', result => {
-                                let report = RehearsalReport.from([
+                                const report = RehearsalReport.from([
                                     new SceneStarts(scene_1, now),
                                     new ActivityStarts(logsIn, now),
                                     new ActivityFinished(new Outcome(logsIn, Result.SUCCESS), now + logsIn_duration),
@@ -284,7 +284,7 @@ describe('serenity-protractor', () => {
                     describe('limits the result so that it', () => {
 
                         it('only specifies the results for top-level activities', () => {
-                            let events: Array<DomainEvent<any>> = [
+                            const events: Array<DomainEvent<any>> = [
                                 new SceneStarts(scene_1, now),
                                     new ActivityStarts(logsIn, now),
                                         new ActivityStarts(entersUsername,
@@ -301,7 +301,7 @@ describe('serenity-protractor', () => {
                                     now + scene_1_duration),
                             ];
 
-                            let screenplay = RehearsalReport.from(events);
+                            const screenplay = RehearsalReport.from(events);
 
                             return expect(screenplay.exportedUsing(new ProtractorReportExporter())).to.eventually.deep.equal({
                                 failedCount: 0,

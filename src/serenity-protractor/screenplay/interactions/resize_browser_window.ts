@@ -3,13 +3,8 @@ import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class ResizeBrowserWindow {
-    static toMaximum(): Interaction {
-        return new MaximiseBrowserWindow();
-    }
-
-    static to(width: number, height: number): Interaction {
-        return new SetBrowserWindowSize(width, height);
-    }
+    static toMaximum = (): Interaction => new MaximiseBrowserWindow();
+    static to = (width: number, height: number): Interaction => new SetBrowserWindowSize(width, height);
 }
 
 class MaximiseBrowserWindow implements Interaction {

@@ -20,7 +20,7 @@ export type SuccessCondition<T> = (subject: T, timeout: Duration) => Performable
 export class Wait {
     static for   = (duration: Duration): Interaction => new PassiveWait(duration);
     static upTo  = (timeout: Duration) => new ActiveWait(timeout);
-    static until<T> (somethingToWaitFor: T, condition: SuccessCondition<T>) {
+    static until<T>(somethingToWaitFor: T, condition: SuccessCondition<T>) {
         return new ActiveWait().until(somethingToWaitFor, condition);
     }
 }
@@ -28,7 +28,7 @@ export class Wait {
 export class ActiveWait {
     private static Default_Timeout = Duration.ofSeconds(5);
 
-    until<T> (somethingToWaitFor: T, condition: SuccessCondition<T>): Performable {
+    until<T>(somethingToWaitFor: T, condition: SuccessCondition<T>): Performable {
         return condition(somethingToWaitFor, this.timeout);
     }
 
@@ -107,7 +107,7 @@ class WaitUntil implements Interaction {
     }
 
     private uppercased(target: Target) {
-        let name = target.toString();
+        const name = target.toString();
         return name[0].toUpperCase() + name.slice(1);
     }
 }

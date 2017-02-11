@@ -9,14 +9,15 @@ describe('Interactions', () => {
 
     describe('Open', () => {
         it ('opens a website specified by the url', () => {
-            let browser: ProtractorBrowser = <any> sinon.createStubInstance(ProtractorBrowser),
+            const
+                browser: ProtractorBrowser = sinon.createStubInstance(ProtractorBrowser) as any,
                 actor = Actor.named('James').whoCan(BrowseTheWeb.using(browser));
 
-            let url    = '/home/index.html';
+            const url    = '/home/index.html';
 
-            (<any> browser.get).withArgs(url).returns(Promise.resolve());
+            (browser.get as any).withArgs(url).returns(Promise.resolve());
 
-            let promise = Open.browserOn(url).performAs(actor);
+            const promise = Open.browserOn(url).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(browser.get).to.have.been.calledWith(url);

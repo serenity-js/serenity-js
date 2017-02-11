@@ -13,10 +13,11 @@ describe('Interactions', () => {
               target    = Target.the('"Username" field').located(byLocator);
 
         it ('triggers a sendKeys event on an element identified by the Target', () => {
-            let element = <any> sinon.createStubInstance(webdriver.WebElement),
-                actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element)));
+            const
+                element = sinon.createStubInstance(webdriver.WebElement) as any,
+                actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element))),
 
-            let promise = Enter.theValue('Jan').into(target).performAs(actor);
+                promise = Enter.theValue('Jan').into(target).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(element.sendKeys).to.have.been.calledWith('Jan');
@@ -24,10 +25,11 @@ describe('Interactions', () => {
         });
 
         it ('allows an additional keystroke to be sent into the Target', () => {
-            let element = <any> sinon.createStubInstance(webdriver.WebElement),
-                actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element)));
+            const
+                element = sinon.createStubInstance(webdriver.WebElement) as any,
+                actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element))),
 
-            let promise = Enter.theValue('Jan').into(target).thenHit(webdriver.Key.ENTER).performAs(actor);
+                promise = Enter.theValue('Jan').into(target).thenHit(webdriver.Key.ENTER).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(element.sendKeys).to.have.been.calledWith('Jan');

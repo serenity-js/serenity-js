@@ -1,6 +1,6 @@
-import * as fs      from 'graceful-fs';
-import * as mkdirp  from 'mkdirp';
-import * as path    from 'path';
+import * as fs from 'graceful-fs';
+import * as mkdirp from 'mkdirp';
+import * as path from 'path';
 
 export class FileSystem {
 
@@ -19,12 +19,13 @@ export class FileSystem {
     }
 
     private prepareDirectory(relativePathToFile: string): PromiseLike<string> {
-        let absolutePath = path.resolve(this.root, relativePathToFile),
+        const
+            absolutePath = path.resolve(this.root, relativePathToFile),
             parent       = path.dirname(absolutePath);
 
         return new Promise((resolve, reject) => {
 
-            mkdirp(parent, (error, dir) => {
+            mkdirp(parent, error => {
                 if (error) {
                     reject(error);
                 }

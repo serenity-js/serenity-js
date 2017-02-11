@@ -78,7 +78,10 @@ function hasErrors(scenario: ExecutedScenario) {
     return scenario.err && scenario.err.constructor && ! /AssertionError/.test(scenario.err.constructor.name);
 }
 
-type ScenarioOrSuite = { title: string, parent: ScenarioOrSuite };
+interface ScenarioOrSuite {
+    title: string;
+    parent: ScenarioOrSuite;
+}
 
 function fullNameOf(scenario: ScenarioOrSuite) {
     return !! scenario.parent

@@ -349,7 +349,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             describe('When problems are encountered', () => {
 
                 it('describes problems encountered', () => {
-                    let error = new Error("We're sorry, something happened");
+                    const error = new Error("We're sorry, something happened");
 
                     error.stack = [
                         "Error: We're sorry, something happened",
@@ -411,7 +411,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes test infrastructure problems encountered during the test', () => {
-                    let error = new Error('Timeout of 1000ms exceeded.');
+                    const error = new Error('Timeout of 1000ms exceeded.');
                     error.stack = '';   // we don't care about the stack in this test
 
                     givenFollowingEvents(
@@ -449,7 +449,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             describe('When scenarios are tagged', () => {
 
                 it('adds a tag for the feature covered', () => {
-                    let aScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
+                    const aScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
@@ -468,7 +468,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the simple tags encountered', () => {
-                    let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('regression'),
                     ]);
 
@@ -492,7 +492,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the complex tags encountered', () => {
-                    let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('priority', [ 'must-have' ]),
                     ]);
 
@@ -516,7 +516,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('extracts the value of any @issues tags encountered and breaks them down to one tag per issue', () => {
-                    let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issues', [ 'MY-PROJECT-789' ]),
                     ]);
@@ -552,7 +552,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('ensures that the extracted issue ids are unique', () => {
-                    let taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issue',  [ 'MY-PROJECT-123' ]),
                     ]);
@@ -613,7 +613,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             }
 
             function expectedReportWith(overrides: any) {
-                let report = {
+                const report = {
                     name: 'Paying with a default card',
                     testSteps: [],
                     issues: [],
@@ -645,7 +645,6 @@ describe('When reporting on what happened during the rehearsal', () => {
             function producedReport() {
                 return JSON.parse(fs.readFileSync(`${rootDir}/${filename}`).toString('ascii'));
             }
-
         });
     });
 });

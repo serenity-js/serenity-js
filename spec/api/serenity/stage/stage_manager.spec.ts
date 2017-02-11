@@ -16,7 +16,7 @@ describe('Recording what happened during the test', () => {
         describe('Reading the Journal', () => {
             it('provides a record of what happened', () => {
 
-                let event   = new DomainEvent<string>('You would not believe what just happened!');
+                const event = new DomainEvent<string>('You would not believe what just happened!');
 
                 chronicle.record(event);
 
@@ -24,7 +24,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('always provides the full record of what happened, no matter how many times it is called', () => {
-                let A   = new DomainEvent('A', now - 3),
+                const
+                    A   = new DomainEvent('A', now - 3),
                     B   = new DomainEvent('B', now - 2),
                     C   = new DomainEvent('C', now - 1);
 
@@ -37,7 +38,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('provides a chronological record of what happened', () => {
-                let A   = new DomainEvent('A', now - 3),
+                const
+                    A   = new DomainEvent('A', now - 3),
                     B   = new DomainEvent('B', now - 2),
                     C   = new DomainEvent('C', now - 1);
 
@@ -51,7 +53,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('guarantees the chronological read order, even defer the write order was not chronological', () => {
-                let A   = new DomainEvent('A', now - 3),
+                const
+                    A   = new DomainEvent('A', now - 3),
                     B   = new DomainEvent('B', now - 2),
                     C   = new DomainEvent('C', now - 1);
 
@@ -65,7 +68,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('maintains the write order of the events, if they occurred at the exact same time', () => {
-                let A   = new DomainEvent('A', now),
+                const
+                    A   = new DomainEvent('A', now),
                     B   = new DomainEvent('B', now),
                     C   = new DomainEvent('C', now);
 
@@ -79,7 +83,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('maintains the write order of the events, if some of them arrived to the party', () => {
-                let A   = new DomainEvent('A', now - 3),
+                const
+                    A   = new DomainEvent('A', now - 3),
                     B   = new DomainEvent('B', now - 2),
                     C   = new DomainEvent('C', now - 1),
 
@@ -101,7 +106,8 @@ describe('Recording what happened during the test', () => {
 
         describe('Buffered reading', () => {
             it('provides a full record of past events', () => {
-                let A   = new DomainEvent('A', now - 3),
+                const
+                    A   = new DomainEvent('A', now - 3),
                     B   = new DomainEvent('B', now - 2),
                     C   = new DomainEvent('C', now - 1);
 
@@ -114,7 +120,8 @@ describe('Recording what happened during the test', () => {
 
             it('allows the reader to read from where they have left', () => {
 
-                let id  = 'unique identifier of the reader',
+                const
+                    id  = 'unique identifier of the reader',
                     A   = new DomainEvent('A', now - 5),
                     B   = new DomainEvent('B', now - 4),
                     C   = new DomainEvent('C', now - 3),
@@ -135,7 +142,8 @@ describe('Recording what happened during the test', () => {
 
             it('allows multiple readers to read from where they have left', () => {
 
-                let reader1 = 'unique identifier of the first reader',
+                const
+                    reader1 = 'unique identifier of the first reader',
                     reader2 = 'unique identifier of the second reader',
                     A   = new DomainEvent('A', now - 5),
                     B   = new DomainEvent('B', now - 4),
@@ -185,7 +193,8 @@ describe('Recording what happened during the test', () => {
         describe('Journal Maintenance', () => {
             it('maintains a Journal of what happened during the test', () => {
 
-                let chronicle = <any> sinon.createStubInstance(Journal),
+                const
+                    chronicle = sinon.createStubInstance(Journal) as any,
                     manager    = new StageManager(chronicle),
                     event     = new DomainEvent('A');
 
@@ -196,7 +205,8 @@ describe('Recording what happened during the test', () => {
 
             it('provides means to access the contents of the chronicle', () => {
 
-                let chronicle = <any> sinon.createStubInstance(Journal),
+                const
+                    chronicle = sinon.createStubInstance(Journal) as any,
                     manager  = new StageManager(chronicle);
 
                 manager.readTheJournal();
@@ -210,10 +220,11 @@ describe('Recording what happened during the test', () => {
         // todo: extract into the 'stage' package
         describe('Notifications', () => {
             it('will notify you defer something of interest happens', () => {
-                let chronicle = <any> sinon.createStubInstance(Journal),
+                const
+                    chronicle = sinon.createStubInstance(Journal) as any,
                     manager  = new StageManager(chronicle),
                     event   = new DomainEvent('A'),
-                    spy     = <any> sinon.createStubInstance(StageSpy);
+                    spy     = sinon.createStubInstance(StageSpy) as any;
 
                 manager.registerInterestIn([DomainEvent], spy);
 
@@ -228,13 +239,14 @@ describe('Recording what happened during the test', () => {
                 class DomainEventB extends DomainEvent<string> {}
                 class DomainEventC extends DomainEvent<string> {}
 
-                let chronicle = new Journal(),
+                const
+                    chronicle = new Journal(),
                     manager   = new StageManager(chronicle),
                     A         = new DomainEventA('A'),
                     B         = new DomainEventB('B'),
-                    spyA      = <any> sinon.createStubInstance(StageSpy),
-                    spyB      = <any> sinon.createStubInstance(StageSpy),
-                    spyC      = <any> sinon.createStubInstance(StageSpy);
+                    spyA      = sinon.createStubInstance(StageSpy) as any,
+                    spyB      = sinon.createStubInstance(StageSpy) as any,
+                    spyC      = sinon.createStubInstance(StageSpy) as any;
 
                 manager.registerInterestIn([DomainEventA], spyA);
                 manager.registerInterestIn([DomainEventB], spyB);
@@ -256,10 +268,11 @@ describe('Recording what happened during the test', () => {
 
                 class DomainEventA extends DomainEvent<string> {}
 
-                let chronicle = new Journal(),
+                const
+                    chronicle = new Journal(),
                     manager   = new StageManager(chronicle),
                     A         = new DomainEventA('A'),
-                    spyDE     = <any> sinon.createStubInstance(StageSpy);
+                    spyDE     = sinon.createStubInstance(StageSpy) as any;
 
                 manager.registerInterestIn([DomainEvent],  spyDE);
 
@@ -269,7 +282,8 @@ describe('Recording what happened during the test', () => {
             });
 
             it('does not allow the listener to alter the event it received', () => {
-                let chronicle = new Journal(),
+                const
+                    chronicle = new Journal(),
                     manager   = new StageManager(chronicle),
                     event     = new DomainEvent('original'),
                     noughty   = new StageHacker();

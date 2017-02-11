@@ -8,20 +8,20 @@ describe('Screenplay Pattern', () => {
 
     let acousticGuitar: AcousticGuitar;
 
-    beforeEach(() => acousticGuitar = <any> sinon.createStubInstance(AcousticGuitar));
+    beforeEach(() => acousticGuitar = sinon.createStubInstance(AcousticGuitar) as any);
 
     describe('Actor', () => {
 
         it('can be identified by their name', () => {
 
-            let actor = Actor.named('Chris');
+            const actor = Actor.named('Chris');
 
             expect(actor.toString()).to.equal('Chris');
         });
 
         it('has Abilities allowing them to perform Actions and interact with a given Interface: a web browser, a REST API or a guitar', () => {
 
-            let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+            const actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             return actor.attemptsTo(
                 PlayAChord.called(Chords.AMajor),
@@ -33,7 +33,7 @@ describe('Screenplay Pattern', () => {
 
         it('performs Tasks to accomplish their Business Goals', () => {
 
-            let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+            const actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             return actor.attemptsTo(
                 PerformASong.from(MusicSheets.Wild_Thing),
@@ -47,13 +47,13 @@ describe('Screenplay Pattern', () => {
 
         it('asks Questions about the state of the Interface', () => {
 
-            let actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+            const actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             expect(actor.toSee(NumberOfGuitarStrings.left())).equal(6);
         });
 
         it('admits if it does not have the Abilities necessary to accomplish the given Action', () => {
-            let actor = Actor.named('Ben');
+            const actor = Actor.named('Ben');
 
             return expect(actor.attemptsTo(PlayAChord.called(Chords.AMajor)))
                 .to.be.eventually.rejectedWith('I don\'t have the ability to PlayAnInstrument, said Ben sadly.');
@@ -68,7 +68,7 @@ describe('Screenplay Pattern', () => {
 
         it('describes high-level, business domain-focused activities, composed of either other Tasks or Actions', () => {
 
-            let actor   = <any> sinon.createStubInstance(Actor);
+            const actor = sinon.createStubInstance(Actor) as any;
 
             PerformASong.from(MusicSheets.Wild_Thing).performAs(actor);
 
@@ -82,7 +82,8 @@ describe('Screenplay Pattern', () => {
 
     describe('Interaction', () => {
         it('describes low-level, Interface-focused activity, directly exercising the Actor\'s Ability to interact with said Interface', () => {
-            let ability = PlayAnInstrument.suchAs(acousticGuitar),
+            const
+                ability = PlayAnInstrument.suchAs(acousticGuitar),
                 play    = sinon.stub(ability, 'play'),
                 actor   = Actor.named('Chris').whoCan(ability),
                 action  = PlayAChord.called(Chords.AMajor);
@@ -95,7 +96,7 @@ describe('Screenplay Pattern', () => {
 
     describe('Ability', () => {
         it('allows the Actor to interact with some external Interface, such as a web browser, an API, etc.', () => {
-            let actor   = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+            const actor = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
             expect(PlayAnInstrument.as(actor)).to.be.instanceOf(PlayAnInstrument);
             expect(PlayAnInstrument.as(actor)).to.have.property('play');

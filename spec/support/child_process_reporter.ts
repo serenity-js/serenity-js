@@ -17,10 +17,10 @@ export class ChildProcessReporter implements StageCrewMember {
     private enableSerialisationOfErrors() {
         if (! ('toJSON' in Error.prototype)) {
             Object.defineProperty(Error.prototype, 'toJSON', {
-                value: function () {    // tslint:disable-line:object-literal-shorthand needed for `this` to work
-                    let alt = {};
+                value: function() {    // tslint:disable-line:object-literal-shorthand needed for `this` to work
+                    const alt = {};
 
-                    Object.getOwnPropertyNames(this).forEach(function (key) {
+                    Object.getOwnPropertyNames(this).forEach(function(key) {
                         alt[key] = this[key];
                     }, this);
 

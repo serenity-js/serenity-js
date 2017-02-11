@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { Result, SceneFinished } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
-describe('When working with Cucumber', function () {
+describe('When working with Cucumber', function() {
 
     this.timeout(30 * 1000);    // it might take a while to start up the selenium server
 
@@ -26,12 +26,12 @@ describe('When working with Cucumber', function () {
         const messagesPerFeature = stepApiTypes * messagesPerStep;
 
         it ('reports timed-out scenarios', () => {
-            let spawned = protractor('**/*timed_out.feature');
+            const spawned = protractor('**/*timed_out.feature');
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
                 expect(spawned.messages).to.have.lengthOf(messagesPerFeature);
 
-                let lastMessages = _.chunk(spawned.messages, messagesPerStep).map(chunk => chunk.pop());
+                const lastMessages = _.chunk(spawned.messages, messagesPerStep).map(chunk => chunk.pop());
 
                 lastMessages.forEach(lastMessage => {
                     expect(lastMessage).to.be.instanceOf(SceneFinished);

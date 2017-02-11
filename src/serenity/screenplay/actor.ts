@@ -1,9 +1,11 @@
 import { Performable } from './performables';
 import { Question } from './question';
 
-export interface Ability { }
-
-export type CustomAbility<T extends Ability> = { new (...args): T };
+export interface Ability {} // tslint:disable-line:no-empty-interface
+export interface AbilityConstructor<A extends Ability> {
+    new (...args): A;
+    as(actor: UsesAbilities): A;
+}
 
 export interface PerformsTasks {
     attemptsTo(...tasks: Performable[]): Promise<void>;
@@ -22,7 +24,7 @@ export interface UsesAbilities {
      *
      * @param doSomething   Ability class name
      */
-    abilityTo<T extends Ability>(doSomething: CustomAbility<T>): T;
+    abilityTo<T extends Ability>(doSomething: AbilityConstructor<T>): T;
 }
 
 export interface AnswersQuestions {
@@ -45,12 +47,12 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return this;
     }
 
-    abilityTo<T extends Ability>(doSomething: CustomAbility<T>): T {
+    abilityTo<T extends Ability>(doSomething: AbilityConstructor<T>): T {
         if (! this.can(doSomething)) {
-            throw new Error(`I don't have the ability to ${this.nameOf(doSomething)}, said ${this} sadly.`);
+            throw new Error(`I don't have the ability to ${doSomething.name}, said ${this} sadly.`);
         }
 
-        return <T> this.abilities[this.nameOf(doSomething)];
+        return this.abilities[doSomething.name] as T;
     }
 
     attemptsTo(...tasks: Performable[]): Promise<void> {
@@ -69,11 +71,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     constructor(private name: string) { }
 
-    private can<T extends Ability> (doSomething: CustomAbility<T>): boolean {
-        return !! this.abilities[this.nameOf(doSomething)];
-    }
-
-    private nameOf<T extends Ability>(ability: CustomAbility<T>): string {
-        return ability.name;
+    private can<T extends Ability>(doSomething: AbilityConstructor<T>): boolean {
+        return !! this.abilities[doSomething.name];
     }
 }

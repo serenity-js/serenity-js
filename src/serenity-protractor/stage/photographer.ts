@@ -115,16 +115,16 @@ export class Photographer implements StageCrewMember {
     }
 
     public photograph(subject: Activity, timestamp: number) {
-        let promisedPicture = this.photographWorkOf(this.stage.theActorInTheSpotlight());
+        const promisedPicture = this.photographWorkOf(this.stage.theActorInTheSpotlight());
 
         this.stage.manager.notifyOf(new PhotoAttempted(new PhotoReceipt(subject, promisedPicture), timestamp));
     }
 
     private photographWorkOf(actor: UsesAbilities): PromiseLike<Photo> {
 
-        let saveScreenshot = data => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
+        const saveScreenshot = data => this.fs.store(this.naming.nameFor(data), new Buffer(data, 'base64'));
 
-        let ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
+        const ignoreInactiveBrowserButReportAnyOther = (error: Error) => {
             // todo: this needs further investigation; sometimes webdriver session dies before we can take a screenshot
             if (~error.message.indexOf('does not have a valid session ID') || ~error.message.indexOf('Session ID is null')) {
                 // tslint:disable-next-line:no-console

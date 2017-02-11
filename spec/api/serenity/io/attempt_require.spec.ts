@@ -7,7 +7,7 @@ describe ('io', () => {
 
         it ('loads a module if it has been installed', () => {
 
-            let Mocha = attemptToRequire('mocha');
+            const Mocha = attemptToRequire('mocha');
 
             expect(Mocha).to.not.be.null;
             expect(Mocha).to.be.instanceof(Function);

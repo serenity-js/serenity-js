@@ -8,7 +8,8 @@ describe ('Serenity Domain Events', () => {
 
         it ('can be represented as a string to help with trouble shooting', () => {
 
-            let value     = 'value',
+            const
+                value     = 'value',
                 timestamp = 1467201010000,
                 event     = new DomainEvent<string>(value, timestamp);
 
@@ -22,7 +23,8 @@ describe ('Serenity Domain Events', () => {
 
         it ('can be represented as a string to help with trouble shooting', () => {
 
-            let value     = 'value',
+            const
+                value     = 'value',
                 timestamp = 1467201010000,
                 event     = new CustomEventOccurred(value, timestamp);
 

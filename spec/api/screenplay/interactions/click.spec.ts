@@ -13,12 +13,13 @@ describe('Interactions', () => {
               target    = Target.the('"Sign Up" button').located(byLocator);
 
         it ('triggers a click event on an element identified by the Target', () => {
-            let element = <any> sinon.createStubInstance(webdriver.WebElement),
+            const
+                element = sinon.createStubInstance(webdriver.WebElement) as any,
                 actor   = Actor.named('James').whoCan(BrowseTheWeb.using(fakeBrowserLocating(element)));
 
             element.click.returns(Promise.resolve());
 
-            let promise = Click.on(target).performAs(actor);
+            const promise = Click.on(target).performAs(actor);
 
             return expect(promise).to.be.eventually.fulfilled.then(() => {
                 expect(element.click).to.have.been.calledOnce;

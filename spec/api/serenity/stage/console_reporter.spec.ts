@@ -22,7 +22,8 @@ describe ('When reporting on what happened during the rehearsal', () => {
 
     describe ('Console Reporter', () => {
 
-        let startTime = 1467201010000,
+        const
+            startTime = 1467201010000,
             scene     = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
 
         it ('can be instantiated using a factory method', () => {
@@ -34,10 +35,10 @@ describe ('When reporting on what happened during the rehearsal', () => {
         });
 
         it ('prints any events it receives', () => {
-            let print = sinon.spy();
-
-            let stage = new Stage(new StageManager(new Journal()));
-            let reporter = new ConsoleReporter(print);
+            const
+                print = sinon.spy(),
+                stage = new Stage(new StageManager(new Journal())),
+                reporter = new ConsoleReporter(print);
 
             reporter.assignTo(stage);
 

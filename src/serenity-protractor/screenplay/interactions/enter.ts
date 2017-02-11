@@ -39,7 +39,7 @@ class EnterValue implements Interaction {
 
     @step('{0} enters "#value" into #target')
     performAs(actor: UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).locate(this.target).sendKeys(<string> this.value);
+        return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value as string);
     }
 
     constructor(private value: string | number, private target: Target) { }

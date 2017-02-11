@@ -7,7 +7,8 @@ import expect = require('../../../expect');
 
 describe ('FileSystem', () => {
 
-    let image      = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
+    const
+        image      = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
         imageBuffer = new Buffer(image, 'base64'),
         originalJSON = { name: 'jan' },
         processCWD   = '/Users/jan/projects/serenityjs';
@@ -18,7 +19,7 @@ describe ('FileSystem', () => {
     describe ('storing JSON files', () => {
 
         it ('stores a JSON file at a desired location', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return out.store('outlet/some.json', JSON.stringify(originalJSON)).then(absolutePath => {
 
@@ -28,13 +29,13 @@ describe ('FileSystem', () => {
         });
 
         it ('tells the absolute path to a JSON file once it is saved', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return expect(out.store('outlet/some.json', JSON.stringify(originalJSON))).to.eventually.equal(`${processCWD}/outlet/some.json`);
         });
 
         it ('complains when provided with an empty path', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return expect(out.store('', JSON.stringify(originalJSON))).to.eventually.be.rejectedWith('Please specify where the file should be saved');
         });
@@ -47,7 +48,7 @@ describe ('FileSystem', () => {
                 },
             })});
 
-            let out = new FileSystem('/sys');
+            const out = new FileSystem('/sys');
 
             return expect(out.store('dir/file.json', JSON.stringify(originalJSON)))
                 .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/dir\'');
@@ -64,7 +65,7 @@ describe ('FileSystem', () => {
                 },
             })});
 
-            let out = new FileSystem('/sys');
+            const out = new FileSystem('/sys');
 
             return expect(out.store('file.json', JSON.stringify(originalJSON)))
                 .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/file.json\'');
@@ -74,7 +75,7 @@ describe ('FileSystem', () => {
     describe ('storing pictures', () => {
 
         it ('stores a base64-encoded picture at a desired location', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return out.store('outlet/some.png', imageBuffer).then(absolutePath => {
                 expect(fs.existsSync(absolutePath)).to.be.true;
@@ -83,13 +84,13 @@ describe ('FileSystem', () => {
         });
 
         it ('tells the absolute path to a JSON file once it is saved', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return expect(out.store('outlet/some.png', imageBuffer)).to.eventually.equal(`${processCWD}/outlet/some.png`);
         });
 
         it ('complains when provided with an empty path', () => {
-            let out = new FileSystem(processCWD);
+            const out = new FileSystem(processCWD);
 
             return expect(out.store('', imageBuffer)).to.eventually.be.rejectedWith('Please specify where the file should be saved');
         });
@@ -101,8 +102,6 @@ describe ('FileSystem', () => {
     }
 
     function pictureAt(path: string) {
-        let binary = fs.readFileSync(path);
-
-        return new Buffer(binary).toString('base64');
+        return new Buffer(fs.readFileSync(path)).toString('base64');
     }
 });

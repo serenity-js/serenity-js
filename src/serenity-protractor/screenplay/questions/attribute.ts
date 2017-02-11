@@ -4,16 +4,9 @@ import { Target } from '../ui/target';
 
 export class Attribute {
 
-    static of (target: Target): Attribute {
-        return new Attribute(target);
-    }
-
-    called (name: string): Question<string> {
-        return new AttributeValue(this.target, name);
-    }
-
-    constructor(private target: Target) {
-    }
+    static of = (target: Target) => ({
+        called: (name: string): Question<string> => new AttributeValue(target, name),
+    })
 }
 
 class AttributeValue implements Question<string> {

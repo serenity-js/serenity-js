@@ -43,7 +43,7 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     private persistReportFor({ value }: SceneFinished) {
-        let filename = `${ Md5.hashStr(value.subject.id) }.json`;
+        const filename = `${ Md5.hashStr(value.subject.id) }.json`;
 
         this.stage.manager.informOfWorkInProgress(
             RehearsalReport.from(this.stage.manager.readNewJournalEntriesAs('SerenityBDDReporter'))
@@ -122,7 +122,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         const onlyIssueTags = this.isAnIssue,
               toIssueIds    = (tag: Tag): string[] => tag.values;
 
-        return <string[]> _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value();
+        return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value() as string[];
     }
 
     private tagsFor(scene: Scene): TagReport[] {
@@ -130,8 +130,8 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         const isAnIssue = this.isAnIssue;
 
         function serialise(tag: Tag) {
-            const noValue   = (t: Tag) => { return { name: t.type,  type: 'tag' }; },
-                  withValue = (t: Tag) => { return { name: t.values.join(','), type: t.type }; };
+            const noValue   = (t: Tag) => ({ name: t.type,  type: 'tag' }),
+                  withValue = (t: Tag) => ({ name: t.values.join(','), type: t.type });
 
             return tag.values.length === 0
                 ? noValue(tag)
@@ -164,7 +164,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
 }
 
 class PhotoExporter {
-    tryToExport (photos: Photo[]): ScreenshotReport[] {
+    tryToExport(photos: Photo[]): ScreenshotReport[] {
         return this.ifNotEmpty(photos.map(photo => ({ screenshot: path.basename(photo.path) })));
     }
 
@@ -172,7 +172,7 @@ class PhotoExporter {
 }
 
 class ErrorExporter {
-    tryToExport (error: Error): ErrorReport {
+    tryToExport(error: Error): ErrorReport {
         if (! error) {
             return undefined; // an undefined JSON field does not get serialised and that's what Serenity BDD expects
         }
@@ -185,7 +185,8 @@ class ErrorExporter {
     }
 
     private stackTraceOf(error: Error): ErrorReportStackFrame[] {
-        let serenityCode = /node_modules[\\/]serenity/,
+        const
+            serenityCode = /node_modules[\\/]serenity/,
             onlyIfFound  = index => !! ~index ? index : undefined,
             firstSerenityStackFrame = (stack: StackFrame[]): number => onlyIfFound(stack.findIndex(frame => !! serenityCode.exec(frame.getFileName()))),
             parsed = parse(error);

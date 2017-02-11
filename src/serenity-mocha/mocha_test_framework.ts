@@ -20,8 +20,8 @@ export class MochaTestFramework implements TestFramework {
 
         this.registerCompilerIfNeeded(config.compiler);
 
-        this.mocha.suite.on('pre-require', function () {
-            let g: any = global;
+        this.mocha.suite.on('pre-require', () => {
+            const g: any = global;
 
             g.after      = wrapped(g.after);
             g.afterEach  = wrapped(g.afterEach);
@@ -42,7 +42,7 @@ export class MochaTestFramework implements TestFramework {
 
             specs.forEach(file => this.mocha.addFile(file));
 
-            let mochaRunner = this.mocha.run(function (numberOfFailures) {
+            const mochaRunner = this.mocha.run(numberOfFailures => {
 
                 if (numberOfFailures > 0) {
                     reject(`Tests failed: ${ numberOfFailures }`);
@@ -68,7 +68,7 @@ export class MochaTestFramework implements TestFramework {
 
     private registerCompilerIfNeeded(compiler: string): void {
         if (!! compiler && !! ~compiler.indexOf(':')) {
-            let [ , module ] = compiler.split(':');
+            const [ , module ] = compiler.split(':');
 
             attemptToRequire(module);
         }

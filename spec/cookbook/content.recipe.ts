@@ -18,12 +18,12 @@ class Cookbook {
     static Table_of_Contents = Target.the('table of contents').located(by.css('article nav ul li'));
 }
 
-describe ('When demonstrating the usage of a HTML page, a test scenario', function () {
+describe ('When demonstrating the usage of a HTML page, a test scenario', function() {
 
     this.timeout(10000);
 
-    let app   = new AppServer();
-    let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
+    const app   = new AppServer();
+    const james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     before(app.start());
     before(() => {

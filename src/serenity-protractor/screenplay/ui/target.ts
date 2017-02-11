@@ -44,19 +44,20 @@ class Interpolated {
                 ' is not a webdriver-compatible locator so you won\'t be able to use token replacement with it');
         }
 
-        let cloned: any  = Object.assign({}, this.locator);
+        const cloned: any  = Object.assign({}, this.locator);
         cloned.__proto__ = Object.getPrototypeOf(this.locator);
-        cloned.value     = this.interpolated((<any> this.locator).value, tokenReplacements);
+        cloned.value     = this.interpolated((this.locator as any).value, tokenReplacements);
 
         return cloned;
     }
 
     private canBeInterpolated(): boolean {
-        return !! (<any> this.locator).value;
+        return !! (this.locator as any).value;
     }
 
     private interpolated(template: string, replacements: string[]) {
-        let argToken     = /\\?\{(\d+)\\?\}/g,
+        const
+            argToken     = /\\?\{(\d+)\\?\}/g,
             interpolator = (token: string, field: number) => replacements[ field ];
 
         return template.replace(argToken, interpolator);

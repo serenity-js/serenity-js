@@ -2,9 +2,7 @@ import { Question, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
 export class Website {
-    static title(): Question<string> {
-        return new WebsiteTitle();
-    }
+    static title = (): Question<string> => new WebsiteTitle();
 }
 
 class WebsiteTitle implements Question<string> {

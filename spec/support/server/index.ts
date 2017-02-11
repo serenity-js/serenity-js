@@ -7,7 +7,7 @@ export class AppServer {
 
     start(port: number = 0) {
         return () => new Promise<AppServer>((resolve, reject) => {
-            let server = configured(express()).listen(port, () => {
+            const server = configured(express()).listen(port, () => {
                 this.instance = server;
 
                 resolve(this);

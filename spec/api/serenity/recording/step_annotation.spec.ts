@@ -10,7 +10,8 @@ import { Activity, Outcome, Result } from '../../../../src/serenity/domain/model
 
 describe('Notifiers', () => {
 
-    let stageManager = new StageManager(new Journal()),
+    const
+        stageManager = new StageManager(new Journal()),
         bruce        = Actor.named('Bruce');
 
     // todo: once the Step factory comes from a DI we can test the actual annotation
@@ -41,7 +42,7 @@ describe('Notifiers', () => {
 
                     return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
 
-                        let newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
 
                         expect(newJournalEntries).to.have.lengthOf(2);
 
@@ -55,7 +56,7 @@ describe('Notifiers', () => {
 
                     return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
 
-                        let newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
 
                         expect(newJournalEntries).to.have.lengthOf(2);
 
@@ -101,7 +102,7 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234'))                    ).
                         to.be.rejected.then(() => {
 
-                            let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);
@@ -110,13 +111,13 @@ describe('Notifiers', () => {
                 it('Notifies the Stage Manager when the Activity fails', () =>
 
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnAssertionError.number('1234 1234 1234 1234'))).
-                    to.be.rejected.then(() => {
+                        to.be.rejected.then(() => {
 
-                        let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
-                        expect(lastEntry.value.error.message).to.equal('expected false to equal true');
-                        expect(Result[lastEntry.value.result]).to.equal(Result[Result.FAILURE]);
-                    }));
+                            expect(lastEntry.value.error.message).to.equal('expected false to equal true');
+                            expect(Result[lastEntry.value.result]).to.equal(Result[Result.FAILURE]);
+                        }));
             });
 
             describe('When things go wrong and the Activity throws an Error', () => {
@@ -140,7 +141,7 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234'))).
                         to.be.rejected.then(() => {
 
-                            let lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);

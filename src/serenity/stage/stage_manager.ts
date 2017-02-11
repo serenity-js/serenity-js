@@ -89,7 +89,8 @@ export class Journal {
      * @return {Event[]} a list of events
      */
     public readAs(readerId: string): Array<DomainEvent<any>> {
-        let events   = this.read(),
+        const
+            events   = this.read(),
             bookmark = this.bookmarks[readerId] || 0;
 
         this.bookmarks[readerId] = events.length;

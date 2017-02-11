@@ -14,8 +14,8 @@ import { ReportExporter } from './report_exporter';
 
 export class RehearsalReport {
     static from(events: Array<DomainEvent<any>>): RehearsalPeriod {
-        let previousNode: ReportPeriod<Scene | Activity> = undefined;
-        let currentNode:  ReportPeriod<Scene | Activity> = undefined;
+        let previousNode: ReportPeriod<Scene | Activity>;
+        let currentNode:  ReportPeriod<Scene | Activity>;
 
         return events.reduce((fullReport, event) => {
             switch (event.constructor) {    // tslint:disable-line:switch-default   - ignore other events

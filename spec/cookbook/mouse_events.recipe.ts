@@ -12,12 +12,12 @@ class MouseEvents {
     static Triggered_Result = Target.the('event-triggering button').located(by.css('#event-tester-{0} pre'));
 }
 
-describe ('When demonstrating the usage of a Static Website, a test scenario', function () {
+describe ('When demonstrating the usage of a Static Website, a test scenario', function() {
 
     this.timeout(10000);
 
-    let app   = new AppServer();
-    let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
+    const app   = new AppServer();
+    const james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     before(app.start());
     before(() => james.attemptsTo(Open.browserOn(app.demonstrating('mouse_events'))));
