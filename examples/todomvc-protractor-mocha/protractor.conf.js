@@ -32,7 +32,11 @@ exports.config = {
                 'disable-extensions',
                 // 'show-fps-counter=true'
             ]
-        }
+        },
+
+        // execute tests using 2 browsers running in parallel
+        shardTestFiles: true,
+        maxInstances: 2
     },
 
     restartBrowserBetweenTests: true,
