@@ -36,9 +36,11 @@ export class StageManager {
         return promise;
     }
 
-    allDone(): PromiseLike<any[]> {
-        return Promise.all(this.wip);
-    }
+    /**
+     * Returns a promise that resolves when there's no more "work in progress",
+     * so all the screenshots are saved, the browser is restarted and so on.
+     */
+    waitForNextCue = (): PromiseLike<any[]> => Promise.all(this.wip);
 
     registerInterestIn(eventsOfInterest: Array<typeof DomainEvent>, crewMember: StageCrewMember) {
 

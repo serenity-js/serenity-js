@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf target",
     "pretest": "serenity update",
-    "pree2e": "npm run webdriver:update -- --standalone",
+    "pree2e": "npm run webdriver:update -- --standalone --versions.standalone=2.53.1",
     "e2e": "protractor ./protractor.conf.js",
     "e2e-single": "protractor ./protractor.conf.js --cucumberOpts.name",
     "report": "serenity run",
@@ -23,7 +23,7 @@
     "chai-smoothie": "^0.2.0",
     "cucumber": "1.2.2",
     "npm-failsafe": "^0.1.0",
-    "protractor": "5.0.0",
+    "protractor": "5.1.1",
     "protractor-cucumber-framework": "0.6.0",
     "rimraf": "2.5.4",
     "serenity-cli": "^0.1.4",

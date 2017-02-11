@@ -25,6 +25,11 @@ export class TestFrameworkDetector {
         );
     }
 
+    supportedCLIParams = () => [
+        'mochaOpts',
+        'cucumberOpts',
+    ];
+
     private definesDialect(config: SerenityFrameworkConfig) {
         return config.serenity && config.serenity.dialect;
     }

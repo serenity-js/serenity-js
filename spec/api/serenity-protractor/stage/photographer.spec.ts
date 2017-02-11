@@ -139,7 +139,7 @@ describe('Photographer', () => {
 
                     thePhotographer.notifyOf(new ActivityStarts(activity, now));
 
-                    return expect(stageManager.allDone()).to.eventually.be.fulfilled.then(tasks => {
+                    return expect(stageManager.waitForNextCue()).to.eventually.be.fulfilled.then(tasks => {
                         expect(tasks).to.have.length(1);
                         expect(tasks.pop()).to.be.instanceOf(Photo);
                     });

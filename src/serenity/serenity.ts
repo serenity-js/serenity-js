@@ -14,8 +14,6 @@ export class Serenity {
 
     stageManager = () => this.stage.manager;
 
-    waitForAnyOutstandingTasks = () => this.stage.manager.allDone();
-
     assignCrewMembers(...crewMembers: StageCrewMember[]) {
         crewMembers.forEach(crewMember => crewMember.assignTo(this.stage));
     }

@@ -42,6 +42,8 @@ export class MochaTestFramework implements TestFramework {
 
             specs.forEach(file => this.mocha.addFile(file));
 
+            this.mocha.addFile(this.stageCue());
+
             const mochaRunner = this.mocha.run(numberOfFailures => {
 
                 if (numberOfFailures > 0) {
@@ -65,6 +67,10 @@ export class MochaTestFramework implements TestFramework {
             });
         });
     }
+
+    // waits with starting a new scenario until the stage cue
+    // see https://github.com/angular/protractor/issues/4087
+    private stageCue = () => glob.sync(__dirname + '/stage_cue.?s').pop();
 
     private registerCompilerIfNeeded(compiler: string): void {
         if (!! compiler && !! ~compiler.indexOf(':')) {

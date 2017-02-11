@@ -2,6 +2,7 @@ import { Runner } from 'protractor';
 import { serenity, Serenity } from '../..';
 import { serenityBDDReporter } from '../../serenity/reporting';
 import { ProtractorReport, ProtractorReporter } from '../reporting';
+import { ProtractorNotifier } from '../reporting/protractor_notifier';
 import { photographer } from '../stage/photographer';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
 import { StandIns } from './stand_ins';
@@ -18,26 +19,29 @@ export function run(runner: Runner, specs: string[]): PromiseLike<ProtractorRepo
 
 export class SerenityProtractorFramework {
 
-    public config: SerenityFrameworkConfig;
+    private config: SerenityFrameworkConfig;
 
     private framework: TestFramework;
     private reporter: ProtractorReporter;
 
+    private detect = new TestFrameworkDetector();
+
     constructor(private serenity: Serenity, private runner: Runner) {
         this.config    = Object.assign({}, this.defaultConfig(), runner.getConfig());
         this.reporter  = new ProtractorReporter(runner);
-        this.framework = new TestFrameworkDetector().frameworkFor(this.config);
+        this.framework = this.detect.frameworkFor(this.config);
 
         this.serenity.assignCrewMembers(...this.config.serenity.crew.concat([
             this.reporter,
             new StandIns(),
+            new ProtractorNotifier(runner),
         ]));
     }
 
-    run = (specs: string[]): PromiseLike<ProtractorReport> => this.runner.runTestPreparer().then(() =>
-        this.framework.run(specs).
+    run = (specs: string[]): PromiseLike<ProtractorReport> => this.runner.runTestPreparer(this.detect.supportedCLIParams()).
+        then(() => this.framework.run(specs).
             then(noop, this.analyzeTheFailure).
-            then(() => this.serenity.waitForAnyOutstandingTasks()).
+            then(() => this.serenity.stageManager().waitForNextCue()).
             then(() => this.waitForOtherProtractorPlugins()).
             then(() => this.reporter.finalResults()));
 

@@ -68,7 +68,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     sceneFinished(scene, Result.SUCCESS, startTime + duration),
                 );
 
-                return stageManager.allDone().then(_ =>
+                return stageManager.waitForNextCue().then(_ =>
                     expect(producedReport()).to.deep.equal(expectedReportWith({
                         startTime,
                         duration,
@@ -84,7 +84,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     sceneFinished(scene, Result.SUCCESS, startTime + 3),
                 );
 
-                return stageManager.allDone().then(_ =>
+                return stageManager.waitForNextCue().then(_ =>
                     expect(producedReport()).to.deep.equal(expectedReportWith({
                         duration: 3,
                         testSteps: [ {
@@ -107,7 +107,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     sceneFinished(scene, Result.SUCCESS, startTime + 5),
                 );
 
-                return stageManager.allDone().then(_ =>
+                return stageManager.waitForNextCue().then(_ =>
                     expect(producedReport()).to.deep.equal(expectedReportWith({
                         duration: 5,
                         testSteps: [ {
@@ -140,7 +140,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     sceneFinished(scene, Result.SUCCESS, startTime + 9),
                 );
 
-                return stageManager.allDone().then(_ =>
+                return stageManager.waitForNextCue().then(_ =>
                     expect(producedReport()).to.deep.equal(expectedReportWith({
                         duration: 9,
                         testSteps: [ {
@@ -183,7 +183,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 3,
                             testSteps: [ {
@@ -210,7 +210,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.SUCCESS, startTime + 3),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 3,
                             testSteps: [ {
@@ -241,7 +241,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.SUCCESS, startTime + 9),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 9,
                             testSteps: [ {
@@ -302,7 +302,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.SUCCESS, startTime + 10),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 10,
                             testSteps: [ {
@@ -365,7 +365,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.ERROR, startTime + 3, error),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 3,
                             testSteps: [ {
@@ -420,7 +420,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(scene, Result.ERROR, startTime + 1001, error),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1001,
                             testSteps: [ {
@@ -456,7 +456,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(aScene, Result.SUCCESS, startTime + 1),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
@@ -477,7 +477,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
@@ -501,7 +501,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
@@ -526,7 +526,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
@@ -562,7 +562,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                         sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
                     );
 
-                    return stageManager.allDone().then(_ =>
+                    return stageManager.waitForNextCue().then(_ =>
                         expect(producedReport()).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',

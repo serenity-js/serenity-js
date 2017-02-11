@@ -16,7 +16,6 @@ describe('When working with Cucumber', function() {
     const protractor = (specs: string) => protractorSpawner('protractor.conf.js',
         '--specs', specs,
         '--cucumberOpts.tags', '~@wip',
-        '--disableChecks',  // needed until https://github.com/angular/protractor/issues/3978 is fixed
     );
 
     describe('Serenity/JS', () => {

@@ -15,30 +15,6 @@
   margin: 2em auto 4em auto;
 }
 
-//.markdown-section h2 {
-//    padding-bottom: 0.3em;
-//    border-bottom: 1px solid #eee;
-//}
-
-//.markdown-section a {
-//    text-decoration: none;
-//    transition: border .5s;
-//    color: #3b3c3e;
-//}
-//
-//.markdown-section a:link,
-//.markdown-section a:visited {
-//    text-decoration: none;
-//    padding-bottom: 1px;
-//    border-bottom: 1px solid gold;
-//}
-//.markdown-section a:active,
-//.markdown-section a:hover   {
-//    padding-bottom: 1px;
-//    border-bottom: 1px solid #3b3c3e;
-//    transition: border .2s;
-//}
-
 @import "mixins";
 
 .markdown-section {
@@ -112,18 +88,57 @@
     font-size: 1.5em;
     border: none;
 
-    &:before, &:after {
+    &:before {
       position: absolute;
+      top: 0;
+      left: -60px;
       width: 60px;
       height: 60px;
       font-size: 120px;
       line-height: 1;
-    }
-    &:before {
-      top: 0;
-      left: -60px;
       color: #e3e3e3;
       content: "\201C";
+    }
+  }
+
+  .known-issue,
+  .pro-tip {
+    position: relative;
+    margin: 2em 0 1.5em 0;
+    padding: 10px 15px 0 15px;
+    text-align: left;
+
+    &:before {
+      position: absolute;
+      top: 10px;
+      left: -48px;
+      width: 32px;
+      height: 32px;
+      line-height: 1;
+      background-size: 32px 32px;
+      content: '';
+    }
+
+    code {
+      white-space: nowrap;
+    }
+  }
+
+  .known-issue {
+    border: 2px solid #e8ba0b;
+    background-color: #fffce9;
+
+    &:before {
+      background-image: url('/gitbook/gitbook-plugin-advanced-emoji/emojis/warning.png');
+    }
+  }
+
+  .pro-tip {
+    border: 2px solid #e8ba0b;
+    background-color: #fffce9;
+
+    &:before {
+      background-image: url('/gitbook/gitbook-plugin-advanced-emoji/emojis/bulb.png');
     }
   }
 

@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "clean": "rimraf staging lib .nyc_output",
-    "pretest": "npm run webdriver:update -- --standalone",
+    "pretest": "webdriver-manager update --standalone --versions.standalone=2.53.1",
     "test": "npm run spec",
     "lint": "tslint --project=tsconfig.json --config=tslint.json --format=prose",
     "package": "tsc --project tsconfig-export.json",
@@ -30,8 +30,6 @@
     "verify:pull-request": "npm run clean && npm run lint && npm run spec:pull-request && npm run package && npm run report",
     "rebuild": "npm run clean && npm run verify",
     "commit": "git-cz",
-    "webdriver-manager": "webdriver-manager",
-    "webdriver:update": "npm run webdriver-manager update",
     "spec:api": "nyc --report-dir=./staging/reports/coverage/api mocha --opts ./mocha.opts 'spec/api/**/*.spec.*'",
     "spec:cookbook": "nyc --report-dir=./staging/reports/coverage/cookbook protractor ./spec/protractor-cookbook.conf.js --params.browsers=chrome",
     "spec:cookbook:pull-request": "nyc --report-dir=./staging/reports/coverage/cookbook protractor ./spec/protractor-cookbook.conf.js --params.browsers=phantomjs",
@@ -45,10 +43,11 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "book:build": "rimraf _book && gitbook build",
     "book:publish": "node ./gh-pages.js -d _book --dotfiles",
-    "publish-all": "npm run book:build && npm run failsafe publish-coverage-report semantic-release book:publish"
+    "prepublish-all": "npm run book:build",
+    "publish-all": "failsafe publish-coverage-report semantic-release book:publish"
   },
   "peerDependencies": {
-    "protractor": "5.0.x"
+    "protractor": "5.x"
   },
   "dependencies": {
     "@types/graceful-fs": "2.0.29",
@@ -109,7 +108,7 @@
     "npm-failsafe": "0.2.1",
     "nyc": "10.1.2",
     "phantomjs-prebuilt": "2.1.14",
-    "protractor": "5.0.0",
+    "protractor": "5.1.1",
     "rimraf": "2.5.4",
     "semantic-release": "^6.3.5",
     "sinon": "1.17.7",

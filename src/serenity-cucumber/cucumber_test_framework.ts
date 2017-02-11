@@ -12,6 +12,7 @@ export class CucumberTestFramework implements TestFramework {
     constructor(private requireRoot: string, config: CucumberConfig) {
         this.args = ['node', 'cucumberjs'].
             concat([ '--require', this.serenityCucumberModule() ]).
+            concat([ '--require', this.stageCue() ]).
             concat(this.argumentsFrom(config));
     }
 
@@ -31,6 +32,7 @@ export class CucumberTestFramework implements TestFramework {
     }
 
     private serenityCucumberModule = () => glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/index.?s').pop();
+    private stageCue = () => glob.sync(path.resolve(__dirname, '../serenity-cucumber') + '/stage_cue.?s').pop();
 
     private argumentsFrom(config: CucumberConfig): string[]{
         const resolveGlobs = (path: string)       => glob.sync(path, { cwd: this.requireRoot });

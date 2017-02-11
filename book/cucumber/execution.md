@@ -32,7 +32,7 @@ To execute a specific scenario, configure an npm script called, for example,
  ```json
  {
    "scripts": {
-     "e2e-scenario": "protractor ./protractor.conf.js --disableChecks --cucumberOpts.name"
+     "e2e-scenario": "protractor ./protractor.conf.js --cucumberOpts.name"
    },
    "// other properties": "..."
  }
@@ -44,8 +44,7 @@ Then issue the following terminal command:
 $> npm run e2e-scenario "Name of the scenario you want to execute"
 ```
 
-:warning: **CAUTION**: Protractor 5.0.0 has [a bug](https://github.com/angular/protractor/issues/3978)
-that prevents `cucumberOpts.name` from being set using the command line if the `--disableChecks` switch is not provided.
+{% include "../known-issues/protractor-5.0.0-cucumberOpts-disableChecks.html" %}
 
 ## Executing a group of scenarios using tags
 
@@ -93,7 +92,7 @@ To execute scenarios tagged with one specific tag using the command line, add th
 ```json
 {
   "scripts": {
-    "e2e-tag": "protractor ./protractor.conf.js --disableChecks --cucumberOpts.tags"
+    "e2e-tag": "protractor ./protractor.conf.js --cucumberOpts.tags"
   },
   "// other properties": "..."
 }
@@ -110,7 +109,7 @@ Or, to specify multiple tags, add the below script to the `package.json`:
 ```json
 {
   "scripts": {
-    "e2e": "protractor ./protractor.conf.js --disableChecks"
+    "e2e": "protractor ./protractor.conf.js"
   },
   "// other properties": "..."
 }
@@ -125,8 +124,7 @@ npm run e2e -- --cucumberOpts.tags=@smoketest --cucumberOpts.tags=@fast --cucumb
 Tags can also be [logically joined](https://github.com/cucumber/cucumber/wiki/Tags) to cater for some of the more
 sophisticated scenarios.
 
-:warning: **CAUTION**: Protractor 5.0.0 has [a bug](https://github.com/angular/protractor/issues/3978)
-that prevents `cucumberOpts.name` from being set using the command line if the `--disableChecks` switch is not provided.
+{% include "../known-issues/protractor-5.0.0-cucumberOpts-disableChecks.html" %}
 
 ## Result
 
