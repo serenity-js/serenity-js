@@ -1,4 +1,4 @@
-<img src="/assets/images/serenity-js-eye.svg" class="opening-logo" />
+<div id="opening-logo"></div>
 
 # Design
 

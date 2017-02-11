@@ -1,4 +1,9 @@
-<h1><img alt="Serenity/JS" src="assets/images/serenity-js.svg" id="cover-logo" /></h1>
+---
+title: Serenity/JS Handbook
+---
+<div id="cover-logo">
+    <h1>Serenity/JS Handbook</h1>
+</div>
 
 A handbook by [Jan Molak](https://janmolak.com)
 
