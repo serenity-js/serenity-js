@@ -1,4 +1,4 @@
-import { by, ElementFinder } from 'protractor';
+import { by, ElementFinder, protractor } from 'protractor';
 
 import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
@@ -34,7 +34,7 @@ class SelectOptions implements Interaction {
               ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1,
               select               = (option: ElementFinder) => option.click();
 
-        const optionsToClick = (option: ElementFinder) => Promise.all([
+        const optionsToClick = (option: ElementFinder) => protractor.promise.all([
                 hasRequiredText(option),
                 isAlreadySelected(option),
             ])
