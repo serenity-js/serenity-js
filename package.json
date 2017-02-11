@@ -45,7 +45,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "book:build": "rimraf _book && gitbook build",
     "book:publish": "node ./gh-pages.js -d _book --dotfiles",
-    "publish-all": "failsafe publish-coverage-report semantic-release book:build book:publish"
+    "publish-all": "npm run book:build && npm run failsafe publish-coverage-report semantic-release book:publish"
   },
   "peerDependencies": {
     "protractor": "5.0.x"
