@@ -1,7 +1,7 @@
 Feature: Filter the list to find items of interest
 
   In order to focus on things that matter
-  James would like to filter his todo list   
+  James would like to filter his todo list
   to only show items of interest
 
   Scenario Outline: Viewing <applied filter> items only

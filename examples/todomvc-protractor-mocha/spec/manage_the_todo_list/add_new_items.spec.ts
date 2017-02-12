@@ -3,7 +3,7 @@ import { Actors, AddATodoItem, Start } from 'todomvc-model';
 import { Ensure } from '../../src/tasks/ensure';
 
 describe('Managing a Todo List', function() {
-    this.timeout(10000);
+    this.timeout(60 * 1000);
 
     const stage = serenity.callToStageFor(new Actors());
 
