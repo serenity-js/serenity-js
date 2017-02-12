@@ -1,11 +1,12 @@
 import { serenity } from '..';
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     Outcome,
+    RecordedActivity,
+    RecordedScene,
+    RecordedTask,
     Result,
-    Scene,
     SceneFinished,
     SceneStarts,
     Tag,
@@ -89,12 +90,12 @@ function fullNameOf(step: cucumber.events.StepPayload): string {
     ].join('').trim();
 }
 
-function sceneFrom(scenario: cucumber.events.ScenarioPayload): Scene {
+function sceneFrom(scenario: cucumber.events.ScenarioPayload): RecordedScene {
     return new CucumberScene(scenario);
 }
 
-function activityFrom(step: cucumber.events.StepPayload): Activity {
-    return new Activity(fullNameOf(step));
+function activityFrom(step: cucumber.events.StepPayload): RecordedActivity {
+    return new RecordedTask(fullNameOf(step));
 }
 
 function outcome<T>(subject: T, stepStatus: string, maybeError?: Error | string | undefined): Outcome<T> {
@@ -136,7 +137,7 @@ function toSerenityTag(cucumberTag: cucumber.Tag): Tag {
     return Tag.from(cucumberTag.getName());
 }
 
-class CucumberScene extends Scene {
+class CucumberScene extends RecordedScene {
     constructor(scenario: cucumber.events.ScenarioPayload) {
         super(
             scenario.getName(),

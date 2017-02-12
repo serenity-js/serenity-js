@@ -4,7 +4,7 @@ import { parse, StackFrame } from 'stack-trace';
 import { Md5 } from 'ts-md5/dist/md5';
 
 import { Stage, StageCrewMember } from '../../serenity/stage';
-import { DomainEvent, Photo, Result, Scene, SceneFinished, Tag } from '../domain';
+import { DomainEvent, Photo, RecordedScene, Result, SceneFinished, Tag } from '../domain';
 import { FileSystem, JSONObject } from '../io';
 import { Default_Path_To_Reports } from '../serenity';
 import { ActivityPeriod, RehearsalPeriod, ReportExporter, ScenePeriod } from './index';
@@ -118,14 +118,14 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         .replace(/^-+|-+$/g, '')
         .toLowerCase();
 
-    private issuesCoveredBy(scene: Scene): string[] {
+    private issuesCoveredBy(scene: RecordedScene): string[] {
         const onlyIssueTags = this.isAnIssue,
               toIssueIds    = (tag: Tag): string[] => tag.values;
 
         return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value() as string[];
     }
 
-    private tagsFor(scene: Scene): TagReport[] {
+    private tagsFor(scene: RecordedScene): TagReport[] {
 
         const isAnIssue = this.isAnIssue;
 

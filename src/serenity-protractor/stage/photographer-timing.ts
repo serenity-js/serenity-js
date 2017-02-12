@@ -1,4 +1,4 @@
-import { Activity, ActivityFinished, ActivityStarts } from '../../serenity/domain';
+import { ActivityFinished, ActivityStarts, RecordedActivity } from '../../serenity/domain';
 import { Photographer } from './photographer';
 
 export class TimingBehaviour {
@@ -16,17 +16,17 @@ export class TimingBehaviour {
 }
 
 export interface TakingAPhoto {
-    takeAPhoto(activity: Activity, timestamp: number, photographer: Photographer);
+    takeAPhoto(activity: RecordedActivity, timestamp: number, photographer: Photographer);
 }
 
 export class TakeAPhoto implements TakingAPhoto {
-    takeAPhoto(activity: Activity, timestamp: number, photographer: Photographer) {
+    takeAPhoto(activity: RecordedActivity, timestamp: number, photographer: Photographer) {
         photographer.photograph(activity, timestamp);
     }
 }
 
 export class NoPhoto implements TakingAPhoto {
-    takeAPhoto(activity: Activity, timestamp: number, photographer: Photographer) {
+    takeAPhoto(activity: RecordedActivity, timestamp: number, photographer: Photographer) {
         // no-op
     }
 }

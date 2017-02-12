@@ -1,17 +1,17 @@
-import { step } from '../../recording/step_annotation';
+import { ActivityType, step } from '../../recording';
 import { TakeNotes } from '../abilities';
+import { Interaction } from '../activities';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Expectation } from '../expectations';
 import { OneOrMany } from '../lists';
-import { Performable } from '../performables';
 import { Question } from '../question';
 
-export class CompareNotes<S> implements Performable {
+export class CompareNotes<S> implements Interaction {
     static toSeeIf<A>(actual: Question<OneOrMany<A>>, expectation: Expectation<OneOrMany<A>>, topic: { toString: () => string }) {
         return new CompareNotes<A>(actual, expectation, topic.toString());
     }
 
-    @step('{0} compares notes on #actual')
+    @step('{0} compares notes on #actual', ActivityType.Interaction)
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return TakeNotes.
             as(actor).

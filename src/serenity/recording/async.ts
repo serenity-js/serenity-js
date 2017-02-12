@@ -1,3 +1,4 @@
+// todo: move to "io"
 export function defer<T>(fn: () => PromiseLike<T>): Promise<T> {
     return new Promise<T>( (resolve, reject) => {
        fn().then(resolve, reject);

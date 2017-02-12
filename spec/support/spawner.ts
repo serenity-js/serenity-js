@@ -1,10 +1,11 @@
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
     Outcome,
-    Scene,
+    RecordedActivity,
+    RecordedScene,
+    RecordedTask,
     SceneFinished,
     SceneStarts,
     Tag,
@@ -38,8 +39,8 @@ export class Spawned {
 
 function deserialised(event: any): DomainEvent<any> {
     const tagsFrom = (tags: Tag[]) => tags.map(_ => new Tag(_.type, _.values)),
-          scene    = ({ name, category, path, tags, id }: Scene): Scene => new Scene(name, category, path, tagsFrom(tags), id),
-          activity = ({ name, id }: Activity): Activity => new Activity(name, id),
+          scene    = ({ name, category, path, tags, id }: RecordedScene): RecordedScene => new RecordedScene(name, category, path, tagsFrom(tags), id),
+          activity = ({ name, id }: RecordedActivity): RecordedActivity => new RecordedTask(name, id),
           outcome  = <T>(type: (T) => T, { subject, result, error }: Outcome<T>) => new Outcome(type(subject), result, error);
 
     switch (event.type) {
@@ -55,12 +56,12 @@ function deserialised(event: any): DomainEvent<any> {
             );
         case 'ActivityFinished':
             return new ActivityFinished(
-                outcome<Activity>(activity, event.value),
+                outcome<RecordedActivity>(activity, event.value),
                 event.timestamp,
             );
         case 'SceneFinished':
             return new SceneFinished(
-                outcome<Scene>(scene, event.value),
+                outcome<RecordedScene>(scene, event.value),
                 event.timestamp,
             );
         default:

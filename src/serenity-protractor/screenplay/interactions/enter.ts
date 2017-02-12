@@ -1,10 +1,10 @@
-import { step } from '../../../serenity/recording/step_annotation';
-import { Interaction, PerformsTasks, UsesAbilities } from '../../../serenity/screenplay';
+import { ActivityType, step } from '../../../serenity/recording';
+import { Interaction, PerformsTasks, Task, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 import { Hit } from './hit';
 
-export class Enter implements Interaction {
+export class Enter implements Task {
 
     private target: Target;
     private interactions: Interaction[] = [];
@@ -37,7 +37,7 @@ export class Enter implements Interaction {
 
 class EnterValue implements Interaction {
 
-    @step('{0} enters "#value" into #target')
+    @step('{0} enters "#value" into #target', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value as string);
     }

@@ -1,12 +1,12 @@
+import { Activity, Task } from '../../../../src/serenity/screenplay/activities';
 import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor';
-import { Performable, Task } from '../../../../src/serenity/screenplay/performables';
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
 import { Step, StepAnnotation } from '../../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../../expect');
 import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
-import { Activity, Outcome, Result } from '../../../../src/serenity/domain/model';
+import { Outcome, RecordedActivity, Result } from '../../../../src/serenity/domain/model';
 
 describe('Notifiers', () => {
 
@@ -15,7 +15,7 @@ describe('Notifiers', () => {
         bruce        = Actor.named('Bruce');
 
     // todo: once the Step factory comes from a DI we can test the actual annotation
-    function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
+    function step<T extends Activity>(stepDescriptionTemplate: string): StepAnnotation<T> {
         return new Step(stageManager).describedUsing(stepDescriptionTemplate);
     }
 
@@ -47,7 +47,7 @@ describe('Notifiers', () => {
                         expect(newJournalEntries).to.have.lengthOf(2);
 
                         expect(newJournalEntries[ 0 ]).to.be.instanceOf(ActivityStarts);
-                        expect(newJournalEntries[ 0 ].value).to.be.instanceOf(Activity);
+                        expect(newJournalEntries[ 0 ].value).to.be.instanceOf(RecordedActivity);
                         expect(newJournalEntries[ 0 ].value.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
                     });
                 });
@@ -63,7 +63,7 @@ describe('Notifiers', () => {
                         expect(newJournalEntries[ 1 ]).to.be.instanceOf(ActivityFinished);
                         expect(newJournalEntries[ 1 ].value).to.be.instanceOf(Outcome);
 
-                        expect(newJournalEntries[ 1 ].value.subject).to.be.instanceOf(Activity);
+                        expect(newJournalEntries[ 1 ].value.subject).to.be.instanceOf(RecordedActivity);
                         expect(newJournalEntries[ 1 ].value.subject.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
                     });
                 });

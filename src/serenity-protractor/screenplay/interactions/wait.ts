@@ -1,4 +1,4 @@
-import { Interaction, Performable, UsesAbilities } from '../../../serenity/screenplay';
+import { Activity, Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
@@ -15,7 +15,7 @@ export class Duration {
     }
 }
 
-export type SuccessCondition<T> = (subject: T, timeout: Duration) => Performable;
+export type SuccessCondition<T> = (subject: T, timeout: Duration) => Activity;
 
 export class Wait {
     static for   = (duration: Duration): Interaction => new PassiveWait(duration);
@@ -28,7 +28,7 @@ export class Wait {
 export class ActiveWait {
     private static Default_Timeout = Duration.ofSeconds(5);
 
-    until<T>(somethingToWaitFor: T, condition: SuccessCondition<T>): Performable {
+    until<T>(somethingToWaitFor: T, condition: SuccessCondition<T>): Activity {
         return condition(somethingToWaitFor, this.timeout);
     }
 

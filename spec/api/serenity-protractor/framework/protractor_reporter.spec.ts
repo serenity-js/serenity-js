@@ -3,13 +3,13 @@ import expect = require('../../../expect');
 import { given } from 'mocha-testdata';
 import { Runner } from 'protractor/built/runner';
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
     Outcome,
+    RecordedScene,
+    RecordedTask,
     Result,
-    Scene,
     SceneFinished,
     SceneStarts,
 } from '../../../../src/serenity/domain';
@@ -30,25 +30,25 @@ describe('serenity-protractor', () => {
                   scenario_2  = 'Removing a product from the basket affects the total price',
                   featureFile = 'basket_management/pricing.feature',
 
-                  scene_1 = new Scene(
+                  scene_1 = new RecordedScene(
                       scenario_1,
                       feature,
                       featureFile,
                   ),
                   scene_1_duration = 10,
-                  scene_2 = new Scene(
+                  scene_2 = new RecordedScene(
                       scenario_2,
                       feature,
                       featureFile,
                   ),
                   scene_2_duration = 7,
-                  logsIn = new Activity('Logs in'),
+                  logsIn = new RecordedTask('Logs in'),
                   logsIn_duration = 10,
-                  entersUsername = new Activity('Enters username'),
+                  entersUsername = new RecordedTask('Enters username'),
                   entersUsername_duration = 6,
-                  entersPassword = new Activity('Enters password'),
+                  entersPassword = new RecordedTask('Enters password'),
                   entersPassword_duration = 4,
-                  selectsAProduct = new Activity('Selects a product');
+                  selectsAProduct = new RecordedTask('Selects a product');
 
             const examplesOfSuccess = [ Result.SUCCESS, Result.PENDING, Result.IGNORED, Result.SKIPPED ],
                   examplesOfFailure    = [ Result.FAILURE, Result.COMPROMISED, Result.ERROR ];

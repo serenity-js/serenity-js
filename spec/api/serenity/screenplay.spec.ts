@@ -149,7 +149,7 @@ describe('Screenplay Pattern', () => {
             return new PlayAChord(chord);
         }
 
-        performAs(actor: PerformsTasks & UsesAbilities): Promise<void> {
+        performAs(actor: UsesAbilities): Promise<void> {
             return PlayAnInstrument.as(actor).play(this.chord);
         }
 
@@ -197,7 +197,7 @@ describe('Screenplay Pattern', () => {
          * @param actor
          * @return {PlayAnInstrument}
          */
-        static as(actor: UsesAbilities & PerformsTasks): PlayAnInstrument {
+        static as(actor: UsesAbilities): PlayAnInstrument {
             return actor.abilityTo(PlayAnInstrument);
         }
 

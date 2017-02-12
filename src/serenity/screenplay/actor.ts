@@ -1,4 +1,4 @@
-import { Performable } from './performables';
+import { Activity } from './activities';
 import { Question } from './question';
 
 export interface Ability {} // tslint:disable-line:no-empty-interface
@@ -8,7 +8,7 @@ export interface AbilityConstructor<A extends Ability> {
 }
 
 export interface PerformsTasks {
-    attemptsTo(...tasks: Performable[]): Promise<void>;
+    attemptsTo(...tasks: Activity[]): Promise<void>;
 }
 
 export interface UsesAbilities {
@@ -55,8 +55,8 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return this.abilities[doSomething.name] as T;
     }
 
-    attemptsTo(...tasks: Performable[]): Promise<void> {
-        return tasks.reduce((previous: Promise<void>, current: Performable) => {
+    attemptsTo(...tasks: Activity[]): Promise<void> {
+        return tasks.reduce((previous: Promise<void>, current: Activity) => {
             return previous.then(() => current.performAs(this));
         }, Promise.resolve(null));
     }

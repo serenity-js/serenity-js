@@ -1,6 +1,6 @@
 import expect = require('../../expect');
 
-import { Scene, SceneFinished, SceneStarts, Tag } from '../../../src/serenity/domain';
+import { RecordedScene, SceneFinished, SceneStarts, Tag } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function() {
@@ -24,7 +24,7 @@ describe('When working with Cucumber', function() {
                 const sceneStarts = spawned.messages[0];
 
                 expect(sceneStarts).to.be.instanceOf(SceneStarts);
-                expect(sceneStarts.value).to.be.instanceOf(Scene);
+                expect(sceneStarts.value).to.be.instanceOf(RecordedScene);
                 expect(sceneStarts.value.tags).to.deep.equal([
                     new Tag('cucumber'),
                     new Tag('regression'),
@@ -34,7 +34,7 @@ describe('When working with Cucumber', function() {
                 const sceneFinished = spawned.messages.pop();
 
                 expect(sceneFinished).to.be.instanceOf(SceneFinished);
-                expect(sceneFinished.value.subject).to.be.instanceOf(Scene);
+                expect(sceneFinished.value.subject).to.be.instanceOf(RecordedScene);
                 expect(sceneFinished.value.subject.tags).to.deep.equal([
                     new Tag('cucumber'),
                     new Tag('regression'),
@@ -53,7 +53,7 @@ describe('When working with Cucumber', function() {
                 const sceneStarts = spawned.messages[0];
 
                 expect(sceneStarts).to.be.instanceOf(SceneStarts);
-                expect(sceneStarts.value).to.be.instanceOf(Scene);
+                expect(sceneStarts.value).to.be.instanceOf(RecordedScene);
                 expect(sceneStarts.value.tags).to.deep.equal([
                     new Tag('cucumber'),
                     new Tag('regression'),
@@ -63,7 +63,7 @@ describe('When working with Cucumber', function() {
                 const sceneFinished = spawned.messages.pop();
 
                 expect(sceneFinished).to.be.instanceOf(SceneFinished);
-                expect(sceneFinished.value.subject).to.be.instanceOf(Scene);
+                expect(sceneFinished.value.subject).to.be.instanceOf(RecordedScene);
                 expect(sceneFinished.value.subject.tags).to.deep.equal([
                     new Tag('cucumber'),
                     new Tag('regression'),

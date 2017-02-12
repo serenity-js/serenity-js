@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 import { Md5 } from 'ts-md5/dist/md5';
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
@@ -10,8 +9,9 @@ import {
     Photo,
     PhotoAttempted,
     PhotoReceipt,
+    RecordedScene,
+    RecordedTask,
     Result,
-    Scene,
     SceneFinished,
     SceneStarts,
     Tag,
@@ -30,7 +30,7 @@ describe('When reporting on what happened during the rehearsal', () => {
         const
             startTime = 1467201010000,
             duration  = 42,
-            scene     = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
+            scene     = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature'),
             sceneId   = Md5.hashStr(scene.id),
             filename  = `${ sceneId }.json`,
             rootDir   = '/some/path/to/reports';
@@ -449,7 +449,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             describe('When scenarios are tagged', () => {
 
                 it('adds a tag for the feature covered', () => {
-                    const aScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature');
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
@@ -468,7 +468,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the simple tags encountered', () => {
-                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('regression'),
                     ]);
 
@@ -492,7 +492,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the complex tags encountered', () => {
-                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('priority', [ 'must-have' ]),
                     ]);
 
@@ -516,7 +516,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('extracts the value of any @issues tags encountered and breaks them down to one tag per issue', () => {
-                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issues', [ 'MY-PROJECT-789' ]),
                     ]);
@@ -552,7 +552,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('ensures that the extracted issue ids are unique', () => {
-                    const taggedScene = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature', [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issue',  [ 'MY-PROJECT-123' ]),
                     ]);
@@ -588,28 +588,28 @@ describe('When reporting on what happened during the rehearsal', () => {
                 events.forEach(event => stage.manager.notifyOf(event));
             }
 
-            function sceneStarted(s: Scene, timestamp: number) {
+            function sceneStarted(s: RecordedScene, timestamp: number) {
                 return new SceneStarts(s, timestamp);
             }
 
             function activityStarted(name: string, timestamp: number) {
-                return new ActivityStarts(new Activity(name), timestamp);
+                return new ActivityStarts(new RecordedTask(name), timestamp);
             }
 
             function activityFinished(name: string, r: Result, ts: number, e?: Error) {
-                return new ActivityFinished(new Outcome(new Activity(name), r, e), ts);
+                return new ActivityFinished(new Outcome(new RecordedTask(name), r, e), ts);
             }
 
-            function sceneFinished(s: Scene, r: Result, timestamp: number, e?: Error) {
+            function sceneFinished(s: RecordedScene, r: Result, timestamp: number, e?: Error) {
                 return new SceneFinished(new Outcome(s, r, e), timestamp);
             }
 
             function photoTaken(name: string, path: string, timestamp: number) {
-                return new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(new Photo(path))), timestamp);
+                return new PhotoAttempted(new PhotoReceipt(new RecordedTask(name), Promise.resolve(new Photo(path))), timestamp);
             }
 
             function photoFailed(name, timestamp) {
-                return new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(undefined)), timestamp);
+                return new PhotoAttempted(new PhotoReceipt(new RecordedTask(name), Promise.resolve(undefined)), timestamp);
             }
 
             function expectedReportWith(overrides: any) {

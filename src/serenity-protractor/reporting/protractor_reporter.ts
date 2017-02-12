@@ -4,8 +4,8 @@ import {
     ActivityStarts,
     DomainEvent,
     Outcome,
+    RecordedScene,
     Result,
-    Scene,
     SceneFinished,
     SceneStarts,
 } from '../../serenity/domain';
@@ -56,7 +56,7 @@ export class ProtractorReporter implements StageCrewMember {
 
     private record = (event: DomainEvent<any>) => this.journal.record(event);
 
-    private notifyProtractor(outcome: Outcome<Scene>) {
+    private notifyProtractor(outcome: Outcome<RecordedScene>) {
         const result = (outcome.result & Result.Failed)
             ? 'testFail'
             : 'testPass';

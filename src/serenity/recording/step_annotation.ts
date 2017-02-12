@@ -1,21 +1,22 @@
 import { serenity } from '../../';
-import { Activity, ActivityFinished, ActivityStarts, Outcome, Result } from '../domain';
-import { Performable } from '../screenplay';
+import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, Result } from '../domain';
+import { Activity } from '../screenplay';
 import { StageManager } from '../stage';
-import { StepDescription } from './step_description';
+import { ActivityDescription } from './activity_description';
+import { ActivityType } from './activity_type';
 
 import * as _ from 'lodash';
 
-// todo: add Significance to the @step
+// todo: refactor
 export class Step {
 
-    constructor(private stageManager: StageManager) {
+    constructor(private stageManager: StageManager, private activityType: ActivityType = ActivityType.Task) {
     }
 
-    describedUsing<T extends Performable>(template: string): StepAnnotation<T> {
+    describedUsing<T extends Activity>(template: string): StepAnnotation<T> {
 
         const
-            description = new StepDescription(template),
+            description = new ActivityDescription(template, this.activityType),
             decorated   = this;
 
         return (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => {
@@ -26,27 +27,27 @@ export class Step {
 
             decorator.value = function(...args: any[]): PromiseLike<void> {
 
-                const activity: Activity = description.interpolateWith(this, args);
+                const recordedActivity: RecordedActivity = description.interpolateWith(this, args);
 
                 return Promise.resolve()
-                    .then(() => decorated.beforeStep(activity))
+                    .then(() => decorated.beforeStep(recordedActivity))
                     .then(() => performAs.apply(this, args))
-                    .then(() => decorated.afterStep(activity), e => decorated.onFailure(activity, e));
+                    .then(() => decorated.afterStep(recordedActivity), e => decorated.onFailure(recordedActivity, e));
             };
 
             return decorator;
         };
     }
 
-    private beforeStep(activity: Activity) {
+    private beforeStep(activity: RecordedActivity) {
         this.stageManager.notifyOf(new ActivityStarts(activity));
     }
 
-    private afterStep(activity: Activity) {
+    private afterStep(activity: RecordedActivity) {
         this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, Result.SUCCESS)));
     }
 
-    private onFailure(activity: Activity, error: Error) {
+    private onFailure(activity: RecordedActivity, error: Error) {
         this.stageManager.notifyOf(new ActivityFinished(new Outcome(activity, this.resultFrom(error), error)));
 
         return Promise.reject(error);
@@ -62,10 +63,10 @@ export class Step {
     }
 }
 
-export function step<T extends Performable>(stepDescriptionTemplate: string): StepAnnotation<T> {
-    return new Step(serenity.stageManager()).describedUsing(stepDescriptionTemplate);
+export function step<A extends Activity>(stepDescriptionTemplate: string, type: ActivityType = ActivityType.Task): StepAnnotation<A> {
+    return new Step(serenity.stageManager(), type).describedUsing(stepDescriptionTemplate);
 }
 
 export type PerformAsMethodSignature = TypedPropertyDescriptor<(PerformsTasks) => PromiseLike<void>>;
 
-export type StepAnnotation<T extends Performable> = (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => PerformAsMethodSignature;
+export type StepAnnotation<T extends Activity> = (target: T, propertyKey: string, descriptor: PerformAsMethodSignature) => PerformAsMethodSignature;

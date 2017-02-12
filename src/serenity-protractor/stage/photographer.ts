@@ -1,11 +1,11 @@
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
     Photo,
     PhotoAttempted,
     PhotoReceipt,
+    RecordedActivity,
     Result,
 } from '../../serenity/domain';
 
@@ -31,7 +31,7 @@ export class ActivityOfInterest {
         return !! (result & this.resultsOfInterest);
     }
 
-    isAnActivityOfInterest(activity: Activity): boolean {
+    isAnActivityOfInterest(activity: RecordedActivity): boolean {
         return true;
     }
 }
@@ -114,7 +114,7 @@ export class Photographer implements StageCrewMember {
         return !! this.stage && this.stage.theShowHasStarted();
     }
 
-    public photograph(subject: Activity, timestamp: number) {
+    public photograph(subject: RecordedActivity, timestamp: number) {
         const promisedPicture = this.photographWorkOf(this.stage.theActorInTheSpotlight());
 
         this.stage.manager.notifyOf(new PhotoAttempted(new PhotoReceipt(subject, promisedPicture), timestamp));

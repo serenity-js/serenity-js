@@ -1,6 +1,6 @@
 import expect = require('../../../expect');
 
-import { Activity, Tag } from '../../../../src/serenity/domain/model';
+import { RecordedTask, Tag } from '../../../../src/serenity/domain/model';
 
 describe ('Serenity Domain Model', () => {
 
@@ -39,21 +39,21 @@ describe ('Serenity Domain Model', () => {
         it ('is comparable', () => {
 
             const
-                a1 = new Activity('Pays with a credit card'),
-                a2 = new Activity('Pays with a credit card');
+                a1 = new RecordedTask('Pays with a credit card'),
+                a2 = new RecordedTask('Pays with a credit card');
 
             expect(a1.equals(a2)).to.be.true;
             expect(a1).to.deep.equal(a2);
         });
 
         it ('can be represented as string', () => {
-            const a = new Activity('Pays with a credit card');
+            const a = new RecordedTask('Pays with a credit card');
 
             expect(a.toString()).to.equal('Pays with a credit card');
         });
 
         it ('can have a custom identifier', () => {
-            const a = new Activity('Pays with a credit card', 'pays-with-a-credit-card');
+            const a = new RecordedTask('Pays with a credit card', 'pays-with-a-credit-card');
 
             expect(a.toString()).to.equal('Pays with a credit card (id: pays-with-a-credit-card)');
         });

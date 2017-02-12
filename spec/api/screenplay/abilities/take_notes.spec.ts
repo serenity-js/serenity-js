@@ -1,20 +1,7 @@
 import sinon = require('sinon');
 import expect = require('../../../expect');
-import {
-    Actor,
-    Notepad,
-    Question,
-    TakeNote,
-    TakeNotes,
-    UsesAbilities,
-} from '../../../../src/serenity/screenplay';
-import { Performable } from '../../../../src/serenity/screenplay/performables';
-
-import { step } from '../../../../src/serenity/recording/step_annotation';
-
-import { AnswersQuestions } from '../../../../src/serenity/screenplay/actor';
-import { Expectation } from '../../../../src/serenity/screenplay/expectations';
-import { OneOrMany } from '../../../../src/serenity/screenplay/lists';
+import { Actor, Notepad, Question, TakeNote, TakeNotes, UsesAbilities } from '../../../../src/serenity/screenplay';
+import { CompareNotes } from '../../../../src/serenity/screenplay/interactions/compare_notes';
 
 describe('Abilities', () => {
 
@@ -111,23 +98,6 @@ describe('Abilities', () => {
         });
     });
 });
-
-export class CompareNotes<S> implements Performable {
-    static toSeeIf<A>(actual: Question<OneOrMany<A>>, expectation: Expectation<OneOrMany<A>>, topic: { toString: () => string }) {
-        return new CompareNotes<A>(actual, expectation, topic.toString());
-    }
-
-    @step('{0} compares notes on #actual')
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return TakeNotes.
-            as(actor).
-            read(this.topic).
-            then(expected => this.expect(expected)(actor.toSee(this.actual)));
-    }
-
-    constructor(private actual: Question<OneOrMany<S>>, private expect: Expectation<OneOrMany<S>>, private topic: string) {
-    }
-}
 
 class MyVoucherCode implements Question<string> {
     static shownAs = (someValue: string) => new MyVoucherCode(someValue);

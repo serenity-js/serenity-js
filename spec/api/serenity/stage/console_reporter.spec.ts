@@ -1,13 +1,13 @@
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     Outcome,
     Photo,
     PhotoAttempted,
     PhotoReceipt,
+    RecordedScene,
+    RecordedTask,
     Result,
-    Scene,
     SceneFinished,
     SceneStarts,
 } from '../../../../src/serenity/domain';
@@ -24,7 +24,7 @@ describe ('When reporting on what happened during the rehearsal', () => {
 
         const
             startTime = 1467201010000,
-            scene     = new Scene('Paying with a default card', 'Checkout', 'features/checkout.feature');
+            scene     = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature');
 
         it ('can be instantiated using a factory method', () => {
             expect(consoleReporter()).to.be.instanceOf(ConsoleReporter);
@@ -73,24 +73,24 @@ describe ('When reporting on what happened during the rehearsal', () => {
             );
         });
 
-        function sceneStarted(s: Scene, timestamp: number) {
+        function sceneStarted(s: RecordedScene, timestamp: number) {
             return new SceneStarts(s, timestamp);
         }
 
         function activityStarted(name: string, timestamp: number) {
-            return new ActivityStarts(new Activity(name), timestamp);
+            return new ActivityStarts(new RecordedTask(name), timestamp);
         }
 
         function activityFinished(name: string, r: Result, ts: number, e?: Error) {
-            return new ActivityFinished(new Outcome(new Activity(name), r, e), ts);
+            return new ActivityFinished(new Outcome(new RecordedTask(name), r, e), ts);
         }
 
-        function sceneFinished(s: Scene, r: Result, timestamp: number, e?: Error) {
+        function sceneFinished(s: RecordedScene, r: Result, timestamp: number, e?: Error) {
             return new SceneFinished(new Outcome(s, r, e), timestamp);
         }
 
         function photoTaken(name: string, path: string, timestamp: number) {
-            return new PhotoAttempted(new PhotoReceipt(new Activity(name), Promise.resolve(new Photo(path))), timestamp);
+            return new PhotoAttempted(new PhotoReceipt(new RecordedTask(name), Promise.resolve(new Photo(path))), timestamp);
         }
     });
 });

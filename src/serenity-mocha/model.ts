@@ -1,4 +1,4 @@
-import { Outcome, Result, Scene, SceneFinished, SceneStarts } from '../serenity/domain';
+import { Outcome, RecordedScene, Result, SceneFinished, SceneStarts } from '../serenity/domain';
 
 export const startOf   = (scenario: Scenario) => new SceneStarts(new MochaScene(scenario));
 export const endOf     = (scenario: ExecutedScenario) => new SceneFinished(new Outcome(new MochaScene(scenario), finalStateOf(scenario), scenario.err));
@@ -36,7 +36,7 @@ export interface ExecutedScenario extends Scenario {
     err?: TestError;
 }
 
-class MochaScene extends Scene {
+class MochaScene extends RecordedScene {
     constructor(scenario: Scenario) {
         super(
             nameOf(scenario),

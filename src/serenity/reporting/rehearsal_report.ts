@@ -1,12 +1,12 @@
 import {
-    Activity,
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
     Outcome,
     Photo,
     PhotoAttempted,
-    Scene,
+    RecordedActivity,
+    RecordedScene,
     SceneFinished,
     SceneStarts,
 } from '../../serenity/domain';
@@ -14,8 +14,8 @@ import { ReportExporter } from './report_exporter';
 
 export class RehearsalReport {
     static from(events: Array<DomainEvent<any>>): RehearsalPeriod {
-        let previousNode: ReportPeriod<Scene | Activity>;
-        let currentNode:  ReportPeriod<Scene | Activity>;
+        let previousNode: ReportPeriod<RecordedScene | RecordedActivity>;
+        let currentNode:  ReportPeriod<RecordedScene | RecordedActivity>;
 
         return events.reduce((fullReport, event) => {
             switch (event.constructor) {    // tslint:disable-line:switch-default   - ignore other events
@@ -91,7 +91,7 @@ export abstract class ReportPeriod<T> {
         return this.finishedAt - this.startedAt;
     }
 
-    append(child: ReportPeriod<Scene | Activity>): ReportPeriod<Scene | Activity> {
+    append(child: ReportPeriod<RecordedScene | RecordedActivity>): ReportPeriod<RecordedScene | RecordedActivity> {
         child.parent = this;
         this.children.push(child);
 
@@ -119,8 +119,8 @@ export class RehearsalPeriod extends ReportPeriod<Rehearsal> {
 export class Rehearsal {
 }
 
-export class ActivityPeriod extends ReportPeriod<Activity> {
-    matches(another: Activity): boolean {
+export class ActivityPeriod extends ReportPeriod<RecordedActivity> {
+    matches(another: RecordedActivity): boolean {
         return this.value.equals(another);
     }
 
@@ -129,8 +129,8 @@ export class ActivityPeriod extends ReportPeriod<Activity> {
     }
 }
 
-export class ScenePeriod extends ReportPeriod<Scene> {
-    matches(another: Scene): boolean {
+export class ScenePeriod extends ReportPeriod<RecordedScene> {
+    matches(another: RecordedScene): boolean {
         return this.value.equals(another);
     }
 

@@ -69,11 +69,11 @@ export class Tag {
     }
 }
 
-export class Scene implements Identifiable {
+export class RecordedScene implements Identifiable {
     constructor(public name: string, public category: string, public path: string, public tags: Tag[] = [], public id: string = `${category}:${name}`) { }
 
-    equals(another: Scene): boolean {
-        return (another instanceof Scene) &&
+    equals(another: RecordedScene): boolean {
+        return (another instanceof RecordedScene) &&
             this.name === another.name &&
             this.category === another.category &&
             this.path === another.path;
@@ -85,16 +85,26 @@ export class Scene implements Identifiable {
     }
 }
 
-export class Activity implements Identifiable {
+export abstract class RecordedActivity implements Identifiable {
     constructor(public name: string, public id: string = name) { }
 
-    equals(another: Activity): boolean {
-        return (another instanceof Activity) && this.name === another.name && this.id === another.id;
+    equals(another: RecordedActivity): boolean {
+        return (another instanceof RecordedActivity) &&
+            this.name === another.name &&
+            this.id === another.id;
     }
 
     toString() {
         return `${this.name}${when(this.id !== this.name, ' (id: ' + this.id + ')')}`;
     }
+}
+
+export class RecordedTask extends RecordedActivity {
+
+}
+
+export class RecordedInteraction extends RecordedActivity {
+
 }
 
 export class Outcome<T> {
@@ -110,7 +120,7 @@ export class Photo {
 }
 
 export class PhotoReceipt {
-    constructor(public activity: Activity, public photo: PromiseLike<Photo>) {}
+    constructor(public activity: RecordedActivity, public photo: PromiseLike<Photo>) {}
 
     toString() {
         return this.activity.toString();

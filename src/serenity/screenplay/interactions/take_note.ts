@@ -1,4 +1,4 @@
-import { step } from '../../recording/step_annotation';
+import { ActivityType, step } from '../../recording';
 import { Interaction, Question, TakeNotes, UsesAbilities } from '../index';
 
 export class TakeNote<T> implements Interaction {
@@ -6,7 +6,7 @@ export class TakeNote<T> implements Interaction {
 
     as = (topic: string) => (this.topic = topic, this);
 
-    @step('{0} takes a note of #topic')
+    @step('{0} takes a note of #topic', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return TakeNotes.as(actor).note(this.topic.toString(), this.question.answeredBy(actor));
     }
