@@ -36,6 +36,5 @@ exports.config = {
         maxInstances: 2
     },
 
-    restartBrowserBetweenTests: true,
-    disableChecks: true
+    restartBrowserBetweenTests: true
 };
