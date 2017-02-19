@@ -76,6 +76,10 @@ export class BrowseTheWeb implements Ability {
         return this.browser.executeScript(script, target.resolveUsing(this.browser.element));
     }
 
+    executeAsyncScript(script: string | Function, target: Target, ...args: any[]): PromiseLike<any> {
+        return this.browser.executeAsyncScript(script, target.resolveUsing(this.browser.element), ...args);
+    }
+
     constructor(private browser: ProtractorBrowser) {
     }
 }

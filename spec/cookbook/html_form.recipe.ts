@@ -74,7 +74,7 @@ describe ('When demonstrating the usage of an HTML form, a test scenario', funct
 
     it ('can execute script to click a checkbox, as an example for script execution..', () =>
         james.attemptsTo(
-            Execute.theScript('arguments[0].click();').on(Newsletter.Checkbox),
+            Execute.script('arguments[0].click();').on(Newsletter.Checkbox),
         ).then(() => Promise.all([
             expect(james.toSee(Value.of(Newsletter.Checkbox))).eventually.equal('on'),
         ])));
