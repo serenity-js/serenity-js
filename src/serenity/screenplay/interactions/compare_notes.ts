@@ -11,7 +11,7 @@ export class CompareNotes<S> implements Interaction {
         return new CompareNotes<A>(actual, expectation, topic.toString());
     }
 
-    @step('{0} compares notes on #actual', ActivityType.Interaction)
+    @step('{0} compares notes on #subject', ActivityType.Interaction)
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return TakeNotes.
             as(actor).
@@ -21,4 +21,8 @@ export class CompareNotes<S> implements Interaction {
 
     constructor(private actual: Question<OneOrMany<S>>, private expect: Expectation<OneOrMany<S>>, private topic: string) {
     }
+
+    private subject = () => `${ this.actual }` === `${ this.topic }`
+        ? `${ this.actual }`
+        : `${ this.actual } (noted as "${this.topic})`
 }
