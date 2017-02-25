@@ -1,5 +1,6 @@
 {
   "extends": "tslint:latest",
+  "rulesDirectory": "node_modules/tslint-microsoft-contrib",
   "rules": {
     "quotemark": [true, "single", "avoid-escape"],
     "one-variable-per-declaration": false,
@@ -35,6 +36,7 @@
     ],
     "only-arrow-functions": false,
     "arrow-parens": [true, "ban-single-arg-parens" ],
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "mocha-avoid-only": true
   }
 }

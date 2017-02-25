@@ -10,8 +10,8 @@ class Username {
 }
 
 class Newsletter {
-    static Checkbox = Target.the('newsletter checkbox').located(by.css('[name="checkboxes"] label[for="checkbox"] input'));
-    static Result   = Target.the('newsletter result').located(by.css('[name="checkboxes"] label[for="checkbox"] pre'));
+    static Checkbox = Target.the('newsletter checkbox').located(by.css('label[for="checkbox"] input'));
+    static Result   = Target.the('newsletter result').located(by.css('label[for="checkbox"] pre'));
 }
 
 describe ('When working with an Angular app, a test scenario', function() {
@@ -47,14 +47,14 @@ describe ('When working with an Angular app, a test scenario', function() {
         james.attemptsTo(
             Execute.asyncScript(
                 'var callback = arguments[arguments.length - 1];',
-                'arguments[0].text(arguments[1]);',
+                'angular.element(arguments[0]).val(arguments[1]).triggerHandler("input");',
                 'callback();',
             ).on(Username.Field).withArguments('James'),
         ).then(() => Promise.all([
             expect(james.toSee(Text.of(Username.Result))).eventually.equal('James'),
         ])));
 
-    it.only ('can evaluate an expression in the context of an Angular $scope', () =>
+    it ('can evaluate an expression in the context of an Angular $scope', () =>
         james.attemptsTo(
             Evaluate.script('text.username = "James"; $apply();').on(Username.Field),
         ).then(() => Promise.all([
