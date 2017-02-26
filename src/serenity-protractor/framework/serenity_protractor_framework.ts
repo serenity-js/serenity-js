@@ -1,4 +1,4 @@
-import { Runner } from 'protractor';
+import { Config, Runner } from 'protractor';
 import { serenity, Serenity } from '../..';
 import { serenityBDDReporter } from '../../serenity/reporting';
 import { ProtractorReport, ProtractorReporter } from '../reporting';
@@ -8,6 +8,8 @@ import { SerenityFrameworkConfig } from './serenity_framework_config';
 import { StandIns } from './stand_ins';
 import { TestFramework } from './test_framework';
 import { TestFrameworkDetector } from './test_framework_detector';
+
+import _ = require('lodash');
 
 // spec: https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
 
@@ -27,7 +29,8 @@ export class SerenityProtractorFramework {
     private detect = new TestFrameworkDetector();
 
     constructor(private serenity: Serenity, private runner: Runner) {
-        this.config    = Object.assign({}, this.defaultConfig(), runner.getConfig());
+        this.config    = this.defaultsWith(runner.getConfig());
+
         this.reporter  = new ProtractorReporter(runner);
         this.framework = this.detect.frameworkFor(this.config);
 
@@ -55,7 +58,15 @@ export class SerenityProtractorFramework {
 
     private waitForOtherProtractorPlugins = () => Promise.resolve(this.config.onComplete || noop);
 
-    private defaultConfig = (): SerenityFrameworkConfig => ({
+    private defaultsWith = (overrides: Config): SerenityFrameworkConfig => _.mergeWith(this.defaults(), overrides, this.mergeButOverrideLists);
+
+    private mergeButOverrideLists = (objValue, srcValue) => {
+        if (_.isArray(objValue)) {
+            return srcValue;
+        }
+    }
+
+    private defaults = () => ({
         serenity: {
             crew: [
                 /// [default-stage-crew-members]
