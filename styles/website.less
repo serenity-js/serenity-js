@@ -122,25 +122,14 @@
     }
   }
 
-  ul.books {
-    text-align: center;
-    list-style-type: none;
-    margin: 2em 0 0.85em 0;
+  .image-display {
+    display:inline-block;
+    margin:0 0.85em;
 
-    li
-    {
-      display:inline-block;
-      margin:0 0.85em;
+    position:relative;
+    .box-shadow(~"0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset");
 
-      position:relative;
-      .box-shadow(~"0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset");
-
-      img {
-        display: block;
-        vertical-align: bottom;
-      }
-    }
-    li:before, li:after
+    &:before, &:after
     {
       content:"";
       position:absolute;
@@ -152,11 +141,22 @@
       right:10px;
       .border-radius(~"100px / 10px")
     }
-    li:after
+    &:after
     {
       right:10px;
       left:auto;
       .transform(~"skew(8deg) rotate(3deg)");
+    }
+  }
+
+  ul.display {
+    text-align: center;
+    list-style-type: none;
+    margin: 2em 0 0.85em 0;
+
+    li img {
+        display: block;
+        vertical-align: bottom;
     }
   }
 }
