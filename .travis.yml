@@ -7,15 +7,10 @@ notifications:
   email: false
 node_js:
 - '6'
-before_install:
-- npm i -g npm@^3.0.0
-before_script:
-- npm prune
-script:
-- 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run verify:pull-request; fi'
-- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run verify; fi'
-after_success:
-- npm run publish-all
+before_install: scripts/travis/before_install.sh
+before_script:  scripts/travis/before_script.sh
+script:         scripts/travis/script.sh
+after_success:  scripts/travis/after_success.sh
 branches:
   except:
   - /^v\d+\.\d+\.\d+$/
