@@ -157,11 +157,11 @@ and an `include` assertion like in the previous example, an actor can:
 
 ```typescript
 actor.attemptsTo(
-    TakeNote.of(MarketingPopup.Voucher),
+    TakeNote.of(MarketingPopup.Voucher_Code),
     
     /* ... perform other tasks */
     
-    CompareNotes.toSeeIf(Checkout.Applied_Vouchers, include, MarketingPopup.Voucher),
+    CompareNotes.toSeeIf(Checkout.Applied_Vouchers, include, MarketingPopup.Voucher_Code),
 );
 ```
 
