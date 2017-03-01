@@ -10,6 +10,7 @@ node_js:
 before_install: scripts/travis/before_install.sh
 before_script:  scripts/travis/before_script.sh
 script:         scripts/travis/script.sh
+after_script:   scripts/travis/after_script.sh
 after_success:  scripts/travis/after_success.sh
 branches:
   except:

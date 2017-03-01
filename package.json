@@ -39,12 +39,12 @@
     "coverage:merge": "istanbul-merge --out=./staging/reports/coverage/coverage-final.json ./staging/reports/coverage/**/coverage-final.json",
     "coverage:report": "nyc report --reporter=html --reporter=lcov --temp-directory=./staging/reports/coverage --report-dir=./staging/reports/coverage",
     "report": "npm run coverage:merge && npm run coverage:report",
-    "publish-coverage-report": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
+    "coverage:publish": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "book:build": "rimraf _book && gitbook build",
+    "prebook:publish": "book:build",
     "book:publish": "node ./gh-pages.js -d _book --dotfiles",
-    "prepublish-all": "npm run book:build",
-    "publish-all": "failsafe publish-coverage-report semantic-release book:publish"
+    "failsafe": "failsafe"
   },
   "peerDependencies": {
     "protractor": "5.x"
