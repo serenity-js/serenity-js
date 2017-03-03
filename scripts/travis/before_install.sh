@@ -19,8 +19,16 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
 
   # https://github.com/atlassian/lerna-semantic-release/blob/06e18185c6477085b7046248e7dd7eb59c06e0c9/.travis/before_install.sh
 
+  rm -rf .git
+  git init
+  git clean -dfx
+  git remote add origin https://github.com/jan-molak/serenity-js.git
+  git fetch origin
+  git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
+  git checkout $TRAVIS_BRANCH
+
   git config credential.helper store
-  echo "https://${RELEASE_GH_USERNAME}:${RELEASE_GH_TOKEN}@github.com/atlassian/lerna-semantic-release.git" > ~/.git-credentials
+  echo "https://${RELEASE_GH_USERNAME}:${RELEASE_GH_TOKEN}@github.com/jan-molak/serenity-js.git" > ~/.git-credentials
 
   npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
 
