@@ -12,11 +12,10 @@ if [[ $TRAVIS_BRANCH != 'master' ]]; then
 fi
 
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
-  npm run semantic-release-dry-run
+  npm run semantic-release
 
   echo "[DEBUG] CHANGELOG"
   cat packages/*/CHANGELOG.md
 
-  # npm run semantic-release
-  # npm run lerna exec --loglevel info -- npm run coverage:publish
+  npm run lerna exec --loglevel info -- npm run coverage:publish
 fi
