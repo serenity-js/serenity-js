@@ -14,7 +14,7 @@ let stage = serenity.callToStageFor(/* custom cast */);
 
 Where the custom `Cast` instantiates the actors based on their name:
  
-[import:'cast', lang-typescript](../../src/serenity/stage/stage.ts)
+[import:'cast', lang-typescript](../../packages/serenity-js/src/serenity/stage/stage.ts)
 
 ## Instantiating the actors
 

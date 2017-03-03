@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
 
-npm prune
+echo "Removing stale node_modules"
+npm run lerna exec --loglevel info -- npm prune

@@ -1,0 +1,35 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    "outDir": "./staging/transpiled",
+
+    "types": [
+      "graceful-fs",
+      "lodash",
+      "mkdirp",
+      "stack-trace",
+      "node",
+      "selenium-webdriver",
+
+      "chai",
+      "chai-as-promised",
+      "express",
+      "express-serve-static-core",
+      "mocha",
+      "mock-fs",
+      "nock",
+      "sinon",
+      "sinon-chai"
+    ]
+  },
+
+  "files": [
+    "node_modules/chai-smoothie/lib/chai-smoothie.d.ts"
+  ],
+
+  "include": [
+    "src/**/*.ts",
+    "spec/**/*.ts"
+  ]
+}
