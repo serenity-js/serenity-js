@@ -11,7 +11,7 @@ enables you to:
 - Enhance your test reports with screenshots of your app's UI without any additional plugins.
 - Fix some common problems related to Cucumber/WebDriver 
 ControlFlow synchronisation and inaccurate reporting with just a single config change.
-- Try the [Screenplay Pattern](../../design/screenplay-pattern.md) 
+- Try the [Screenplay Pattern](../design/screenplay-pattern.md) 
 in some part of your project while keeping your other tests working as they used to.
 This way you minimise the risk of disrupting the work of your team while improving your tool set.
 
