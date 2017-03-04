@@ -26,7 +26,7 @@
     "book:build": "gitbook build",
     "prebook:publish": "npm run book:clean && npm run book:build",
     "book:publish": "node ./gh-pages.js -d _book --dotfiles",
-    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release perform && lerna-semantic-release post",
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
     "semantic-release-dry-run": "lerna-semantic-release pre && lerna-semantic-release post",
     "commit": "git-cz",
     "lerna": "lerna",
