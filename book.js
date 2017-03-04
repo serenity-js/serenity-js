@@ -17,6 +17,7 @@ module.exports = {
         'ga',
         'github',
         'rss',
+        'sitemap',
         'styles-less',
         'youtube'
     ],
@@ -59,6 +60,10 @@ module.exports = {
                 'facebook', 'google', 'twitter',
                 'weibo', 'instapaper', 'vk'
             ]
+        },
+
+        sitemap: {
+            hostname: 'http://serenity-js.org/'
         },
 
         rss: {
