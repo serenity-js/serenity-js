@@ -17,5 +17,5 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   echo "[DEBUG] CHANGELOG"
   cat packages/*/CHANGELOG.md
 
-  npm run lerna exec --loglevel info -- npm run coverage:publish
+  npm run coverage:publish
 fi

@@ -24,7 +24,7 @@
     "clean": "rimraf staging lib .nyc_output",
     "pretest": "webdriver-manager update --standalone --versions.standalone=2.53.1",
     "test": "npm run spec",
-    "lint": "tslint --project=tsconfig.json --config=tslint.json --format=prose",
+    "lint": "tslint --project=tsconfig.json --config=../../tslint.json --format=prose",
     "package": "tsc --project tsconfig-export.json",
     "verify": "npm run clean && npm run lint && npm test && npm run package && npm run report",
     "verify:pull-request": "npm run clean && npm run lint && npm run spec:pull-request && npm run package && npm run report",
@@ -37,9 +37,7 @@
     "spec:pull-request": "npm run spec:api && npm run spec:cookbook:pull-request && npm run spec:integration",
     "coverage:merge": "istanbul-merge --out=./staging/reports/coverage/coverage-final.json ./staging/reports/coverage/**/coverage-final.json",
     "coverage:report": "nyc report --reporter=html --reporter=lcov --temp-directory=./staging/reports/coverage --report-dir=./staging/reports/coverage",
-    "report": "npm run coverage:merge && npm run coverage:report",
-    "coverage:publish": "cat ./staging/reports/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "failsafe": "failsafe"
+    "report": "npm run coverage:merge && npm run coverage:report"
   },
   "peerDependencies": {
     "protractor": "5.x"
@@ -64,41 +62,19 @@
     "util-arity": "1.1.0"
   },
   "devDependencies": {
-    "@types/chai": "3.4.34",
-    "@types/chai-as-promised": "0.0.29",
     "@types/cucumber": "0.0.35",
     "@types/express": "4.0.35",
     "@types/glob": "5.0.30",
-    "@types/mocha": "2.2.39",
     "@types/mock-fs": "3.6.30",
     "@types/nock": "8.2.0",
-    "@types/sinon": "1.16.34",
-    "@types/sinon-chai": "2.7.27",
-    "chai": "3.5.0",
-    "chai-as-promised": "6.0.0",
     "chai-smoothie": "^0.2.0",
-    "coveralls": "2.11.16",
     "cucumber": "1.3.1",
     "express": "4.14.1",
-    "istanbul": "0.4.5",
-    "istanbul-merge": "1.1.1",
-    "lerna": "2.0.0-beta.38",
-    "mocha": "3.2.0",
-    "mocha-testdata": "1.2.0",
     "mock-fs": "4.0.0",
     "nock": "9.0.5",
-    "npm-failsafe": "0.2.1",
-    "nyc": "10.1.2",
     "phantomjs-prebuilt": "2.1.14",
     "protractor": "5.1.1",
-    "rimraf": "2.5.4",
-    "sinon": "1.17.7",
-    "sinon-chai": "2.8.0",
-    "ts-helper": "0.0.1",
-    "ts-node": "2.1.0",
-    "tslint": "4.4.2",
-    "tslint-microsoft-contrib": "4.0.0",
-    "typescript": "2.1.6"
+    "serenity-js.devtools": "*"
   },
   "repository": {
     "type": "git",
