@@ -1,0 +1,42 @@
+{
+  "name": "serenity-js.cucumber-2",
+  "version": "0.0.0",
+  "description": "Enables Serenity/JS to run Cucumber 2 test scenarios",
+  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "cucumber",
+    "tdd",
+    "bdd",
+    "test",
+    "selenium",
+    "webdriverjs",
+    "webdriver",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project=tsconfig.json --config=../../tslint.json --format=prose",
+    "test": "exit 0;",
+    "package": "tsc --project tsconfig.json",
+    "verify": "npm run clean && npm run lint && npm test && npm run package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": "6.9.x",
+    "npm": ">= 3"
+  },
+  "devDependencies": {
+    "serenity-js.devtools": "*"
+  }
+}
