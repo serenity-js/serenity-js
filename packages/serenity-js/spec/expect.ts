@@ -1,8 +1,12 @@
 import chai = require('chai');
 
-chai.use(require('sinon-chai'));        // tslint:disable-line:no-var-requires
-chai.use(require('chai-as-promised'));  // tslint:disable-line:no-var-requires
-chai.use(require('chai-smoothie'));     // tslint:disable-line:no-var-requires
+import sinonChai = require('sinon-chai');
+import chaiAsPromised = require('chai-as-promised');
+import chaiSmoothie = require('chai-smoothie');
+
+chai.use(sinonChai);
+chai.use(chaiAsPromised);
+chai.use(chaiSmoothie);
 
 const expect = chai.expect;
 
