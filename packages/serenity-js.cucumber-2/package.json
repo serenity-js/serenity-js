@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project=tsconfig.json --config=../../tslint.json --format=prose",
-    "test": "exit 0;",
+    "test": "nyc --report-dir=./staging/reports/coverage mocha --opts ./mocha.opts 'spec/**/*.spec.*'",
     "package": "tsc --project tsconfig.json",
     "verify": "npm run clean && npm run lint && npm test && npm run package"
   },
@@ -36,7 +36,47 @@
     "node": ">= 6.9.x",
     "npm": ">= 3"
   },
+  "peerDependencies": {
+    "cucumber": "2.0.0-rc.9",
+    "serenity-js": ">= 1.2.1"
+  },
   "devDependencies": {
-    "serenity-js.devtools": "*"
+    "@types/cucumber": "2.0.0",
+    "cucumber": "2.0.0-rc.9",
+    "serenity-js": "*",
+    "serenity-js.devtools": "*",
+    "serenity-js.testing": "*"
+  },
+  "dependencies": {
+    "@types/glob": "5.0.30",
+    "@types/lodash": "4.14.55",
+    "glob": "7.1.1",
+    "lodash": "4.17.4"
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "features",
+      "lib",
+      "node_modules",
+      "spec",
+      "staging"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json",
+      "text-summary",
+      "html"
+    ],
+    "cache": true,
+    "all": true
   }
 }
