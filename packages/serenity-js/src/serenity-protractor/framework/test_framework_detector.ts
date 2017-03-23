@@ -1,11 +1,11 @@
 import { CucumberTestFramework } from '../../serenity-cucumber/cucumber_test_framework';
 import { MochaTestFramework } from '../../serenity-mocha';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
-import { TestFramework } from './test_framework';
+import { TestFrameworkAdapter } from './test_framework_adapter';
 
 export class TestFrameworkDetector {
 
-    frameworkFor(config: SerenityFrameworkConfig): TestFramework {
+    frameworkFor(config: SerenityFrameworkConfig): TestFrameworkAdapter {
         if (this.definesDialect(config)) {
             return this.tryToInstantiate(config.serenity.dialect.toLowerCase(), config);
         }

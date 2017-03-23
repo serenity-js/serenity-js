@@ -1,5 +1,5 @@
 import { serenity } from '..';
-import { TestFramework } from '../serenity-protractor/framework';
+import { TestFrameworkAdapter } from '../serenity-protractor/framework';
 import { wrapped } from './controlflow';
 import { endOf, ExecutedScenario, isPending, Scenario, startOf } from './model';
 
@@ -10,7 +10,7 @@ import { attemptToRequire } from '../serenity/io';
 
 import { MochaConfig } from './mocha_config';
 
-export class MochaTestFramework implements TestFramework {
+export class MochaTestFramework implements TestFrameworkAdapter {
 
     private mocha;
 

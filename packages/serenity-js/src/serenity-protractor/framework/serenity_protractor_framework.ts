@@ -6,7 +6,7 @@ import { ProtractorNotifier } from '../reporting/protractor_notifier';
 import { photographer } from '../stage/photographer';
 import { SerenityFrameworkConfig } from './serenity_framework_config';
 import { StandIns } from './stand_ins';
-import { TestFramework } from './test_framework';
+import { TestFrameworkAdapter } from './test_framework_adapter';
 import { TestFrameworkDetector } from './test_framework_detector';
 
 import _ = require('lodash');
@@ -23,7 +23,7 @@ export class SerenityProtractorFramework {
 
     private config: SerenityFrameworkConfig;
 
-    private framework: TestFramework;
+    private framework: TestFrameworkAdapter;
     private reporter: ProtractorReporter;
 
     private detect = new TestFrameworkDetector();

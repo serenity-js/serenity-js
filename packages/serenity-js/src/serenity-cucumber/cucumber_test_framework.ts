@@ -1,11 +1,11 @@
-import { TestFramework } from '../serenity-protractor/framework';
+import { TestFrameworkAdapter } from '../serenity-protractor/framework';
 import { attemptToRequire } from '../serenity/io/attempt_require';
 
 import _ = require('lodash');
 import glob = require('glob');
 import path = require('path');
 
-export class CucumberTestFramework implements TestFramework {
+export class CucumberTestFramework implements TestFrameworkAdapter {
 
     private args: string[] = [];
 
