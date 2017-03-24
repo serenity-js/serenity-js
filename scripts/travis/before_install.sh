@@ -2,7 +2,7 @@
 set -e
 
 echo "Installing NPM";
-npm i -g npm@^3.0.0
+npm i -g npm@^4.0.0
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "Building a pull request"
