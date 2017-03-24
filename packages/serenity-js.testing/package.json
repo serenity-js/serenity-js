@@ -14,7 +14,7 @@
     "test": "exit 0;",
     "package": "tsc --project tsconfig.json",
     "verify": "npm run clean && npm run lint && npm test && npm run package",
-    "prepublish": "npm run verify"
+    "prepublish": "npm run package"
   },
   "repository": {
     "type": "git",
