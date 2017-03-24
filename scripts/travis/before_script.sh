@@ -2,5 +2,4 @@
 set -e
 
 echo "Removing stale node_modules"
-# npm run lerna exec --loglevel info -- npm prune
-npm run lerna clean --yes
+npm run lerna exec --loglevel info -- npm prune
