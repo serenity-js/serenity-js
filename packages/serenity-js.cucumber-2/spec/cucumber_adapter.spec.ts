@@ -7,7 +7,7 @@ import { serenity } from 'serenity-js';
 
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
-import { spawner } from 'serenity-js.testing/lib/spawner';
+import { spawner } from './spawner/spawner';
 chai.use(chaiAsPromised);
 
 const expect = chai.expect;

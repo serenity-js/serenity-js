@@ -1,5 +1,5 @@
 import { serenity } from 'serenity-js';
-import { ChildProcessReporter } from 'serenity-js.testing';
+import { ChildProcessReporter } from '../spawner/child_process_reporter';
 
 import path = require('path');
 import _ = require('lodash');
