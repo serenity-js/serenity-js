@@ -12,7 +12,7 @@ chai.use(chaiAsPromised);
 
 const expect = chai.expect;
 
-describe('serenity-js.cucumber-2', () => {
+describe('cucumber-2', () => {
     describe('CucumberAdapter', function() {
 
         this.timeout(30 * 1000);
