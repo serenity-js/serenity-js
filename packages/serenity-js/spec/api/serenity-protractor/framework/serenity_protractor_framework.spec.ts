@@ -12,6 +12,7 @@ import { ConsoleReporter } from '../../../../src/serenity/stage/console_reporter
 
 import sinon = require('sinon');
 import expect = require('../../../expect');
+import { Duration } from '../../../../src/serenity/duration';
 
 describe('serenity-protractor', () => {
 
@@ -19,11 +20,10 @@ describe('serenity-protractor', () => {
 
         describe('SerenityProtractorFramework', () => {
 
-            let serenity;
+            const serenity = new Serenity();
 
-            beforeEach(() => {
-                serenity = sinon.createStubInstance(Serenity);
-            });
+            beforeEach(() => { sinon.spy(serenity, 'configure'); });
+            afterEach(() => { (serenity.configure as SinonStub).restore(); });
 
             it('can be instantiated with a default crew', () => {
 
@@ -34,14 +34,16 @@ describe('serenity-protractor', () => {
                 }));
 
                 expect(framework).to.be.instanceOf(SerenityProtractorFramework);
-                expect(serenity.assignCrewMembers).to.have.been.calledWith(
-                    some(SerenityBDDReporter),
-                    some(Photographer),
-                    // core crew:
-                    some(ProtractorReporter),
-                    some(StandIns),
-                    some(ProtractorNotifier),
-                );
+                expect(serenity.configure).to.have.been.calledWith(sinon.match({
+                    crew: [
+                        some(SerenityBDDReporter),
+                        some(Photographer),
+                        // core crew:
+                        some(ProtractorReporter),
+                        some(StandIns),
+                        some(ProtractorNotifier),
+                    ],
+                }));
             });
 
             it('can be instantiated with a custom crew, which overrides the default one (except the "protractor core" crew members)', () => {
@@ -56,13 +58,39 @@ describe('serenity-protractor', () => {
                 }));
 
                 expect(framework).to.be.instanceOf(SerenityProtractorFramework);
-                expect(serenity.assignCrewMembers).to.have.been.calledWith(
-                    some(ConsoleReporter),
-                    // core crew:
-                    some(ProtractorReporter),
-                    some(StandIns),
-                    some(ProtractorNotifier),
-                );
+                expect(serenity.configure).to.have.been.calledWith(sinon.match({
+                    crew: [
+                        some(ConsoleReporter),
+                        // core crew:
+                        some(ProtractorReporter),
+                        some(StandIns),
+                        some(ProtractorNotifier),
+                    ],
+                }));
+            });
+
+            it('provides some sensible timeout defaults', () => {
+                const framework = new SerenityProtractorFramework(serenity, protractorRunner.withConfiguration({
+                    serenity: {
+                        dialect: 'mocha',
+                    },
+                }));
+
+                expect(serenity.configure).to.have.been.calledWith(sinon.match({
+                    timeouts: {
+                        stageCue: some(Duration),
+                    },
+                }));
+            });
+
+            it('advises the developer what to do if the dialect could not be detected automatically', () => {
+                expect(() => {
+                    const framework = new SerenityProtractorFramework(serenity, protractorRunner.withConfiguration({}));
+                }).to.throw([
+                    'Serenity/JS could not determine the test dialect you wish to use. ',
+                    'Please add `serenity: { dialect: \'...\' }` to your Protractor configuration ',
+                    'file and choose one of the following options: cucumber, mocha.',
+                ].join(''));
             });
         });
 

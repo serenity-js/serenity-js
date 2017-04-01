@@ -1,5 +1,5 @@
-import { Config, Runner } from 'protractor';
-import { serenity, Serenity } from '../..';
+import { Config as ProtractorConfig, Runner } from 'protractor';
+import { Config, serenity, Serenity } from '../..';
 import { serenityBDDReporter } from '../../serenity/reporting';
 import { ProtractorReport, ProtractorReporter } from '../reporting';
 import { ProtractorNotifier } from '../reporting/protractor_notifier';
@@ -10,6 +10,7 @@ import { TestFrameworkAdapter } from './test_framework_adapter';
 import { TestFrameworkDetector } from './test_framework_detector';
 
 import _ = require('lodash');
+import { Duration } from '../../serenity/duration';
 
 // spec: https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
 
@@ -25,20 +26,25 @@ export class SerenityProtractorFramework {
 
     private framework: TestFrameworkAdapter;
     private reporter: ProtractorReporter;
+    private onComplete = noop;
 
     private detect = new TestFrameworkDetector();
 
     constructor(private serenity: Serenity, private runner: Runner) {
-        this.config    = this.defaultsWith(runner.getConfig());
+        const protractorConfig = runner.getConfig() as SerenityFrameworkConfig;
 
         this.reporter  = new ProtractorReporter(runner);
-        this.framework = this.detect.frameworkFor(this.config);
+        this.framework = this.detect.frameworkFor(protractorConfig);
 
-        this.serenity.assignCrewMembers(...this.config.serenity.crew.concat([
-            this.reporter,
-            new StandIns(),
-            new ProtractorNotifier(runner),
-        ]));
+        this.onComplete = protractorConfig.onComplete || noop;
+
+        serenity.configure(this.withFallback(protractorConfig).mergedWith({
+            crew: [
+                this.reporter,
+                new StandIns(),
+                new ProtractorNotifier(runner),
+            ],
+        }).get);
     }
 
     run = (specs: string[]): PromiseLike<ProtractorReport> => this.runner.runTestPreparer(this.detect.supportedCLIParams()).
@@ -56,24 +62,18 @@ export class SerenityProtractorFramework {
                                 // so we don't need any additional error handling here.
     })
 
-    private waitForOtherProtractorPlugins = () => Promise.resolve(this.config.onComplete || noop);
+    private waitForOtherProtractorPlugins = () => Promise.resolve(this.onComplete);
 
-    private defaultsWith = (overrides: Config): SerenityFrameworkConfig => _.mergeWith(this.defaults(), overrides, this.mergeButOverrideLists);
-
-    private mergeButOverrideLists = (objValue, srcValue) => {
-        if (_.isArray(objValue)) {
-            return srcValue;
-        }
-    }
-
-    private defaults = () => ({
-        serenity: {
-            crew: [
-                /// [default-stage-crew-members]
-                serenityBDDReporter(),
-                photographer(),
-                /// [default-stage-crew-members]
-            ],
+    // tslint:disable-next-line:no-string-literal that's how, by design, you access custom properties in Protractor
+    private withFallback = (pc: ProtractorConfig) => new Config(pc['serenity']).withFallback({
+        timeouts: {
+            stageCue: Duration.ofSeconds(30),
         },
+        crew: [
+            /// [default-stage-crew-members]
+            serenityBDDReporter(),
+            photographer(),
+            /// [default-stage-crew-members]
+        ],
     })
 }
