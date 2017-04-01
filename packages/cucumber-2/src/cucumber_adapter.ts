@@ -1,4 +1,5 @@
-import { Config, TestFrameworkAdapter } from 'serenity-js/lib/serenity-protractor/framework';
+import { TestFrameworkAdapter } from 'serenity-js/lib/serenity-protractor/framework';
+import { SerenityConfig } from 'serenity-js/lib/serenity/serenity';
 import { CucumberOptions } from './cucumber_options';
 
 import _ = require('lodash');
@@ -11,7 +12,7 @@ export class CucumberAdapter implements TestFrameworkAdapter {
 
     private argv: string[] = [];
 
-    constructor(private config: Config<CucumberOptions>) {
+    constructor(private config: SerenityConfig<CucumberOptions>) {
         this.argv = [ 'node', 'cucumberjs' ]
             .concat([ '--require', this.notifier() ])
             .concat([ '--require', this.stageCue() ])
@@ -24,13 +25,13 @@ export class CucumberAdapter implements TestFrameworkAdapter {
             stdout: process.stdout,
         }).run().then(this.booleanToPromise)
 
-    private notifier = () => glob.sync(path.resolve(__dirname) + '/notifier.?s').pop();
+    private notifier = () => glob.sync(path.resolve(__dirname) + '/register.?s').pop();
     private stageCue = () => glob.sync(path.resolve(__dirname) + '/stage_cue.?s').pop();
 
     private booleanToPromise = (result: boolean) => result ? Promise.resolve(result) : Promise.reject(result);
 
-    private argumentsFrom(config: Config<CucumberOptions>): string[] {
-        const resolvedConfig = Object.assign({}, config.options, { require: this.resolved(config.options.require || []) });
+    private argumentsFrom(config: SerenityConfig<CucumberOptions>): string[] {
+        const resolvedConfig = Object.assign({}, config.parameters, { require: this.resolved(config.parameters.require || []) });
 
         const toCLIArgument  = option => (value: string) => !! value
             ? [ `--${ option }`, value ]

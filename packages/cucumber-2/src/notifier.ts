@@ -1,29 +1,30 @@
-import { defineSupportCode } from 'cucumber';
 import { serenity } from 'serenity-js';
 import { ActivityFinished, ActivityStarts, Outcome, RecordedScene, RecordedTask, Result, SceneFinished, SceneStarts, Tag } from 'serenity-js/lib/serenity/domain';
 import { DataTable, DocString, FailureException, Scenario, ScenarioResult, Step, StepArgument, StepResult } from './model';
 
 const CucumberStep = require('cucumber/lib/models/step').default;   // tslint:disable-line:no-var-requires
 
-defineSupportCode(({ registerHandler }) => {
+export class Notifier {
+    handleBeforeScenario = (scenario: Scenario) =>
+        serenity.notify(new SceneStarts(CucumberScene.from(scenario)));
 
-    function isOfInterest(step: any) {
-        // "Before hooks" will also trigger the listeners, but we don't want to report on them
-        // https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/event_handlers.md
-        return step instanceof CucumberStep && ! step.isHidden;
-    }
+    handleBeforeStep = (step: Step) =>
+        this.isOfInterest(step) && serenity.notify(new ActivityStarts(CucumberTask.from(step)));
 
-    registerHandler('BeforeScenario', (scenario: Scenario) => serenity.notify(new SceneStarts(CucumberScene.from(scenario))));
+    handleStepResult = (result: StepResult) =>
+        this.isOfInterest(result.step) && serenity.notify(new ActivityFinished(CucumberOutcome.fromStep(result)));
 
-    registerHandler('BeforeStep', (step: Step) =>
-        isOfInterest(step) && serenity.notify(new ActivityStarts(CucumberTask.from(step))));
+    handleScenarioResult = (result: ScenarioResult) =>
+        serenity.notify(new SceneFinished(CucumberOutcome.fromScenario(result)));
 
-    registerHandler('StepResult', (result: StepResult) =>
-        isOfInterest(result.step) && serenity.notify(new ActivityFinished(CucumberOutcome.fromStep(result))));
+    /**
+     * "Before hooks" will also trigger the listeners, but we don't want to report on them
+     * https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/event_handlers.md
+     * @param step
+     */
+    private isOfInterest = (step: any) => step instanceof CucumberStep && ! step.isHidden;
 
-    registerHandler('ScenarioResult', (result: ScenarioResult) =>
-        serenity.notify(new SceneFinished(CucumberOutcome.fromScenario(result))));
-});
+}
 
 class CucumberOutcome<T> extends Outcome<T> {
 
