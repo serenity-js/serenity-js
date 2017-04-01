@@ -1,6 +1,5 @@
 import { Config } from './config';
 import { DomainEvent } from './domain/events';
-import { Duration } from './duration';
 import { Cast, Journal, Stage, StageCrewMember, StageManager } from './stage';
 
 import _ = require('lodash');
@@ -14,9 +13,7 @@ export class Serenity {
         cwd: process.cwd(),
         crew: [],
         parameters: {},
-        timeouts: {
-            stageCue: Duration.ofSeconds(30),
-        },
+        stageCueTimeout: 30 * 1000,
     });
 
     callToStageFor = (cast: Cast): Stage => this.stage.enter(cast);
@@ -28,7 +25,7 @@ export class Serenity {
     stageManager = () => this.stage.manager;
 
     configure(config: SerenityConfig<Object>) {
-        this.configuration = new Config(config).withFallback(this.configuration);
+        this.configuration = new Config(config).withFallback(this.configuration.get);
 
         this.configuration.get.crew.forEach(crewMember => crewMember.assignTo(this.stage));
     }
@@ -42,7 +39,5 @@ export interface SerenityConfig<T> {
     cwd?: string;
     crew?: StageCrewMember[];
     parameters?: T;
-    timeouts?: {
-        stageCue?: Duration,
-    };
+    stageCueTimeout?: number;
 }

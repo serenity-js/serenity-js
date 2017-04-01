@@ -12,7 +12,6 @@ import { ConsoleReporter } from '../../../../src/serenity/stage/console_reporter
 
 import sinon = require('sinon');
 import expect = require('../../../expect');
-import { Duration } from '../../../../src/serenity/duration';
 
 describe('serenity-protractor', () => {
 
@@ -66,20 +65,6 @@ describe('serenity-protractor', () => {
                         some(StandIns),
                         some(ProtractorNotifier),
                     ],
-                }));
-            });
-
-            it('provides some sensible timeout defaults', () => {
-                const framework = new SerenityProtractorFramework(serenity, protractorRunner.withConfiguration({
-                    serenity: {
-                        dialect: 'mocha',
-                    },
-                }));
-
-                expect(serenity.configure).to.have.been.calledWith(sinon.match({
-                    timeouts: {
-                        stageCue: some(Duration),
-                    },
                 }));
             });
 

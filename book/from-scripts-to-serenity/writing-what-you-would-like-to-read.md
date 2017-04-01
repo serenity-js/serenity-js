@@ -542,7 +542,7 @@ which resolves to a value, such as a string of text or a number, which then can 
 That's why in the example above we could use `Actor.toSee(question)` together with [chai.js](http://chaijs.com/)
 and [chai-as-promised](https://github.com/domenic/chai-as-promised).
 
-There are several [`Questions` that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/src/serenity-protractor/screenplay/questions)
+There are several [`Questions` that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/tree/master/packages/serenity-js/src/serenity-protractor/screenplay/questions)
 which you can use in your test scenarios.
 
 Right now we'll use `Text`,

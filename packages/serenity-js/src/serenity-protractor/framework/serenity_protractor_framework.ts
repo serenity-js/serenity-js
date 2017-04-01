@@ -10,7 +10,6 @@ import { TestFrameworkAdapter } from './test_framework_adapter';
 import { TestFrameworkDetector } from './test_framework_detector';
 
 import _ = require('lodash');
-import { Duration } from '../../serenity/duration';
 
 // spec: https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
 
@@ -66,9 +65,6 @@ export class SerenityProtractorFramework {
 
     // tslint:disable-next-line:no-string-literal that's how, by design, you access custom properties in Protractor
     private withFallback = (pc: ProtractorConfig) => new Config(pc['serenity']).withFallback({
-        timeouts: {
-            stageCue: Duration.ofSeconds(30),
-        },
         crew: [
             /// [default-stage-crew-members]
             serenityBDDReporter(),

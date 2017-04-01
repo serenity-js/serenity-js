@@ -5,5 +5,5 @@ import { serenity } from 'serenity-js';
 // see https://github.com/angular/protractor/issues/4087
 
 defineSupportCode(({ Before, After }) => {
-    Before({ timeout: 10 * 1000 }, () => serenity.stageManager().waitForNextCue());
+    Before({ timeout: serenity.config.stageCueTimeout }, () => serenity.stageManager().waitForNextCue());
 });

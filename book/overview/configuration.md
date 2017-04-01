@@ -144,8 +144,8 @@ exports.config = {
 
 ## Stage Crew Members
 
-The [Stage Crew Members](https://github.com/jan-molak/serenity-js/blob/master/src/stage_crew.ts) listen on
-and act upon the [domain events](https://github.com/jan-molak/serenity-js/blob/master/src/serenity/domain/events.ts)
+The [Stage Crew Members](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/src/stage_crew.ts) listen on
+and act upon the [domain events](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/src/serenity/domain/events.ts)
 emitted during the test scenario execution.
 
 Your default stage crew consists of:
@@ -200,6 +200,28 @@ serenity: {
 
 :bulb: **PRO TIP**: You can define your own Stage Crew Members to produce custom reports or integrate 
 with your infrastructure.
+
+## Timeouts
+
+To ensure that [the contract with Protractor](https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#future-requirements)
+is respected, Serenity/JS needs to wait for any Protractor plugins to process the results of a finished scenario
+before the next scenario can be executed. The same synchronisation needs to occur if Serenity/JS is configured 
+to capture screenshots, as those too might take some time to be stored to disk, 
+especially when the web browser is hosted on a remote grid.
+ 
+To handle those situations, a test scenario will wait for a signal to start - a [stage cue](https://en.wikipedia.org/wiki/Cue_%28theatrical%29#Types),
+up to the maximum of `serenity.stageCueTimeout` milliseconds: 
+
+```javascript
+serenity: {
+   stageCueTimeout: 30 * 1000   // up to 30 seconds by default
+}
+```
+
+To learn how to configure other timeouts, consult the below sections of relevant manuals:
+- [Protractor Timeouts](https://github.com/angular/protractor/blob/master/docs/timeouts.md)
+- [Cucumber Timeouts](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/timeouts.md)
+- [Mocha Timeouts](https://mochajs.org/#timeouts)
 
 ## Protractor
 
