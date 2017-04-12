@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf target",
     "pretest": "serenity update",
-    "pree2e": "npm run webdriver:update -- --standalone --versions.standalone=2.53.1 --versions.chrome=2.28",
+    "pree2e": "npm run webdriver:update -- --standalone --versions.standalone=2.53.1 --versions.chrome=2.29",
     "e2e": "protractor ./protractor.conf.js",
     "e2e-single": "protractor ./protractor.conf.js --cucumberOpts.name",
     "report": "serenity run",
