@@ -72,6 +72,10 @@ export class BrowseTheWeb implements Ability {
         );
     }
 
+    enableAngularSynchronisation(enable: boolean): PromiseLike<any> {
+        return this.browser.waitForAngularEnabled(enable);
+    }
+
     executeScript(script: string, target: Target): PromiseLike<any> {
         return this.browser.executeScript(script, target.resolveUsing(this.browser.element));
     }

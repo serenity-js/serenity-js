@@ -2,7 +2,7 @@ import expect = require('../expect');
 
 import { by, protractor } from 'protractor';
 
-import { Actor, Attribute, BrowseTheWeb, Target, Website } from '../../src/screenplay-protractor';
+import { Actor, Attribute, BrowseTheWeb, Target, UseAngular, Website } from '../../src/screenplay-protractor';
 import { Open, Text, WebElement } from '../../src/serenity-protractor';
 
 import { AppServer } from '../support/server';
@@ -26,11 +26,10 @@ describe ('When demonstrating the usage of a HTML page, a test scenario', functi
     const james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     before(app.start());
-    before(() => {
-        // this is a standard, non-angular website; no need for angular-specific synchronisation here
-        protractor.browser.ignoreSynchronization = true;
-    });
-    before(() => james.attemptsTo(Open.browserOn(app.demonstrating('content'))));
+    before(() => james.attemptsTo(
+        UseAngular.disableSynchronisation(),            // this is a standard, non-angular website;
+        Open.browserOn(app.demonstrating('content')),   // no need for angular-specific synchronisation here
+    ));
     after(app.stop());
 
     it ('can read the text of on-screen elements', () => Promise.all([
