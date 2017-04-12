@@ -15,7 +15,7 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   npm run semantic-release
 
   echo "[DEBUG] CHANGELOG"
-  cat packages/*/CHANGELOG.md
+  find packages -name 'CHANGELOG.md' -maxdepth 2 -print0 | xargs -0 -I % sh -c 'echo %; cat %'
 
   npm run coverage:publish
 fi
