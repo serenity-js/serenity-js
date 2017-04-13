@@ -17,5 +17,7 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   echo "[DEBUG] CHANGELOG"
   find packages -name 'CHANGELOG.md' -maxdepth 2 -print0 | xargs -0 -I % sh -c 'echo %; cat %'
 
+  cp packages/serenity-js/CHANGELOG.md book/_changelog/serenity-js.md
+
   npm run coverage:publish
 fi

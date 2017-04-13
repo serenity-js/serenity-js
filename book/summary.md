@@ -2,6 +2,7 @@
 
 * [Serenity/JS](readme.md)
 * [Introduction](introduction.md)
+* [Changelog](changelog.md)
 
 ## Tutorial
 
