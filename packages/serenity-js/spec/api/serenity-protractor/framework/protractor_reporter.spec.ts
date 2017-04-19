@@ -17,6 +17,8 @@ import {
 import { ProtractorReporter } from '../../../../src/serenity-protractor/reporting';
 import { ProtractorReportExporter } from '../../../../src/serenity-protractor/reporting/protractor_reporter';
 import { RehearsalReport } from '../../../../src/serenity/reporting';
+import { Stage } from '../../../../src/serenity/stage/stage';
+import { Journal, StageManager } from '../../../../src/serenity/stage/stage_manager';
 
 describe('serenity-protractor', () => {
 
@@ -54,11 +56,15 @@ describe('serenity-protractor', () => {
                   examplesOfFailure    = [ Result.FAILURE, Result.COMPROMISED, Result.ERROR ];
 
             let protractor: Runner,
-                reporter: ProtractorReporter;
+                reporter: ProtractorReporter,
+                stage: Stage;
 
             beforeEach(() => {
+                stage      = new Stage(new StageManager(new Journal()));
                 protractor = sinon.createStubInstance(Runner) as any;
+
                 reporter   = new ProtractorReporter(protractor);
+                reporter.assignTo(stage);
             });
 
             describe('complies with the Protractor Framework specification:', () => {
@@ -69,24 +75,26 @@ describe('serenity-protractor', () => {
                 describe('notifies Protractor as soon as a test', () => {
 
                     given(...examplesOfSuccess).it('passes', result => {
-                        reporter.notifyOf(new SceneStarts(scene_1));
-                        reporter.notifyOf(new SceneFinished(new Outcome(scene_1, result)));
+                        reporter.notifyOf(new SceneStarts(scene_1, now));
+                        reporter.notifyOf(new SceneFinished(new Outcome(scene_1, result), now + scene_1_duration));
 
                         expect(protractor.emit, `scenario finished with ${ Result[ result ] }`).
                             to.have.been.calledWith('testPass', {
                                 category: feature,
                                 name: scenario_1,
+                                durationMillis: scene_1_duration,
                             });
                     });
 
                     given(...examplesOfFailure).it('fails', result => {
-                        reporter.notifyOf(new SceneStarts(scene_1));
-                        reporter.notifyOf(new SceneFinished(new Outcome(scene_1, result)));
+                        reporter.notifyOf(new SceneStarts(scene_1, now));
+                        reporter.notifyOf(new SceneFinished(new Outcome(scene_1, result), now + scene_1_duration));
 
                         expect(protractor.emit, `scenario finished with ${ Result[ result ] }`).
                             to.have.been.calledWith('testFail', {
                                 category: feature,
                                 name: scenario_1,
+                                durationMillis: scene_1_duration,
                             });
                     });
                 });

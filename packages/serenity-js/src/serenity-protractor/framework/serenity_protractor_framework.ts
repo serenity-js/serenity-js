@@ -21,8 +21,6 @@ export function run(runner: Runner, specs: string[]): PromiseLike<ProtractorRepo
 
 export class SerenityProtractorFramework {
 
-    private config: SerenityFrameworkConfig;
-
     private framework: TestFrameworkAdapter;
     private reporter: ProtractorReporter;
     private onComplete = noop;
@@ -37,7 +35,7 @@ export class SerenityProtractorFramework {
 
         this.onComplete = protractorConfig.onComplete || noop;
 
-        serenity.configure(this.withFallback(protractorConfig).mergedWith({
+        this.serenity.configure(this.withFallback(protractorConfig).mergedWith({
             crew: [
                 this.reporter,
                 new StandIns(),

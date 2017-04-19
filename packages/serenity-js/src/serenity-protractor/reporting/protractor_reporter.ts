@@ -3,6 +3,7 @@ import {
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
+    Identifiable,
     Outcome,
     RecordedScene,
     Result,
@@ -24,9 +25,11 @@ import { ProtractorActivityReport, ProtractorReport, ProtractorSceneReport } fro
 
 export class ProtractorReporter implements StageCrewMember {
 
-    private static Events_of_Interest = [ SceneStarts, SceneFinished, ActivityStarts, ActivityFinished ];
-    private stage: Stage;
+    private static Events_of_Interest = [ SceneStarts, SceneFinished ];
+    private stage: Stage = null;
     private journal: Journal          = new Journal();
+
+    private timing: {[key: string]: number} = {};
 
     constructor(private runner: Runner) {
     }
@@ -38,7 +41,7 @@ export class ProtractorReporter implements StageCrewMember {
 
     notifyOf(event: DomainEvent<any>): void {
         switch (event.constructor.name) { // tslint:disable-line:switch-default - ignore other events
-            case SceneStarts.name:      return this.record(event);
+            case SceneStarts.name:      return this.sceneStarts(event);
             case ActivityStarts.name:   return this.record(event);
             case ActivityFinished.name: return this.record(event);
             case SceneFinished.name:    return this.sceneFinished(event);
@@ -49,14 +52,19 @@ export class ProtractorReporter implements StageCrewMember {
         return RehearsalReport.from(this.journal.read()).exportedUsing(new ProtractorReportExporter());
     }
 
+    private sceneStarts<T extends Identifiable>(event: DomainEvent<T>) {
+        this.record(event);
+        this.timing[event.value.id] = event.timestamp;
+    }
+
     private sceneFinished(event: SceneFinished): void {
         this.record(event);
-        this.notifyProtractor(event.value);
+        this.notifyProtractor(event.value, event.timestamp - this.timing[event.value.subject.id]);
     }
 
     private record = (event: DomainEvent<any>) => this.journal.record(event);
 
-    private notifyProtractor(outcome: Outcome<RecordedScene>) {
+    private notifyProtractor(outcome: Outcome<RecordedScene>, duration: number) {
         const result = (outcome.result & Result.Failed)
             ? 'testFail'
             : 'testPass';
@@ -64,6 +72,7 @@ export class ProtractorReporter implements StageCrewMember {
         this.runner.emit(result, {
             name: outcome.subject.name,
             category: outcome.subject.category,
+            durationMillis: duration,
         });
     }
 }
