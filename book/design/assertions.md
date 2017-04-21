@@ -52,7 +52,7 @@ items => expect(items).to.eventually.include.('some item of interest');
 could be made configurable:
 
 ```typescript
-epected => actual => expect(items).to.eventually.include(epected);
+expected => actual => expect(items).to.eventually.include(expected);
 ```
 
 We could also give the above function a name, and store it in our project as, say `assertions.ts`, so that
@@ -60,7 +60,7 @@ it can be reused in other scenarios:
   
 ```typescript
 // assertions.ts
-export include = epected => actual => expect(items).to.eventually.include(epected);
+export include = expected => actual => expect(items).to.eventually.include(expected);
 ```  
 
 With this one-liner in place, we could improve the task definition from the previous example:
