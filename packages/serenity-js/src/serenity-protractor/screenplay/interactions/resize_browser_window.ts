@@ -1,4 +1,3 @@
-import { ActivityType, step } from '../../../serenity/recording';
 import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 
@@ -8,18 +7,20 @@ export class ResizeBrowserWindow {
 }
 
 class MaximiseBrowserWindow implements Interaction {
-    @step('{0} maximises the browser window', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).manage().window().maximize();
     }
+
+    toString = () => `{0} maximises the browser window`;
 }
 
 class SetBrowserWindowSize implements Interaction {
     constructor(private width: number, private height: number) {
     }
 
-    @step('{0} sets the size of the browser window to #width x #height', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).manage().window().setSize(this.width, this.height);
     }
+
+    toString = () => `{0} sets the size of the browser window to ${this.width} x ${this.height}`;
 }

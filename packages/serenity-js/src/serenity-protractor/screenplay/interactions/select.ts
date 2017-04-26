@@ -1,6 +1,6 @@
 import { by, ElementFinder, protractor } from 'protractor';
 
-import { ActivityType, step } from '../../../serenity/recording';
+import { step } from '../../../serenity/recording';
 import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
@@ -16,7 +16,6 @@ export class Select {
 }
 
 class SelectOption implements Interaction {
-    @step('{0} selects "#value" from #target', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor)
             .locate(this.target)
@@ -26,10 +25,12 @@ class SelectOption implements Interaction {
 
     constructor(private value: string, private target: Target) {
     }
+
+    toString = () => `{0} selects "${this.value}" from ${this.target}`;
 }
 
 class SelectOptions implements Interaction {
-    @step('{0} selects "#values" from #target', ActivityType.Interaction)
+    @step('{0} selects "#values" from #target')
     performAs(actor: UsesAbilities): PromiseLike<void> {
 
         const hasRequiredText      = (option: ElementFinder) => option.getText().then(value => !!~this.values.indexOf(value)),

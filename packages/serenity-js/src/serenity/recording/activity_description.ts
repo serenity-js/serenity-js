@@ -1,21 +1,25 @@
-import { RecordedActivity, RecordedInteraction, RecordedTask } from '../domain/model';
+import { RecordedActivity } from '../domain/model';
 import { Activity } from '../screenplay/activities';
-import { ActivityType } from './activity_type';
 
-// todo: find a better name; it's not really a "description";
+// todo: make this a function akin to string.format... describeAs('... #field', obj)
 export class ActivityDescription {
-    private argToken   = /{(\d+)}/g;
-    private fieldToken = /#(\w+)/g;
+    private arg_token   = /{(\d+)}/g;
+    private field_token = /#(\w+)/g;
 
-    constructor(private template: string, private type: ActivityType) { }
+    constructor(private template: string) { }
 
+    // todo: remove
     interpolateWith(activity: Activity, argumentsOfThePerformAsMethod: any[]): RecordedActivity {
         const name = this.determineName(this.template, activity, argumentsOfThePerformAsMethod);
 
-        return (this.type === ActivityType.Task)
-            ? new RecordedTask(name)
-            : new RecordedInteraction(name);
+        return new RecordedActivity(name);
     }
+
+    interpolatedWithArguments = (...args: Object[]) => this.template.replace(this.arg_token, this.using(args));
+
+    interpolatedWithFieldsOf = (source: Object) => this.template.replace(this.field_token, this.using(source));
+
+    toString = () => this.template;
 
     private using(source: any) {
         return (token: string, field: string|number) => {
@@ -29,9 +33,10 @@ export class ActivityDescription {
         };
     }
 
+    // todo: remove
     private determineName(template: string, activity: Activity, args: any[]): string {
         return template.
-            replace(this.fieldToken, this.using(activity)).
-            replace(this.argToken, this.using(args));
+            replace(this.field_token, this.using(activity)).
+            replace(this.arg_token, this.using(args));
     }
 }

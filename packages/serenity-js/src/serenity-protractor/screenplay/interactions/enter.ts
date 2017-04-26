@@ -1,4 +1,3 @@
-import { ActivityType, step } from '../../../serenity/recording';
 import { Interaction, PerformsTasks, Task, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
@@ -37,10 +36,11 @@ export class Enter implements Task {
 
 class EnterValue implements Interaction {
 
-    @step('{0} enters "#value" into #target', ActivityType.Interaction)
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor).locate(this.target).sendKeys(this.value as string);
     }
 
     constructor(private value: string | number, private target: Target) { }
+
+    toString = () => `{0} enters "#value" into ${this.target}`;
 }

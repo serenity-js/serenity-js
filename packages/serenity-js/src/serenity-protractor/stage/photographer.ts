@@ -30,10 +30,6 @@ export class ActivityOfInterest {
     isAResultOfInterest(result: Result): boolean {
         return !! (result & this.resultsOfInterest);
     }
-
-    isAnActivityOfInterest(activity: RecordedActivity): boolean {
-        return true;
-    }
 }
 
 export class PhotographySchedule {
@@ -170,13 +166,13 @@ class PhotoTakingStrategy {
     }
 
     activityStarts(event: ActivityStarts, photographer: Photographer) {
-        if (photographer.canWork() && this.interests.isAnActivityOfInterest(event.value) ) {
+        if (photographer.canWork()) {
             this.timing.takeABeforePhoto(event, photographer);
         }
     }
 
     activityFinished(event: ActivityFinished, photographer: Photographer) {
-        if (photographer.canWork() && this.interests.isAnActivityOfInterest(event.value.subject) && this.interests.isAResultOfInterest(event.value.result)) {
+        if (photographer.canWork() && this.interests.isAResultOfInterest(event.value.result)) {
             this.timing.takeAnAfterPhoto(event, photographer);
         }
     }
