@@ -1,5 +1,6 @@
 import chai = require('chai');
+import chaiAsPromised = require('chai-as-promised');
 
-chai.use(require('chai-as-promised'));  // tslint:disable-line:no-var-requires
+chai.use(chaiAsPromised);
 
 export const expect = chai.expect;
