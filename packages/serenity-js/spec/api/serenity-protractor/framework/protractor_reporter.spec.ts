@@ -7,8 +7,8 @@ import {
     ActivityStarts,
     DomainEvent,
     Outcome,
+    RecordedActivity,
     RecordedScene,
-    RecordedTask,
     Result,
     SceneFinished,
     SceneStarts,
@@ -35,22 +35,22 @@ describe('serenity-protractor', () => {
                   scene_1 = new RecordedScene(
                       scenario_1,
                       feature,
-                      featureFile,
+                      { path: featureFile },
                   ),
                   scene_1_duration = 10,
                   scene_2 = new RecordedScene(
                       scenario_2,
                       feature,
-                      featureFile,
+                      { path: featureFile },
                   ),
                   scene_2_duration = 7,
-                  logsIn = new RecordedTask('Logs in'),
+                  logsIn = new RecordedActivity('Logs in'),
                   logsIn_duration = 10,
-                  entersUsername = new RecordedTask('Enters username'),
+                  entersUsername = new RecordedActivity('Enters username'),
                   entersUsername_duration = 6,
-                  entersPassword = new RecordedTask('Enters password'),
+                  entersPassword = new RecordedActivity('Enters password'),
                   entersPassword_duration = 4,
-                  selectsAProduct = new RecordedTask('Selects a product');
+                  selectsAProduct = new RecordedActivity('Selects a product');
 
             const examplesOfSuccess = [ Result.SUCCESS, Result.PENDING, Result.IGNORED, Result.SKIPPED ],
                   examplesOfFailure    = [ Result.FAILURE, Result.COMPROMISED, Result.ERROR ];

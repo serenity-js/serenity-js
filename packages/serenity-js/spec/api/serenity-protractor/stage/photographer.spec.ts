@@ -18,8 +18,8 @@ import {
     Photo,
     PhotoAttempted,
     PhotoReceipt,
+    RecordedActivity,
     RecordedScene,
-    RecordedTask,
     Result,
     SceneFinished,
     SceneStarts,
@@ -42,7 +42,7 @@ describe('Photographer', () => {
             fileSystem: any;
 
         const
-            activity  = new RecordedTask('Adds an item to the basket'),
+            activity  = new RecordedActivity('Adds an item to the basket'),
             photoName = 'photo.png',
             photoPath = 'target/serenity/site/' + photoName,
             now       = 1469028588000;
@@ -248,7 +248,7 @@ describe('Photographer', () => {
 
             it('is not interested in events other that the Start and Finish of an Activity', () => {
 
-                const scene = new RecordedScene('A user adds a product to their basket', 'Checkout', 'checkout.feature');
+                const scene = new RecordedScene('A user adds a product to their basket', 'Checkout');
 
                 thePhotographer.notifyOf(new SceneStarts(scene, now));
                 thePhotographer.notifyOf(new SceneFinished(new Outcome(scene, Result.SUCCESS), now));

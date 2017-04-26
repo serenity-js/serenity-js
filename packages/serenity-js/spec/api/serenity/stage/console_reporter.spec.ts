@@ -5,8 +5,8 @@ import {
     Photo,
     PhotoAttempted,
     PhotoReceipt,
+    RecordedActivity,
     RecordedScene,
-    RecordedTask,
     Result,
     SceneFinished,
     SceneStarts,
@@ -24,7 +24,7 @@ describe ('When reporting on what happened during the rehearsal', () => {
 
         const
             startTime = 1467201010000,
-            scene     = new RecordedScene('Paying with a default card', 'Checkout', 'features/checkout.feature');
+            scene     = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
 
         it ('can be instantiated using a factory method', () => {
             expect(consoleReporter()).to.be.instanceOf(ConsoleReporter);
@@ -78,11 +78,11 @@ describe ('When reporting on what happened during the rehearsal', () => {
         }
 
         function activityStarted(name: string, timestamp: number) {
-            return new ActivityStarts(new RecordedTask(name), timestamp);
+            return new ActivityStarts(new RecordedActivity(name), timestamp);
         }
 
         function activityFinished(name: string, r: Result, ts: number, e?: Error) {
-            return new ActivityFinished(new Outcome(new RecordedTask(name), r, e), ts);
+            return new ActivityFinished(new Outcome(new RecordedActivity(name), r, e), ts);
         }
 
         function sceneFinished(s: RecordedScene, r: Result, timestamp: number, e?: Error) {
@@ -90,7 +90,7 @@ describe ('When reporting on what happened during the rehearsal', () => {
         }
 
         function photoTaken(name: string, path: string, timestamp: number) {
-            return new PhotoAttempted(new PhotoReceipt(new RecordedTask(name), Promise.resolve(new Photo(path))), timestamp);
+            return new PhotoAttempted(new PhotoReceipt(new RecordedActivity(name), Promise.resolve(new Photo(path))), timestamp);
         }
     });
 });

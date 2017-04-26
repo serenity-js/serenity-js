@@ -41,7 +41,7 @@ class MochaScene extends RecordedScene {
         super(
             nameOf(scenario),
             categoryOf(scenario),
-            scenario.file,
+            { path: scenario.file },
             [],
             scenario.fullTitle(),
         );

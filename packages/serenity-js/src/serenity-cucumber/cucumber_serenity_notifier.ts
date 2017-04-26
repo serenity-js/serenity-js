@@ -5,7 +5,6 @@ import {
     Outcome,
     RecordedActivity,
     RecordedScene,
-    RecordedTask,
     Result,
     SceneFinished,
     SceneStarts,
@@ -95,7 +94,8 @@ function sceneFrom(scenario: cucumber.events.ScenarioPayload): RecordedScene {
 }
 
 function activityFrom(step: cucumber.events.StepPayload): RecordedActivity {
-    return new RecordedTask(fullNameOf(step));
+    // todo: override RecordedTask::location
+    return new RecordedActivity(fullNameOf(step));
 }
 
 function outcome<T>(subject: T, stepStatus: string, maybeError?: Error | string | undefined): Outcome<T> {
@@ -142,9 +142,14 @@ class CucumberScene extends RecordedScene {
         super(
             scenario.getName(),
             scenario.getFeature().getName(),
-            scenario.getUri(),
+            {
+                path: scenario.getUri(),
+                line: scenario.getLine(),
+            },
             scenario.getTags().map(toSerenityTag),
             `${scenario.getFeature().getName()}:${scenario.getLine()}:${scenario.getName()}`,
         );
     }
+
+    // todo: override CucumberScene::location to return the line and column retrieved from cucumber event
 }

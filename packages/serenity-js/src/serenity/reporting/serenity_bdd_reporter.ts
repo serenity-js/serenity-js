@@ -86,7 +86,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 result:         Result[node.outcome.result],
                 userStory:      {
                     id:         this.dashified(node.value.category),
-                    path:       path.relative(process.cwd(), node.value.path),
+                    path:       path.relative(process.cwd(), node.value.location.path),
                     storyName:  node.value.category,
                     type:       'feature',
                 },

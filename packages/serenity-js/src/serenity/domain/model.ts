@@ -70,41 +70,60 @@ export class Tag {
 }
 
 export class RecordedScene implements Identifiable {
-    constructor(public name: string, public category: string, public path: string, public tags: Tag[] = [], public id: string = `${category}:${name}`) { }
+    constructor(public name: string,
+                public category: string,
+                public location: SourceLocation = new UnknownSourceLocation(),
+                public tags: Tag[] = [],
+                public id: string = `${category}:${name}`) { }
 
     equals(another: RecordedScene): boolean {
         return (another instanceof RecordedScene) &&
             this.name === another.name &&
             this.category === another.category &&
-            this.path === another.path;
+            this.location.path === another.location.path &&
+            this.location.line === another.location.line &&
+            this.location.column === another.location.column;
         // todo: tags are _probably_ not necessary ?
     }
 
     toString() {
-        return `${this.name} (category: ${this.category}, path: ${this.path}${when(this.id !== this.name, ', id: ' + this.id)})`;
+        return this.name +
+            ` (category: ${this.category}, path: ${this.location.path}` +
+            when(!! this.location.line, ':' + this.location.line) +
+            when(!! this.location.column, ':' + this.location.column) +
+            `${when(this.id !== this.name, ', id: ' + this.id)})`;
     }
 }
 
-export abstract class RecordedActivity implements Identifiable {
-    constructor(public name: string, public id: string = name) { }
+export interface SourceLocation {
+    path: string;
+    line?: number;
+    column?: number;
+}
+
+export class UnknownSourceLocation implements SourceLocation {
+    path   = undefined;
+    line   = undefined;
+    column = undefined;
+}
+
+export class RecordedActivity implements Identifiable {
+
+    constructor(public name: string, public location: SourceLocation = new UnknownSourceLocation(), public id: string = name) {
+    }
 
     equals(another: RecordedActivity): boolean {
         return (another instanceof RecordedActivity) &&
             this.name === another.name &&
+            this.location.path === another.location.path &&
+            this.location.line === another.location.line &&
+            this.location.column === another.location.column &&
             this.id === another.id;
     }
 
     toString() {
         return `${this.name}${when(this.id !== this.name, ' (id: ' + this.id + ')')}`;
     }
-}
-
-export class RecordedTask extends RecordedActivity {
-
-}
-
-export class RecordedInteraction extends RecordedActivity {
-
 }
 
 export class Outcome<T> {

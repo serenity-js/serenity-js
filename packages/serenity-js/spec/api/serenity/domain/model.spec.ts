@@ -1,6 +1,6 @@
 import expect = require('../../../expect');
 
-import { RecordedTask, Tag } from '../../../../src/serenity/domain/model';
+import { RecordedActivity, Tag } from '../../../../src/serenity/domain/model';
 
 describe ('Serenity Domain Model', () => {
 
@@ -34,28 +34,35 @@ describe ('Serenity Domain Model', () => {
         });
     });
 
-    describe ('Activity', () => {
+    describe ('RecordedActivity', () => {
 
         it ('is comparable', () => {
 
             const
-                a1 = new RecordedTask('Pays with a credit card'),
-                a2 = new RecordedTask('Pays with a credit card');
+                a1 = new RecordedActivity('Pays with a credit card'),
+                a2 = new RecordedActivity('Pays with a credit card');
 
             expect(a1.equals(a2)).to.be.true;
             expect(a1).to.deep.equal(a2);
         });
 
         it ('can be represented as string', () => {
-            const a = new RecordedTask('Pays with a credit card');
+            const a = new RecordedActivity('Pays with a credit card');
 
             expect(a.toString()).to.equal('Pays with a credit card');
         });
 
-        it ('can have a custom identifier', () => {
-            const a = new RecordedTask('Pays with a credit card', 'pays-with-a-credit-card');
+        it ('knows where it was invoked', () => {
+            const a = new RecordedActivity('Pays with a credit card', { path: '/some/path/to/script.ts', column: 10, line: 5 });
 
-            expect(a.toString()).to.equal('Pays with a credit card (id: pays-with-a-credit-card)');
+            expect(a).recorded.calledAt({ path: '/some/path/to/script.ts', column: 10, line: 5 });
+        });
+
+        it ('can have a custom id', () => {
+            const some_location = { path: '', column: 0, line: 0 };
+            const a = new RecordedActivity('Pays with a credit card', some_location, 'some-custom-id');
+
+            expect(a.id).to.equal('some-custom-id');
         });
     });
 });

@@ -1,5 +1,5 @@
 import { serenity } from 'serenity-js';
-import { ActivityFinished, ActivityStarts, Outcome, RecordedScene, RecordedTask, Result, SceneFinished, SceneStarts, Tag } from 'serenity-js/lib/serenity/domain';
+import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, RecordedScene, Result, SceneFinished, SceneStarts, Tag } from 'serenity-js/lib/serenity/domain';
 import { DataTable, DocString, FailureException, Scenario, ScenarioResult, Step, StepArgument, StepResult } from './model';
 
 const CucumberStep = require('cucumber/lib/models/step').default;   // tslint:disable-line:no-var-requires
@@ -82,14 +82,14 @@ class CucumberScene extends RecordedScene {
         super(
             scenario.name,
             scenario.feature.name,
-            scenario.uri,
+            { path: scenario.uri, line: scenario.line },
             scenario.tags.map(tag => Tag.from(tag.name)),
             `${ scenario.feature.name }:${ scenario.line }:${ scenario.name }`,
         );
     }
 }
 
-class CucumberTask extends RecordedTask {
+class CucumberTask extends RecordedActivity {
     static from = (step: Step) => new CucumberTask(step);
 
     private static fullNameOf = (step: Step): string => [

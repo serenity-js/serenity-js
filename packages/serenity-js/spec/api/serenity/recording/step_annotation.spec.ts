@@ -1,23 +1,19 @@
-import { Activity, Task } from '../../../../src/serenity/screenplay/activities';
+import { Task } from '../../../../src/serenity/screenplay/activities';
 import { Actor, PerformsTasks } from '../../../../src/serenity/screenplay/actor';
 import { Journal, StageManager } from '../../../../src/serenity/stage';
 
-import { Step, StepAnnotation } from '../../../../src/serenity/recording/step_annotation';
+import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, Result } from '../../../../src/serenity/domain';
+import { step } from '../../../../src/serenity/recording/step_annotation';
 
 import expect = require('../../../expect');
-import { ActivityFinished, ActivityStarts } from '../../../../src/serenity/domain/events';
-import { Outcome, RecordedActivity, Result } from '../../../../src/serenity/domain/model';
+
+import StackTrace = require('stacktrace-js');
 
 describe('Notifiers', () => {
 
     const
-        stageManager = new StageManager(new Journal()),
-        bruce        = Actor.named('Bruce');
-
-    // todo: once the Step factory comes from a DI we can test the actual annotation
-    function step<T extends Activity>(stepDescriptionTemplate: string): StepAnnotation<T> {
-        return new Step(stageManager).describedUsing(stepDescriptionTemplate);
-    }
+        stage_manager = new StageManager(new Journal()),
+        bruce         = new Actor('Bruce', stage_manager);
 
     describe('@step', () => {
 
@@ -30,7 +26,8 @@ describe('Notifiers', () => {
                         return new PayWithCreditCard(creditCardNumber);
                     }
 
-                    constructor(private cardNumber: string) {}
+                    constructor(private cardNumber: string) {
+                    }
 
                     @step('{0} pays with a credit card number #cardNumber')
                     performAs(actor: PerformsTasks): PromiseLike<void> {
@@ -42,7 +39,7 @@ describe('Notifiers', () => {
 
                     return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
 
-                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+                        const newJournalEntries = stage_manager.readNewJournalEntriesAs('unit-test');
 
                         expect(newJournalEntries).to.have.lengthOf(2);
 
@@ -56,7 +53,7 @@ describe('Notifiers', () => {
 
                     return bruce.attemptsTo(PayWithCreditCard.number('4111 1111 1111 1111')).then(() => {
 
-                        const newJournalEntries = stageManager.readNewJournalEntriesAs('unit-test');
+                        const newJournalEntries = stage_manager.readNewJournalEntriesAs('unit-test');
 
                         expect(newJournalEntries).to.have.lengthOf(2);
 
@@ -65,6 +62,21 @@ describe('Notifiers', () => {
 
                         expect(newJournalEntries[ 1 ].value.subject).to.be.instanceOf(RecordedActivity);
                         expect(newJournalEntries[ 1 ].value.subject.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
+                    });
+                });
+
+                it('Knows its location to enable debugging and IDE support', () => {
+                    return bruce.attemptsTo(
+                        PayWithCreditCard.number('4111 1111 1111 1111'),
+                    ).then(() => {
+
+                        const [ start, finish ] = stage_manager.readNewJournalEntriesAs('unit-test');
+
+                        expect(start.value).to.be.recorded.calledAt({
+                            path: '/step_annotation.spec.ts',
+                            line: 69,
+                            column: 34,
+                        });
                     });
                 });
             });
@@ -102,7 +114,7 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnError.number('1234 1234 1234 1234'))                    ).
                         to.be.rejected.then(() => {
 
-                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stage_manager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);
@@ -113,7 +125,7 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardThrowingAnAssertionError.number('1234 1234 1234 1234'))).
                         to.be.rejected.then(() => {
 
-                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stage_manager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('expected false to equal true');
                             expect(Result[lastEntry.value.result]).to.equal(Result[Result.FAILURE]);
@@ -141,7 +153,7 @@ describe('Notifiers', () => {
                     expect(bruce.attemptsTo(PayWithInvalidCreditCardRejectingAPromise.number('1234 1234 1234 1234'))).
                         to.be.rejected.then(() => {
 
-                            const lastEntry = stageManager.readNewJournalEntriesAs('unit-test').pop();
+                            const lastEntry = stage_manager.readNewJournalEntriesAs('unit-test').pop();
 
                             expect(lastEntry.value.error.message).to.equal('Payment failed');
                             expect(lastEntry.value.result).to.equal(Result.ERROR);
