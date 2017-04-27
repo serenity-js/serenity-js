@@ -378,15 +378,15 @@ describe('When reporting on what happened during the rehearsal', () => {
                                     errorType: 'Error',
                                     message: "We're sorry, something happened",
                                     stackTrace: [ {
-                                        declaringClass: 'Object',
+                                        declaringClass: '',
                                         fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                         lineNumber: 326,
-                                        methodName: 'callFn',
+                                        methodName: 'callFn()',
                                     }, {
-                                        declaringClass: 'Test',
+                                        declaringClass: '',
                                         fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                         lineNumber: 319,
-                                        methodName: 'Runnable.run',
+                                        methodName: 'Test.Runnable.run()',
                                     } ],
                                 },
                             } ],
@@ -396,15 +396,15 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 errorType: 'Error',
                                 message: "We're sorry, something happened",
                                 stackTrace: [ {
-                                    declaringClass: 'Object',
+                                    declaringClass: '',
                                     fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                     lineNumber: 326,
-                                    methodName: 'callFn',
+                                    methodName: 'callFn()',
                                 }, {
-                                    declaringClass: 'Test',
+                                    declaringClass: '',
                                     fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
                                     lineNumber: 319,
-                                    methodName: 'Runnable.run',
+                                    methodName: 'Test.Runnable.run()',
                                 } ],
                             },
                         })));
@@ -432,7 +432,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 exception: {
                                     errorType: 'Error',
                                     message: 'Timeout of 1000ms exceeded.',
-                                    stackTrace: [ ],
+                                    stackTrace: [],
                                 },
                             } ],
                             result: 'ERROR',
@@ -443,6 +443,43 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 stackTrace: [],
                             },
                         })));
+                });
+
+                it('describes assertion errors that don\'t have a stacktrace', () => {
+                    try {
+                        expect(true).to.equal(false);
+                    } catch (error) {
+
+                        givenFollowingEvents(
+                            sceneStarted(scene, startTime),
+                            activityStarted('Buys a discounted e-book reader', startTime + 1),
+                            sceneFinished(scene, Result.ERROR, startTime + 1001, error),
+                        );
+
+                        return stageManager.waitForNextCue().then(_ =>
+                            expect(producedReport()).to.deep.equal(expectedReportWith({
+                                duration: 1001,
+                                testSteps: [ {
+                                    description: 'Buys a discounted e-book reader',
+                                    startTime: startTime + 1,
+                                    duration: 1000,
+                                    result: 'ERROR',
+                                    children: [],
+                                    exception: {
+                                        errorType: 'AssertionError',
+                                        message: 'expected true to equal false',
+                                        stackTrace: [],
+                                    },
+                                } ],
+                                result: 'ERROR',
+                                annotatedResult: 'ERROR',
+                                testFailureCause: {
+                                    errorType: 'AssertionError',
+                                    message: 'expected true to equal false',
+                                    stackTrace: [],
+                                },
+                            })));
+                        }
                 });
             });
 

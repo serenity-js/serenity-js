@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import * as path from 'path';
-import { parse, StackFrame } from 'stack-trace';
+import StackTrace = require('stacktrace-js');
+import { StackFrame } from 'stacktrace-js';
 import { Md5 } from 'ts-md5/dist/md5';
 
 import { Stage, StageCrewMember } from '../../serenity/stage';
@@ -74,7 +75,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
 
     exportScene(node: ScenePeriod): PromiseLike<SceneReport> {
         return Promise.all(node.children.map(child => child.exportedUsing(this)))
-            .then((children: ActivityReport[]) => ({
+            .then((children: ActivityReport[]) => this.errorExporter.tryToExport(node.outcome.error).then(error => ({
                 title:          node.value.name,
                 name:           node.value.name,
                 description:    '',
@@ -95,20 +96,20 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 testSteps:      children,
 
                 annotatedResult:  Result[node.outcome.result],
-                testFailureCause: this.errorExporter.tryToExport(node.outcome.error),
-            }));
+                testFailureCause: error,
+            })));
     }
 
     exportActivity(node: ActivityPeriod): PromiseLike<ActivityReport> {
         return Promise.all(node.children.map(child => child.exportedUsing(this)))
-            .then((children: ActivityReport[]) => node.photos().then( photos => ({
+            .then((children: ActivityReport[]) => Promise.all([ node.photos(), this.errorExporter.tryToExport(node.outcome.error)]).then( r => ({
                 description: node.value.name,
                 duration:    node.duration(),
                 startTime:   node.startedAt,
-                screenshots: this.photoExporter.tryToExport(photos),
+                screenshots: this.photoExporter.tryToExport(r[0]),
                 result:      Result[node.outcome.result],
                 children,
-                exception:   this.errorExporter.tryToExport(node.outcome.error),
+                exception:   r[1], // this.errorExporter.tryToExport(node.outcome.error),
             })));
     }
 
@@ -172,32 +173,36 @@ class PhotoExporter {
 }
 
 class ErrorExporter {
-    tryToExport(error: Error): ErrorReport {
+    tryToExport(error: Error): PromiseLike<ErrorReport> {
         if (! error) {
-            return undefined; // an undefined JSON field does not get serialised and that's what Serenity BDD expects
+            return Promise.resolve(undefined); // an undefined JSON field does not get serialised and that's what Serenity BDD expects
         }
 
-        return {
+        return this.stackTraceOf(error).then(frames => ({
             errorType:    error.name,
             message:      error.message,
-            stackTrace:   this.stackTraceOf(error),
-        };
+            stackTrace:   frames,
+        }));
     }
 
-    private stackTraceOf(error: Error): ErrorReportStackFrame[] {
+    private stackTraceOf(error: Error): PromiseLike<ErrorReportStackFrame[]> {
+        return !! error.stack ? this.parsedStackTraceOf(error) : Promise.resolve([]);
+    }
+
+    private parsedStackTraceOf(error: Error): PromiseLike<ErrorReportStackFrame[]> {
         const
             serenityCode = /node_modules[\\/]serenity/,
             onlyIfFound  = index => !! ~index ? index : undefined,
-            firstSerenityStackFrame = (stack: StackFrame[]): number => onlyIfFound(stack.findIndex(frame => !! serenityCode.exec(frame.getFileName()))),
-            parsed = parse(error);
+            firstSerenityStackFrame = (stack: StackFrame[]): number => onlyIfFound(stack.findIndex(frame => !! serenityCode.exec(frame.fileName))),
+            stack = StackTrace.fromError(error);
 
-        return parsed.slice(0, firstSerenityStackFrame(parsed)).map(frame => {
+        return stack.then(frames => frames.slice(0, firstSerenityStackFrame(frames)).map(frame => {
             return {
-                declaringClass: frame.getTypeName() || frame.getFunctionName() || '',
-                methodName:     frame.getMethodName() || frame.getFunctionName() || '',
-                fileName:       frame.getFileName(),
-                lineNumber:     frame.getLineNumber(),
+                declaringClass: '',
+                methodName:     `${ frame.functionName }(${ (frame.args || []).join(', ') })`,
+                fileName:       frame.fileName,
+                lineNumber:     frame.lineNumber,
             };
-        });
+        }));
     }
 }
