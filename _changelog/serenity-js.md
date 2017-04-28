@@ -1,5 +1,15 @@
-<a name="1.4.0"></a>
-# 1.4.0 (2017-04-27)
+<a name="1.4.1"></a>
+## 1.4.1 (2017-04-28)
+
+
+
+<a name="1.4.1"></a>
+## 1.4.1 (2017-04-28)
+
+
+### Bug Fixes
+
+* **core:** both the [@step](https://github.com/step) and Activity::toString can use an #actor token instead of {0} ([a1da923](https://github.com/jan-molak/serenity-js/commit/a1da923))
 
 
 
