@@ -1,42 +1,30 @@
-import { RecordedActivity } from '../domain/model';
-import { Activity } from '../screenplay/activities';
+import { Actor } from '../screenplay/actor';
 
-// todo: make this a function akin to string.format... describeAs('... #field', obj)
-export class ActivityDescription {
-    private arg_token   = /{(\d+)}/g;
-    private field_token = /#(\w+)/g;
+export function describe_as(template: string, ...parameters: any[]): string {
 
-    constructor(private template: string) { }
+    const
+        argument_tokens = /{(\d+)}/g,
+        field_tokens    = /#(\w+)/g,
+        actor_token     = '#actor',
+        actor_name      = parameters[0] instanceof Actor ? parameters[0] : actor_token;
 
-    // todo: remove
-    interpolateWith(activity: Activity, argumentsOfThePerformAsMethod: any[]): RecordedActivity {
-        const name = this.determineName(this.template, activity, argumentsOfThePerformAsMethod);
+    const interpolated = field_tokens.test(template)
+        ? template.replace(field_tokens, using(parameters[0]))
+        : template.replace(argument_tokens, using(parameters));
 
-        return new RecordedActivity(name);
-    }
+    return interpolated.replace(actor_token, actor_name);
+}
 
-    interpolatedWithArguments = (...args: Object[]) => this.template.replace(this.arg_token, this.using(args));
+function using(source: any) {
+    return (token: string, field: string|number) => stringify(token, source[field]);
+}
 
-    interpolatedWithFieldsOf = (source: Object) => this.template.replace(this.field_token, this.using(source));
-
-    toString = () => this.template;
-
-    private using(source: any) {
-        return (token: string, field: string|number) => {
-            switch ({}.toString.call(source[field])) {
-                case '[object Function]':   return source[field]();
-                case '[object Array]':      return source[field].join(', ');
-                case '[object Object]':     return source[field].toString();
-                case '[object Undefined]':  return token;
-                default:                    return source[field];
-            }
-        };
-    }
-
-    // todo: remove
-    private determineName(template: string, activity: Activity, args: any[]): string {
-        return template.
-            replace(this.field_token, this.using(activity)).
-            replace(this.arg_token, this.using(args));
+function stringify(token: string, value: any): string {
+    switch ({}.toString.call(value)) {
+        case '[object Function]':   return stringify(token, value());
+        case '[object Array]':      return value.map(item => stringify(token, item)).join(', ');
+        case '[object Object]':     return value.toString();
+        case '[object Undefined]':  return token;
+        default:                    return value;
     }
 }

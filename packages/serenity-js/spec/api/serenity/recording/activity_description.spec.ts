@@ -1,19 +1,15 @@
-import { ActivityDescription } from '../../../../src/serenity/recording/activity_description';
+import { given } from 'mocha-testdata';
+
+import { describe_as } from '../../../../src/serenity/recording/activity_description';
 import { Actor, PerformsTasks, Task } from '../../../../src/serenity/screenplay';
 
 import expect = require('../../../expect');
 
-describe('ActivityDescription', () => {
+describe('Description of an Activity', () => {
 
     class PayWithCreditCard implements Task {
         static number(creditCardNumber: string) {
             return new PayWithCreditCard(creditCardNumber);
-        }
-
-        expiringOn(date: string) {
-            this.expiryDate = date.split('/');
-
-            return this;
         }
 
         constructor(private cardNumber: string, private expiryDate?: string[]) {}
@@ -24,46 +20,36 @@ describe('ActivityDescription', () => {
             );
         }
 
-        lastFourDigits() {
-            return this.cardNumber.slice(-4);
-        }
+        toString = () => describe_as('#actor pays with a credit card ending #lastFourDigits', this);
+
+        private lastFourDigits = () => this.cardNumber.slice(-4);
     }
 
-    describe('generates a step from an activity so that the template of its name', () => {
+    given(
+        [ describe_as('name: {0}', 'John'),                                 'name: John'                ],
+        [ describe_as('{1}, {0}; age: {2}', 'John', 'Smith', 47),           'Smith, John; age: 47'      ],
+        [ describe_as('{0} selects a product',    Actor.named('Emma')),     'Emma selects a product'    ],
+        [ describe_as('#actor selects a product', Actor.named('Emma')),     'Emma selects a product'    ],
+        [ describe_as('#first #last', { first: 'Jan', last: 'Molak' }),     'Jan Molak'                 ],
+        [ describe_as('#first #last', { last: 'Bond' }),                    '#first Bond'               ],
+        [ describe_as('products: #list', { list: ['apples', 'oranges'] }),  'products: apples, oranges' ],
+    ).
+    it ('can be parametrised', (result, expected) => expect(result).to.equal(expected));
 
-        it('uses public methods defined on the activity', () => {
-            const step = new ActivityDescription('Pays with a credit card ending "#lastFourDigits"')
-                .interpolateWith(PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'), []);
+    it ('can include the properties of an Activity', () => {
 
-            expect(step.name).to.equal('Pays with a credit card ending "1234"');
-        });
+        const activity = PayWithCreditCard.number('4111 1111 1111 1234');
 
-        it('uses member fields defined on the activity', () => {
-            const step = new ActivityDescription('Pays with a credit number "#cardNumber"')
-                .interpolateWith(PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'), []);
-
-            expect(step.name).to.equal('Pays with a credit number "4111 1111 1111 1234"');
-        });
-
-        it('uses lists of strings', () => {
-            const step = new ActivityDescription('Pays with a credit card expiring on "#expiryDate"')
-                .interpolateWith(PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'), []);
-
-            expect(step.name).to.equal('Pays with a credit card expiring on "2020, 12"');
-        });
-
-        it('uses arguments passed to the performAs method', () => {
-            const step = new ActivityDescription('{0} pays with a credit card')
-                .interpolateWith(PayWithCreditCard.number('4111 1111 1111 1234').expiringOn('2020/12'), [Actor.named('James')]);
-
-            expect(step.name).to.equal('James pays with a credit card');
-        });
-
-        it('ignores the fields that are not defined', () => {
-            const step = new ActivityDescription('Pays with a credit card with PIN number #pinNumber')
-                .interpolateWith(PayWithCreditCard.number('4111 1111 1111 1234'), []);
-
-            expect(step.name).to.equal('Pays with a credit card with PIN number #pinNumber');
-        });
+        expect(activity.toString()).to.equal('#actor pays with a credit card ending 1234');
     });
+
+    it ('interpolates field tokens before taking argument tokens into consideration', () => {
+        const activity = {
+            products: () => ['apples', 'oranges'],
+            toString: () => describe_as('{0} adds #products to the basket', activity),
+        };
+
+        expect(activity.toString()).to.equal('{0} adds apples, oranges to the basket');
+    });
+
 });

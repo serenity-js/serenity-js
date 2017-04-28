@@ -1,5 +1,5 @@
 import { Activity } from '../screenplay';
-import { ActivityDescription } from './activity_description';
+import { describe_as } from './activity_description';
 
 export class Step {
 
@@ -9,7 +9,7 @@ export class Step {
 
             if (this.usesOldDescriptionStyle(target)) {
                 target.toString = function() {
-                    return new ActivityDescription(template).interpolatedWithFieldsOf(this);
+                    return describe_as(template, this);
                 };
             }
 

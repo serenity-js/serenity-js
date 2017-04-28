@@ -1,6 +1,6 @@
 import { serenity } from '../..';
 import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, Result, SourceLocation } from '../domain';
-import { ActivityDescription } from '../recording/activity_description';
+import { describe_as } from '../recording/activity_description';
 import { StageManager } from '../stage/stage_manager';
 
 import { Activity } from './activities';
@@ -101,7 +101,7 @@ class TrackedActivity implements Activity {
     private location: Promise<SourceLocation>;
 
     performAs(actor: PerformsTasks | UsesAbilities | AnswersQuestions): PromiseLike<void> {
-        const description = new ActivityDescription(this.activity.toString()).interpolatedWithArguments(actor);
+        const description = describe_as(this.activity.toString(), actor);
 
         return this.location.then(location => {
 

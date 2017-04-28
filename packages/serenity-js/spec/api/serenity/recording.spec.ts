@@ -87,20 +87,22 @@ describe ('When recording', () => {
 
             describe('minimalist implementation', () => {
 
-                const follow_the = (person_of_interest: string) => task_where(`{0} follows the ${person_of_interest}`);
+                const Follow = {
+                    the: (person_of_interest: string) => task_where(`{0} follows the ${person_of_interest}`),
+                };
 
-                it('notifies the Stage Manager when the activity starts and finishes', () => alice.attemptsTo(follow_the('white rabbit')).then(() => {
+                it('notifies the Stage Manager when the activity starts and finishes', () => alice.attemptsTo(Follow.the('white rabbit')).then(() => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries).to.have.lengthOf(2);
                     expect(entries[ 0 ].value).to.deep.equal(entries[ 1 ].value.subject);
                 }));
 
-                it('notifies the Stage Manager of Activity\'s invocation location', () => alice.attemptsTo(follow_the('white rabbit')).then(() => {
+                it('notifies the Stage Manager of Activity\'s invocation location', () => alice.attemptsTo(Follow.the('white rabbit')).then(() => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
-                        line: 99,
+                        line: 101,
                         column: 97,
                         path: '/recording.spec.ts',
                     });
