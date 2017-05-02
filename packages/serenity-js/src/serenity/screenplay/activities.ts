@@ -1,7 +1,7 @@
 import { AnswersQuestions, PerformsTasks, UsesAbilities } from './actor';
 
-export interface Task extends Activity {
-    performAs(actor: PerformsTasks): PromiseLike<void>;
+export abstract class Task implements Activity {
+    abstract performAs(actor: PerformsTasks): PromiseLike<void>;
 }
 
 export interface Interaction extends Activity {
