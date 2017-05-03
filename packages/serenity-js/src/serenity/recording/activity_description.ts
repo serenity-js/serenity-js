@@ -1,22 +1,22 @@
+import { Activity } from '../screenplay/activities';
 import { Actor } from '../screenplay/actor';
 
+const isActor = (candidate: any) => candidate instanceof Actor;
+
+const using = (source: any) => (token: string, field: string|number) => stringify(token, source[field]);
+
+const includeActorName      = (template: string, actor: Actor)       => template.replace('#actor',   actor.toString());
+const interpolateArguments  = (template: string, parameters: any[])  => template.replace(/{(\d+)}/g, using(parameters));
+const interpolateFields     = (template: string, activity: Activity) => template.replace(/#(\w+)/g,  using(activity));
+
 export function describe_as(template: string, ...parameters: any[]): string {
+    const first: any = parameters[0];
 
-    const
-        argument_tokens = /{(\d+)}/g,
-        field_tokens    = /#(\w+)/g,
-        actor_token     = '#actor',
-        actor_name      = parameters[0] instanceof Actor ? parameters[0] : actor_token;
-
-    const interpolated = field_tokens.test(template)
-        ? template.replace(field_tokens, using(parameters[0]))
-        : template.replace(argument_tokens, using(parameters));
-
-    return interpolated.replace(actor_token, actor_name);
-}
-
-function using(source: any) {
-    return (token: string, field: string|number) => stringify(token, source[field]);
+    switch (true) {
+        case parameters.length > 1:  return interpolateArguments(template, parameters);
+        case isActor(first):         return includeActorName(interpolateArguments(template, parameters), first);
+        default:                     return interpolateFields(template, first);
+    }
 }
 
 function stringify(token: string, value: any): string {

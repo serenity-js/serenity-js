@@ -26,7 +26,6 @@ describe('Description of an Activity', () => {
     }
 
     given(
-        [ describe_as('name: {0}', 'John'),                                 'name: John'                ],
         [ describe_as('{1}, {0}; age: {2}', 'John', 'Smith', 47),           'Smith, John; age: 47'      ],
         [ describe_as('{0} selects a product',    Actor.named('Emma')),     'Emma selects a product'    ],
         [ describe_as('#actor selects a product', Actor.named('Emma')),     'Emma selects a product'    ],
@@ -46,6 +45,7 @@ describe('Description of an Activity', () => {
     it ('interpolates field tokens before taking argument tokens into consideration', () => {
         const activity = {
             products: () => ['apples', 'oranges'],
+            performAs: (actor: PerformsTasks) => actor.attemptsTo(),
             toString: () => describe_as('{0} adds #products to the basket', activity),
         };
 

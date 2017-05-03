@@ -159,6 +159,28 @@ describe('Notifiers', () => {
                             expect(lastEntry.value.result).to.equal(Result.ERROR);
                         }));
             });
+
+            describe('Automatic migration from @step to toString()', () => {
+
+                class AnnotatedTask implements Task {
+                    private style = 'annotated';
+
+                    @step('{0} performs an #style task')
+                    performAs(actor: PerformsTasks): PromiseLike<void> {
+                        return actor.attemptsTo(/* perform some tasks */);
+                    }
+                }
+
+                it ('adds a toString() method to the task if it is not present', () => {
+
+                    const task = new AnnotatedTask();
+
+                    return expect(bruce.attemptsTo(task)).to.be.fulfilled.then(() => {
+
+                        expect(task.toString()).to.equal('{0} performs an annotated task');
+                    });
+                });
+            });
         });
 
     });
