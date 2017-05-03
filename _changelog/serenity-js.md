@@ -1,5 +1,15 @@
-<a name="1.4.1"></a>
-## 1.4.1 (2017-05-02)
+<a name="1.4.2"></a>
+## 1.4.2 (2017-05-03)
+
+
+
+<a name="1.4.2"></a>
+## 1.4.2 (2017-05-03)
+
+
+### Bug Fixes
+
+* **core:** fixes maximum call stack size reached in [@step](https://github.com/step) ([1a8ad0f](https://github.com/jan-molak/serenity-js/commit/1a8ad0f))
 
 
 
