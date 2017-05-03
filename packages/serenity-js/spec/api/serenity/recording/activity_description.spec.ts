@@ -1,6 +1,6 @@
 import { given } from 'mocha-testdata';
 
-import { describe_as } from '../../../../src/serenity/recording/activity_description';
+import { describeAs } from '../../../../src/serenity/recording/activity_description';
 import { Actor, PerformsTasks, Task } from '../../../../src/serenity/screenplay';
 
 import expect = require('../../../expect');
@@ -20,18 +20,18 @@ describe('Description of an Activity', () => {
             );
         }
 
-        toString = () => describe_as('#actor pays with a credit card ending #lastFourDigits', this);
+        toString = () => describeAs('#actor pays with a credit card ending #lastFourDigits', this);
 
         private lastFourDigits = () => this.cardNumber.slice(-4);
     }
 
     given(
-        [ describe_as('{1}, {0}; age: {2}', 'John', 'Smith', 47),           'Smith, John; age: 47'      ],
-        [ describe_as('{0} selects a product',    Actor.named('Emma')),     'Emma selects a product'    ],
-        [ describe_as('#actor selects a product', Actor.named('Emma')),     'Emma selects a product'    ],
-        [ describe_as('#first #last', { first: 'Jan', last: 'Molak' }),     'Jan Molak'                 ],
-        [ describe_as('#first #last', { last: 'Bond' }),                    '#first Bond'               ],
-        [ describe_as('products: #list', { list: ['apples', 'oranges'] }),  'products: apples, oranges' ],
+        [ describeAs('{1}, {0}; age: {2}', 'John', 'Smith', 47),           'Smith, John; age: 47'      ],
+        [ describeAs('{0} selects a product',    Actor.named('Emma')),     'Emma selects a product'    ],
+        [ describeAs('#actor selects a product', Actor.named('Emma')),     'Emma selects a product'    ],
+        [ describeAs('#first #last', { first: 'Jan', last: 'Molak' }),     'Jan Molak'                 ],
+        [ describeAs('#first #last', { last: 'Bond' }),                    '#first Bond'               ],
+        [ describeAs('products: #list', { list: ['apples', 'oranges'] }),  'products: apples, oranges' ],
     ).
     it ('can be parametrised', (result, expected) => expect(result).to.equal(expected));
 
@@ -46,7 +46,7 @@ describe('Description of an Activity', () => {
         const activity = {
             products: () => ['apples', 'oranges'],
             performAs: (actor: PerformsTasks) => actor.attemptsTo(),
-            toString: () => describe_as('{0} adds #products to the basket', activity),
+            toString: () => describeAs('{0} adds #products to the basket', activity),
         };
 
         expect(activity.toString()).to.equal('{0} adds apples, oranges to the basket');

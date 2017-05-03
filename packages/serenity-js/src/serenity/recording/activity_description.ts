@@ -9,7 +9,7 @@ const includeActorName      = (template: string, actor: Actor)       => template
 const interpolateArguments  = (template: string, parameters: any[])  => template.replace(/{(\d+)}/g, using(parameters));
 const interpolateFields     = (template: string, activity: Activity) => template.replace(/#(\w+)/g,  using(activity));
 
-export function describe_as(template: string, ...parameters: any[]): string {
+export function describeAs(template: string, ...parameters: any[]): string {
     const first: any = parameters[0];
 
     switch (true) {
