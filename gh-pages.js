@@ -39,8 +39,8 @@ ghpages.publish(path.join(process.cwd(), program.dist), {
     remote: program.remote,
     push: !program.noPush,
     user: {
-        name: 'Travis CI',
-        email: 'travis@smartcodeltd.co.uk'
+        name: 'smartcode-devbot',
+        email: 'devbot@smartcodeltd.co.uk'
     },
     logger: function(message) {
         process.stderr.write(message + '\n');
