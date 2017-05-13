@@ -1,6 +1,6 @@
 import sinon = require('sinon');
 import expect = require('../../expect');
-import { Actor, PerformsTasks, Task, task_where } from '../../../src/serenity/screenplay';
+import { Actor, PerformsTasks, Task } from '../../../src/serenity/screenplay';
 
 import { step } from '../../../src/serenity/recording';
 import { Journal, StageManager } from '../../../src/serenity/stage/stage_manager';
@@ -88,7 +88,7 @@ describe ('When recording', () => {
             describe('minimalist implementation', () => {
 
                 const Follow = {
-                    the: (person_of_interest: string) => task_where(`{0} follows the ${person_of_interest}`),
+                    the: (person_of_interest: string) => Task.where(`{0} follows the ${person_of_interest}`),
                 };
 
                 it('notifies the Stage Manager when the activity starts and finishes', () => alice.attemptsTo(Follow.the('white rabbit')).then(() => {
