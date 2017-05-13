@@ -42,5 +42,5 @@ class EnterValue implements Interaction {
 
     constructor(private value: string | number, private target: Target) { }
 
-    toString = () => `{0} enters "#value" into ${this.target}`;
+    toString = () => `{0} enters ${this.value} into ${this.target}`;
 }
