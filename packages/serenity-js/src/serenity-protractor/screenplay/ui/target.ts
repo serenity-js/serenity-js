@@ -1,14 +1,15 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { Locator } from 'protractor/built/locators';
+import { describeAs } from '../../../serenity/recording/activity_description';
 
 export class Target {
 
-    static the(name: string) {
-        return new TargetBuilder(name);
-    }
+    static the = (name: string) => ({
+        located: (byLocator: Locator): Target => new Target(name, byLocator),
+    })
 
     of(...tokenReplacements: string[]): Target {
-        return new Target(this.name, new Interpolated(this.locator).with(tokenReplacements));
+        return new Target(describeAs(this.name, ...tokenReplacements), new Interpolated(this.locator).with(tokenReplacements));
     }
 
     called(newName: string): Target {
@@ -38,6 +39,9 @@ class Interpolated {
 
     public with(tokenReplacements: string[]) {
 
+        const unescaped = template => template.replace(/\\{(\d+)\\}/, '{$1}');
+        const asString  = (locator: Locator): string => unescaped(`${(locator as any).value}`);
+
         // note: ProtractorBy is not compatible with WebdriverBy https://github.com/angular/protractor/issues/3508
         if (! this.canBeInterpolated()) {
             throw new Error(this.locator.toString() +
@@ -46,34 +50,10 @@ class Interpolated {
 
         const cloned: any  = Object.assign({}, this.locator);
         cloned.__proto__ = Object.getPrototypeOf(this.locator);
-        cloned.value     = this.interpolated((this.locator as any).value, tokenReplacements);
+        cloned.value     = describeAs(asString(this.locator), ...tokenReplacements);
 
         return cloned;
     }
 
-    private canBeInterpolated(): boolean {
-        return !! (this.locator as any).value;
-    }
-
-    private interpolated(template: string, replacements: string[]) {
-        const
-            argToken     = /\\?\{(\d+)\\?\}/g,
-            interpolator = (token: string, field: number) => replacements[ field ];
-
-        return template.replace(argToken, interpolator);
-    }
-}
-
-export class TargetBuilder {
-
-    constructor(private name: string) {
-    }
-
-    located(byLocator: Locator): Target {
-        return new Target(this.name, byLocator);
-    }
-
-    toString(): string {
-        return `TargetBuilder for the ${ this.name }`;
-    }
+    private canBeInterpolated = (): boolean => !! (this.locator as any).value;
 }

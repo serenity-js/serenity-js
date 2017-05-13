@@ -32,6 +32,12 @@ describe ('Target', () => {
         expect(target.called('"Sign Up" button').toString()).to.equal('the "Sign Up" button');
     });
 
+    it ('can have its name resolved at a later stage', () => {
+        const target      = Target.the('"{0}" button').located(byLocator);
+
+        expect(target.of('Sign Up').toString()).to.equal('the "Sign Up" button');
+    });
+
     it ('can have a CSS locator defined using tokens to be resolved at a later stage', () => {
         const
             byLocatorTemplate = webdriver.By.css('{0}#sign-up.{1}'),
@@ -85,13 +91,5 @@ describe ('Target', () => {
         expect(() => {
             target.of('some-replacement');
         }).to.throw('by.model("checkbox") is not a webdriver-compatible locator so you won\'t be able to use token replacement with it');
-    });
-
-    describe ('TargetBuilder', () => {
-        it ('is easy to identify', () => {
-            const target = Target.the('sign up form');
-
-            expect(target.toString()).to.equal('TargetBuilder for the sign up form');
-        });
     });
 });

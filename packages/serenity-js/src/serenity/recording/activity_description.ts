@@ -13,9 +13,14 @@ export function describeAs(template: string, ...parameters: any[]): string {
     const first: any = parameters[0];
 
     switch (true) {
-        case parameters.length > 1:  return interpolateArguments(template, parameters);
-        case isActor(first):         return includeActorName(interpolateArguments(template, parameters), first);
-        default:                     return interpolateFields(template, first);
+        case parameters.length > 1 || typeof first !== 'object':
+            return interpolateArguments(template, parameters);
+
+        case isActor(first):
+            return includeActorName(interpolateArguments(template, parameters), first);
+
+        default:
+            return interpolateFields(template, first);
     }
 }
 
