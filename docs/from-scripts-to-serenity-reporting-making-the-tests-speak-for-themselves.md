@@ -464,6 +464,12 @@ This time however you should be able to see a screenshot accompanying each Inter
 
 ![Serenity BDD Scenario Report with Screenshots](images/scenario_report_screenshots.png)
 
+## Executable requirements 
+
+As Serenity BDD makes use of the "executable requirements"-paradigm, the reports also show the way from requirements/capabilities to features and executable tests.
+To make this work, please make sure that you name your feature files starting with the name of your feature, for example: 
+`Add new items to the todo list` has to be placed in a file called `add_new_items.feature`.
+
 ## Summary
 
 By organising the code of our automated acceptance testing system
