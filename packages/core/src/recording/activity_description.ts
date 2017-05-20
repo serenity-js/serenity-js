@@ -3,7 +3,9 @@ import { Actor } from '../screenplay/actor';
 
 const isActor = (candidate: any) => candidate instanceof Actor;
 
-const using = (source: any) => (token: string, field: string|number) => stringify(token, source[field]);
+const using = (source: any) => (token: string, field: string|number) => typeof source[field] === 'function'
+        ? stringify(token, source[field].bind(source))
+        : stringify(token, source[field]);
 
 const includeActorName      = (template: string, actor: Actor)       => template.replace('#actor',   actor.toString());
 const interpolateArguments  = (template: string, parameters: any[])  => template.replace(/{(\d+)}/g, using(parameters));

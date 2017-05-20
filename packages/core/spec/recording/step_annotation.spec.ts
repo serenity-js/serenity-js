@@ -29,9 +29,13 @@ describe('Notifiers', () => {
                     constructor(private cardNumber: string) {
                     }
 
-                    @step('{0} pays with a credit card number #cardNumber')
+                    @step('{0} pays with a credit card number #obfuscatedCardNumber')
                     performAs(actor: PerformsTasks): PromiseLike<void> {
                         return actor.attemptsTo( /*...*/ );
+                    }
+
+                    private obfuscatedCardNumber() {
+                        return [this.cardNumber.slice(0, 4), 'XXXX', 'XXXX', 'XXXX'].join(' ');
                     }
                 }
 
@@ -45,7 +49,7 @@ describe('Notifiers', () => {
 
                         expect(newJournalEntries[ 0 ]).to.be.instanceOf(ActivityStarts);
                         expect(newJournalEntries[ 0 ].value).to.be.instanceOf(RecordedActivity);
-                        expect(newJournalEntries[ 0 ].value.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
+                        expect(newJournalEntries[ 0 ].value.name).to.equal('Bruce pays with a credit card number 4111 XXXX XXXX XXXX');
                     });
                 });
 
@@ -61,7 +65,7 @@ describe('Notifiers', () => {
                         expect(newJournalEntries[ 1 ].value).to.be.instanceOf(Outcome);
 
                         expect(newJournalEntries[ 1 ].value.subject).to.be.instanceOf(RecordedActivity);
-                        expect(newJournalEntries[ 1 ].value.subject.name).to.equal('Bruce pays with a credit card number 4111 1111 1111 1111');
+                        expect(newJournalEntries[ 1 ].value.subject.name).to.equal('Bruce pays with a credit card number 4111 XXXX XXXX XXXX');
                     });
                 });
 
@@ -74,7 +78,7 @@ describe('Notifiers', () => {
 
                         expect(start.value).to.be.recorded.calledAt({
                             path: '/step_annotation.spec.ts',
-                            line: 69,
+                            line: 73,
                             column: 34,
                         });
                     });
