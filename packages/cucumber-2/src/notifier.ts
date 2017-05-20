@@ -1,5 +1,5 @@
-import { serenity } from 'serenity-js';
-import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, RecordedScene, Result, SceneFinished, SceneStarts, Tag } from 'serenity-js/lib/serenity/domain';
+import { serenity } from '@serenity-js/core';
+import { ActivityFinished, ActivityStarts, Outcome, RecordedActivity, RecordedScene, Result, SceneFinished, SceneStarts, Tag } from '@serenity-js/core/lib/domain';
 import { DataTable, DocString, FailureException, Scenario, ScenarioResult, Step, StepArgument, StepResult } from './model';
 
 const CucumberStep = require('cucumber/lib/models/step').default;   // tslint:disable-line:no-var-requires

@@ -1,4 +1,4 @@
-import { serenity } from 'serenity-js';
+import { serenity } from '@serenity-js/core';
 import { ChildProcessReporter } from '../spawner/child_process_reporter';
 
 import path = require('path');

@@ -1,13 +1,12 @@
+import { Result } from '@serenity-js/core/lib/domain';
+
 import { given } from 'mocha-testdata';
 import { CucumberAdapter } from '../src/cucumber_adapter';
-import { DomainEvent, Result } from 'serenity-js/lib/serenity/domain';
-import { StageCrewMember } from 'serenity-js/lib/serenity/stage';
+import { spawner } from './spawner/spawner';
 import path = require('path');
-import { serenity } from 'serenity-js';
 
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
-import { spawner } from './spawner/spawner';
 chai.use(chaiAsPromised);
 
 const expect = chai.expect;

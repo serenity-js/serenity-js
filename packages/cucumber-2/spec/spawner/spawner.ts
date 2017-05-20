@@ -8,7 +8,7 @@ import {
     SceneFinished,
     SceneStarts,
     Tag,
-} from 'serenity-js/lib/serenity/domain';
+} from '@serenity-js/core/lib/domain';
 
 import { ForkOptions } from 'child_process';
 

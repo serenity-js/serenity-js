@@ -1,4 +1,4 @@
-import { SerenityConfig } from 'serenity-js/lib/serenity/serenity';
+import { SerenityConfig } from '@serenity-js/core';
 import { CucumberAdapter } from './cucumber_adapter';
 import { CucumberOptions } from './cucumber_options';
 

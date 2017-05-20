@@ -1,5 +1,6 @@
-import { TestFrameworkAdapter } from 'serenity-js/lib/serenity-protractor/framework';
-import { SerenityConfig } from 'serenity-js/lib/serenity/serenity';
+import { SerenityConfig } from '@serenity-js/core';
+import { TestFrameworkAdapter } from '@serenity-js/core/lib/integration';
+
 import { CucumberOptions } from './cucumber_options';
 
 import _ = require('lodash');
