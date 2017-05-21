@@ -14,6 +14,9 @@ fi
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
   npm run semantic-release
 
+  echo "[DEBUG] NPM DEBUG"
+  cat /home/travis/build/jan-molak/serenity-js/npm-debug.log
+
   echo "[DEBUG] CHANGELOG"
   find packages -maxdepth 2 -name 'CHANGELOG.md' -print0 | xargs -0 -I % sh -c 'echo %; cat %'
 
