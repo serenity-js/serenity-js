@@ -18,10 +18,10 @@ So how can we use it in practice? Let's find out!
 
 ## Prerequisites
 
-Please make sure that you have the [required tools installed](./prerequisites.md) 
-and [dependencies added](./installation.md) to your project.
-That Protractor is configured to [use the `'mocha'` dialect](./configuration.md#mocha) 
-and you have a [`tsconfig.json` file in place](./configuration.md#typescript).
+Please make sure that you have the [required tools installed](../overview/prerequisites.md) 
+and [dependencies added](../overview/installation.md) to your project.
+That Protractor is configured to [use the `'mocha'` dialect](../overview/configuration.md#mocha) 
+and you have a [`tsconfig.json` file in place](../overview/configuration.md#typescript).
 
 ## Directory Structure
 
