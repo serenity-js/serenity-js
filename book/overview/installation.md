@@ -6,7 +6,7 @@ the [Screenplay Pattern](../../design/screenplay-pattern.md) and either
 or [Mocha](mocha.md) you'll need the core `serenity-js` module, 
 but also a couple of other dependencies.
 
-To get them, execute the below terminal command:
+To get them, execute the terminal command below:
 
 <pre><code class="lang-bash">$> npm install serenity-js serenity-cli typescript ts-node protractor@{{ book.package.peerDependencies.protractor }} @types/node --save-dev
 </code></pre>
@@ -23,7 +23,7 @@ or, to use [Mocha](mocha.md), install the following instead:
 $> npm install mocha @types/mocha --save-dev
 ```
 
-The one last thing you need is an assertion library, such as [Chai.js](chaijs.com), which can be uses with either one
+The last thing you need is an assertion library, such as [Chai.js](chaijs.com), which can be used with either one
 of the above test frameworks:
 
 ```bash
@@ -45,7 +45,7 @@ Let's have a quick look at the roles and responsibilities of the Node.js modules
 | [mocha](https://npmjs.com/package/mocha)               | <h4>Test execution library</h4><ul><li>a light-weight test execution library, excellent for regression testing of existing apps</li><li>executes Serenity/JS test scenarios</li></ul> |       
 | [chai](https://npmjs.com/package/chai)                 | <h4>Assertion library</h4><ul><li>a BDD-style assertion library, providing highly readable assertion functions</li></ul> |      
 | [chai-as-promised](https://npmjs.com/package/chai-as-promised)               | <h4><code>Promise</code>-specific assertions for Chai</h4><ul><li>assertions for functions and methods returning <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank"><code>Promises</code></a></li></ul> |                  
-| [chai-smoothie](https://npmjs.com/package/chai-smoothie)                     | <h4>Protractor-specific assertions for Chai</h4><ul><li>assertions verifying visibility of web elements</li><li>improve Protractor's error messages</li><li>come with type definitions</li></ul> |               
+| [chai-smoothie](https://npmjs.com/package/chai-smoothie)                     | <h4>Protractor-specific assertions for Chai</h4><ul><li>assertions verifying visibility of web elements</li><li>improve Protractor's error messages</li><li>comes with type definitions</li></ul> |               
 | [@types/chai](https://npmjs.com/package/@types/chai)                         | <h4>Type definitions for Chai</h4><ul><li>IntelliSense support for Chai</li></ul>  |
 | [@types/chai-as-promised](https://npmjs.com/package/@types/chai-as-promised) | <h4>Type definitions for Chai-as-promised</h4><ul><li>IntelliSense support for Chai-as-promised</li></ul>  |                        
 | [@types/cucumber](https://npmjs.com/package/@types/cucumber)                 | <h4>Type definitions for Cucumber.js</h4><ul><li>IntelliSense support for Cucumber.js</li></ul> |               
