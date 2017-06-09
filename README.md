@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/jan-molak/serenity-js.png?label=ready&title=Ready)](https://waffle.io/jan-molak/serenity-js?utm_source=badge)
 # Serenity/JS
 
 [![npm version](https://badge.fury.io/js/serenity-js.svg)](https://badge.fury.io/js/serenity-js)
