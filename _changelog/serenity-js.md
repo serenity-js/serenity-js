@@ -1,5 +1,15 @@
-<a name="1.5.0"></a>
-# 1.5.0 (2017-06-09)
+<a name="1.6.0"></a>
+# 1.6.0 (2017-06-11)
+
+
+
+<a name="1.6.0"></a>
+# 1.6.0 (2017-06-11)
+
+
+### Features
+
+* **core:** [@serenity](https://github.com/serenity)-js/core is independent of Protractor ([5dc4dd1](https://github.com/jan-molak/serenity-js/commit/5dc4dd1))
 
 
 
