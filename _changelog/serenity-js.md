@@ -1,5 +1,15 @@
-<a name="1.6.0"></a>
-# 1.6.0 (2017-06-11)
+<a name="1.6.1"></a>
+## 1.6.1 (2017-06-11)
+
+
+
+<a name="1.6.1"></a>
+## 1.6.1 (2017-06-11)
+
+
+### Bug Fixes
+
+* **screenplay:** corrected the return type expected by the Question interface ([58ed941](https://github.com/jan-molak/serenity-js/commit/58ed941))
 
 
 
