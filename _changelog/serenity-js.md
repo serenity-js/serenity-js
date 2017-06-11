@@ -1,5 +1,15 @@
-<a name="1.6.1"></a>
-## 1.6.1 (2017-06-11)
+<a name="1.6.2"></a>
+## 1.6.2 (2017-06-11)
+
+
+
+<a name="1.6.2"></a>
+## 1.6.2 (2017-06-11)
+
+
+### Bug Fixes
+
+* **dependencies:** bumped [@serenity](https://github.com/serenity)-js/core ([b1c1721](https://github.com/jan-molak/serenity-js/commit/b1c1721))
 
 
 
