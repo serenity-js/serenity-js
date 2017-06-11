@@ -1,4 +1,5 @@
-import { Question, UsesAbilities } from '../../../serenity/screenplay';
+import { Question, UsesAbilities } from '@serenity-js/core/lib/screenplay';
+
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 

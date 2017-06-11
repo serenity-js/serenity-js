@@ -1,9 +1,9 @@
-import sinon = require('sinon');
-import expect = require('../../../expect');
-
-import { Target } from '../../../../src/screenplay-protractor';
-
 import * as webdriver from 'selenium-webdriver';
+
+import sinon = require('sinon');
+import expect = require('../../../../expect');
+
+import { Target } from '../../../../../src/screenplay-protractor';
 
 describe ('Target', () => {
 

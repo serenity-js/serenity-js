@@ -1,6 +1,3 @@
-import { Serenity } from './serenity/serenity';
-
-export * from './serenity';
-export let serenity = new Serenity();
+export * from '@serenity-js/core';
 
 export { run } from './serenity-protractor/framework';

@@ -1,11 +1,11 @@
-import sinon = require('sinon');
-import expect = require('../../../expect');
-
+import { Actor } from '@serenity-js/core/lib/screenplay';
 import { ProtractorBrowser } from 'protractor';
 import { WebDriver } from 'selenium-webdriver';
 
-import { BrowseTheWeb, ResizeBrowserWindow } from '../../../../src/serenity-protractor/screenplay';
-import { Actor } from '../../../../src/serenity/screenplay';
+import sinon = require('sinon');
+import expect = require('../../../../expect');
+
+import { BrowseTheWeb, ResizeBrowserWindow } from '../../../../../src/serenity-protractor/screenplay';
 
 describe('Interactions', () => {
 

@@ -1,4 +1,6 @@
-import { serenity } from '..';
+import { serenity } from '@serenity-js/core';
+import { attemptToRequire } from '@serenity-js/core/lib/io';
+
 import { TestFrameworkAdapter } from '../serenity-protractor/framework';
 import { wrapped } from './controlflow';
 import { endOf, ExecutedScenario, isPending, Scenario, startOf } from './model';
@@ -6,7 +8,6 @@ import { endOf, ExecutedScenario, isPending, Scenario, startOf } from './model';
 import _ = require('lodash');
 import glob = require('glob');
 import path = require('path');
-import { attemptToRequire } from '../serenity/io';
 
 import { MochaConfig } from './mocha_config';
 

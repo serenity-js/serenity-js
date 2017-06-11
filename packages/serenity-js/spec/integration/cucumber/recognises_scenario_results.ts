@@ -1,7 +1,8 @@
+import { Result, SceneFinished } from '@serenity-js/core/lib/domain';
+
 import expect = require('../../expect');
 
 import * as _ from 'lodash';
-import { Result, SceneFinished } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function() {

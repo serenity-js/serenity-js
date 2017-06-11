@@ -1,6 +1,7 @@
+import { DomainEvent, SceneFinished } from '@serenity-js/core/lib/domain';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
+
 import { Runner } from 'protractor';
-import { DomainEvent, SceneFinished } from '../../serenity/domain';
-import { Stage, StageCrewMember } from '../../serenity/stage';
 
 export class ProtractorNotifier implements StageCrewMember {
 

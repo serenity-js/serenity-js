@@ -1,4 +1,4 @@
-import { serenity } from '..';
+import { serenity } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -9,7 +9,7 @@ import {
     SceneFinished,
     SceneStarts,
     Tag,
-} from '../serenity/domain';
+} from '@serenity-js/core/lib/domain';
 
 import * as cucumber from 'cucumber';
 

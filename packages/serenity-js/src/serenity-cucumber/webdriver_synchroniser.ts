@@ -1,4 +1,4 @@
-import { Deferred } from '../serenity/recording/async';
+import { Deferred } from '@serenity-js/core/lib/recording/async';
 import withArityOf = require('util-arity');
 import { StepDefinitions } from 'cucumber';
 import * as webdriver from 'selenium-webdriver';

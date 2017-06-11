@@ -1,4 +1,4 @@
-import { JSONObject } from '../../serenity/io/json';
+import { JSONObject } from '@serenity-js/core/lib/io/json';
 
 /**
  * A JSON object which needs to be returned to Protractor when SerenityProtractorFramework

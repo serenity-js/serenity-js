@@ -1,6 +1,7 @@
+import { RecordedScene, SceneFinished, SceneStarts, Tag } from '@serenity-js/core/lib/domain';
+
 import expect = require('../../expect');
 
-import { RecordedScene, SceneFinished, SceneStarts, Tag } from '../../../src/serenity/domain';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function() {

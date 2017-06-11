@@ -1,4 +1,4 @@
-import { Outcome, RecordedScene, Result, SceneFinished, SceneStarts } from '../serenity/domain';
+import { Outcome, RecordedScene, Result, SceneFinished, SceneStarts } from '@serenity-js/core/lib/domain';
 
 export const startOf   = (scenario: Scenario) => new SceneStarts(new MochaScene(scenario));
 export const endOf     = (scenario: ExecutedScenario) => new SceneFinished(new Outcome(new MochaScene(scenario), finalStateOf(scenario), scenario.err));

@@ -1,10 +1,9 @@
-import { defer } from '../../../serenity/recording/async';
-import { Ability, UsesAbilities } from '../../../serenity/screenplay';
-import { Target } from '../ui/target';
-
+import { defer } from '@serenity-js/core/lib/recording/async';
+import { Ability, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { ElementArrayFinder, ElementFinder, ProtractorBrowser } from 'protractor';
-
 import * as webdriver from 'selenium-webdriver';
+
+import { Target } from '../ui/target';
 
 export class BrowseTheWeb implements Ability {
 

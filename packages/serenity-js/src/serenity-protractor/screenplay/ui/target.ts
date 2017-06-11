@@ -1,6 +1,6 @@
+import { describeAs } from '@serenity-js/core/lib/recording';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { Locator } from 'protractor/built/locators';
-import { describeAs } from '../../../serenity/recording/activity_description';
 
 export class Target {
 

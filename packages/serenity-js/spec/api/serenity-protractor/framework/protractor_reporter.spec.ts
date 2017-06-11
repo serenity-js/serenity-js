@@ -1,7 +1,3 @@
-import sinon = require('sinon');
-import expect = require('../../../expect');
-import { given } from 'mocha-testdata';
-import { Runner } from 'protractor/built/runner';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -12,13 +8,16 @@ import {
     Result,
     SceneFinished,
     SceneStarts,
-} from '../../../../src/serenity/domain';
+} from '@serenity-js/core/lib/domain';
+import { RehearsalReport } from '@serenity-js/core/lib/reporting';
+import { Journal, Stage, StageManager } from '@serenity-js/core/lib/stage';
+import sinon = require('sinon');
+import expect = require('../../../expect');
+import { given } from 'mocha-testdata';
+import { Runner } from 'protractor/built/runner';
 
 import { ProtractorReporter } from '../../../../src/serenity-protractor/reporting';
 import { ProtractorReportExporter } from '../../../../src/serenity-protractor/reporting/protractor_reporter';
-import { RehearsalReport } from '../../../../src/serenity/reporting';
-import { Stage } from '../../../../src/serenity/stage/stage';
-import { Journal, StageManager } from '../../../../src/serenity/stage/stage_manager';
 
 describe('serenity-protractor', () => {
 

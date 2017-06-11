@@ -1,5 +1,5 @@
-import { DomainEvent } from '../../src/serenity/domain/events';
-import { StageCrewMember } from '../../src/serenity/stage/stage_manager';
+import { DomainEvent } from '@serenity-js/core/lib/domain';
+import { StageCrewMember } from '@serenity-js/core/lib/stage';
 
 export class ChildProcessReporter implements StageCrewMember {
     constructor() {

@@ -1,7 +1,7 @@
+import { step } from '@serenity-js/core/lib/recording';
+import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { by, ElementFinder, protractor } from 'protractor';
 
-import { step } from '../../../serenity/recording';
-import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 

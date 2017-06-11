@@ -1,8 +1,8 @@
-import sinon = require('sinon');
-import expect = require('../../../expect');
+import { Actor, Question, See, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { AssertionError } from 'chai';
 
-import { Actor, Question, See, UsesAbilities } from '../../../../src/serenity/screenplay';
+import sinon = require('sinon');
+import expect = require('../../../../expect');
 
 describe('Tasks', () => {
 

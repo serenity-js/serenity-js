@@ -1,6 +1,8 @@
+import { serenity, Serenity } from '@serenity-js/core';
+import { Config } from '@serenity-js/core/lib/config';
+import { serenityBDDReporter } from '@serenity-js/core/lib/reporting';
 import { Config as ProtractorConfig, Runner } from 'protractor';
-import { Config, serenity, Serenity } from '../..';
-import { serenityBDDReporter } from '../../serenity/reporting';
+
 import { ProtractorReport, ProtractorReporter } from '../reporting';
 import { ProtractorNotifier } from '../reporting/protractor_notifier';
 import { photographer } from '../stage/photographer';

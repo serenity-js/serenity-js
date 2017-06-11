@@ -1,4 +1,5 @@
-import { Interaction, PerformsTasks, Task, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, PerformsTasks, Task, UsesAbilities } from '@serenity-js/core/lib/screenplay';
+
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 import { Hit } from './hit';

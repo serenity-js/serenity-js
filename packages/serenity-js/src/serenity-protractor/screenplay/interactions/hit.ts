@@ -1,4 +1,5 @@
-import { Interaction, UsesAbilities } from '../../../serenity/screenplay';
+import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
+
 import { keyNameOf } from '../../keys';
 import { BrowseTheWeb } from '../abilities';
 import { Target } from '../ui/target';

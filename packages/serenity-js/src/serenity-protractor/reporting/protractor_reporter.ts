@@ -1,4 +1,3 @@
-import { Runner } from 'protractor';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -9,18 +8,18 @@ import {
     Result,
     SceneFinished,
     SceneStarts,
-} from '../../serenity/domain';
-
+} from '@serenity-js/core/lib/domain';
+import { JSONObject } from '@serenity-js/core/lib/io/json';
 import {
     ActivityPeriod,
     RehearsalPeriod,
     RehearsalReport,
     ReportExporter,
     ScenePeriod,
-} from '../../serenity/reporting';
+} from '@serenity-js/core/lib/reporting';
+import { Journal, Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
+import { Runner } from 'protractor';
 
-import { JSONObject } from '../../serenity/io/json';
-import { Journal, Stage, StageCrewMember } from '../../serenity/stage';
 import { ProtractorActivityReport, ProtractorReport, ProtractorSceneReport } from './protractor_report';
 
 export class ProtractorReporter implements StageCrewMember {

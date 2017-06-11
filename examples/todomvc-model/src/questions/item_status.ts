@@ -1,5 +1,5 @@
+import { Question, UsesAbilities } from 'serenity-js/lib/screenplay';
 import { BrowseTheWeb } from 'serenity-js/lib/serenity-protractor';
-import { Question, UsesAbilities } from 'serenity-js/lib/serenity/screenplay';
 
 import { TodoList } from '../user_interface';
 

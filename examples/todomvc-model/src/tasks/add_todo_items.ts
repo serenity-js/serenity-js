@@ -1,4 +1,4 @@
-import { Performable, PerformsTasks, step, Task } from 'serenity-js/lib/screenplay-protractor';
+import { PerformsTasks, step, Task } from 'serenity-js/lib/screenplay-protractor';
 
 import { AddATodoItem } from './add_a_todo_item';
 
@@ -23,7 +23,7 @@ export class AddTodoItems implements Task {
             : 'no items';
     }
 
-    private addAll(items: string[]): Performable[] {
+    private addAll(items: string[]): Task[] {
         return items.map(item => AddATodoItem.called(item));
     }
 }

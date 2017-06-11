@@ -1,4 +1,3 @@
 export * from './screenplay';
-export { Cast, Stage } from './serenity/stage';
-export { step } from './serenity/recording/step_annotation';
+export { Cast, Stage } from '@serenity-js/core/lib/stage';
 export * from './serenity-protractor';

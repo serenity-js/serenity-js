@@ -1,14 +1,14 @@
+import { Serenity } from '@serenity-js/core';
+import { ConsoleReporter, SerenityBDDReporter } from '@serenity-js/core/lib/reporting';
 import { Config } from 'protractor';
 import { Runner } from 'protractor/built/runner';
 import { SinonStub } from 'sinon';
+
 import { SerenityProtractorFramework } from '../../../../src/serenity-protractor/framework/serenity_protractor_framework';
 import { StandIns } from '../../../../src/serenity-protractor/framework/stand_ins';
 import { ProtractorNotifier } from '../../../../src/serenity-protractor/reporting/protractor_notifier';
 import { ProtractorReporter } from '../../../../src/serenity-protractor/reporting/protractor_reporter';
 import { Photographer } from '../../../../src/serenity-protractor/stage/photographer';
-import { SerenityBDDReporter } from '../../../../src/serenity/reporting/serenity_bdd_reporter';
-import { Serenity } from '../../../../src/serenity/serenity';
-import { ConsoleReporter } from '../../../../src/serenity/stage/console_reporter';
 
 import sinon = require('sinon');
 import expect = require('../../../expect');

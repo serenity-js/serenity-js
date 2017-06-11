@@ -1,3 +1,4 @@
+import { Default_Path_To_Reports } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -7,12 +8,11 @@ import {
     PhotoReceipt,
     RecordedActivity,
     Result,
-} from '../../serenity/domain';
+} from '@serenity-js/core/lib/domain';
+import { FileSystem } from '@serenity-js/core/lib/io/file_system';
+import { UsesAbilities } from '@serenity-js/core/lib/screenplay';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 
-import { FileSystem } from '../../serenity/io/file_system';
-import { UsesAbilities } from '../../serenity/screenplay';
-import { Default_Path_To_Reports } from '../../serenity/serenity';
-import { Stage, StageCrewMember } from '../../serenity/stage';
 import { BrowseTheWeb } from '../screenplay/abilities';
 import { NoPhoto, TakeAPhoto, TimingBehaviour } from './photographer-timing';
 

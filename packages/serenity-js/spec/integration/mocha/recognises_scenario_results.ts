@@ -1,6 +1,6 @@
 import expect = require('../../expect');
 
-import { Result, SceneFinished } from '../../../src/serenity/domain';
+import { Result, SceneFinished } from '@serenity-js/core/lib/domain';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Mocha', function() {

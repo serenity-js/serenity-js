@@ -1,5 +1,5 @@
+import { attemptToRequire } from '@serenity-js/core/lib/io/attempt_require';
 import { TestFrameworkAdapter } from '../serenity-protractor/framework';
-import { attemptToRequire } from '../serenity/io/attempt_require';
 
 import _ = require('lodash');
 import glob = require('glob');

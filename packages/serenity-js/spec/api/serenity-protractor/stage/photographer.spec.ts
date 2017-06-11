@@ -1,3 +1,19 @@
+import {
+    ActivityFinished,
+    ActivityStarts,
+    Outcome,
+    Photo,
+    PhotoAttempted,
+    PhotoReceipt,
+    RecordedActivity,
+    RecordedScene,
+    Result,
+    SceneFinished,
+    SceneStarts,
+} from '@serenity-js/core/lib/domain';
+import { FileSystem } from '@serenity-js/core/lib/io';
+import { Cast, Journal, Stage, StageManager } from '@serenity-js/core/lib/stage';
+
 import sinon = require('sinon');
 import expect = require('../../../expect');
 
@@ -11,23 +27,7 @@ import {
     PictureNamingStrategy,
 } from '../../../../src/serenity-protractor/stage/photographer';
 
-import {
-    ActivityFinished,
-    ActivityStarts,
-    Outcome,
-    Photo,
-    PhotoAttempted,
-    PhotoReceipt,
-    RecordedActivity,
-    RecordedScene,
-    Result,
-    SceneFinished,
-    SceneStarts,
-} from '../../../../src/serenity/domain';
-
 import { TakeAPhoto, TimingBehaviour } from '../../../../src/serenity-protractor/stage/photographer-timing';
-import { FileSystem } from '../../../../src/serenity/io/file_system';
-import { Cast, Journal, Stage, StageManager } from '../../../../src/serenity/stage';
 
 describe('Photographer', () => {
 

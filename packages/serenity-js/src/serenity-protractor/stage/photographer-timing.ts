@@ -1,4 +1,5 @@
-import { ActivityFinished, ActivityStarts, RecordedActivity } from '../../serenity/domain';
+import { ActivityFinished, ActivityStarts, RecordedActivity } from '@serenity-js/core/lib/domain';
+
 import { Photographer } from './photographer';
 
 export class TimingBehaviour {

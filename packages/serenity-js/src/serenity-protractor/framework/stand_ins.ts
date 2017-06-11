@@ -1,7 +1,8 @@
+import { DomainEvent, SceneStarts } from '@serenity-js/core/lib/domain';
+import { Actor } from '@serenity-js/core/lib/screenplay';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
-import { DomainEvent, SceneStarts } from '../../serenity/domain';
-import { Actor } from '../../serenity/screenplay/actor';
-import { Stage, StageCrewMember } from '../../serenity/stage';
+
 import { BrowseTheWeb } from '../screenplay/abilities/browse_the_web';
 
 /**

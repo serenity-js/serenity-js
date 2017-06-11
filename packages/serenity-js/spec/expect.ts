@@ -3,7 +3,7 @@ import chai = require('chai');
 import sinonChai = require('sinon-chai');
 import chaiAsPromised = require('chai-as-promised');
 import chaiSmoothie = require('chai-smoothie');
-import { RecordedActivity, SourceLocation } from '../src/serenity/domain/model';
+import { RecordedActivity, SourceLocation } from '@serenity-js/core/lib/domain/model';
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
