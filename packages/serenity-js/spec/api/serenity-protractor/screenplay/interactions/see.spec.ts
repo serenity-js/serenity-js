@@ -8,8 +8,8 @@ describe('Tasks', () => {
 
     describe('See', () => {
 
-        class SomeResult implements Question<string> {
-            answeredBy(actor: UsesAbilities): PromiseLike<string>|string {
+        class SomeResult implements Question<PromiseLike<string>> {
+            answeredBy(actor: UsesAbilities): PromiseLike<string> {
                 return Promise.resolve('some value');
             }
         }

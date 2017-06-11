@@ -6,11 +6,11 @@ import { Target } from '../ui/target';
 export class Attribute {
 
     static of = (target: Target) => ({
-        called: (name: string): Question<string> => new AttributeValue(target, name),
+        called: (name: string): Question<PromiseLike<string>> => new AttributeValue(target, name),
     })
 }
 
-class AttributeValue implements Question<string> {
+class AttributeValue implements Question<PromiseLike<string>> {
 
     answeredBy(actor: UsesAbilities): PromiseLike<string> {
         return BrowseTheWeb.as(actor).locate(this.target).getAttribute(this.attribute);

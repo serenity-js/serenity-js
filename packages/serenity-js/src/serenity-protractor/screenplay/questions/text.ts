@@ -4,11 +4,11 @@ import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
 export class Text {
-    static of    = (element: Target): Question<string> => new TextOf(element);
-    static ofAll = (elements: Target): Question<string[]> => new TextOfAll(elements);
+    static of    = (element: Target): Question<PromiseLike<string>> => new TextOf(element);
+    static ofAll = (elements: Target): Question<PromiseLike<string[]>> => new TextOfAll(elements);
 }
 
-class TextOf implements Question<string> {
+class TextOf implements Question<PromiseLike<string>> {
 
     answeredBy(actor: UsesAbilities): PromiseLike<string> {
         return BrowseTheWeb.as(actor).locate(this.target).getText();
@@ -20,7 +20,7 @@ class TextOf implements Question<string> {
     toString = () => `the text of ${ this.target}`;
 }
 
-class TextOfAll implements Question<string[]> {
+class TextOfAll implements Question<PromiseLike<string[]>> {
 
     answeredBy(actor: UsesAbilities): PromiseLike<string[]> {
         // protractor ignores type definitions for the ElementArrayFinder

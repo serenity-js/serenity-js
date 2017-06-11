@@ -5,9 +5,13 @@ import { Expectation } from '../expectations';
 import { OneOrMany } from '../lists';
 import { Question } from '../question';
 
-export class CompareNotes<S> implements Interaction {
-    static toSeeIf<A>(actual: Question<OneOrMany<A>>, expectation: Expectation<OneOrMany<A>>, topic: { toString: () => string }) {
-        return new CompareNotes<A>(actual, expectation, topic.toString());
+export class CompareNotes<Expected, Actual extends PromiseLike<OneOrMany<Expected>> | OneOrMany<Expected>> implements Interaction {
+    static toSeeIf<E, A extends PromiseLike<OneOrMany<E>> | OneOrMany<E>>(
+        question: Question<A>,
+        expectation: Expectation<E, A>,
+        topic: { toString: () => string },
+    ) {
+        return new CompareNotes(question, expectation, topic.toString());
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
@@ -17,7 +21,7 @@ export class CompareNotes<S> implements Interaction {
             then(expected => this.expect(expected)(actor.toSee(this.actual)));
     }
 
-    constructor(private actual: Question<OneOrMany<S>>, private expect: Expectation<OneOrMany<S>>, private topic: string) {
+    constructor(private actual: Question<Actual>, private expect: Expectation<Expected, Actual>, private topic: string) {
     }
 
     toString = () => `{0} compares notes on ${this.subject()}`;

@@ -133,7 +133,7 @@ describe('Screenplay Pattern', () => {
             return new PerformASong(musicSheet);
         }
 
-        performAs(actor: PerformsTasks): Promise<void> {
+        performAs(actor: PerformsTasks): PromiseLike<void> {
             return actor.attemptsTo.apply(actor, this.playThe(this.musicSheet.chords));
         }
 
@@ -149,7 +149,7 @@ describe('Screenplay Pattern', () => {
             return new PlayAChord(chord);
         }
 
-        performAs(actor: UsesAbilities): Promise<void> {
+        performAs(actor: UsesAbilities): PromiseLike<void> {
             return PlayAnInstrument.as(actor).play(this.chord);
         }
 
@@ -163,17 +163,17 @@ describe('Screenplay Pattern', () => {
             return new NumberOfGuitarStrings();
         }
 
-        answeredBy(actor: UsesAbilities): Promise<number>|number {
+        answeredBy(actor: UsesAbilities): number {
             return 6;
         }
     }
 
     interface Instrument {
-        play(chord: Chord): Promise<any>;
+        play(chord: Chord): PromiseLike<any>;
     }
 
     class AcousticGuitar implements Instrument {
-        play(chord: Chord): Promise<any> {
+        play(chord: Chord): PromiseLike<any> {
             // use some "guitar driver" to play the chord on the "real guitar"
             return Promise.resolve();
         }
@@ -208,7 +208,7 @@ describe('Screenplay Pattern', () => {
          *
          * @param chord
          */
-        play(chord: Chord): Promise<void> {
+        play(chord: Chord): PromiseLike<void> {
             return this.instrument.play(chord);
         }
 

@@ -70,7 +70,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         }, Promise.resolve(null));
     }
 
-    toSee<T>(question: Question<T>): PromiseLike<T>|T {
+    toSee<T>(question: Question<T>): T {
         return question.answeredBy(this);
     }
 

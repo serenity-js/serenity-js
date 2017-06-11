@@ -9,9 +9,9 @@ describe('Abilities', () => {
 
         let notepad: Notepad;
 
-        const include      = (expected: string)   => (actual: string[]) => expect(actual).to.eventually.include(expected),
-              includeAllOf = (expected: string[]) => (actual: string[]) => expect(actual).to.eventually.include.members(expected),
-              equals       = <T>(expected: T)     => (actual: T)        => expect(actual).to.eventually.equal(expected);
+        const include      = (expected: string)   => (actual: PromiseLike<string[]>): PromiseLike<void> => expect(actual).to.eventually.include(expected),
+              includeAllOf = (expected: string[]) => (actual: PromiseLike<string[]>): PromiseLike<void> => expect(actual).to.eventually.include.members(expected),
+              equals       = <T>(expected: T)     => (actual: PromiseLike<T>): PromiseLike<void>        => expect(actual).to.eventually.equal(expected);
 
         beforeEach(() => notepad = {});
 
@@ -99,7 +99,7 @@ describe('Abilities', () => {
     });
 });
 
-class MyVoucherCode implements Question<string> {
+class MyVoucherCode implements Question<PromiseLike<string>> {
     static shownAs = (someValue: string) => new MyVoucherCode(someValue);
     answeredBy = (actor: UsesAbilities) => Promise.resolve(this.value);
     toString = () => 'My voucher code';
@@ -107,7 +107,7 @@ class MyVoucherCode implements Question<string> {
     }
 }
 
-class MyVoucherCodes implements Question<string[]> {
+class MyVoucherCodes implements Question<PromiseLike<string[]>> {
     static shownAs = (...someValues: string[]) => new MyVoucherCodes(someValues);
     answeredBy = (actor: UsesAbilities) => Promise.resolve(this.values);
     toString = () => 'My voucher codes';
@@ -115,7 +115,7 @@ class MyVoucherCodes implements Question<string[]> {
     }
 }
 
-class AvailableVoucher implements Question<string> {
+class AvailableVoucher implements Question<PromiseLike<string>> {
     static of = (someValue: string) => new AvailableVoucher(someValue);
     answeredBy = (actor: UsesAbilities) => Promise.resolve(this.value);
     toString = () => 'Available voucher';
@@ -123,9 +123,9 @@ class AvailableVoucher implements Question<string> {
     }
 }
 
-class AvailableVouchers implements Question<string[]> {
+class AvailableVouchers implements Question<PromiseLike<string[]>> {
     static of = (...someValues: string[]) => new AvailableVouchers(someValues);
-    answeredBy = (actor: UsesAbilities) => Promise.resolve(this.values);
+    answeredBy = (actor: UsesAbilities): PromiseLike<string[]> => Promise.resolve(this.values);
     toString = () => 'Available vouchers';
     constructor(private values: string[]) {
     }

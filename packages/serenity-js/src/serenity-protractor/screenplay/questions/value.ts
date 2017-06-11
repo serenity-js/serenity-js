@@ -3,7 +3,7 @@ import { Question, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { Target } from '../ui/target';
 import { Attribute } from './attribute';
 
-export class Value implements Question<string> {
+export class Value implements Question<PromiseLike<string>> {
 
     static of = (target: Target) => new Value(target);
 

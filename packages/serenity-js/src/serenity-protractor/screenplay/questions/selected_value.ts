@@ -3,7 +3,7 @@ import { Question, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
-export class SelectedValue implements Question<string> {
+export class SelectedValue implements Question<PromiseLike<string>> {
     static of = (target: Target) => new SelectedValue(target);
 
     answeredBy(actor: UsesAbilities): PromiseLike<string> {
@@ -16,7 +16,7 @@ export class SelectedValue implements Question<string> {
     toString = () => `the selected value of ${ this.target }`;
 }
 
-export class SelectedValues implements Question<string> {
+export class SelectedValues implements Question<PromiseLike<string>> {
     static of(target: Target) {
         return new SelectedValues(target);
     }

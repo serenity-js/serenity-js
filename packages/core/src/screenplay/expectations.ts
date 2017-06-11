@@ -1,2 +1,4 @@
-export type Assertion<T>   = (actual: T) => PromiseLike<void>;
-export type Expectation<T> = (expected: T) => Assertion<T>;
+import { OneOrMany } from './lists';
+
+export type Assertion<A> = (actual: A) => PromiseLike<void>;
+export type Expectation<E, A extends PromiseLike<OneOrMany<E>> | OneOrMany<E>> = (expected: OneOrMany<E>) => Assertion<A>;
