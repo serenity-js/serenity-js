@@ -1,5 +1,15 @@
-<a name="1.6.2"></a>
-## 1.6.2 (2017-06-11)
+<a name="1.7.0"></a>
+# 1.7.0 (2017-06-13)
+
+
+
+<a name="1.7.0"></a>
+# 1.7.0 (2017-06-13)
+
+
+### Features
+
+* **protractor:** switch task lets you switch between popup windows ([fdedf8a](https://github.com/jan-molak/serenity-js/commit/fdedf8a))
 
 
 
