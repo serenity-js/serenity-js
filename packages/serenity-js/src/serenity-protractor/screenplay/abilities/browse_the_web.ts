@@ -7,6 +7,8 @@ import { Target } from '../ui/target';
 
 export class BrowseTheWeb implements Ability {
 
+    private parentWindow?: string;
+
     /**
      *
      * Instantiates the Ability to BrowseTheWeb, allowing the Actor to interact with a Web UI
@@ -54,6 +56,23 @@ export class BrowseTheWeb implements Ability {
 
     manage(): webdriver.Options {
         return this.browser.driver.manage();
+    }
+
+    switchToParentWindow(): PromiseLike<void> {
+        if (! this.parentWindow) {
+            throw new Error('This window does not have a parent');
+        }
+        return this.browser.switchTo().window(this.parentWindow);
+    }
+
+    switchToWindow(handle: (handles: string[]) => string): PromiseLike<void> {
+        return this.browser.getWindowHandle().then(currentWindow => {
+            this.parentWindow = currentWindow;
+
+            return this.browser.getAllWindowHandles().then(handles => {
+                return this.browser.switchTo().window(handle(handles));
+            });
+        });
     }
 
     sleep(millis: number): PromiseLike<void> {

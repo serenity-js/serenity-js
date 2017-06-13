@@ -12,6 +12,10 @@ var capabilities = {
         build:                process.env.BROWSERSTACK_AUTOMATE_BUILD,
         project:              process.env.BROWSERSTACK_AUTOMATE_PROJECT,
 
+        chromeOptions: {
+            args: ['--disable-infobars']
+        },
+
         'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
         'browserstack.local': true,
     },

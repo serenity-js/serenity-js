@@ -9,5 +9,6 @@ export * from './open';
 export * from './resize_browser_window';
 export * from './scroll';
 export * from './select';
+export * from './switch';
 export * from './use_angular';
 export * from './wait';
