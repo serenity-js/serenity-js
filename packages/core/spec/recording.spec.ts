@@ -1,6 +1,6 @@
 import sinon = require('sinon');
 import expect = require('./expect');
-import { Actor, PerformsTasks, Task } from '../src/screenplay';
+import { Actor, PerformsTasks, Question, Task, UsesAbilities } from '../src/screenplay';
 
 import { step } from '../src/recording';
 import { Journal, StageManager } from '../src/stage/stage_manager';
@@ -104,6 +104,61 @@ describe ('When recording', () => {
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
                         line: 101,
                         column: 97,
+                        path: '/recording.spec.ts',
+                    });
+                }));
+            });
+
+            describe('data-driven approach', () => {
+
+                class Destinations implements Question<PromiseLike<string[]>> {
+
+                    static available(): Question<PromiseLike<string[]>> {
+                        return new Destinations();
+                    }
+
+                    answeredBy(actor: UsesAbilities): PromiseLike<string[]> {
+                        return Promise.resolve([ 'The Wonderland' ]);
+                    }
+                }
+
+                const Walk = {
+                    towards: (destination: string) => Task.where(`{0} walks towards ${destination}`),
+                };
+
+                class Follow implements Task {
+                    static the = (person_of_interest: string) => new Follow(person_of_interest);
+
+                    performAs(actor: PerformsTasks & UsesAbilities): PromiseLike<void> {
+                        const availableDestinations = [ 'The Wonderland' ];
+
+                        return Destinations.available().answeredBy(actor).then(destinations => {
+                            return actor.attemptsTo(
+                                ...destinations.map(destination =>
+                                    Walk.towards(destination),
+                                ),
+                            );
+                        });
+                    }
+
+                    toString = () => `{0} follows the ${this.person_of_interest}`
+
+                    constructor(private person_of_interest: string) {
+                    }
+                }
+
+                it('notifies the Stage Manager of Activity\'s invocation location', () => alice.attemptsTo(Follow.the('white rabbit')).then(() => {
+                    const entries = stage_manager.readTheJournal();
+
+                    expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
+                        line: 150,
+                        column: 97,
+                        path: '/recording.spec.ts',
+                    });
+
+                    expect(entries[ 1 ].value).to.be.recorded.as('Alice walks towards The Wonderland').calledAt({
+                        line: 136,
+                        column: 52,
                         path: '/recording.spec.ts',
                     });
                 }));
