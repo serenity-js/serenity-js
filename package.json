@@ -35,7 +35,7 @@
     "commit": "git-cz",
     "lerna": "lerna",
     "gitbook": "gitbook",
-    "postinstall": "lerna bootstrap --hoist"
+    "postinstall": "lerna bootstrap --hoist && link-parent-bin"
   },
   "devDependencies": {
     "@types/chai": "3.4.34",
@@ -66,6 +66,7 @@
     "istanbul-merge": "1.1.1",
     "lerna": "2.0.0-rc.4",
     "lerna-semantic-release": "9.1.0",
+    "link-parent-bin": "0.1.2",
     "mocha": "3.2.0",
     "mocha-testdata": "1.2.0",
     "nyc": "10.1.2",
