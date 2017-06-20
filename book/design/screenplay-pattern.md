@@ -94,7 +94,7 @@ A good example of a Task in our scenario could be to `AddATodoItem.called('Buy s
 which mapped to a Cucumber.js step definition would look like this:
 
 ```typescript
-this.When(/^he adds (.*?) to his list$/, (name: string) => {
+this.When(/^he adds (.*?) to his list$/, (itemName: string) => {
     return james.attemptsTo(
         AddATodoItem.called(itemName)
     );
