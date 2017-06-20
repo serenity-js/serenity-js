@@ -78,6 +78,12 @@ describe('Screenplay Pattern', () => {
                 PlayAChord.called(Chords.EMajor),
             );
         });
+
+        it('can be implemented as a placeholder to be "chunked down" later', () => {
+            const task = Task.where(`#actor doesn't have the interface to interact with yet`);
+
+            expect(task).to.have.property('performAs');
+        });
     });
 
     describe('Interaction', () => {
@@ -91,6 +97,23 @@ describe('Screenplay Pattern', () => {
             action.performAs(actor);
 
             expect(play).to.have.been.calledWith(Chords.AMajor);
+        });
+
+        it('can be implemented as a one-liner', () => {
+            const Play = (chord: Chord) => Interaction.where(`#actor plays ${chord}`, actor => PlayAnInstrument.as(actor).play(chord));
+
+            expect(Play(Chords.AMajor)).to.have.property('performAs');
+        });
+    });
+
+    describe('Question', () => {
+
+        it('can be implemented as a one-liner', () => {
+            const chris = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
+
+            const NumberOfGuitarStringsLeft = () => Question.where(`#actor checks how many strings are left`, actor => 6);
+
+            expect(NumberOfGuitarStringsLeft().answeredBy(chris)).to.equal(6);
         });
     });
 
@@ -112,6 +135,8 @@ describe('Screenplay Pattern', () => {
                     private B_2ND: number,
                     private E_1ST: number) {
         }
+
+        toString = () => this.name;
     }
 
     class Chords {
@@ -139,7 +164,7 @@ describe('Screenplay Pattern', () => {
 
         constructor(private musicSheet: MusicSheet) { }
 
-        private playThe(chords: Chord[]): PlayAChord[] {
+        private playThe(chords: Chord[]): Interaction[] {
             return chords.map(chord => PlayAChord.called(chord));
         }
     }
