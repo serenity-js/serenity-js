@@ -428,7 +428,7 @@ How did that work?
 in this case to `BrowseTheWeb`, to interact with the system.
 
 `Open` is one of the
-[Interactions that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/spec/api/serenity-protractor/screenplay/interactions/open.spec.ts).
+[Interactions that ship with Serenity/JS](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/spec/api/serenity-protractor/screenplay/interactions/).
 
 ## Adding items
 
