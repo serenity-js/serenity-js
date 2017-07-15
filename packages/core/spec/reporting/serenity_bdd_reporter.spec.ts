@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
-import { Md5 } from 'ts-md5/dist/md5';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -14,6 +13,7 @@ import {
     Result,
     SceneFinished,
     SceneStarts,
+    SceneTagged,
     Tag,
 } from '../../src/domain';
 import { FileSystem } from '../../src/io/file_system';
@@ -31,8 +31,6 @@ describe('When reporting on what happened during the rehearsal', () => {
             startTime = 1467201010000,
             duration  = 42,
             scene     = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }),
-            sceneId   = Md5.hashStr(scene.id),
-            filename  = `${ sceneId }.json`,
             rootDir   = '/some/path/to/reports';
 
         let stageManager: StageManager,
@@ -40,7 +38,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             fileSystem: FileSystem,
             reporter: SerenityBDDReporter;
 
-        beforeEach( () => {
+        beforeEach(() => {
             fileSystem   = new FileSystem(rootDir);
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
@@ -515,7 +513,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport()).to.deep.equal(expectedReportWith({
+                        expect(producedReport('324f8a667d6ae1b2c214f90d15368831.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
                             tags: [{
@@ -539,7 +537,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport()).to.deep.equal(expectedReportWith({
+                        expect(producedReport('71ee0997d0a6ffc820a9e12ef991f7ba.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
                             tags: [{
@@ -549,6 +547,53 @@ describe('When reporting on what happened during the rehearsal', () => {
                                 name: 'Checkout',
                                 type: 'feature',
                             }],
+                        })));
+                });
+
+                it('adds in tags generated asynchronously', () => {
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
+
+                    givenFollowingEvents(
+                        sceneStarted(aScene, startTime),
+                        sceneTagged(new Tag('browser', ['chrome']), startTime + 3),
+                        sceneFinished(aScene, Result.SUCCESS, startTime + 2),
+                    );
+
+                    return stageManager.waitForNextCue().then(_ =>
+                        expect(producedReport('4ec27293d39642f72c52b21e57675a49.json')).to.deep.equal(expectedReportWith({
+                            duration: 2,
+                            result: 'SUCCESS',
+                            tags: [{
+                                name: 'chrome',
+                                type: 'browser',
+                            }, {
+                                name: 'Checkout',
+                                type: 'feature',
+                            }],
+                        })));
+                });
+
+                it('specifies what "context icon" to use when the context tag is present', () => {
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
+
+                    givenFollowingEvents(
+                        sceneStarted(aScene, startTime),
+                        sceneTagged(new Tag('context', ['chrome']), startTime + 3),
+                        sceneFinished(aScene, Result.SUCCESS, startTime + 2),
+                    );
+
+                    return stageManager.waitForNextCue().then(_ =>
+                        expect(producedReport('898a20ecc17b8d1dc3bf94b26147db3a.json')).to.deep.equal(expectedReportWith({
+                            duration: 2,
+                            result: 'SUCCESS',
+                            tags: [{
+                                name: 'chrome',
+                                type: 'context',
+                            }, {
+                                name: 'Checkout',
+                                type: 'feature',
+                            }],
+                            context:   'chrome',
                         })));
                 });
 
@@ -564,7 +609,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport()).to.deep.equal(expectedReportWith({
+                        expect(producedReport('d16a4fd5a0b46ee409c67f40784d0ae9.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
                             tags: [{
@@ -600,7 +645,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport()).to.deep.equal(expectedReportWith({
+                        expect(producedReport('2cc43a438de2e6543553ccfe836e60b6.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
                             tags: [{
@@ -629,6 +674,10 @@ describe('When reporting on what happened during the rehearsal', () => {
                 return new SceneStarts(s, timestamp);
             }
 
+            function sceneTagged(tag: Tag, timestamp: number) {
+                return new SceneTagged(Promise.resolve(tag), timestamp);
+            }
+
             function activityStarted(name: string, timestamp: number) {
                 return new ActivityStarts(new RecordedActivity(name), timestamp);
             }
@@ -651,6 +700,7 @@ describe('When reporting on what happened during the rehearsal', () => {
 
             function expectedReportWith(overrides: any) {
                 const report = {
+                    id: 'checkout;paying-with-a-default-card',
                     name: 'Paying with a default card',
                     testSteps: [],
                     issues: [],
@@ -667,7 +717,6 @@ describe('When reporting on what happened during the rehearsal', () => {
                         name: 'Checkout',
                         type: 'feature',
                     }],
-                    driver:    'unknown',
                     manual:    false,
                     startTime,
                     duration:  undefined,
@@ -679,7 +728,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 return Object.assign(report, overrides);
             }
 
-            function producedReport() {
+            function producedReport(filename: string = '24e4a1bb29546fcd3240136392110b20.json') {
                 return JSON.parse(fs.readFileSync(`${rootDir}/${filename}`).toString('ascii'));
             }
         });

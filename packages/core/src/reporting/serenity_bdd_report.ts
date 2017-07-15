@@ -11,15 +11,16 @@ export interface FullReport extends JSONObject {
 }
 
 export interface SceneReport extends JSONObject {
+    id: string;
     title: string;
     name: string;
     description: string;
+    context: string;
     testSource?: string;
     // testCaseName: string;
     startTime: number;
     duration: number;
     sessionId?: string;
-    driver: string;
     manual: boolean;
     result: string;
     userStory: UserStoryReport;

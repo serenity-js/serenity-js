@@ -38,24 +38,29 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     notifyOf(event: DomainEvent<any>): void {
-        switch (event.constructor.name) { // tslint:disable-line:switch-default - ignore other events
-            case SceneFinished.name:    return this.persistReportFor(event);
+        switch (event.constructor) { // tslint:disable-line:switch-default - ignore other events
+            case SceneFinished: return this.persistReport();
         }
     }
 
-    private persistReportFor({ value }: SceneFinished) {
-        const filename = `${ Md5.hashStr(value.subject.id) }.json`;
-
+    private persistReport() {
         this.stage.manager.informOfWorkInProgress(
             RehearsalReport.from(this.stage.manager.readNewJournalEntriesAs('SerenityBDDReporter'))
                 .exportedUsing(new SerenityBDDReportExporter())
                 .then((fullReport: FullReport) => Promise.all(
                     fullReport.scenes.map(
-                        (scene: SceneReport) => this.fs.store(filename, JSON.stringify(scene)),
+                        (scene: SceneReport) => this.fs.store(reportFileNameFor(scene), JSON.stringify(scene)),
                     ),
                 )),
         );
     }
+}
+
+function reportFileNameFor(scene: SceneReport): string {
+    const id   = scene.id,
+          tags = scene.tags.map(t => `${t.type}:${t.name}`).join('-');
+
+    return Md5.hashStr(`${id}-${tags}`) + '.json';
 }
 
 /**
@@ -75,29 +80,32 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
 
     exportScene(node: ScenePeriod): PromiseLike<SceneReport> {
         return Promise.all(node.children.map(child => child.exportedUsing(this)))
-            .then((children: ActivityReport[]) => this.errorExporter.tryToExport(node.outcome.error).then(error => ({
-                title:          node.value.name,
-                name:           node.value.name,
-                description:    '',
-                startTime:      node.startedAt,
-                duration:       node.duration(),
-                driver:         'unknown',          // todo: provide the correct driver information for web tests
-                testSource:     'cucumber',         // todo: provide the correct test source
-                manual:         false,
-                result:         Result[node.outcome.result],
-                userStory:      {
-                    id:         this.dashified(node.value.category),
-                    path:       path.relative(process.cwd(), node.value.location.path),
-                    storyName:  node.value.category,
-                    type:       'feature',
-                },
-                tags:           this.tagsFor(node.value),
-                issues:         this.issuesCoveredBy(node.value),
-                testSteps:      children,
+            .then((children: ActivityReport[]) => this.errorExporter.tryToExport(node.outcome.error).then(error => {
+                return node.promisedTags().then(tags => ({
+                    id: `${this.dashified(node.value.category)};${this.dashified(node.value.name)}`,
+                    title: node.value.name,
+                    name: node.value.name,
+                    context: tags.filter(tag => tag.type === 'context').map(tag => tag.value).pop(),
+                    description: '',
+                    startTime: node.startedAt,
+                    duration: node.duration(),
+                    testSource: 'cucumber',         // todo: provide the correct test source
+                    manual: false,
+                    result: Result[ node.outcome.result ],
+                    userStory: {
+                        id: this.dashified(node.value.category),
+                        path: path.relative(process.cwd(), node.value.location.path),
+                        storyName: node.value.category,
+                        type: 'feature',
+                    },
+                    tags: this.serialisedTags(tags.concat(node.value.tags).concat(this.featureTags(node.value))),
+                    issues: this.issuesCoveredBy(node.value),
+                    testSteps: children,
 
-                annotatedResult:  Result[node.outcome.result],
-                testFailureCause: error,
-            })));
+                    annotatedResult: Result[ node.outcome.result ],
+                    testFailureCause: error,
+                }));
+            }));
     }
 
     exportActivity(node: ActivityPeriod): PromiseLike<ActivityReport> {
@@ -126,7 +134,14 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value() as string[];
     }
 
-    private tagsFor(scene: RecordedScene): TagReport[] {
+    // todo: add the capability tag?
+    private featureTags(scene: RecordedScene) {
+        return [
+            new Tag('feature', [scene.category]),
+        ];
+    }
+
+    private serialisedTags(tags: Tag[]): TagReport[] {
 
         const isAnIssue = this.isAnIssue;
 
@@ -145,19 +160,11 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 : tag;
         }
 
-        function featureTag(featureName: string) {
-            return {
-                name: featureName,
-                type: 'feature',
-            };
-        }
-
-        return _.chain(scene.tags)
+        return _.chain(tags)
             .map(breakDownIssues)
             .flatten()
             .map(serialise)
             .uniqBy('name')
-            .concat(featureTag(scene.category))
             .value();
     }
 

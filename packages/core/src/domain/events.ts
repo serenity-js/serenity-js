@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { Outcome, PhotoReceipt, RecordedActivity, RecordedScene } from './model';
+import { Outcome, PhotoReceipt, RecordedActivity, RecordedScene, Tag } from './model';
 
 export class DomainEvent<T> {
     private type: string;
@@ -17,5 +17,6 @@ export class DomainEvent<T> {
 export class SceneStarts        extends DomainEvent<RecordedScene> {}
 export class ActivityStarts     extends DomainEvent<RecordedActivity> {}
 export class ActivityFinished   extends DomainEvent<Outcome<RecordedActivity>> {}
+export class SceneTagged        extends DomainEvent<PromiseLike<Tag>> {}
 export class SceneFinished      extends DomainEvent<Outcome<RecordedScene>> {}
 export class PhotoAttempted     extends DomainEvent<PhotoReceipt> {}

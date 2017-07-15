@@ -9,6 +9,8 @@ import {
     RecordedScene,
     SceneFinished,
     SceneStarts,
+    SceneTagged,
+    Tag,
 } from '../domain';
 import { ReportExporter } from './report_exporter';
 
@@ -16,11 +18,13 @@ export class RehearsalReport {
     static from(events: Array<DomainEvent<any>>): RehearsalPeriod {
         let previousNode: ReportPeriod<RecordedScene | RecordedActivity>;
         let currentNode:  ReportPeriod<RecordedScene | RecordedActivity>;
+        let currentScene: ScenePeriod;
 
         return events.reduce((fullReport, event) => {
             switch (event.constructor) {    // tslint:disable-line:switch-default   - ignore other events
                 case SceneStarts:
-                    currentNode = fullReport.append(new ScenePeriod(event));
+                    currentScene = fullReport.append(new ScenePeriod(event)) as ScenePeriod;
+                    currentNode  = currentScene;
                     break;
                 case ActivityStarts:
                     currentNode = currentNode.append(new ActivityPeriod(event));
@@ -33,6 +37,9 @@ export class RehearsalReport {
                     // that's why we need to cache both the previous and the current node
                     previousNode = currentNode;
                     currentNode  = currentNode.concludeWith(event);
+                    break;
+                case SceneTagged:
+                    currentScene.tagWithPromised(event.value);
                     break;
                 case PhotoAttempted:
                     [previousNode, currentNode]
@@ -130,11 +137,21 @@ export class ActivityPeriod extends ReportPeriod<RecordedActivity> {
 }
 
 export class ScenePeriod extends ReportPeriod<RecordedScene> {
+    private tags: Array<PromiseLike<Tag>> = [];
+
     matches(another: RecordedScene): boolean {
         return this.value.equals(another);
     }
 
     exportedUsing<FORMAT>(exporter: ReportExporter<FORMAT>): PromiseLike<FORMAT> {
         return exporter.exportScene(this);
+    }
+
+    tagWithPromised(tag: PromiseLike<Tag>) {
+        this.tags.push(tag);
+    }
+
+    promisedTags() {
+        return Promise.all(this.tags);
     }
 }
