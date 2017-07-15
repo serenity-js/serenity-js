@@ -22,7 +22,7 @@ describe('When working with Cucumber', function() {
     describe('Serenity/JS', () => {
 
         const stepApiTypes = 4;
-        const messagesPerStep = 4;
+        const messagesPerStep = 6;
         const messagesPerFeature = stepApiTypes * messagesPerStep;
 
         it ('reports passing scenarios', () => {

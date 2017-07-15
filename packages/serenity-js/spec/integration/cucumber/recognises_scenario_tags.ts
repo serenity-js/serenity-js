@@ -1,8 +1,8 @@
 import { RecordedScene, SceneFinished, SceneStarts, Tag } from '@serenity-js/core/lib/domain';
+import { lastOf } from '../../support/event_picker';
+import { spawner } from '../../support/spawner';
 
 import expect = require('../../expect');
-
-import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function() {
 
@@ -22,9 +22,8 @@ describe('When working with Cucumber', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                const sceneStarts = spawned.messages[0];
+                const sceneStarts = lastOf(SceneStarts, spawned.messages);
 
-                expect(sceneStarts).to.be.instanceOf(SceneStarts);
                 expect(sceneStarts.value).to.be.instanceOf(RecordedScene);
                 expect(sceneStarts.value.tags).to.deep.equal([
                     new Tag('cucumber'),
@@ -32,7 +31,7 @@ describe('When working with Cucumber', function() {
                     new Tag('issue', [ 'MY-PROJECT-123' ]),
                 ]);
 
-                const sceneFinished = spawned.messages.pop();
+                const sceneFinished = lastOf(SceneFinished, spawned.messages);
 
                 expect(sceneFinished).to.be.instanceOf(SceneFinished);
                 expect(sceneFinished.value.subject).to.be.instanceOf(RecordedScene);
@@ -51,7 +50,7 @@ describe('When working with Cucumber', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                const sceneStarts = spawned.messages[0];
+                const sceneStarts = lastOf(SceneStarts, spawned.messages);
 
                 expect(sceneStarts).to.be.instanceOf(SceneStarts);
                 expect(sceneStarts.value).to.be.instanceOf(RecordedScene);
@@ -61,7 +60,7 @@ describe('When working with Cucumber', function() {
                     new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-789' ]),
                 ]);
 
-                const sceneFinished = spawned.messages.pop();
+                const sceneFinished = lastOf(SceneFinished, spawned.messages);
 
                 expect(sceneFinished).to.be.instanceOf(SceneFinished);
                 expect(sceneFinished.value.subject).to.be.instanceOf(RecordedScene);

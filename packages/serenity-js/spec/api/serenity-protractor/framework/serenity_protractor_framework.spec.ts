@@ -1,6 +1,6 @@
 import { Serenity } from '@serenity-js/core';
 import { ConsoleReporter, SerenityBDDReporter } from '@serenity-js/core/lib/reporting';
-import { Config } from 'protractor';
+import { Config, ProtractorBrowser } from 'protractor';
 import { Runner } from 'protractor/built/runner';
 import { SinonStub } from 'sinon';
 
@@ -12,6 +12,7 @@ import { Photographer } from '../../../../src/serenity-protractor/stage/photogra
 
 import sinon = require('sinon');
 import expect = require('../../../expect');
+import { ProtractorBrowserDetector } from '../../../../src/serenity-protractor/reporting/protractor_browser_detector';
 
 describe('serenity-protractor', () => {
 
@@ -30,7 +31,7 @@ describe('serenity-protractor', () => {
                     serenity: {
                         dialect: 'mocha',
                     },
-                }));
+                }), protractorBrowser('chrome'));
 
                 expect(framework).to.be.instanceOf(SerenityProtractorFramework);
                 expect(serenity.configure).to.have.been.calledWith(sinon.match({
@@ -39,6 +40,7 @@ describe('serenity-protractor', () => {
                         some(Photographer),
                         // core crew:
                         some(ProtractorReporter),
+                        some(ProtractorBrowserDetector),
                         some(StandIns),
                         some(ProtractorNotifier),
                     ],
@@ -54,7 +56,7 @@ describe('serenity-protractor', () => {
                             new ConsoleReporter(console.log),
                         ],
                     },
-                }));
+                }), protractorBrowser('chrome'));
 
                 expect(framework).to.be.instanceOf(SerenityProtractorFramework);
                 expect(serenity.configure).to.have.been.calledWith(sinon.match({
@@ -62,6 +64,7 @@ describe('serenity-protractor', () => {
                         some(ConsoleReporter),
                         // core crew:
                         some(ProtractorReporter),
+                        some(ProtractorBrowserDetector),
                         some(StandIns),
                         some(ProtractorNotifier),
                     ],
@@ -70,7 +73,7 @@ describe('serenity-protractor', () => {
 
             it('advises the developer what to do if the dialect could not be detected automatically', () => {
                 expect(() => {
-                    const framework = new SerenityProtractorFramework(serenity, protractorRunner.withConfiguration({}));
+                    const framework = new SerenityProtractorFramework(serenity, protractorRunner.withConfiguration({}), protractorBrowser('chrome'));
                 }).to.throw([
                     'Serenity/JS could not determine the test dialect you wish to use. ',
                     'Please add `serenity: { dialect: \'...\' }` to your Protractor configuration ',
@@ -87,6 +90,16 @@ describe('serenity-protractor', () => {
 
                 return r;
             },
+        };
+
+        const protractorBrowser = (browserName: string) => {
+            const browser = {
+                getCapabilities: () => Promise.resolve({
+                    get: (capability: string) => browserName,
+                }),
+            };
+
+            return browser as any;
         };
 
         const some = sinon.match.instanceOf;

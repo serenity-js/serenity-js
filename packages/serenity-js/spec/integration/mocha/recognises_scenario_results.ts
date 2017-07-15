@@ -1,6 +1,7 @@
 import expect = require('../../expect');
 
-import { Result, SceneFinished } from '@serenity-js/core/lib/domain';
+import { Result, SceneFinished, SceneStarts } from '@serenity-js/core/lib/domain';
+import { lastOf } from '../../support/event_picker';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Mocha', function() {
@@ -22,12 +23,11 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.SUCCESS]);
+                expect(Result[event.value.result]).to.equal(Result[Result.SUCCESS]);
             });
         });
 
@@ -37,12 +37,11 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
+                expect(Result[event.value.result]).to.equal(Result[Result.PENDING]);
             });
         });
 
@@ -52,12 +51,11 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.PENDING]);
+                expect(Result[event.value.result]).to.equal(Result[Result.PENDING]);
             });
         });
 
@@ -68,12 +66,11 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
+                expect(Result[event.value.result]).to.equal(Result[Result.FAILURE]);
             });
         });
 
@@ -84,13 +81,12 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.FAILURE]);
-                expect(lastMessage.value.error).to.deep.equal({
+                expect(Result[event.value.result]).to.equal(Result[Result.FAILURE]);
+                expect(event.value.error).to.deep.equal({
                     actual: 'async pass',
                     expected: 'async fail',
                     message: 'expected \'async pass\' to equal \'async fail\'',
@@ -107,13 +103,12 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
-                expect(lastMessage.value.error.message).to.match(/Timeout of 5ms exceeded./);
+                expect(Result[event.value.result]).to.equal(Result[Result.ERROR]);
+                expect(event.value.error.message).to.match(/Timeout of 5ms exceeded./);
             });
         });
 
@@ -124,13 +119,12 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
-                expect(lastMessage.value.error.message).to.match(/Expected problem/);
+                expect(Result[event.value.result]).to.equal(Result[Result.ERROR]);
+                expect(event.value.error.message).to.match(/Expected problem/);
             });
         });
 
@@ -141,13 +135,12 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.rejected.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                const lastMessage = spawned.messages.pop();
+                const event = lastOf(SceneFinished, spawned.messages);
 
-                expect(lastMessage).to.be.instanceOf(SceneFinished);
-                expect(Result[lastMessage.value.result]).to.equal(Result[Result.ERROR]);
-                expect(lastMessage.value.error.message).to.match(/Expected async problem/);
+                expect(Result[event.value.result]).to.equal(Result[Result.ERROR]);
+                expect(event.value.error.message).to.match(/Expected async problem/);
             });
         });
 
@@ -157,10 +150,13 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                expect(spawned.messages[0].value.category).to.equal('Integration with Mocha');
-                expect(spawned.messages[1].value.subject.category).to.equal('Integration with Mocha');
+                const sceneStarts = lastOf(SceneStarts, spawned.messages);
+                const sceneFinished = lastOf(SceneFinished, spawned.messages);
+
+                expect(sceneStarts.value.category).to.equal('Integration with Mocha');
+                expect(sceneFinished.value.subject.category).to.equal('Integration with Mocha');
             });
         });
 
@@ -170,10 +166,13 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                expect(spawned.messages[0].value.name).to.equal('A sample test that passes');
-                expect(spawned.messages[1].value.subject.name).to.equal('A sample test that passes');
+                const sceneStarts = lastOf(SceneStarts, spawned.messages);
+                const sceneFinished = lastOf(SceneFinished, spawned.messages);
+
+                expect(sceneStarts.value.name).to.equal('A sample test that passes');
+                expect(sceneFinished.value.subject.name).to.equal('A sample test that passes');
             });
         });
 
@@ -183,12 +182,14 @@ describe('When working with Mocha', function() {
             );
 
             return expect(spawned.result).to.be.eventually.fulfilled.then(() => {
-                expect(spawned.messages).to.have.lengthOf(2);
+                expect(spawned.messages).to.have.length.greaterThan(2);
 
-                expect(spawned.messages[0].value.name).to.equal('A test with both setup and teardown that passes');
-                expect(spawned.messages[1].value.subject.name).to.equal('A test with both setup and teardown that passes');
+                const sceneStarts = lastOf(SceneStarts, spawned.messages);
+                const sceneFinished = lastOf(SceneFinished, spawned.messages);
+
+                expect(sceneStarts.value.name).to.equal('A test with both setup and teardown that passes');
+                expect(sceneFinished.value.subject.name).to.equal('A test with both setup and teardown that passes');
             });
         });
-
     });
 });

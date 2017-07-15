@@ -1,5 +1,7 @@
 import expect = require('../../expect');
 
+import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/domain';
+import { lastOf } from '../../support/event_picker';
 import { spawner } from '../../support/spawner';
 
 describe('When working with Cucumber', function() {
@@ -18,7 +20,7 @@ describe('When working with Cucumber', function() {
 
     describe('Serenity/JS', () => {
 
-        const messagesPerStep = 4;
+        const messagesPerStep = 6;
 
         it ('reports data table arguments', () => {
             const spawned = protractor('**/*special_step_arguments.feature', '@datatable');
@@ -27,8 +29,8 @@ describe('When working with Cucumber', function() {
                 expect(spawned.messages).to.have.lengthOf(messagesPerStep);
 
                 const
-                    cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
-                    cucumberStepDescriptionFromActivityFinishedMessage = spawned.messages[2].value.subject.name;
+                    cucumberStepDescriptionFromActivityStartedMessage  = lastOf(ActivityStarts, spawned.messages).value.name,
+                    cucumberStepDescriptionFromActivityFinishedMessage = lastOf(ActivityFinished, spawned.messages).value.subject.name;
 
                 expect(cucumberStepDescriptionFromActivityStartedMessage).to.equal([
                     'Given the following accounts:',
@@ -49,8 +51,8 @@ describe('When working with Cucumber', function() {
                 expect(spawned.messages).to.have.lengthOf(messagesPerStep);
 
                 const
-                    cucumberStepDescriptionFromActivityStartedMessage  = spawned.messages[1].value.name,
-                    cucumberStepDescriptionFromActivityFinishedMessage = spawned.messages[2].value.subject.name;
+                    cucumberStepDescriptionFromActivityStartedMessage  = lastOf(ActivityStarts, spawned.messages).value.name,
+                    cucumberStepDescriptionFromActivityFinishedMessage = lastOf(ActivityFinished, spawned.messages).value.subject.name;
 
                 expect(cucumberStepDescriptionFromActivityStartedMessage).to.equal([
                     'Given an example.ts file with the following contents:',

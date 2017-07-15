@@ -1,7 +1,7 @@
 import { serenity, Serenity } from '@serenity-js/core';
 import { Config } from '@serenity-js/core/lib/config';
 import { serenityBDDReporter } from '@serenity-js/core/lib/reporting';
-import { Config as ProtractorConfig, Runner } from 'protractor';
+import { Config as ProtractorConfig, protractor, ProtractorBrowser, Runner } from 'protractor';
 
 import { ProtractorReport, ProtractorReporter } from '../reporting';
 import { ProtractorNotifier } from '../reporting/protractor_notifier';
@@ -12,13 +12,14 @@ import { TestFrameworkAdapter } from './test_framework_adapter';
 import { TestFrameworkDetector } from './test_framework_detector';
 
 import _ = require('lodash');
+import { ProtractorBrowserDetector } from '../reporting/protractor_browser_detector';
 
 // spec: https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
 
 const noop = () => undefined;
 
 export function run(runner: Runner, specs: string[]): PromiseLike<ProtractorReport> {
-    return new SerenityProtractorFramework(serenity, runner).run(specs);
+    return new SerenityProtractorFramework(serenity, runner, protractor.browser).run(specs);
 }
 
 export class SerenityProtractorFramework {
@@ -29,7 +30,7 @@ export class SerenityProtractorFramework {
 
     private detect = new TestFrameworkDetector();
 
-    constructor(private serenity: Serenity, private runner: Runner) {
+    constructor(private serenity: Serenity, private runner: Runner, browser: ProtractorBrowser) {
         const protractorConfig = runner.getConfig() as SerenityFrameworkConfig;
 
         this.reporter  = new ProtractorReporter(runner);
@@ -40,6 +41,7 @@ export class SerenityProtractorFramework {
         this.serenity.configure(this.withFallback(protractorConfig).mergedWith({
             crew: [
                 this.reporter,
+                new ProtractorBrowserDetector(browser),
                 new StandIns(),
                 new ProtractorNotifier(runner),
             ],
