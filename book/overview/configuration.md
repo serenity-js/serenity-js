@@ -145,7 +145,7 @@ exports.config = {
 ## Stage Crew Members
 
 The [Stage Crew Members](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/src/stage_crew.ts) listen on
-and act upon the [domain events](https://github.com/jan-molak/serenity-js/blob/master/packages/serenity-js/src/serenity/domain/events.ts)
+and act upon the [domain events](https://github.com/jan-molak/serenity-js/blob/master/packages/core/src/domain/events.ts)
 emitted during the test scenario execution.
 
 Your default stage crew consists of:
