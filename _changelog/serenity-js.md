@@ -1,5 +1,15 @@
-<a name="1.7.0"></a>
-# 1.7.0 (2017-07-15)
+<a name="1.8.0"></a>
+# 1.8.0 (2017-07-15)
+
+
+
+<a name="1.8.0"></a>
+# 1.8.0 (2017-07-15)
+
+
+### Features
+
+* **protractor:** support for multi-capability tests ([bdeb5fb](https://github.com/jan-molak/serenity-js/commit/bdeb5fb)), closes [#61](https://github.com/jan-molak/serenity-js/issues/61)
 
 
 
