@@ -1,6 +1,17 @@
 const crew = require('serenity-js/lib/stage_crew');
 
+var _            = require('lodash'),
+    path         = require('path'),
+    protractor   = require.resolve('protractor'),
+    node_modules = protractor.substring(0, protractor.lastIndexOf('node_modules') + 12);
+
 exports.config = {
+
+    seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.4.0.jar'),
+
+    localSeleniumStandaloneOpts: {
+        jvmArgs: [`-Dwebdriver.gecko.driver=${path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium')}/geckodriver-v0.18.0`]
+    },
 
     baseUrl: 'http://todomvc.com',
 
