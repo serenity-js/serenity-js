@@ -147,7 +147,7 @@ class TrackedActivity implements Activity {
 function locateCallerOf(method: string) {
     const origin_of = (frames: StackFrame[]): number => frames.findIndex(frame => !! frame.functionName && !! ~frame.functionName.indexOf(method));
     const get_frame = (frames: StackFrame[]): StackFrame => frames[origin_of(frames) + 1];
-    const frames_of_interest = (frame: StackFrame) => !~ frame.fileName.indexOf('node_modules');
+    const frames_of_interest = (frame: StackFrame) => frame && frame.fileName && !~ frame.fileName.indexOf('node_modules');
     const to_location = (frame: StackFrame): SourceLocation => ({
         path:   frame.fileName,
         line:   frame.lineNumber,
