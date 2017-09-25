@@ -8,7 +8,7 @@ export class Target {
         located: (byLocator: Locator): Target => new Target(name, byLocator),
     })
 
-    of(...tokenReplacements: string[]): Target {
+    of(...tokenReplacements: Array<string|number>): Target {
         return new Target(describeAs(this.name, ...tokenReplacements), new Interpolated(this.locator).with(tokenReplacements));
     }
 
@@ -37,7 +37,7 @@ class Interpolated {
     constructor(private locator: Locator) {
     }
 
-    public with(tokenReplacements: string[]) {
+    public with(tokenReplacements: Array<string|number>) {
 
         const unescaped = template => template.replace(/\\{(\d+)\\}/, '{$1}');
         const asString  = (locator: Locator): string => unescaped(`${(locator as any).value}`);

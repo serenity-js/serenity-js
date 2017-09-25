@@ -60,6 +60,17 @@ describe ('Target', () => {
         expect(element).to.have.been.calledWith(webdriver.By.id('sign-up-button'));
     });
 
+    it ('can have an XPath locator defined using numeric tokens to be resolved at a later stage', () => {
+        const
+            byLocatorTemplate = webdriver.By.xpath(`//ul[@id='items']//li[{0}]`),
+            element     = sinon.spy(),
+            target      = Target.the('n-th item').located(byLocatorTemplate);
+
+        target.of(3).resolveUsing(element);
+
+        expect(element).to.have.been.calledWith(webdriver.By.xpath(`//ul[@id='items']//li[3]`));
+    });
+
     it ('correctly overrides the toString method of the cloned locator', () => {
         const
             byLocatorTemplate = webdriver.By.id('sign-up-{0}'),
