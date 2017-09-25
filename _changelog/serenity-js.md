@@ -1,5 +1,15 @@
-<a name="1.8.0"></a>
-# 1.8.0 (2017-09-24)
+<a name="1.8.1"></a>
+## 1.8.1 (2017-09-25)
+
+
+
+<a name="1.8.1"></a>
+## 1.8.1 (2017-09-25)
+
+
+### Bug Fixes
+
+* **protractor:** target.of() Dynamic selector accepts both string and number arguments ([a710f61](https://github.com/jan-molak/serenity-js/commit/a710f61))
 
 
 
