@@ -1,5 +1,15 @@
-<a name="1.8.1"></a>
-## 1.8.1 (2017-09-26)
+<a name="1.9.0"></a>
+# 1.9.0 (2017-09-26)
+
+
+
+<a name="1.9.0"></a>
+# 1.9.0 (2017-09-26)
+
+
+### Features
+
+* **config:** output directory is configurable ([03b2842](https://github.com/jan-molak/serenity-js/commit/03b2842))
 
 
 
