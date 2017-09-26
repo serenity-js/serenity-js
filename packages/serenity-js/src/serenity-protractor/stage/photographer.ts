@@ -1,4 +1,4 @@
-import { Default_Path_To_Reports } from '@serenity-js/core';
+import { serenity } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -43,7 +43,7 @@ export class PhotographySchedule {
 
     private activityOfInterest: ActivityOfInterest     = this.Tasks_and_Interactions;
     private photoTiming: TimingBehaviour               = this.Activity_Finishes;
-    private pathToPhotos: string                       = Default_Path_To_Reports;
+    private pathToPhotos: string                       = serenity.config.outputDirectory;
     private photoNamingStrategy: PictureNamingStrategy = new Md5HashedPictureNames('png');
 
     takesPhotosOf(activityOfInterest: ActivityOfInterest): PhotographySchedule {

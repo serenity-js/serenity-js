@@ -2,11 +2,6 @@ import { Config } from './config';
 import { DomainEvent } from './domain/events';
 import { Cast, Journal, Stage, StageCrewMember, StageManager } from './stage';
 
-import _ = require('lodash');
-
-// todo: move to config
-export const Default_Path_To_Reports = `${process.cwd()}/target/site/serenity/`;
-
 export class Serenity {
     private stage: Stage = new Stage(new StageManager(new Journal()));
     private configuration: Config<SerenityConfig<Object>> = new Config({
@@ -14,6 +9,7 @@ export class Serenity {
         crew: [],
         parameters: {},
         stageCueTimeout: 30 * 1000,
+        outputDirectory: `${process.cwd()}/target/site/serenity/`,
     });
 
     callToStageFor = (cast: Cast): Stage => this.stage.enter(cast);
@@ -40,4 +36,5 @@ export interface SerenityConfig<T> {
     crew?: StageCrewMember[];
     parameters?: T;
     stageCueTimeout?: number;
+    outputDirectory?: string;
 }

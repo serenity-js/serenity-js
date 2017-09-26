@@ -4,9 +4,9 @@ import StackTrace = require('stacktrace-js');
 import { StackFrame } from 'stacktrace-js';
 import { Md5 } from 'ts-md5/dist/md5';
 
+import { serenity } from '../';
 import { DomainEvent, Photo, RecordedScene, Result, SceneFinished, Tag } from '../domain';
 import { FileSystem, JSONObject } from '../io';
-import { Default_Path_To_Reports } from '../serenity';
 import { Stage, StageCrewMember } from '../stage';
 import { ActivityPeriod, RehearsalPeriod, ReportExporter, ScenePeriod } from './index';
 import { RehearsalReport } from './rehearsal_report';
@@ -20,7 +20,7 @@ import {
     TagReport,
 } from './serenity_bdd_report';
 
-export function serenityBDDReporter(pathToReports: string = Default_Path_To_Reports): StageCrewMember {
+export function serenityBDDReporter(pathToReports: string = serenity.config.outputDirectory): StageCrewMember {
     return new SerenityBDDReporter(new FileSystem(pathToReports));
 }
 
