@@ -58,7 +58,7 @@ export class SerenityBDDReporter implements StageCrewMember {
 
 function reportFileNameFor(scene: SceneReport): string {
     const id   = scene.id,
-          tags = scene.tags.map(t => `${t.type}:${t.name}`).join('-');
+          tags = (scene.tags || []).map(t => `${t.type}:${t.name}`).join('-');
 
     return Md5.hashStr(`${id}-${tags}`) + '.json';
 }
