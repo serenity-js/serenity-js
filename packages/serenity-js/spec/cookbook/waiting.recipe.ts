@@ -169,7 +169,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Not_Long_Enough).until(Playground.Result, Is.present()),
-                    )).to.be.rejectedWith('The result did not become invisible'));
+                    )).to.be.rejectedWith('The result did not become present'));
 
                 it('will pass if the condition is met within the timeout', () =>
 
