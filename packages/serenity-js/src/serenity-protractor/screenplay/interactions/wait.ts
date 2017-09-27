@@ -76,7 +76,7 @@ class IsInvisible implements Condition<ElementFinder> {
 
 class IsPresent implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.presenceOf(thing);
-    name  = () => 'invisible';
+    name  = () => 'present';
 }
 
 class Absent implements Condition<ElementFinder> {
