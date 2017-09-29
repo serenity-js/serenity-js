@@ -82,9 +82,9 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         return Promise.all(node.children.map(child => child.exportedUsing(this)))
             .then((children: ActivityReport[]) => this.errorExporter.tryToExport(node.outcome.error).then(error => {
                 return node.promisedTags().then(tags => ({
-                    id: `${this.dashified(node.value.category)};${this.dashified(node.value.name)}`,
+                    id: this.idOf(node, tags),
                     title: node.value.name,
-                    name: node.value.name,
+                    name: this.idOf(node, tags),
                     context: tags.filter(tag => tag.type === 'context').map(tag => tag.value).pop(),
                     description: '',
                     startTime: node.startedAt,
@@ -119,6 +119,16 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 children,
                 exception:   r[1], // this.errorExporter.tryToExport(node.outcome.error),
             })));
+    }
+
+    private idOf(node: ScenePeriod, tags: Tag[]) {
+        const combined = (ts: Tag[]) => (tags || []).map(tag => `${ tag.type }:${tag.value}`).join(';');
+
+        return [
+            this.dashified(node.value.category),
+            this.dashified(node.value.name),
+            combined(tags),
+        ].join(';').replace(/;$/, '');
     }
 
     private dashified = (name: string) => name

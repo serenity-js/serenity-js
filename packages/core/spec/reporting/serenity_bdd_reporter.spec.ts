@@ -560,7 +560,9 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('4ec27293d39642f72c52b21e57675a49.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('4062be5f843076e45e7704049f4b8cf1.json')).to.deep.equal(expectedReportWith({
+                            id: 'checkout;paying-with-a-default-card;browser:chrome',
+                            name: 'checkout;paying-with-a-default-card;browser:chrome',
                             duration: 2,
                             result: 'SUCCESS',
                             tags: [{
@@ -583,7 +585,9 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('898a20ecc17b8d1dc3bf94b26147db3a.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('7f0e8e67887c2de55c2ca087e1ca14cb.json')).to.deep.equal(expectedReportWith({
+                            id: 'checkout;paying-with-a-default-card;context:chrome',
+                            name: 'checkout;paying-with-a-default-card;context:chrome',
                             duration: 2,
                             result: 'SUCCESS',
                             tags: [{
@@ -701,7 +705,7 @@ describe('When reporting on what happened during the rehearsal', () => {
             function expectedReportWith(overrides: any) {
                 const report = {
                     id: 'checkout;paying-with-a-default-card',
-                    name: 'Paying with a default card',
+                    name: 'checkout;paying-with-a-default-card',
                     testSteps: [],
                     issues: [],
                     userStory: {
