@@ -63,6 +63,42 @@ function reportFileNameFor(scene: SceneReport): string {
     return Md5.hashStr(`${id}-${tags}`) + '.json';
 }
 
+class Tags {
+    private readonly tags: Tag[];
+
+    constructor(...tags: Tag[]) {
+        this.tags = tags;
+    }
+
+    ofType(type: string) {
+        return this.tags.filter(tag => tag.type === type);
+    }
+
+    all = () => this.tags;
+
+    process = (...fns: Array<(tags: Tag[]) => Tag[]>) => fns.reduce((tags, fn) => fn(tags), this.tags);
+}
+
+const splitIssueTags                = (tags: Tag[]) => {
+    const isAnIssue = (tag: Tag): boolean => !! ~['issue', 'issues'].indexOf(tag.type);
+    const breakDownIssues = (tag: Tag) => isAnIssue(tag)
+            ? tag.values.map(issueId => new Tag('issue', [ issueId ]))
+            : tag;
+
+    return _.chain(tags)
+        .map(breakDownIssues)
+        .flatten()
+        .value() as Tag[];
+};
+
+const addCapabilityAndFeatureTags   = (scene: RecordedScene) => (tags: Tag[]) => {
+    return tags.concat(
+        new Tag('feature', [scene.category]),
+    );
+};
+
+const tagAsManualIfNeeded     = (tags: Tag[]) => tags.concat(...tags.filter(tag => tag.type === 'manual').map(t => new Tag('External Tests', ['Manual'])));
+
 /**
  * Transforms the tree structure of the RehearsalPeriod to a format acceptable by Protractor
  */
@@ -81,30 +117,43 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
     exportScene(node: ScenePeriod): PromiseLike<SceneReport> {
         return Promise.all(node.children.map(child => child.exportedUsing(this)))
             .then((children: ActivityReport[]) => this.errorExporter.tryToExport(node.outcome.error).then(error => {
-                return node.promisedTags().then(tags => ({
-                    id: this.idOf(node, tags),
-                    title: node.value.name,
-                    name: this.idOf(node, tags),
-                    context: tags.filter(tag => tag.type === 'context').map(tag => tag.value).pop(),
-                    description: '',
-                    startTime: node.startedAt,
-                    duration: node.duration(),
-                    testSource: 'cucumber',         // todo: provide the correct test source
-                    manual: false,
-                    result: Result[ node.outcome.result ],
-                    userStory: {
-                        id: this.dashified(node.value.category),
-                        path: path.relative(process.cwd(), node.value.location.path),
-                        storyName: node.value.category,
-                        type: 'feature',
-                    },
-                    tags: this.serialisedTags(tags.concat(node.value.tags).concat(this.featureTags(node.value))),
-                    issues: this.issuesCoveredBy(node.value),
-                    testSteps: children,
+                return node.promisedTags().then(promisedTags => {
+                    const scene = node.value;
+                    const tags  = new Tags(...scene.tags, ...promisedTags);
 
-                    annotatedResult: Result[ node.outcome.result ],
-                    testFailureCause: error,
-                }));
+                    return ({
+                        id:         this.idOf(node, tags.all()),
+                        name:       this.idOf(node, tags.all()),
+
+                        context:    tags.ofType('context').map(tag => tag.value).pop(),
+                        manual:     !! tags.ofType('manual').pop(),
+                        tags:       this.serialisedTags(tags.process(
+                                        splitIssueTags,
+                                        tagAsManualIfNeeded,
+                                        addCapabilityAndFeatureTags(scene),
+                                    )),
+
+                        title:          scene.name,
+                        description:    '',
+                        startTime:      node.startedAt,
+                        duration:       node.duration(),
+                        testSource:     'cucumber',         // todo: provide the correct test source
+
+                        userStory: {
+                            id:         this.dashified(scene.category),
+                            path:       path.relative(process.cwd(), scene.location.path),
+                            storyName:  scene.category,
+                            type:       'feature',
+                        },
+
+                        issues:     this.issuesCoveredBy(scene),
+                        testSteps:  children,
+
+                        result:             Result[ node.outcome.result ],
+                        annotatedResult:    Result[ node.outcome.result ],
+                        testFailureCause:   error,
+                    });
+                });
             }));
     }
 
@@ -122,7 +171,8 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
     }
 
     private idOf(node: ScenePeriod, tags: Tag[]) {
-        const combined = (ts: Tag[]) => (tags || []).map(tag => `${ tag.type }:${tag.value}`).join(';');
+        const asString = (t: Tag) => !! t.value ? `${ t.type }:${t.value}` : t.type ;
+        const combined = (ts: Tag[]) => (tags || []).map(asString).join(';').replace(' ', '');
 
         return [
             this.dashified(node.value.category),
@@ -144,16 +194,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
         return _.chain(scene.tags).filter(onlyIssueTags).map(toIssueIds).flatten().uniq().value() as string[];
     }
 
-    // todo: add the capability tag?
-    private featureTags(scene: RecordedScene) {
-        return [
-            new Tag('feature', [scene.category]),
-        ];
-    }
-
     private serialisedTags(tags: Tag[]): TagReport[] {
-
-        const isAnIssue = this.isAnIssue;
 
         function serialise(tag: Tag) {
             const noValue   = (t: Tag) => ({ name: t.type,  type: 'tag' }),
@@ -164,15 +205,7 @@ export class SerenityBDDReportExporter implements ReportExporter<JSONObject> {
                 : withValue(tag);
         }
 
-        function breakDownIssues(tag: Tag) {
-            return isAnIssue(tag)
-                ? tag.values.map(issueId => new Tag('issue', [ issueId ]))
-                : tag;
-        }
-
         return _.chain(tags)
-            .map(breakDownIssues)
-            .flatten()
             .map(serialise)
             .uniqBy('name')
             .value();

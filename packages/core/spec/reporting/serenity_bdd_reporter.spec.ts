@@ -27,6 +27,10 @@ describe('When reporting on what happened during the rehearsal', () => {
 
     describe ('SerenityBDDReporter', () => {
 
+        // todo: extract hash generation so that it doesn't have to be hard-coded
+        // todo: correct the manual tag handling
+        // todo: correct the feature and capability tags handling
+
         const
             startTime = 1467201010000,
             duration  = 42,
@@ -513,12 +517,44 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('324f8a667d6ae1b2c214f90d15368831.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('d1a32bdd50a70230530d092e3236b22b.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
+                            id: 'checkout;paying-with-a-default-card;regression',
+                            name: 'checkout;paying-with-a-default-card;regression',
                             result: 'SUCCESS',
                             tags: [{
                                 name: 'regression',
                                 type: 'tag',
+                            }, {
+                                name: 'Checkout',
+                                type: 'feature',
+                            }],
+                        })));
+                });
+
+                it('describes the scenario as "manual" when it is tagged as such', () => {
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                        new Tag('manual'),
+                    ]);
+
+                    givenFollowingEvents(
+                        sceneStarted(taggedScene, startTime),
+                        sceneFinished(taggedScene, Result.SUCCESS, startTime + 1),
+                    );
+
+                    return stageManager.waitForNextCue().then(_ =>
+                        expect(producedReport('e78f6c3a32e9fe31c5b9b68ec4002996.json')).to.deep.equal(expectedReportWith({
+                            duration: 1,
+                            id: 'checkout;paying-with-a-default-card;manual',
+                            name: 'checkout;paying-with-a-default-card;manual',
+                            result: 'SUCCESS',
+                            manual: true,
+                            tags: [{
+                                name: 'manual',
+                                type: 'tag',
+                            }, {
+                                name: 'Manual',
+                                type: 'External Tests',
                             }, {
                                 name: 'Checkout',
                                 type: 'feature',
@@ -537,9 +573,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('71ee0997d0a6ffc820a9e12ef991f7ba.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('5797820850d2f54c02f4af4329e72da3.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
+                            id: 'checkout;paying-with-a-default-card;priority:must-have',
+                            name: 'checkout;paying-with-a-default-card;priority:must-have',
                             tags: [{
                                 name: 'must-have',
                                 type: 'priority',
@@ -613,9 +651,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('d16a4fd5a0b46ee409c67f40784d0ae9.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('347aeb7615908c793d4e658896b3bdcc.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
+                            id:   'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issues:MY-PROJECT-789',
+                            name: 'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issues:MY-PROJECT-789',
                             tags: [{
                                 name: 'MY-PROJECT-123',
                                 type: 'issue',
@@ -649,9 +689,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('2cc43a438de2e6543553ccfe836e60b6.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('7895a8ceecdf653a2a42302cfb40e4e4.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
+                            id:   'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issue:MY-PROJECT-123',
+                            name: 'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issue:MY-PROJECT-123',
                             tags: [{
                                 name: 'MY-PROJECT-123',
                                 type: 'issue',
