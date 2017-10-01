@@ -201,18 +201,36 @@ serenity: {
 :bulb: **PRO TIP**: You can define your own Stage Crew Members to produce custom reports or integrate 
 with your infrastructure.
 
-## Output directory
+## Requirements directory
 
-Serenity/JS produces `.json` reports (optionally accompanied by screenshots)
-and stores them under the `target/site/serenity` directory
-where they can be processed by [Serenity BDD CLI](https://www.npmjs.com/package/serenity-cli)
-to create the [HTML reports](reporting.md).
+By default, Serenity/JS assumes that your acceptance tests, in the form of either 
+[Cucumber `*.feature` files](../cucumber/automation.md#location-location-location) 
+or [Mocha `*.spec.ts` files](../mocha/overview.md#directory-structure), 
+are kept in the `features` directory under the project root.
+It also assumes that you run your acceptance tests from the project's root directory. 
 
-To change this default location, configure the `outputDirectory` property:
+This means that the default configuration of the `requirementsDirectory` looks as follows,
+but you can change it to better fit the structure of your project: 
 
 ```javascript
 serenity: {
-    outputDirectory: `my/custom/path`
+    requirementsDirectory: `${process.cwd()}/features`
+}
+```
+
+## Output directory
+
+Serenity/JS produces `.json` reports (optionally accompanied by screenshots)
+and stores them in the `target/site/serenity` directory (relative to where you're executing the tests from)
+where they can be processed by [Serenity BDD CLI](https://www.npmjs.com/package/serenity-cli)
+to create the [HTML reports](reporting.md).
+
+This means that the default configuration of the `outputDirectory` looks as follows, but you can change it 
+to better fit the structure of your project:
+
+```javascript
+serenity: {
+    outputDirectory: `${process.cwd()}/target/site/serenity/`
 }
 ```
 

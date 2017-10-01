@@ -28,14 +28,15 @@ describe('When reporting on what happened during the rehearsal', () => {
     describe ('SerenityBDDReporter', () => {
 
         // todo: extract hash generation so that it doesn't have to be hard-coded
-        // todo: correct the manual tag handling
-        // todo: correct the feature and capability tags handling
 
         const
             startTime = 1467201010000,
             duration  = 42,
-            scene     = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }),
-            rootDir   = '/some/path/to/reports';
+            rootDir   = `/path/to/project`,
+            requirementsDir = `${rootDir}/features`,
+            outputDir       = `${rootDir}/target/site/serenity`,
+
+            scene     = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` });
 
         let stageManager: StageManager,
             stage: Stage,
@@ -43,11 +44,11 @@ describe('When reporting on what happened during the rehearsal', () => {
             reporter: SerenityBDDReporter;
 
         beforeEach(() => {
-            fileSystem   = new FileSystem(rootDir);
+            fileSystem   = new FileSystem(outputDir);
             stageManager = new StageManager(new Journal());
             stage        = new Stage(stageManager);
 
-            reporter = new SerenityBDDReporter(fileSystem);
+            reporter = new SerenityBDDReporter(requirementsDir, fileSystem);
             reporter.assignTo(stage);
         });
 
@@ -59,7 +60,7 @@ describe('When reporting on what happened during the rehearsal', () => {
         });
 
         it ('can be instantiated using a factory method so that explicit instantiation of the File System can be avoided', () => {
-            expect(serenityBDDReporter('/some/path/to/reports')).to.be.instanceOf(SerenityBDDReporter);
+            expect(serenityBDDReporter('/some/path/to/features')).to.be.instanceOf(SerenityBDDReporter);
         });
 
         describe ('the Rehearsal Report', () => {
@@ -485,10 +486,94 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
             });
 
+            describe('When feature files are grouped in directories', () => {
+
+                it('reports the top-most directory as a "Capability", if there is only one level of nesting', () => {
+                    const
+                        capabilityDirectoryName = 'online_payments',
+                        expectedCapabilityName  = 'Online payments',
+                        featureName             = 'Card payments',
+                        scenarioName            = 'Paying with a default card';
+
+                    const aScene        = new RecordedScene(scenarioName, featureName, {
+                        path: `${requirementsDir}/${capabilityDirectoryName}/card_payments.feature`,
+                    });
+
+                    givenFollowingEvents(
+                        sceneStarted(aScene, startTime),
+                        sceneFinished(aScene, Result.SUCCESS, startTime + 1),
+                    );
+
+                    return stageManager.waitForNextCue().then(_ =>
+                        expect(producedReport('ad1d4103e40456fafdcae4d92f99a0a7.json')).to.deep.equal(expectedReportWith({
+                            id:     'paying-with-a-default-card;feature-onlinepayments-card-payments-capability-online-payments',
+                            name:   'paying-with-a-default-card;feature-onlinepayments-card-payments-capability-online-payments',
+                            duration: 1,
+                            result: 'SUCCESS',
+                            tags: [ {
+                                name:  `${expectedCapabilityName}/${featureName}`,
+                                type: 'feature',
+                            }, {
+                                name:  expectedCapabilityName,
+                                type: 'capability',
+                            } ],
+                            userStory: {
+                                id: 'card-payments',
+                                path: 'online_payments/card_payments.feature',
+                                storyName: 'Card payments',
+                                type: 'feature',
+                            },
+                        })));
+                });
+
+                it('reports the themes and capabilities if there are two levels of nesting', () => {
+                    const
+                        themeDirectoryName      = 'online_payments',
+                        expectedThemeName       = 'Online payments',
+                        capabilityDirectoryName = 'card_payments',
+                        expectedCapabilityName  = 'Card payments',
+                        featureName             = 'Visa',
+                        scenarioName            = 'Paying with a default card';
+
+                    const aScene        = new RecordedScene(scenarioName, featureName, {
+                        path: `${requirementsDir}/${themeDirectoryName}/${capabilityDirectoryName}/visa.feature`,
+                    });
+
+                    givenFollowingEvents(
+                        sceneStarted(aScene, startTime),
+                        sceneFinished(aScene, Result.SUCCESS, startTime + 1),
+                    );
+
+                    return stageManager.waitForNextCue().then(_ =>
+                        expect(producedReport('ebcfc6c234fd44e76183cb15dcc441d4.json')).to.deep.equal(expectedReportWith({
+                            id:     'paying-with-a-default-card;feature-cardpayments-visa-capability-online-payments-card-payments-theme-online-payments',
+                            name:   'paying-with-a-default-card;feature-cardpayments-visa-capability-online-payments-card-payments-theme-online-payments',
+                            duration: 1,
+                            result: 'SUCCESS',
+                            tags: [ {
+                                name:  `${expectedCapabilityName}/${featureName}`,
+                                type: 'feature',
+                            }, {
+                                name:  `${expectedThemeName}/${expectedCapabilityName}`,
+                                type: 'capability',
+                            }, {
+                                name:  expectedThemeName,
+                                type: 'theme',
+                            } ],
+                            userStory: {
+                                id:         'visa',
+                                path:       `${themeDirectoryName}/${capabilityDirectoryName}/visa.feature`,
+                                storyName:  featureName,
+                                type:       'feature',
+                            },
+                        })));
+                });
+            });
+
             describe('When scenarios are tagged', () => {
 
                 it('adds a tag for the feature covered', () => {
-                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` });
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
@@ -507,7 +592,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the simple tags encountered', () => {
-                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` }, [
                         new Tag('regression'),
                     ]);
 
@@ -517,10 +602,10 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('d1a32bdd50a70230530d092e3236b22b.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('c8e5d709480c45d6a0e19252e8808c57.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
-                            id: 'checkout;paying-with-a-default-card;regression',
-                            name: 'checkout;paying-with-a-default-card;regression',
+                            id: 'paying-with-a-default-card;regression-feature-checkout',
+                            name: 'paying-with-a-default-card;regression-feature-checkout',
                             result: 'SUCCESS',
                             tags: [{
                                 name: 'regression',
@@ -533,7 +618,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the scenario as "manual" when it is tagged as such', () => {
-                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` }, [
                         new Tag('manual'),
                     ]);
 
@@ -543,10 +628,10 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('e78f6c3a32e9fe31c5b9b68ec4002996.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('8bab02c07b11ba0897286a8eea810e06.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
-                            id: 'checkout;paying-with-a-default-card;manual',
-                            name: 'checkout;paying-with-a-default-card;manual',
+                            id: 'paying-with-a-default-card;manual-external-tests-manual-feature-checkout',
+                            name: 'paying-with-a-default-card;manual-external-tests-manual-feature-checkout',
                             result: 'SUCCESS',
                             manual: true,
                             tags: [{
@@ -563,7 +648,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('describes the complex tags encountered', () => {
-                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` }, [
                         new Tag('priority', [ 'must-have' ]),
                     ]);
 
@@ -573,11 +658,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('5797820850d2f54c02f4af4329e72da3.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('96cf0cdb5ee2d58911ae1cb503e58483.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
-                            id: 'checkout;paying-with-a-default-card;priority:must-have',
-                            name: 'checkout;paying-with-a-default-card;priority:must-have',
+                            id: 'paying-with-a-default-card;priority-must-have-feature-checkout',
+                            name: 'paying-with-a-default-card;priority-must-have-feature-checkout',
                             tags: [{
                                 name: 'must-have',
                                 type: 'priority',
@@ -589,7 +674,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('adds in tags generated asynchronously', () => {
-                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` });
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
@@ -598,9 +683,9 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('4062be5f843076e45e7704049f4b8cf1.json')).to.deep.equal(expectedReportWith({
-                            id: 'checkout;paying-with-a-default-card;browser:chrome',
-                            name: 'checkout;paying-with-a-default-card;browser:chrome',
+                        expect(producedReport('472e6b3067206747491fb55dbf61c239.json')).to.deep.equal(expectedReportWith({
+                            id: 'paying-with-a-default-card;browser-chrome-feature-checkout',
+                            name: 'paying-with-a-default-card;browser-chrome-feature-checkout',
                             duration: 2,
                             result: 'SUCCESS',
                             tags: [{
@@ -614,7 +699,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('specifies what "context icon" to use when the context tag is present', () => {
-                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' });
+                    const aScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` });
 
                     givenFollowingEvents(
                         sceneStarted(aScene, startTime),
@@ -623,9 +708,9 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('7f0e8e67887c2de55c2ca087e1ca14cb.json')).to.deep.equal(expectedReportWith({
-                            id: 'checkout;paying-with-a-default-card;context:chrome',
-                            name: 'checkout;paying-with-a-default-card;context:chrome',
+                        expect(producedReport('8ef92158f9b14acefaa3195907f0d519.json')).to.deep.equal(expectedReportWith({
+                            id: 'paying-with-a-default-card;context-chrome-feature-checkout',
+                            name: 'paying-with-a-default-card;context-chrome-feature-checkout',
                             duration: 2,
                             result: 'SUCCESS',
                             tags: [{
@@ -640,7 +725,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('extracts the value of any @issues tags encountered and breaks them down to one tag per issue', () => {
-                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` }, [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issues', [ 'MY-PROJECT-789' ]),
                     ]);
@@ -651,11 +736,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('347aeb7615908c793d4e658896b3bdcc.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('ff634f0cc40700bd59177d4e5ae57b02.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
-                            id:   'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issues:MY-PROJECT-789',
-                            name: 'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issues:MY-PROJECT-789',
+                            id:   'paying-with-a-default-card;issue-my-project-123-issue-my-project-456-issue-my-project-789-feature-checkout',
+                            name: 'paying-with-a-default-card;issue-my-project-123-issue-my-project-456-issue-my-project-789-feature-checkout',
                             tags: [{
                                 name: 'MY-PROJECT-123',
                                 type: 'issue',
@@ -678,7 +763,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                 });
 
                 it('ensures that the extracted issue ids are unique', () => {
-                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: 'features/checkout.feature' }, [
+                    const taggedScene = new RecordedScene('Paying with a default card', 'Checkout', { path: `${requirementsDir}/checkout.feature` }, [
                         new Tag('issues', [ 'MY-PROJECT-123', 'MY-PROJECT-456' ]),
                         new Tag('issue',  [ 'MY-PROJECT-123' ]),
                     ]);
@@ -689,11 +774,11 @@ describe('When reporting on what happened during the rehearsal', () => {
                     );
 
                     return stageManager.waitForNextCue().then(_ =>
-                        expect(producedReport('7895a8ceecdf653a2a42302cfb40e4e4.json')).to.deep.equal(expectedReportWith({
+                        expect(producedReport('e5519b45036f53dfc53934ff569b72d2.json')).to.deep.equal(expectedReportWith({
                             duration: 1,
                             result: 'SUCCESS',
-                            id:   'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issue:MY-PROJECT-123',
-                            name: 'checkout;paying-with-a-default-card;issues:MY-PROJECT-123,MY-PROJECT-456;issue:MY-PROJECT-123',
+                            id:   'paying-with-a-default-card;issue-my-project-123-issue-my-project-456-issue-my-project-123-feature-checkout',
+                            name: 'paying-with-a-default-card;issue-my-project-123-issue-my-project-456-issue-my-project-123-feature-checkout',
                             tags: [{
                                 name: 'MY-PROJECT-123',
                                 type: 'issue',
@@ -746,14 +831,15 @@ describe('When reporting on what happened during the rehearsal', () => {
 
             function expectedReportWith(overrides: any) {
                 const report = {
-                    id: 'checkout;paying-with-a-default-card',
-                    name: 'checkout;paying-with-a-default-card',
+                    // todo: does the id/name affect anything in the navigation of the report?
+                    id:   'paying-with-a-default-card;feature-checkout',
+                    name: 'paying-with-a-default-card;feature-checkout',
                     testSteps: [],
                     issues: [],
                     userStory: {
                         id: 'checkout',
                         storyName: 'Checkout',
-                        path: 'features/checkout.feature',
+                        path: 'checkout.feature',
                         // narrative: '\nIn order to make me feel a sense of accomplishment\nAs a forgetful person\nI want to ...',
                         type: 'feature',
                     },
@@ -774,8 +860,8 @@ describe('When reporting on what happened during the rehearsal', () => {
                 return Object.assign(report, overrides);
             }
 
-            function producedReport(filename: string = '24e4a1bb29546fcd3240136392110b20.json') {
-                return JSON.parse(fs.readFileSync(`${rootDir}/${filename}`).toString('ascii'));
+            function producedReport(filename: string = '183050024e32d5f68bd5c1f367308f04.json') {
+                return JSON.parse(fs.readFileSync(`${outputDir}/${filename}`).toString('ascii'));
             }
         });
     });

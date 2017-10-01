@@ -9,6 +9,7 @@ export class Serenity {
         crew: [],
         parameters: {},
         stageCueTimeout: 30 * 1000,
+        requirementsDirectory: `${process.cwd()}/features`,
         outputDirectory: `${process.cwd()}/target/site/serenity/`,
     });
 
@@ -36,5 +37,6 @@ export interface SerenityConfig<T> {
     crew?: StageCrewMember[];
     parameters?: T;
     stageCueTimeout?: number;
+    requirementsDirectory?: string;
     outputDirectory?: string;
 }
