@@ -1,5 +1,15 @@
-<a name="1.9.1"></a>
-## 1.9.1 (2017-10-01)
+<a name="1.9.2"></a>
+## 1.9.2 (2017-10-01)
+
+
+
+<a name="1.9.2"></a>
+## 1.9.2 (2017-10-01)
+
+
+### Bug Fixes
+
+* **deps:** updated [@serenity-js](https://github.com/serenity-js)/core to 1.5.3 ([5a777f0](https://github.com/jan-molak/serenity-js/commit/5a777f0))
 
 
 
