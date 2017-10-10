@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Test page for <a href="../alerts.recipe.ts">alert unit test</a></p>
+
+<button id="alert-demo-trigger" onclick="myFunction()">Trigger Alert</button>
+
+<p id="alert-demo-result"></p>
+
+<script>
+    function myFunction() {
+        var resultText;
+        var response = confirm("Press OK or Cancel");
+        if (response) {
+            resultText = "You pressed OK!";
+        } else {
+            resultText = "You pressed Cancel!";
+        }
+        document.getElementById("alert-demo-result").innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>

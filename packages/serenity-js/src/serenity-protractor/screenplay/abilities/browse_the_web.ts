@@ -59,10 +59,18 @@ export class BrowseTheWeb implements Ability {
     }
 
     switchToParentWindow(): PromiseLike<void> {
-        if (! this.parentWindow) {
+        if (!this.parentWindow) {
             throw new Error('This window does not have a parent');
         }
         return this.browser.switchTo().window(this.parentWindow);
+    }
+
+    acceptAlert(): PromiseLike<void> {
+        return this.browser.switchTo().alert().accept();
+    }
+
+    dismissAlert(): PromiseLike<void> {
+        return this.browser.switchTo().alert().dismiss();
     }
 
     switchToWindow(handle: (handles: string[]) => string): PromiseLike<void> {
@@ -81,8 +89,7 @@ export class BrowseTheWeb implements Ability {
 
     wait(condition: webdriver.promise.Promise<any> | webdriver.until.Condition<any> | Function,
          timeout?: number,
-         message?: string): PromiseLike<void>
-    {
+         message?: string): PromiseLike<void> {
         return this.browser.wait(
             condition,
             timeout,
