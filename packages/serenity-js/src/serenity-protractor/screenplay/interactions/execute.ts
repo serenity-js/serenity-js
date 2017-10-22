@@ -4,31 +4,32 @@ import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
 export class Execute {
-    static script = (...lines: string[]) => ({
-        on: (target: Target): Interaction => new ExecuteScript(lines, target),
-    })
-
-    static asyncScript = (...lines: string[]) => ({
-        on: (target: Target): ExecuteAsyncScript => new ExecuteAsyncScript(lines, target),
-    })
+    static script       = (...lines: string[]) => new ExecuteScript(lines.join('\n'));
+    static fn           = (fn: Function)       => new ExecuteScript(fn);
+    static asyncScript  = (...lines: string[]) => new ExecuteAsyncScript(lines.join('\n'));
+    static asyncFn      = (fn: Function)       => new ExecuteAsyncScript(fn);
 }
 
-class ExecuteScript implements Interaction {
+export class ExecuteScript implements Interaction {
     performAs(actor: UsesAbilities): PromiseLike<any> {
-        return BrowseTheWeb.as(actor).executeScript(this.lines.join('\n'), this.target);
+        return BrowseTheWeb.as(actor).executeScript(this.script, ...this.args);
     }
 
-    constructor(private lines: string[], private target: Target) {
+    on            = (target: Target) => new ExecuteScript(this.script, [target].concat(this.args));
+    withArguments = (...args: any[]) => new ExecuteScript(this.script, this.args.concat(args));
+
+    constructor(private readonly script: string | Function, private readonly args: any[] = []) {
     }
 }
 
 export class ExecuteAsyncScript implements Interaction {
     performAs(actor: UsesAbilities): PromiseLike<any> {
-        return BrowseTheWeb.as(actor).executeAsyncScript(this.lines.join('\n'), this.target, ...this.args);
+        return BrowseTheWeb.as(actor).executeAsyncScript(this.script, ...this.args);
     }
 
-    withArguments = (...args: any[]): Interaction => new ExecuteAsyncScript(this.lines, this.target, args);
+    on            = (target: Target) => new ExecuteAsyncScript(this.script, [target].concat(this.args));
+    withArguments = (...args: any[]) => new ExecuteAsyncScript(this.script, this.args.concat(args));
 
-    constructor(private lines: string[], private target: Target, private args: any[] = []) {
+    constructor(private readonly script: string | Function, private args: any[] = []) {
     }
 }

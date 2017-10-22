@@ -101,14 +101,20 @@ export class BrowseTheWeb implements Ability {
         return this.browser.waitForAngularEnabled(enable);
     }
 
-    executeScript(script: string, target: Target): PromiseLike<any> {
-        return this.browser.executeScript(script, target.resolveUsing(this.browser.element));
+    executeScript(script: string | Function, ...args: any[]): PromiseLike<any> {
+        return this.browser.executeScript(script, ...args.map(arg => this.resolveTargets(arg)));
     }
 
-    executeAsyncScript(script: string | Function, target: Target, ...args: any[]): PromiseLike<any> {
-        return this.browser.executeAsyncScript(script, target.resolveUsing(this.browser.element), ...args);
+    executeAsyncScript(script: string | Function, ...args: any[]): PromiseLike<any> {
+        return this.browser.executeAsyncScript(script, ...args.map(arg => this.resolveTargets(arg)));
     }
 
     constructor(private browser: ProtractorBrowser) {
+    }
+
+    private resolveTargets(maybeTarget: Target | any) {
+        return maybeTarget instanceof Target
+            ? maybeTarget.resolveUsing(this.browser.element)
+            : maybeTarget;
     }
 }
