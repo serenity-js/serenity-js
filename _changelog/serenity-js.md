@@ -1,5 +1,15 @@
-<a name="1.9.2"></a>
-## 1.9.2 (2017-10-19)
+<a name="1.9.3"></a>
+## 1.9.3 (2017-10-22)
+
+
+
+<a name="1.9.3"></a>
+## 1.9.3 (2017-10-22)
+
+
+### Bug Fixes
+
+* **protractor:** executeScript and ExecuteAsyncScript will accept any type of arguments (not only Ta ([3778a32](https://github.com/jan-molak/serenity-js/commit/3778a32))
 
 
 
