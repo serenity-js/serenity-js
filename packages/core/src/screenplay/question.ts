@@ -1,7 +1,7 @@
 import { UsesAbilities } from './actor';
 
 export abstract class Question<T> {
-    static where = <R>(description: string, body: (actor: UsesAbilities) => R): Question<R> =>
+    static about = <R>(description: string, body: (actor: UsesAbilities) => R): Question<R> =>
         new AnonymousQuestion<R>(description, body);
 
     abstract answeredBy(actor: UsesAbilities): T;

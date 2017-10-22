@@ -111,7 +111,7 @@ describe('Screenplay Pattern', () => {
         it('can be implemented as a one-liner', () => {
             const chris = Actor.named('Chris').whoCan(PlayAnInstrument.suchAs(acousticGuitar));
 
-            const NumberOfGuitarStringsLeft = () => Question.where(`#actor checks how many strings are left`, actor => 6);
+            const NumberOfGuitarStringsLeft = () => Question.about(`the number of strings left`, actor => 6);
 
             expect(NumberOfGuitarStringsLeft().answeredBy(chris)).to.equal(6);
         });
