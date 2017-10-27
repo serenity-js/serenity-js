@@ -15,6 +15,7 @@ class WebsiteTitle implements Question<PromiseLike<string>> {
 
     toString = () => `the title of the current page`;
 }
+
 class WebsiteUrl implements Question<PromiseLike<string>> {
 
     answeredBy(actor: UsesAbilities): PromiseLike<string> {

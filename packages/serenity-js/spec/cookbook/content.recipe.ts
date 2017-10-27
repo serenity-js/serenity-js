@@ -52,7 +52,7 @@ describe ('When demonstrating the usage of a HTML page, a test scenario', functi
     it ('can read the url of the website', () =>
 
         expect(james.toSee(Website.url()))
-            .eventually.equal('Serenity/JS Cookbook'));
+            .eventually.contain('content'));
 
     it ('can read an attribute of an on-screen element', () =>
 
