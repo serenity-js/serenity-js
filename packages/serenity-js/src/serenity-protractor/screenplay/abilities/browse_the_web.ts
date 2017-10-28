@@ -50,6 +50,10 @@ export class BrowseTheWeb implements Ability {
         return this.browser.getTitle();
     }
 
+    getCurrentUrl(): PromiseLike<string> {
+        return this.browser.getCurrentUrl();
+    }
+
     actions(): webdriver.ActionSequence {
         return this.browser.actions();
     }

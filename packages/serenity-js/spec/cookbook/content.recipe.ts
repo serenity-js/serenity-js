@@ -49,6 +49,11 @@ describe ('When demonstrating the usage of a HTML page, a test scenario', functi
         expect(james.toSee(Website.title()))
             .eventually.equal('Serenity/JS Cookbook'));
 
+    it ('can read the url of the website', () =>
+
+        expect(james.toSee(Website.url()))
+            .eventually.contain('content'));
+
     it ('can read an attribute of an on-screen element', () =>
 
         expect(james.toSee(Attribute.of(Cookbook.Article).called('class')))
