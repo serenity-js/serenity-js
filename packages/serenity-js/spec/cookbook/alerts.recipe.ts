@@ -31,6 +31,8 @@ describe('When demonstrating how to work with alert windows, a test scenario', f
     const app = new AppServer();
     const nick = Actor.named('Nick').whoCan(BrowseTheWeb.using(protractor.browser));
 
+    before(ensureARealBrowserIsAvailable);
+
     before(app.start());
     after(app.stop());
     beforeEach(() =>
@@ -54,5 +56,18 @@ describe('When demonstrating how to work with alert windows, a test scenario', f
             Alert.dismiss(),
             See.if(Text.of(AlertTargets.TextResult), text => expect(text).to.eventually.equal('You pressed Cancel!')),
         ));
-
 });
+
+// Headless chrome automatically dismisses alert windows
+// see https://bugs.chromium.org/p/chromium/issues/detail?id=718235
+// todo: remove this workaround when Chrome 62.0.3175.0 is available
+function ensureARealBrowserIsAvailable() {
+    return protractor.browser.driver.getCapabilities().
+    then(capabilities => capabilities.get('browserName')).
+    then(name => {
+        // see https://chromium.googlesource.com/chromium/src.git/+/lkgr/headless/public/headless_browser.cc#19
+        if (/\bHeadlessChrome\//.test(name)) {
+            this.skip();
+        }
+    });
+}
