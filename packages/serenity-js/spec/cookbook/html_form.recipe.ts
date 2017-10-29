@@ -6,6 +6,7 @@ import { AppServer } from '../support/server';
 
 import { by, protractor } from 'protractor';
 import { Execute } from '../../src/serenity-protractor/screenplay/interactions/execute';
+import { ensureCurrentBrowserIsNot } from './workarounds';
 
 /// [pageobjects]
 class Username {
@@ -88,11 +89,17 @@ describe ('When demonstrating the usage of an HTML form, a test scenario', funct
             expect(james.toSee(Text.of(SingleCountry.Result))).eventually.equal('France'),
         ])));
 
-    it('can interact with multi-choice select box', () =>
-        james.attemptsTo(
-            Select.values('Poland', 'France').from(MultiCountry.Selector),
-        ).then(() => Promise.all([
-            expect(james.toSee(SelectedValues.of(MultiCountry.Selector))).eventually.deep.equal([ 'Poland', 'France' ]),
-            expect(james.toSee(Text.of(MultiCountry.Result))).eventually.equal('Poland, France'),
-        ])));
+    describe('when a real browser is available', () => {
+
+        // see https://github.com/jan-molak/serenity-js/issues/17
+        before(ensureCurrentBrowserIsNot('phantomjs'));
+
+        it('can interact with multi-choice select box', () =>
+            james.attemptsTo(
+                Select.values('Poland', 'France').from(MultiCountry.Selector),
+            ).then(() => Promise.all([
+                expect(james.toSee(SelectedValues.of(MultiCountry.Selector))).eventually.deep.equal([ 'Poland', 'France' ]),
+                expect(james.toSee(Text.of(MultiCountry.Result))).eventually.equal('Poland, France'),
+            ])));
+    });
 });

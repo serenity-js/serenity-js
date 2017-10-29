@@ -18,6 +18,7 @@ import {
 import { Alert } from '../../src/serenity-protractor/screenplay/interactions/alert';
 import { WaitForAlert } from '../../src/serenity-protractor/screenplay/interactions/waitForAlert';
 import { AppServer } from '../support/server';
+import { ensureCurrentBrowserIsNot } from './workarounds';
 
 class AlertTargets {
     static Trigger = Target.the('alert trigger').located(by.id('alert-demo-trigger'));
@@ -31,43 +32,37 @@ describe('When demonstrating how to work with alert windows, a test scenario', f
     const app = new AppServer();
     const nick = Actor.named('Nick').whoCan(BrowseTheWeb.using(protractor.browser));
 
-    before(ensureARealBrowserIsAvailable);
-
     before(app.start());
     after(app.stop());
-    beforeEach(() =>
-        nick.attemptsTo(
-            UseAngular.disableSynchronisation(),
-            Open.browserOn(app.demonstrating('alerts')),
-        ).then(() => expect(nick.toSee(WebElement.of(AlertTargets.Trigger))).displayed));
 
-    it('can click the OK action of a triggered alert and see the alert accepted', () =>
-        nick.attemptsTo(
-            Click.on(AlertTargets.Trigger),
-            WaitForAlert.toBePresent(),
-            Alert.accept(),
-            See.if(Text.of(AlertTargets.TextResult), text => expect(text).to.eventually.equal('You pressed OK!')),
-        ));
+    describe('running in a real browser', () => {
 
-    it('can click the cancel action of a triggered alert and see the alert dismissed', () =>
-        nick.attemptsTo(
-            Click.on(AlertTargets.Trigger),
-            WaitForAlert.toBePresent(),
-            Alert.dismiss(),
-            See.if(Text.of(AlertTargets.TextResult), text => expect(text).to.eventually.equal('You pressed Cancel!')),
-        ));
-});
-
-// Headless chrome automatically dismisses alert windows
-// see https://bugs.chromium.org/p/chromium/issues/detail?id=718235
-// todo: remove this workaround when Chrome 62.0.3175.0 is available
-function ensureARealBrowserIsAvailable() {
-    return protractor.browser.driver.getCapabilities().
-    then(capabilities => capabilities.get('browserName')).
-    then(name => {
+        // Headless chrome automatically dismisses alert windows, phantomjs breaks
+        // see https://bugs.chromium.org/p/chromium/issues/detail?id=718235
+        // todo: remove this workaround when Chrome 62.0.3175.0 is available
         // see https://chromium.googlesource.com/chromium/src.git/+/lkgr/headless/public/headless_browser.cc#19
-        if (/\bHeadlessChrome\//.test(name)) {
-            this.skip();
-        }
+        before(ensureCurrentBrowserIsNot('HeadlessChrome', 'phantomjs'));
+
+        beforeEach(() =>
+            nick.attemptsTo(
+                UseAngular.disableSynchronisation(),
+                Open.browserOn(app.demonstrating('alerts')),
+            ).then(() => expect(nick.toSee(WebElement.of(AlertTargets.Trigger))).displayed));
+
+        it('can click the OK action of a triggered alert and see the alert accepted', () =>
+            nick.attemptsTo(
+                Click.on(AlertTargets.Trigger),
+                WaitForAlert.toBePresent(),
+                Alert.accept(),
+                See.if(Text.of(AlertTargets.TextResult), text => expect(text).to.eventually.equal('You pressed OK!')),
+            ));
+
+        it('can click the cancel action of a triggered alert and see the alert dismissed', () =>
+            nick.attemptsTo(
+                Click.on(AlertTargets.Trigger),
+                WaitForAlert.toBePresent(),
+                Alert.dismiss(),
+                See.if(Text.of(AlertTargets.TextResult), text => expect(text).to.eventually.equal('You pressed Cancel!')),
+            ));
     });
-}
+});

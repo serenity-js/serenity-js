@@ -1,16 +1,23 @@
 'use strict';
 require('ts-node/register');
 
+const
+    path         = require('path'),
+    protractor   = require.resolve('protractor'),
+    node_modules = protractor.substring(0, protractor.lastIndexOf('node_modules') + 12);
+
 const isPullRequest = () => !!process.env.TRAVIS_PULL_REQUEST;
 const canUseBrowserStack = () => !!process.env.BROWSERSTACK_USERNAME && !!process.env.BROWSERSTACK_KEY;
 
-const shouldUseBrowserStack = () => !isPullRequest() && canUseBrowserStack();
-const shouldUseHeadlessChrome = () => isPullRequest() || !canUseBrowserStack()
-const shouldUseRegularChrome = () => !isPullRequest() && !canUseBrowserStack();
+const shouldUseBrowserStack   = () => ! isPullRequest() &&   canUseBrowserStack();
+const shouldUsePhantomJS      = () =>   isPullRequest();
+const shouldUseRegularChrome  = () => ! isPullRequest() && ! canUseBrowserStack();
+const shouldUseHeadlessChrome = () => false;  // not ready for prime time: https://bugs.chromium.org/p/chromedriver/issues/detail?id=1772#c12
 
 const capabilities = () => {
     switch (true) {
         case shouldUseBrowserStack():
+            console.log('[Cookbook] Using BrowserStack');
             return {
                 browserName: 'chrome',
                 build:   process.env.BROWSERSTACK_AUTOMATE_BUILD,
@@ -24,14 +31,22 @@ const capabilities = () => {
                 'browserstack.local': true,
             };
         case shouldUseHeadlessChrome():
+            console.log('[Cookbook] Using headless Chrome');
             return {
                 browserName: 'chrome',
                 chromeOptions: {
                     args: ['--headless', '--disable-gpu', '--window-size=800,600']
                 }
             };
+        case shouldUsePhantomJS():
+            console.log('[Cookbook] Using PhantomJS');
+            return {
+                'browserName': 'phantomjs',
+                'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
+            };
         case shouldUseRegularChrome():
         default:
+            console.log('[Cookbook]: Using regular Chrome');
             return {
                 browserName: 'chrome',
                 chromeOptions: {
@@ -42,7 +57,9 @@ const capabilities = () => {
 }
 
 exports.config = {
-    directConnect: !shouldUseBrowserStack(),
+    seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
+
+    directConnect: shouldUseRegularChrome() || shouldUseHeadlessChrome(),
     framework: 'mocha',
     specs: ['cookbook/**/*.recipe.ts'],
 
