@@ -8,7 +8,8 @@ let path         = require('path'),
     crew         = require('../../support/child_process_reporter.ts');
 
 exports.config = {
-    directConnect: true,
+    seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar'),
+
     framework: 'custom',
 
     frameworkPath: path.resolve(__dirname, '../../../src'),
@@ -25,10 +26,7 @@ exports.config = {
     },
 
     capabilities: {
-        browserName: 'chrome',
-
-        chromeOptions: {
-            args: [ "--headless", "--disable-gpu", "--window-size=800,600" ]
-        }
-    }
+        'browserName': 'phantomjs',
+        'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
+    },
 };
