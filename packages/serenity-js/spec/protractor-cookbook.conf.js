@@ -14,13 +14,6 @@ const shouldUsePhantomJS      = () =>   isPullRequest();
 const shouldUseRegularChrome  = () => ! isPullRequest() && ! canUseBrowserStack();
 const shouldUseHeadlessChrome = () => false;  // not ready for prime time: https://bugs.chromium.org/p/chromedriver/issues/detail?id=1772#c12
 
-console.log('[Cookbook] isPullRequest',          isPullRequest(), process.env.TRAVIS_PULL_REQUEST);  // does this have a value?
-console.log('[Cookbook] canUseBrowserStack',     canUseBrowserStack());
-
-console.log('[Cookbook] shouldUseBrowserStack',  shouldUseBrowserStack());
-console.log('[Cookbook] shouldUsePhantomJS',     shouldUsePhantomJS());
-console.log('[Cookbook] shouldUseRegularChrome', shouldUseRegularChrome());
-
 const capabilities = () => {
     switch (true) {
         case shouldUseBrowserStack():
