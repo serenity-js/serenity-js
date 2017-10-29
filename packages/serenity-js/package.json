@@ -29,7 +29,7 @@
     "verify": "npm run clean && npm run lint && npm test && npm run package",
     "rebuild": "npm run clean && npm run verify",
     "spec:api": "nyc --report-dir=../../target/coverage/api mocha --opts ./mocha.opts 'spec/api/**/*.spec.*'",
-    "spec:cookbook": "nyc --report-dir=../../target/coverage/cookbook protractor ./spec/protractor-cookbook.conf.js --params.browsers=headlessChrome",
+    "spec:cookbook": "nyc --report-dir=../../target/coverage/cookbook protractor ./spec/protractor-cookbook.conf.js",
     "spec:integration": "nyc --report-dir=../../target/coverage/integration mocha --opts ./mocha.opts 'spec/integration/*/*.ts'",
     "spec": "npm run spec:api && npm run spec:cookbook && npm run spec:integration"
   },
