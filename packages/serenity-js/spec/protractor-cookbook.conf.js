@@ -9,7 +9,7 @@ const
 const isPullRequest = () => !! process.env.TRAVIS_PULL_REQUEST;
 const canUseBrowserStack = () => !! process.env.BROWSERSTACK_USERNAME && !! process.env.BROWSERSTACK_KEY;
 
-const shouldUseBrowserStack   = () => ! isPullRequest() &&   canUseBrowserStack();
+const shouldUseBrowserStack   = () =>   canUseBrowserStack();
 const shouldUsePhantomJS      = () =>   isPullRequest();
 const shouldUseRegularChrome  = () => ! isPullRequest() && ! canUseBrowserStack();
 const shouldUseHeadlessChrome = () => false;  // not ready for prime time: https://bugs.chromium.org/p/chromedriver/issues/detail?id=1772#c12
