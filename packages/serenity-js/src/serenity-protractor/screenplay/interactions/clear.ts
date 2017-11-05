@@ -14,5 +14,5 @@ export class Clear implements Interaction {
     constructor(private target: Target) {
     }
 
-    toString = () => `{0} clears ${this.target}`;
+    toString = () => `#actor clears ${this.target}`;
 }

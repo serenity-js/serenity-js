@@ -12,5 +12,5 @@ export class Open implements Interaction {
 
     constructor(private targetWebsite: string) { }
 
-    toString = () => `{0} opens the browser at "${this.targetWebsite}"`;
+    toString = () => `#actor opens the browser at "${this.targetWebsite}"`;
 }

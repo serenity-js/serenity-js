@@ -15,5 +15,5 @@ export class Click implements Interaction {
 
     constructor(private target: Target) { }
 
-    toString = () => `{0} clicks on ${this.target}`;
+    toString = () => `#actor clicks on ${this.target}`;
 }

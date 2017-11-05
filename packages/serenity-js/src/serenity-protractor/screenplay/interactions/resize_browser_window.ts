@@ -12,7 +12,7 @@ class MaximiseBrowserWindow implements Interaction {
         return BrowseTheWeb.as(actor).manage().window().maximize();
     }
 
-    toString = () => `{0} maximises the browser window`;
+    toString = () => `#actor maximises the browser window`;
 }
 
 class SetBrowserWindowSize implements Interaction {
@@ -23,5 +23,5 @@ class SetBrowserWindowSize implements Interaction {
         return BrowseTheWeb.as(actor).manage().window().setSize(this.width, this.height);
     }
 
-    toString = () => `{0} sets the size of the browser window to ${this.width} x ${this.height}`;
+    toString = () => `#actor sets the size of the browser window to ${this.width} x ${this.height}`;
 }

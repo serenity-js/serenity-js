@@ -18,5 +18,5 @@ class HitKeyIntoTarget implements Interaction {
 
     constructor(private target: Target, private key: string) {}
 
-    toString = () => `Hits the ${keyNameOf(this.key)} key`;
+    toString = () => `#actor hits the ${keyNameOf(this.key)} key`;
 }

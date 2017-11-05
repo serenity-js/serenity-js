@@ -17,5 +17,5 @@ export class DoubleClick implements Interaction {
 
     constructor(private target: Target) { }
 
-    toString = () => `{0} double-clicks on ${this.target}`;
+    toString = () => `#actor double-clicks on ${this.target}`;
 }

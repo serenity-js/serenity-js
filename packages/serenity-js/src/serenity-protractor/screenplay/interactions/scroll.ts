@@ -17,5 +17,5 @@ export class Scroll implements Interaction {
 
     constructor(private target: Target) { }
 
-    toString = () => `{0} scrolls to ${this.target}`;
+    toString = () => `#actor scrolls to ${this.target}`;
 }
