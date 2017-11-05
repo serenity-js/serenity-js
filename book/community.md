@@ -7,6 +7,14 @@ to share the news with the community!
 
 ## Events
 
+- **2017-11-08, Angular Connect, London, UK**
+["Testing Angular apps. At scale"](https://www.angularconnect.com/2017/sessions/#s-675)
+_by [Jan Molak](https://janmolak.com)_
+
+- **2017-07-06, Agile on the beach, Penryn, Cornwall, UK**
+["Testing modern web apps. At scale"](http://agileonthebeach.com/testing-modern-web-apps-scale-jan-molak-software-delivery-2017/)
+_by [Jan Molak](https://janmolak.com)_
+
 - **2017-05-11/12, Devoxx, London, UK**  
 ["Testing modern web apps. At scale."](http://www.devoxx.co.uk/)   
 _by [Jan Molak](https://janmolak.com)_
