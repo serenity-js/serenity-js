@@ -108,6 +108,6 @@ export = function() {
 
     this.Given(/^an example.ts file with the following contents:$/, docstring => Promise.resolve());
 
-    this.Given(/^a slow, callback step$/,  { timeout: 100 }, createSlowStep(StepInterface.CALLBACK,  10000));
-    this.Given(/^a slow, promise step$/,   { timeout: 100 }, createSlowStep(StepInterface.PROMISE,   10000));
+    this.Given(/^a slow, callback step$/,  { timeout: 100 }, createSlowStep(StepInterface.CALLBACK,  2000));
+    this.Given(/^a slow, promise step$/,   { timeout: 100 }, createSlowStep(StepInterface.PROMISE,   2000));
 };
