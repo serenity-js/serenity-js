@@ -367,7 +367,7 @@ Let's update the Cucumber step definitions to include our new code:
 // features/step_definitions/todo_user.steps.ts
 
 import { Actor } from 'serenity-js/lib/screenplay';
-import { BrowseTheWeb } from 'serenity-js/lib/screenplay-protractor';
+import { BrowseTheWeb } from 'serenity-js/protractor';
 
 import { protractor } from 'protractor';
 
@@ -398,7 +398,7 @@ to the application could be a good start:
 ```typescript
 // ...
 
-import { Open } from 'serenity-js/lib/screenplay-protractor';
+import { Open } from 'serenity-js/protractor';
 
 export class Start implements Task {
 
@@ -441,7 +441,7 @@ we can use another built-in Interaction - `Enter`:
 // spec/screenplay/tasks/add_a_todo_item.ts
 
 import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Enter } from 'serenity-js/lib/screenplay-protractor';
+import { Enter } from 'serenity-js/protractor';
 
 import { protractor } from 'protractor';
 
@@ -471,7 +471,7 @@ There's one thing missing though: we haven't defined what `TodoList.What_Needs_T
 ```typescript
 // spec/screenplay/components/todo_list.ts
 
-import { Target } from 'serenity-js/lib/screenplay-protractor';
+import { Target } from 'serenity-js/protractor';
 import { by } from 'protractor';
 
 export class TodoList {
@@ -552,7 +552,7 @@ identified by a `Target`, and the `Target` itself
 ```typescript
 // spec/screenplay/components/todo_list.ts
 
-import { Target, Text } from 'serenity-js/lib/screenplay-protractor';
+import { Target, Text } from 'serenity-js/protractor';
 
 export class TodoList {
     static What_Needs_To_Be_Done = Target.the('"What needs to be done?" input box')

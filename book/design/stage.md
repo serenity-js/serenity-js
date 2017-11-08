@@ -26,7 +26,7 @@ If there's no need for variability amongst the actors, it's often enough to defi
 ```typescript
 import { serenity } from 'serenity-js';
 import { protractor } from 'protractor';
-import { Actor, BrowseTheWeb } from 'serenity-js/lib/screenplay-protractor'
+import { Actor, BrowseTheWeb } from 'serenity-js/protractor'
 
 let stage = serenity.callToStageFor({
     actor: name => Actor.named(name).whoCan(BrowseTheWeb.using(protractor.browser)),
@@ -42,7 +42,7 @@ as this one:
 
 ```typescript
 import { Cast } from 'serenity-js/lib/serenity/stage'
-import { Actor, BrowseTheWeb } from 'serenity-js/lib/screenplay-protractor'
+import { Actor, BrowseTheWeb } from 'serenity-js/protractor'
 
 import { protractor } from 'protractor';
 

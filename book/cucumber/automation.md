@@ -113,7 +113,7 @@ In order to initialise "The World" create a file with a default exported functio
 import { serenity } from 'serenity-js';
 
 import { protractor } from 'protractor';
-import { Actor, BrowseTheWeb, Cast } from 'serenity-js/lib/screenplay-protractor';
+import { Actor, BrowseTheWeb, Cast } from 'serenity-js/protractor';
 
 export = function() {
 

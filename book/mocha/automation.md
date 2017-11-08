@@ -95,7 +95,7 @@ Where the `Travellers` are our domain-specific cast of actors:
 // spec/screenplay/travellers.ts
 
 import { protractor } from 'protractor';
-import { Actor, BrowseTheWeb, Cast } from 'serenity-js/lib/screenplay-protractor';
+import { Actor, BrowseTheWeb, Cast } from 'serenity-js/protractor';
 
 class Travellers implements Cast {
     actor(name: string): Actor {
