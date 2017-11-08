@@ -334,8 +334,7 @@ giving the Task a more descriptive name:
 ```typescript
 // spec/screenplay/tasks/start.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Open, step } from 'serenity-js/protractor';     // imports the @step
+import { Open, PerformsTasks, step, Task } from 'serenity-js/protractor';     // imports the @step
 
 import { AddATodoItem } from './add_a_todo_item';
 
@@ -371,8 +370,7 @@ Now, repeat the process with the `AddATodoItem` task:
 ``` typescript
 // spec/screenplay/tasks/add_a_todo_item.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Enter, step } from 'serenity-js/protractor';    // imports the @step
+import { Enter, PerformsTasks, step, Task } from 'serenity-js/protractor';
 
 import { protractor } from 'protractor';
 
@@ -479,8 +477,7 @@ so let's make the following changes to the `todo_user.steps.ts`:
 ``` typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { Actor } from 'serenity-js/lib/screenplay';
-import { BrowseTheWeb } from 'serenity-js/protractor';
+import { Actor, BrowseTheWeb } from 'serenity-js/protractor';
 import { protractor } from 'protractor';
 import { serenity } from 'serenity-js';
 

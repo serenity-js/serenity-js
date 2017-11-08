@@ -41,8 +41,7 @@ as this one:
 
 
 ```typescript
-import { Cast } from 'serenity-js/lib/serenity/stage'
-import { Actor, BrowseTheWeb } from 'serenity-js/protractor'
+import { Actor, BrowseTheWeb, Cast } from 'serenity-js/protractor'
 
 import { protractor } from 'protractor';
 

@@ -102,7 +102,7 @@ If we added our actor to the Cucumber step definition, we'd get something like t
 ```typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { Actor } from 'serenity-js/lib/screenplay';
+import { Actor } from 'serenity-js/protractor';
 
 export = function todoUserSteps() {
 
@@ -186,7 +186,7 @@ the following contents:
 ```typescript
 // spec/screenplay/tasks/start.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
+import { PerformsTasks, Task } from 'serenity-js/protractor';
 
 export class Start implements Task {
 
@@ -290,7 +290,7 @@ Now we can define the `AddATodoItem` Task:
 ```typescript
 // spec/screenplay/tasks/add_a_todo_item.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
+import { PerformsTasks, Task } from 'serenity-js/protractor';
 
 export class AddATodoItem implements Task {
 
@@ -314,7 +314,7 @@ And now that we have the `AddATodoItem`, we can reuse it in the original `Start`
 ```typescript
 // spec/screenplay/tasks/start.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
+import { PerformsTasks, Task } from 'serenity-js/protractor';
 import { AddATodoItem } from './add_a_todo_item';
 
 export class Start implements Task {
@@ -366,8 +366,7 @@ Let's update the Cucumber step definitions to include our new code:
 ```typescript
 // features/step_definitions/todo_user.steps.ts
 
-import { Actor } from 'serenity-js/lib/screenplay';
-import { BrowseTheWeb } from 'serenity-js/protractor';
+import { Actor, BrowseTheWeb } from 'serenity-js/protractor';
 
 import { protractor } from 'protractor';
 
@@ -440,8 +439,7 @@ we can use another built-in Interaction - `Enter`:
 ```typescript
 // spec/screenplay/tasks/add_a_todo_item.ts
 
-import { PerformsTasks, Task } from 'serenity-js/lib/screenplay';
-import { Enter } from 'serenity-js/protractor';
+import { Enter, PerformsTasks, Task } from 'serenity-js/protractor';
 
 import { protractor } from 'protractor';
 
