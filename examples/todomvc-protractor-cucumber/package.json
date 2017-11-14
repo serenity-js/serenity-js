@@ -7,7 +7,7 @@
     "clean": "rimraf target",
     "lint": "tslint --config ../../tslint.json --project ./tsconfig.json --format stylish",
     "pretest": "serenity update",
-    "pree2e": "npm run lint && npm run webdriver:update -- --standalone",
+    "pree2e": "npm run lint && npm run webdriver:update -- --standalone --versions.standalone=3.0.1",
     "e2e": "protractor ./protractor.conf.js",
     "e2e-single": "protractor ./protractor.conf.js --cucumberOpts.name",
     "report": "serenity run",

@@ -11,7 +11,6 @@ import { StandIns } from './stand_ins';
 import { TestFrameworkAdapter } from './test_framework_adapter';
 import { TestFrameworkDetector } from './test_framework_detector';
 
-import _ = require('lodash');
 import { ProtractorBrowserDetector } from '../reporting/protractor_browser_detector';
 
 // spec: https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
@@ -51,9 +50,17 @@ export class SerenityProtractorFramework {
     run = (specs: string[]): PromiseLike<ProtractorReport> => this.runner.runTestPreparer(this.detect.supportedCLIParams()).
         then(() => this.framework.run(specs).
             then(noop, this.analyzeTheFailure).
-            then(() => this.serenity.stageManager().waitForNextCue()).
-            then(() => this.waitForOtherProtractorPlugins()).
-            then(() => this.reporter.finalResults()));
+            then(() => {
+                return this.waitForOthers().
+                    then(() => this.reporter.finalResults());
+            }, error => {
+                console.error(error.message);
+
+                return this.waitForOthers().
+                    then(() => this.reporter.finalResults()).
+                    then(results => (results.failedCount++, results));
+            }),
+        )
 
     private analyzeTheFailure = (issue: any) => new Promise((resolve, reject) => {
         return issue instanceof Error
@@ -62,6 +69,11 @@ export class SerenityProtractorFramework {
                                 // Both those cases are handled by Protractor based on the final test results reported by Serenity/JS,
                                 // so we don't need any additional error handling here.
     })
+
+    private waitForOthers = () => Promise.all([
+        this.serenity.stageManager().waitForNextCue(),
+        this.waitForOtherProtractorPlugins(),
+    ]);
 
     private waitForOtherProtractorPlugins = () => Promise.resolve(this.onComplete);
 

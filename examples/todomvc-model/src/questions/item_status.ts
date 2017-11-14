@@ -3,7 +3,7 @@ import { BrowseTheWeb } from 'serenity-js/lib/serenity-protractor';
 
 import { TodoList } from '../user_interface';
 
-export class ItemStatus implements Question<string> {
+export class ItemStatus implements Question<PromiseLike<string>> {
     static of(itemName: string) {
         return new ItemStatus(itemName);
     }

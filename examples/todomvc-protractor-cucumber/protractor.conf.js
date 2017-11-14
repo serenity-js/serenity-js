@@ -7,11 +7,7 @@ var _            = require('lodash'),
 
 exports.config = {
 
-    seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.4.0.jar'),
-
-    localSeleniumStandaloneOpts: {
-        jvmArgs: [`-Dwebdriver.gecko.driver=${path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium')}/geckodriver-v0.18.0`]
-    },
+    seleniumServerJar: path.resolve(node_modules, 'protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.0.1.jar'),
 
     baseUrl: 'http://todomvc.com',
 
@@ -22,12 +18,13 @@ exports.config = {
     serenity: {
         dialect: 'cucumber',
         crew: [
-            crew.serenityBDDReporter(),
-            crew.consoleReporter(),
-            crew.Photographer.who(_ => _
-                .takesPhotosOf(_.Tasks_and_Interactions)
-                .takesPhotosWhen(_.Activity_Finishes)
-            )
+            crew.serenityBDDReporter()
+            // ,
+            // crew.consoleReporter(),
+            // crew.Photographer.who(_ => _
+            //     .takesPhotosOf(_.Failures)
+            //     .takesPhotosWhen(_.Activity_Finishes)
+            // )
         ]
     },
 
@@ -42,16 +39,18 @@ exports.config = {
         browserName: 'chrome',
         chromeOptions: {
             args: [
-                // 'incognito',
-                // 'disable-extensions',
-                // 'show-fps-counter=true'
+                '--disable-infobars'
+                // '--incognito',
+                // '--disable-extensions',
+                // '--show-fps-counter=true'
             ]
-        },
+        }
+        // ,
 
         // execute tests using 2 browsers running in parallel
-        shardTestFiles: true,
-        maxInstances: 2
+        // shardTestFiles: true,
+        // maxInstances: 2
     },
 
-    restartBrowserBetweenTests: true
+    restartBrowserBetweenTests: false
 };
