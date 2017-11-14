@@ -1,5 +1,15 @@
-<a name="1.10.0"></a>
-# 1.10.0 (2017-11-08)
+<a name="1.10.1"></a>
+## 1.10.1 (2017-11-14)
+
+
+
+<a name="1.10.1"></a>
+## 1.10.1 (2017-11-14)
+
+
+### Bug Fixes
+
+* **cucumber:** correctly hanlde --strict and --no-color flags ([878a165](https://github.com/jan-molak/serenity-js/commit/878a165))
 
 
 
