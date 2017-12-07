@@ -1,5 +1,5 @@
-import {Interaction, UsesAbilities} from '@serenity-js/core/lib/screenplay';
-import {CallAnApi} from '../../call_an_api';
+import {Interaction, UsesAbilities} from '@serenity-js/core/src/screenplay';
+import {CallAnApi} from '../abilities';
 
 export class Get implements Interaction {
 
