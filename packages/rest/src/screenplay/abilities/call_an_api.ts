@@ -1,4 +1,4 @@
-import {Ability, UsesAbilities} from '@serenity-js/core/lib/screenplay';
+import {Ability, UsesAbilities} from '@serenity-js/core/src/screenplay';
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 
 /**
@@ -55,7 +55,7 @@ export class CallAnApi implements Ability {
     get(url: string, config?: AxiosRequestConfig): PromiseLike<void> {
         return this.axiosInstance.get(url, config).then(
             fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected),
+            rejected => Promise.resolve(this.lastResponse = rejected.response),
         );
     }
 
@@ -71,7 +71,7 @@ export class CallAnApi implements Ability {
     post(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<void> {
         return this.axiosInstance.post(url, data, config).then(
             fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected),
+            rejected => Promise.resolve(this.lastResponse = rejected.response),
         );
     }
 
