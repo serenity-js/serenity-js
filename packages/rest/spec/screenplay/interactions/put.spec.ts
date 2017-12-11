@@ -1,7 +1,7 @@
 import sinon = require('sinon');
 import 'mocha';
 import {CallAnApi} from '../../../src/screenplay/abilities';
-import {Get} from '../../../src/screenplay/interactions';
+import {Put} from '../../../src/screenplay/interactions';
 
 import {Actor} from '@serenity-js/core/lib/screenplay';
 
@@ -10,24 +10,25 @@ import {expect} from '../../expect';
 describe('Interactions', () => {
     const baseUrl = 'https://dum.my';
 
-    describe('Get resource', () => {
-        let spyAs, spyGet;
+    describe('put resource', () => {
+        let spyAs, spyPut;
         const callAnApi = CallAnApi.at(baseUrl);
         const actor = Actor.named('James').whoCan(callAnApi),
-            resource = '/get';
+            resource = '/put';
+        const item = { username: '1337'};
 
         before(() => {
             spyAs = sinon.spy(CallAnApi, 'as');
-            spyGet = sinon.spy(callAnApi, 'get');
+            spyPut = sinon.spy(callAnApi, 'put');
         });
 
-        beforeEach(() => expect(Get.resource(resource).performAs(actor)).to.be.eventually.be.fulfilled);
+        beforeEach(() => expect(Put.itemOnResource(item, resource).performAs(actor)).to.be.eventually.be.fulfilled);
         it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
-        it('should perform a Get on the resource', () => expect(spyGet).to.have.been.calledWith(resource));
+        it('should perform a Put on the resource', () => expect(spyPut).to.have.been.calledWith(resource, item));
 
         after(() => {
             spyAs.restore();
-            spyGet.restore();
+            spyPut.restore();
         });
 
 });

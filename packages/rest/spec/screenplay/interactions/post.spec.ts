@@ -14,7 +14,7 @@ describe('Interactions', () => {
         let spyAs, spyPost;
         const callAnApi = CallAnApi.at(baseUrl);
         const actor = Actor.named('James').whoCan(callAnApi),
-            resource = '/get';
+            resource = '/post';
         const item = { username: '1337'};
 
         before(() => {
@@ -24,7 +24,12 @@ describe('Interactions', () => {
 
         beforeEach(() => expect(Post.itemOnResource(item, resource).performAs(actor)).to.be.eventually.be.fulfilled);
         it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
-        it('should perform a Get on the resource', () => expect(spyPost).to.have.been.calledWith(resource, item));
+        it('should perform a Post on the resource', () => expect(spyPost).to.have.been.calledWith(resource, item));
+
+        after(() => {
+            spyAs.restore();
+            spyPost.restore();
+        });
 
 });
 
