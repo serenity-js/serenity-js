@@ -1,4 +1,4 @@
-import {Ability, UsesAbilities} from '@serenity-js/core/src/screenplay';
+import {Ability, UsesAbilities} from '@serenity-js/core/lib/screenplay';
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 
 /**
