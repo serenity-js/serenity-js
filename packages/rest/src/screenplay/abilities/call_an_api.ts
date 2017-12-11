@@ -18,7 +18,7 @@ export class CallAnApi implements Ability {
     static at(baseURL: string) {
         const axiosInstance: AxiosInstance = axios.create({
             baseURL,
-            timeout: 1000,
+            timeout: 2000,
             headers: { Accept: 'application/json,application/xml'},
         });
         return new CallAnApi(axiosInstance);
