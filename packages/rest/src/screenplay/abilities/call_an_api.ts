@@ -19,7 +19,7 @@ export class CallAnApi implements Ability {
         const axiosInstance: AxiosInstance = axios.create({
             baseURL,
             timeout: 2000,
-            headers: { Accept: 'application/json,application/xml'},
+            headers: {Accept: 'application/json,application/xml'},
         });
         return new CallAnApi(axiosInstance);
     }
@@ -70,6 +70,37 @@ export class CallAnApi implements Ability {
      */
     post(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<void> {
         return this.axiosInstance.post(url, data, config).then(
+            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
+            rejected => Promise.resolve(this.lastResponse = rejected.response),
+        );
+    }
+
+    /**
+     * Call the api method delete on the url.
+     * Every response will be resolved and put into the lastResponse.
+     *
+     * @param {string} url
+     * @param {AxiosRequestConfig} config
+     * @returns {PromiseLike<void>}
+     */
+    delete(url: string, config?: AxiosRequestConfig): PromiseLike<void> {
+        return this.axiosInstance.delete(url, config).then(
+            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
+            rejected => Promise.resolve(this.lastResponse = rejected.response),
+        );
+    }
+
+    /**
+     * Call the api method put on the url.
+     * Every response will be resolved and put into the lastResponse.
+     *
+     * @param {string} url
+     * @param data
+     * @param {AxiosRequestConfig} config
+     * @returns {PromiseLike<void>}
+     */
+    put(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<void> {
+        return this.axiosInstance.put(url, data, config).then(
             fulfilled => Promise.resolve(this.lastResponse = fulfilled),
             rejected => Promise.resolve(this.lastResponse = rejected.response),
         );
