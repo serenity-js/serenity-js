@@ -42,7 +42,7 @@ const capabilities = () => {
             console.log('[Cookbook] Using PhantomJS');
             return {
                 'browserName': 'phantomjs',
-                'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
+                'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/bin/phantomjs'),
             };
         case shouldUseRegularChrome():
         default:
