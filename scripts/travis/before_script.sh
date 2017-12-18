@@ -5,10 +5,11 @@ echo "Removing stale node_modules"
 npm run lerna exec --loglevel info -- npm prune
 
 echo "[DEBUG] list node_modules"
-ls -lah node_modules/
-
-echo "[DEBUG] list node_modules"
-ls -lah packages/serenity-js/node_modules/
+ls -lah node_modules/ | grep phantomjs-prebuilt
+echo "[DEBUG] install tree"
+sudo apt-get install tree
+echo "[DEBUG] list contents of phantomjs-prebuilt"
+tree node_modules/phantomjs-prebuilt
 
 echo "Starting XVFB"
 
