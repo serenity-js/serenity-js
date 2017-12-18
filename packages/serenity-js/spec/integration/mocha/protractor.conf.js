@@ -27,6 +27,6 @@ exports.config = {
 
     capabilities: {
         'browserName': 'phantomjs',
-        'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/lib/phantom/bin/phantomjs'),
+        'phantomjs.binary.path': path.resolve(node_modules, 'phantomjs-prebuilt/bin/phantomjs'),
     },
 };
