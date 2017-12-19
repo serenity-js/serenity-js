@@ -22,7 +22,7 @@ describe('Interactions', () => {
             spyPut = sinon.spy(callAnApi, 'put');
         });
 
-        beforeEach(() => expect(Put.itemOnResource(item, resource).performAs(actor)).to.be.eventually.be.fulfilled);
+        beforeEach(() => expect(Put.item(item).on(resource).performAs(actor)).to.be.eventually.be.fulfilled);
         it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
         it('should perform a Put on the resource', () => expect(spyPut).to.have.been.calledWith(resource, item));
 
@@ -31,7 +31,7 @@ describe('Interactions', () => {
             spyPut.restore();
         });
 
-});
+    });
 
 })
 ;

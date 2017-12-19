@@ -22,7 +22,7 @@ describe('Interactions', () => {
             spyPost = sinon.spy(callAnApi, 'post');
         });
 
-        beforeEach(() => expect(Post.itemOnResource(item, resource).performAs(actor)).to.be.eventually.be.fulfilled);
+        beforeEach(() => expect(Post.item(item).on(resource).performAs(actor)).to.be.eventually.be.fulfilled);
         it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
         it('should perform a Post on the resource', () => expect(spyPost).to.have.been.calledWith(resource, item));
 
@@ -31,7 +31,7 @@ describe('Interactions', () => {
             spyPost.restore();
         });
 
-});
+    });
 
 })
 ;
