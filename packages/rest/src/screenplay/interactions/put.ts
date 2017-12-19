@@ -3,7 +3,7 @@ import {CallAnApi} from '../abilities';
 
 export class Put implements Interaction {
 
-    static item = (item: any) => ({ on: (resource: string) => new Put(item, resource) })
+    static item = (item: any) => ({ on: (resource: string) => new Put(item, resource) });
 
     performAs(actor: UsesAbilities): PromiseLike<any> {
         return CallAnApi.as(actor).put(this.resource, this.item);
