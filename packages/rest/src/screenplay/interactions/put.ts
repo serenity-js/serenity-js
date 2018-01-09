@@ -12,5 +12,5 @@ export class Put implements Interaction {
     constructor(private item: any, private resource: string) {
     }
 
-    toString = () => `{0} execute a PUT on resource ${this.resource} with item: ${this.item}`;
+    toString = () => `#actor executes a PUT on resource ${this.resource} with item: ${this.item}`;
 }

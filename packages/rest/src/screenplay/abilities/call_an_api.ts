@@ -1,5 +1,5 @@
-import {Ability, UsesAbilities} from '@serenity-js/core/lib/screenplay';
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
+import { Ability, UsesAbilities } from '@serenity-js/core/lib/screenplay';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 /**
  * Call an Api is the ability to correspond with an Api by the npm package axios.
@@ -9,7 +9,7 @@ export class CallAnApi implements Ability {
     private lastResponse: AxiosResponse;
 
     /**
-     * ability to Call and api at a specific baseUrl
+     * Ability to Call and api at a specified baseUrl
      * Timeout is set to 1s and headers Accept application/json and application/xml
      *
      * @param {string} baseURL
@@ -19,7 +19,7 @@ export class CallAnApi implements Ability {
         const axiosInstance: AxiosInstance = axios.create({
             baseURL,
             timeout: 2000,
-            headers: {Accept: 'application/json,application/xml'},
+            headers: { Accept: 'application/json,application/xml' },
         });
         return new CallAnApi(axiosInstance);
     }
@@ -45,64 +45,80 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * Call the api method get on the url.
-     * Every response will be resolved and put into the lastResponse.
+     * Send a GET request to a specified url.
+     * Response will be resolved and made available as lastResponse.
      *
      * @param {string} url
      * @param {AxiosRequestConfig} config
      * @returns {PromiseLike<void>}
      */
-    get(url: string, config?: AxiosRequestConfig): PromiseLike<void> {
+    get(url: string, config?: AxiosRequestConfig): PromiseLike<AxiosResponse> {
         return this.axiosInstance.get(url, config).then(
-            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected.response),
+            fulfilled => this.lastResponse = fulfilled,
+            rejected => this.lastResponse = rejected.response,
         );
     }
 
     /**
      * Call the api method post on the url.
-     * Every response will be resolved and put into the lastResponse.
+     * Response will be resolved and made available as lastResponse.
      *
      * @param {string} url
      * @param data
      * @param {AxiosRequestConfig} config
      * @returns {PromiseLike<void>}
      */
-    post(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<void> {
+    post(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<AxiosResponse> {
         return this.axiosInstance.post(url, data, config).then(
-            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected.response),
+            fulfilled => this.lastResponse = fulfilled,
+            rejected => this.lastResponse = rejected.response,
         );
     }
 
     /**
-     * Call the api method delete on the url.
+     * Send a DELETE request to a specified url.
      * Every response will be resolved and put into the lastResponse.
      *
      * @param {string} url
      * @param {AxiosRequestConfig} config
      * @returns {PromiseLike<void>}
      */
-    delete(url: string, config?: AxiosRequestConfig): PromiseLike<void> {
+    delete(url: string, config?: AxiosRequestConfig): PromiseLike<AxiosResponse> {
         return this.axiosInstance.delete(url, config).then(
-            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected.response),
+            fulfilled => this.lastResponse = fulfilled,
+            rejected => this.lastResponse = rejected.response,
         );
     }
 
     /**
-     * Call the api method put on the url.
-     * Every response will be resolved and put into the lastResponse.
+     * PATCH the resource at a specified url.
+     * Response will be resolved and made available as lastResponse.
      *
      * @param {string} url
      * @param data
      * @param {AxiosRequestConfig} config
      * @returns {PromiseLike<void>}
      */
-    put(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<void> {
+    patch(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<AxiosResponse> {
+        return this.axiosInstance.patch(url, data, config).then(
+            fulfilled => this.lastResponse = fulfilled,
+            rejected => this.lastResponse = rejected.response,
+        );
+    }
+
+    /**
+     * Send a PUT request to a specified url.
+     * Response will be resolved and made available as lastResponse.
+     *
+     * @param {string} url
+     * @param data
+     * @param {AxiosRequestConfig} config
+     * @returns {PromiseLike<void>}
+     */
+    put(url: string, data?: any, config?: AxiosRequestConfig): PromiseLike<AxiosResponse> {
         return this.axiosInstance.put(url, data, config).then(
-            fulfilled => Promise.resolve(this.lastResponse = fulfilled),
-            rejected => Promise.resolve(this.lastResponse = rejected.response),
+            fulfilled => this.lastResponse = fulfilled,
+            rejected => this.lastResponse = rejected.response,
         );
     }
 

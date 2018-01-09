@@ -12,5 +12,5 @@ export class Post implements Interaction {
     constructor(private item: any, private resource: string) {
     }
 
-    toString = () => `{0} execute a POST on resource ${this.resource} with item: ${this.item}`;
+    toString = () => `#actor executes a POST on resource ${this.resource} with item: ${this.item}`;
 }

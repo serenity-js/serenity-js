@@ -11,5 +11,5 @@ export class Get implements Interaction {
 
     constructor(private resource: string) { }
 
-    toString = () => `{0} execute a GET on resource ${this.resource}`;
+    toString = () => `#actor executes a GET on resource ${this.resource}`;
 }

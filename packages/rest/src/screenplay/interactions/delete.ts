@@ -12,5 +12,5 @@ export class Delete implements Interaction {
     constructor(private resource: string) {
     }
 
-    toString = () => `{0} execute a DELETE on resource ${this.resource}`;
+    toString = () => `#actor executes a DELETE on resource ${this.resource}`;
 }
