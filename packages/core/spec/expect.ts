@@ -2,12 +2,10 @@ import chai = require('chai');
 
 import sinonChai = require('sinon-chai');
 import chaiAsPromised = require('chai-as-promised');
-import chaiSmoothie = require('chai-smoothie');
 import { RecordedActivity, SourceLocation } from '../src/domain/model';
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
-chai.use(chaiSmoothie);
 
 declare global {
     namespace Chai {                // tslint:disable-line:no-namespace
