@@ -1,5 +1,6 @@
 import { describeAs } from '@serenity-js/core/lib/recording';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
+import { ElementHelper } from 'protractor/built/browser';
 import { Locator } from 'protractor/built/locators';
 
 export class Target {
@@ -8,28 +9,67 @@ export class Target {
         located: (byLocator: Locator): Target => new Target(name, byLocator),
     })
 
+    static within = (parent: Target) => ({
+        the: (name: string) => ({
+            located: (byLocator: Locator): Target => new Target(name, byLocator, parent),
+        }),
+    })
+
     of(...tokenReplacements: Array<string|number>): Target {
         return new Target(describeAs(this.name, ...tokenReplacements), new Interpolated(this.locator).with(tokenReplacements));
     }
 
     called(newName: string): Target {
-        return new Target(newName, this.locator);
+        return new Target(newName, this.locator, this.parent);
     }
 
-    resolveUsing(resolver: (locator: Locator) => ElementFinder): ElementFinder {
-        return resolver(this.locator);
+    resolveUsing(resolver: ElementHelper): ElementFinder {
+        const finder: ElementFinder = this.getParentFinderChain(resolver);
+        if (finder) {
+            return finder.element(this.locator);
+        } else {
+            return resolver(this.locator);
+        }
     }
 
-    resolveAllUsing(resolver: { all: (locator: Locator) => ElementArrayFinder }): ElementArrayFinder {
-        return resolver.all(this.locator);
+    resolveAllUsing(resolver: ElementHelper): ElementArrayFinder {
+        const finder: ElementFinder = this.getParentFinderChain(resolver);
+        if (finder) {
+            return finder.all(this.locator);
+        } else {
+            return resolver.all(this.locator);
+        }
     }
 
     toString(): string {
         return `the ${ this.name }`;
     }
 
-    constructor(private name: string, private locator: Locator) {
+    constructor(private name: string, private locator: Locator, private parent?: Target) {
     }
+
+    private getParentFinderChain(resolver: (locator: Locator) => ElementFinder): ElementFinder {
+      let finderChain: ElementFinder;
+      this.getParentChain().forEach(function(target: Target) {
+        if (finderChain) {
+            finderChain = finderChain.element(target.locator);
+        } else {
+            finderChain = resolver(target.locator);
+        }
+      });
+      return finderChain;
+    }
+
+    private getParentChain(): Target[] {
+        const parentChain: Target[] = [];
+        let currentTarget: Target = this;
+        while (currentTarget.parent) {
+            currentTarget = currentTarget.parent;
+            parentChain.push(currentTarget);
+        }
+        return parentChain.reverse();
+    }
+
 }
 
 class Interpolated {
