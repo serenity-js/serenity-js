@@ -4,6 +4,7 @@ import * as mockfs from 'mock-fs';
 import { FileSystem } from '../../src/io/file_system';
 
 import expect = require('../expect');
+import {FileUtils} from '../file_utils';
 
 describe ('FileSystem', () => {
 
@@ -31,7 +32,8 @@ describe ('FileSystem', () => {
         it ('tells the absolute path to a JSON file once it is saved', () => {
             const out = new FileSystem(processCWD);
 
-            return expect(out.store('outlet/some.json', JSON.stringify(originalJSON))).to.eventually.equal(`${processCWD}/outlet/some.json`);
+            const filePath: Promise<string> = out.store('outlet/some.json', JSON.stringify(originalJSON));
+            return expect(FileUtils.normalizeToPosixPathPromise(filePath)).to.eventually.equal(`${processCWD}/outlet/some.json`);
         });
 
         it ('complains when provided with an empty path', () => {
@@ -51,7 +53,7 @@ describe ('FileSystem', () => {
             const out = new FileSystem('/sys');
 
             return expect(out.store('dir/file.json', JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/dir\'');
+                .to.be.eventually.rejectedWith(/EACCES, permission denied '.*[\\/]sys[\\/]dir'/);
         });
 
         it ('complains when provided with an a path to a file that can\'t be overwritten', () => {
@@ -68,7 +70,7 @@ describe ('FileSystem', () => {
             const out = new FileSystem('/sys');
 
             return expect(out.store('file.json', JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/file.json\'');
+                .to.be.eventually.rejectedWith(/EACCES, permission denied '.*[\\/]sys[\\/]file.json'/);
         });
     });
 
@@ -86,7 +88,8 @@ describe ('FileSystem', () => {
         it ('tells the absolute path to a JSON file once it is saved', () => {
             const out = new FileSystem(processCWD);
 
-            return expect(out.store('outlet/some.png', imageBuffer)).to.eventually.equal(`${processCWD}/outlet/some.png`);
+            const filePath: Promise<string> = out.store('outlet/some.png', imageBuffer);
+            return expect(FileUtils.normalizeToPosixPathPromise(filePath)).to.eventually.equal(`${processCWD}/outlet/some.png`);
         });
 
         it ('complains when provided with an empty path', () => {

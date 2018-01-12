@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project=tsconfig.json --config=../../tslint.json --format=prose",
-    "test": "nyc --report-dir=../../target/coverage/mocha mocha --opts ./mocha.opts 'spec/*.spec.ts'",
+    "test": "nyc --report-dir=../../target/coverage/mocha mocha --opts ./mocha.opts \"spec/*.spec.ts\"",
     "package": "tsc --project tsconfig.json",
     "verify": "npm run clean && npm run lint && npm test && npm run package"
   },

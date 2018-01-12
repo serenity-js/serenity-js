@@ -3,6 +3,7 @@ import chai = require('chai');
 import sinonChai = require('sinon-chai');
 import chaiAsPromised = require('chai-as-promised');
 import { RecordedActivity, SourceLocation } from '../src/domain/model';
+import {FileUtils} from './file_utils';
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
@@ -36,7 +37,7 @@ chai.use(function(chai, utils) {
 
         if (expected_location.path) {
             new Assertion(
-                this._obj.location.path,
+                FileUtils.normalizeToPosixPath(this._obj.location.path),
                 `Expected '${this._obj}' to have been called from ${expected_location.path}, not ${this._obj.location.path}`,
             ).contains(expected_location.path);
         }

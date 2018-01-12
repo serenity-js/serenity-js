@@ -22,6 +22,7 @@ import { Journal, Stage, StageManager } from '../../src/stage';
 import { SerenityBDDReporter, serenityBDDReporter } from '../../src/reporting/serenity_bdd_reporter';
 
 import expect = require('../expect');
+import {FileUtils} from '../file_utils';
 
 describe('When reporting on what happened during the rehearsal', () => {
 
@@ -861,7 +862,11 @@ describe('When reporting on what happened during the rehearsal', () => {
             }
 
             function producedReport(filename: string = '183050024e32d5f68bd5c1f367308f04.json') {
-                return JSON.parse(fs.readFileSync(`${outputDir}/${filename}`).toString('ascii'));
+                const report = JSON.parse(fs.readFileSync(`${outputDir}/${filename}`).toString('ascii'));
+                // TO VERIFY: Added to fix tests on Windows, but is this the best solution? Should the produced report contain OS specific paths or better not (since relative
+                // POSIX paths also work on windows)?
+                report.userStory.path = FileUtils.normalizeToPosixPath(report.userStory.path);
+                return report;
             }
         });
     });
