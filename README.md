@@ -1,5 +1,7 @@
 # Serenity/JS
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jan-molak/serenity-js.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/serenity-js.svg)](https://badge.fury.io/js/serenity-js)
 [![Build Status](https://travis-ci.org/jan-molak/serenity-js.svg?branch=master)](https://travis-ci.org/jan-molak/serenity-js)
 [![Coverage Status](https://coveralls.io/repos/github/jan-molak/serenity-js/badge.svg)](https://coveralls.io/github/jan-molak/serenity-js)
