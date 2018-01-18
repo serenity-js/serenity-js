@@ -3,7 +3,6 @@
 [![npm version](https://badge.fury.io/js/serenity-js.svg)](https://badge.fury.io/js/serenity-js)
 [![Build Status](https://travis-ci.org/jan-molak/serenity-js.svg?branch=master)](https://travis-ci.org/jan-molak/serenity-js)
 [![Coverage Status](https://coveralls.io/repos/github/jan-molak/serenity-js/badge.svg)](https://coveralls.io/github/jan-molak/serenity-js)
-[![Dependencies](https://david-dm.org/jan-molak/serenity-js.svg)](https://david-dm.org/jan-molak/serenity-js)
 [![npm](https://img.shields.io/npm/dm/serenity-js.svg)](https://npm-stat.com/charts.html?package=serenity-js)
 [![Known Vulnerabilities](https://snyk.io/test/github/jan-molak/serenity-js/badge.svg)](https://snyk.io/test/github/jan-molak/serenity-js)
 
