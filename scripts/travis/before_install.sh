@@ -39,8 +39,8 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   git fetch --tags
   git branch -u origin/$TRAVIS_BRANCH
   git fsck --full #debug
-#  echo "npm whoami"
-#  npm whoami #debug
+  echo "npm whoami"
+  npm whoami #debug
   echo "git config --list"
   git config --list #debug
 
