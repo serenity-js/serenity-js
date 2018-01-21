@@ -1,10 +1,14 @@
-import * as fs from 'graceful-fs';
+import * as gracefulFs from 'graceful-fs';
 import * as mkdirp from 'mkdirp';
 import * as path from 'path';
 
 export class FileSystem {
 
-    constructor(private root: string) {}
+    constructor(
+        private readonly root: string,
+        private readonly fs = gracefulFs,
+    ) {
+    }
 
     public store(relativePathToFile: string, data: any): Promise<string> {
         return this.ensureSpecified(relativePathToFile)
@@ -15,7 +19,7 @@ export class FileSystem {
     private ensureSpecified(relativePathToFile: string): Promise<string> {
         return !! (relativePathToFile && relativePathToFile.length)
             ? Promise.resolve(relativePathToFile)
-            : Promise.reject<string>(new Error('Please specify where the file should be saved'));
+            : Promise.reject(new Error('Please specify where the file should be saved'));
     }
 
     private prepareDirectory(relativePathToFile: string): PromiseLike<string> {
@@ -25,24 +29,20 @@ export class FileSystem {
 
         return new Promise((resolve, reject) => {
 
-            mkdirp(parent, error => {
-                if (error) {
-                    reject(error);
-                }
-
-                resolve(absolutePath);
+            mkdirp(parent, { fs: this.fs }, error => {
+                return error
+                    ? reject(error)
+                    : resolve(absolutePath);
             });
         });
     }
 
     private write(path: string, data: any): Promise<string> {
         return new Promise((resolve, reject) => {
-            fs.writeFile(path, data, error => {
-                if (error) {
-                    reject(error);
-                }
-
-                resolve(path);
+            this.fs.writeFile(path, data, error => {
+                return error
+                    ? reject(error)
+                    : resolve(path);
             });
         });
     }
