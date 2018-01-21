@@ -1,5 +1,15 @@
-<a name="1.10.2"></a>
-## 1.10.2 (2018-01-19)
+<a name="1.10.3"></a>
+## 1.10.3 (2018-01-21)
+
+
+
+<a name="1.10.3"></a>
+## 1.10.3 (2018-01-21)
+
+
+### Bug Fixes
+
+* **protractor:** select.theValue() interaction is correctly reported ([06bca4a](https://github.com/jan-molak/serenity-js/commit/06bca4a))
 
 
 
