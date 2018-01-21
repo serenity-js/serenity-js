@@ -16,8 +16,8 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "tslint --project=tsconfig.json --config=../../tslint.json --format=prose",
-    "test": "mocha --opts ./mocha.opts 'spec/**/*.spec.*'",
+    "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
+    "test": "mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "package": "tsc --project tsconfig.json",
     "verify": "npm run clean && npm run lint && npm test && npm run package"
   },
