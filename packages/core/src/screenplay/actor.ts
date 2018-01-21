@@ -25,7 +25,7 @@ export interface UsesAbilities {
      *
      * @param abilities
      */
-    whoCan<T extends UsesAbilities>(...abilities: Ability[]): T;
+    whoCan(...abilities: Ability[]): UsesAbilities;
 
     /**
      * Grants access to the Actor's ability
