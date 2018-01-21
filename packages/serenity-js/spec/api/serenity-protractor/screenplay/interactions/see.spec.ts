@@ -1,7 +1,6 @@
 import { Actor, Question, See, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { AssertionError } from 'chai';
 
-import sinon = require('sinon');
 import expect = require('../../../../expect');
 
 describe('Tasks', () => {

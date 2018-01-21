@@ -5,6 +5,9 @@ import chaiAsPromised = require('chai-as-promised');
 import chaiSmoothie = require('chai-smoothie');
 import { RecordedActivity, SourceLocation } from '@serenity-js/core/lib/domain/model';
 
+// tslint:disable-next-line
+chai.config['proxyExcludedKeys'].push('catch'); // todo: remove when domenic/chai-as-promised/#220 is addressed
+
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 chai.use(chaiSmoothie);

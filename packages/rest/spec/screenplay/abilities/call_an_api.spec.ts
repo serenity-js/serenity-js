@@ -47,7 +47,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 404', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(404)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a post on a resource and gets 201', () => {
@@ -63,7 +63,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 201', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(201)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a post on a resource and gets 403', () => {
@@ -77,7 +77,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 403', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(403)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a delete on a resource and gets 200', () => {
@@ -108,7 +108,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 404', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(404)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a put on a resource and gets 200', () => {
@@ -139,7 +139,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 404', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(404)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a patch on a resource and gets 200', () => {
@@ -154,7 +154,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 200', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(200)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
 
         describe('performs a patch on a resource and gets 404', () => {
@@ -168,7 +168,7 @@ describe('Abilities', () => {
 
             it('and eventually has a LastResponse', () => expect(callAnApi.getLastResponse()).to.eventually.not.be.undefined);
             it('and LastResponse status is 404', () => callAnApi.getLastResponse().then(response => expect(response.status).to.equal(404)));
-            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.empty));
+            it('and LastResponse has no data', () => callAnApi.getLastResponse().then(response => expect(response.data).to.be.undefined));
         });
     });
 });
