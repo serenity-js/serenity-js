@@ -16,6 +16,7 @@ export class Select {
 }
 
 class SelectOption implements Interaction {
+    @step('{0} selects "#value" from #target')
     performAs(actor: UsesAbilities): PromiseLike<void> {
         return BrowseTheWeb.as(actor)
             .locate(this.target)
