@@ -1,10 +1,8 @@
 import * as webdriver from 'selenium-webdriver';
 
-import {ElementArrayFinder} from 'protractor';
-import {Locator} from 'protractor/built/locators';
 import {Target} from '../../../../../src/screenplay-protractor';
-import sinon = require('sinon');
 import expect = require('../../../../expect');
+import {ElementSpyHelperFactory} from './element_spy_helper';
 
 describe('Nested target', () => {
     const
@@ -20,26 +18,29 @@ describe('Nested target', () => {
 
         it ('can be resolved using protractor `element` resolver', () => {
             const
-                element          = sinon.spy();
+                elementSpyHelper   = ElementSpyHelperFactory.createElementSpyHelper(),
+                element             = elementSpyHelper.elementHelper,
+                elementSpy          = elementSpyHelper.elementSpy;
 
             childTarget.resolveUsing(element);
 
-            expect(element.callCount).to.equal(2);
-            expect(element.getCall(0).args[0]).to.equal(parentLocator);
-            expect(element.getCall(1).args[0]).to.equal(childLocator);
+            expect(elementSpy.callCount).to.equal(2);
+            expect(elementSpy.getCall(0).args[0]).to.equal(parentLocator);
+            expect(elementSpy.getCall(1).args[0]).to.equal(childLocator);
         });
 
         it ('can be resolved using protractor `element.all` resolver', () => {
             const
-                elementFinder   = new ElementFinder(),
-                elementAllResolver  = sinon.spy(elementFinder, 'all'),
-                element          = sinon.spy(ElementFactory(elementFinder));
+                elementSpyHelper   = ElementSpyHelperFactory.createElementSpyHelper(),
+                element             = elementSpyHelper.elementHelper,
+                elementSpy          = elementSpyHelper.elementSpy,
+                elementAllSpy       = elementSpyHelper.elementAllSpy;
 
             childTarget.resolveAllUsing(element);
 
-            expect(element.callCount).to.equal(1);
-            expect(element.getCall(0).args[0]).to.equal(parentLocator);
-            expect(elementAllResolver.getCall(0).args[0]).to.equal(childLocator);
+            expect(elementSpy.callCount).to.equal(1);
+            expect(elementSpy.getCall(0).args[0]).to.equal(parentLocator);
+            expect(elementAllSpy.getCall(0).args[0]).to.equal(childLocator);
         });
     });
 
@@ -52,51 +53,35 @@ describe('Nested target', () => {
 
         it ('can be resolved using protractor `element` resolver', () => {
             const
-                element          = sinon.spy();
+                elementSpyHelper   = ElementSpyHelperFactory.createElementSpyHelper(),
+                element             = elementSpyHelper.elementHelper,
+                elementSpy          = elementSpyHelper.elementSpy;
 
             childTarget.resolveUsing(element);
 
-            expect(element.callCount).to.equal(4);
-            expect(element.getCall(0).args[0]).to.equal(grandGrandParentLocator);
-            expect(element.getCall(1).args[0]).to.equal(grandParentLocator);
-            expect(element.getCall(2).args[0]).to.equal(parentLocator);
-            expect(element.getCall(3).args[0]).to.equal(childLocator);
+            expect(elementSpy.callCount).to.equal(4);
+            expect(elementSpy.getCall(0).args[0]).to.equal(grandGrandParentLocator);
+            expect(elementSpy.getCall(1).args[0]).to.equal(grandParentLocator);
+            expect(elementSpy.getCall(2).args[0]).to.equal(parentLocator);
+            expect(elementSpy.getCall(3).args[0]).to.equal(childLocator);
         });
 
         it ('can be resolved using protractor `element.all` resolver', () => {
             const
-                elementFinder   = new ElementFinder(),
-                elementAllResolver  = sinon.spy(elementFinder, 'all'),
-                elementResolver     = sinon.spy(elementFinder, 'element'),
-                element          = sinon.spy(ElementFactory(elementFinder));
+                elementSpyHelper   = ElementSpyHelperFactory.createElementSpyHelper(),
+                element             = elementSpyHelper.elementHelper,
+                elementSpy          = elementSpyHelper.elementSpy,
+                elementAllSpy       = elementSpyHelper.elementAllSpy;
 
             childTarget.resolveAllUsing(element);
 
-            expect(elementResolver.callCount).to.equal(3);
-            expect(elementAllResolver.callCount).to.equal(1);
-            expect(elementResolver.getCall(0).args[0]).to.equal(grandGrandParentLocator);
-            expect(elementResolver.getCall(1).args[0]).to.equal(grandParentLocator);
-            expect(elementResolver.getCall(2).args[0]).to.equal(parentLocator);
-            expect(elementAllResolver.getCall(0).args[0]).to.equal(childLocator);
+            expect(elementSpy.callCount).to.equal(3);
+            expect(elementAllSpy.callCount).to.equal(1);
+            expect(elementSpy.getCall(0).args[0]).to.equal(grandGrandParentLocator);
+            expect(elementSpy.getCall(1).args[0]).to.equal(grandParentLocator);
+            expect(elementSpy.getCall(2).args[0]).to.equal(parentLocator);
+            expect(elementAllSpy.getCall(0).args[0]).to.equal(childLocator);
         });
     });
-
-    const ElementFactory = function(finderSpy: ElementFinder) {
-        return function(locator: Locator) {
-            // Forward call to the ElementFinder mock to make it easy to test the resolver flow
-            finderSpy.element(locator);
-            return finderSpy;
-        };
-    };
-
-    class ElementFinder {
-        element(locator: Locator): ElementFinder {
-            return this;
-        }
-
-        all(locator: Locator): ElementArrayFinder {
-            return undefined;
-        }
-    }
 
 });
