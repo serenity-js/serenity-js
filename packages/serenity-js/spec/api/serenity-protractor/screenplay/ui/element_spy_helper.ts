@@ -27,7 +27,7 @@ export class ElementSpyHelperFactory {
         return {
             elementHelper: elementHelper,
             elementSpy: elementSpy,
-            elementAllSpy: elementAllSpy
+            elementAllSpy: elementAllSpy,
         };
     };
 }
@@ -41,4 +41,3 @@ class ElementFinder {
         return undefined;
     }
 }
-
