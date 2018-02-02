@@ -25,9 +25,9 @@ export class ElementSpyHelperFactory {
         elementHelper.all = elementAllSpy;
 
         return {
-            elementHelper: elementHelper,
-            elementSpy: elementSpy,
-            elementAllSpy: elementAllSpy,
+            elementHelper,
+            elementSpy,
+            elementAllSpy,
         };
     };
 }
