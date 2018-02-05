@@ -4,10 +4,12 @@ import { BrowseTheWeb } from '../abilities/browse_the_web';
 import { Target } from '../ui/target';
 
 import { ElementFinder, protractor } from 'protractor';
+import { Question } from '../../../../../core/src/screenplay/question';
+import { WaitForQuestion } from './waitForQuestion';
 
 export class Duration {
-    static ofMillis  = (milliseconds: number) => new Duration(milliseconds);
-    static ofSeconds = (seconds: number)      => Duration.ofMillis(seconds * 1000);
+    static ofMillis = (milliseconds: number) => new Duration(milliseconds);
+    static ofSeconds = (seconds: number) => Duration.ofMillis(seconds * 1000);
 
     toMillis = () => this.milliseconds;
     toString = () => `${ this.milliseconds }ms`;
@@ -19,8 +21,9 @@ export class Duration {
 export type SuccessCondition<T> = (subject: T, timeout: Duration) => Activity;
 
 export class Wait {
-    static for   = (duration: Duration): Interaction => new PassiveWait(duration);
-    static upTo  = (timeout: Duration) => new ActiveWait(timeout);
+    static for = (duration: Duration): Interaction => new PassiveWait(duration);
+    static upTo = (timeout: Duration) => new ActiveWait(timeout);
+
     static until<T>(somethingToWaitFor: T, condition: SuccessCondition<T>) {
         return new ActiveWait().until(somethingToWaitFor, condition);
     }
@@ -33,19 +36,23 @@ export class ActiveWait {
         return condition(somethingToWaitFor, this.timeout);
     }
 
+    untilQuestionAnsweredTrue(question: Question<PromiseLike<boolean>>): WaitForQuestion {
+        return new WaitForQuestion(question, this.timeout);
+    }
+
     constructor(private timeout: Duration = ActiveWait.Default_Timeout) {
     }
 }
 
 export class Is {
-    static visible    = () => Is.aTargetThat(new IsVisible());
-    static invisible  = () => Is.aTargetThat(new IsInvisible());
-    static present    = () => Is.aTargetThat(new IsPresent());
-    static absent     = () => Is.aTargetThat(new Absent());
-    static selected   = () => Is.aTargetThat(new IsSelected());
-    static clickable  = () => Is.aTargetThat(new IsClickable());
+    static visible = () => Is.aTargetThat(new IsVisible());
+    static invisible = () => Is.aTargetThat(new IsInvisible());
+    static present = () => Is.aTargetThat(new IsPresent());
+    static absent = () => Is.aTargetThat(new Absent());
+    static selected = () => Is.aTargetThat(new IsSelected());
+    static clickable = () => Is.aTargetThat(new IsClickable());
 
-    private static aTargetThat(condition: Condition<ElementFinder>): SuccessCondition<Target>{
+    private static aTargetThat(condition: Condition<ElementFinder>): SuccessCondition<Target> {
         return (target: Target, timeout: Duration) => new WaitUntil(target, condition, timeout);
     }
 }
@@ -66,32 +73,32 @@ interface Condition<T> {
 
 class IsVisible implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.visibilityOf(thing);
-    name  = () => 'visible';
+    name = () => 'visible';
 }
 
 class IsInvisible implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.invisibilityOf(thing);
-    name  = () => 'invisible';
+    name = () => 'invisible';
 }
 
 class IsPresent implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.presenceOf(thing);
-    name  = () => 'present';
+    name = () => 'present';
 }
 
 class Absent implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.stalenessOf(thing);
-    name  = () => 'absent';
+    name = () => 'absent';
 }
 
 class IsSelected implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.elementToBeSelected(thing);
-    name  = () => 'selected';
+    name = () => 'selected';
 }
 
 class IsClickable implements Condition<ElementFinder> {
     check = (thing: ElementFinder): Function => protractor.ExpectedConditions.elementToBeClickable(thing);
-    name  = () => 'clickable';
+    name = () => 'clickable';
 }
 
 class WaitUntil implements Interaction {

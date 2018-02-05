@@ -19,19 +19,21 @@ import {
     WebElement,
 } from '../../src/screenplay-protractor';
 
+import { UsesAbilities } from '../../../core/lib/screenplay/actor';
+import { Question } from '../../../core/src/screenplay/question';
 import { AppServer } from '../support/server';
 
 export class Playground {
-    static Examples       = Target.the('example type').located(by.id('example_type'));
-    static Timeout_Type        = Target.the('timeout function type').located(by.id('timeout_type'));
-    static Timeout_Length      = Target.the('timeout length').located(by.id('timeout_length'));
+    static Examples = Target.the('example type').located(by.id('example_type'));
+    static Timeout_Type = Target.the('timeout function type').located(by.id('timeout_type'));
+    static Timeout_Length = Target.the('timeout length').located(by.id('timeout_length'));
     static Trigger = Target.the('trigger button').located(by.css('#timeouts button'));
-    static Result  = Target.the('result').located(by.css('#timeouts #example .result'));
+    static Result = Target.the('result').located(by.css('#timeouts #example .result'));
 }
 
 class ChooseAnExample implements Task {
     private timeout_length = Duration.ofMillis(500);
-    private timeout_type   = '$timeout' ;
+    private timeout_type = '$timeout';
 
     static whereElementBecomes = (example: string) => new ChooseAnExample(example);
 
@@ -59,16 +61,18 @@ class ChooseAnExample implements Task {
     }
 }
 
-describe ('When waiting for things to happen, a test scenario', function() {
+describe('When waiting for things to happen, a test scenario', function() {
 
     this.timeout(10000);
 
-    const Trigger_Delay   = Duration.ofMillis(2000),
-          Not_Long_Enough = Duration.ofMillis(500),
-          Long_Enough     = Duration.ofMillis(4000);
+    const Trigger_Delay = Duration.ofMillis(2000),
+        No_Delay = Duration.ofMillis(0),
+        Tiny_Delay = Duration.ofMillis(50),
+        Not_Long_Enough = Duration.ofMillis(500),
+        Long_Enough = Duration.ofMillis(4000);
 
     const
-        app   = new AppServer(),
+        app = new AppServer(),
         james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 
     before(app.start());
@@ -78,9 +82,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
 
         james.attemptsTo(
             Open.browserOn(app.demonstrating('waiting')),
-        ).
-
-        then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
+        ).then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
 
     [
         'setTimeout',
@@ -90,23 +92,19 @@ describe ('When waiting for things to happen, a test scenario', function() {
 
         describe(`using Passive Wait (${ timeoutFunction })`, () => {
 
-            it ('will fail if the timeout is too short', () =>
+            it('will fail if the timeout is too short', () =>
 
                 james.attemptsTo(
                     ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
                     Wait.for(Not_Long_Enough),
-                ).
+                ).then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
 
-                then(() => expect(james.toSee(WebElement.of(Playground.Result))).not.displayed));
-
-            it ('will pass if the timeout is long enough', () =>
+            it('will pass if the timeout is long enough', () =>
 
                 james.attemptsTo(
                     ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
                     Wait.for(Long_Enough),
-                ).
-
-                then(() => expect(james.toSee(WebElement.of(Playground.Result))).displayed));
+                ).then(() => expect(james.toSee(WebElement.of(Playground.Result))).displayed));
         });
 
         describe(`using Active Wait (${ timeoutFunction })`, () => {
@@ -132,9 +130,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Visible').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.visible()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).displayed,
                         expect(james.toSee(WebElement.of(Playground.Result))).present,
                     ])));
@@ -154,9 +150,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Invisible').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.invisible()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).not.displayed,
                         expect(james.toSee(WebElement.of(Playground.Result))).present,
                     ])));
@@ -176,9 +170,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Present').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.present()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).displayed,
                         expect(james.toSee(WebElement.of(Playground.Result))).present,
                     ])));
@@ -198,9 +190,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Absent').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.absent()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).not.present,
                     ])));
             });
@@ -219,9 +209,7 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Selected').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.selected()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).present,
                         expect(james.toSee(WebElement.of(Playground.Result))).displayed,
                         expect(james.toSee(WebElement.of(Playground.Result))).selected,
@@ -242,12 +230,34 @@ describe ('When waiting for things to happen, a test scenario', function() {
                     expect(james.attemptsTo(
                         ChooseAnExample.whereElementBecomes('Clickable').after(Trigger_Delay).using(timeoutFunction),
                         Wait.upTo(Long_Enough).until(Playground.Result, Is.clickable()),
-                    )).to.be.fulfilled.
-
-                    then(() => Promise.all([
+                    )).to.be.fulfilled.then(() => Promise.all([
                         expect(james.toSee(WebElement.of(Playground.Result))).present,
                         expect(james.toSee(WebElement.of(Playground.Result))).displayed,
                     ])));
+            });
+
+            describe('to determine if an question based wait', () => {
+
+                class MyBooleanPromiseQuestion implements Question<PromiseLike<boolean>> {
+                    static withValue = (someValue: boolean) => new MyBooleanPromiseQuestion(someValue);
+                    answeredBy = (actor: UsesAbilities) => Promise.resolve(this.value);
+                    toString = () => 'My boolean promise question';
+
+                    constructor(private value: boolean) {
+                    }
+                }
+
+                it('will fail if the question returns a false value during wait', () =>
+
+                    expect(james.attemptsTo(
+                        Wait.upTo(Tiny_Delay).untilQuestionAnsweredTrue(MyBooleanPromiseQuestion.withValue(false)),
+                    )).to.be.rejectedWith(/^My boolean promise question failed to return true answer within timeout period\nWait timed out after (.*)ms$/));
+
+                it('will pass if the question returns a true value during wait', () =>
+
+                    expect(james.attemptsTo(
+                        Wait.upTo(Tiny_Delay).untilQuestionAnsweredTrue(MyBooleanPromiseQuestion.withValue(true)),
+                    )).to.be.fulfilled);
             });
         });
     });
