@@ -3,21 +3,21 @@ import { serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts } from '@serenity-js/core/lib/domain';
 import * as Cucumber from 'cucumber';
 
-import { activityFrom, errorIfPresentIn, outcome, sceneFrom } from './adapters';
+import { activityFrom, errorIfPresentIn, outcome, sceneFrom } from './transformations';
 
 const cucumber = require('cucumber');   // tslint:disable-line:no-var-requires
 
 type Callback = (error?: Error) => void;
 
-export const adapter = cucumber.Listener({ timeout: serenity.config.stageCueTimeout });
+const listener = cucumber.Listener({ timeout: serenity.config.stageCueTimeout });
 
-adapter.handleBeforeScenarioEvent = function(scenario: Cucumber.events.ScenarioPayload, callback: Callback) {
+listener.handleBeforeScenarioEvent = function(scenario: Cucumber.events.ScenarioPayload, callback: Callback) {
     serenity.notify(new SceneStarts(sceneFrom(scenario)));
 
     callback();
 };
 
-adapter.handleBeforeStepEvent = function(step: Cucumber.events.StepPayload, callback: () => void) {
+listener.handleBeforeStepEvent = function(step: Cucumber.events.StepPayload, callback: () => void) {
     if (! step.isHidden()) {
         serenity.notify(new ActivityStarts(activityFrom(step)));
     }
@@ -25,7 +25,7 @@ adapter.handleBeforeStepEvent = function(step: Cucumber.events.StepPayload, call
     callback();
 };
 
-adapter.handleStepResultEvent = function(result: Cucumber.events.StepResultPayload, callback: () => void) {
+listener.handleStepResultEvent = function(result: Cucumber.events.StepResultPayload, callback: () => void) {
     const step = result.getStep();
 
     // "before" and "after" steps emit an event even if the keywords themselves are not present in the scenario...
@@ -36,7 +36,7 @@ adapter.handleStepResultEvent = function(result: Cucumber.events.StepResultPaylo
     callback();
 };
 
-adapter.handleScenarioResultEvent = function(result: Cucumber.events.ScenarioResultPayload, callback: () => void) {
+listener.handleScenarioResultEvent = function(result: Cucumber.events.ScenarioResultPayload, callback: () => void) {
     const scenario = result.getScenario();
 
     serenity.notify(new SceneFinished(outcome(sceneFrom(scenario), result.getStatus(), errorIfPresentIn(result))));
@@ -44,7 +44,7 @@ adapter.handleScenarioResultEvent = function(result: Cucumber.events.ScenarioRes
     callback();
 };
 
-adapter.handleAfterScenarioEvent = function(scenario: Cucumber.events.ScenarioPayload, callback: Callback) {
+listener.handleAfterScenarioEvent = function(scenario: Cucumber.events.ScenarioPayload, callback: Callback) {
     serenity.stageManager().waitForNextCue().then(() => callback(), error => callback(error));
 };
 
@@ -56,3 +56,5 @@ adapter.handleAfterScenarioEvent = function(scenario: Cucumber.events.ScenarioPa
 //   handleAfterFeatureEvent   (feature: events.FeaturePayload, callback: () => void) => callback();
 //   handleFeaturesResultEvent (featuresResult: events.FeaturesResultPayload, callback: () => void) => callback();
 //   handleAfterFeaturesEvent  (features: events.FeaturesPayload, callback: () => void) => callback();
+
+export { listener };
