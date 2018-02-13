@@ -1,6 +1,6 @@
-import { adapter } from './adapter';
+import { listener } from './listener';
 
 export = function() {
 
-    this.registerListener(adapter);
+    this.registerListener(listener);
 };
