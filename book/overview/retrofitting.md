@@ -36,7 +36,7 @@ exports.config = {
 ```
 
 Serenity/JS detects whether to use Cucumber or Mocha based on the presence 
-of [`cucumberOpts`](../cucumber/readme.md) 
+of [`cucumberOpts`](./configuration.md#cucumber) 
 or [`mochaOpts`](mocha.md), respectively.
 If you prefer, you can tell Serenity/JS which test framework you'd like to use explicitly too:
 
