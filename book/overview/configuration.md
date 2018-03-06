@@ -292,7 +292,7 @@ What this means is that Cucumber can use step definitions and Mocha can execute 
 in TypeScript and some in JavaScript, yet they can still co-exist in the same codebase without a problem.
 
 This fact is incredibly useful when introducing Serenity/JS and TypeScript to an existing JavaScript codebase,
-because it allows for gradual and safe adoption of Serenity/JS, rather tha a big-bang re-write.
+because it allows for gradual and safe adoption of Serenity/JS, rather than a big-bang re-write.
 
 # TypeScript
 
