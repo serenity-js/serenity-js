@@ -64,7 +64,7 @@ also (see [mixed mode](#mixed-mode)):
     }
 ```
 
-Learn more about [writing and executing test scenarios with Cucumber](../cucumber).
+Learn more about [writing and executing test scenarios with Cucumber](../cucumber/readme.md).
 
 ## Mocha
 
@@ -122,7 +122,7 @@ exports.config = {
 }
 ```
 
-Learn more about [writing and executing test scenarios using Mocha](../mocha).
+Learn more about [writing and executing test scenarios using Mocha](../mocha/readme.md).
 
 ## Serenity/JS - dialect
 
