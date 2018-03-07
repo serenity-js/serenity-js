@@ -64,7 +64,7 @@ also (see [mixed mode](#mixed-mode)):
     }
 ```
 
-Learn more about [writing and executing test scenarios with Cucumber](./cucumber.md).
+Learn more about [writing and executing test scenarios with Cucumber](../cucumber/readme.md).
 
 ## Mocha
 
@@ -122,7 +122,7 @@ exports.config = {
 }
 ```
 
-Learn more about [writing and executing test scenarios using Cucumber](./cucumber.md).
+Learn more about [writing and executing test scenarios using Mocha](../mocha/readme.md).
 
 ## Serenity/JS - dialect
 
@@ -292,7 +292,7 @@ What this means is that Cucumber can use step definitions and Mocha can execute 
 in TypeScript and some in JavaScript, yet they can still co-exist in the same codebase without a problem.
 
 This fact is incredibly useful when introducing Serenity/JS and TypeScript to an existing JavaScript codebase,
-because it allows for gradual and safe adoption of Serenity/JS, rather tha a big-bang re-write.
+because it allows for gradual and safe adoption of Serenity/JS, rather than a big-bang re-write.
 
 # TypeScript
 
