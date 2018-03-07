@@ -36,8 +36,8 @@ exports.config = {
 ```
 
 Serenity/JS detects whether to use Cucumber or Mocha based on the presence 
-of [`cucumberOpts`](cucumber.md) 
-or [`mochaOpts`](mocha.md), respectively.
+of [`cucumberOpts`](./configuration.md#cucumber) 
+or [`mochaOpts`](./configuration.md#mocha), respectively.
 If you prefer, you can tell Serenity/JS which test framework you'd like to use explicitly too:
 
 ```javascript
@@ -55,8 +55,8 @@ exports.config = {
 That's it! You can execute your tests the same way you used to.
 
 Now you can learn more about the [configuration options](./configuration.md) supported by 
-[`serenity-mocha`](mocha.md) and 
-[`serenity-cucumber`](cucumber.md) adapters and
+[`serenity-mocha`](../mocha/readme.md) and 
+[`serenity-cucumber`](../cucumber/readme.md) adapters and
 running the tests using their respective test frameworks, or [configure the reporting](reporting.md) to convert
 the intermediary JSON reports produced by `serenity-js` to HTML.
  
