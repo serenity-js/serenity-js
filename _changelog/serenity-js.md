@@ -1,5 +1,15 @@
-<a name="1.10.6"></a>
-## 1.10.6 (2018-03-18)
+<a name="1.10.7"></a>
+## 1.10.7 (2018-03-18)
+
+
+
+<a name="1.10.7"></a>
+## 1.10.7 (2018-03-18)
+
+
+### Bug Fixes
+
+* **deps:** serenity/JS depends on Lodash, but the dependency was missing from package.json ([5cf8dc1](https://github.com/jan-molak/serenity-js/commit/5cf8dc1)), closes [#184](https://github.com/jan-molak/serenity-js/issues/184)
 
 
 
