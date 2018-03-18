@@ -8,7 +8,7 @@ const tsNodeSpawner = spawner(
 );
 
 export const mocha = (...params) => tsNodeSpawner(
-    '--compilers', 'ts:ts-node/register',
+    '--require', 'ts-node/register',
     '--require',  './mocha/configure.ts',
     '--reporter',  `${__dirname}/../../src/index.ts`,
     ...params,

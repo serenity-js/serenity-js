@@ -18,7 +18,6 @@ import {
 import { Alert } from '../../src/serenity-protractor/screenplay/interactions/alert';
 import { WaitForAlert } from '../../src/serenity-protractor/screenplay/interactions/waitForAlert';
 import { AppServer } from '../support/server';
-import { ensureCurrentBrowserIsNot } from './workarounds';
 
 class AlertTargets {
     static Trigger = Target.the('alert trigger').located(by.id('alert-demo-trigger'));
@@ -36,12 +35,6 @@ describe('When demonstrating how to work with alert windows, a test scenario', f
     after(app.stop());
 
     describe('running in a real browser', () => {
-
-        // Headless chrome automatically dismisses alert windows, phantomjs breaks
-        // see https://bugs.chromium.org/p/chromium/issues/detail?id=718235
-        // todo: remove this workaround when Chrome 62.0.3175.0 is available
-        // see https://chromium.googlesource.com/chromium/src.git/+/lkgr/headless/public/headless_browser.cc#19
-        before(ensureCurrentBrowserIsNot('HeadlessChrome', 'phantomjs'));
 
         beforeEach(() =>
             nick.attemptsTo(
