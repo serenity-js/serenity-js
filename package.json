@@ -21,7 +21,6 @@
   "scripts": {
     "clean": "rimraf target",
     "verify": "lerna run verify --stream && npm run report",
-    "verify:pull-request": "lerna run verify:pull-request --stream  && npm run report",
     "book:clean": "rimraf _book",
     "book:build": "gitbook build",
     "prebook:publish": "npm run book:clean && npm run book:build",
