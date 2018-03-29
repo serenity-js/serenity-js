@@ -303,7 +303,7 @@ With `npm-failsafe` installed we can modify our `scripts` a bit:
     "clean":   "rimraf target",
     "pretest": "serenity update",
     "report":  "serenity run",
-    "test":    "failsafe clean protractor report",
+    "test":    "failsafe clean pretest report",
 
     //...
   },
