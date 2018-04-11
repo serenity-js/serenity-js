@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "Installing NPM";
-npm i -g npm@^5.5.1
-
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "Building a pull request"
   exit 0
