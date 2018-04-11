@@ -34,7 +34,8 @@
     "commit": "git-cz",
     "lerna": "lerna",
     "gitbook": "gitbook",
-    "postinstall": "lerna bootstrap --hoist && link-parent-bin"
+    "postinstall": "lerna bootstrap --hoist && link-parent-bin",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "devDependencies": {
     "@types/chai": "4.1.2",
