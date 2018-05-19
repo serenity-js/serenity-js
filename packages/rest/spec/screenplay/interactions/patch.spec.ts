@@ -22,9 +22,15 @@ describe('Interactions', () => {
             spyPatch = sinon.spy(callAnApi, 'patch');
         });
 
-        beforeEach(() => expect(Patch.resource(resource).with(item).performAs(actor)).to.be.eventually.fulfilled);
-        it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
-        it('should perform a Patch on the resource', () => expect(spyPatch).to.have.been.calledWith(resource, item));
+        beforeEach(() => expect(Patch.resource(resource).with(item).performAs(actor)).to.eventually.fulfilled);
+
+        it('should perform as the actor.', () => {
+            expect(spyAs).to.have.been.calledOnce;
+        });
+
+        it('should perform a Patch on the resource', () => {
+            expect(spyPatch).to.have.been.calledWith(resource, item);
+        });
 
         after(() => {
             spyAs.restore();

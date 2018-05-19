@@ -1,11 +1,11 @@
 import sinon = require('sinon');
 import 'mocha';
-import {CallAnApi} from '../../../src/screenplay/abilities';
-import {Delete} from '../../../src/screenplay/interactions';
+import { CallAnApi } from '../../../src/screenplay/abilities';
+import { Delete } from '../../../src/screenplay/interactions';
 
-import {Actor} from '@serenity-js/core/lib/screenplay';
+import { Actor } from '@serenity-js/core/lib/screenplay';
 
-import {expect} from '../../expect';
+import { expect } from '../../expect';
 
 describe('Interactions', () => {
     const baseUrl = 'https://dum.my';
@@ -21,16 +21,19 @@ describe('Interactions', () => {
             spyDelete = sinon.spy(callAnApi, 'delete');
         });
 
-        beforeEach(() => expect(Delete.resource(resource).performAs(actor)).to.be.eventually.be.fulfilled);
-        it('should perform as the actor.', () => expect(spyAs).to.have.been.calledOnce);
-        it('should perform a Delete on the resource', () => expect(spyDelete).to.have.been.calledWith(resource));
+        beforeEach(() => expect(Delete.resource(resource).performAs(actor)).to.eventually.be.fulfilled);
+
+        it('should perform as the actor.', () => {
+            expect(spyAs).to.have.been.calledOnce;
+        });
+
+        it('should perform a Delete on the resource', () => {
+            expect(spyDelete).to.have.been.calledWith(resource);
+        });
 
         after(() => {
             spyAs.restore();
             spyDelete.restore();
         });
-
+    });
 });
-
-})
-;

@@ -59,7 +59,8 @@ describe ('When demonstrating the usage of a HTML page, a test scenario', functi
         expect(james.toSee(Attribute.of(Cookbook.Article).called('class')))
             .eventually.equal('container'));
 
-    it ('can check the visibility of an on-screen element', () =>
+    it ('can check the visibility of an on-screen element', () => {
 
-        expect(james.toSee(WebElement.of(Cookbook.Article))).displayed);
+        expect(james.toSee(WebElement.of(Cookbook.Article))).displayed;
+    });
 });

@@ -13,7 +13,9 @@ describe('Abilities', () => {
               includeAllOf = (expected: string[]) => (actual: PromiseLike<string[]>): PromiseLike<void> => expect(actual).to.eventually.include.members(expected),
               equals       = <T>(expected: T)     => (actual: PromiseLike<T>): PromiseLike<void>        => expect(actual).to.eventually.equal(expected);
 
-        beforeEach(() => notepad = {});
+        beforeEach(() => {
+            notepad = {};
+        });
 
         it ('stores notes in a notepad as promises to be resolved', () => {
             const displayedVoucher = MyVoucherCode.shownAs('SUMMER2017');
