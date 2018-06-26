@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "clean": "rimraf staging lib .nyc_output",
-    "pretest": "webdriver-manager update --standalone --versions.standalone=2.53.1",
+    "pretest": "webdriver-manager update --standalone --versions.standalone=2.53.1 --gecko=false",
     "test": "npm run spec",
     "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
     "package": "tsc --project tsconfig-export.json",
