@@ -21,7 +21,7 @@ export class ArtifactArchiver implements StageCrewMember {
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
         .when(ArtifactGenerated, this.handleArtifactGenerated)
-        .else(_ => void 0);
+        .else(_ => void 0)
 
     private handleArtifactGenerated = ({ artifact }: ArtifactGenerated<any>): void => {
 

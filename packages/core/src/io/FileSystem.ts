@@ -11,7 +11,7 @@ export class FileSystem {
     ) {
     }
 
-    public store(relativePathToFile: Path, data: any, encoding?: string ): Promise<Path> {
+    public store(relativePathToFile: Path, data: any, encoding?: string): Promise<Path> {
         return Promise.resolve(relativePathToFile)
             .then(relativePath => this.prepareDirectory(relativePath))
             .then(absolutePath => this.write(absolutePath, data, encoding));

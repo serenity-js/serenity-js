@@ -9,5 +9,5 @@ export class IDGenerator {
         .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/[ \t\W]/g, '-')
         .replace(/^-+|-+$/g, '')
-        .toLowerCase();
+        .toLowerCase()
 }
