@@ -15,7 +15,8 @@
     "tdd",
     "test",
     "testing",
-    "serenity"
+    "serenity",
+    "screenplay"
   ],
   "scripts": {
     "clean": "rimraf lib",
@@ -25,18 +26,16 @@
     "verify": "npm run clean && npm run lint && npm test && npm run package"
   },
   "dependencies": {
+    "error-stack-parser": "2.0.1",
     "graceful-fs": "4.1.11",
-    "lodash": "4.17.4",
     "mkdirp": "0.5.1",
-    "moment": "2.18.1",
-    "stacktrace-js": "2.0.0",
-    "ts-md5": "1.2.0"
+    "moment": "2.22.1",
+    "sanitize-filename": "1.6.1",
+    "tiny-types": "1.10.1"
   },
   "devDependencies": {
-    "@types/graceful-fs": "2.0.29",
-    "@types/lodash": "4.14.55",
-    "@types/mkdirp": "0.3.29",
-    "@types/stacktrace-js": "0.0.30"
+    "@types/mkdirp": "0.5.2",
+    "@types/sanitize-filename": "1.1.28"
   },
   "repository": {
     "type": "git",
@@ -58,7 +57,6 @@
       "*.js",
       "lib",
       "spec",
-      "staging",
       "node_modules"
     ],
     "extension": [
@@ -68,6 +66,7 @@
       "ts-node/register"
     ],
     "reporter": [
+      "html",
       "json",
       "text-summary"
     ],
