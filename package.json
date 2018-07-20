@@ -19,8 +19,11 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf target",
-    "verify": "lerna run verify --stream && npm run report",
+    "clean": "rimraf target && lerna run clean --parallel",
+    "lint": "lerna run lint --parallel",
+    "test": "lerna run test --stream",
+    "compile": "lerna run compile --stream",
+    "verify": "npm run clean && npm run lint && npm test && npm run compile",
     "book:clean": "rimraf _book",
     "book:build": "gitbook build",
     "prebook:publish": "npm run book:clean && npm run book:build",
