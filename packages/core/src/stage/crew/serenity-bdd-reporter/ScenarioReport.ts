@@ -142,9 +142,9 @@ export class ScenarioReport {
         const parse = ScenarioReport.errorParser.parse;
 
         return match<Outcome, void>(outcome).
-            when(ExecutionCompromised,  ({ error }: ExecutionCompromised )  => mapAs('COMPROMISED', parse(error))).
-            when(ErrorOccurred,         ({ error }: ErrorOccurred )         => mapAs('ERROR', parse(error))).
-            when(AssertionFailed,       ({ error }: AssertionFailed )       => mapAs('FAILURE', parse(error))).
+            when(ExecutionCompromised,  ({ error }: ExecutionCompromised)  => mapAs('COMPROMISED', parse(error))).
+            when(ErrorOccurred,         ({ error }: ErrorOccurred)         => mapAs('ERROR', parse(error))).
+            when(AssertionFailed,       ({ error }: AssertionFailed)       => mapAs('FAILURE', parse(error))).
             when(ExecutionSkipped,      _ => mapAs('SKIPPED')).
             when(ExecutionIgnored,      _ => mapAs('IGNORED')).
             when(ImplementationPending, _ => mapAs('PENDING')).

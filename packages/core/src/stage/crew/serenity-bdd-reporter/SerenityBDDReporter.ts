@@ -40,7 +40,7 @@ export class SerenityBDDReporter implements StageCrewMember {
         .when(SceneFinished,    this.handleSceneFinished)
         .when(ExecutionContextPropertyDetected, this.handleExecutionContextPropertyDetected)
         .when(ArtifactGenerated, this.handleArtifactGenerated)
-        .else(_ => void 0);
+        .else(_ => void 0)
 
     private handleSceneBegins = (event: SceneBegins): void => {
         this.currentScenario.value = event.value;

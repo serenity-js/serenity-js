@@ -22,6 +22,7 @@ export class Duration extends TinyType {
     toString() {
         const ms = this.milliseconds;
 
+        // tslint:disable:space-within-parens
         const levels = [
             [ Math.floor(   ms / Duration.msPerYear), 'y'],
             [ Math.floor(  (ms % Duration.msPerYear) / Duration.msPerDay), 'd'],
@@ -30,6 +31,7 @@ export class Duration extends TinyType {
             [ Math.floor((((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute / Duration.msPerSecond), 's'],
             [ (((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute % Duration.msPerSecond, 'ms'],
         ];
+        // tslint:enable:space-within-parens
 
         return levels.reduce((acc, l, i) => l[0] > 0 || i === levels.length
             ? `${ acc } ${ l[0] }${ l[1] }`
