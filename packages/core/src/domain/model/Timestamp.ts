@@ -42,7 +42,7 @@ function isSerialisedISO8601Date(): Predicate<string> {
         moment(value, moment.ISO_8601, true).isValid());
 }
 
-function isInstanceOf<T>(type: Function & { new(...args: any[]): T }): Predicate<T> {
+function isInstanceOf<T>(type: Function & { new(...args: any[]): T }): Predicate<T> {                                           // tslint:disable-line:ban-types
     return Predicate.to(`be an instance of ${ type.name }`, (value: T) =>
         value instanceof type);
 }
