@@ -1,5 +1,9 @@
-import { Serenity } from './serenity';
+import { Serenity } from './Serenity';
+import { Clock, StageManager } from './stage';
 
-// todo: probably export config too
-export * from './serenity';
-export let serenity = new Serenity();
+const clock = new Clock();
+const stageManager = new StageManager(clock);
+
+export const serenity = new Serenity(stageManager);
+
+export * from './screenplay';
