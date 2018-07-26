@@ -2,20 +2,8 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import {
-    ArbitraryTag,
-    BrowserTag,
-    CapabilityTag,
-    ContextTag,
-    ExecutionSuccessful,
-    FeatureTag,
-    IssueTag,
-    ManualTag,
-    SceneBegins,
-    SceneFinished,
-    SceneTagged,
-    ThemeTag,
-} from '../../../../../src/domain';
+import { SceneFinished, SceneStarts, SceneTagged } from '../../../../../src/events';
+import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag, } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -42,7 +30,7 @@ describe('SerenityBDDReporter', () => {
 
             beforeEach(() => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneBegins(defaultCardScenario),
+                    new SceneStarts(defaultCardScenario),
                 );
             });
 

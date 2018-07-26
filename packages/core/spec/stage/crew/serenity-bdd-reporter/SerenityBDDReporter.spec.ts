@@ -2,27 +2,23 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
+import { TestCompromisedError } from '../../../../src/errors';
+import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunnerDetected } from '../../../../src/events';
+import { Artifact, FileSystemLocation, FileType, Path } from '../../../../src/io';
 import {
-    ArtifactGenerated,
     AssertionFailed,
     Category,
     Duration,
     ErrorOccurred,
     ExecutionCompromised,
-    ExecutionContextPropertyDetected,
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
     Name,
     ScenarioDetails,
-    SceneBegins,
-    SceneFinished,
-    TestRunnerType,
     Timestamp,
-} from '../../../../src/domain';
-import { TestCompromisedError } from '../../../../src/errors';
-import { Artifact, FileSystemLocation, FileType, Path } from '../../../../src/io';
+} from '../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../src/stage';
 import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../expect';
@@ -66,7 +62,7 @@ describe('SerenityBDDReporter', () => {
 
         beforeEach(() => {
             given(reporter).isNotifiedOfFollowingEvents(
-                new SceneBegins(defaultCardScenario),
+                new SceneStarts(defaultCardScenario),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
             );
 
@@ -89,9 +85,9 @@ describe('SerenityBDDReporter', () => {
 
         it('is separate for each scenario', () => {
             given(reporter).isNotifiedOfFollowingEvents(
-                new SceneBegins(defaultCardScenario),
+                new SceneStarts(defaultCardScenario),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new SceneBegins(voucherScenario),
+                new SceneStarts(voucherScenario),
                 new SceneFinished(voucherScenario, new ExecutionIgnored()),
             );
 
@@ -116,7 +112,7 @@ describe('SerenityBDDReporter', () => {
 
             beforeEach(() => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneBegins(defaultCardScenario, startTime),
+                    new SceneStarts(defaultCardScenario, startTime),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),
                 );
 
@@ -145,7 +141,7 @@ describe('SerenityBDDReporter', () => {
 
             beforeEach(() => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneBegins(defaultCardScenario),
+                    new SceneStarts(defaultCardScenario),
                 );
             });
 
@@ -280,13 +276,13 @@ describe('SerenityBDDReporter', () => {
 
             beforeEach(() => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneBegins(defaultCardScenario),
+                    new SceneStarts(defaultCardScenario),
                 );
             });
 
             it('specifies the test runner', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new ExecutionContextPropertyDetected(defaultCardScenario, new TestRunnerType('Cucumber')),
+                    new TestRunnerDetected(new Name('Cucumber')),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 );
 
@@ -334,4 +330,4 @@ describe('SerenityBDDReporter', () => {
 });
 
 // todo: Does the scene need a correlation ID?
-// todo: 'ParametrisedSceneBegins'(scenedetails, parameters)
+// todo: 'ParametrisedSceneStarts'(scenedetails, parameters)

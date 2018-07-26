@@ -1,4 +1,5 @@
-import { ActivityBegins, ActivityDetails, ActivityFinished, ExecutionSuccessful } from '../../domain';
+import { ActivityFinished, ActivityStarts } from '../../events';
+import { ActivityDetails, ExecutionSuccessful } from '../../model';
 import { Clock, StageManager } from '../../stage';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsTasks, UsesAbilities } from '../actor';
@@ -24,7 +25,7 @@ export class TrackedActivity implements Activity {
         );
 
         return Promise.resolve()
-            .then(() => this.stageManager.notifyOf(new ActivityBegins(details, this.clock.now())))
+            .then(() => this.stageManager.notifyOf(new ActivityStarts(details, this.clock.now())))
             .then(() => this.activity.performAs(actor))
             .then(() => {
                 const outcome = new ExecutionSuccessful();

@@ -1,8 +1,13 @@
 {
-  "name": "serenity-js",
-  "version": "0.0.1",
+  "name": "serenity-js-monorepo",
+  "version": "2.0.0-monorepo",
   "description": "Serenity/JS: Next generation acceptance testing library for modern web applications.",
-  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
+  "private": true,
+  "author": {
+    "name" : "Jan Molak",
+    "email" : "jan.molak@smartcodeltd.co.uk",
+    "url" : "https://janmolak.com"
+  },
   "homepage": "http://serenity-js.org",
   "license": "Apache-2.0",
   "keywords": [
@@ -21,9 +26,10 @@
   "scripts": {
     "clean": "rimraf target && lerna run clean --parallel",
     "lint": "lerna run lint --parallel",
-    "test": "lerna run test --stream",
+    "test": "lerna run test --stream --scope @serenity-js/*",
+    "integration-tests": "lerna run test --stream --scope @integration/*",
     "compile": "lerna run compile --stream",
-    "verify": "npm run clean && npm run lint && npm test && npm run compile",
+    "verify": "npm run clean && npm run lint && npm test && npm run compile && npm run integration-tests",
     "book:clean": "rimraf _book",
     "book:build": "gitbook build",
     "prebook:publish": "npm run book:clean && npm run book:build",
@@ -37,7 +43,7 @@
     "commit": "git-cz",
     "lerna": "lerna",
     "gitbook": "gitbook",
-    "postinstall": "lerna bootstrap --hoist && link-parent-bin",
+    "postinstall": "lerna bootstrap --hoist && link-parent-bin -c packages && link-parent-bin -c integration",
     "travis-deploy-once": "travis-deploy-once"
   },
   "devDependencies": {
@@ -101,10 +107,6 @@
   "greenkeeper": {
     "ignore": [
       "@types/node",
-      "tslint",
-      "tslint-microsoft-contrib",
-      "typescript",
-      "nyc",
       "gitbook-cli",
       "gitbook-plugin-addcssjs",
       "gitbook-plugin-advanced-emoji",

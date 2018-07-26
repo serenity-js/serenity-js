@@ -1,23 +1,20 @@
 import { match } from 'tiny-types';
 
-import { StageCrewMember, StageManager } from '../..';
 import {
-    ActivityBegins,
     ActivityFinished,
+    ActivityStarts,
     ArtifactGenerated,
     DomainEvent,
-    ExecutionContextPropertyDetected,
-    Name,
-    Photo,
-    ScenarioDetails,
-    SceneBegins,
     SceneFinished,
+    SceneStarts,
     SceneTagged,
-    TestRunnerType,
-} from '../../../domain';
+    TestRunnerDetected,
+} from '../../../events';
 import { Artifact, FileType } from '../../../io';
+import { Name, Photo, ScenarioDetails } from '../../../model';
+import { StageCrewMember } from '../../StageCrewMember';
+import { StageManager } from '../../StageManager';
 import { MD5Hash } from './MD5Hash';
-import { ScenarioReport } from './ScenarioReport';
 import { ScenarioReports } from './ScenarioReports';
 import { SerenityBDDReport } from './SerenityBDDJsonSchema';
 
@@ -33,16 +30,16 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
-        .when(SceneBegins,      this.handleSceneBegins)
+        .when(SceneStarts,      this.handleSceneStarts)
         .when(SceneTagged,      this.handleSceneTagged)
-        .when(ActivityBegins,   this.handleActivityBegins)
+        .when(ActivityStarts,   this.handleActivityStarts)
         .when(ActivityFinished, this.handleActivityFinished)
         .when(SceneFinished,    this.handleSceneFinished)
-        .when(ExecutionContextPropertyDetected, this.handleExecutionContextPropertyDetected)
+        .when(TestRunnerDetected, this.handleTestRunnerDetected)
         .when(ArtifactGenerated, this.handleArtifactGenerated)
         .else(_ => void 0)
 
-    private handleSceneBegins = (event: SceneBegins): void => {
+    private handleSceneStarts = (event: SceneStarts): void => {
         this.currentScenario.value = event.value;
         const report = this.reports.for(this.currentScenario.value)
             .sceneStartedAt(event.timestamp);
@@ -57,9 +54,9 @@ export class SerenityBDDReporter implements StageCrewMember {
         this.reports.save(report);
     }
 
-    private handleActivityBegins = (event: ActivityBegins): void => {
+    private handleActivityStarts = (event: ActivityStarts): void => {
         const report = this.reports.for(this.currentScenario.value)
-            .activityBegan(event.value, event.timestamp);
+            .activityStarted(event.value, event.timestamp);
 
         this.reports.save(report);
     }
@@ -71,12 +68,10 @@ export class SerenityBDDReporter implements StageCrewMember {
         this.reports.save(report);
     }
 
-    private handleExecutionContextPropertyDetected = (event: ExecutionContextPropertyDetected<any>): void => {
-        const report = this.reports.for(event.scenarioDetails);
+    private handleTestRunnerDetected = (event: TestRunnerDetected): void => {
+        const report = this.reports.for(this.currentScenario.value);
 
-        this.reports.save(match<any, ScenarioReport>(event.value)
-            .when(TestRunnerType, (val: TestRunnerType) => report.executedBy(val))
-            .else(_ => report),
+        this.reports.save(report.executedBy(event.value),
         );
     }
 
