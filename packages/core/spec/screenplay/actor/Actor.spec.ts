@@ -2,28 +2,13 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import {
-    ActivityBegins,
-    ActivityDetails,
-    ActivityFinished,
-    ExecutionSuccessful,
-    Name,
-    Timestamp,
-} from '../../../src/domain';
+import { ActivityFinished, ActivityStarts } from '../../../src/events';
+import { ActivityDetails, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
 import { Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
 import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
-import {
-    AcousticGuitar,
-    Chords,
-    Guitar,
-    MusicSheets,
-    NumberOfGuitarStringsLeft,
-    PlayAChord,
-    PlayAGuitar,
-    PlayASong,
-} from '../example-implementation';
+import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong, } from '../example-implementation';
 
 const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.eventually.equal(expected);
 
@@ -119,7 +104,7 @@ describe('Actor', () => {
             then(() => {
                 expect(recorder.events).to.have.lengthOf(2);
 
-                expect(recorder.events[0]).to.equal(new ActivityBegins(details, clock.now()));
+                expect(recorder.events[0]).to.equal(new ActivityStarts(details, clock.now()));
 
                 expect(recorder.events[1]).to.equal(new ActivityFinished(details, new ExecutionSuccessful(), clock.now()));
             }));

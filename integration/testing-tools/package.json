@@ -1,0 +1,49 @@
+{
+  "name": "@integration/testing-tools",
+  "version": "0.0.0",
+  "description": "Internal module to help test integration of Serenity/JS with test runners and frameworks",
+  "author": {
+    "name" : "Jan Molak",
+    "email" : "jan.molak@smartcodeltd.co.uk",
+    "url" : "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
+    "compile": "tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "*"
+  },
+  "devDependencies": {
+    "@serenity-js/core": "*"
+  },
+  "dependencies": {
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
+    "tiny-types": "1.10.3"
+  }
+}

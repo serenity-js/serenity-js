@@ -1,5 +1,5 @@
-import { Category, Name, Photo, ScenarioDetails } from '../../../src/domain';
 import { FileSystemLocation, Path } from '../../../src/io';
+import { Category, Name, Photo, ScenarioDetails } from '../../../src/model';
 
 export const defaultCardScenario = new ScenarioDetails(
     new Name('Paying with a default card'),

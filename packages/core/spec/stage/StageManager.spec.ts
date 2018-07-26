@@ -1,5 +1,5 @@
 import 'mocha';
-import { AsyncOperationAttempted, DomainEvent } from '../../src/domain';
+import { AsyncOperationAttempted, DomainEvent } from '../../src/events';
 import { StageCrewMember, StageManager } from '../../src/stage';
 
 import { expect } from '../expect';

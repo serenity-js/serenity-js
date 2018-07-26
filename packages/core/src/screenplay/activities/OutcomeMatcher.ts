@@ -1,6 +1,6 @@
 import { match } from 'tiny-types';
-import { AssertionFailed, ErrorOccurred, ExecutionCompromised, ProblemIndication } from '../../domain/model/outcomes';
 import { TestCompromisedError } from '../../errors';
+import { AssertionFailed, ErrorOccurred, ExecutionCompromised, ProblemIndication } from '../../model';
 
 export class OutcomeMatcher {
     outcomeFor(error: Error | any): ProblemIndication {

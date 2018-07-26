@@ -1,4 +1,4 @@
-import { DomainEvent } from '../../../src/domain';
+import { DomainEvent } from '../../../src/events';
 import { StageCrewMember } from '../../../src/stage';
 
 export function given(crewMember: StageCrewMember) {
