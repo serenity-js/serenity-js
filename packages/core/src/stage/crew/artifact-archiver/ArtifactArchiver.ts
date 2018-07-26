@@ -1,7 +1,7 @@
 import * as sanitise from 'sanitize-filename';
 import { match } from 'tiny-types';
 
-import { ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '../../../domain';
+import { ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '../../../events';
 import { FileSystem, FileType, Path } from '../../../io';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
@@ -34,6 +34,7 @@ export class ArtifactArchiver implements StageCrewMember {
             .when(FileType.PNG, _  => this.fileSystem.store(new Path(filename), artifact.contents, 'base64'))
             .else(_                => this.fileSystem.store(new Path(filename), JSON.stringify(artifact.contents), 'utf8'));
 
+        // todo: those should be two events; AsyncOperationAttempted AsyncOperationCompleted; with a correlation id
         this.stageManager.notifyOf(new AsyncOperationAttempted(
             ArtifactArchiver,
             `save '${ filename }'`,

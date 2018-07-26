@@ -1,8 +1,9 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { ArtifactGenerated, AsyncOperationAttempted, DomainEvent, Name } from '../../../../src/domain';
+import { ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '../../../../src/events';
 import { Artifact, FileSystem, FileType, Path } from '../../../../src/io';
+import { Name } from '../../../../src/model';
 import { ArtifactArchiver, StageManager } from '../../../../src/stage';
 import { given } from '../given';
 
@@ -89,8 +90,8 @@ describe('ArtifactArchiver', () => {
                 someEvent,
             );
 
-            expect(stageManager.notifyOf).to.not.have.been.of;            // tslint:ignore-line:no-unused-expression
-            expect(fs.store).to.not.have.been.of;                         // tslint:ignore-line:no-unused-expression
+            expect(stageManager.notifyOf).to.not.have.been.of;            // tslint:disable-line:no-unused-expression
+            expect(fs.store).to.not.have.been.of;                         // tslint:disable-line:no-unused-expression
         });
     });
 });

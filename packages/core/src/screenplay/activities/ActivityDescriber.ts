@@ -1,4 +1,4 @@
-import { Name } from '../../domain';
+import { Name } from '../../model';
 import { Activity } from '../Activity';
 
 export class ActivityDescriber {

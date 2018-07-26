@@ -1,4 +1,4 @@
-import { Timestamp } from '../domain/model';
+import { Timestamp } from '../model';
 
 export class Clock {
     now() {

@@ -5,6 +5,8 @@ import { posix } from 'path';
 export class Path extends TinyType {
     public readonly value: string;
 
+    static fromJSON = (v: string) => new Path(v);
+
     constructor(value: string) {
         super();
         ensure(Path.name, value, isDefined(), property('length', isGreaterThan(0)));
@@ -22,5 +24,9 @@ export class Path extends TinyType {
 
     directory() {
         return new Path(posix.dirname(this.value));
+    }
+
+    basename(): string {
+        return posix.basename(this.value);
     }
 }

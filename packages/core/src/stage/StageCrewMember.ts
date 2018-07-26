@@ -1,4 +1,4 @@
-import { DomainEvent } from '../domain';
+import { DomainEvent } from '../events';
 import { StageManager } from './StageManager';
 
 export interface StageCrewMember {

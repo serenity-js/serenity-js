@@ -1,4 +1,4 @@
-import { DomainEvent } from '../src/domain';
+import { DomainEvent } from '../src/events';
 import { StageCrewMember, StageManager } from '../src/stage';
 
 export class Recorder implements StageCrewMember {
