@@ -2,7 +2,11 @@
   "name": "@serenity-js/core",
   "version": "1.6.0",
   "description": "Serenity/JS: Next generation acceptance testing library for modern web applications.",
-  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
+  "author": {
+    "name" : "Jan Molak",
+    "email" : "jan.molak@smartcodeltd.co.uk",
+    "url" : "https://janmolak.com"
+  },
   "homepage": "http://serenity-js.org",
   "license": "Apache-2.0",
   "config": {
@@ -67,9 +71,7 @@
       "ts-node/register"
     ],
     "reporter": [
-      "html",
-      "json",
-      "text-summary"
+      "json"
     ],
     "cache": true,
     "all": true

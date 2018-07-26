@@ -2,17 +2,9 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import {
-    ActivityBegins,
-    ActivityDetails,
-    ActivityFinished,
-    ArtifactGenerated,
-    ExecutionSuccessful,
-    Name,
-    SceneBegins,
-    SceneFinished,
-} from '../../../../../src/domain';
+import { ActivityFinished, ActivityStarts, ArtifactGenerated, SceneFinished, SceneStarts } from '../../../../../src/events';
 import { Artifact, FileType } from '../../../../../src/io';
+import { ActivityDetails, ExecutionSuccessful, Name } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -37,8 +29,8 @@ describe('SerenityBDDReporter', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                new SceneBegins(defaultCardScenario),
-                    new ActivityBegins(pickACard),
+                new SceneStarts(defaultCardScenario),
+                    new ActivityStarts(pickACard),
                     new ActivityFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
             );
@@ -55,9 +47,9 @@ describe('SerenityBDDReporter', () => {
             const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                new SceneBegins(defaultCardScenario),
-                    new ActivityBegins(pickACard),
-                        new ActivityBegins(viewListOfCards),
+                new SceneStarts(defaultCardScenario),
+                    new ActivityStarts(pickACard),
+                        new ActivityStarts(viewListOfCards),
                         new ActivityFinished(viewListOfCards, new ExecutionSuccessful()),
                     new ActivityFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
@@ -78,8 +70,8 @@ describe('SerenityBDDReporter', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                new SceneBegins(defaultCardScenario),
-                    new ActivityBegins(pickACard),
+                new SceneStarts(defaultCardScenario),
+                    new ActivityStarts(pickACard),
                         new ArtifactGenerated(new Artifact(
                             new Name('photo1.png'),
                             FileType.PNG,

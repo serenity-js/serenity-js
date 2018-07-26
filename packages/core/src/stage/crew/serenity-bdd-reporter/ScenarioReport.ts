@@ -9,7 +9,6 @@ import {
     ExecutionCompromised,
     ExecutionIgnored,
     ExecutionSkipped,
-    ExecutionSuccessful,
     FeatureTag,
     ImplementationPending,
     IssueTag,
@@ -17,9 +16,8 @@ import {
     Outcome,
     ScenarioDetails,
     Tag,
-    TestRunnerType,
     Timestamp,
-} from '../../../domain';
+} from '../../../model';
 import { ErrorParser } from './ErrorParser';
 import { IDGenerator } from './IDGenerator';
 import { ErrorDetails, SerenityBDDReport, TestStep } from './SerenityBDDJsonSchema';
@@ -61,7 +59,7 @@ export class ScenarioReport {
         });
     }
 
-    executedBy(testRunner: TestRunnerType): ScenarioReport {
+    executedBy(testRunner: Name): ScenarioReport {
         return this.withMutated(report => {
             report.testSource = testRunner.value;
         });
@@ -91,7 +89,7 @@ export class ScenarioReport {
         });
     }
 
-    activityBegan(activity: ActivityDetails, time: Timestamp) {
+    activityStarted(activity: ActivityDetails, time: Timestamp) {
         return this.withMutated(report => {
             const activityReport: Partial<TestStep> = {
                 description: activity.name.value,
@@ -144,7 +142,7 @@ export class ScenarioReport {
         return match<Outcome, void>(outcome).
             when(ExecutionCompromised,  ({ error }: ExecutionCompromised)  => mapAs('COMPROMISED', parse(error))).
             when(ErrorOccurred,         ({ error }: ErrorOccurred)         => mapAs('ERROR', parse(error))).
-            when(AssertionFailed,       ({ error }: AssertionFailed)       => mapAs('FAILURE', parse(error))).
+            when(AssertionFailed,        ({ error }: AssertionFailed)       => mapAs('FAILURE', parse(error))).
             when(ExecutionSkipped,      _ => mapAs('SKIPPED')).
             when(ExecutionIgnored,      _ => mapAs('IGNORED')).
             when(ImplementationPending, _ => mapAs('PENDING')).

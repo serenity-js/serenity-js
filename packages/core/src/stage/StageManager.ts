@@ -1,7 +1,7 @@
 import { match } from 'tiny-types';
 
-import { AsyncOperationAttempted, DomainEvent } from '../domain';
 import { AsyncOperationError } from '../errors';
+import { AsyncOperationAttempted, DomainEvent } from '../events';
 import { Clock } from './Clock';
 import { StageCrewMember } from './StageCrewMember';
 
@@ -12,8 +12,8 @@ export class StageManager {
     constructor(private readonly clock = new Clock()) {
     }
 
-    register(stageCrewMember: StageCrewMember) {
-        this.subscribers.push(stageCrewMember);
+    register(...stageCrewMembers: StageCrewMember[]) {
+        stageCrewMembers.forEach(stageCrewMember => this.subscribers.push(stageCrewMember));
     }
 
     notifyOf(event: DomainEvent): void {

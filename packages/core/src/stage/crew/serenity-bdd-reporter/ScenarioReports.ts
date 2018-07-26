@@ -1,4 +1,4 @@
-import { ScenarioDetails } from '../../../domain';
+import { ScenarioDetails } from '../../../model';
 import { IDGenerator } from './IDGenerator';
 import { ScenarioReport } from './ScenarioReport';
 
