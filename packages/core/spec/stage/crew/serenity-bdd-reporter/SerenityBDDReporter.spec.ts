@@ -6,10 +6,10 @@ import { TestCompromisedError } from '../../../../src/errors';
 import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunnerDetected } from '../../../../src/events';
 import { Artifact, FileSystemLocation, FileType, Path } from '../../../../src/io';
 import {
-    AssertionFailed,
+    ExecutionFailedWithAssertionError,
     Category,
     Duration,
-    ErrorOccurred,
+    ExecutionFailedWithError,
     ExecutionCompromised,
     ExecutionIgnored,
     ExecutionSkipped,
@@ -196,7 +196,7 @@ describe('SerenityBDDReporter', () => {
                 } catch (assertionError) {
 
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneFinished(defaultCardScenario, new AssertionFailed(assertionError)),
+                        new SceneFinished(defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -219,7 +219,7 @@ describe('SerenityBDDReporter', () => {
                 ].join('\n');
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneFinished(defaultCardScenario, new ErrorOccurred(error)),
+                    new SceneFinished(defaultCardScenario, new ExecutionFailedWithError(error)),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;

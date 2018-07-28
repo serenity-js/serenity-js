@@ -1,6 +1,5 @@
 import { serenity } from '@serenity-js/core';
 import * as cucumber from 'cucumber';
-import * as gherkin from 'gherkin';
 
 import { Notifier } from './Notifier';
 
