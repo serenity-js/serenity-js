@@ -2,17 +2,19 @@ import { JSONObject, match } from 'tiny-types';
 
 import {
     ActivityDetails,
-    AssertionFailed,
     BrowserTag,
     ContextTag,
-    ErrorOccurred,
+    Description,
     ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
     FeatureTag,
     ImplementationPending,
     IssueTag,
-    ManualTag, Name,
+    ManualTag,
+    Name,
     Outcome,
     ScenarioDetails,
     Tag,
@@ -103,6 +105,19 @@ export class ScenarioReport {
         });
     }
 
+    backgroundDetected(name: Name, description: Description) {
+        return this.withMutated(report => {
+            report.backgroundTitle       = name.value;
+            report.backgroundDescription = description.value;
+        });
+    }
+
+    descriptionDetected(description: Description) {
+        return this.withMutated(report => {
+            report.description = description.value;
+        });
+    }
+
     photoTaken(name: Name) {
         return this.withMutated(report => {
             this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: name.value });
@@ -141,8 +156,8 @@ export class ScenarioReport {
 
         return match<Outcome, void>(outcome).
             when(ExecutionCompromised,  ({ error }: ExecutionCompromised)  => mapAs('COMPROMISED', parse(error))).
-            when(ErrorOccurred,         ({ error }: ErrorOccurred)         => mapAs('ERROR', parse(error))).
-            when(AssertionFailed,        ({ error }: AssertionFailed)       => mapAs('FAILURE', parse(error))).
+            when(ExecutionFailedWithError,         ({ error }: ExecutionFailedWithError)         => mapAs('ERROR', parse(error))).
+            when(ExecutionFailedWithAssertionError,        ({ error }: ExecutionFailedWithAssertionError)       => mapAs('FAILURE', parse(error))).
             when(ExecutionSkipped,      _ => mapAs('SKIPPED')).
             when(ExecutionIgnored,      _ => mapAs('IGNORED')).
             when(ImplementationPending, _ => mapAs('PENDING')).

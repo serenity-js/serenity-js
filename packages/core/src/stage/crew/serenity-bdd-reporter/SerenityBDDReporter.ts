@@ -5,6 +5,8 @@ import {
     ActivityStarts,
     ArtifactGenerated,
     DomainEvent,
+    SceneBackgroundDetected,
+    SceneDescriptionDetected,
     SceneFinished,
     SceneStarts,
     SceneTagged,
@@ -30,19 +32,35 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
-        .when(SceneStarts,      this.handleSceneStarts)
-        .when(SceneTagged,      this.handleSceneTagged)
-        .when(ActivityStarts,   this.handleActivityStarts)
-        .when(ActivityFinished, this.handleActivityFinished)
-        .when(SceneFinished,    this.handleSceneFinished)
-        .when(TestRunnerDetected, this.handleTestRunnerDetected)
-        .when(ArtifactGenerated, this.handleArtifactGenerated)
+        .when(SceneStarts,              this.handleSceneStarts)
+        .when(SceneBackgroundDetected,  this.handleSceneBackgroundDetected)
+        .when(SceneDescriptionDetected, this.handleSceneDescriptionDetected)
+        .when(SceneTagged,              this.handleSceneTagged)
+        .when(ActivityStarts,           this.handleActivityStarts)
+        .when(ActivityFinished,         this.handleActivityFinished)
+        .when(SceneFinished,            this.handleSceneFinished)
+        .when(TestRunnerDetected,       this.handleTestRunnerDetected)
+        .when(ArtifactGenerated,        this.handleArtifactGenerated)
         .else(_ => void 0)
 
     private handleSceneStarts = (event: SceneStarts): void => {
         this.currentScenario.value = event.value;
         const report = this.reports.for(this.currentScenario.value)
             .sceneStartedAt(event.timestamp);
+
+        this.reports.save(report);
+    }
+
+    private handleSceneBackgroundDetected = (event: SceneBackgroundDetected): void => {
+        const report = this.reports.for(this.currentScenario.value)
+            .backgroundDetected(event.name, event.description);
+
+        this.reports.save(report);
+    }
+
+    private handleSceneDescriptionDetected = (event: SceneDescriptionDetected): void => {
+        const report = this.reports.for(this.currentScenario.value)
+            .descriptionDetected(event.description);
 
         this.reports.save(report);
     }
