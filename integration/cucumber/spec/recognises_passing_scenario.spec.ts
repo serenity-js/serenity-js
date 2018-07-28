@@ -5,7 +5,7 @@ import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/mod
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { cucumber } from '../src';
+import { cucumber, Pick } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 
@@ -19,8 +19,6 @@ describe('@serenity-js/cucumber', function() {
     it('recognises a passing scenario', (stepInterface: string) =>
         cucumber(
             '--require', 'features/support/configure_serenity.ts',
-            // '--require', 'features/support/before_hook.ts',
-            // '--require', 'features/support/after_hook.ts',
             '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
             '--require', 'node_modules/@serenity-js/cucumber/register.js',
             'features/passing_scenario.feature',
@@ -31,29 +29,13 @@ describe('@serenity-js/cucumber', function() {
 
             expect(res.events).to.have.lengthOf(6);
 
-            expect(res.events[0]).to.be.instanceOf(SceneStarts)
-                .and.have.property('value')
-                .that.has.property('name')
-                .equal(new Name('A passing scenario'));
-
-            expect(res.events[1]).to.be.instanceOf(TestRunnerDetected)
-                .and.have.property('value').equal(new Name('Cucumber'));
-
-            expect(res.events[2]).to.be.instanceOf(SceneTagged)
-                .and.have.property('tag')
-                .equal(new FeatureTag('Serenity/JS recognises a passing scenario'));
-
-            expect(res.events[3]).to.be.instanceOf(ActivityStarts)
-                .and.have.property('value')
-                .that.has.property('name')
-                .equal(new Name('Given a step that passes'));
-
-            expect(res.events[4]).to.be.instanceOf(ActivityFinished)
-                .and.have.property('outcome')
-                .equal(new ExecutionSuccessful());
-
-            expect(res.events[5]).to.be.instanceOf(SceneFinished)
-                .and.have.property('outcome')
-                .equal(new ExecutionSuccessful());
+            Pick.from(res.events)
+                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A passing scenario')))
+                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Given a step that passes')))
+                .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+            ;
         }));
 });

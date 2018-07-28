@@ -3,8 +3,8 @@ import { given } from 'mocha-testdata';
 
 import { TestCompromisedError } from '../../src/errors';
 import {
-    AssertionFailed,
-    ErrorOccurred,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
     ExecutionCompromised,
     ExecutionIgnored,
     ExecutionSkipped,
@@ -36,8 +36,8 @@ describe('Outcome', () => {
 
         given([
             new ExecutionCompromised(new TestCompromisedError('Database is down')),
-            new ErrorOccurred(new Error(`Something's wrong`)),
-            new AssertionFailed(assertionError()),
+            new ExecutionFailedWithError(new Error(`Something's wrong`)),
+            new ExecutionFailedWithAssertionError(assertionError()),
         ]).
         it('can be serialised and deserialised', (outcome: ProblemIndication) => {
             const deserialised: any = Outcome.fromJSON(outcome.toJSON());

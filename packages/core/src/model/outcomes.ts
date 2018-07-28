@@ -14,13 +14,13 @@ export interface SerialisedOutcome extends JSONObject {
 
 export abstract class Outcome extends TinyType {
     static fromJSON = (o: SerialisedOutcome) => match(o.code)
-        .when(ExecutionCompromised.Code,    _ => ExecutionCompromised.fromJSON(o))
-        .when(ErrorOccurred.Code,           _ => ErrorOccurred.fromJSON(o))
-        .when(AssertionFailed.Code, _ => AssertionFailed.fromJSON(o))
-        .when(ExecutionSkipped.Code,        _ => ExecutionSkipped.fromJSON(o))
-        .when(ExecutionIgnored.Code,        _ => ExecutionIgnored.fromJSON(o))
-        .when(ImplementationPending.Code,   _ => ImplementationPending.fromJSON(o))
-        .when(ExecutionSuccessful.Code,     _ => ExecutionSuccessful.fromJSON(o))
+        .when(ExecutionCompromised.Code,                _ => ExecutionCompromised.fromJSON(o))
+        .when(ExecutionFailedWithError.Code,            _ => ExecutionFailedWithError.fromJSON(o))
+        .when(ExecutionFailedWithAssertionError.Code,   _ => ExecutionFailedWithAssertionError.fromJSON(o))
+        .when(ExecutionSkipped.Code,                    _ => ExecutionSkipped.fromJSON(o))
+        .when(ExecutionIgnored.Code,                    _ => ExecutionIgnored.fromJSON(o))
+        .when(ImplementationPending.Code,               _ => ImplementationPending.fromJSON(o))
+        .when(ExecutionSuccessful.Code,                 _ => ExecutionSuccessful.fromJSON(o))
         .else(_ => { throw new Error(`Outcome could not be deserialised: ${ JSON.stringify(o) }`); }) as Outcome
 
     protected constructor(protected readonly code: number) {
@@ -93,26 +93,26 @@ export class ExecutionCompromised extends ProblemIndication {
 /**
  * Indicates a failure due to an error other than recognised external system and assertion failures
  */
-export class ErrorOccurred extends ProblemIndication {
+export class ExecutionFailedWithError extends ProblemIndication {
     static Code = 1 << 1;
 
-    static fromJSON = (o: SerialisedOutcome) => new ErrorOccurred(ProblemIndication.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithError(ProblemIndication.deserialise(o.error));
 
     constructor(error: Error) {
-        super(error, ErrorOccurred.Code);
+        super(error, ExecutionFailedWithError.Code);
     }
 }
 
 /**
  * Execution of an Activity or Scene has failed due to an assertion error;
  */
-export class AssertionFailed extends ProblemIndication {
+export class ExecutionFailedWithAssertionError extends ProblemIndication {
     static Code = 1 << 2;
 
-    static fromJSON = (o: SerialisedOutcome) => new AssertionFailed(ProblemIndication.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithAssertionError(ProblemIndication.deserialise(o.error));
 
     constructor(error: Error) {
-        super(error, AssertionFailed.Code);
+        super(error, ExecutionFailedWithAssertionError.Code);
     }
 }
 

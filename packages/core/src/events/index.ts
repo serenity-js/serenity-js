@@ -3,6 +3,8 @@ export * from './ActivityFinished';
 export * from './ArtifactGenerated';
 export * from './AsyncOperationAttempted';
 export * from './DomainEvent';
+export * from './SceneBackgroundDetected';
+export * from './SceneDescriptionDetected';
 export * from './SceneStarts';
 export * from './SceneFinished';
 export * from './SceneTagged';
