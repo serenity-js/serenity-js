@@ -1,5 +1,6 @@
 export * from './ActivityDetails';
 export * from './Category';
+export * from './Description';
 export * from './Duration';
 export * from './Name';
 export * from './outcomes';
