@@ -12,8 +12,8 @@ export function equals(chai: any, utils: any) {
                     obj.equals(another),
                     `expected #{this} to equal #{exp} but got #{act}`,
                     `expected #{this} to not equal #{exp} but got #{act}`,
-                    another,
-                    obj,
+                    another.toString(),
+                    obj.toString(),
                 );
 
             } else {
