@@ -9,12 +9,8 @@ export = function() {
         return Promise.reject(new Error(`Something's wrong`));
     });
 
-    this.Given(/^.*step (?:.*) explicitly pending$/, function() {
-        return Promise.resolve('pending');
-    });
-
-    this.Given(/^.*step (?:.*) explicitly skipped/, function() {
-        return Promise.resolve('skipped');
+    this.Given(/^.*step (?:.*) marked as (pending|skipped)/, function(result: string) {
+        return Promise.resolve(result);
     });
 
     this.Given(/^.*step (?:.*) receives a table:$/, function(data: TableDefinition, done) {

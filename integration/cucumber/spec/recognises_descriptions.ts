@@ -1,5 +1,5 @@
 import { expect, ifExitCodeIsOtherThan, logOutput } from '@integration/testing-tools';
-import { SceneBackgroundDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
+import { SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Description, Name } from '@serenity-js/core/lib/model';
 
 import 'mocha';
