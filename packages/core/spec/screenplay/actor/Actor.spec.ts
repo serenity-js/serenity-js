@@ -3,7 +3,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { ActivityFinished, ActivityStarts } from '../../../src/events';
-import { ActivityDetails, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
+import { ActivityDetails, Duration, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
 import { Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
 import { expect } from '../../expect';
@@ -84,7 +84,7 @@ describe('Actor', () => {
             clock = sinon.createStubInstance(Clock);
             clock.now.returns(new Timestamp(new Date('2018-06-10T22:57:07.112Z')));
 
-            stageManager = new StageManager(clock);
+            stageManager = new StageManager(Duration.ofMillis(250), clock);
 
             recorder = new Recorder();
             recorder.assignTo(stageManager);
