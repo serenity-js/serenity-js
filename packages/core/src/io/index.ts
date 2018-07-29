@@ -1,4 +1,5 @@
 export * from './Artifact';
+export * from './ErrorSerialiser';
 export * from './FileExtension';
 export * from './FileSystem';
 export * from './FileSystemLocation';

@@ -42,9 +42,8 @@ export const listener = [
     },
 
     function handleAfterScenarioEvent(scenario: cucumber.events.ScenarioPayload, callback: Callback) {
-        serenity.stageManager.waitForNextCue().then(() => callback, error => callback(error));
-
-        callback();
+        serenity.stageManager.waitForNextCue()
+            .then(() => callback(), error => callback(error));
     },
 
     function handleAfterFeatureEvent(feature: cucumber.events.FeaturePayload, callback: Callback) {

@@ -1,8 +1,15 @@
 import * as sanitise from 'sanitize-filename';
 import { match } from 'tiny-types';
 
-import { ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '../../../events';
+import {
+    ArtifactGenerated,
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    AsyncOperationFailed,
+    DomainEvent,
+} from '../../../events';
 import { FileSystem, FileType, Path } from '../../../io';
+import { CorrelationId, Description } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 
@@ -16,7 +23,6 @@ export class ArtifactArchiver implements StageCrewMember {
 
     assignTo(stageManager: StageManager) {
         this.stageManager = stageManager;
-        this.stageManager.register(this);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
@@ -30,15 +36,24 @@ export class ArtifactArchiver implements StageCrewMember {
             artifact.type.extesion.value,
         ].join('.');
 
-        const promise = match<FileType, Promise<any>>(artifact.type)
-            .when(FileType.PNG, _  => this.fileSystem.store(new Path(filename), artifact.contents, 'base64'))
-            .else(_                => this.fileSystem.store(new Path(filename), JSON.stringify(artifact.contents), 'utf8'));
+        const id = CorrelationId.create();
 
-        // todo: those should be two events; AsyncOperationAttempted AsyncOperationCompleted; with a correlation id
         this.stageManager.notifyOf(new AsyncOperationAttempted(
-            ArtifactArchiver,
-            `save '${ filename }'`,
-            promise.then(_ => void 0),
+            new Description(`[${ this.constructor.name }] Saving '${ filename }'...`),
+            id,
         ));
+
+        match<FileType, Promise<Path>>(artifact.type)
+            .when(FileType.PNG, _  => this.fileSystem.store(new Path(filename), artifact.contents, 'base64'))
+            .else(_                => this.fileSystem.store(new Path(filename), JSON.stringify(artifact.contents), 'utf8'))
+            .then(path => {
+                this.stageManager.notifyOf(new AsyncOperationCompleted(
+                    new Description(`[${ this.constructor.name }] Saved '${ path.value }'`),
+                    id,
+                ));
+            })
+            .catch(error => {
+                this.stageManager.notifyOf(new AsyncOperationFailed(error, id));
+            });
     }
 }
