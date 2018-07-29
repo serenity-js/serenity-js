@@ -102,11 +102,19 @@ export class Notifier {
     }
 
     private stepOutcomeFrom(result: cucumber.events.StepResultPayload): Outcome {
-        // todo: catchProblemsWithAmbiguousStepDefinitions
+        const ambiguousStepDefinitions = result.getAmbiguousStepDefinitions() || [];
+        const ambiguousStepsDetected = ambiguousStepDefinitions.length > 0
+            ? ambiguousStepDefinitions
+                .map(step => `${step.getPattern().toString()} - ${step.getUri()}:${step.getLine()}`)
+                .reduce((err: Error, issue) => {
+                    err.message += `\n${issue}`;
+                    return err;
+                }, new Error('Each step should have one matching step definition, yet there are several:'))
+            : void 0;
 
         const
             status: string = result.getStatus(),
-            error: Error   = result.getFailureException();
+            error: Error   = result.getFailureException() || ambiguousStepsDetected;
 
         return this.outcomeFrom(status, error);
     }
@@ -121,7 +129,12 @@ export class Notifier {
                 return new ImplementationPending();
 
             case status === 'ambiguous':
-                return new ExecutionFailedWithError(error);    // todo: does this throw an error?
+                if (! error) {
+                    // Only the step result contains the "ambiguous step def error", the scenario itself doesn't
+                    return new ExecutionFailedWithError(new Error('Ambiguous step definition detected'));
+                }
+
+                return new ExecutionFailedWithError(error);
 
             case status === 'failed':
                 return new ExecutionFailedWithError(error);
