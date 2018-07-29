@@ -7,7 +7,7 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
+import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 
 import 'mocha';
 import { given } from 'mocha-testdata';
@@ -72,6 +72,40 @@ describe('@serenity-js/cucumber', function() {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ImplementationPending()))
+                .next(SceneFinished,       event => expect(event.outcome).to.equal(new ImplementationPending()))
+            ;
+        }));
+
+    given([
+        'synchronous',
+        'promise',
+        'callback',
+    ]).
+    it(`recognises a scenario tagged as 'pending'`, (stepInterface: string) =>
+        cucumber(
+            '--require', 'features/support/configure_serenity.ts',
+            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
+            '--require', `features/support/wip_hook.ts`,
+            '--require', 'node_modules/@serenity-js/cucumber/register.js',
+            'features/pending_scenarios.feature',
+            '--name', 'A scenario which tag marks it as pending',
+        ).
+        then(ifExitCodeIsOtherThan(0, logOutput)).
+        then(res => {
+            expect(res.exitCode).to.equal(0);
+
+            expect(res.events).to.have.lengthOf(12);
+
+            Pick.from(res.events)
+                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario which tag marks it as pending')))
+                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`Given step number one that passes`)))
+                .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number two that is marked as pending`)))
+                .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails`)))
+                .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ImplementationPending()))
             ;
         }));

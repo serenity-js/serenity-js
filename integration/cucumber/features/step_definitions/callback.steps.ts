@@ -11,8 +11,8 @@ export = function() {
         done(new Error(`Something's wrong`));
     });
 
-    this.Given(/^.*step (?:.*) marked as (pending|skipped)/, function(result: string, done: Callback) {
-        done(void 0, result);
+    this.Given(/^.*step (?:.*) marked as pending/, function(done: Callback) {
+        done(void 0, 'pending');
     });
 
     this.Given(/^.*step (?:.*) receives a table:$/, function(data: TableDefinition, done) {
