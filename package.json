@@ -43,7 +43,7 @@
     "commit": "git-cz",
     "lerna": "lerna",
     "gitbook": "gitbook",
-    "postinstall": "lerna bootstrap --hoist && link-parent-bin -c packages && link-parent-bin -c integration",
+    "postinstall": "lerna bootstrap --hoist && link-parent-bin -c packages && link-parent-bin -c integration && link-parent-bin -c examples",
     "travis-deploy-once": "travis-deploy-once"
   },
   "devDependencies": {

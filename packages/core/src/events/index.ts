@@ -2,6 +2,8 @@ export * from './ActivityStarts';
 export * from './ActivityFinished';
 export * from './ArtifactGenerated';
 export * from './AsyncOperationAttempted';
+export * from './AsyncOperationCompleted';
+export * from './AsyncOperationFailed';
 export * from './DomainEvent';
 export * from './SceneBackgroundDetected';
 export * from './SceneDescriptionDetected';

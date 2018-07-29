@@ -1,5 +1,7 @@
 import 'mocha';
-import { AsyncOperationAttempted, DomainEvent } from '../../src/events';
+
+import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
+import { CorrelationId, Description, Duration } from '../../src/model';
 import { StageCrewMember, StageManager } from '../../src/stage';
 
 import { expect } from '../expect';
@@ -10,16 +12,6 @@ describe('StageManager', () => {
     class TestEvent extends DomainEvent {
         constructor() {
             super();
-        }
-    }
-
-    class TestStageCrewMember implements StageCrewMember {
-        assignTo(stageManager: StageManager): void {
-            stageManager.register(this);
-        }
-
-        notifyOf(event: DomainEvent): void {
-            // ignore
         }
     }
 
@@ -46,10 +38,15 @@ describe('StageManager', () => {
 
         const stageManager = new StageManager();
 
+        const id = CorrelationId.create();
+
         stageManager.notifyOf(new AsyncOperationAttempted(
-            TestStageCrewMember,
-            'perform task',
-            Promise.resolve(),
+            new Description('Saving a file...'),
+            id,
+        ));
+        stageManager.notifyOf(new AsyncOperationCompleted(
+            new Description('File saved'),
+            id,
         ));
 
         return expect(stageManager.waitForNextCue()).to.be.fulfilled;
@@ -57,16 +54,52 @@ describe('StageManager', () => {
 
     it('provides details should the work in progress fail to complete', () => {
 
-        const stageManager = new StageManager();
+        const timeout       = Duration.ofMillis(250);
+        const stageManager  = new StageManager(timeout);
 
         stageManager.notifyOf(new AsyncOperationAttempted(
-            TestStageCrewMember,
-            'perform some task',
-            Promise.reject(new Error('something broke')),
+            new Description('[Service 1] Starting...'),
+            CorrelationId.create(),
+        ));
+
+        setTimeout(() => {
+            stageManager.notifyOf(new AsyncOperationAttempted(
+                new Description('[Service 2] Starting...'),
+                CorrelationId.create(),
+            ));
+        }, 50);
+
+
+        return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
+            const lines = error.message.split('\n');
+
+            expect(lines[0]).to.equal('Some of the 2 async operations have failed to complete within 250ms:');
+            expect(lines[1]).to.match(/^[\d]+ms - \[Service 1\] Starting...$/);
+            expect(lines[2]).to.match(/^[\d]+ms - \[Service 2\] Starting...$/);
+        });
+    });
+
+    it('provides details should the work in progress fail with an error', () => {
+
+        const timeout       = Duration.ofMillis(100);
+        const stageManager  = new StageManager(timeout);
+        const correlationId = CorrelationId.create();
+
+        stageManager.notifyOf(new AsyncOperationAttempted(
+            new Description('[Service 1] Starting...'),
+            correlationId,
+        ));
+
+        stageManager.notifyOf(new AsyncOperationFailed(
+            new Error('Something happened'),
+            correlationId,
         ));
 
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
-            expect(error.message).to.match(/^TestStageCrewMember took \d+ms to perform some task and has failed$/);
+            const lines = error.message.split('\n');
+
+            expect(lines[0]).to.match(/^Some of the async operations have failed:$/);
+            expect(lines[1]).to.equal('[Service 1] Starting... - Error: Something happened');
         });
     });
 });

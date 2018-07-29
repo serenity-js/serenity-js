@@ -28,7 +28,6 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     assignTo(stageManager: StageManager) {
         this.stageManager = stageManager;
-        this.stageManager.register(this);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
@@ -119,7 +118,11 @@ export class SerenityBDDReporter implements StageCrewMember {
     private broadcast(report: Partial<SerenityBDDReport>) {
         this.stageManager.notifyOf(new ArtifactGenerated(
             new Artifact(
-                new Name(MD5Hash.of(JSON.stringify(report)).value),
+                new Name(MD5Hash.of(JSON.stringify({
+                    name: report.name,
+                    id: report.id,
+                    tags: report.tags,
+                })).value),
                 FileType.JSON,
                 report,
             ),

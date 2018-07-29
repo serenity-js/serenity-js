@@ -1,5 +1,6 @@
 export * from './ActivityDetails';
 export * from './Category';
+export * from './CorrelationId';
 export * from './Description';
 export * from './Duration';
 export * from './Name';

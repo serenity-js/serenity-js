@@ -1,11 +1,5 @@
-import { JSONObject, match, Serialised, TinyType } from 'tiny-types';
-import * as serenitySpecificErrors from '../errors';
-
-export interface SerialisedError extends JSONObject {
-    name:    string;
-    message: string;
-    stack:   string;
-}
+import { JSONObject, match, TinyType } from 'tiny-types';
+import { ErrorSerialiser, SerialisedError } from '../io';
 
 export interface SerialisedOutcome extends JSONObject {
     code:    number;
@@ -36,28 +30,6 @@ export abstract class Outcome extends TinyType {
 
 export abstract class ProblemIndication extends Outcome {
 
-    private static recognisedErrors = [
-        ...Object.keys(serenitySpecificErrors).map(key => serenitySpecificErrors[key]),
-        Error,
-        EvalError,
-        RangeError,
-        ReferenceError,
-        SyntaxError,
-        TypeError,
-        URIError,
-    ];
-
-    protected static deserialise(serialisedError: SerialisedError): Error {
-        const constructor = ProblemIndication.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
-        const deserialised = Object.create(constructor.prototype);
-        for (const prop in serialisedError) {
-            if (serialisedError.hasOwnProperty(prop)) {
-                deserialised[prop] = serialisedError[prop];
-            }
-        }
-        return deserialised;
-    }
-
     protected constructor(public readonly error: Error, code: number) {
         super(code);
     }
@@ -65,15 +37,8 @@ export abstract class ProblemIndication extends Outcome {
     toJSON(): SerialisedOutcome {
         return {
             code: this.code,
-            error: this.serialise(this.error),
+            error: ErrorSerialiser.serialise(this.error),
         };
-    }
-
-    private serialise(error: Error): SerialisedError {
-        return Object.getOwnPropertyNames(error).reduce((serialised, key) => {
-            serialised[key] = error[key];
-            return serialised;
-        }, { name: error.name || error.constructor.name }) as SerialisedError;
     }
 }
 
@@ -83,7 +48,7 @@ export abstract class ProblemIndication extends Outcome {
 export class ExecutionCompromised extends ProblemIndication {
     static Code = 1 << 0;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionCompromised(ProblemIndication.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionCompromised(ErrorSerialiser.deserialise(o.error));
 
     constructor(error: Error) {
         super(error, ExecutionCompromised.Code);
@@ -96,7 +61,7 @@ export class ExecutionCompromised extends ProblemIndication {
 export class ExecutionFailedWithError extends ProblemIndication {
     static Code = 1 << 1;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithError(ProblemIndication.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithError(ErrorSerialiser.deserialise(o.error));
 
     constructor(error: Error) {
         super(error, ExecutionFailedWithError.Code);
@@ -109,7 +74,7 @@ export class ExecutionFailedWithError extends ProblemIndication {
 export class ExecutionFailedWithAssertionError extends ProblemIndication {
     static Code = 1 << 2;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithAssertionError(ProblemIndication.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithAssertionError(ErrorSerialiser.deserialise(o.error));
 
     constructor(error: Error) {
         super(error, ExecutionFailedWithAssertionError.Code);

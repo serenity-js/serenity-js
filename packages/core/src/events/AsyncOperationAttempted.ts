@@ -1,12 +1,19 @@
-import { Timestamp } from '../model';
-import { StageCrewMember } from '../stage';
+import { Serialised } from 'tiny-types';
+import { CorrelationId, Description, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class AsyncOperationAttempted extends DomainEvent {
+    static fromJSON(o: Serialised<AsyncOperationAttempted>) {
+        return new AsyncOperationAttempted(
+            Description.fromJSON(o.taskDescription as string),
+            CorrelationId.fromJSON(o.correlationId as string),
+            Timestamp.fromJSON(o.timestamp as string),
+        );
+    }
+
     constructor(
-        public readonly crewMember: { new(...args: any[]): StageCrewMember },
-        public readonly taskDescription: string,
-        public readonly value: Promise<void>,
+        public readonly taskDescription: Description,
+        public readonly correlationId: CorrelationId,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
