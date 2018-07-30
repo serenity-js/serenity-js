@@ -16,10 +16,12 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf target",
     "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
-    "pretest": "serenity update",
-    "test": "cucumberjs --compiler ts:ts-node/register --require node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/sample.steps.ts --require './features/support/configure_serenity.ts'"
+    "test:update-serenity": "serenity update",
+    "test:acceptance": "cucumberjs --compiler ts:ts-node/register --require node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/sample.steps.ts --require './features/support/configure_serenity.ts'",
+    "test:report": "serenity run",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report"
   },
   "repository": {
     "type": "git",

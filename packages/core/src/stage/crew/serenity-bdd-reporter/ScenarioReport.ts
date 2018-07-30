@@ -100,9 +100,20 @@ export class ScenarioReport {
                 screenshots: [],
             };
 
-            this.activities.mostRecentlyAccessedItem().children.push(activityReport as any);
+            this.activities.last().children.push(activityReport as any);
             this.activities.push(activityReport);
         });
+    }
+
+    activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {
+        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error?: ErrorDetails) => {
+
+            const activityReport = this.activities.pop();
+
+            activityReport.result    = result;
+            activityReport.exception = error;
+            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).milliseconds;
+        }));
     }
 
     backgroundDetected(name: Name, description: Description) {
@@ -122,17 +133,6 @@ export class ScenarioReport {
         return this.withMutated(report => {
             this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: name.value });
         });
-    }
-
-    activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {
-        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error?: ErrorDetails) => {
-
-            const activityReport = this.activities.pop();
-
-            activityReport.result    = result;
-            activityReport.exception = error;
-            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).milliseconds;
-        }));
     }
 
     executionFinishedWith(outcome: Outcome): ScenarioReport {
@@ -191,6 +191,10 @@ class Stack<T> {
         this.mostRecent = item;
 
         return this.mostRecent;
+    }
+
+    last() {
+        return this.items[this.items.length - 1];
     }
 
     mostRecentlyAccessedItem() {
