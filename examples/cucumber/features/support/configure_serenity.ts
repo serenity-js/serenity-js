@@ -2,7 +2,7 @@ import { serenity } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
 import { ArtifactArchiver, DebugReporter, SerenityBDDReporter } from '@serenity-js/core/lib/stage';
 
-module.exports = function() {
+export = function() {
 
     this.setDefaultTimeout(5000);
 
