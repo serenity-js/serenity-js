@@ -8,7 +8,7 @@ module.exports = function() {
 
     // todo: implement serenity.configure(...)
     const crewMembers = [
-        new ArtifactArchiver(new FileSystem(new Path('./target'))),
+        new ArtifactArchiver(new FileSystem(new Path('./target/site/serenity'))),
         new SerenityBDDReporter(),
         new DebugReporter(),
     ];

@@ -42,6 +42,28 @@ describe('SerenityBDDReporter', () => {
             expect(report.testSteps[0].result).to.equal('SUCCESS');
         });
 
+        it('reports the outcome of a sequence of several activities', () => {
+            const pickACard   = new ActivityDetails(new Name('Pick the default credit card'));
+            const makePayment = new ActivityDetails(new Name('Make the payment'));
+
+            given(reporter).isNotifiedOfFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                    new ActivityStarts(pickACard),
+                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                    new ActivityStarts(makePayment),
+                    new ActivityFinished(makePayment, new ExecutionSuccessful()),
+                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            );
+
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+
+            expect(report.testSteps).to.have.lengthOf(2);
+            expect(report.testSteps[0].description).to.equal(pickACard.name.value);
+            expect(report.testSteps[0].result).to.equal('SUCCESS');
+            expect(report.testSteps[1].description).to.equal(makePayment.name.value);
+            expect(report.testSteps[1].result).to.equal('SUCCESS');
+        });
+
         it('reports the outcome of nested activities', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
             const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'));
