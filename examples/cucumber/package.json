@@ -21,7 +21,8 @@
     "test:update-serenity": "serenity update",
     "test:acceptance": "cucumberjs --compiler ts:ts-node/register --require node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/sample.steps.ts --require './features/support/configure_serenity.ts'",
     "test:report": "serenity run",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report"
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "verify": "npm test || true"
   },
   "repository": {
     "type": "git",
