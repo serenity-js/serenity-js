@@ -23,7 +23,7 @@ export = function() {
         done();
     });
 
-    this.Given(/^.*step times out$/,  { timeout: 100 }, function(done: Callback) {
+    this.Given(/^.*step that times out$/,  { timeout: 100 }, function(done: Callback) {
         setTimeout(done, 1000);
     });
 };
