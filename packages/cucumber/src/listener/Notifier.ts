@@ -124,6 +124,7 @@ export class Notifier {
             return new ExecutionFailedWithError(error);
         }
 
+        // tslint:disable:switch-default
         switch (true) {
             case status === 'undefined':
                 return new ImplementationPending();
@@ -148,6 +149,7 @@ export class Notifier {
             case status === 'skipped':
                 return new ExecutionSkipped();
         }
+        // tslint:enable:switch-default
     }
 
     private emit(...events: DomainEvent[]) {
