@@ -1,10 +1,8 @@
 import { TableDefinition } from 'cucumber';
 
 export = function() {
-    // todo: removes the ones that are not necessary
-
     this.Given(/^.*step.*passes$/, function() {
-        // return Promise.resolve();
+        return Promise.resolve();
     });
 
     this.Given(/^.*step.*fails$/, function() {
