@@ -21,7 +21,7 @@ export = function() {
         return Promise.resolve();
     });
 
-    this.Given(/^.*step times out$/,  { timeout: 100 }, function() {
+    this.Given(/^.*step that times out$/,  { timeout: 100 }, function() {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, 1000);
         });

@@ -2,7 +2,6 @@ import * as ErrorStackParser from 'error-stack-parser';
 
 export class ErrorParser {
     parse(error: Error) {
-        // todo: add an instanceof check perhaps?
         return {
             errorType:    error.name,
             message:      error.message,

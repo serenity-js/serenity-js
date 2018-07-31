@@ -20,8 +20,4 @@ export = function() {
     this.Given(/^.*step (?:.*) receives a doc string:$/, function(docstring: string) {
         return void 0;
     });
-
-    this.Given(/^.*step times out$/,  { timeout: 100 }, function(done: (error: Error, pending: string) => void) {
-        setTimeout(done, 1000);
-    });
 };

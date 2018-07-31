@@ -96,27 +96,42 @@ export class Notifier {
     private scenarioOutcomeFrom(result: cucumber.events.ScenarioResultPayload): Outcome {
         const
             status: string = result.getStatus(),
-            error: Error   = result.getFailureException();
+            error: Error   = this.errorFrom(result.getFailureException());
 
         return this.outcomeFrom(status, error);
     }
 
     private stepOutcomeFrom(result: cucumber.events.StepResultPayload): Outcome {
+        const
+            status: string                          = result.getStatus(),
+            ambiguousStepsError: Error | undefined  = this.ambiguousStepsDetectedIn(result),
+            error: Error | undefined                = this.errorFrom(result.getFailureException());
+
+        return this.outcomeFrom(status, error || ambiguousStepsError);
+    }
+
+    private ambiguousStepsDetectedIn(result: cucumber.events.StepResultPayload): Error | undefined {
         const ambiguousStepDefinitions = result.getAmbiguousStepDefinitions() || [];
-        const ambiguousStepsDetected = ambiguousStepDefinitions.length > 0
-            ? ambiguousStepDefinitions
+
+        if (ambiguousStepDefinitions.length === 0) {
+            return void 0;
+        }
+
+        return ambiguousStepDefinitions
                 .map(step => `${step.getPattern().toString()} - ${step.getUri()}:${step.getLine()}`)
                 .reduce((err: Error, issue) => {
                     err.message += `\n${issue}`;
                     return err;
-                }, new Error('Each step should have one matching step definition, yet there are several:'))
-            : void 0;
+                }, new Error('Each step should have one matching step definition, yet there are several:'));
+    }
 
-        const
-            status: string = result.getStatus(),
-            error: Error   = result.getFailureException() || ambiguousStepsDetected;
-
-        return this.outcomeFrom(status, error);
+    private errorFrom(error: Error | string | undefined): Error | undefined {
+        switch (typeof error) {
+            case 'string':   return new Error(error as string);
+            case 'object':   return error as Error;
+            case 'function': return error as Error;
+            default:         return void 0;
+        }
     }
 
     private outcomeFrom(status: string, error?: Error) {
