@@ -1,6 +1,6 @@
-Feature: Serenity/JS recognises a passing scenario
+Feature: Serenity/JS recognises a scenario with DocStrings
 
-  Scenario: A passing scenario
+  Scenario: Scenario with a DocString step
 
     Given a step that receives a doc string:
     """

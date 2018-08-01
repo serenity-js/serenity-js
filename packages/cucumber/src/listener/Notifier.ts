@@ -103,7 +103,7 @@ export class Notifier {
         const name = new Name([
             step.getKeyword(),
             step.getName(),
-            (step as any).getArguments().map(serialise).join('\n'),    // todo: submit getArguments() to DefinitelyTyped
+            (step as any).getArguments().map(serialise).join('\n'),
         ].join('').trim());
 
         return new ActivityDetails(name);

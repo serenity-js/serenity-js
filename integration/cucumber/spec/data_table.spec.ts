@@ -16,12 +16,12 @@ describe('@serenity-js/cucumber', function() {
         'promise',
         'callback',
     ]).
-    it('recognises a scenario with a DocString step', (stepInterface: string) =>
+    it('recognises a scenario with a Data Table step', (stepInterface: string) =>
         cucumber(
             '--require', 'features/support/configure_serenity.ts',
             '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
             '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/doc_strings.feature',
+            'features/data_table.feature',
         ).
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
@@ -31,10 +31,9 @@ describe('@serenity-js/cucumber', function() {
 
             Pick.from(res.events)
                 .next(ActivityStarts, event => expect(event.value.name).to.equal(new Name(
-                    'Given a step that receives a doc string:\n' +
-                    'Dear customer,\n' +
-                    '\n' +
-                    'Please click this link to reset your password.',
+                    'Given a step that receives a table:\n' +
+                    '| Developer | Website |\n' +
+                    '| Jan Molak | janmolak.com |',
                 )))
             ;
         }));
