@@ -13,7 +13,7 @@ export = function() {
         return Promise.resolve('pending');
     });
 
-    this.Given(/^.*step (?:.*) receives a table:$/, function(data: TableDefinition, done) {
+    this.Given(/^.*step (?:.*) receives a table:$/, function(data: TableDefinition) {
         return Promise.resolve();
     });
 
