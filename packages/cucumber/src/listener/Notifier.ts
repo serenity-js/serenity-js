@@ -88,9 +88,25 @@ export class Notifier {
     }
 
     private activityDetailsOf(step: cucumber.events.StepPayload): ActivityDetails {
-        return new ActivityDetails(
-            new Name(`${ step.getKeyword()}${step.getName()}`),
-        );
+
+        const serialise = (argument: any) => {
+            // tslint:disable:switch-default  - the only possible values are DataTable and DocString
+            switch (argument.getType()) {
+                case 'DataTable':
+                    return '\n' + argument.raw().map(row => `| ${row.join(' | ')} |`).join('\n');
+                case 'DocString':
+                    return `\n${ argument.getContent() }`;
+            }
+            // tslint:enable:switch-default
+        };
+
+        const name = new Name([
+            step.getKeyword(),
+            step.getName(),
+            (step as any).getArguments().map(serialise).join('\n'),    // todo: submit getArguments() to DefinitelyTyped
+        ].join('').trim());
+
+        return new ActivityDetails(name);
     }
 
     private scenarioOutcomeFrom(result: cucumber.events.ScenarioResultPayload): Outcome {
