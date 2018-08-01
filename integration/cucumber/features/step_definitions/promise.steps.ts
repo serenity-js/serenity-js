@@ -17,7 +17,7 @@ export = function() {
         return Promise.resolve();
     });
 
-    this.Given(/^.*step (?:.*) receives a doc string:$/, function(docstring: string, done) {
+    this.Given(/^.*step (?:.*) receives a doc string:$/, function(docstring: string) {
         return Promise.resolve();
     });
 
