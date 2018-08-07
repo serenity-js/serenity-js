@@ -11,6 +11,7 @@ import {
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
+    CapabilityTag,
     Category,
     Description,
     ExecutionFailedWithError,
@@ -21,7 +22,9 @@ import {
     Name,
     Outcome,
     ScenarioDetails,
+    Tag,
     Tags,
+    ThemeTag,
 } from '@serenity-js/core/lib/model';
 import { StageManager } from '@serenity-js/core/lib/stage';
 import * as cucumber from 'cucumber';
@@ -39,12 +42,9 @@ export class Notifier {
         this.emit(...notEmpty([
             new SceneStarts(details),
             new TestRunnerDetected(new Name('Cucumber')),
-            new SceneTagged(details, new FeatureTag(scenario.getFeature().getName())),
+            ...this.scenarioHierarchyTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
             !! scenario.getDescription() && new SceneDescriptionDetected(new Description(scenario.getDescription())),
-            ...scenario.getTags()
-                .map(cucumberTag => Tags.from(cucumberTag.getName()))
-                .reduce(flatten, [])
-                .map(tag => new SceneTagged(details, tag)),
+            ...this.customTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
         ]));
     }
 
@@ -85,6 +85,31 @@ export class Notifier {
                 scenario.getLine(),
             ),
         );
+    }
+
+    private customTagsFor(scenario: cucumber.events.ScenarioPayload): Tag[] {
+        return scenario.getTags()
+            .map(cucumberTag => Tags.from(cucumberTag.getName()))
+            .reduce(flatten, []);
+    }
+
+    private scenarioHierarchyTagsFor(scenario: cucumber.events.ScenarioPayload): Tag[] {
+
+        const humanReadable = (text: string) => text.replace(/_/g, ' ');
+
+        const
+            separator       = '/',
+            directories     = notEmpty(new Path(scenario.getFeature().getUri()).directory().value.split(separator)),
+            featuresIndex   = directories.indexOf('features'),
+            hierarchy       = [ ...directories.slice(featuresIndex + 1), scenario.getFeature().getName() ];
+
+        const [ feature, capability, theme ] = hierarchy.reverse();
+
+        return notEmpty([
+            theme && new ThemeTag(humanReadable(theme)),
+            capability && new CapabilityTag(humanReadable(capability)),
+            feature && new FeatureTag(feature),
+        ]);
     }
 
     private activityDetailsOf(step: cucumber.events.StepPayload): ActivityDetails {
