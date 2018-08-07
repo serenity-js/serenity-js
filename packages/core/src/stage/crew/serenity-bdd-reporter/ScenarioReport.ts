@@ -3,6 +3,7 @@ import { JSONObject, match } from 'tiny-types';
 import {
     ActivityDetails,
     BrowserTag,
+    CapabilityTag,
     ContextTag,
     Description,
     ExecutionCompromised,
@@ -18,6 +19,7 @@ import {
     Outcome,
     ScenarioDetails,
     Tag,
+    ThemeTag,
     Timestamp,
 } from '../../../model';
 import { ErrorParser } from './ErrorParser';
@@ -69,19 +71,28 @@ export class ScenarioReport {
 
     sceneTaggedWith(tag: Tag) {
         return this.withMutated(report => {
+            const nameOfRecorded = (typeOfTag: { Type: string }) => (report.tags.find(t => t.type === typeOfTag.Type) || { name: void 0 }).name;
+            const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');
+
+            const serialisedTag = tag.toJSON();
+
             if (! report.tags) {
                 report.tags = [];
             }
 
-            report.tags.push(tag.toJSON());
-
-            match(tag)
-                .when(ManualTag,    _ => report.manual = true)
-                .when(FeatureTag,   _ => report.featureTag = tag.toJSON())
-                .when(IssueTag,     _ => (report.issues    = report.issues   || []).push(tag.name))
-                .when(BrowserTag,   _ => (report.context   = report.context  || tag.name))
-                .when(ContextTag,   _ => (report.context   = tag.name))
+            match<Tag, void>(tag)
+                .when(ManualTag,     _ => report.manual = true)
+                .when(CapabilityTag, _ => serialisedTag.name = concatenated(nameOfRecorded(ThemeTag), tag.name))
+                .when(FeatureTag,    _ => {
+                    serialisedTag.name = concatenated(nameOfRecorded(CapabilityTag), tag.name);
+                    report.featureTag = tag.toJSON();
+                })
+                .when(IssueTag,      _ => (report.issues    = report.issues   || []).push(tag.name))
+                .when(BrowserTag,    _ => (report.context   = report.context  || tag.name))
+                .when(ContextTag,    _ => (report.context   = tag.name))
                 .else(_ => void 0);
+
+            report.tags.push(serialisedTag);
         });
     }
 

@@ -127,6 +127,7 @@ describe('SerenityBDDReporter', () => {
                 it('belongs to a capability', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
+                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                     );
 
@@ -135,12 +136,22 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'E-Commerce',
                         type: 'capability',
+                    }, {
+                        name: 'E-Commerce/Checkout',
+                        type: 'feature',
                     }]);
+
+                    expect(report.featureTag).to.deep.equal({
+                        name: 'Checkout',
+                        type: 'feature',
+                    });
                 });
 
                 it('belongs to a theme', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ThemeTag('Digital')),
+                        new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
+                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                     );
 
@@ -149,7 +160,18 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'Digital',
                         type: 'theme',
+                    },{
+                        name: 'Digital/E-Commerce',
+                        type: 'capability',
+                    }, {
+                        name: 'Digital/E-Commerce/Checkout',
+                        type: 'feature',
                     }]);
+
+                    expect(report.featureTag).to.deep.equal({
+                        name: 'Checkout',
+                        type: 'feature',
+                    });
                 });
 
                 describe('is executed in the context and', () => {
