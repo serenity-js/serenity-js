@@ -95,7 +95,7 @@ export class Notifier {
 
     private scenarioHierarchyTagsFor(scenario: cucumber.events.ScenarioPayload): Tag[] {
 
-        const humanReadable = (text: string) => text.replace(/_/g, ' ');
+        const humanReadable = (text: string) => text.replace(/[_-]+/g, ' ');
 
         const
             separator       = '/',
@@ -106,9 +106,9 @@ export class Notifier {
         const [ feature, capability, theme ] = hierarchy.reverse();
 
         return notEmpty([
-            theme && new ThemeTag(humanReadable(theme)),
-            capability && new CapabilityTag(humanReadable(capability)),
-            feature && new FeatureTag(feature),
+            theme       && new ThemeTag(humanReadable(theme)),
+            capability  && new CapabilityTag(humanReadable(capability)),
+            feature     && new FeatureTag(feature),
         ]);
     }
 
