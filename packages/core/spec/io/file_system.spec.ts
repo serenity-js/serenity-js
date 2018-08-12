@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as mockfs from 'mock-fs';
 
 import { FileSystem } from '../../src/io/file_system';
+import { isWinOS, osNormalizedPath } from '../path_utils';
 
 import expect = require('../expect');
 
@@ -11,9 +12,9 @@ describe ('FileSystem', () => {
         image      = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
         imageBuffer = new Buffer(image, 'base64'),
         originalJSON = { name: 'jan' },
-        processCWD   = '/Users/jan/projects/serenityjs';
+        processCWD   = isWinOS() ? 'C:\\Users\\jan\\projects\\serenityjs' : '/Users/jan/projects/serenityjs';
 
-    beforeEach(() => mockfs({ '/Users/jan/projects/serenityjs': {} }));
+    beforeEach(() => mockfs({ processCWD: {} }));
     afterEach (() => mockfs.restore());
 
     describe ('storing JSON files', () => {
@@ -31,7 +32,7 @@ describe ('FileSystem', () => {
         it ('tells the absolute path to a JSON file once it is saved', () => {
             const out = new FileSystem(processCWD);
 
-            return expect(out.store('outlet/some.json', JSON.stringify(originalJSON))).to.eventually.equal(`${processCWD}/outlet/some.json`);
+            return expect(out.store('outlet/some.json', JSON.stringify(originalJSON))).to.eventually.equal(osNormalizedPath(`${processCWD}/outlet/some.json`));
         });
 
         it ('complains when provided with an empty path', () => {
@@ -49,9 +50,10 @@ describe ('FileSystem', () => {
             })});
 
             const out = new FileSystem('/sys');
+            const path = isWinOS() ? '\\\\?\\C:\\sys\\dir' : '/sys/dir';
 
             return expect(out.store('dir/file.json', JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/dir\'');
+                .to.be.eventually.rejectedWith(`EACCES, permission denied \'${path}\'`);
         });
 
         it ('complains when provided with an a path to a file that can\'t be overwritten', () => {
@@ -66,9 +68,10 @@ describe ('FileSystem', () => {
             })});
 
             const out = new FileSystem('/sys');
+            const path = isWinOS() ? '\\\\?\\C:\\sys\\file.json' : '/sys/file.json';
 
             return expect(out.store('file.json', JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/file.json\'');
+                .to.be.eventually.rejectedWith(`EACCES, permission denied \'${path}\'`);
         });
     });
 
@@ -86,7 +89,7 @@ describe ('FileSystem', () => {
         it ('tells the absolute path to a JSON file once it is saved', () => {
             const out = new FileSystem(processCWD);
 
-            return expect(out.store('outlet/some.png', imageBuffer)).to.eventually.equal(`${processCWD}/outlet/some.png`);
+            return expect(out.store('outlet/some.png', imageBuffer)).to.eventually.equal(osNormalizedPath(`${processCWD}/outlet/some.png`));
         });
 
         it ('complains when provided with an empty path', () => {

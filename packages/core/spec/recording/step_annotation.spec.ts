@@ -8,6 +8,7 @@ import { step } from '../../src/recording/step_annotation';
 import expect = require('../expect');
 
 import StackTrace = require('stacktrace-js');
+import {osNormalizedPath} from '../path_utils';
 
 describe('Notifiers', () => {
 
@@ -77,8 +78,8 @@ describe('Notifiers', () => {
                         const [ start, finish ] = stage_manager.readNewJournalEntriesAs('unit-test');
 
                         expect(start.value).to.be.recorded.calledAt({
-                            path: '/step_annotation.spec.ts',
-                            line: 73,
+                            path: osNormalizedPath('/step_annotation.spec.ts'),
+                            line: 74,
                             column: 34,
                         });
                     });
