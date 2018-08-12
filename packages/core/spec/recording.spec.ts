@@ -4,6 +4,7 @@ import { Actor, PerformsTasks, Question, Task, UsesAbilities } from '../src/scre
 
 import { step } from '../src/recording';
 import { Journal, StageManager } from '../src/stage/stage_manager';
+import {osNormalizedPath} from './path_utils';
 
 describe ('When recording', () => {
 
@@ -44,9 +45,9 @@ describe ('When recording', () => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
-                        line: 43,
+                        line: 44,
                         column: 97,
-                        path: '/recording.spec.ts',
+                        path: osNormalizedPath('/recording.spec.ts'),
                     });
                 }));
             });
@@ -78,9 +79,9 @@ describe ('When recording', () => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
-                        line: 77,
+                        line: 78,
                         column: 97,
-                        path: '/recording.spec.ts',
+                        path: osNormalizedPath('/recording.spec.ts'),
                     });
                 }));
             });
@@ -102,9 +103,9 @@ describe ('When recording', () => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
-                        line: 101,
+                        line: 102,
                         column: 97,
-                        path: '/recording.spec.ts',
+                        path: osNormalizedPath('/recording.spec.ts'),
                     });
                 }));
             });
@@ -141,7 +142,7 @@ describe ('When recording', () => {
                         });
                     }
 
-                    toString = () => `{0} follows the ${this.person_of_interest}`
+                    toString = () => `{0} follows the ${this.person_of_interest}`;
 
                     constructor(private person_of_interest: string) {
                     }
@@ -151,15 +152,15 @@ describe ('When recording', () => {
                     const entries = stage_manager.readTheJournal();
 
                     expect(entries[ 0 ].value).to.be.recorded.as('Alice follows the white rabbit').calledAt({
-                        line: 150,
+                        line: 151,
                         column: 97,
-                        path: '/recording.spec.ts',
+                        path: osNormalizedPath('/recording.spec.ts'),
                     });
 
                     expect(entries[ 1 ].value).to.be.recorded.as('Alice walks towards The Wonderland').calledAt({
-                        line: 136,
+                        line: 137,
                         column: 52,
-                        path: '/recording.spec.ts',
+                        path: osNormalizedPath('/recording.spec.ts'),
                     });
                 }));
             });
