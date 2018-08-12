@@ -22,6 +22,7 @@ import { Journal, Stage, StageManager } from '../../src/stage';
 import { SerenityBDDReporter, serenityBDDReporter } from '../../src/reporting/serenity_bdd_reporter';
 
 import expect = require('../expect');
+import {osNormalizedPath} from '../path_utils';
 
 describe('When reporting on what happened during the rehearsal', () => {
 
@@ -519,7 +520,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                             } ],
                             userStory: {
                                 id: 'card-payments',
-                                path: 'online_payments/card_payments.feature',
+                                path: osNormalizedPath('online_payments/card_payments.feature'),
                                 storyName: 'Card payments',
                                 type: 'feature',
                             },
@@ -562,7 +563,7 @@ describe('When reporting on what happened during the rehearsal', () => {
                             } ],
                             userStory: {
                                 id:         'visa',
-                                path:       `${themeDirectoryName}/${capabilityDirectoryName}/visa.feature`,
+                                path:       osNormalizedPath(`${themeDirectoryName}/${capabilityDirectoryName}/visa.feature`),
                                 storyName:  featureName,
                                 type:       'feature',
                             },
