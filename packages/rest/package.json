@@ -29,12 +29,13 @@
     "verify": "npm run clean && npm run lint && npm test && npm run package"
   },
   "devDependencies": {
-    "@types/axios": "0.14.0",
+    "@serenity-js/core": "^1.5.4",
+    "axios": "0.18.0",
     "axios-mock-adapter": "1.10.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@serenity-js/core": "^1.5.4",
-    "axios": "0.17.1"
+    "axios": "^0.18.0"
   },
   "repository": {
     "type": "git",
