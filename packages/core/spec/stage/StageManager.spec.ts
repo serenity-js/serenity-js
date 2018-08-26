@@ -69,7 +69,6 @@ describe('StageManager', () => {
             ));
         }, 50);
 
-
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 

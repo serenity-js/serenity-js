@@ -17,7 +17,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test:update-serenity": "serenity update",
     "test:acceptance": "cucumberjs --compiler ts:ts-node/register --require node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/sample.steps.ts --require ./features/support/configure_serenity.ts",
     "test:report": "serenity run",

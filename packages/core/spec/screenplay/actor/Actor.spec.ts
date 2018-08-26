@@ -8,7 +8,7 @@ import { Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
 import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
-import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong, } from '../example-implementation';
+import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from '../example-implementation';
 
 const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.eventually.equal(expected);
 

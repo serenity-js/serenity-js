@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "tslint --project tsconfig.json --config ../../tslint.json --format stylish",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "nyc --report-dir ../../target/coverage/core mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json"
   },

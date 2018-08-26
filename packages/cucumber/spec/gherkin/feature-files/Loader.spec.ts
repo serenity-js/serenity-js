@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools/lib/index';
+import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 

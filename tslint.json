@@ -38,7 +38,14 @@
     "arrow-parens": [true, "ban-single-arg-parens" ],
     "max-classes-per-file": false,
     "mocha-avoid-only": true,
-    "no-implicit-dependencies": [true, "dev"],
+    "no-implicit-dependencies": [true, "dev", [
+      "chai",
+      "chai-as-promised",
+      "mocha",
+      "mocha-testdata",
+      "sinon",
+      "sinon-chai"
+    ]],
     "no-submodule-imports": [true, "@serenity-js/core"]
   }
 }

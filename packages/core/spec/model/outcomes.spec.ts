@@ -3,9 +3,9 @@ import { given } from 'mocha-testdata';
 
 import { TestCompromisedError } from '../../src/errors';
 import {
+    ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
-    ExecutionCompromised,
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,

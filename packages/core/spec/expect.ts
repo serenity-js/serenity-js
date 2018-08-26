@@ -1,10 +1,10 @@
-import chai = require('chai');
+import chaiModule = require('chai');
 
-import sinonChai = require('sinon-chai');
 import chaiAsPromised = require('chai-as-promised');
+import sinonChai = require('sinon-chai');
 import { TinyType } from 'tiny-types';
 
-chai.use(function(chai, utils) {
+chaiModule.use(function(chai, utils) {
     const Assertion = chai.Assertion;
 
     function tinyTypeEqual(_super) {
@@ -31,7 +31,7 @@ chai.use(function(chai, utils) {
     Assertion.overwriteMethod('eq', tinyTypeEqual);
 });
 
-chai.use(sinonChai);
-chai.use(chaiAsPromised);
+chaiModule.use(sinonChai);
+chaiModule.use(chaiAsPromised);
 
-export const expect = chai.expect;
+export const expect = chaiModule.expect;

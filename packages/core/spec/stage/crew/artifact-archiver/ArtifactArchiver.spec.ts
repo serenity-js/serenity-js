@@ -1,7 +1,7 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { ArtifactGenerated, DomainEvent, } from '../../../../src/events';
+import { ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { Artifact, FileSystem, FileType, Path } from '../../../../src/io';
 import { Duration, Name } from '../../../../src/model';
 import { ArtifactArchiver, StageManager } from '../../../../src/stage';

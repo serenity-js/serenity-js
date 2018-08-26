@@ -10,6 +10,7 @@ import {
     SceneTemplateDetected,
     TestRunFinished,
 } from '../../../../../src/events';
+import { FileSystemLocation, Path } from '../../../../../src/io';
 import {
     Category,
     Description,
@@ -23,7 +24,6 @@ import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
 import { given } from '../../given';
-import { FileSystemLocation, Path } from '../../../../../src/io';
 
 describe('SerenityBDDReporter', () => {
 
@@ -73,7 +73,7 @@ describe('SerenityBDDReporter', () => {
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
-                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' }
+                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
                     ),
                 ),
                 new SceneStarts(scenario1),
@@ -96,18 +96,18 @@ describe('SerenityBDDReporter', () => {
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
 
         expect(report.name).to.equal(name.value);
-        expect(report.dataTable).to.exist;
+        expect(report.dataTable).to.exist;  // tslint:disable-line:no-unused-expression
         expect(report.dataTable.scenarioOutline).to.equal(template.value);
         expect(report.dataTable.headers).to.deep.equal([
             'Developer',
-            'Twitter_Handle'
+            'Twitter_Handle',
         ]);
 
         expect(report.dataTable.dataSetDescriptors).to.deep.equal([{
-            "startRow": 0,
-            "rowCount": 2,
-            "name": "Serenity/JS contributors",
-            "description": "Some of the people who have contributed their time and talent to the Serenity/JS project"
+            startRow: 0,
+            rowCount: 2,
+            name: 'Serenity/JS contributors',
+            description: 'Some of the people who have contributed their time and talent to the Serenity/JS project',
         }]);
 
         expect(report.dataTable.rows).to.deep.equal([
@@ -132,7 +132,7 @@ describe('SerenityBDDReporter', () => {
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
-                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' }
+                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
                     ),
                 ),
                 new SceneStarts(scenario1),
