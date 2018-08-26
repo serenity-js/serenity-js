@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput } from '@integration/testing-tools';
-import { SceneDescriptionDetected, SceneFinished, SceneTagged } from '@serenity-js/core/lib/events';
-import { CapabilityTag, Description, ExecutionSuccessful, FeatureTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { SceneTagged } from '@serenity-js/core/lib/events';
+import { CapabilityTag, FeatureTag, ThemeTag } from '@serenity-js/core/lib/model';
 
 import 'mocha';
 import { given } from 'mocha-testdata';

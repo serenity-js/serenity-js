@@ -1,11 +1,13 @@
 import { serenity } from '@serenity-js/core';
 import * as cucumber from 'cucumber';
+import Gherkin = require('gherkin');    // ts-node:disable-line:no-var-requires     No type definitions available
 
+import { Loader, Mapper } from '../gherkin';
 import { Notifier } from './Notifier';
 
 type Callback = (error?: Error) => void;
 
-const notifier = new Notifier(serenity.stageManager);
+const notifier = new Notifier(serenity.stageManager, new Loader(new Gherkin.Parser()), new Mapper());
 
 export const listener = [
 
@@ -18,8 +20,7 @@ export const listener = [
     },
 
     function handleBeforeScenarioEvent(scenario: cucumber.events.ScenarioPayload, callback: Callback) {
-        notifier.scenarioStarts(scenario);
-        callback();
+        notifier.scenarioStarts(scenario).then(() => callback(), error => callback(error));
     },
 
     function handleBeforeStepEvent(step: cucumber.events.StepPayload, callback: Callback) {
@@ -55,7 +56,10 @@ export const listener = [
     },
 
     function handleAfterFeaturesEvent(features: cucumber.events.FeaturesPayload, callback: Callback) {
-        callback();
+        notifier.testRunFinished(features);
+
+        serenity.stageManager.waitForNextCue()
+            .then(() => callback(), error => callback(error));
     },
 ].reduce((cucumberListener, handler) => {
     cucumberListener[ handler.name ] = handler;

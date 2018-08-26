@@ -2,10 +2,15 @@ import {
     ActivityFinished,
     ActivityStarts,
     DomainEvent,
+    FeatureNarrativeDetected,
     SceneDescriptionDetected,
     SceneFinished,
+    SceneParametersDetected,
+    SceneSequenceDetected,
     SceneStarts,
     SceneTagged,
+    SceneTemplateDetected,
+    TestRunFinished,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
@@ -28,24 +33,53 @@ import {
 } from '@serenity-js/core/lib/model';
 import { StageManager } from '@serenity-js/core/lib/stage';
 import * as cucumber from 'cucumber';
+import { Loader, Mapper } from '../gherkin';
+import { Feature, ScenarioOutline } from '../gherkin/model';
 
 const flatten = <T>(acc: T[], list: T[]): T[] => acc.concat(list);
 const notEmpty = <T>(list: T[]) => list.filter(item => !! item);
 
 export class Notifier {
-    constructor(private readonly stageManager: StageManager) {
+    constructor(
+        private readonly stageManager: StageManager,
+        private readonly loader: Loader,
+        private readonly mapper: Mapper,
+    ) {
     }
 
-    scenarioStarts(scenario: cucumber.events.ScenarioPayload) {
-        const details = this.scenarioDetailsOf(scenario);
+    scenarioStarts(scenario: cucumber.events.ScenarioPayload): Promise<void> {
+        return this.loader.load(new Path(scenario.getFeature().getUri()))
+            .then(result => {
 
-        this.emit(...notEmpty([
-            new SceneStarts(details),
-            new TestRunnerDetected(new Name('Cucumber')),
-            ...this.scenarioHierarchyTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
-            !! scenario.getDescription() && new SceneDescriptionDetected(new Description(scenario.getDescription())),
-            ...this.customTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
-        ]));
+                const map = this.mapper.map(result);
+                const feature = map.get(Feature).onLine(scenario.getFeature().getLine());
+
+                if (scenario.getLines().length === 2) {
+                    const outline = map.get(ScenarioOutline).onLine(scenario.getLines()[1]);
+
+                    const template = outline.steps.map(step => step.value).join('\n');
+
+                    this.emit(
+                        new SceneSequenceDetected(this.sequenceDetailsOf(scenario)),
+                        new SceneTemplateDetected(new Description(template)),
+                        new SceneParametersDetected(
+                            this.scenarioDetailsOf(scenario),
+                            outline.parameters[scenario.getLine()],
+                        ),
+                    );
+                }
+
+                const details = this.scenarioDetailsOf(scenario);
+
+                this.emit(...notEmpty([
+                    new SceneStarts(details),
+                    feature.description && new FeatureNarrativeDetected(feature.description),
+                    new TestRunnerDetected(new Name('Cucumber')),
+                    ...this.scenarioHierarchyTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
+                    !! scenario.getDescription() && new SceneDescriptionDetected(new Description(scenario.getDescription())),
+                    ...this.customTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
+                ]));
+            });
     }
 
     stepStarts(step: cucumber.events.StepPayload) {
@@ -76,6 +110,23 @@ export class Notifier {
         );
     }
 
+    testRunFinished(result: cucumber.events.FeaturesPayload) {
+        this.emit(
+            new TestRunFinished(),
+        );
+    }
+
+    private sequenceDetailsOf(scenario: cucumber.events.ScenarioPayload): ScenarioDetails {
+        return new ScenarioDetails(
+            new Name(scenario.getName()),
+            new Category(scenario.getFeature().getName()),
+            new FileSystemLocation(
+                new Path(scenario.getUri()),
+                scenario.getLines()[1],
+            ),
+        );
+    }
+
     private scenarioDetailsOf(scenario: cucumber.events.ScenarioPayload): ScenarioDetails {
         return new ScenarioDetails(
             new Name(scenario.getName()),
@@ -101,9 +152,9 @@ export class Notifier {
             separator       = '/',
             directories     = notEmpty(new Path(scenario.getFeature().getUri()).directory().value.split(separator)),
             featuresIndex   = directories.indexOf('features'),
-            hierarchy       = [ ...directories.slice(featuresIndex + 1), scenario.getFeature().getName() ];
+            hierarchy       = [ ...directories.slice(featuresIndex + 1), scenario.getFeature().getName() ] as string[];
 
-        const [ feature, capability, theme ] = hierarchy.reverse();
+        const [ feature, capability, theme ]: string[] = hierarchy.reverse();
 
         return notEmpty([
             theme       && new ThemeTag(humanReadable(theme)),
@@ -113,7 +164,10 @@ export class Notifier {
     }
 
     private activityDetailsOf(step: cucumber.events.StepPayload): ActivityDetails {
+        return new ActivityDetails(this.nameOf(step));
+    }
 
+    private  nameOf(step: cucumber.events.StepPayload): Name {
         const serialise = (argument: any) => {
             // tslint:disable:switch-default  - the only possible values are DataTable and DocString
             switch (argument.getType()) {
@@ -125,13 +179,11 @@ export class Notifier {
             // tslint:enable:switch-default
         };
 
-        const name = new Name([
+        return new Name([
             step.getKeyword(),
             step.getName(),
             (step as any).getArguments().map(serialise).join('\n'),
         ].join('').trim());
-
-        return new ActivityDetails(name);
     }
 
     private scenarioOutcomeFrom(result: cucumber.events.ScenarioResultPayload): Outcome {

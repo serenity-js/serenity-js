@@ -1,0 +1,346 @@
+{
+  "name": "New clients need to provide their full name and email address",
+  "id": "registering-a-new-client;new-clients-need-to-provide-their-full-name-and-email-address",
+  "testSteps": [
+    {
+      "number": 1,
+      "description": "New clients need to provide their full name and email address #1: {firstName\u003dJoe, lastName\u003d, email\u003djoe@smith.com, message\u003dMissing mandatory fields for client: lastName}",
+      "duration": 217,
+      "startTime": "2018-08-12T19:41:56.557+01:00[Europe/London]",
+      "result": "SUCCESS",
+      "precondition": false,
+      "children": [
+        {
+          "number": 2,
+          "description": "Given a trader with the following details:\n| firstName | lastName | email |\n| Joe |  | joe@smith.com |",
+          "duration": 5,
+          "startTime": "2018-08-12T19:41:56.562+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false
+        },
+        {
+          "number": 3,
+          "description": "When the trader attempts to register with BDD Trader",
+          "duration": 90,
+          "startTime": "2018-08-12T19:41:56.568+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 4,
+              "description": "Tim the trader registers a client Joe ",
+              "duration": 84,
+              "startTime": "2018-08-12T19:41:56.573+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false,
+              "children": [
+                {
+                  "number": 5,
+                  "description": "Tim the trader executes a POST on the resource /client",
+                  "duration": 80,
+                  "startTime": "2018-08-12T19:41:56.576+01:00[Europe/London]",
+                  "result": "SUCCESS",
+                  "precondition": false,
+                  "children": [
+                    {
+                      "number": 6,
+                      "description": "POST http://localhost:8080/api/client",
+                      "duration": 1,
+                      "startTime": "2018-08-12T19:41:56.655+01:00[Europe/London]",
+                      "result": "SUCCESS",
+                      "restQuery": {
+                        "method": "POST",
+                        "path": "http://localhost:8080/api/client",
+                        "content": "{\n    \"id\": null,\n    \"firstName\": \"Joe\",\n    \"lastName\": \"\",\n    \"email\": \"joe@smith.com\"\n}",
+                        "contentType": "application/json",
+                        "requestHeaders": "Accept\u003d*/*\n\t\t\t\tContent-Type\u003dapplication/json; charset\u003dUTF-8",
+                        "requestCookies": "",
+                        "responseHeaders": "Content-Type: application/json;charset\u003dUTF-8\nTransfer-Encoding: chunked\nDate: Sun, 12 Aug 2018 18:41:56 GMT",
+                        "responseCookies": "",
+                        "responseBody": "{\n    \"timestamp\": \"2018-08-12T18:41:56.645+0000\",\n    \"status\": 412,\n    \"error\": \"Precondition Failed\",\n    \"message\": \"Missing mandatory fields for client: lastName\",\n    \"path\": \"/api/client\"\n}",
+                        "statusCode": 412
+                      },
+                      "precondition": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "description": "Then the registration should be rejected with the message \u0027Missing mandatory fields for client: lastName\u0027",
+          "duration": 115,
+          "startTime": "2018-08-12T19:41:56.659+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 8,
+              "description": "An appropriate error message was returned",
+              "duration": 111,
+              "startTime": "2018-08-12T19:41:56.662+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "description": "New clients need to provide their full name and email address #2: {firstName\u003d, lastName\u003dSmith, email\u003djoe@smith.com, message\u003dMissing mandatory fields for client: firstName}",
+      "duration": 88,
+      "startTime": "2018-08-12T19:41:56.781+01:00[Europe/London]",
+      "result": "SUCCESS",
+      "precondition": false,
+      "children": [
+        {
+          "number": 10,
+          "description": "Given a trader with the following details:\n| firstName | lastName | email |\n|  | Smith | joe@smith.com |",
+          "duration": 2,
+          "startTime": "2018-08-12T19:41:56.783+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false
+        },
+        {
+          "number": 11,
+          "description": "When the trader attempts to register with BDD Trader",
+          "duration": 60,
+          "startTime": "2018-08-12T19:41:56.786+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 12,
+              "description": "Tim the trader registers a client  Smith",
+              "duration": 56,
+              "startTime": "2018-08-12T19:41:56.788+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false,
+              "children": [
+                {
+                  "number": 13,
+                  "description": "Tim the trader executes a POST on the resource /client",
+                  "duration": 49,
+                  "startTime": "2018-08-12T19:41:56.794+01:00[Europe/London]",
+                  "result": "SUCCESS",
+                  "precondition": false,
+                  "children": [
+                    {
+                      "number": 14,
+                      "description": "POST http://localhost:8080/api/client",
+                      "duration": 0,
+                      "startTime": "2018-08-12T19:41:56.843+01:00[Europe/London]",
+                      "result": "SUCCESS",
+                      "restQuery": {
+                        "method": "POST",
+                        "path": "http://localhost:8080/api/client",
+                        "content": "{\n    \"id\": null,\n    \"firstName\": \"\",\n    \"lastName\": \"Smith\",\n    \"email\": \"joe@smith.com\"\n}",
+                        "contentType": "application/json",
+                        "requestHeaders": "Accept\u003d*/*\n\t\t\t\tContent-Type\u003dapplication/json; charset\u003dUTF-8",
+                        "requestCookies": "",
+                        "responseHeaders": "Content-Type: application/json;charset\u003dUTF-8\nTransfer-Encoding: chunked\nDate: Sun, 12 Aug 2018 18:41:56 GMT",
+                        "responseCookies": "",
+                        "responseBody": "{\n    \"timestamp\": \"2018-08-12T18:41:56.837+0000\",\n    \"status\": 412,\n    \"error\": \"Precondition Failed\",\n    \"message\": \"Missing mandatory fields for client: firstName\",\n    \"path\": \"/api/client\"\n}",
+                        "statusCode": 412
+                      },
+                      "precondition": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 15,
+          "description": "Then the registration should be rejected with the message \u0027Missing mandatory fields for client: firstName\u0027",
+          "duration": 22,
+          "startTime": "2018-08-12T19:41:56.846+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 16,
+              "description": "An appropriate error message was returned",
+              "duration": 19,
+              "startTime": "2018-08-12T19:41:56.848+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "description": "New clients need to provide their full name and email address #3: {firstName\u003dJoe, lastName\u003dSmith, email\u003d, message\u003dMissing mandatory fields for client: email}",
+      "duration": 75,
+      "startTime": "2018-08-12T19:41:56.881+01:00[Europe/London]",
+      "result": "SUCCESS",
+      "precondition": false,
+      "children": [
+        {
+          "number": 18,
+          "description": "Given a trader with the following details:\n| firstName | lastName | email |\n| Joe | Smith |  |",
+          "duration": 3,
+          "startTime": "2018-08-12T19:41:56.883+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false
+        },
+        {
+          "number": 19,
+          "description": "When the trader attempts to register with BDD Trader",
+          "duration": 51,
+          "startTime": "2018-08-12T19:41:56.887+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 20,
+              "description": "Tim the trader registers a client Joe Smith",
+              "duration": 47,
+              "startTime": "2018-08-12T19:41:56.890+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false,
+              "children": [
+                {
+                  "number": 21,
+                  "description": "Tim the trader executes a POST on the resource /client",
+                  "duration": 43,
+                  "startTime": "2018-08-12T19:41:56.893+01:00[Europe/London]",
+                  "result": "SUCCESS",
+                  "precondition": false,
+                  "children": [
+                    {
+                      "number": 22,
+                      "description": "POST http://localhost:8080/api/client",
+                      "duration": 0,
+                      "startTime": "2018-08-12T19:41:56.936+01:00[Europe/London]",
+                      "result": "SUCCESS",
+                      "restQuery": {
+                        "method": "POST",
+                        "path": "http://localhost:8080/api/client",
+                        "content": "{\n    \"id\": null,\n    \"firstName\": \"Joe\",\n    \"lastName\": \"Smith\",\n    \"email\": \"\"\n}",
+                        "contentType": "application/json",
+                        "requestHeaders": "Accept\u003d*/*\n\t\t\t\tContent-Type\u003dapplication/json; charset\u003dUTF-8",
+                        "requestCookies": "",
+                        "responseHeaders": "Content-Type: application/json;charset\u003dUTF-8\nTransfer-Encoding: chunked\nDate: Sun, 12 Aug 2018 18:41:56 GMT",
+                        "responseCookies": "",
+                        "responseBody": "{\n    \"timestamp\": \"2018-08-12T18:41:56.931+0000\",\n    \"status\": 412,\n    \"error\": \"Precondition Failed\",\n    \"message\": \"Missing mandatory fields for client: email\",\n    \"path\": \"/api/client\"\n}",
+                        "statusCode": 412
+                      },
+                      "precondition": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 23,
+          "description": "Then the registration should be rejected with the message \u0027Missing mandatory fields for client: email\u0027",
+          "duration": 16,
+          "startTime": "2018-08-12T19:41:56.939+01:00[Europe/London]",
+          "result": "SUCCESS",
+          "precondition": false,
+          "children": [
+            {
+              "number": 24,
+              "description": "An appropriate error message was returned",
+              "duration": 15,
+              "startTime": "2018-08-12T19:41:56.940+01:00[Europe/London]",
+              "result": "SUCCESS",
+              "precondition": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "userStory": {
+    "id": "registering-a-new-client",
+    "storyName": "Registering a new client",
+    "path": "clients/registering_a_new_client.feature",
+    "narrative": "  New clients are given a portfolio with $1000 to start with.",
+    "type": "feature"
+  },
+  "featureTag": {
+    "name": "Registering a new client",
+    "type": "feature"
+  },
+  "title": "New clients need to provide their full name and email address",
+  "description": "    Some scenario outline description",
+  "tags": [
+    {
+      "name": "Clients/Registering a new client",
+      "type": "feature"
+    },
+    {
+      "name": "Clients",
+      "type": "capability"
+    }
+  ],
+  "startTime": "2018-08-12T19:41:56.552+01:00[Europe/London]",
+  "duration": 1643,
+  "projectKey": "",
+  "dataTable": {
+    "headers": [
+      "firstName",
+      "lastName",
+      "email",
+      "message"
+    ],
+    "rows": [
+      {
+        "values": [
+          "Joe",
+          "",
+          "joe@smith.com",
+          "Missing mandatory fields for client: lastName"
+        ],
+        "result": "SUCCESS"
+      },
+      {
+        "values": [
+          "",
+          "Smith",
+          "joe@smith.com",
+          "Missing mandatory fields for client: firstName"
+        ],
+        "result": "SUCCESS"
+      },
+      {
+        "values": [
+          "Joe",
+          "Smith",
+          "",
+          "Missing mandatory fields for client: email"
+        ],
+        "result": "SUCCESS"
+      }
+    ],
+    "predefinedRows": true,
+    "scenarioOutline": "Given a trader with the following details:\n\rWhen the trader attempts to register with BDD Trader\n\rThen the registration should be rejected with the message \u0027\u003cmessage\u003e\u0027\n\r",
+    "dataSetDescriptors": [
+      {
+        "startRow": 0,
+        "rowCount": 2,
+        "name": "Either first name or last name",
+        "description": "First table"
+      },
+      {
+        "startRow": 2,
+        "rowCount": 0,
+        "name": "Both names",
+        "description": "Second table"
+      }
+    ]
+  },
+  "manual": false,
+  "testSource": "Cucumber",
+  "result": "SUCCESS"
+}

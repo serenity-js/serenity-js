@@ -17,3 +17,6 @@ integration-test:
 
 verify:
 	npm run verify
+
+report:
+	npm run report
