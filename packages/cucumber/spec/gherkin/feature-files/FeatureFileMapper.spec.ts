@@ -5,10 +5,10 @@ import { Path } from '@serenity-js/core/lib/io';
 import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
-import { FeatureFileMap, Loader, Mapper } from '../../../src/gherkin';
+import { FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../src/gherkin';
 import { Background, Feature, Scenario, ScenarioOutline, Step } from '../../../src/gherkin/model';
 
-describe('Mapper', () => {
+describe('FeatureFileMapper', () => {
 
     describe('when mapping names and descriptions', () => {
 
@@ -228,9 +228,9 @@ describe('Mapper', () => {
     function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {
         const
             path = new Path(__dirname).join(new Path('fixtures')).join(new Path(featureFileName)),
-            mapper = new Mapper(),
-            loader = new Loader(new Gherkin.Parser());
+            mapper = new FeatureFileMapper(),
+            loader = new FeatureFileParser(new Gherkin.Parser());
 
-        return () => loader.load(path).then(document => mapper.map(document)).then(spec);
+        return () => loader.parse(path).then(document => mapper.map(document)).then(spec);
     }
 });

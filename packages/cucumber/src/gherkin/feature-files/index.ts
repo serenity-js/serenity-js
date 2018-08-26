@@ -1,3 +1,4 @@
 export * from './FeatureFileMap';
-export * from './Loader';
-export * from './Mapper';
+export * from './FeatureFileLoader';
+export * from './FeatureFileMapper';
+export * from './FeatureFileParser';
