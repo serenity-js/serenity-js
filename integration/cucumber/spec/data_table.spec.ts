@@ -27,8 +27,6 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            expect(res.events).to.have.lengthOf(6);
-
             Pick.from(res.events)
                 .next(ActivityStarts, event => expect(event.value.name).to.equal(new Name(
                     'Given a step that receives a table:\n' +

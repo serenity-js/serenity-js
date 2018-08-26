@@ -29,7 +29,7 @@
     "test": "lerna run test --stream --scope @serenity-js/*",
     "integration-tests": "lerna run test --stream --scope @integration/*",
     "compile": "lerna run compile --stream",
-    "verify": "npm run clean && npm run lint && npm test && npm run compile && npm run integration-tests",
+    "verify": "npm run clean && npm run lint && npm run compile && npm test && npm run integration-tests",
     "book:clean": "rimraf _book",
     "book:build": "gitbook build",
     "prebook:publish": "npm run book:clean && npm run book:build",
@@ -83,9 +83,9 @@
     "sinon": "6.1.4",
     "sinon-chai": "3.2.0",
     "travis-deploy-once": "5.0.1",
-    "ts-node": "7.0.0",
+    "ts-node": "7.0.1",
     "tslint": "5.11.0",
-    "tslint-microsoft-contrib": "5.1.0",
+    "tslint-microsoft-contrib": "5.2.0",
     "typescript": "3.0.1"
   },
   "repository": {

@@ -1,0 +1,145 @@
+{
+  "type": "GherkinDocument",
+  "feature": {
+    "type": "Feature",
+    "tags": [],
+    "location": {
+      "line": 1,
+      "column": 1
+    },
+    "language": "en",
+    "keyword": "Feature",
+    "name": "Reports scenario outlines",
+    "description": "  In order to see how Serenity/JS reports Cucumber scenario outlines\n  As a curious developer\n  I'd like to see an example implementation",
+    "children": [
+      {
+        "type": "ScenarioOutline",
+        "tags": [],
+        "location": {
+          "line": 7,
+          "column": 3
+        },
+        "keyword": "Scenario Outline",
+        "name": "People who make Serenity happen",
+        "description": "  Here's an example of a scenario outline.\n  Outlines are useful when you need to run the exact same scenario multiple times\n  for different inputs and/or expected outputs.",
+        "steps": [
+          {
+            "type": "Step",
+            "location": {
+              "line": 13,
+              "column": 5
+            },
+            "keyword": "When ",
+            "text": "<Developer> makes a contribution"
+          },
+          {
+            "type": "Step",
+            "location": {
+              "line": 14,
+              "column": 5
+            },
+            "keyword": "Then ",
+            "text": "they help make Serenity happen"
+          }
+        ],
+        "examples": [
+          {
+            "type": "Examples",
+            "tags": [],
+            "location": {
+              "line": 16,
+              "column": 5
+            },
+            "keyword": "Examples",
+            "name": "Serenity/JS contributors",
+            "description": "      Here are some of the amazing people who have contributed their time and talent to the Serenity/JS project",
+            "tableHeader": {
+              "type": "TableRow",
+              "location": {
+                "line": 20,
+                "column": 7
+              },
+              "cells": [
+                {
+                  "type": "TableCell",
+                  "location": {
+                    "line": 20,
+                    "column": 9
+                  },
+                  "value": "Developer"
+                }
+              ]
+            },
+            "tableBody": [
+              {
+                "type": "TableRow",
+                "location": {
+                  "line": 21,
+                  "column": 7
+                },
+                "cells": [
+                  {
+                    "type": "TableCell",
+                    "location": {
+                      "line": 21,
+                      "column": 9
+                    },
+                    "value": "jan-molak"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Examples",
+            "tags": [],
+            "location": {
+              "line": 23,
+              "column": 5
+            },
+            "keyword": "Examples",
+            "name": "Serenity BDD contributors",
+            "description": "      Here are some of the amazing people who have contributed their time and talent to the Serenity BDD Core project",
+            "tableHeader": {
+              "type": "TableRow",
+              "location": {
+                "line": 27,
+                "column": 7
+              },
+              "cells": [
+                {
+                  "type": "TableCell",
+                  "location": {
+                    "line": 27,
+                    "column": 9
+                  },
+                  "value": "Developer"
+                }
+              ]
+            },
+            "tableBody": [
+              {
+                "type": "TableRow",
+                "location": {
+                  "line": 28,
+                  "column": 7
+                },
+                "cells": [
+                  {
+                    "type": "TableCell",
+                    "location": {
+                      "line": 28,
+                      "column": 9
+                    },
+                    "value": "wakaleo"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "comments": []
+}

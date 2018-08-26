@@ -21,6 +21,10 @@ export abstract class Outcome extends TinyType {
         super();
     }
 
+    isWorseThan(another: Outcome): boolean {
+        return this.code < another.code;
+    }
+
     toJSON(): SerialisedOutcome {
         return {
             code: this.code,

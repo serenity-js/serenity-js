@@ -2,7 +2,7 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { SceneFinished, SceneStarts, SceneTagged } from '../../../../../src/events';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished } from '../../../../../src/events';
 import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag, } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
@@ -39,6 +39,7 @@ describe('SerenityBDDReporter', () => {
                 it('is marked as automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -50,6 +51,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ManualTag()),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -68,6 +70,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new IssueTag('ABC-1234')),
                         new SceneTagged(defaultCardScenario, new IssueTag('DEF-5678')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -92,6 +95,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ArbitraryTag('regression')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -109,6 +113,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -129,6 +134,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -153,6 +159,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinished(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -180,6 +187,7 @@ describe('SerenityBDDReporter', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(defaultCardScenario, new BrowserTag('chrome')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new TestRunFinished(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -196,6 +204,7 @@ describe('SerenityBDDReporter', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new TestRunFinished(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -213,6 +222,7 @@ describe('SerenityBDDReporter', () => {
                             new SceneTagged(defaultCardScenario, new BrowserTag('safari')),
                             new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new TestRunFinished(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;

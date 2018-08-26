@@ -3,10 +3,12 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import {
+    FeatureNarrativeDetected,
     SceneBackgroundDetected,
     SceneDescriptionDetected,
     SceneFinished,
     SceneStarts,
+    TestRunFinished,
 } from '../../../../../src/events';
 import { Description, ExecutionSuccessful, Name } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
@@ -27,12 +29,12 @@ describe('SerenityBDDReporter', () => {
         reporter.assignTo(stageManager as any);
     });
 
-
     it('captures information about scenario background', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(defaultCardScenario),
                 new SceneBackgroundDetected(new Name('Background title'), new Description('Background description')),
             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new TestRunFinished(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -46,10 +48,24 @@ describe('SerenityBDDReporter', () => {
             new SceneStarts(defaultCardScenario),
             new SceneDescriptionDetected(new Description('Scenario description')),
             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new TestRunFinished(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
 
         expect(report.description).to.equal('Scenario description');
+    });
+
+    it('captures the narrative behind the scenario', () => {
+        given(reporter).isNotifiedOfFollowingEvents(
+            new SceneStarts(defaultCardScenario),
+            new FeatureNarrativeDetected(new Description('Feature narrative')),
+            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new TestRunFinished(),
+        );
+
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+
+        expect(report.userStory.narrative).to.equal('Feature narrative');
     });
 });

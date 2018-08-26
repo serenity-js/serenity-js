@@ -5,40 +5,51 @@ import {
     BrowserTag,
     CapabilityTag,
     ContextTag,
-    Description,
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
+    Description, ExecutionSuccessful,
     FeatureTag,
-    ImplementationPending,
     IssueTag,
     ManualTag,
     Name,
     Outcome,
     ScenarioDetails,
+    ScenarioParameters,
     Tag,
     ThemeTag,
     Timestamp,
-} from '../../../model';
-import { ErrorParser } from './ErrorParser';
+} from '../../../../model';
+import {
+    DataTable,
+    DataTableDataSetDescriptor,
+    ErrorDetails,
+    SerenityBDDReport,
+    TestStep,
+} from '../SerenityBDDJsonSchema';
 import { IDGenerator } from './IDGenerator';
-import { ErrorDetails, SerenityBDDReport, TestStep } from './SerenityBDDJsonSchema';
+import { OutcomeMapper } from './OutcomeMapper';
 
-export class ScenarioReport {
-    private static errorParser = new ErrorParser();
+const extractValues = <T>(dictionary: {[key: string]: T}) => Object.keys(dictionary).map(key => dictionary[key]);
+
+interface ScenarioParametersResultLocation {
+    parameters: ScenarioParameters;
+    line: number;
+    index: number;
+    outcome?: Outcome;
+}
+
+export class SceneReport {
+    private static outcomeMapper = new OutcomeMapper();
     private static idGenerator = new IDGenerator();
 
     private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };
-    private readonly activities = new Stack<Partial<TestStep>>();
+    private readonly activities = new RememberingStack<Partial<TestStep>>();
+    private readonly parameters: ScenarioParametersResultLocation[] = [];
 
     constructor(public readonly scenarioDetails: ScenarioDetails) {
 
         this.report = {
             name:   this.scenarioDetails.name.value,
             title:  this.scenarioDetails.name.value,
-            id:     ScenarioReport.idGenerator.generateFrom(this.scenarioDetails.category, this.scenarioDetails.name),
+            id:     SceneReport.idGenerator.generateFrom(this.scenarioDetails.category, this.scenarioDetails.name),
             manual: false,
             testSteps: [],
             get children() {
@@ -47,7 +58,7 @@ export class ScenarioReport {
                 return this.testSteps;
             },
             userStory: {
-                id:         ScenarioReport.idGenerator.generateFrom(this.scenarioDetails.category),
+                id:         SceneReport.idGenerator.generateFrom(this.scenarioDetails.category),
                 storyName:  this.scenarioDetails.category.value,
                 path:       this.scenarioDetails.location.path.value,
                 type:       'feature',
@@ -57,19 +68,19 @@ export class ScenarioReport {
         this.activities.push(this.report);
     }
 
-    sceneStartedAt(time: Timestamp): ScenarioReport {
+    executionStartedAt(time: Timestamp): SceneReport {
         return this.withMutated(report => {
-            report.startTime = time.toMillisecondTimestamp();
+            report.startTime = report.startTime || time.toMillisecondTimestamp();
         });
     }
 
-    executedBy(testRunner: Name): ScenarioReport {
+    executedBy(testRunner: Name): SceneReport {
         return this.withMutated(report => {
             report.testSource = testRunner.value;
         });
     }
 
-    sceneTaggedWith(tag: Tag) {
+    taggedWith(tag: Tag) {
         return this.withMutated(report => {
             const nameOfRecorded = (typeOfTag: { Type: string }) => (report.tags.find(t => t.type === typeOfTag.Type) || { name: void 0 }).name;
             const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');
@@ -96,7 +107,7 @@ export class ScenarioReport {
         });
     }
 
-    sceneFinishedAt(time: Timestamp): ScenarioReport {
+    executionFinishedAt(time: Timestamp): SceneReport {
         return this.withMutated(report => {
             report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).milliseconds;
         });
@@ -127,29 +138,101 @@ export class ScenarioReport {
         }));
     }
 
-    backgroundDetected(name: Name, description: Description) {
+    withBackgroundOf(name: Name, description: Description) {
         return this.withMutated(report => {
             report.backgroundTitle       = name.value;
             report.backgroundDescription = description.value;
         });
     }
 
-    descriptionDetected(description: Description) {
+    withDescriptionOf(description: Description) {
         return this.withMutated(report => {
             report.description = description.value;
         });
     }
 
-    photoTaken(name: Name) {
+    withScenarioOutline(outline: Description) {
         return this.withMutated(report => {
-            this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: name.value });
+            report.dataTable = this.dataTableFrom(report);
+
+            report.dataTable.scenarioOutline = outline.value;
         });
     }
 
-    executionFinishedWith(outcome: Outcome): ScenarioReport {
+    withScenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters) {
+
+        const matches = (params: ScenarioParameters) => (descriptor: DataTableDataSetDescriptor) => {
+            return descriptor.name === parameters.name.value
+                && descriptor.description === parameters.description.value;
+        };
+
+        return this.withMutated(report => {
+            report.dataTable = this.dataTableFrom(report);
+            report.dataTable.headers = Object.keys(parameters.values);
+
+            let descriptor: DataTableDataSetDescriptor = report.dataTable.dataSetDescriptors.find(matches(parameters));
+
+            if (! descriptor) {
+                descriptor = {
+                    name:           parameters.name.value,
+                    description:    parameters.description.value,
+                    startRow:       report.dataTable.dataSetDescriptors.reduce((acc, current) => acc + current.rowCount, 0),
+                    rowCount:       0,
+                };
+
+                report.dataTable.dataSetDescriptors.push(descriptor);
+            }
+
+            descriptor.rowCount++;
+
+            const length = report.dataTable.rows.push(({
+                values: extractValues(parameters.values),
+            }));
+
+            this.parameters.push({ parameters, index: length - 1, line: scenario.location.line });
+        });
+    }
+
+    withFeatureNarrativeOf(description: Description) {
+        return this.withMutated(report => {
+            report.userStory.narrative = description.value;
+        });
+    }
+
+    photoTaken(filename: Name) {
+        return this.withMutated(report => {
+            this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: filename.value });
+        });
+    }
+
+    executionFinishedWith(scenario: ScenarioDetails, outcome: Outcome): SceneReport {
         return this.withMutated(report => this.mapOutcome(outcome, (result: string, error: ErrorDetails = undefined) => {
-            report.result = result;
+
+            report.result           = result;
             report.testFailureCause = error;
+
+            if (this.parameters.length > 0) {
+                const entry = this.parameters.find(p => p.line === scenario.location.line);
+                if (!! entry) {
+                    entry.outcome = outcome;
+
+                    report.dataTable.rows[ entry.index ].result = result;
+
+                    const worstOutcomeOverall = this.parameters
+                        .filter(p => !! p.outcome)
+                        .map(p => p.outcome)
+                        .reduce((worstSoFar, current) => {
+                            return current.isWorseThan(worstSoFar)
+                                ? current
+                                : worstSoFar;
+                        }, new ExecutionSuccessful());
+
+                    this.mapOutcome(worstOutcomeOverall, (r: string, e: ErrorDetails = undefined) => {
+                        report.result           = r;
+                        report.testFailureCause = e;
+                    });
+                }
+            }
         }));
     }
 
@@ -158,24 +241,33 @@ export class ScenarioReport {
 
         delete report.children; // remove the fake reference
 
+        this.parameters.forEach(entry => {
+
+            const parameters = entry.parameters.values;
+            const stringified = Object.keys(parameters).map(key => `${ key }: ${ parameters[key] }`).join(', ').trim();
+
+            report.testSteps[entry.index].description += ` #${ entry.index + 1 } - ${ stringified }`;
+        });
+
         // todo: optimise the report, remove empty arrays
         return report;
     }
 
-    private mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {
-        const parse = ScenarioReport.errorParser.parse;
-
-        return match<Outcome, void>(outcome).
-            when(ExecutionCompromised,  ({ error }: ExecutionCompromised)  => mapAs('COMPROMISED', parse(error))).
-            when(ExecutionFailedWithError,         ({ error }: ExecutionFailedWithError)         => mapAs('ERROR', parse(error))).
-            when(ExecutionFailedWithAssertionError,        ({ error }: ExecutionFailedWithAssertionError)       => mapAs('FAILURE', parse(error))).
-            when(ExecutionSkipped,      _ => mapAs('SKIPPED')).
-            when(ExecutionIgnored,      _ => mapAs('IGNORED')).
-            when(ImplementationPending, _ => mapAs('PENDING')).
-            else(/* ExecutionSuccessful */ _ => /* ignore */ mapAs('SUCCESS'));
+    private dataTableFrom(report: Partial<SerenityBDDReport>): DataTable {
+        return report.dataTable || {
+            scenarioOutline: '',
+            dataSetDescriptors: [],
+            headers: [],
+            rows: [],
+            predefinedRows: true,
+        };
     }
 
-    private withMutated(mutate: (copied: Partial<SerenityBDDReport>) => void): ScenarioReport {
+    private mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {
+        return SceneReport.outcomeMapper.mapOutcome(outcome, mapAs);
+    }
+
+    private withMutated(mutate: (copied: Partial<SerenityBDDReport>) => void): SceneReport {
         mutate(this.report);
 
         return this;
@@ -186,7 +278,7 @@ export class ScenarioReport {
     }
 }
 
-class Stack<T> {
+class RememberingStack<T> {
     private readonly items: T[] = [];
     private mostRecent: T = undefined;
 

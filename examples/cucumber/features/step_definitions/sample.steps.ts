@@ -17,7 +17,7 @@ export = function() {
         return Promise.resolve();
     });
 
-    this.Given(/^.*step:.*receives a doc string:$/, function(docstring: string) {
+    this.Given(/^.*step.*receives a doc string:$/, function(docstring: string) {
         return Promise.resolve();
     });
 
@@ -25,5 +25,13 @@ export = function() {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, 1000);
         });
+    });
+
+    this.When(/^(.*) makes a contribution/, function(developerName: string, dataTable: TableDefinition) {
+        return Promise.resolve();
+    });
+
+    this.Then(/^.*help bring serenity to fellow devs$/, function() {
+        return Promise.resolve();
     });
 };

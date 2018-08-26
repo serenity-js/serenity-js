@@ -35,8 +35,6 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            expect(res.events).to.have.lengthOf(6);
-
             Pick.from(res.events)
                 .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario with steps marked as pending')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
@@ -63,8 +61,6 @@ describe('@serenity-js/cucumber', function() {
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
-
-            expect(res.events).to.have.lengthOf(6);
 
             Pick.from(res.events)
                 .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))
@@ -93,8 +89,6 @@ describe('@serenity-js/cucumber', function() {
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
-
-            expect(res.events).to.have.lengthOf(12);
 
             Pick.from(res.events)
                 .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario which tag marks it as pending')))

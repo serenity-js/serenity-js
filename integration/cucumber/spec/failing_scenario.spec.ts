@@ -34,8 +34,6 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(1);
 
-            expect(res.events).to.have.lengthOf(6);
-
             Pick.from(res.events)
                 .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A failing scenario')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))

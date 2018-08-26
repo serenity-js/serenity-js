@@ -76,12 +76,13 @@ export interface DataTable extends JSONObject {
     headers: string[];
     rows: DataTableRow[];
     predefinedRows: boolean;
+    scenarioOutline: string;
     dataSetDescriptors: DataTableDataSetDescriptor[];
 }
 
 export interface DataTableRow extends JSONObject {
     values: string[];
-    result: string;
+    result?: string;
 }
 
 export interface DataTableDataSetDescriptor extends JSONObject {

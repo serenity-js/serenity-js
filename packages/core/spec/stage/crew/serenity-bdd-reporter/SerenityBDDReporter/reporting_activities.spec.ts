@@ -2,7 +2,14 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { ActivityFinished, ActivityStarts, ArtifactGenerated, SceneFinished, SceneStarts } from '../../../../../src/events';
+import {
+    ActivityFinished,
+    ActivityStarts,
+    ArtifactGenerated,
+    SceneFinished,
+    SceneStarts,
+    TestRunFinished
+} from '../../../../../src/events';
 import { Artifact, FileType } from '../../../../../src/io';
 import { ActivityDetails, ExecutionSuccessful, Name } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
@@ -33,6 +40,7 @@ describe('SerenityBDDReporter', () => {
                     new ActivityStarts(pickACard),
                     new ActivityFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -53,6 +61,7 @@ describe('SerenityBDDReporter', () => {
                     new ActivityStarts(makePayment),
                     new ActivityFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -75,6 +84,7 @@ describe('SerenityBDDReporter', () => {
                         new ActivityFinished(viewListOfCards, new ExecutionSuccessful()),
                     new ActivityFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
@@ -106,6 +116,7 @@ describe('SerenityBDDReporter', () => {
                             photo,
                         )),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;

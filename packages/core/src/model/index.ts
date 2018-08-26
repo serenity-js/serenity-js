@@ -6,6 +6,7 @@ export * from './Duration';
 export * from './Name';
 export * from './outcomes';
 export * from './Photo';
-export * from './tags';
 export * from './ScenarioDetails';
+export * from './ScenarioParameters';
+export * from './tags';
 export * from './Timestamp';
