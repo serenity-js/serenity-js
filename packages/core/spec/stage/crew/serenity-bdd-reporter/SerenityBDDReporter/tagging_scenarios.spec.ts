@@ -3,7 +3,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished } from '../../../../../src/events';
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag, } from '../../../../../src/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -167,7 +167,7 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'Digital',
                         type: 'theme',
-                    },{
+                    }, {
                         name: 'Digital/E-Commerce',
                         type: 'capability',
                     }, {

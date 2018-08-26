@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools/lib/index';
+import { expect } from '@integration/testing-tools';
 import { Description, Name } from '@serenity-js/core/lib/model';
 
 import { FeatureFileMap } from '../../../src/gherkin';

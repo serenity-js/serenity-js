@@ -8,15 +8,15 @@ import {
     SceneFinished,
     SceneStarts,
     TestRunFinished,
-    TestRunnerDetected
+    TestRunnerDetected,
 } from '../../../../src/events';
 import { Artifact, FileSystemLocation, FileType, Path } from '../../../../src/io';
 import {
-    ExecutionFailedWithAssertionError,
     Category,
     Duration,
-    ExecutionFailedWithError,
     ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,

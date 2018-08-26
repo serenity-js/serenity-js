@@ -8,7 +8,7 @@ import {
     ArtifactGenerated,
     SceneFinished,
     SceneStarts,
-    TestRunFinished
+    TestRunFinished,
 } from '../../../../../src/events';
 import { Artifact, FileType } from '../../../../../src/io';
 import { ActivityDetails, ExecutionSuccessful, Name } from '../../../../../src/model';
