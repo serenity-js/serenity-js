@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
 import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
@@ -73,7 +74,7 @@ describe('Mapper', () => {
                     new Name('The one that provides some context'),
                     new Description('Once upon a time, there was a test suite.'),
                     [
-                        new Step('Given a prerequisite')
+                        new Step('Given a prerequisite'),
                     ],
             ));
         }));
@@ -83,7 +84,7 @@ describe('Mapper', () => {
 
             expect(scenario.steps).to.deep.equal([
                 new Step('Given a prerequisite'),
-                new Step('Given some scenario step')
+                new Step('Given some scenario step'),
             ]);
         }));
     });
@@ -121,14 +122,14 @@ describe('Mapper', () => {
                     14: new ScenarioParameters(
                         new Name('Name of the example set'),
                         new Description('Description of the example set'),
-                        { parameter: 'value one' }
+                        { parameter: 'value one' },
                     ),
                     15: new ScenarioParameters(
                         new Name('Name of the example set'),
                         new Description('Description of the example set'),
-                        { parameter: 'value two' }
-                    )
-                }
+                        { parameter: 'value two' },
+                    ),
+                },
             ));
         }));
 
@@ -138,7 +139,7 @@ describe('Mapper', () => {
                 new Description('Description of the scenario with examples'),
                 [
                     new Step('Given step with a value one'),
-                ]
+                ],
             ));
 
             expect(map.get(Scenario).onLine(15)).to.equal(new Scenario(
@@ -146,7 +147,7 @@ describe('Mapper', () => {
                 new Description('Description of the scenario with examples'),
                 [
                     new Step('Given step with a value two'),
-                ]
+                ],
             ));
         }));
     });
@@ -163,24 +164,24 @@ describe('Mapper', () => {
                     28: new ScenarioParameters(
                         new Name('Name of the first set of examples'),
                         new Description('Description of the first set of examples'),
-                        { parameter: 'value one' }
+                        { parameter: 'value one' },
                     ),
                     29: new ScenarioParameters(
                         new Name('Name of the first set of examples'),
                         new Description('Description of the first set of examples'),
-                        { parameter: 'value two' }
+                        { parameter: 'value two' },
                     ),
                     36: new ScenarioParameters(
                         new Name('Name of the second set of examples'),
                         new Description('Description of the second set of examples'),
-                        { parameter: 'value three' }
+                        { parameter: 'value three' },
                     ),
                     37: new ScenarioParameters(
                         new Name('Name of the second set of examples'),
                         new Description('Description of the second set of examples'),
-                        { parameter: 'value four' }
+                        { parameter: 'value four' },
                     ),
-                }
+                },
             ));
         }));
     });
@@ -193,7 +194,7 @@ describe('Mapper', () => {
             expect(outline.parameters[49]).to.equal(new ScenarioParameters(
                 new Name(''),
                 undefined,
-                { parameter: 'value one' }
+                { parameter: 'value one' },
             ));
 
             const scenario = map.get(Scenario).onLine(49);
@@ -203,21 +204,24 @@ describe('Mapper', () => {
         it('recognises and interpolates DataTable arguments', parse('scenario_outlines.feature', map => {
             const outline = map.get(ScenarioOutline).onLine(51);
             expect(outline.name).to.equal(new Name('The one with parametrised step argument (DataTable)'));
-            expect(outline.steps[0]).to.equal(new Step('Given the user logs in as <username> with the following credentials:\n| username | <username> |\n| password | <password> |'));
+            expect(outline.steps[0])
+                .to.equal(new Step('Given the user logs in as <username> with the following credentials:\n| username | <username> |\n| password | <password> |'));
             expect(outline.parameters[60]).to.equal(new ScenarioParameters(
                 new Name(''),
                 undefined,
-                { username: 'admin', password: 'P@ssw0rd1' }
+                { username: 'admin', password: 'P@ssw0rd1' },
             ));
             expect(outline.parameters[61]).to.equal(new ScenarioParameters(
                 new Name(''),
                 undefined,
-                { username: 'editor', password: 'P@ssw0rd2' }
+                { username: 'editor', password: 'P@ssw0rd2' },
             ));
 
-            expect(map.get(Scenario).onLine(60).steps[0]).to.equal(new Step('Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'));
+            expect(map.get(Scenario).onLine(60).steps[0])
+                .to.equal(new Step('Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'));
 
-            expect(map.get(Scenario).onLine(61).steps[0]).to.equal(new Step('Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'));
+            expect(map.get(Scenario).onLine(61).steps[0])
+                .to.equal(new Step('Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'));
         }));
     });
 
