@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools/lib/index';
 import { Path } from '@serenity-js/core/lib/io';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
@@ -17,33 +18,33 @@ describe('Loader', () => {
         return loader.load(sampleFeature)
             .then(document => {
                 expect(document).to.deep.equal({
-                        'type': 'GherkinDocument',
-                        'feature': {
-                            'type': 'Feature',
-                            'tags': [],
-                            'location': { 'line': 1, 'column': 1 },
-                            'language': 'en',
-                            'keyword': 'Feature',
-                            'name': 'Sample feature',
-                            'description': '  Description of the feature',
-                            'children': [ {
-                                'type': 'Scenario',
-                                'tags': [],
-                                'location': { 'line': 5, 'column': 3 },
-                                'keyword': 'Scenario',
-                                'name': 'Sample scenario',
-                                'description': '    Description of a scenario',
-                                'steps': [ {
-                                    'argument': undefined,
-                                    'type': 'Step',
-                                    'location': { 'line': 9, 'column': 5 },
-                                    'keyword': 'Given ',
-                                    'text': 'some step'
-                                } ]
-                            } ]
+                        type: 'GherkinDocument',
+                        feature: {
+                            type: 'Feature',
+                            tags: [],
+                            location: { line: 1, column: 1 },
+                            language: 'en',
+                            keyword: 'Feature',
+                            name: 'Sample feature',
+                            description: '  Description of the feature',
+                            children: [ {
+                                type: 'Scenario',
+                                tags: [],
+                                location: { line: 5, column: 3 },
+                                keyword: 'Scenario',
+                                name: 'Sample scenario',
+                                description: '    Description of a scenario',
+                                steps: [ {
+                                    argument: undefined,
+                                    type: 'Step',
+                                    location: { line: 9, column: 5 },
+                                    keyword: 'Given ',
+                                    text: 'some step',
+                                } ],
+                            } ],
                         },
-                        'comments': []
-                    }
+                        comments: [],
+                    },
                 );
             });
     });

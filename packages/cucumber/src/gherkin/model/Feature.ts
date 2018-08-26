@@ -7,7 +7,7 @@ export class Feature extends TinyType {
     constructor(
         public readonly name: Name,
         public readonly description: Description,
-        public readonly background: Background,
+        public readonly background?: Background,
     ) {
         super();
     }
