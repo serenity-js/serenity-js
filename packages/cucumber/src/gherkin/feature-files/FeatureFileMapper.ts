@@ -4,7 +4,7 @@ import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model';
 import * as nodes from '../nodes';
 import { FeatureFileMap } from './FeatureFileMap';
 
-export class Mapper {
+export class FeatureFileMapper {
     map(document: nodes.GherkinDocument): FeatureFileMap {
 
         const map = new FeatureFileMap();

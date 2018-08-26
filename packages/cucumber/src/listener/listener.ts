@@ -1,23 +1,19 @@
 import { serenity } from '@serenity-js/core';
 import * as cucumber from 'cucumber';
-import Gherkin = require('gherkin');    // ts-node:disable-line:no-var-requires     No type definitions available
 
-import { Loader, Mapper } from '../gherkin';
-import { Notifier } from './Notifier';
+import { notifier } from '../notifier';
 
 type Callback = (error?: Error) => void;
 
-const notifier = new Notifier(serenity.stageManager, new Loader(new Gherkin.Parser()), new Mapper());
-
 export const listener = [
 
-    function handleBeforeFeaturesEvent(features: cucumber.events.FeaturesPayload, callback: Callback) {
-        callback();
-    },
-
-    function handleBeforeFeatureEvent(feature: cucumber.events.FeaturePayload, callback: Callback) {
-        callback();
-    },
+    // function handleBeforeFeaturesEvent(features: cucumber.events.FeaturesPayload, callback: Callback) {
+    //     callback();
+    // },
+    //
+    // function handleBeforeFeatureEvent(feature: cucumber.events.FeaturePayload, callback: Callback) {
+    //     callback();
+    // },
 
     function handleBeforeScenarioEvent(scenario: cucumber.events.ScenarioPayload, callback: Callback) {
         notifier.scenarioStarts(scenario).then(() => callback(), error => callback(error));
@@ -33,9 +29,9 @@ export const listener = [
         callback();
     },
 
-    function handleAfterStepEvent(step: cucumber.events.StepPayload, callback: Callback) {
-        callback();
-    },
+    // function handleAfterStepEvent(step: cucumber.events.StepPayload, callback: Callback) {
+    //     callback();
+    // },
 
     function handleScenarioResultEvent(result: cucumber.events.ScenarioResultPayload, callback: Callback) {
         notifier.scenarioFinished(result);
@@ -47,13 +43,13 @@ export const listener = [
             .then(() => callback(), error => callback(error));
     },
 
-    function handleAfterFeatureEvent(feature: cucumber.events.FeaturePayload, callback: Callback) {
-        callback();
-    },
+    // function handleAfterFeatureEvent(feature: cucumber.events.FeaturePayload, callback: Callback) {
+    //     callback();
+    // },
 
-    function handleFeaturesResultEvent(featuresResult: cucumber.events.FeaturesResultPayload, callback: Callback) {
-        callback();
-    },
+    // function handleFeaturesResultEvent(featuresResult: cucumber.events.FeaturesResultPayload, callback: Callback) {
+    //     callback();
+    // },
 
     function handleAfterFeaturesEvent(features: cucumber.events.FeaturesPayload, callback: Callback) {
         notifier.testRunFinished(features);

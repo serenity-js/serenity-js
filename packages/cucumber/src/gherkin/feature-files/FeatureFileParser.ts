@@ -2,14 +2,13 @@ import { Path } from '@serenity-js/core/lib/io';
 import * as fs from 'fs';
 
 import { GherkinDocument } from '../nodes';
-import { UnableToParseFeatureFileError } from './UnableToParseFeatureFileError';
-import { UnableToReadFeatureFileError } from './UnableToReadFeatureFileError';
+import { UnableToParseFeatureFileError, UnableToReadFeatureFileError } from './errors';
 
-export class Loader {
+export class FeatureFileParser {
     constructor(private readonly gherkinParser: { parse: (feature: string) => GherkinDocument }) {
     }
 
-    load(uri: Path): Promise<GherkinDocument> {
+    parse(uri: Path): Promise<GherkinDocument> {
         return new Promise((resolve, reject) => {
             fs.readFile(uri.value, (error: NodeJS.ErrnoException | undefined, data: Buffer) => {
                 if (!! error) {

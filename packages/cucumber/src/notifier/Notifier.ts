@@ -33,8 +33,8 @@ import {
 } from '@serenity-js/core/lib/model';
 import { StageManager } from '@serenity-js/core/lib/stage';
 import * as cucumber from 'cucumber';
-import { Loader, Mapper } from '../gherkin';
-import { Feature, ScenarioOutline } from '../gherkin/model';
+import { FeatureFileLoader } from '../gherkin/index';
+import { Feature, ScenarioOutline } from '../gherkin/model/index';
 
 const flatten = <T>(acc: T[], list: T[]): T[] => acc.concat(list);
 const notEmpty = <T>(list: T[]) => list.filter(item => !! item);
@@ -42,44 +42,41 @@ const notEmpty = <T>(list: T[]) => list.filter(item => !! item);
 export class Notifier {
     constructor(
         private readonly stageManager: StageManager,
-        private readonly loader: Loader,
-        private readonly mapper: Mapper,
+        private readonly loader: FeatureFileLoader,
     ) {
     }
 
     scenarioStarts(scenario: cucumber.events.ScenarioPayload): Promise<void> {
-        return this.loader.load(new Path(scenario.getFeature().getUri()))
-            .then(result => {
+        return this.loader.load(new Path(scenario.getFeature().getUri())).then(map => {
 
-                const map = this.mapper.map(result);
-                const feature = map.get(Feature).onLine(scenario.getFeature().getLine());
+            const feature = map.get(Feature).onLine(scenario.getFeature().getLine());
 
-                if (scenario.getLines().length === 2) {
-                    const outline = map.get(ScenarioOutline).onLine(scenario.getLines()[1]);
+            if (scenario.getLines().length === 2) {
+                const outline = map.get(ScenarioOutline).onLine(scenario.getLines()[ 1 ]);
 
-                    const template = outline.steps.map(step => step.value).join('\n');
+                const template = outline.steps.map(step => step.value).join('\n');
 
-                    this.emit(
-                        new SceneSequenceDetected(this.sequenceDetailsOf(scenario)),
-                        new SceneTemplateDetected(new Description(template)),
-                        new SceneParametersDetected(
-                            this.scenarioDetailsOf(scenario),
-                            outline.parameters[scenario.getLine()],
-                        ),
-                    );
-                }
+                this.emit(
+                    new SceneSequenceDetected(this.sequenceDetailsOf(scenario)),
+                    new SceneTemplateDetected(new Description(template)),
+                    new SceneParametersDetected(
+                        this.scenarioDetailsOf(scenario),
+                        outline.parameters[ scenario.getLine() ],
+                    ),
+                );
+            }
 
-                const details = this.scenarioDetailsOf(scenario);
+            const details = this.scenarioDetailsOf(scenario);
 
-                this.emit(...notEmpty([
-                    new SceneStarts(details),
-                    feature.description && new FeatureNarrativeDetected(feature.description),
-                    new TestRunnerDetected(new Name('Cucumber')),
-                    ...this.scenarioHierarchyTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
-                    !! scenario.getDescription() && new SceneDescriptionDetected(new Description(scenario.getDescription())),
-                    ...this.customTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
-                ]));
-            });
+            this.emit(...notEmpty([
+                new SceneStarts(details),
+                feature.description && new FeatureNarrativeDetected(feature.description),
+                new TestRunnerDetected(new Name('Cucumber')),
+                ...this.scenarioHierarchyTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
+                !!scenario.getDescription() && new SceneDescriptionDetected(new Description(scenario.getDescription())),
+                ...this.customTagsFor(scenario).map(tag => new SceneTagged(details, tag)),
+            ]));
+        });
     }
 
     stepStarts(step: cucumber.events.StepPayload) {

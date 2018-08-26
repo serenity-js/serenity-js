@@ -4,18 +4,18 @@ import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
-import { Loader } from '../../../src/gherkin';
+import { FeatureFileParser } from '../../../src/gherkin';
 
-describe('Loader', () => {
+describe('FeatureFileParser', () => {
 
     const
         sampleFeature = new Path(__dirname).join(new Path('fixtures')).join(new Path('sample.feature')),
         brokenFeature = new Path(__dirname).join(new Path('fixtures')).join(new Path('broken.feature'));
 
     it('loads a GherkinDocument from a file', () => {
-        const loader = new Loader(new Gherkin.Parser());
+        const loader = new FeatureFileParser(new Gherkin.Parser());
 
-        return loader.load(sampleFeature)
+        return loader.parse(sampleFeature)
             .then(document => {
                 expect(document).to.deep.equal({
                         type: 'GherkinDocument',
@@ -50,16 +50,16 @@ describe('Loader', () => {
     });
 
     it('complains if the feature file does not exist', () => {
-        const loader = new Loader(new Gherkin.Parser());
+        const loader = new FeatureFileParser(new Gherkin.Parser());
 
-        return expect(loader.load(new Path('path/to/invalid.feature')))
+        return expect(loader.parse(new Path('path/to/invalid.feature')))
             .to.be.rejectedWith('Could not read feature file at "path/to/invalid.feature"');
     });
 
     it('complains if the feature file could not be parsed', () => {
-        const loader = new Loader(new Gherkin.Parser());
+        const loader = new FeatureFileParser(new Gherkin.Parser());
 
-        return expect(loader.load(brokenFeature))
+        return expect(loader.parse(brokenFeature))
             .to.be.rejectedWith('Could not parse feature file');
     });
 });
