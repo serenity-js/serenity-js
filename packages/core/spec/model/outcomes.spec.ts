@@ -35,11 +35,11 @@ describe('Outcome', () => {
     describe('outcome indicating an error', () => {
 
         given([
-            new ExecutionCompromised(new TestCompromisedError('Database is down')),
-            new ExecutionFailedWithError(new Error(`Something's wrong`)),
-            new ExecutionFailedWithAssertionError(assertionError()),
+            { outcome: new ExecutionCompromised(new TestCompromisedError('Database is down')), description: ExecutionCompromised.name },
+            { outcome: new ExecutionFailedWithError(new Error(`Something's wrong`)), description: ExecutionFailedWithError.name },
+            { outcome: new ExecutionFailedWithAssertionError(assertionError()), description: ExecutionFailedWithAssertionError.name },
         ]).
-        it('can be serialised and deserialised', (outcome: ProblemIndication) => {
+        it('can be serialised and deserialised', ({ outcome }: { outcome: ProblemIndication }) => {
             const deserialised: any = Outcome.fromJSON(outcome.toJSON());
 
             expect(deserialised).to.be.instanceOf(outcome.constructor);
