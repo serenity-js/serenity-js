@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -11,24 +11,19 @@ import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/li
 
 import 'mocha';
 import { given } from 'mocha-testdata';
-
-import { cucumber } from '../src';
+import { CucumberRunner, cucumberVersions } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    given([
-        'promise',
-        'callback',
-    ]).
-    it('recognises a timed out scenario', (stepInterface: string) =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/timed_out_scenario.feature',
-        ).
+    given(
+        cucumberVersions(1, 2)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback')
+            .toRun('features/timed_out_scenario.feature'),
+    ).
+    it('recognises a timed out scenario',  (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(1, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(1);

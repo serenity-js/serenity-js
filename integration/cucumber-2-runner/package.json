@@ -1,7 +1,9 @@
 {
-  "name": "@integration/cucumber",
+  "name": "@integration/cucumber-2-runner",
   "version": "0.0.0",
-  "description": "Cucumber JS 1.x integration tests",
+  "description": "Cucumber JS 2.x test runner",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "author": {
     "name" : "Jan Molak",
     "email" : "jan.molak@smartcodeltd.co.uk",
@@ -16,8 +18,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "mocha-test-parallel --opts ../../mocha.opts 'spec/**/*.spec.*'",
-    "test:parallel": "mocha-test-parallel --opts ../../mocha.opts 'spec/**/*.spec.*'"
+    "test": "exit 0",
+    "compile": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -32,13 +34,11 @@
   },
   "dependencies": {
     "@integration/testing-tools": "*",
-    "@integration/cucumber-1-runner": "*",
-    "@integration/cucumber-2-runner": "*",
     "@serenity-js/core": "*",
     "@serenity-js/cucumber": "*"
   },
   "devDependencies": {
-    "@types/cucumber": "1.3.3",
-    "cucumber": "1.3.3"
+    "@types/cucumber": "2.1.0",
+    "cucumber": "2.3.1"
   }
 }

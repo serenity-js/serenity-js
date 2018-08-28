@@ -10,20 +10,20 @@ import {
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 
 import 'mocha';
-
-import { cucumber } from '../src';
+import { given } from 'mocha-testdata';
+import { CucumberRunner, cucumberVersions } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    it('recognises scenarios with ambiguous steps', () =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/ambiguous.steps.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/passing_scenario.feature',
-        ).
+    given(
+        cucumberVersions(1, 2)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('ambiguous')
+            .toRun('features/passing_scenario.feature'),
+    ).
+    it('recognises scenarios with ambiguous steps', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(1, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(1);
@@ -41,8 +41,10 @@ describe('@serenity-js/cucumber', function() {
                     const lines = err.message.split('\n');
 
                     expect(lines[0]).to.equal('Each step should have one matching step definition, yet there are several:');
-                    expect(lines[1]).to.contain('ambiguous.steps.ts:2');
-                    expect(lines[2]).to.contain('ambiguous.steps.ts:6');
+                    expect(lines[1]).to.contain('/^.*step (?:.*) passes$/');
+                    expect(lines[1]).to.contain('ambiguous.steps.ts');
+                    expect(lines[2]).to.contain('/^.*step (?:.*) passes$/');
+                    expect(lines[2]).to.contain('ambiguous.steps.ts');
                 })
                 .next(SceneFinished,       event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);

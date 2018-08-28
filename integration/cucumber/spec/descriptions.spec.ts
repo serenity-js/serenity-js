@@ -1,28 +1,22 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
 import { FeatureNarrativeDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Description, Name } from '@serenity-js/core/lib/model';
 
 import 'mocha';
 import { given } from 'mocha-testdata';
-
-import { cucumber } from '../src';
+import { CucumberRunner, cucumberVersions } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    given([
-        'synchronous',
-        'promise',
-        'callback',
-    ]).
-    it('recognises scenario descriptions', (stepInterface: string) =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/descriptions.feature',
-        ).
+    given(
+        cucumberVersions(1, 2)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .toRun('features/descriptions.feature'),
+    ).
+    it('recognises scenario descriptions', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
