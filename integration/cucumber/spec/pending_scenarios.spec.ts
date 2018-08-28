@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -12,25 +12,25 @@ import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@sere
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { cucumber } from '../src';
+import { CucumberRunner, cucumberVersions } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
     given([
-        'synchronous',
-        'promise',
-        'callback',
+        ...cucumberVersions(1)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario with steps marked as pending')
+            .toRun('features/pending_scenarios.feature'),
+        ...cucumberVersions(2)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario with steps marked as pending', '--no-strict')
+            .toRun('features/pending_scenarios.feature'),
     ]).
-    it(`recognises a pending scenario where some steps are marked as 'pending'`, (stepInterface: string) =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/pending_scenarios.feature',
-            '--name', 'A scenario with steps marked as pending',
-        ).
+    it(`recognises a pending scenario where some steps are marked as 'pending'`, (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
@@ -46,18 +46,18 @@ describe('@serenity-js/cucumber', function() {
         }));
 
     given([
-        'synchronous',
-        'promise',
-        'callback',
+        ...cucumberVersions(1)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario with steps that have not been implemented yet')
+            .toRun('features/pending_scenarios.feature'),
+        ...cucumberVersions(2)
+            .thatRequire('features/support/configure_serenity.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario with steps that have not been implemented yet', '--no-strict')
+            .toRun('features/pending_scenarios.feature'),
     ]).
-    it(`recognises a pending scenario where some steps are marked as 'pending'`, (stepInterface: string) =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/pending_scenarios.feature',
-            '--name', 'A scenario with steps that have not been implemented yet',
-        ).
+    it(`recognises a pending scenario where some steps are marked as 'pending'`, (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
@@ -73,19 +73,18 @@ describe('@serenity-js/cucumber', function() {
         }));
 
     given([
-        'synchronous',
-        'promise',
-        'callback',
+        ...cucumberVersions(1)
+            .thatRequire('features/support/configure_serenity.ts', 'features/support/wip_hook.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario which tag marks it as pending')
+            .toRun('features/pending_scenarios.feature'),
+        ...cucumberVersions(2)
+            .thatRequire('features/support/configure_serenity.ts', 'features/support/wip_hook.ts')
+            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withArgs('--name', 'A scenario which tag marks it as pending', '--no-strict')
+            .toRun('features/pending_scenarios.feature'),
     ]).
-    it(`recognises a scenario tagged as 'pending'`, (stepInterface: string) =>
-        cucumber(
-            '--require', 'features/support/configure_serenity.ts',
-            '--require', `features/step_definitions/${ stepInterface }.steps.ts`,
-            '--require', `features/support/wip_hook.ts`,
-            '--require', 'node_modules/@serenity-js/cucumber/register.js',
-            'features/pending_scenarios.feature',
-            '--name', 'A scenario which tag marks it as pending',
-        ).
+    it(`recognises a scenario tagged as 'pending'`, (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
             expect(res.exitCode).to.equal(0);
