@@ -1,19 +1,35 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Path } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
-import { FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../src/gherkin';
-import { Background, Feature, Scenario, ScenarioOutline, Step } from '../../../src/gherkin/model';
+import {
+    Background,
+    Feature,
+    FeatureFileMap,
+    FeatureFileMapper,
+    FeatureFileParser,
+    Scenario,
+    ScenarioOutline,
+    Step,
+} from '../../../src/gherkin';
 
 describe('FeatureFileMapper', () => {
+
+    const fixtures = new Path(__dirname).join(new Path('fixtures'));
+
+    // todo: parse tags
 
     describe('when mapping names and descriptions', () => {
 
         it('maps a feature', parse('names_and_descriptions.feature', map => {
             expect(map.get(Feature).onLine(1)).to.equal(new Feature(
+                new FileSystemLocation(fixtures.join(new Path('names_and_descriptions.feature')),
+                    1,
+                    1,
+                ),
                 new Name('Names and descriptions'),
                 new Description('A multi-line\n\ndescription\nof a feature'),
             ));
@@ -52,7 +68,13 @@ describe('FeatureFileMapper', () => {
             expect(firstBackground.name).to.equal(new Name(''));
             expect(firstBackground.description).to.equal(undefined);
             expect(firstBackground.steps).to.deep.equal([
-                new Step('Given a prerequisite'),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('background_with_no_name_or_description.feature')),
+                        5,
+                        5,
+                    ),
+                    new Name('Given a prerequisite'),
+                ),
             ]);
         }));
 
@@ -62,7 +84,13 @@ describe('FeatureFileMapper', () => {
             expect(firstBackground.name).to.equal(new Name('The one that provides some context'));
             expect(firstBackground.description).to.equal(new Description('Once upon a time, there was a test suite.'));
             expect(firstBackground.steps).to.deep.equal([
-                new Step('Given a prerequisite'),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')),
+                        7,
+                        5,
+                    ),
+                    new Name('Given a prerequisite'),
+                ),
             ]);
         }));
 
@@ -71,10 +99,14 @@ describe('FeatureFileMapper', () => {
 
             expect(feature.background).to.equal(
                 new Background(
+                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 3, 3),
                     new Name('The one that provides some context'),
                     new Description('Once upon a time, there was a test suite.'),
                     [
-                        new Step('Given a prerequisite'),
+                        new Step(
+                            new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 7, 5),
+                            new Name('Given a prerequisite'),
+                        ),
                     ],
             ));
         }));
@@ -83,8 +115,14 @@ describe('FeatureFileMapper', () => {
             const scenario = map.get(Scenario).onLine(9);
 
             expect(scenario.steps).to.deep.equal([
-                new Step('Given a prerequisite'),
-                new Step('Given some scenario step'),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 7, 5),
+                    new Name('Given a prerequisite'),
+                ),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 11, 5),
+                    new Name('Given some scenario step'),
+                ),
             ]);
         }));
     });
@@ -95,7 +133,10 @@ describe('FeatureFileMapper', () => {
             const scenario = map.get(Scenario).onLine(3);
 
             expect(scenario.steps).to.deep.equal([
-                new Step('Given a step with DocString argument:\nA couple of\nlines of\ntext'),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('step_arguments.feature')), 5, 5),
+                    new Name('Given a step with DocString argument:\nA couple of\nlines of\ntext'),
+                ),
             ]);
         }));
 
@@ -103,20 +144,29 @@ describe('FeatureFileMapper', () => {
             const scenario = map.get(Scenario).onLine(12);
 
             expect(scenario.steps).to.deep.equal([
-                new Step('Given a step with a DataTable argument:\n| first name | last name |\n| Jan | Molak |'),
+                new Step(
+                    new FileSystemLocation(fixtures.join(new Path('step_arguments.feature')), 14, 5),
+                    new Name('Given a step with a DataTable argument:\n| first name | last name |\n| Jan | Molak |'),
+                ),
             ]);
         }));
     });
 
     describe('when mapping scenario outlines with one set of examples', () => {
         it('maps the scenario template', parse('scenario_outlines.feature', map => {
-            const scenario = map.get(ScenarioOutline).onLine(3);
+            const
+                scenario = map.get(ScenarioOutline).onLine(3),
+                path = fixtures.join(new Path('scenario_outlines.feature'));
 
             expect(scenario).to.equal(new ScenarioOutline(
+                new FileSystemLocation(path, 3, 3),
                 new Name('The one with examples'),
                 new Description('Description of the scenario with examples'),
                 [
-                    new Step('Given step with a <parameter>'),
+                    new Step(
+                        new FileSystemLocation(path, 7, 5),
+                        new Name('Given step with a <parameter>'),
+                    ),
                 ],
                 {
                     14: new ScenarioParameters(
@@ -134,19 +184,29 @@ describe('FeatureFileMapper', () => {
         }));
 
         it('maps the interpolated scenario', parse('scenario_outlines.feature', map => {
+            const path = fixtures.join(new Path('scenario_outlines.feature'));
+
             expect(map.get(Scenario).onLine(14)).to.equal(new Scenario(
+                new FileSystemLocation(path, 14, 3),
                 new Name('The one with examples'),
                 new Description('Description of the scenario with examples'),
                 [
-                    new Step('Given step with a value one'),
+                    new Step(
+                        new FileSystemLocation(path, 7, 5),
+                        new Name('Given step with a value one'),
+                    ),
                 ],
             ));
 
             expect(map.get(Scenario).onLine(15)).to.equal(new Scenario(
+                new FileSystemLocation(path, 15, 3),
                 new Name('The one with examples'),
                 new Description('Description of the scenario with examples'),
                 [
-                    new Step('Given step with a value two'),
+                    new Step(
+                        new FileSystemLocation(path, 7, 5),
+                        new Name('Given step with a value two'),
+                    ),
                 ],
             ));
         }));
@@ -154,33 +214,39 @@ describe('FeatureFileMapper', () => {
 
     describe('when mapping scenario outlines with multiple sets of examples', () => {
         it('recognises the different names and descriptions of example sets', parse('scenario_outlines.feature', map => {
+            const path = fixtures.join(new Path('scenario_outlines.feature'));
+
             expect(map.get(ScenarioOutline).onLine(17)).to.equal(new ScenarioOutline(
+                new FileSystemLocation(path, 17, 3),
                 new Name('The one with more examples'),
                 new Description('Description of the scenario with more examples'),
                 [
-                    new Step('Given step with a <parameter>'),
+                    new Step(
+                        new FileSystemLocation(path, 21, 5),
+                        new Name('Given step with a <parameter>'),
+                    ),
                 ],
                 {
                     28: new ScenarioParameters(
-                        new Name('Name of the first set of examples'),
-                        new Description('Description of the first set of examples'),
-                        { parameter: 'value one' },
-                    ),
+                            new Name('Name of the first set of examples'),
+                            new Description('Description of the first set of examples'),
+                            { parameter: 'value one' },
+                        ),
                     29: new ScenarioParameters(
-                        new Name('Name of the first set of examples'),
-                        new Description('Description of the first set of examples'),
-                        { parameter: 'value two' },
-                    ),
+                            new Name('Name of the first set of examples'),
+                            new Description('Description of the first set of examples'),
+                            { parameter: 'value two' },
+                        ),
                     36: new ScenarioParameters(
-                        new Name('Name of the second set of examples'),
-                        new Description('Description of the second set of examples'),
-                        { parameter: 'value three' },
-                    ),
+                            new Name('Name of the second set of examples'),
+                            new Description('Description of the second set of examples'),
+                            { parameter: 'value three' },
+                        ),
                     37: new ScenarioParameters(
-                        new Name('Name of the second set of examples'),
-                        new Description('Description of the second set of examples'),
-                        { parameter: 'value four' },
-                    ),
+                            new Name('Name of the second set of examples'),
+                            new Description('Description of the second set of examples'),
+                            { parameter: 'value four' },
+                        ),
                 },
             ));
         }));
@@ -188,9 +254,15 @@ describe('FeatureFileMapper', () => {
 
     describe('when mapping scenario outlines with special step arguments', () => {
         it('recognises and interpolates DocString arguments', parse('scenario_outlines.feature', map => {
-            const outline = map.get(ScenarioOutline).onLine(39);
+            const
+                path = fixtures.join(new Path('scenario_outlines.feature')),
+                outline = map.get(ScenarioOutline).onLine(39);
+
             expect(outline.name).to.equal(new Name('The one with parametrised step argument (DocString)'));
-            expect(outline.steps[0]).to.equal(new Step('Given step with a:\nParameter of <parameter>'));
+            expect(outline.steps[0]).to.equal(new Step(
+                new FileSystemLocation(path, 41, 5),
+                new Name('Given step with a:\nParameter of <parameter>'),
+            ));
             expect(outline.parameters[49]).to.equal(new ScenarioParameters(
                 new Name(''),
                 undefined,
@@ -198,14 +270,23 @@ describe('FeatureFileMapper', () => {
             ));
 
             const scenario = map.get(Scenario).onLine(49);
-            expect(scenario.steps[0]).to.equal(new Step('Given step with a:\nParameter of value one'));
+            expect(scenario.steps[ 0 ]).to.equal(new Step(
+                new FileSystemLocation(path, 41, 5),
+                new Name('Given step with a:\nParameter of value one'),
+            ));
         }));
 
         it('recognises and interpolates DataTable arguments', parse('scenario_outlines.feature', map => {
-            const outline = map.get(ScenarioOutline).onLine(51);
+            const
+                outline = map.get(ScenarioOutline).onLine(51),
+                path = fixtures.join(new Path('scenario_outlines.feature'));
+
             expect(outline.name).to.equal(new Name('The one with parametrised step argument (DataTable)'));
             expect(outline.steps[0])
-                .to.equal(new Step('Given the user logs in as <username> with the following credentials:\n| username | <username> |\n| password | <password> |'));
+                .to.equal(new Step(
+                    new FileSystemLocation(path, 53, 5),
+                    new Name('Given the user logs in as <username> with the following credentials:\n| username | <username> |\n| password | <password> |'),
+                ));
             expect(outline.parameters[60]).to.equal(new ScenarioParameters(
                 new Name(''),
                 undefined,
@@ -218,19 +299,25 @@ describe('FeatureFileMapper', () => {
             ));
 
             expect(map.get(Scenario).onLine(60).steps[0])
-                .to.equal(new Step('Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'));
+                .to.equal(new Step(
+                    new FileSystemLocation(path, 53, 5),
+                    new Name('Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'),
+                ));
 
             expect(map.get(Scenario).onLine(61).steps[0])
-                .to.equal(new Step('Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'));
+                .to.equal(new Step(
+                    new FileSystemLocation(path, 53, 5),
+                    new Name('Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'),
+                ));
         }));
     });
 
     function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {
         const
-            path = new Path(__dirname).join(new Path('fixtures')).join(new Path(featureFileName)),
+            path = fixtures.join(new Path(featureFileName)),
             mapper = new FeatureFileMapper(),
             loader = new FeatureFileParser(new Gherkin.Parser());
 
-        return () => loader.parse(path).then(document => mapper.map(document)).then(spec);
+        return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);
     }
 });

@@ -1,3 +1,4 @@
-import { TinyType, TinyTypeOf } from 'tiny-types';
+import { FeatureFileNode } from './FeatureFileNode';
 
-export class Step extends TinyTypeOf<string>() {}
+export class Step extends FeatureFileNode {
+}

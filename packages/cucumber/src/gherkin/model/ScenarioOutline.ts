@@ -1,15 +1,17 @@
+import { FileSystemLocation } from '@serenity-js/core/lib/io';
 import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
-import { TinyType } from 'tiny-types';
 
+import { FeatureFileNode } from './FeatureFileNode';
 import { Step } from './Step';
 
-export class ScenarioOutline extends TinyType {
+export class ScenarioOutline extends FeatureFileNode {
     constructor(
-        public readonly name: Name,
+        location: FileSystemLocation,
+        name: Name,
         public readonly description: Description,
         public readonly steps: Step[],
         public readonly parameters: { [line: number]: ScenarioParameters },
     ) {
-        super();
+        super(location, name);
     }
 }

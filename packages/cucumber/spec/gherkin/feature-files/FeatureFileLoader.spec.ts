@@ -2,10 +2,9 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
-import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
-import Gherkin = require('gherkin');
 import * as sinon from 'sinon';
 
+import Gherkin = require('gherkin');
 import { FeatureFileLoader, FeatureFileMapper, FeatureFileParser } from '../../../src/gherkin'; // ts-node:disable-line:no-var-requires     No type definitions available
 
 describe('FeatureFileLoader', () => {

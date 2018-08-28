@@ -11,7 +11,9 @@ export class Pick {
         const foundIndex = this.events.findIndex(event => event.constructor === type);
 
         if (foundIndex < 0) {
-            throw new Error(`${ type.name } event not found within ${ this.events.map(e => e.constructor.name).join(', ') }`);
+            const found = this.events.map(e => e.constructor.name).join(', ') || 'an empty list';
+
+            throw new Error(`${ type.name } event not found within ${ found }`);
         }
 
         assertion(this.events[ foundIndex ] as T);

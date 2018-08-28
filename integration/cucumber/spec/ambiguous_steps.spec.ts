@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -11,7 +11,7 @@ import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/li
 
 import 'mocha';
 
-import { cucumber, Pick } from '../src';
+import { cucumber } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 

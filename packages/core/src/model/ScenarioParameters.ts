@@ -7,7 +7,7 @@ export class ScenarioParameters extends TinyType {
     public static fromJSON(o: Serialised<ScenarioParameters>) {
         return new ScenarioParameters(
             Name.fromJSON(o.name as string),
-            Description.fromJSON(o.description as string),
+            o.description && Description.fromJSON(o.description as string),
             (o as any).values,
         );
     }
