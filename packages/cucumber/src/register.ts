@@ -1,6 +1,6 @@
-import { listener } from './listener';
+import { adapterForCucumber, requireFrom } from './adapters';
 
-export = function() {
+const cucumberVersion = requireFrom(process.cwd(), 'cucumber/package').version.split('.').map(v => parseInt(v, 10))[0];
+const cucumber = requireFrom(process.cwd(), 'cucumber');
 
-    this.registerListener(listener);
-};
+export = adapterForCucumber(cucumberVersion, cucumber);

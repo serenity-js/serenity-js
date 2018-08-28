@@ -17,6 +17,13 @@ describe('FeatureFileMap', () => {
         expect(map.get(Description).onLine(1)).to.equal(featureName);
     });
 
+    it('allows for values to be retrieved based on their type when their location is not known', () => {
+        const map = new FeatureFileMap()
+            .set(featureName).onLine(1);
+
+        expect(map.getFirst(Description)).to.equal(featureName);
+    });
+
     it('allows for values to be retrieved based on the line alone', () => {
         const map = new FeatureFileMap()
             .set(featureName).onLine(1);
@@ -35,5 +42,6 @@ describe('FeatureFileMap', () => {
         const map = new FeatureFileMap();
 
         expect(() => map.get(Name).onLine(1)).to.throw('Nothing was found on line 1');
+        expect(() => map.getFirst(Name)).to.throw(`Didn't find any Name amongst no items`);
     });
 });

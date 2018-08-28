@@ -1,7 +1,7 @@
 {
   "name": "@integration/cucumber",
   "version": "0.0.0",
-  "description": "Cucumber JS integration tests",
+  "description": "Cucumber JS 1.x integration tests",
   "author": {
     "name" : "Jan Molak",
     "email" : "jan.molak@smartcodeltd.co.uk",
@@ -13,12 +13,10 @@
   "config": {
     "access": "private"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "mocha --opts ../../mocha.opts 'spec/**/*.spec.*'"
+    "test": "mocha-parallel-tests --opts ../../mocha.opts 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",

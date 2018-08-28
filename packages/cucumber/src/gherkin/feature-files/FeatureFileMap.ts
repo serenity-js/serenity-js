@@ -1,10 +1,4 @@
-export interface Constructor<T> {
-    new (...args: any[]): T;
-}
-
-export interface Constructable<T> {
-    constructor: Function;  // tslint:disable-line:ban-types
-}
+import { Constructable, Constructor } from '../constructables';
 
 export class FeatureFileMap {
 
@@ -37,5 +31,19 @@ export class FeatureFileMap {
                 return found as T;
             },
         });
+    }
+
+    getFirst<T>(type: Constructor<T>): T {
+        const
+            items = Object.keys(this.map).map(line => this.map[line]),
+            found = items.find(value => value instanceof type);
+
+        if (! found) {
+            const existingTypes = items.map(item => item.constructor.name).join(', ') || 'no items.';
+
+            throw new Error(`Didn't find any ${ type.name } amongst ${ existingTypes }`);
+        }
+
+        return found;
     }
 }

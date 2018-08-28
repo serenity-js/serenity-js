@@ -18,7 +18,7 @@ export class FeatureFileLoader {
         }
 
         return this.parser.parse(path)
-            .then(document => this.mapper.map(document))
+            .then(document => this.mapper.map(document, path))
             .then(map => {
                 this.cache.set(path, map);
                 return this.cache.get(path);

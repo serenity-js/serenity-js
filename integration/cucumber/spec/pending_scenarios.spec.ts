@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -12,7 +12,7 @@ import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@sere
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { cucumber, Pick } from '../src';
+import { cucumber } from '../src';
 
 describe('@serenity-js/cucumber', function() {
 

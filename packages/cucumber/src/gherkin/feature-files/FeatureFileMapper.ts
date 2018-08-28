@@ -1,11 +1,12 @@
-import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { ArbitraryTag, Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 
 import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model';
 import * as nodes from '../nodes';
 import { FeatureFileMap } from './FeatureFileMap';
 
 export class FeatureFileMapper {
-    map(document: nodes.GherkinDocument): FeatureFileMap {
+    map(document: nodes.GherkinDocument, path: Path): FeatureFileMap {
 
         const map = new FeatureFileMap();
 
@@ -17,9 +18,14 @@ export class FeatureFileMapper {
                 case 'Background':
 
                     background = new Background(
+                        new FileSystemLocation(
+                            path,
+                            scenarioDefinition.location.line,
+                            scenarioDefinition.location.column,
+                        ),
                         new Name(scenarioDefinition.name),
                         scenarioDefinition.description && new Description(scenarioDefinition.description),
-                        scenarioDefinition.steps.map(step => this.asStep(step)),
+                        scenarioDefinition.steps.map(step => this.asStep(path, step)),
                     );
 
                     map.set(background).onLine(scenarioDefinition.location.line);
@@ -29,9 +35,15 @@ export class FeatureFileMapper {
                 case 'Scenario':
 
                     map.set(new Scenario(
+                        new FileSystemLocation(
+                            path,
+                            scenarioDefinition.location.line,
+                            scenarioDefinition.location.column,
+                        ),
                         new Name(scenarioDefinition.name),
                         scenarioDefinition.description && new Description(scenarioDefinition.description),
-                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(step => this.asStep(step))),
+                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(step => this.asStep(path, step))),
+                        this.tagsFrom(document.feature.tags, scenarioDefinition.tags),
                     )).onLine(scenarioDefinition.location.line);
 
                     break;
@@ -60,11 +72,18 @@ export class FeatureFileMapper {
                                     interpolatedStepText = this.interpolate(scenarioOutlineStep.text, variableCells, valueCells),
                                     interpolatedStepArgument = this.interpolateStepArgument(scenarioOutlineStep.argument, variableCells, valueCells);
 
-                                steps.push(new Step([
-                                    scenarioOutlineStep.keyword,
-                                    interpolatedStepText,
-                                    interpolatedStepArgument,
-                                ].filter(_ => !!_).join('')));
+                                steps.push(new Step(
+                                    new FileSystemLocation(
+                                        path,
+                                        scenarioOutlineStep.location.line,
+                                        scenarioOutlineStep.location.column,
+                                    ),
+                                    new Name([
+                                        scenarioOutlineStep.keyword,
+                                        interpolatedStepText,
+                                        interpolatedStepArgument,
+                                    ].filter(_ => !!_).join('')),
+                                ));
                             });
 
                             const scenarioParameters = variableCells
@@ -78,17 +97,28 @@ export class FeatureFileMapper {
                             );
 
                             map.set(new Scenario(
-                                new Name(scenarioDefinition.name),
-                                scenarioDefinition.description && new Description(scenarioDefinition.description),
+                                new FileSystemLocation(
+                                    path,
+                                    values.location.line,
+                                    outline.location.column,
+                                ),
+                                new Name(outline.name),
+                                outline.description && new Description(outline.description),
                                 steps,
+                                this.tagsFrom(document.feature.tags, outline.tags, examples.tags),
                             )).onLine(values.location.line);
                         });
                     });
 
                     map.set(new ScenarioOutline(
-                        new Name(scenarioDefinition.name),
-                        scenarioDefinition.description && new Description(scenarioDefinition.description),
-                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(step => this.asStep(step, [], []))),
+                        new FileSystemLocation(
+                            path,
+                            outline.location.line,
+                            outline.location.column,
+                        ),
+                        new Name(outline.name),
+                        outline.description && new Description(outline.description),
+                        (background ? background.steps : []).concat(outline.steps.map(step => this.asStep(path, step, [], []))),
                         parameters,
                     )).onLine(scenarioDefinition.location.line);
 
@@ -97,6 +127,11 @@ export class FeatureFileMapper {
         });
 
         map.set(new Feature(
+            new FileSystemLocation(
+                path,
+                document.feature.location.line,
+                document.feature.location.column,
+            ),
             new Name(document.feature.name),
             document.feature.description && new Description(document.feature.description),
             background,
@@ -105,12 +140,23 @@ export class FeatureFileMapper {
         return map;
     }
 
-    private asStep(step: nodes.Step, variableCells: nodes.TableCell[] = [], valueCells: nodes.TableCell[] = []): Step {
-        return new Step([
-            step.keyword,
-            step.text,
-            this.interpolateStepArgument(step.argument, variableCells, valueCells),
-        ].filter(_ => !!_).join(''));
+    private asStep(path: Path, step: nodes.Step, variableCells: nodes.TableCell[] = [], valueCells: nodes.TableCell[] = []): Step {
+        return new Step(
+            new FileSystemLocation(
+                path,
+                step.location.line,
+                step.location.column,
+            ),
+            new Name([
+                step.keyword,
+                step.text,
+                this.interpolateStepArgument(step.argument, variableCells, valueCells),
+            ].filter(_ => !!_).join('')),
+        );
+    }
+
+    private tagsFrom(...tags: nodes.Tag[][]): ArbitraryTag[] {
+        return [].concat(...tags).map(tag => new ArbitraryTag(tag.name));
     }
 
     private interpolateStepArgument(argument: nodes.StepArgument, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]): string {
