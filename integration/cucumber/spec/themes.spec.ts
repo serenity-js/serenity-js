@@ -19,7 +19,7 @@ describe('@serenity-js/cucumber', function() {
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .toRun('features/example_theme/example_capability/example.feature'),
 
-        ...cucumberVersions(3)
+        ...cucumberVersions(3, 4)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(

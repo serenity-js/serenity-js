@@ -20,7 +20,7 @@ describe('@serenity-js/cucumber', function() {
             .withArgs('--name', 'A tagged scenario')
             .toRun('features/tags.feature'),
 
-        ...cucumberVersions(3)
+        ...cucumberVersions(3, 4)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
@@ -41,8 +41,8 @@ describe('@serenity-js/cucumber', function() {
             ;
         }));
 
-    given(
-        cucumberVersions(1, 2)
+    given([
+        ...cucumberVersions(1, 2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
                 'lib/support/configure_serenity.js',
@@ -50,7 +50,16 @@ describe('@serenity-js/cucumber', function() {
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'More tagged scenarios')
             .toRun('features/tags.feature'),
-    ).
+
+        ...cucumberVersions(3, 4)
+            .thatRequires('lib/support/configure_serenity.js')
+            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withArgs(
+                '--format', 'node_modules/@serenity-js/cucumber',
+                '--name', 'More tagged scenarios',
+            )
+            .toRun('features/tags.feature'),
+    ]).
     it('recognises tags on a scenario outline and its examples', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
