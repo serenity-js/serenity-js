@@ -1,6 +1,6 @@
 import { defineSupportCode, TableDefinition } from 'cucumber';
 
-type Callback =  (error?: Error, pending?: string) => void;
+type Callback = (error?: Error, pending?: string) => void;
 
 defineSupportCode(({ Given }) => {
 

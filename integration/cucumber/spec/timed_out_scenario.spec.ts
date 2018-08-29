@@ -26,7 +26,7 @@ describe('@serenity-js/cucumber', function() {
             .withStepDefsIn('promise', 'callback')
             .toRun('features/timed_out_scenario.feature'),
 
-        ...cucumberVersions(3)
+        ...cucumberVersions(3, 4)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('promise', 'callback')
             .withArgs(
@@ -46,11 +46,11 @@ describe('@serenity-js/cucumber', function() {
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Given a step that times out')))
                 .next(ActivityFinished,    event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((event.outcome as ExecutionFailedWithError).error.message).to.equal('function timed out after 100 milliseconds');
+                    expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);
                 })
                 .next(SceneFinished,       event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((event.outcome as ExecutionFailedWithError).error.message).to.equal('function timed out after 100 milliseconds');
+                    expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);
                 })
             ;
         }));

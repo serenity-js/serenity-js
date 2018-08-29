@@ -1,7 +1,18 @@
+import { serenity } from '@serenity-js/core';
+import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
-export = function({ notifier, loader, cucumber }: Dependencies) {
-    return function() {
-        throw new Error(`Cucumber version 4 is not supported yet.`);
-    };
+export = function(dependencies: Dependencies) {
+    const { After, AfterAll } = dependencies.cucumber;
+
+    After(function() {
+        return serenity.stageManager.waitForNextCue();
+    });
+
+    AfterAll(function() {
+        dependencies.notifier.testRunFinished();
+        return serenity.stageManager.waitForNextCue();
+    });
+
+    return cucumberEventProtocolAdapter(dependencies);
 };

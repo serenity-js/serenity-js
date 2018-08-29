@@ -1,6 +1,6 @@
 import { TableDefinition } from 'cucumber';
 
-type Callback =  (error?: Error, pending?: string) => void;
+type Callback = (error?: Error, pending?: string) => void;
 
 export = function() {
     this.Given(/^.*step (?:.*) passes$/, function(done: Callback) {
