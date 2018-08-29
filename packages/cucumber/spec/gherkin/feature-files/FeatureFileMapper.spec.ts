@@ -314,6 +314,17 @@ describe('FeatureFileMapper', () => {
         }));
     });
 
+    describe('when mapping an empty feature file', () => {
+
+        it('returns an empty map', () => {
+            const empty = { type: 'GherkinDocument', comments: [] };
+
+            const mapper = new FeatureFileMapper();
+
+            expect(mapper.map(empty, fixtures).size()).to.equal(0);
+        });
+    });
+
     function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {
         const
             path = fixtures.join(new Path(featureFileName)),

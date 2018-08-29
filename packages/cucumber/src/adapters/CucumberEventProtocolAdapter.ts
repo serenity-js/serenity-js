@@ -14,6 +14,8 @@ import { Scenario } from '../gherkin/model';
 import { CucumberFormatterOptions } from './CucumberFormatterOptions';
 import { Dependencies } from './Dependencies';
 
+import { ensure, isDefined } from 'tiny-types';
+
 export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Dependencies) {
     return class CucumberEventProtocolAdapter {
 
@@ -24,11 +26,15 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
             this.log = log;
 
             eventBroadcaster.on('gherkin-document', ({ uri, document }) => {
+                ensure('gherkin-document :: uri', uri, isDefined());
+                ensure('gherkin-document :: document', document, isDefined());
+
                 const path = new Path(uri);
                 cache.set(path, mapper.map(document, path));
             });
 
             eventBroadcaster.on('test-case-started', ({ sourceLocation }) => {
+                ensure('test-case-started :: sourceLocation', sourceLocation, isDefined());
 
                 const
                     map = cache.get(new Path(sourceLocation.uri)),
@@ -44,6 +50,9 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
 
             eventBroadcaster.on('test-step-started', ({ index, testCase }) => {
 
+                ensure('test-step-started :: index', index, isDefined());
+                ensure('test-step-started :: testCase', testCase, isDefined());
+
                 const
                     map      = cache.get(new Path(testCase.sourceLocation.uri)),
                     scenario = map.get(Scenario).onLine(testCase.sourceLocation.line),
@@ -56,6 +65,10 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
 
             eventBroadcaster.on('test-step-finished', ({ index, result, testCase }) => {
 
+                ensure('test-step-finished :: index', index, isDefined());
+                ensure('test-step-finished :: result', result, isDefined());
+                ensure('test-step-finished :: testCase', testCase, isDefined());
+
                 const
                     map      = cache.get(new Path(testCase.sourceLocation.uri)),
                     scenario = map.get(Scenario).onLine(testCase.sourceLocation.line),
@@ -67,6 +80,9 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
             });
 
             eventBroadcaster.on('test-case-finished', ({ result, sourceLocation }) => {
+
+                ensure('test-case-finished :: result', result, isDefined());
+                ensure('test-case-finished :: sourceLocation', sourceLocation, isDefined());
 
                 const
                     map      = cache.get(new Path(sourceLocation.uri)),

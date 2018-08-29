@@ -47,4 +47,8 @@ export class FeatureFileMap {
 
         return found;
     }
+
+    size() {
+        return Object.keys(this.map).length;
+    }
 }

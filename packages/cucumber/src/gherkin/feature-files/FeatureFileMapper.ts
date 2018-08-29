@@ -10,6 +10,10 @@ export class FeatureFileMapper {
 
         const map = new FeatureFileMap();
 
+        if (! (document && document.feature)) {
+            return map;
+        }
+
         let background: Background;
 
         document.feature.children.forEach(scenarioDefinition => {
