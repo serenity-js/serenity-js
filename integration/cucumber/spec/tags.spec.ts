@@ -10,13 +10,24 @@ describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    given(
-        cucumberVersions(1, 2)
-            .thatRequire('features/support/configure_serenity.ts')
+    given([
+        ...cucumberVersions(1, 2)
+            .thatRequires(
+                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'features/support/configure_serenity.ts',
+            )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A tagged scenario')
             .toRun('features/tags.feature'),
-    ).
+
+        ...cucumberVersions(3)
+            .thatRequires('features/support/configure_serenity.ts')
+            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withArgs(
+                '--format', 'node_modules/@serenity-js/cucumber',
+            )
+            .toRun('features/tags.feature'),
+    ]).
     it('recognises tags on a scenario', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
         then(res => {
@@ -32,7 +43,10 @@ describe('@serenity-js/cucumber', function() {
 
     given(
         cucumberVersions(1, 2)
-            .thatRequire('features/support/configure_serenity.ts')
+            .thatRequires(
+                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'features/support/configure_serenity.ts',
+            )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'More tagged scenarios')
             .toRun('features/tags.feature'),

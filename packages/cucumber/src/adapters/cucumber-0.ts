@@ -8,83 +8,67 @@ import {
     Outcome,
 } from '@serenity-js/core/lib/model';
 
+import { AmbiguousStepDefinitionError } from '../errors';
 import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from '../gherkin';
 import { Dependencies } from './Dependencies';
 
-export = function({ notifier, loader }: Dependencies) {
+export = function({ notifier, loader, cache }: Dependencies) {
     return function() {
         this.registerHandler('BeforeFeature', (feature, callback) => {
-            loader.load(get(feature, 'uri').as(Path))
-                .then(_ => callback(), error => callback(error));
+            loader.load(get(feature, 'uri').as(Path)).then(_ => callback(), error => callback(error));
         });
 
-        this.registerHandler('BeforeScenario', (scenario, callback) => {
+        this.registerHandler('BeforeScenario', scenario => {
             const
                 path  = get(scenario, 'uri').as(Path),
                 line  = get(scenario, 'line').value() as number,
                 lines = get(scenario, 'lines').value() as number[],
                 isOutline = lines.length === 2;
 
-            loader.load(path)
-                .then(map => {
-                    if (isOutline) {
-                        notifier.outlineDetected(map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ 1 ]), map.getFirst(Feature));
-                    }
+            const map = cache.get(path);
 
-                    notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
-                })
-                .then(() => callback(), error => callback(error));
+            if (isOutline) {
+                notifier.outlineDetected(map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ 1 ]), map.getFirst(Feature));
+            }
+
+            notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
         });
 
-        this.registerHandler('BeforeStep', (step, callback) => {
+        this.registerHandler('BeforeStep', step => {
             if (shouldIgnore(step)) {
-                return callback();
+                return void 0;
             }
 
             const
                 scenario = get(step, 'scenario').value(),
                 path     = get(scenario, 'uri').as(Path);
 
-            loader.load(path)
-                .then(map => {
-
-                    notifier.stepStarts(findStepMatching(step, map));
-
-                    return callback();
-                })
-                .catch(callback);
+            notifier.stepStarts(findStepMatching(step, cache.get(path)));
         });
 
-        this.registerHandler('StepResult', (result, callback) => {
+        this.registerHandler('StepResult', result => {
             const
                 step     = get(result, 'step').value(),
                 scenario = get(step, 'scenario').value(),
                 path     = get(scenario, 'uri').as(Path);
 
             if (shouldIgnore(step)) {
-                return callback();
+                return void 0;
             }
 
-            loader.load(path)
-                .then(map => {
-                    notifier.stepFinished(findStepMatching(step, map), stepOutcomeFrom(result));
-                    return callback();
-                })
-                .catch(callback);
+            notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
         });
 
-        this.registerHandler('ScenarioResult', (result, callback) => {
+        this.registerHandler('ScenarioResult', result => {
 
             const
                 scenario = get(result, 'scenario').value(),
                 path     = get(scenario, 'uri').as(Path),
                 line     = get(scenario, 'line').value() as number;
 
-            loader.load(path)
-                .then(map => {
-                    notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
-                })
-                .then(() => callback(), error => callback(error));
+            const map = cache.get(path);
+
+            notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
         this.registerHandler('AfterScenario', (scenario, callback) => {
@@ -164,7 +148,7 @@ function ambiguousStepsDetectedIn(result): Error | undefined {
         .reduce((err: Error, issue) => {
             err.message += `\n${issue}`;
             return err;
-        }, new Error('Each step should have one matching step definition, yet there are several:'));
+        }, new AmbiguousStepDefinitionError('Multiple step definitions match:'));
 }
 
 function errorFrom(error: Error | string | undefined): Error | undefined {
@@ -189,7 +173,7 @@ function outcomeFrom(status: string, error?: Error) {
         case status === 'ambiguous':
             if (! error) {
                 // Only the step result contains the "ambiguous step def error", the scenario itself doesn't
-                return new ExecutionFailedWithError(new Error('Ambiguous step definition detected'));
+                return new ExecutionFailedWithError(new AmbiguousStepDefinitionError('Multiple step definitions match'));
             }
 
             return new ExecutionFailedWithError(error);
@@ -208,8 +192,6 @@ function outcomeFrom(status: string, error?: Error) {
     }
     // tslint:enable:switch-default
 }
-
-// todo: potentially injectable functions
 
 function shouldIgnore(step): boolean {
     return is(step, 'hidden')                                       // cucumber 0-1

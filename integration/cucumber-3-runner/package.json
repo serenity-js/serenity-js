@@ -1,0 +1,44 @@
+{
+  "name": "@integration/cucumber-3-runner",
+  "version": "0.0.0",
+  "description": "Cucumber JS 3.x test runner",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "author": {
+    "name" : "Jan Molak",
+    "email" : "jan.molak@smartcodeltd.co.uk",
+    "url" : "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "exit 0",
+    "compile": "tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "*",
+    "@serenity-js/core": "*",
+    "@serenity-js/cucumber": "*",
+    "cucumber": "3.2.1"
+  },
+  "devDependencies": {
+    "@types/cucumber": "3.2.2"
+  }
+}

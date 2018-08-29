@@ -1,5 +1,6 @@
 import { Path } from '@serenity-js/core/lib/io';
 
+import { Cache } from './Cache';
 import { FeatureFileMap } from './FeatureFileMap';
 import { FeatureFileMapper } from './FeatureFileMapper';
 import { FeatureFileParser } from './FeatureFileParser';
@@ -8,7 +9,7 @@ export class FeatureFileLoader {
     constructor(
         private readonly parser: FeatureFileParser,
         private readonly mapper: FeatureFileMapper,
-        private readonly cache: WeakMap<Path, FeatureFileMap> = new WeakMap(),
+        private readonly cache: Cache<Path, FeatureFileMap> = new Cache(),
     ) {
     }
 

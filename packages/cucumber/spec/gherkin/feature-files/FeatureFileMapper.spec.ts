@@ -20,8 +20,6 @@ describe('FeatureFileMapper', () => {
 
     const fixtures = new Path(__dirname).join(new Path('fixtures'));
 
-    // todo: parse tags
-
     describe('when mapping names and descriptions', () => {
 
         it('maps a feature', parse('names_and_descriptions.feature', map => {
@@ -187,7 +185,7 @@ describe('FeatureFileMapper', () => {
             const path = fixtures.join(new Path('scenario_outlines.feature'));
 
             expect(map.get(Scenario).onLine(14)).to.equal(new Scenario(
-                new FileSystemLocation(path, 14, 3),
+                new FileSystemLocation(path, 14, 7),
                 new Name('The one with examples'),
                 new Description('Description of the scenario with examples'),
                 [
@@ -196,10 +194,12 @@ describe('FeatureFileMapper', () => {
                         new Name('Given step with a value one'),
                     ),
                 ],
+                [],
+                new FileSystemLocation(path, 3, 3),
             ));
 
             expect(map.get(Scenario).onLine(15)).to.equal(new Scenario(
-                new FileSystemLocation(path, 15, 3),
+                new FileSystemLocation(path, 15, 7),
                 new Name('The one with examples'),
                 new Description('Description of the scenario with examples'),
                 [
@@ -208,6 +208,8 @@ describe('FeatureFileMapper', () => {
                         new Name('Given step with a value two'),
                     ),
                 ],
+                [],
+                new FileSystemLocation(path, 3, 3),
             ));
         }));
     });

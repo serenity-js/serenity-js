@@ -11,6 +11,7 @@ export class Scenario extends FeatureFileNode {
         public readonly description: Description,
         public readonly steps: Step[],
         public readonly tags: Tag[] = [],
+        public readonly outline?: FileSystemLocation,
     ) {
         super(location, name);
     }

@@ -1,4 +1,5 @@
 import { Constructable, Constructor } from '../constructables';
+import { ItemNotFoundError } from './errors';
 
 export class FeatureFileMap {
 
@@ -21,11 +22,11 @@ export class FeatureFileMap {
                 const found = this.map[line];
 
                 if (! found) {
-                    throw new Error(`Nothing was found on line ${ line }`);
+                    throw new ItemNotFoundError(`Nothing was found on line ${ line }`);
                 }
 
                 if (! (found instanceof type))  {
-                    throw new Error(`Item on line ${ line } is a ${ found.constructor.name }, not a ${ type.name }`);
+                    throw new ItemNotFoundError(`Item on line ${ line } is a ${ found.constructor.name }, not a ${ type.name }`);
                 }
 
                 return found as T;
@@ -41,7 +42,7 @@ export class FeatureFileMap {
         if (! found) {
             const existingTypes = items.map(item => item.constructor.name).join(', ') || 'no items.';
 
-            throw new Error(`Didn't find any ${ type.name } amongst ${ existingTypes }`);
+            throw new ItemNotFoundError(`Didn't find any ${ type.name } amongst ${ existingTypes }`);
         }
 
         return found;

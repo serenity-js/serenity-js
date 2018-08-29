@@ -100,12 +100,17 @@ export class FeatureFileMapper {
                                 new FileSystemLocation(
                                     path,
                                     values.location.line,
-                                    outline.location.column,
+                                    values.location.column,
                                 ),
                                 new Name(outline.name),
                                 outline.description && new Description(outline.description),
                                 steps,
                                 this.tagsFrom(document.feature.tags, outline.tags, examples.tags),
+                                new FileSystemLocation(
+                                    path,
+                                    outline.location.line,
+                                    outline.location.column,
+                                ),
                             )).onLine(values.location.line);
                         });
                     });

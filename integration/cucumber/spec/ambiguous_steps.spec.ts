@@ -17,12 +17,23 @@ describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    given(
-        cucumberVersions(1, 2)
-            .thatRequire('features/support/configure_serenity.ts')
+    given([
+        ...cucumberVersions(1, 2)
+            .thatRequires(
+                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'features/support/configure_serenity.ts',
+            )
             .withStepDefsIn('ambiguous')
             .toRun('features/passing_scenario.feature'),
-    ).
+
+        ...cucumberVersions(3)
+            .thatRequires('features/support/configure_serenity.ts')
+            .withStepDefsIn('ambiguous')
+            .withArgs(
+                '--format', 'node_modules/@serenity-js/cucumber',
+            )
+            .toRun('features/passing_scenario.feature'),
+    ]).
     it('recognises scenarios with ambiguous steps', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(1, logOutput)).
         then(res => {
@@ -40,7 +51,7 @@ describe('@serenity-js/cucumber', function() {
 
                     const lines = err.message.split('\n');
 
-                    expect(lines[0]).to.equal('Each step should have one matching step definition, yet there are several:');
+                    expect(lines[0]).to.equal('Multiple step definitions match:');
                     expect(lines[1]).to.contain('/^.*step (?:.*) passes$/');
                     expect(lines[1]).to.contain('ambiguous.steps.ts');
                     expect(lines[2]).to.contain('/^.*step (?:.*) passes$/');
@@ -51,7 +62,7 @@ describe('@serenity-js/cucumber', function() {
 
                     const err = (event.outcome as ExecutionFailedWithError).error;
 
-                    expect(err.message).to.equal('Ambiguous step definition detected');
+                    expect(err.message).to.match(/^Multiple step definitions match/);
                 })
             ;
         }));
