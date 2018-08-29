@@ -17,4 +17,7 @@ spawn(mocha, process.argv.slice(2), {
     stdio: 'inherit',
     shell: true,
     cwd: process.cwd()
+})
+.on('exit', code => {
+    process.exit(code);
 });
