@@ -1,8 +1,8 @@
-import { ASTNode } from './ASTNode';
 import { Comment } from './Comment';
 import { Feature } from './Feature';
 
-export interface GherkinDocument extends ASTNode {
-    feature: Feature;
+export interface GherkinDocument {
+    type: string;
+    feature?: Feature;
     comments: Comment[];
 }
