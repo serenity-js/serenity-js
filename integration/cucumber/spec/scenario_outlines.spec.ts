@@ -19,13 +19,13 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(1, 2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .toRun('features/scenario_outlines.feature'),
 
         ...cucumberVersions(3)
-            .thatRequires('features/support/configure_serenity.ts')
+            .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',

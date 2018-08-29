@@ -22,7 +22,7 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(1)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps marked as pending')
@@ -31,14 +31,14 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps marked as pending', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
         ...cucumberVersions(3)
-            .thatRequires('features/support/configure_serenity.ts')
+            .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
@@ -65,7 +65,7 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(1)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps that have not been implemented yet')
@@ -74,14 +74,14 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps that have not been implemented yet', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
         ...cucumberVersions(3)
-            .thatRequires('features/support/configure_serenity.ts')
+            .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
@@ -109,8 +109,8 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(1)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
-                'features/support/wip_hook.ts',
+                'lib/support/configure_serenity.js',
+                'lib/support/wip_hook.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario which tag marks it as pending')
@@ -119,8 +119,8 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
-                'features/support/wip_hook.ts',
+                'lib/support/configure_serenity.js',
+                'lib/support/wip_hook.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario which tag marks it as pending', '--no-strict')
@@ -148,8 +148,8 @@ describe('@serenity-js/cucumber', function() {
     given([
         ...cucumberVersions(3)
             .thatRequires(
-                'features/support/configure_serenity.ts',
-                'features/support/wip_hook.ts',
+                'lib/support/configure_serenity.js',
+                'lib/support/wip_hook.js',
             )
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
