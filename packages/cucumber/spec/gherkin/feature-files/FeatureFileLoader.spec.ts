@@ -5,7 +5,7 @@ import { Path } from '@serenity-js/core/lib/io';
 import * as sinon from 'sinon';
 
 import Gherkin = require('gherkin');
-import { FeatureFileLoader, FeatureFileMapper, FeatureFileParser } from '../../../src/gherkin'; // ts-node:disable-line:no-var-requires     No type definitions available
+import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../src/gherkin';
 
 describe('FeatureFileLoader', () => {
 
@@ -16,7 +16,7 @@ describe('FeatureFileLoader', () => {
         const
             parser = new FeatureFileParser(new Gherkin.Parser()),
             mapper = new FeatureFileMapper(),
-            cache = new WeakMap();
+            cache  = new Cache<Path, FeatureFileMap>();
 
         const
             parse = sinon.spy(parser, 'parse'),

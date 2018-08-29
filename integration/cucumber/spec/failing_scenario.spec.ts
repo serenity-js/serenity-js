@@ -17,12 +17,23 @@ describe('@serenity-js/cucumber', function() {
 
     this.timeout(5000);
 
-    given(
-        cucumberVersions(1, 2)
-            .thatRequire('features/support/configure_serenity.ts')
+    given([
+        ...cucumberVersions(1, 2)
+            .thatRequires(
+                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'features/support/configure_serenity.ts',
+            )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .toRun('features/failing_scenario.feature'),
-    ).
+
+        ...cucumberVersions(3)
+            .thatRequires('features/support/configure_serenity.ts')
+            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withArgs(
+                '--format', 'node_modules/@serenity-js/cucumber',
+            )
+            .toRun('features/failing_scenario.feature'),
+    ]).
     it('recognises a failing scenario', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(1, logOutput)).
         then(res => {

@@ -3,15 +3,15 @@ import { CucumberRunner } from './CucumberRunner';
 const flatten = <T>(a: T[][]): T[] => a.reduce((acc, current) => acc.concat(current), []);
 
 export class CucumberRunnerBuilder {
-    private runnerSpecificFiles: string[];
+    private requiredFiles: string[];
     private args: string[] = [];
     private stepDefs: string[] = [];
 
     constructor(private readonly versions: number[]) {
     }
 
-    thatRequire(...runnerSpecificFiles: string[]) {
-        this.runnerSpecificFiles = runnerSpecificFiles;
+    thatRequires(...requiredFiles: string[]) {
+        this.requiredFiles = requiredFiles;
 
         return this;
     }
@@ -36,7 +36,7 @@ export class CucumberRunnerBuilder {
 
         return examples.map(example => new CucumberRunner(
             example.version,
-            this.runnerSpecificFiles,
+            this.requiredFiles,
             example.step_interface,
             feature,
             this.args,
