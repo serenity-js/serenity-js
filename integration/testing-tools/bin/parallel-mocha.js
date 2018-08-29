@@ -4,11 +4,12 @@
 
 const
     { satisfies } = require('semver'),
-    { spawn } = require('child_process');
+    { spawn }     = require('child_process'),
+    isCI          = require('is-ci');
 
 const nodeRequiredForParallelExecution = require('mocha-parallel-tests/package').engines.node;
 
-const mocha = satisfies(process.versions.node, nodeRequiredForParallelExecution)
+const mocha = ! isCI && satisfies(process.versions.node, nodeRequiredForParallelExecution)
     ? require.resolve('mocha-parallel-tests/dist/bin/cli.js')
     : require.resolve('mocha/bin/mocha');
 

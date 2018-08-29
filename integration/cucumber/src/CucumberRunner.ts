@@ -22,7 +22,7 @@ export class CucumberRunner {
 
         return cucumberCli(
             ...runnerSpecificRequires,
-            '--require', `features/step_definitions/${ this.stepFile }.steps.ts`,
+            '--require', `lib/step_definitions/${ this.stepFile }.steps.js`,
             `../cucumber/${ this.featureFile }`,
             ...this.args,
         );

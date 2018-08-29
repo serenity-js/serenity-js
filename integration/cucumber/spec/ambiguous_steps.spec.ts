@@ -21,13 +21,13 @@ describe('@serenity-js/cucumber', function() {
         ...cucumberVersions(1, 2)
             .thatRequires(
                 'node_modules/@serenity-js/cucumber/lib/register.js',
-                'features/support/configure_serenity.ts',
+                'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('ambiguous')
             .toRun('features/passing_scenario.feature'),
 
         ...cucumberVersions(3)
-            .thatRequires('features/support/configure_serenity.ts')
+            .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('ambiguous')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
@@ -53,9 +53,9 @@ describe('@serenity-js/cucumber', function() {
 
                     expect(lines[0]).to.equal('Multiple step definitions match:');
                     expect(lines[1]).to.contain('/^.*step (?:.*) passes$/');
-                    expect(lines[1]).to.contain('ambiguous.steps.ts');
+                    expect(lines[1]).to.contain('ambiguous.steps.js');
                     expect(lines[2]).to.contain('/^.*step (?:.*) passes$/');
-                    expect(lines[2]).to.contain('ambiguous.steps.ts');
+                    expect(lines[2]).to.contain('ambiguous.steps.js');
                 })
                 .next(SceneFinished,       event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);

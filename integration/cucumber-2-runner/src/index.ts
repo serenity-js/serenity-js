@@ -14,6 +14,5 @@ const cucumberSpawner = spawner(
 );
 
 export = (...params: string[]): Promise<SpawnResult> => cucumberSpawner(
-    '--compiler', 'ts:ts-node/register',
     ...params,
 );
