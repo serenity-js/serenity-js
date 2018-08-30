@@ -5,6 +5,9 @@ notifications:
 node_js:
   - '6'
   - '8'
+cache:
+  directories:
+  - node_modules
 before_install: scripts/travis/before_install.sh
 before_script: scripts/travis/before_script.sh
 script: scripts/travis/script.sh
