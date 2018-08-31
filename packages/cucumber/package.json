@@ -56,10 +56,10 @@
   },
   "nyc": {
     "include": [
-      "src/*.ts",
       "src/**/*.ts"
     ],
     "exclude": [
+      "src/**/*.d.ts",
       "lib",
       "node_modules",
       "spec"
