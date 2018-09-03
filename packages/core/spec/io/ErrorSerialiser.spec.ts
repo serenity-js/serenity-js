@@ -3,6 +3,7 @@ import { expect } from '../expect';
 
 describe ('ErrorSerialiser', () => {
 
+    /** @test {ErrorSerialiser} */
     it('serialises an Error object to JSON', () => {
         const e = new Error(`Something happened`);
 
@@ -13,6 +14,7 @@ describe ('ErrorSerialiser', () => {
         });
     });
 
+    /** @test {ErrorSerialiser} */
     it('deserialises a serialised Error object from JSON', () => {
         const stack = [
             'Error: Something happened',
@@ -32,6 +34,7 @@ describe ('ErrorSerialiser', () => {
         expect(error.stack).to.equal(stack);
     });
 
+    /** @test {ErrorSerialiser} */
     it('deserialises the error object from a stack trace alone (Cucumber event protocol)', () => {
         const stack = `Error: Something's wrong\n    at World.<anonymous> (features/step_definitions/synchronous.steps.ts:9:15)`;
 

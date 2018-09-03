@@ -11,6 +11,12 @@ import { SceneReports } from './reports';
 import { SerenityBDDReport } from './SerenityBDDJsonSchema';
 import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneReportingStrategy } from './strategies';
 
+/**
+ * @desc Produces Serenity BDD-standard JSON reports.
+ * @see http://serenity-bdd.info/
+ *
+ * @access public
+ */
 export class SerenityBDDReporter implements StageCrewMember {
     private readonly reports: SceneReports = new SceneReports();
     private currentScenario = new Current<ScenarioDetails>();

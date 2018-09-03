@@ -64,6 +64,17 @@ describe('SerenityBDDReporter', () => {
         ))
     ;
 
+    /**
+     * @test {SerenityBDDReporter}
+     * @test {SceneSequenceDetected}
+     * @test {SceneTemplateDetected}
+     * @test {SceneParametersDetected}
+     * @test {ScenarioParameters}
+     * @test {SceneStarts}
+     * @test {SceneFinished}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinished}
+     */
     it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneSequenceDetected(sequence),
@@ -123,6 +134,18 @@ describe('SerenityBDDReporter', () => {
             .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);
     });
 
+    /**
+     * @test {SerenityBDDReporter}
+     * @test {SceneSequenceDetected}
+     * @test {SceneTemplateDetected}
+     * @test {SceneParametersDetected}
+     * @test {ScenarioParameters}
+     * @test {SceneStarts}
+     * @test {SceneFinished}
+     * @test {ExecutionFailedWithError}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinished}
+     */
     it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneSequenceDetected(sequence),

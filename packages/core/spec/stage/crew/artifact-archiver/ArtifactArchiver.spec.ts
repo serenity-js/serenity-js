@@ -9,6 +9,7 @@ import { ArtifactArchiver, StageManager } from '../../../../src/stage';
 import { expect } from '../../../expect';
 import { photo } from '../samples';
 
+/** @test {ArtifactArchiver} */
 describe('ArtifactArchiver', () => {
 
     let stageManager:   StageManager,
@@ -36,6 +37,10 @@ describe('ArtifactArchiver', () => {
             expectedJsonFilename = [ artifactName.value, FileType.JSON.extesion.value ].join('.'),
             expectedPngFilename  = [ artifactName.value, FileType.PNG.extesion.value ].join('.');
 
+        /**
+         * @test {ArtifactArchiver}
+         * @test {ArtifactGenerated}
+         */
         it('notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled', () => {
             stageManager.notifyOf(
                 new ArtifactGenerated(new Artifact(artifactName, FileType.JSON, json)),
@@ -44,6 +49,10 @@ describe('ArtifactArchiver', () => {
             return expect(stageManager.waitForNextCue()).to.be.fulfilled;
         });
 
+        /**
+         * @test {ArtifactArchiver}
+         * @test {ArtifactGenerated}
+         */
         it('notifies the StageManager when an artifact cannot be saved so that the promise of a stage cue can be rejected', () => {
             fs.store.returns(Promise.reject(new Error('Something happened')));
 
@@ -54,6 +63,10 @@ describe('ArtifactArchiver', () => {
             return expect(stageManager.waitForNextCue()).to.be.rejected;
         });
 
+        /**
+         * @test {ArtifactArchiver}
+         * @test {ArtifactGenerated}
+         */
         it('correctly saves JSON content to a file', () => {
             stageManager.notifyOf(
                 new ArtifactGenerated(new Artifact(artifactName, FileType.JSON, json)),
@@ -64,6 +77,10 @@ describe('ArtifactArchiver', () => {
             });
         });
 
+        /**
+         * @test {ArtifactArchiver}
+         * @test {ArtifactGenerated}
+         */
         it('correctly saves PNG content to a file', () => {
             stageManager.notifyOf(
                 new ArtifactGenerated(new Artifact(artifactName, FileType.PNG, photo.value)),
@@ -85,6 +102,9 @@ describe('ArtifactArchiver', () => {
 
         const someEvent = new SomeEvent();
 
+        /**
+         * @test {ArtifactArchiver}
+         */
         it(`ignores them`, () => {
             fs           = sinon.createStubInstance(FileSystem);
             stageManager = sinon.createStubInstance(StageManager) as any;

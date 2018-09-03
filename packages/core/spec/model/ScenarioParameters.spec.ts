@@ -4,12 +4,13 @@ import { Serialised } from 'tiny-types';
 import { Description, Name, ScenarioParameters } from '../../src/model';
 import { expect } from '../expect';
 
-describe('Parameters', () => {
+describe('ScenarioParameters', () => {
 
     const
         name = new Name('set of examples'),
         desciption = new Description('description of the examples');
 
+    /** @test {ScenarioParameters} */
     it('can be instantiated using a plain-old JavaScript object', () => {
 
         const parameters = { Dev: 'jan-molak' };
@@ -18,6 +19,7 @@ describe('Parameters', () => {
         expect(scenarioParameters.values).to.deep.equal(parameters);
     });
 
+    /** @test {ScenarioParameters} */
     it('can be serialised to JSON', () => {
         const parameters = { Dev: 'jan-molak' };
         const scenarioParameters = new ScenarioParameters(name, desciption, parameters);
@@ -29,6 +31,7 @@ describe('Parameters', () => {
         });
     });
 
+    /** @test {ScenarioParameters} */
     it('can be deserialised from JSON', () => {
         const parameters = { Dev: 'jan-molak' };
 

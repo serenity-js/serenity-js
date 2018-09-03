@@ -1,6 +1,9 @@
 import { ensure, isDefined, isString, Serialised, TinyType } from 'tiny-types';
-import * as TagTypes from './types';
+import * as TagTypes from './index';
 
+/**
+ * @access public
+ */
 export abstract class Tag extends TinyType {
     static fromJSON(o: Serialised<Tag>) {
         const type: string = ensure('serialised tag type', o.type, isDefined(), isString()) as string;

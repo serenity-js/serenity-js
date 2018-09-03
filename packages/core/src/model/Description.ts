@@ -3,7 +3,9 @@ import { ensure, isDefined, TinyType } from 'tiny-types';
 export class Description extends TinyType {
     public readonly value: string;
 
-    static fromJSON = (v: string) => new Description(v);
+    static fromJSON(v: string) {
+        return new Description(v);
+    }
 
     constructor(value: string) {
         super();

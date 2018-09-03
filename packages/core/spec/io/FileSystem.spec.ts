@@ -4,6 +4,7 @@ import * as mockfs from 'mock-fs';
 import { FileSystem, Path } from '../../src/io';
 import { expect } from '../expect';
 
+/** @test {FileSystem} */
 describe ('FileSystem', () => {
 
     const

@@ -6,6 +6,7 @@ import { expect } from '../expect';
 
 describe ('Artifact', () => {
 
+    /** @test {Artifact} */
     it('can be serialised and deserialised', () => {
 
         const artifact = new Artifact(

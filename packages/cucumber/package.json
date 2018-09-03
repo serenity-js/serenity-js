@@ -23,7 +23,7 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "nyc --report-dir ../../target/coverage/cucumber mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json"

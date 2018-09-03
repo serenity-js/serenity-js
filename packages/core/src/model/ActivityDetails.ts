@@ -3,7 +3,7 @@ import { Serialised, TinyType } from 'tiny-types';
 import { Name } from './Name';
 
 export class ActivityDetails extends TinyType {
-    static fromJSON = (v: string) => {
+    static fromJSON(v: string) {
         return new ActivityDetails(
             Name.fromJSON(v),
         );

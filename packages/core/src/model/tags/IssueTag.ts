@@ -1,5 +1,8 @@
-import { Tag } from '../Tag';
+import { Tag } from './Tag';
 
+/**
+ * @access public
+ */
 export class IssueTag extends Tag {
     static readonly Type = 'issue';
 

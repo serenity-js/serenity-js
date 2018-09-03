@@ -19,6 +19,7 @@ describe('Actor', () => {
         guitar = sinon.createStubInstance(AcousticGuitar);
     });
 
+    /** @test {Actor} */
     it('can be identified by their name', () => {
 
         const actor = Actor.named('Chris');
@@ -26,6 +27,7 @@ describe('Actor', () => {
         expect(actor.toString()).to.equal('Chris');
     });
 
+    /** @test {Actor} */
     it('has Abilities allowing them to perform Activities and interact with a given Interface of the system under test', () =>
 
         Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -35,6 +37,7 @@ describe('Actor', () => {
             expect(guitar.play).to.have.been.calledWith(Chords.AMajor);
         }));
 
+    /** @test {Actor} */
     it('performs composite Tasks recursively to accomplish their Business Goals', () =>
 
         Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -47,6 +50,7 @@ describe('Actor', () => {
         }));
 
     describe('asks Questions about the state of the system', () => {
+        /** @test {Actor} */
         it('fulfills the promise should the question be answered as expected', () => {
             guitar.availableStrings.returns(Promise.resolve(['E2', 'A2', 'D3', 'G3', 'B3', 'E4' ]));
 
@@ -56,6 +60,7 @@ describe('Actor', () => {
             )).to.be.fulfilled;
         });
 
+        /** @test {Actor} */
         it('rejects the promise should the answer differ from what was expected', () => {
             const oneStringMissing = ['E2', 'A2', 'D3', 'G3', 'B3' ];
             guitar.availableStrings.returns(Promise.resolve(oneStringMissing));
@@ -67,6 +72,7 @@ describe('Actor', () => {
         });
     });
 
+    /** @test {Actor} */
     it('admits if it does not have the Ability necessary to accomplish a given Interaction', () =>
 
         expect(Actor.named('Ben').attemptsTo(
@@ -98,18 +104,19 @@ describe('Actor', () => {
                 new Name('Bob plays the chord of A'),
             );
 
+            /** @test {Actor} */
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayAChord.of(Chords.AMajor),
-            ).
-            then(() => {
+            ).then(() => {
                 expect(recorder.events).to.have.lengthOf(2);
 
-                expect(recorder.events[0]).to.equal(new ActivityStarts(details, clock.now()));
+                expect(recorder.events[ 0 ]).to.equal(new ActivityStarts(details, clock.now()));
 
-                expect(recorder.events[1]).to.equal(new ActivityFinished(details, new ExecutionSuccessful(), clock.now()));
+                expect(recorder.events[ 1 ]).to.equal(new ActivityFinished(details, new ExecutionSuccessful(), clock.now()));
             }));
         });
 
+        /** @test {Actor} */
         it('reacts to events and changes its behaviour');
     });
 });

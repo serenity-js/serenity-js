@@ -4,6 +4,7 @@ import { given } from 'mocha-testdata';
 import { Duration } from '../../src/model';
 import { expect } from '../expect';
 
+/** @test {Duration} */
 describe('Duration', () => {
 
     describe('represents a duration of time that', () => {

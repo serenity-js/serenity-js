@@ -13,6 +13,9 @@ import { ActivityDetails, ScenarioDetails } from '../../../../model';
 import { SceneReport } from '../reports';
 import { SceneReportingStrategy } from './SceneReportingStrategy';
 
+/**
+ * @access package
+ */
 export class SceneSequenceReportingStrategy extends SceneReportingStrategy {
 
     worksFor(anotherScenario: ScenarioDetails): boolean {
