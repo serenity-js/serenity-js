@@ -4,6 +4,7 @@ import { given } from 'mocha-testdata';
 import { Duration, Timestamp } from '../../src/model';
 import { expect } from '../expect';
 
+/** @test {Timestamp} */
 describe('Timestamp', () => {
 
     const
@@ -13,10 +14,12 @@ describe('Timestamp', () => {
 
     describe('instantiation', () => {
 
+        /** @test {Timestamp} */
         it('can be instantiated with an arbitrary Date', () => {
             expect(() => new Timestamp(new Date())).to.not.throw;            // tslint:disable-line:no-unused-expression
         });
 
+        /** @test {Timestamp} */
         it('defaults to current time if no argument is provided', () => {
             expect(() => new Timestamp()).to.not.throw;                      // tslint:disable-line:no-unused-expression
         });
@@ -33,10 +36,12 @@ describe('Timestamp', () => {
 
     describe('serialisation', () => {
 
+        /** @test {Timestamp} */
         it('is serialised to an ISO-8601-compliant string', () => {
             expect(now.toJSON()).to.equal(current_time_ISO8601);
         });
 
+        /** @test {Timestamp} */
         it('can be deserialised from an ISO-8601-compliant string', () => {
             expect(Timestamp.fromJSON(current_time_ISO8601).equals(now)).to.equal(true);
         });
@@ -56,6 +61,7 @@ describe('Timestamp', () => {
 
     describe('arithmetic', () => {
 
+        /** @test {Timestamp} */
         it('allows for calculating a difference between two timestamps', () => {
 
             const a_bit_later = Timestamp.fromJSON('2018-05-01T12:00:02.752Z');
@@ -64,6 +70,7 @@ describe('Timestamp', () => {
             expect(a_bit_later.diff(now).equals(Duration.ofMillis(2752))).to.equal(true);
         });
 
+        /** @test {Timestamp} */
         it('allows for computing another timestamp, relative to the original one', () => {
 
             const
@@ -76,10 +83,12 @@ describe('Timestamp', () => {
 
     describe('conversion', () => {
 
+        /** @test {Timestamp} */
         it('can be converted to a numeric unix timestamp', () => {
             expect(now.toMillisecondTimestamp()).to.equal(Math.floor(now.value.getTime()));
         });
 
+        /** @test {Timestamp} */
         it('can be created from a numeric unix timestamp', () => {
             expect(Timestamp.fromMillisecondTimestamp(Math.floor(now.value.getTime())).toMillisecondTimestamp())
                 .to.equal(now.toMillisecondTimestamp());

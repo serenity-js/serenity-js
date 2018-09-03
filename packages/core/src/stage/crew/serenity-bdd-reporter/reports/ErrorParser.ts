@@ -1,5 +1,6 @@
 import * as ErrorStackParser from 'error-stack-parser';
 
+/** @access package */
 export class ErrorParser {
     parse(error: Error) {
         return {

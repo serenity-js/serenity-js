@@ -5,6 +5,7 @@ import { Serialised } from 'tiny-types';
 import { FileSystemLocation, Path } from '../../src/io';
 import { expect } from '../expect';
 
+/** @test {FileSystemLocation} */
 describe ('FileSystemLocation', () => {
 
     const path = new Path('/home/jan/file.json');

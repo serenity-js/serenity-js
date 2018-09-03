@@ -5,6 +5,9 @@ import { ScenarioDetails } from '../../../../model';
 import { SceneReport } from '../reports';
 import { SceneReportingStrategy } from './SceneReportingStrategy';
 
+/**
+ * @access package
+ */
 export class SingleSceneReportingStrategy extends SceneReportingStrategy {
     worksFor(anotherScenario: ScenarioDetails): boolean {
         return this.scenario.equals(anotherScenario);

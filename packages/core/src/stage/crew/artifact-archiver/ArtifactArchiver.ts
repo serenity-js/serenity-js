@@ -13,6 +13,11 @@ import { CorrelationId, Description } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 
+/**
+ * @desc Stores any {@link Artifact}s emitted through {@link ArtifactGenerated} events on the {@link FileSystem}
+ *
+ * @access public
+ */
 export class ArtifactArchiver implements StageCrewMember {
     private stageManager: StageManager;
 

@@ -2,7 +2,7 @@ import 'mocha';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
 import { CorrelationId, Description, Duration } from '../../src/model';
-import { StageCrewMember, StageManager } from '../../src/stage';
+import { StageManager } from '../../src/stage';
 
 import { expect } from '../expect';
 import { Recorder } from '../Recorder';
@@ -17,6 +17,7 @@ describe('StageManager', () => {
 
     const testEvent = new TestEvent();
 
+    /** @test {StageManager} */
     it('broadcasts the domain event it receives to all the registered subscribers', () => {
 
         const stageManager = new StageManager();
@@ -34,6 +35,11 @@ describe('StageManager', () => {
         expect(crewMember2.events[0]).to.be.instanceOf(TestEvent);
     });
 
+    /**
+     * @test {StageManager}
+     * @test {AsyncOperationAttempted}
+     * @test {AsyncOperationCompleted}
+     */
     it('keeps track of the work in progress', () => {
 
         const stageManager = new StageManager();
@@ -52,6 +58,10 @@ describe('StageManager', () => {
         return expect(stageManager.waitForNextCue()).to.be.fulfilled;
     });
 
+    /**
+     * @test {StageManager}
+     * @test {AsyncOperationAttempted}
+     */
     it('provides details should the work in progress fail to complete', () => {
 
         const timeout       = Duration.ofMillis(250);
@@ -78,6 +88,11 @@ describe('StageManager', () => {
         });
     });
 
+    /**
+     * @test {StageManager}
+     * @test {AsyncOperationAttempted}
+     * @test {AsyncOperationFailed}
+     */
     it('provides details should the work in progress fail with an error', () => {
 
         const timeout       = Duration.ofMillis(100);

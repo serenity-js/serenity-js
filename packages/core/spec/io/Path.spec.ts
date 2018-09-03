@@ -1,11 +1,11 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
-import { Serialised } from 'tiny-types';
 
 import { Path } from '../../src/io';
 import { expect } from '../expect';
 
-describe ('FileSystemLocation', () => {
+/** @test {Path} */
+describe ('Path', () => {
 
     it('can be serialised and deserialised', () => {
         const path = new Path('/home/jan/file.json');

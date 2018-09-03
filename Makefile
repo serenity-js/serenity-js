@@ -20,3 +20,6 @@ verify:
 
 report:
 	npm run report
+
+site:
+	npm run site

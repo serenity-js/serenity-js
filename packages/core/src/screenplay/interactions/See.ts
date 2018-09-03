@@ -4,7 +4,9 @@ export type PromisedAssertion<A> = (actual: A) => PromiseLike<any>;
 export type Assertion<A>         = (actual: A) => void;
 
 export class See<S> implements Interaction {
-    static if = <T>(question: Question<T>, assertion: Assertion<T> | PromisedAssertion<T>) => new See<T>(question, assertion);
+    static if<T>(question: Question<T>, assertion: Assertion<T> | PromisedAssertion<T>) {
+        return new See<T>(question, assertion);
+    }
 
     constructor(
         private question: Question<S>,

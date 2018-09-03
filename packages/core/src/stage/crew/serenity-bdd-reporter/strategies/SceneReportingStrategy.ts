@@ -12,6 +12,9 @@ import {
 import { Photo, ScenarioDetails } from '../../../../model';
 import { SceneReport } from '../reports';
 
+/**
+ * @access package
+ */
 export abstract class SceneReportingStrategy {
 
     constructor(protected readonly scenario: ScenarioDetails) {

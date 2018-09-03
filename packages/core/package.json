@@ -23,10 +23,11 @@
     "screenplay"
   ],
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "nyc --report-dir ../../target/coverage/core mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json"
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
   },
   "dependencies": {
     "cuid": "2.1.1",

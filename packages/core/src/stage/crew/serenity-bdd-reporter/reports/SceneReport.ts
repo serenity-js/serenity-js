@@ -27,8 +27,12 @@ import {
 import { IDGenerator } from './IDGenerator';
 import { OutcomeMapper } from './OutcomeMapper';
 
-const extractValues = <T>(dictionary: {[key: string]: T}) => Object.keys(dictionary).map(key => dictionary[key]);
+/** @access private */
+function extractValues<T>(dictionary: {[key: string]: T}) {
+    return Object.keys(dictionary).map(key => dictionary[key]);
+}
 
+/** @access private */
 interface ScenarioParametersResultLocation {
     parameters: ScenarioParameters;
     line: number;
@@ -36,6 +40,7 @@ interface ScenarioParametersResultLocation {
     outcome?: Outcome;
 }
 
+/** @access package */
 export class SceneReport {
     private static outcomeMapper = new OutcomeMapper();
     private static idGenerator = new IDGenerator();
@@ -278,6 +283,7 @@ export class SceneReport {
     }
 }
 
+/** @access private */
 class RememberingStack<T> {
     private readonly items: T[] = [];
     private mostRecent: T = undefined;

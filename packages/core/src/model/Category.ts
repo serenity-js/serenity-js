@@ -1,5 +1,7 @@
 import { TinyType, TinyTypeOf } from 'tiny-types';
 
 export class Category extends TinyTypeOf<string>() {
-    static fromJSON = (v: string) => new Category(v);
+    static fromJSON(v: string) {
+        return new Category(v);
+    }
 }
