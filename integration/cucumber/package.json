@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "Cucumber JS 1.x integration tests",
   "author": {
-    "name" : "Jan Molak",
-    "email" : "jan.molak@smartcodeltd.co.uk",
-    "url" : "https://janmolak.com"
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
   },
   "homepage": "http://serenity-js.org",
   "license": "Apache-2.0",
@@ -31,12 +31,14 @@
     "npm": ">= 3"
   },
   "dependencies": {
-    "@integration/testing-tools": "*",
     "@integration/cucumber-1-runner": "*",
     "@integration/cucumber-2-runner": "*",
     "@integration/cucumber-3-runner": "*",
     "@integration/cucumber-4-runner": "*",
+    "@integration/testing-tools": "*",
     "@serenity-js/core": "*",
-    "@serenity-js/cucumber": "*"
+    "@serenity-js/cucumber": "*",
+    "metalsmith-sass": "^1.5.1",
+    "metalsmith-uglify": "^2.3.0"
   }
 }
