@@ -1,0 +1,35 @@
+---
+title: Serenity/JS modules
+layout: default.hbs
+---
+<section class="block block-bb">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="block-title">Serenity/JS modules</h2>
+            <p>Build state of the art acceptance tests with Serenity/JS modules</p>
+        </div>
+
+        {{#inGroupsOf 3 modules}}
+        <div class="row">
+
+            {{#each this }}
+            <div class="col-md-4">
+
+                    <div class="box mb-4">
+                        <div class="box-head box-head-sm box-head-accent-2"></div>
+                        <div class="box-block box-bx box-bb">
+                            <h2><a href="{{ href }}">{{ shortName }}</a></h2>
+                            <p>
+                              {{ description }}
+                            </p>
+                            <p>
+                                <a href="{{ href }}">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/inGroupsOf}}
+    </div>
+</section>

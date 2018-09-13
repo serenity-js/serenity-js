@@ -1,0 +1,40 @@
+@import "api-docs/style.scss";
+
+$accent-1: #fdd20a !default;
+$accent-2: #454545 !default;
+//$primary: #2284fe !default;
+//$secondary: #78baf8 !default;
+//$success: $accent-1 !default;
+//$info: #5a7ec5 !default;
+//$warning: #f0a249 !default;
+//$danger: #fc2344 !default;
+//$light: #e5e5e5 !default;
+//$dark: #3b3b3b !default;
+
+.web-nav {
+  a,
+  a:hover,
+  a:focus,
+  a:active {
+    border-bottom: none;
+  }
+
+  .serenity-js-logo {
+    display: block;
+    padding-top: 6px;
+
+    .logo-accent {
+      fill: $accent-1;
+    }
+
+    .logo-base {
+      fill: $accent-2;
+    }
+
+    @media (min-width: 992px) {
+      .logo-base {
+        fill: #fff;
+      }
+    }
+  }
+}
