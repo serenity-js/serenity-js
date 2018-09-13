@@ -30,7 +30,9 @@ import { StageManager } from '@serenity-js/core/lib/stage';
 import { Feature, Scenario, ScenarioOutline, Step } from '../gherkin';
 import { FeatureFileNode } from '../gherkin/model/FeatureFileNode';
 
-const notEmpty = <T>(list: T[]) => list.filter(item => !! item);
+function notEmpty<T>(list: T[]) {
+    return list.filter(item => !! item);
+}
 
 export class Notifier {
     constructor(private readonly stageManager: StageManager) {
