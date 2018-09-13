@@ -14,11 +14,11 @@ import { Dependencies } from './Dependencies';
 
 export = function({ notifier, loader, cache }: Dependencies) {
     return function() {
-        this.registerHandler('BeforeFeature', (feature, callback) => {
+        this.registerHandler('BeforeFeature', function(feature, callback) {
             loader.load(get(feature, 'uri').as(Path)).then(_ => callback(), error => callback(error));
         });
 
-        this.registerHandler('BeforeScenario', scenario => {
+        this.registerHandler('BeforeScenario', function(scenario) {
             const
                 path  = get(scenario, 'uri').as(Path),
                 line  = get(scenario, 'line').value() as number,
@@ -34,7 +34,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
         });
 
-        this.registerHandler('BeforeStep', step => {
+        this.registerHandler('BeforeStep', function(step) {
             if (shouldIgnore(step)) {
                 return void 0;
             }
@@ -46,7 +46,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.stepStarts(findStepMatching(step, cache.get(path)));
         });
 
-        this.registerHandler('StepResult', result => {
+        this.registerHandler('StepResult', function(result) {
             const
                 step     = get(result, 'step').value(),
                 scenario = get(step, 'scenario').value(),
@@ -59,7 +59,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
         });
 
-        this.registerHandler('ScenarioResult', result => {
+        this.registerHandler('ScenarioResult', function(result) {
 
             const
                 scenario = get(result, 'scenario').value(),
@@ -71,7 +71,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
-        this.registerHandler('AfterScenario', (scenario, callback) => {
+        this.registerHandler('AfterScenario', function(scenario, callback) {
             serenity.stageManager.waitForNextCue()
                 .then(() => callback(), error => callback(error));
         });
@@ -93,7 +93,9 @@ function get(object, property) {
         : object[property];
 
     return ({
-        as: <T>(type: { new (v: any): T}): T => new type(value),
+        as: function<T>(type: { new (v: any): T}): T {  // tslint:disable-line:object-literal-shorthand esdoc doesn't understand generic anonymous functions
+            return new type(value);
+        },
         value: () => value,
     });
 }

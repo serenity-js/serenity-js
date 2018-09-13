@@ -9,13 +9,13 @@ layout: default.hbs
             <p>Build state of the art acceptance tests with Serenity/JS modules</p>
         </div>
 
-        {{#inGroupsOf 3 modules}}
+        {{#inGroupsOf 2 modules}}
         <div class="row">
 
             {{#each this }}
-            <div class="col-md-4">
+            <div class="col-md-6">
 
-                    <div class="box mb-4">
+                    <div class="box mb-6">
                         <div class="box-head box-head-sm box-head-accent-2"></div>
                         <div class="box-block box-bx box-bb">
                             <h2><a href="{{ href }}">{{ shortName }}</a></h2>
