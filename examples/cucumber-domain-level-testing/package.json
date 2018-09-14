@@ -1,0 +1,48 @@
+{
+  "name": "@serenity-js-examples/cucumber-domain-level-testing",
+  "version": "0.0.0",
+  "description": "Example implementation",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test:update-serenity": "serenity update",
+    "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber --require ./features/step_definitions/domain-level.steps.ts --require ./features/support/configure_serenity.ts",
+    "test:report": "serenity run",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "verify": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "devDependencies": {
+    "@serenity-js/core": "*",
+    "@serenity-js/cucumber": "*",
+    "@serenity-js-examples/calculator-app": "*",
+    "@types/cucumber": "4.0.4",
+    "cucumber": "4.2.1",
+    "npm-failsafe": "0.4.1",
+    "serenity-cli": "0.11.0",
+    "ts-node": "7.0.1"
+  }
+}
