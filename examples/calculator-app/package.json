@@ -1,0 +1,43 @@
+{
+  "name": "@serenity-js-examples/calculator-app",
+  "version": "0.0.0",
+  "description": "An example of a full-stack app under test",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf lib target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "compile": "tsc --project tsconfig.json",
+    "verify": "npm test || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "devDependencies": {
+    "ts-node": "7.0.1"
+  },
+  "dependencies": {
+    "tiny-types": "^1.11.3",
+    "cuid": "2.1.4"
+  }
+}

@@ -1,4 +1,4 @@
-import { Given, When, TableDefinition, Then } from 'cucumber';
+import { Given, TableDefinition, Then, When } from 'cucumber';
 
 Given(/^.*step.*passes$/, function() {
     return Promise.resolve();
