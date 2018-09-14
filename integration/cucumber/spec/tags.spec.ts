@@ -20,7 +20,7 @@ describe('@serenity-js/cucumber', function() {
             .withArgs('--name', 'A tagged scenario')
             .toRun('features/tags.feature'),
 
-        ...cucumberVersions(3, 4)
+        ...cucumberVersions(3, 4, 5)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
@@ -51,7 +51,7 @@ describe('@serenity-js/cucumber', function() {
             .withArgs('--name', 'More tagged scenarios')
             .toRun('features/tags.feature'),
 
-        ...cucumberVersions(3, 4)
+        ...cucumberVersions(3, 4, 5)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(

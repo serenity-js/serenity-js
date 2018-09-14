@@ -24,7 +24,7 @@ describe('@serenity-js/cucumber', function() {
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .toRun('features/scenario_outlines.feature'),
 
-        ...cucumberVersions(3, 4)
+        ...cucumberVersions(3, 4, 5)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(

@@ -1,7 +1,9 @@
 {
-  "name": "@integration/testing-tools",
+  "name": "@integration/cucumber-5-runner",
   "version": "0.0.0",
-  "description": "Internal module to help test integration of Serenity/JS with test runners and frameworks",
+  "description": "Cucumber JS 5.x test runner",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,18 +15,10 @@
   "config": {
     "access": "private"
   },
-  "bin": {
-    "parallel-mocha": "bin/parallel-mocha.js"
-  },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "keywords": [
-    "serenity-js",
-    "internal"
-  ],
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "exit 0",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {
@@ -38,15 +32,13 @@
     "node": ">= 6.9.x",
     "npm": ">= 3"
   },
-  "peerDependencies": {
-    "@serenity-js/core": "*"
+  "dependencies": {
+    "@integration/testing-tools": "*",
+    "@serenity-js/core": "*",
+    "@serenity-js/cucumber": "*",
+    "cucumber": "5.0.0"
   },
   "devDependencies": {
-    "@serenity-js/core": "*"
-  },
-  "dependencies": {
-    "chai": "4.1.2",
-    "chai-as-promised": "7.1.1",
-    "tiny-types": "1.11.2"
+    "@types/cucumber": "4.0.4"
   }
 }
