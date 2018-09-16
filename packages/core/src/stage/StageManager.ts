@@ -28,6 +28,7 @@ export class StageManager {
 
     register(...stageCrewMembers: StageCrewMember[]) {
         stageCrewMembers.forEach(stageCrewMember => {
+            stageCrewMember.assignTo(this);
             this.subscribers.push(stageCrewMember);
         });
     }

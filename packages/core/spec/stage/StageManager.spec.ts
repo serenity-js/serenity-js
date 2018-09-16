@@ -24,8 +24,7 @@ describe('StageManager', () => {
         const crewMember1 = new Recorder();
         const crewMember2 = new Recorder();
 
-        crewMember1.assignTo(stageManager);
-        crewMember2.assignTo(stageManager);
+        stageManager.register(crewMember1, crewMember2);
 
         stageManager.notifyOf(testEvent);
 

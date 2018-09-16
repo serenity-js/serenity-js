@@ -21,7 +21,7 @@ describe('@serenity-js/cucumber', function() {
     given([
         ...cucumberVersions(1)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -30,7 +30,7 @@ describe('@serenity-js/cucumber', function() {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -41,7 +41,7 @@ describe('@serenity-js/cucumber', function() {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber',
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
                 '--name', 'A scenario with steps marked as pending',
                 '--no-strict',
             )
@@ -65,7 +65,7 @@ describe('@serenity-js/cucumber', function() {
     given([
         ...cucumberVersions(1)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -74,7 +74,7 @@ describe('@serenity-js/cucumber', function() {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -85,7 +85,7 @@ describe('@serenity-js/cucumber', function() {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber',
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
                 // '--no-strict',                       // cucumber 3 ignores the --no-strict mode
                 '--name', 'A scenario with steps that have not been implemented yet',
             )
@@ -109,7 +109,7 @@ describe('@serenity-js/cucumber', function() {
     given([
         ...cucumberVersions(1)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
@@ -119,7 +119,7 @@ describe('@serenity-js/cucumber', function() {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
@@ -154,7 +154,7 @@ describe('@serenity-js/cucumber', function() {
             )
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber',
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
                 '--name', 'A scenario which tag marks it as pending',
                 // '--no-strict',
             )

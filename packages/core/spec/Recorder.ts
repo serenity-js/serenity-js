@@ -6,7 +6,7 @@ export class Recorder implements StageCrewMember {
     public readonly events: DomainEvent[] = [];
 
     assignTo(stageManager: StageManager) {
-        stageManager.register(this);
+        // no-op
     }
 
     notifyOf(event: DomainEvent) {

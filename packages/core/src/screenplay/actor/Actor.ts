@@ -21,9 +21,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     // todo: there could be a dry-run mode that default to skip strategy
 
     constructor(
-        private readonly name: string,
-        private readonly stageManager: StageManager,
-        private readonly clock: Clock,
+        public readonly name: string,
+        private stageManager: StageManager,        // todo: this may need to be set by the stage
+        private clock: Clock,                      // todo: this may need to be set by the stage
     ) {
     }
 
@@ -37,6 +37,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     attemptsTo(...activities: Activity[]): Promise<void> {
+        // todo: if there are no activities, make it a PendingActivity
         return activities
             .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))
             .reduce((previous: Promise<void>, current: Activity) => {
