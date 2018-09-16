@@ -1,6 +1,6 @@
 import { serenity } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { ArtifactArchiver, ConsoleReporter, DebugReporter, SerenityBDDReporter, Stage } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver, ConsoleReporter, SerenityBDDReporter, Stage } from '@serenity-js/core/lib/stage';
 
 import { setDefaultTimeout, setWorldConstructor } from 'cucumber';
 import { Actors } from './Actors';
@@ -20,5 +20,5 @@ setWorldConstructor(function(this: WithStage, { parameters }) {
 serenity.stageManager.register(
     new ArtifactArchiver(new FileSystem(new Path('./target/site/serenity'))),
     new SerenityBDDReporter(),
-    new ConsoleReporter(process.stdout),
+    new ConsoleReporter(),
 );

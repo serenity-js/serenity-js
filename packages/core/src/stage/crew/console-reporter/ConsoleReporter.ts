@@ -30,8 +30,8 @@ export class ConsoleReporter implements StageCrewMember {
     private spacesPerIntend = 2;
 
     constructor(
-        private readonly stdout: WriteStream,
-        private readonly stderr: WriteStream = stdout,
+        private readonly stdout: WriteStream = process.stdout,
+        private readonly stderr: WriteStream = process.stderr,
     ) {
     }
 
