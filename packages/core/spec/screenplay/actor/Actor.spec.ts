@@ -93,7 +93,7 @@ describe('Actor', () => {
             stageManager = new StageManager(Duration.ofMillis(250), clock);
 
             recorder = new Recorder();
-            recorder.assignTo(stageManager);
+            stageManager.register(recorder);
 
             Bob = new Actor('Bob', stageManager, clock);
         });

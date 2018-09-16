@@ -8,7 +8,6 @@ export class ChildProcessReporter implements StageCrewMember {
 
     assignTo(stageManager: StageManager) {
         this.stageManager = stageManager;
-        this.stageManager.register(this);
     }
 
     notifyOf(event: DomainEvent): void {

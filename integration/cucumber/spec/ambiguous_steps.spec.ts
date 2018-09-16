@@ -20,7 +20,7 @@ describe('@serenity-js/cucumber', function() {
     given([
         ...cucumberVersions(1, 2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/lib/register.js',
+                'node_modules/@serenity-js/cucumber/register.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('ambiguous')
@@ -30,7 +30,7 @@ describe('@serenity-js/cucumber', function() {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('ambiguous')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber',
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
             )
             .toRun('features/passing_scenario.feature'),
     ]).

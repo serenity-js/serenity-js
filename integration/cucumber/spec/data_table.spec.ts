@@ -23,7 +23,7 @@ describe('@serenity-js/cucumber', function() {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber',
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
             )
             .toRun('features/data_table.feature'),
     ]).

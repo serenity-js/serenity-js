@@ -1,6 +1,7 @@
 import { Name } from '../../model';
 import { Activity } from '../Activity';
 
+/** @access package */
 export class ActivityDescriber {
 
     // todo: if the name can't be determined, make one up
