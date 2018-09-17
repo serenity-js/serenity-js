@@ -5,14 +5,14 @@ import {
     AdditionOperator,
     CalculationId,
     DivisionOperator,
-    EnterOperand,
+    EnterOperandCommand,
     GetCalculationResult,
     LeftParenthesisOperator,
     MultiplicationOperator,
     Operand,
     RightParenthesisOperator,
     SubtractionOperator,
-    UseOperator,
+    UseOperatorCommand,
 } from '../src/domain';
 
 import { expect } from './expect';
@@ -31,9 +31,9 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(4);
         });
@@ -42,9 +42,9 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(3), calculationId));
-            calculator.execute(new UseOperator(new SubtractionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
+            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(1);
         });
@@ -53,9 +53,9 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(3), calculationId));
-            calculator.execute(new UseOperator(new MultiplicationOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
+            calculator.execute(new UseOperatorCommand(new MultiplicationOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(6);
         });
@@ -64,9 +64,9 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(6), calculationId));
-            calculator.execute(new UseOperator(new DivisionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(3), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(6), calculationId));
+            calculator.execute(new UseOperatorCommand(new DivisionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(2);
         });
@@ -75,13 +75,13 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new MultiplicationOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new MultiplicationOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(8);
         });
@@ -90,19 +90,19 @@ describe('Calculator', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new UseOperator(new LeftParenthesisOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(2), calculationId));
-            calculator.execute(new UseOperator(new RightParenthesisOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new LeftParenthesisOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new RightParenthesisOperator(), calculationId));
 
-            calculator.execute(new UseOperator(new MultiplicationOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new MultiplicationOperator(), calculationId));
 
-            calculator.execute(new UseOperator(new LeftParenthesisOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(3), calculationId));
-            calculator.execute(new UseOperator(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperand(new Operand(5), calculationId));
-            calculator.execute(new UseOperator(new RightParenthesisOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new LeftParenthesisOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(5), calculationId));
+            calculator.execute(new UseOperatorCommand(new RightParenthesisOperator(), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(32);
         });
@@ -115,12 +115,12 @@ describe('Calculator', () => {
             const first  = CalculationId.create();
             const second  = CalculationId.create();
 
-            calculator.execute(new EnterOperand(new Operand(2), first));
-            calculator.execute(new EnterOperand(new Operand(3), second));
-            calculator.execute(new UseOperator(new AdditionOperator(), first));
-            calculator.execute(new UseOperator(new MultiplicationOperator(), second));
-            calculator.execute(new EnterOperand(new Operand(4), first));
-            calculator.execute(new EnterOperand(new Operand(5), second));
+            calculator.execute(new EnterOperandCommand(new Operand(2), first));
+            calculator.execute(new EnterOperandCommand(new Operand(3), second));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), first));
+            calculator.execute(new UseOperatorCommand(new MultiplicationOperator(), second));
+            calculator.execute(new EnterOperandCommand(new Operand(4), first));
+            calculator.execute(new EnterOperandCommand(new Operand(5), second));
 
             expect(calculator.submit(new GetCalculationResult(first))).to.equal(6);
             expect(calculator.submit(new GetCalculationResult(second))).to.equal(15);

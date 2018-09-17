@@ -27,7 +27,7 @@ import WriteStream = NodeJS.WriteStream;
 export class ConsoleReporter implements StageCrewMember {
     private stageManager: StageManager;
     private currentIndentation = 0;
-    private spacesPerIntend = 2;
+    private spacesPerIntend = 4;
 
     constructor(
         private readonly stdout: WriteStream = process.stdout,
@@ -48,11 +48,9 @@ export class ConsoleReporter implements StageCrewMember {
             })
             .when(ActivityStarts,   ({ value }: SceneStarts) => {
                 this.indent();
-                this.indent();
                 this.print(this.stdout, value.name.value);
             })
             .when(ActivityFinished,   ({ value, outcome }: ActivityFinished) => {
-                this.outdent();
                 this.print(
                     outcome.isWorseThan(new ExecutionSuccessful()) ? this.stdout : this.stderr,
                     this.toStatusIcon(outcome),

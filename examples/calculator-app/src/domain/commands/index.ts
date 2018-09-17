@@ -1,3 +1,3 @@
 export * from './CalculatorCommand';
-export * from './EnterOperand';
-export * from './UseOperator';
+export * from './EnterOperandCommand';
+export * from './UseOperatorCommand';

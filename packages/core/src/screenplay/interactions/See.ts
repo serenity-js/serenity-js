@@ -31,7 +31,7 @@ export class See<S> implements Interaction {
         });
     }
 
-    toString = () => `{0} checks ${this.question}`;
+    toString = () => `#actor checks ${this.question}`;
 
     private isAPromiseOf(value: any): value is PromiseLike<any> {
         return !! value && !! value.then;
