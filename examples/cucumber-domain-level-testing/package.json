@@ -19,7 +19,7 @@
     "clean": "rimraf target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test:update-serenity": "serenity update",
-    "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber --require ./features/step_definitions/domain-level.steps.ts --require ./features/support/configure_serenity.ts",
+    "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/domain-level.steps.ts --require ./features/support/configure_serenity.ts",
     "test:report": "serenity run",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "verify": "npm test"

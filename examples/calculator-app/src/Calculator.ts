@@ -3,12 +3,12 @@ import {
     CalculatorCommand,
     CalculatorEvent,
     CalculatorQuery,
-    EnterOperand,
+    EnterOperandCommand,
     GetCalculationResult,
     OperandEntered,
     OperatorUsed,
     ResultCalculator,
-    UseOperator,
+    UseOperatorCommand,
 } from './domain';
 
 export class Calculator {
@@ -17,8 +17,8 @@ export class Calculator {
 
     execute(command: CalculatorCommand<any>): void {
         match(command)
-            .when(EnterOperand, ({ value, calculationId }: EnterOperand) => this.events.push(new OperandEntered(value, calculationId)))
-            .when(UseOperator,  ({ value, calculationId }: UseOperator)  => this.events.push(new OperatorUsed(value, calculationId)))
+            .when(EnterOperandCommand, ({ value, calculationId }: EnterOperandCommand) => this.events.push(new OperandEntered(value, calculationId)))
+            .when(UseOperatorCommand,  ({ value, calculationId }: UseOperatorCommand)  => this.events.push(new OperatorUsed(value, calculationId)))
             .else(_ => /* ignore */ void 0);
     }
 

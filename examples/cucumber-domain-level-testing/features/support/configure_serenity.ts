@@ -1,16 +1,12 @@
 import { serenity } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { ArtifactArchiver, ConsoleReporter, SerenityBDDReporter, Stage } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver, ConsoleReporter, SerenityBDDReporter } from '@serenity-js/core/lib/stage';
+import { WithStage } from '@serenity-js/cucumber';
 
 import { setDefaultTimeout, setWorldConstructor } from 'cucumber';
-import { Actors } from './Actors';
+import { Actors } from './screenplay';
 
-setDefaultTimeout(5000);
-
-// todo: should probably come with @serenity-js/cucumber
-interface WithStage {
-    stage: Stage;
-}
+setDefaultTimeout(1000);
 
 setWorldConstructor(function(this: WithStage, { parameters }) {
     this.stage = serenity.callToStageFor(new Actors());

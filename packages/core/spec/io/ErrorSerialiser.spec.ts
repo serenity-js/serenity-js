@@ -45,4 +45,15 @@ describe ('ErrorSerialiser', () => {
         expect(error.message).to.equal(`Something's wrong`);
         expect(error.stack).to.equal(stack);
     });
+
+    /** @test {ErrorSerialiser} */
+    it('deserialises the error object from a string (Cucumber event protocol)', () => {
+        const stack = `function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`;
+
+        const error: Error = ErrorSerialiser.deserialiseFromStackTrace(stack);
+
+        expect(error).to.be.instanceOf(Error);
+        expect(error.name).to.equal(`Error`);
+        expect(error.message).to.equal(`function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`);
+    });
 });
