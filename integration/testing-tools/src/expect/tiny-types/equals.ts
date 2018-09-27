@@ -8,7 +8,7 @@ export function equals(chai: any, utils: any) {
 
             const obj = this._obj;
             if (obj && obj instanceof TinyType) {
-                this.assert(
+                return this.assert(
                     obj.equals(another),
                     `expected #{this} to equal #{exp} but got #{act}`,
                     `expected #{this} to not equal #{exp} but got #{act}`,
@@ -17,7 +17,7 @@ export function equals(chai: any, utils: any) {
                 );
 
             } else {
-                _super.apply(this, arguments);
+                return _super.apply(this, arguments);
             }
         };
     }

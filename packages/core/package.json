@@ -23,7 +23,7 @@
     "screenplay"
   ],
   "scripts": {
-    "clean": "rimraf lib target",
+    "clean": "rimraf .nyc_output lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "nyc --report-dir ../../target/coverage/core mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
@@ -38,7 +38,7 @@
     "mkdirp": "0.5.1",
     "moment": "2.22.2",
     "sanitize-filename": "1.6.1",
-    "tiny-types": "1.11.2"
+    "tiny-types": "1.11.3"
   },
   "devDependencies": {
     "@documentation/esdoc-template": "*",

@@ -29,7 +29,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     abilityTo<T extends Ability>(doSomething: AbilityType<T>): T {
         if (! this.can(doSomething)) {
-            throw new TestCompromisedError(`${ this } can't ${ doSomething.name } yet. ` +
+            throw new TestCompromisedError(`${ this.name } can't ${ doSomething.name } yet. ` +
                 `Did you give them the ability to do so?`);
         }
 
@@ -38,6 +38,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
 
     attemptsTo(...activities: Activity[]): Promise<void> {
         // todo: if there are no activities, make it a PendingActivity
+        // todo: only change the execution strategy for the duration of the current task; tasks from afterhooks should still get executed
         return activities
             .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))
             .reduce((previous: Promise<void>, current: Activity) => {
@@ -61,7 +62,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
     }
 
     toString() {
-        return this.name;
+        const abilities = Array.from(this.abilities.keys()).map(type => type.name);
+
+        return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
     }
 
     private can<T extends Ability>(doSomething: AbilityType<T>): boolean {

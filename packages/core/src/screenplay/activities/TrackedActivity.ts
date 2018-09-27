@@ -19,7 +19,7 @@ export class TrackedActivity implements Activity {
     ) {
     }
 
-    performAs(actor: PerformsTasks | UsesAbilities | AnswersQuestions): PromiseLike<void> {
+    performAs(actor: (PerformsTasks | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
         const details = new ActivityDetails(
             // todo: I might an id here to make sure the events match up
             TrackedActivity.describer.describe(this.activity, actor),
