@@ -8,4 +8,5 @@ const stageManager = new StageManager(Duration.ofSeconds(3), clock);
 
 export const serenity = new Serenity(stageManager);
 
+export * from './errors';
 export * from './screenplay';

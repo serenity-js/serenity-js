@@ -1,3 +1,4 @@
+export * from './AssertionError';
 export * from './LogicError';
 export * from './RuntimeError';
 export * from './ConfigurationError';

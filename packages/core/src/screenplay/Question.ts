@@ -1,18 +1,18 @@
-import { UsesAbilities } from './actor';
+import { AnswersQuestions, UsesAbilities } from './actor';
 
 export abstract class Question<T> {
-    static about<R>(description: string, body: (actor: UsesAbilities) => R): Question<R> {
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> {
         return new AnonymousQuestion<R>(description, body);
     }
 
-    abstract answeredBy(actor: UsesAbilities): T;
+    abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 }
 
 class AnonymousQuestion<T> implements Question<T> {
-    constructor(private description: string, private body: (actor: UsesAbilities) => T) {
+    constructor(private description: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
     }
 
-    answeredBy(actor: UsesAbilities) {
+    answeredBy(actor: AnswersQuestions & UsesAbilities) {
         return this.body(actor);
     }
 

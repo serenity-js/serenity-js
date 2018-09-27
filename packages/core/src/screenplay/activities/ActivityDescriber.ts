@@ -5,7 +5,7 @@ import { Activity } from '../Activity';
 export class ActivityDescriber {
 
     // todo: if the name can't be determined, make one up
-    describe(activity: Activity, actor: { toString: () => string }): Name {
+    describe(activity: Activity, actor: { name: string }): Name {
         const template = activity.toString();
 
         return new Name(
@@ -13,7 +13,7 @@ export class ActivityDescriber {
         );
     }
 
-    private includeActorName(template: string, actor: { toString: () => string }) {
-        return template.replace('#actor',   actor.toString());
+    private includeActorName(template: string, actor: { name: string }) {
+        return template.replace('#actor', actor.name);
     }
 }

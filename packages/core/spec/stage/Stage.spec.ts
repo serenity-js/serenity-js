@@ -85,7 +85,7 @@ describe('Stage', () => {
         });
 
         /**
-         * @test {Stage#currentActor}
+         * @test {Stage#theActorInTheSpotlight}
          * @test {Stage#theActorInTheSpotlight}
          */
         it('provides both the more verbose and more concise way of accessing the actors in the spotlight', () => {
@@ -98,14 +98,14 @@ describe('Stage', () => {
 
             const a1 = stage.actor(name);
             const a2 = stage.theActorInTheSpotlight();
-            const a3 = stage.currentActor();
+            const a3 = stage.theActorInTheSpotlight();
 
             expect(a1).to.equal(a2);
             expect(a1).to.equal(a3);
         });
 
         /**
-         * @test {Stage#currentActor}
+         * @test {Stage#theActorInTheSpotlight}
          * @test {Stage#theActorInTheSpotlight}
          */
         it('complains if you try to access the actor in the spotlight, but there isn\'t any yet', () => {

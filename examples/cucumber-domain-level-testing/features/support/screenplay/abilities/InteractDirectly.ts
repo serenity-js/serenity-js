@@ -1,4 +1,10 @@
-import { CalculationId, Calculator, CalculatorCommand, CalculatorQuery } from '@serenity-js-examples/calculator-app';
+import {
+    CalculationId,
+    Calculator,
+    CalculatorCommand,
+    CalculatorQuery,
+    GetCalculationResult,
+} from '@serenity-js-examples/calculator-app';
 import { Ability, Actor } from '@serenity-js/core';
 
 export class InteractDirectly implements Ability {
@@ -34,6 +40,7 @@ export class InteractDirectly implements Ability {
         this.calculator.execute(command);
     }
 
+    submit(query: GetCalculationResult): number;
     submit(query: CalculatorQuery): any {
         return this.calculator.submit(query);
     }

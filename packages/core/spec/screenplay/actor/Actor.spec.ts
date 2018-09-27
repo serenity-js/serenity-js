@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import { ActivityFinished, ActivityStarts } from '../../../src/events';
 import { ActivityDetails, Duration, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
-import { Actor, See } from '../../../src/screenplay';
+import { Ability, Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
 import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
@@ -24,7 +24,17 @@ describe('Actor', () => {
 
         const actor = Actor.named('Chris');
 
-        expect(actor.toString()).to.equal('Chris');
+        expect(actor.name).to.equal('Chris');
+    });
+
+    /** @test {Actor} */
+    it('provides a developer-friendly toString', () => {
+        class DoCoolThings implements Ability {
+        }
+
+        expect(Actor.named('Chris').toString()).to.equal('Actor(name=Chris, abilities=[])');
+
+        expect(Actor.named('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[DoCoolThings])');
     });
 
     /** @test {Actor} */

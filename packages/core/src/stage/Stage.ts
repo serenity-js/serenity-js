@@ -54,23 +54,13 @@ export class Stage {
     }
 
     /**
-     * @desc An alias for {@link Stage#currentActor}
-     * @see {Stage#currentActor}
-     * @alias {Stage#currentActor}
-     * @return {Actor}
-     */
-    theActorInTheSpotlight(): Actor {
-        return this.currentActor();
-    }
-
-    /**
      * @desc Returns the last {@link Actor} instantiated via {@link Stage#actor}.
      * Useful when you don't can't or choose not to reference the actor by their name.
      *
      * @throws {@link LogicError} if no {@link Actor} has been activated yet
      * @return {Actor}
      */
-    currentActor(): Actor {
+    theActorInTheSpotlight(): Actor {
         if (! this.actorInTheSpotlight) {
             throw new LogicError(`There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`);
         }
