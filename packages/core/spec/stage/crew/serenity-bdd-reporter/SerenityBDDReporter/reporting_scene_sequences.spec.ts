@@ -104,7 +104,7 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinished(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.name).to.equal(name.value);
         expect(report.dataTable).to.exist;  // tslint:disable-line:no-unused-expression
@@ -176,7 +176,7 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinished(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.dataTable.rows).to.deep.equal([
             { values: [ 'jan-molak', '@JanMolak' ], result: 'ERROR' },
@@ -187,7 +187,7 @@ describe('SerenityBDDReporter', () => {
         expect(report.testSteps[0].description)
             .to.equal(`${name.value} #1 - Developer: jan-molak, Twitter_Handle: @JanMolak`);
         // todo: check for error somewhere here
-        // todo: as well as the main report
+        // todo: map well map the main report
 
         expect(report.testSteps[1].description)
             .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);

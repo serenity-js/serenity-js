@@ -20,7 +20,7 @@ export class ErrorSerialiser {
     ];
 
     static serialise(error: Error): SerialisedError {
-        // todo: serialise the cause as well
+        // todo: serialise the cause map well
         return Object.getOwnPropertyNames(error).reduce((serialised, key) => {
             serialised[key] = error[key];
             return serialised;
@@ -28,7 +28,7 @@ export class ErrorSerialiser {
     }
 
     static deserialise(serialisedError: SerialisedError): Error {
-        // todo: de-serialise the cause as well
+        // todo: de-serialise the cause map well
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
         const deserialised = Object.create(constructor.prototype);
         for (const prop in serialisedError) {

@@ -1,19 +1,20 @@
 import { ensure, isDefined, Serialised } from 'tiny-types';
 
-import { Artifact } from '../io';
-import { Timestamp } from '../model';
+import { Artifact, Name, SerialisedArtifact, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
-export class ArtifactGenerated<T> extends DomainEvent {
-    static fromJSON<E>(o: Serialised<ArtifactGenerated<E>>) {
+export class ArtifactGenerated extends DomainEvent {
+    static fromJSON(o: Serialised<ArtifactGenerated>) {
         return new ArtifactGenerated(
-            Artifact.fromJSON(o.artifact as Serialised<Artifact<E>>),
+            Name.fromJSON(o.name as string),
+            Artifact.fromJSON(o.artifact as SerialisedArtifact),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
-        public readonly artifact: Artifact<T>,
+        public readonly name: Name,
+        public readonly artifact: Artifact,
         timestamp?: Timestamp,
     ) {
         super(timestamp);

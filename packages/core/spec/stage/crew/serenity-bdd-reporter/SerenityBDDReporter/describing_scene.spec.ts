@@ -45,7 +45,7 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinished(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.backgroundTitle).to.equal('Background title');
         expect(report.backgroundDescription).to.equal('Background description');
@@ -67,7 +67,7 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinished(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.description).to.equal('Scenario description');
     });
@@ -88,7 +88,7 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinished(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.userStory.narrative).to.equal('Feature narrative');
     });

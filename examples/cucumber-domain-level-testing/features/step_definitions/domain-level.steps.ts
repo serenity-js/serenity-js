@@ -20,7 +20,7 @@ When(/(?:he|she|they) uses? the (.) operator/, function(this: WithStage, operato
 
 Then(/(?:he|she|they) should get a result of (\d+)/, function(this: WithStage, expectedResult: string) {
     return this.stage.theActorInTheSpotlight().attemptsTo(
-        Ensure.that(ResultOfCalculation(), not(equals(parseFloat(expectedResult)))),
+        Ensure.that(ResultOfCalculation(), equals(parseFloat(expectedResult))),
     );
 });
 

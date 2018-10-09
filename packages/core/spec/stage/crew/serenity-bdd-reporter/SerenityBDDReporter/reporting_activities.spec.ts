@@ -4,14 +4,14 @@ import * as sinon from 'sinon';
 
 import {
     ActivityFinished,
-    ActivityStarts,
+    ActivityStarts, ArtifactArchived,
     ArtifactGenerated,
     SceneFinished,
     SceneStarts,
     TestRunFinished,
 } from '../../../../../src/events';
-import { Artifact, FileType } from '../../../../../src/io';
-import { ActivityDetails, ExecutionSuccessful, Name } from '../../../../../src/model';
+import { Path } from '../../../../../src/io';
+import { ActivityDetails, ExecutionSuccessful, Name, Photo } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -52,7 +52,7 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinished(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].description).to.equal(pickACard.name.value);
@@ -82,7 +82,7 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinished(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
             expect(report.testSteps).to.have.lengthOf(2);
             expect(report.testSteps[0].description).to.equal(pickACard.name.value);
@@ -114,7 +114,7 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinished(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].children).to.have.lengthOf(1);
@@ -141,22 +141,53 @@ describe('SerenityBDDReporter', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                     new ActivityStarts(pickACard),
-                        new ArtifactGenerated(new Artifact(
-                            new Name('photo1.png'),
-                            FileType.PNG,
-                            photo,
-                        )),
+                        new ArtifactGenerated(new Name('photo1'), photo),
+                        new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
                     new ActivityFinished(pickACard, new ExecutionSuccessful()),
-                        new ArtifactGenerated(new Artifact(
-                            new Name('photo2.png'),
-                            FileType.PNG,
-                            photo,
-                        )),
+                        new ArtifactGenerated(new Name('photo2'), photo),
+                        new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+            expect(report.testSteps).to.have.lengthOf(1);
+            expect(report.testSteps[0].screenshots).to.deep.equal([
+                { screenshot: 'photo1.png'},
+                { screenshot: 'photo2.png'},
+            ]);
+        });
+    });
+
+    describe('artifacts', () => {
+
+        /**
+         * @test {SerenityBDDReporter}
+         * @test {SceneStarts}
+         * @test {ActivityStarts}
+         * @test {ArtifactGenerated}
+         * @test {ActivityFinished}
+         * @test {ExecutionSuccessful}
+         * @test {SceneFinished}
+         * @test {TestRunFinished}
+         */
+        it('records the arbitrary JSON data emitted during the interaction', () => {
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+
+            given(reporter).isNotifiedOfFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                new ActivityStarts(pickACard),
+                new ArtifactGenerated(new Name('photo1'), photo),
+                new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
+                new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                new ArtifactGenerated(new Name('photo2'), photo),
+                new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
+                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
+            );
+
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].screenshots).to.deep.equal([
