@@ -1,12 +1,10 @@
 import { match } from 'tiny-types';
 
 import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinished } from '../../../events';
-import { Artifact, FileType } from '../../../io';
-import { Name, ScenarioDetails } from '../../../model';
+import { JSONData, Name, ScenarioDetails } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 import { Current } from './Current';
-import { MD5Hash } from './MD5Hash';
 import { SceneReports } from './reports';
 import { SerenityBDDReport } from './SerenityBDDJsonSchema';
 import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneReportingStrategy } from './strategies';
@@ -53,15 +51,8 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     private broadcast(report: Partial<SerenityBDDReport>) {
         this.stageManager.notifyOf(new ArtifactGenerated(
-            new Artifact(
-                new Name(MD5Hash.of(JSON.stringify({
-                    name: report.name,
-                    id: report.id,
-                    tags: report.tags,
-                })).value),
-                FileType.JSON,
-                report,
-            ),
+            new Name('scenario-report'),
+            JSONData.fromJSON(report),
         ));
     }
 }

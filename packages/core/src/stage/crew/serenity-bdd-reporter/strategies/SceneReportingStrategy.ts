@@ -1,7 +1,7 @@
 import { match } from 'tiny-types';
 
 import {
-    ArtifactGenerated,
+    ArtifactArchived, ArtifactGenerated,
     DomainEvent,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -9,7 +9,7 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '../../../../events';
-import { Photo, ScenarioDetails } from '../../../../model';
+import { Artifact, ArtifactType, JSONData, Photo, ScenarioDetails } from '../../../../model';
 import { SceneReport } from '../reports';
 
 /**
@@ -29,8 +29,11 @@ export abstract class SceneReportingStrategy {
             .when(SceneDescriptionDetected, (e: SceneDescriptionDetected)   => report.withDescriptionOf(e.description))
             .when(SceneTagged,              (e: SceneTagged)                => report.taggedWith(e.tag))
             .when(TestRunnerDetected,       (e: TestRunnerDetected)         => report.executedBy(e.value))
-            .when(ArtifactGenerated,        (e: ArtifactGenerated<any>)     => match<object, SceneReport>(e.artifact.contents)
-                .when(Photo, _ => report.photoTaken(e.artifact.name))
+            .when(ArtifactGenerated,        (e: ArtifactGenerated)          => match<Artifact, SceneReport>(e.artifact)
+                .when(JSONData,     _ => report.arbitraryDataCaptured(e.name, e.artifact.map(data => JSON.stringify(data, null, 4))))
+                .else(_ => report))
+            .when(ArtifactArchived,         (e: ArtifactArchived)           => match<ArtifactType, SceneReport>(e.type)
+                .when(Photo,        _ => report.photoTaken(e.path))
                 .else(_ => report))
             .else(_ => report);
     }

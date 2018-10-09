@@ -10,7 +10,7 @@ import {
     TestRunFinished,
     TestRunnerDetected,
 } from '../../../../src/events';
-import { Artifact, FileSystemLocation, FileType, Path } from '../../../../src/io';
+import { FileSystemLocation, Path } from '../../../../src/io';
 import {
     Category,
     Duration,
@@ -20,7 +20,7 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending,
+    ImplementationPending, JSONData,
     Name,
     ScenarioDetails,
     Timestamp,
@@ -64,7 +64,7 @@ describe('SerenityBDDReporter', () => {
 
     describe('generates a SerenityBDDReport Artifact that', () => {
 
-        let artifact: Artifact<SerenityBDDReport>;
+        let artifact: JSONData;
 
         beforeEach(() => {
             given(reporter).isNotifiedOfFollowingEvents(
@@ -85,20 +85,8 @@ describe('SerenityBDDReporter', () => {
          * @test {ExecutionSuccessful}
          * @test {TestRunFinished}
          */
-        it('is a JSON', () => {
-            expect(artifact.type).to.equal(FileType.JSON);
-        });
-
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {SceneFinished}
-         * @test {TestRunFinished}
-         * @test {ExecutionSuccessful}
-         */
-        it('has a unique file name (MD5)', () => {
-            expect(artifact.name.value.length).to.equal(32);
-            expect(artifact.name.value).to.match(/[0-9a-e]+/);
+        it('is a JSONData', () => {
+            expect(artifact).to.be.instanceOf(JSONData);
         });
     });
 
@@ -124,13 +112,12 @@ describe('SerenityBDDReporter', () => {
             expect(stageManager.notifyOf.callCount).to.equal(2);
 
             const
-                event1: ArtifactGenerated<SerenityBDDReport> = stageManager.notifyOf.firstCall.lastArg,
-                event2: ArtifactGenerated<SerenityBDDReport> = stageManager.notifyOf.secondCall.lastArg;
+                event1: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,
+                event2: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;
 
-            expect(event1.artifact.contents.name).to.equal(defaultCardScenario.name.value);
+            expect(event1.artifact.map(_ => _).name).to.equal(defaultCardScenario.name.value);
 
-            expect(event2.artifact.contents.name).to.equal(voucherScenario.name.value);
-            expect(event2.artifact.contents.name).to.equal(voucherScenario.name.value);
+            expect(event2.artifact.map(_ => _).name).to.equal(voucherScenario.name.value);
         });
     });
 
@@ -147,7 +134,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
             });
 
             /**
@@ -218,7 +205,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('SUCCESS');
             });
@@ -237,7 +224,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('PENDING');
             });
@@ -256,7 +243,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('IGNORED');
             });
@@ -275,7 +262,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('SKIPPED');
             });
@@ -298,7 +285,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.result).to.equal('FAILURE');
                     expect(report.testFailureCause.errorType).to.equal('AssertionError');
@@ -329,7 +316,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('ERROR');
                 expect(report.testFailureCause).to.deep.equal({
@@ -369,7 +356,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.result).to.equal('COMPROMISED');
                 expect(report.testFailureCause).to.deep.equal({
@@ -410,7 +397,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.testSource).to.equal('Cucumber');
             });
@@ -428,7 +415,7 @@ describe('SerenityBDDReporter', () => {
                     new TestRunFinished(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                 expect(report.userStory).to.deep.equal({
                     id: 'online-checkout',

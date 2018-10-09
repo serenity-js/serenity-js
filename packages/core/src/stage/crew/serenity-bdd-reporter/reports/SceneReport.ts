@@ -1,11 +1,13 @@
 import { JSONObject, match } from 'tiny-types';
 
+import { Path } from '../../../../io';
 import {
     ActivityDetails,
     BrowserTag,
     CapabilityTag,
     ContextTag,
-    Description, ExecutionSuccessful,
+    Description,
+    ExecutionSuccessful,
     FeatureTag,
     IssueTag,
     ManualTag,
@@ -204,9 +206,15 @@ export class SceneReport {
         });
     }
 
-    photoTaken(filename: Name) {
+    photoTaken(path: Path) {
         return this.withMutated(report => {
-            this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: filename.value });
+            this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: path.basename() });
+        });
+    }
+
+    arbitraryDataCaptured(name: Name, contents: string) {
+        return this.withMutated(report => {
+            this.activities.mostRecentlyAccessedItem().reportData = { title: name.value, contents };
         });
     }
 

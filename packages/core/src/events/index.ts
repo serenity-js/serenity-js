@@ -1,5 +1,6 @@
 export * from './ActivityStarts';
 export * from './ActivityFinished';
+export * from './ArtifactArchived';
 export * from './ArtifactGenerated';
 export * from './AsyncOperationAttempted';
 export * from './AsyncOperationCompleted';

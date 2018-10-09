@@ -43,13 +43,13 @@ describe('SerenityBDDReporter', () => {
                  * @test {TestRunFinished}
                  * @test {ExecutionSuccessful}
                  */
-                it('is marked as automated (non-manual) by default', () => {
+                it('is marked map automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.manual).to.equal(false);
                 });
@@ -63,14 +63,14 @@ describe('SerenityBDDReporter', () => {
                  * @test {ExecutionSuccessful}
                  * @test {ManualTag}
                  */
-                it('can be optionally tagged as manual', () => {
+                it('can be optionally tagged map manual', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ManualTag()),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.manual).to.equal(true);
                     expect(report.tags).to.deep.include.members([{
@@ -99,7 +99,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
                         name: 'ABC-1234',
@@ -134,7 +134,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
                         name: 'regression',
@@ -161,7 +161,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
                         name: 'Checkout',
@@ -192,7 +192,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
                         name: 'E-Commerce',
@@ -228,7 +228,7 @@ describe('SerenityBDDReporter', () => {
                         new TestRunFinished(),
                     );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
                         name: 'Digital',
@@ -265,7 +265,7 @@ describe('SerenityBDDReporter', () => {
                             new TestRunFinished(),
                         );
 
-                        report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                         expect(report.context).to.equal('chrome');
 
@@ -291,7 +291,7 @@ describe('SerenityBDDReporter', () => {
                             new TestRunFinished(),
                         );
 
-                        report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                         expect(report.context).to.equal('iphone');
 
@@ -319,7 +319,7 @@ describe('SerenityBDDReporter', () => {
                             new TestRunFinished(),
                         );
 
-                        report = stageManager.notifyOf.firstCall.lastArg.artifact.contents;
+                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                         expect(report.context).to.equal('iphone');
 
