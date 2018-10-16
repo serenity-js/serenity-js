@@ -34,9 +34,9 @@ export interface SerenityBDDReport extends JSONObject {
 }
 
 export interface TestStep extends JSONObject {
-    number?: number;                    // todo [ ]
+    number: number;                     // done [x]
     description: string;                // done [x]
-    duration: number;                   // donw [x]
+    duration: number;                   // done [x]
     startTime: number;                  // done [x]
     result: string;                     // done [x]
     children?: TestStep[];              // done [x]

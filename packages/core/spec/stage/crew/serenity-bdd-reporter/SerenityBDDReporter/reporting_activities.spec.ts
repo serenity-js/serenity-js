@@ -11,7 +11,7 @@ import {
     TestRunFinished,
 } from '../../../../../src/events';
 import { Path } from '../../../../../src/io';
-import { ActivityDetails, ExecutionSuccessful, Name, Photo } from '../../../../../src/model';
+import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -157,6 +157,50 @@ describe('SerenityBDDReporter', () => {
                 { screenshot: 'photo1.png'},
                 { screenshot: 'photo2.png'},
             ]);
+        });
+
+        /**
+         * @test {SerenityBDDReporter}
+         * @test {SceneStarts}
+         * @test {ActivityStarts}
+         * @test {ActivityFinished}
+         * @test {ExecutionSuccessful}
+         * @test {SceneFinished}
+         * @test {TestRunFinished}
+         */
+        it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
+            const
+                pickACard   = new ActivityDetails(new Name('Pick a credit card')),
+                makePayment = new ActivityDetails(new Name('Make a payment'));
+
+            given(reporter).isNotifiedOfFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                    new ActivityStarts(pickACard),
+                        new ArtifactGenerated(new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
+                        new ArtifactArchived(new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),
+                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                    new ActivityStarts(makePayment),
+                        new ArtifactGenerated(new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
+                        new ArtifactArchived(new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
+                    new ActivityFinished(makePayment, new ExecutionSuccessful()),
+                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinished(),
+            );
+
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+            expect(report.testSteps).to.have.lengthOf(2);
+            expect(report.testSteps[0].number).to.equal(1);
+            expect(report.testSteps[0].reportData).to.deep.equal({
+                title: 'pick a card message',
+                contents: '{\n    \"card\": \"default\"\n}',
+            });
+
+            expect(report.testSteps[1].number).to.equal(2);
+            expect(report.testSteps[1].reportData).to.deep.equal({
+                title: 'make a payment message',
+                contents: '{\n    \"amount\": \"£42\"\n}',
+            });
         });
     });
 
