@@ -50,6 +50,7 @@ export class SceneReport {
     private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };
     private readonly activities = new RememberingStack<Partial<TestStep>>();
     private readonly parameters: ScenarioParametersResultLocation[] = [];
+    private stepNumber = 0;
 
     constructor(public readonly scenarioDetails: ScenarioDetails) {
 
@@ -123,9 +124,10 @@ export class SceneReport {
     activityStarted(activity: ActivityDetails, time: Timestamp) {
         return this.withMutated(report => {
             const activityReport: Partial<TestStep> = {
+                number:      ++this.stepNumber,
                 description: activity.name.value,
-                startTime: time.toMillisecondTimestamp(),
-                children: [],
+                startTime:   time.toMillisecondTimestamp(),
+                children:    [],
                 screenshots: [],
             };
 
