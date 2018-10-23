@@ -1,5 +1,5 @@
-import { Question } from '../Question';
+import { KnownUnknown } from '../KnownUnknown';
 
 export interface AnswersQuestions {
-    toSee<T>(question: Question<T>): T;
+    answer<T>(knownUnknown: KnownUnknown<T>): Promise<T>;
 }

@@ -1,5 +1,5 @@
 import { TestCompromisedError } from '../../errors';
-import { serenity } from '../../index';
+import { KnownUnknown, serenity } from '../../index';
 import { Clock, StageManager } from '../../stage';
 import { Ability, AbilityType } from '../Ability';
 import { TrackedActivity } from '../activities';
@@ -49,8 +49,20 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         }, Promise.resolve(null));
     }
 
-    toSee<T>(question: Question<T>): T {
-        return question.answeredBy(this);
+    answer<T>(knownUnknown: KnownUnknown<T>): Promise<T> {
+        const
+            isAPromise = <V>(v: KnownUnknown<V>): v is Promise<V> => !! (v as any).then,
+            isAQuestion = <V>(v: KnownUnknown<V>): v is Question<V> => !! !! (v as any).answeredBy;
+
+        if (isAPromise(knownUnknown)) {
+            return knownUnknown;
+        }
+
+        if (isAQuestion(knownUnknown)) {
+            return this.answer(knownUnknown.answeredBy(this));
+        }
+
+        return Promise.resolve(knownUnknown as T);
     }
 
     whoCan(...abilities: Ability[]): Actor {

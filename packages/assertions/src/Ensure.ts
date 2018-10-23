@@ -1,26 +1,26 @@
-import { Activity, AnswersQuestions, AssertionError, Interaction, UsesAbilities } from '@serenity-js/core';
+import { Activity, AnswersQuestions, AssertionError, Interaction, KnownUnknown, UsesAbilities } from '@serenity-js/core';
 import { Assertion } from './assertions/Assertion';
-import { descriptionOf, extracted, ValueOf } from './values';
+import { descriptionOf } from './values';
 
 export class Ensure<T> implements Interaction {
 
     static that<V>(
-        actual: ValueOf<V>,
-        assertion: Assertion<ValueOf<V>>,
+        actual: KnownUnknown<V>,
+        assertion: Assertion<KnownUnknown<V>>,
     ): Activity {
         return new Ensure<V>(actual, assertion);
     }
 
     constructor(
-        private readonly actual: ValueOf<T>,
-        private readonly assertion: Assertion<ValueOf<T>>,
+        private readonly actual: KnownUnknown<T>,
+        private readonly assertion: Assertion<KnownUnknown<T>>,
     ) {
     }
 
     performAs(actor: AnswersQuestions & UsesAbilities): Promise<void> {
         return Promise.all([
-                extracted(this.actual, actor),
-                extracted(this.assertion.expected, actor),
+                actor.answer(this.actual),
+                actor.answer(this.assertion.expected),
             ])
             .then(([ actual, expected ]) => {
                 if (! this.assertion.test(expected, actual)) {
