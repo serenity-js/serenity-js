@@ -1,7 +1,7 @@
-import { ValueOf } from '../values';
+import { KnownUnknown } from '@serenity-js/core';
 
 export abstract class Assertion<V> {
-    constructor(public readonly expected: ValueOf<V>) {
+    constructor(public readonly expected: KnownUnknown<V>) {
     }
 
     abstract test(expected: V, actual: V): boolean;

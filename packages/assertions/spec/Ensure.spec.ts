@@ -4,7 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 
-import { Ensure, equals, ValueOf } from '../src';
+import { Ensure, equals } from '../src';
 
 describe('Ensure', () => {
 

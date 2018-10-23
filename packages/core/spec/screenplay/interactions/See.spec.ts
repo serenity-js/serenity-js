@@ -14,7 +14,7 @@ describe('Interactions', () => {
             it('allows the actor to verify a condition', () => {
                 const actor = Actor.named('James');
 
-                const promise = See.if(SomeAsyncResult(), r => expect(r).to.eventually.equal('some value')).performAs(actor);
+                const promise = See.if(SomeAsyncResult(), r => expect(r).to.equal('some value')).performAs(actor);
 
                 return expect(promise).to.be.eventually.fulfilled;
             });
@@ -23,7 +23,7 @@ describe('Interactions', () => {
             it('rejects the promise if the condition is not met', () => {
                 const actor = Actor.named('James');
 
-                const promise = See.if(SomeAsyncResult(), r => expect(r).to.eventually.equal('other value')).performAs(actor);
+                const promise = See.if(SomeAsyncResult(), r => expect(r).to.equal('other value')).performAs(actor);
 
                 return expect(promise).to.be.eventually.rejectedWith(AssertionError, `expected 'some value' to equal 'other value'`);
             });

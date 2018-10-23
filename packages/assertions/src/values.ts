@@ -1,40 +1,14 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { KnownUnknown, Question } from '@serenity-js/core';
 import { inspect } from 'util';
 
 /**
- * @public
- */
-export type ValueOf<T> = Question<PromiseLike<T>> | Question<T> | PromiseLike<T> | T;
-
-/**
  * @desc
- * Extracts the value wrapped in a Promise, Question or Question<Promise>.
- * If the value is not wrapped, it returns the value itself.
- *
- * @package
- * @param {ValueOf<T>} value
- * @param {AnswersQuestions} actor
- */
-export function extracted<T>(value: ValueOf<T>, actor: AnswersQuestions & UsesAbilities): Promise<T> {
-    if (isAPromise(value)) {
-        return value;
-    }
-
-    if (isAQuestion(value)) {
-        return this.extracted(value.answeredBy(actor), actor);
-    }
-
-    return Promise.resolve(value as T);
-}
-
-/**
- * @desc
- * Provides a human-readable and sync description of the {@link ValueOf<T>}
+ * Provides a human-readable and sync description of the {@link KnownUnknown<T>}
  *
  * @package
  * @param value
  */
-export function descriptionOf(value: ValueOf<any>): string {
+export function descriptionOf(value: KnownUnknown<any>): string {
     if (! isDefined(value)) {
         return inspect(value);
     }
@@ -67,9 +41,9 @@ export function descriptionOf(value: ValueOf<any>): string {
  * Checks if the value is defined
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function isDefined(v: ValueOf<any>) {
+function isDefined(v: KnownUnknown<any>) {
     return !! v;
 }
 
@@ -78,9 +52,9 @@ function isDefined(v: ValueOf<any>) {
  * Checks if the value defines its own `toString` method
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function hasItsOwnToString(v: ValueOf<any>): v is { toString: () => string } {
+function hasItsOwnToString(v: KnownUnknown<any>): v is { toString: () => string } {
     return typeof v === 'object'
         && !! (v as any).toString
         && typeof (v as any).toString === 'function'
@@ -92,9 +66,9 @@ function hasItsOwnToString(v: ValueOf<any>): v is { toString: () => string } {
  * Checks if the value defines its own `inspect` method
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function isInspectable(v: ValueOf<any>): v is { inspect: () => string } {
+function isInspectable(v: KnownUnknown<any>): v is { inspect: () => string } {
     return !! (v as any).inspect && typeof (v as any).inspect === 'function';
 }
 
@@ -103,9 +77,9 @@ function isInspectable(v: ValueOf<any>): v is { inspect: () => string } {
  * Checks if the value is a {@link Question}
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function isAQuestion<T>(v: ValueOf<T>): v is Question<T> {
+function isAQuestion<T>(v: KnownUnknown<T>): v is Question<T> {
     return !! (v as any).answeredBy;
 }
 
@@ -114,9 +88,9 @@ function isAQuestion<T>(v: ValueOf<T>): v is Question<T> {
  * Checks if the value is a {@link Date}
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function isADate(v: ValueOf<any>): v is Date {
+function isADate(v: KnownUnknown<any>): v is Date {
     return v instanceof Date;
 }
 
@@ -125,9 +99,9 @@ function isADate(v: ValueOf<any>): v is Date {
  * Checks if the value is a {@link Promise}
  *
  * @private
- * @param {ValueOf<any>} v
+ * @param {KnownUnknown<any>} v
  */
-function isAPromise<T>(v: ValueOf<T>): v is Promise<T> {
+function isAPromise<T>(v: KnownUnknown<T>): v is Promise<T> {
     return !! (v as any).then;
 }
 

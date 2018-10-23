@@ -10,7 +10,7 @@ import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from '../example-implementation';
 
-const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.eventually.equal(expected);
+const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.equal(expected);
 
 describe('Actor', () => {
 
