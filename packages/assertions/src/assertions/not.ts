@@ -1,4 +1,4 @@
-import { Assertion } from './Assertion';
+import { Assertion } from '../Assertion';
 
 export function not<V>(assertion: Assertion<V>) {
     return new Not(assertion);

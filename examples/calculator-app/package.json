@@ -20,7 +20,9 @@
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "compile": "tsc --project tsconfig.json",
-    "verify": "npm test || true"
+    "verify": "npm test || true",
+    "start": "node index.js",
+    "dev": "nodemon --exec 'cross-env PORT=3000 NODE_ENV=TEST npm start'"
   },
   "repository": {
     "type": "git",
@@ -34,10 +36,17 @@
     "npm": ">= 3"
   },
   "devDependencies": {
+    "@types/body-parser": "1.17.0",
+    "@types/express": "4.16.0",
+    "cross-env": "5.2.0",
+    "nodemon": "1.18.4",
     "ts-node": "7.0.1"
   },
   "dependencies": {
-    "tiny-types": "^1.11.3",
-    "cuid": "2.1.4"
+    "body-parser": "1.18.3",
+    "cuid": "2.1.4",
+    "express": "4.16.4",
+    "morgan": "1.9.1",
+    "tiny-types": "1.11.3"
   }
 }

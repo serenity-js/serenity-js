@@ -19,7 +19,9 @@ export class Calculator {
         match(command)
             .when(EnterOperandCommand, ({ value, calculationId }: EnterOperandCommand) => this.events.push(new OperandEntered(value, calculationId)))
             .when(UseOperatorCommand,  ({ value, calculationId }: UseOperatorCommand)  => this.events.push(new OperatorUsed(value, calculationId)))
-            .else(_ => /* ignore */ void 0);
+            .else(_ => {
+                throw new Error('Command not recognised');
+            });
     }
 
     submit(query: GetCalculationResult): number;
@@ -30,6 +32,8 @@ export class Calculator {
                     this.events.filter(event => event.calculationId.equals(calculationId)),
                 ).value;
             })
-            .else(_ => void 0);
+            .else(_ => {
+                throw new Error('Query not recognised');
+            });
     }
 }

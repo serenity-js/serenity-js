@@ -7,10 +7,13 @@ import { Timestamp } from '../model';
  * const now: Timestamp = new Clock().now()
  */
 export class Clock {
+    constructor(private readonly checkTime: () => Date = () => new Date()) {
+    }
+
     /**
      * @returns {Timestamp} current time
      */
     now(): Timestamp {
-        return new Timestamp();
+        return new Timestamp(this.checkTime());
     }
 }

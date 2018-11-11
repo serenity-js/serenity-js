@@ -4,9 +4,10 @@ import { Activity } from '../Activity';
 /** @access package */
 export class ActivityDescriber {
 
-    // todo: if the name can't be determined, make one up
     describe(activity: Activity, actor: { name: string }): Name {
-        const template = activity.toString();
+        const template = activity.toString() !== ({}).toString()
+            ? activity.toString()
+            : `#actor performs ${ activity.constructor.name }`;
 
         return new Name(
             this.includeActorName(template, actor),

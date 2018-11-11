@@ -22,6 +22,6 @@ describe('Operator', () => {
         { description: '-', expected: new SubtractionOperator() },
     ]).
     it('can be instantiated based on its symbol', ({ description, expected }) => {
-        expect(Operator.from(description).equals(expected)).to.equal(true);
+        expect(Operator.fromString(description).equals(expected)).to.equal(true);
     });
 });
