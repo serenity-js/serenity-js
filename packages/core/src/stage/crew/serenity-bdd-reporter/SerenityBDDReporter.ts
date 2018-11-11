@@ -1,7 +1,7 @@
 import { match } from 'tiny-types';
 
 import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinished } from '../../../events';
-import { JSONData, Name, ScenarioDetails } from '../../../model';
+import { Name, ScenarioDetails, TestReport } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 import { Current } from './Current';
@@ -52,7 +52,7 @@ export class SerenityBDDReporter implements StageCrewMember {
     private broadcast(report: Partial<SerenityBDDReport>) {
         this.stageManager.notifyOf(new ArtifactGenerated(
             new Name('scenario-report'),
-            JSONData.fromJSON(report),
+            TestReport.fromJSON(report),
         ));
     }
 }

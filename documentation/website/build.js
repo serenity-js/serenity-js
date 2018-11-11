@@ -22,7 +22,7 @@ const
     browserSync      = devMode ? require('metalsmith-browser-sync') : noop,
     highlight        = require('highlight.js'),
 
-    highlightedLanguages = ['typescript', 'javascript', 'json'];
+    highlightedLanguages = ['typescript', 'javascript', 'json', 'gherkin'];
 
 Metalsmith(__dirname)
     .source('src')

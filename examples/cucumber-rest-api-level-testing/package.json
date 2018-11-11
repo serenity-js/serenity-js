@@ -1,0 +1,52 @@
+{
+  "name": "@serenity-js-examples/cucumber-rest-api-level-testing",
+  "version": "0.0.0",
+  "description": "Example implementation of a test suite exercising a REST interface",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test:update-serenity": "serenity update",
+    "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/api-level.steps.ts --require ./features/support/configure_serenity.ts",
+    "test:report": "serenity run",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "verify": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "devDependencies": {
+    "@serenity-js-examples/calculator-app": "*",
+    "@serenity-js/assertions": "*",
+    "@serenity-js/core": "*",
+    "@serenity-js/cucumber": "*",
+    "@serenity-js/rest": "*",
+    "@types/cucumber": "4.0.4",
+    "@types/express": "4.16.0",
+    "cucumber": "5.0.1",
+    "express": "4.16.4",
+    "npm-failsafe": "0.4.1",
+    "serenity-cli": "0.11.0",
+    "ts-node": "7.0.1"
+  }
+}

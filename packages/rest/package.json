@@ -1,0 +1,82 @@
+{
+  "name": "@serenity-js/rest",
+  "version": "1.0.0",
+  "description": "Test REST APIs with Serenity/JS",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "config": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "http",
+    "rest",
+    "axios",
+    "tdd",
+    "bdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "nyc --report-dir ../../target/coverage/rest mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "^1.6.0",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@documentation/esdoc-template": "*",
+    "@integration/testing-tools": "*",
+    "@serenity-js/assertions": "*",
+    "@serenity-js/core": "*",
+    "axios": "0.18.0",
+    "axios-mock-adapter": "https://github.com/jan-molak/axios-mock-adapter.git#master"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": true
+  }
+}

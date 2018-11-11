@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
-import { Duration, JSONData, Name, Photo } from '../../../../src/model';
+import { Duration, JSONData, Name, TestReport } from '../../../../src/model';
 import { ArtifactArchiver, StageManager } from '../../../../src/stage';
 
 import { expect } from '../../../expect';
@@ -68,10 +68,10 @@ describe('ArtifactArchiver', () => {
          * @test {ArtifactArchiver}
          * @test {ArtifactGenerated}
          */
-        it('correctly saves JSON content to a unique file', () => {
+        it('correctly saves the test report to a unique file', () => {
             stageManager.notifyOf(new ArtifactGenerated(
                 jsonArtifactName,
-                JSONData.fromJSON(json),
+                TestReport.fromJSON(json),
             ));
 
             return stageManager.waitForNextCue().then(() => {
@@ -147,7 +147,7 @@ describe('ArtifactArchiver', () => {
 
         stageManager.notifyOf(new ArtifactGenerated(
             new Name('report'),
-            JSONData.fromJSON({ key: 'value' }),
+            TestReport.fromJSON({ key: 'value' }),
         ));
 
         return expect(stageManager.waitForNextCue()).to.be.fulfilled.then(() => {
@@ -156,7 +156,7 @@ describe('ArtifactArchiver', () => {
 
             expect(archived).to.be.instanceOf(ArtifactArchived);
             expect(archived.name).to.equal(new Name('report'));
-            expect(archived.type).to.equal(JSONData);
+            expect(archived.type).to.equal(TestReport);
             expect(archived.path).to.equal(new Path('report-b283bd69b0fcd75d754f678ac6685786.json'));
         });
     });

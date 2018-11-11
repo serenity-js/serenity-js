@@ -1,14 +1,14 @@
-import { KnownUnknown, Question } from '@serenity-js/core';
+import { KnowableUnknown, Question } from '@serenity-js/core';
 import { inspect } from 'util';
 
 /**
  * @desc
- * Provides a human-readable and sync description of the {@link KnownUnknown<T>}
+ * Provides a human-readable and sync description of the {@link KnowableUnknown<T>}
  *
  * @package
  * @param value
  */
-export function descriptionOf(value: KnownUnknown<any>): string {
+export function descriptionOf(value: KnowableUnknown<any>): string {
     if (! isDefined(value)) {
         return inspect(value);
     }
@@ -41,9 +41,9 @@ export function descriptionOf(value: KnownUnknown<any>): string {
  * Checks if the value is defined
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function isDefined(v: KnownUnknown<any>) {
+function isDefined(v: KnowableUnknown<any>) {
     return !! v;
 }
 
@@ -52,9 +52,9 @@ function isDefined(v: KnownUnknown<any>) {
  * Checks if the value defines its own `toString` method
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function hasItsOwnToString(v: KnownUnknown<any>): v is { toString: () => string } {
+function hasItsOwnToString(v: KnowableUnknown<any>): v is { toString: () => string } {
     return typeof v === 'object'
         && !! (v as any).toString
         && typeof (v as any).toString === 'function'
@@ -66,9 +66,9 @@ function hasItsOwnToString(v: KnownUnknown<any>): v is { toString: () => string 
  * Checks if the value defines its own `inspect` method
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function isInspectable(v: KnownUnknown<any>): v is { inspect: () => string } {
+function isInspectable(v: KnowableUnknown<any>): v is { inspect: () => string } {
     return !! (v as any).inspect && typeof (v as any).inspect === 'function';
 }
 
@@ -77,9 +77,9 @@ function isInspectable(v: KnownUnknown<any>): v is { inspect: () => string } {
  * Checks if the value is a {@link Question}
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function isAQuestion<T>(v: KnownUnknown<T>): v is Question<T> {
+function isAQuestion<T>(v: KnowableUnknown<T>): v is Question<T> {
     return !! (v as any).answeredBy;
 }
 
@@ -88,9 +88,9 @@ function isAQuestion<T>(v: KnownUnknown<T>): v is Question<T> {
  * Checks if the value is a {@link Date}
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function isADate(v: KnownUnknown<any>): v is Date {
+function isADate(v: KnowableUnknown<any>): v is Date {
     return v instanceof Date;
 }
 
@@ -99,9 +99,9 @@ function isADate(v: KnownUnknown<any>): v is Date {
  * Checks if the value is a {@link Promise}
  *
  * @private
- * @param {KnownUnknown<any>} v
+ * @param {KnowableUnknown<any>} v
  */
-function isAPromise<T>(v: KnownUnknown<T>): v is Promise<T> {
+function isAPromise<T>(v: KnowableUnknown<T>): v is Promise<T> {
     return !! (v as any).then;
 }
 

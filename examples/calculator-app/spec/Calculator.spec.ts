@@ -1,9 +1,12 @@
 import 'mocha';
+import { given } from 'mocha-testdata';
 
 import { Calculator } from '../src';
 import {
     AdditionOperator,
     CalculationId,
+    CalculatorCommand,
+    CalculatorQuery,
     DivisionOperator,
     EnterOperandCommand,
     GetCalculationResult,
@@ -20,14 +23,43 @@ import { expect } from './expect';
 describe('Calculator', () => {
 
     describe('when processing the expression', () => {
-        it('should produce a result of 0 when no operation has been performed yet', () => {
+        it('should produce a result of 0 when no operation has been performed yet: nil = 0', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(0);
         });
 
-        it('should add two numbers', () => {
+        it(`should produce a result that's equal to the operand when the operand is the only thing that's been provided: 2 = 2`, () => {
+            const calculator = new Calculator();
+            const calculationId  = CalculationId.create();
+
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+
+            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(2);
+        });
+
+        it.skip(`should recognise negative numbers: -3 = -3`, () => {
+            const calculator = new Calculator();
+            const calculationId  = CalculationId.create();
+
+            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
+
+            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(-3);
+        });
+
+        it.skip(`should ignore the unary plus operator: +42 = 42`, () => {
+            const calculator = new Calculator();
+            const calculationId  = CalculationId.create();
+
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(42), calculationId));
+
+            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(42);
+        });
+
+        it('should add two numbers: 2 + 2 = 4', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
@@ -38,7 +70,7 @@ describe('Calculator', () => {
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(4);
         });
 
-        it('should subtract one number from another', () => {
+        it('should subtract one number from another: 3 - 2 = 1', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
@@ -49,7 +81,7 @@ describe('Calculator', () => {
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(1);
         });
 
-        it('should multiply one number by another', () => {
+        it('should multiply one number by another: 3 * 2 = 6', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
@@ -60,18 +92,18 @@ describe('Calculator', () => {
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(6);
         });
 
-        it('should divide one number by another', () => {
+        it('should divide one number by another: 5 / 2 = 2.5', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
-            calculator.execute(new EnterOperandCommand(new Operand(6), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(5), calculationId));
             calculator.execute(new UseOperatorCommand(new DivisionOperator(), calculationId));
-            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
-            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(2);
+            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(2.5);
         });
 
-        it('should take the operator precedence into consideration', () => {
+        it('should take the arithmetic operator precedence into consideration: 2 + 2 * 2 + 2 = 8', () => {
             const calculator = new Calculator();
             const calculationId  = CalculationId.create();
 
@@ -86,9 +118,9 @@ describe('Calculator', () => {
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(8);
         });
 
-        it('should take parentheses into consideration', () => {
+        it('should take parentheses into consideration: (2 + 2) * (3 + 5) = 32', () => {
             const calculator = new Calculator();
-            const calculationId  = CalculationId.create();
+            const calculationId = CalculationId.create();
 
             calculator.execute(new UseOperatorCommand(new LeftParenthesisOperator(), calculationId));
             calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
@@ -106,11 +138,27 @@ describe('Calculator', () => {
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(32);
         });
+
+        it('should correctly recognise unary operators: -(-2-(+2)) = 4', () => {
+            const calculator = new Calculator();
+            const calculationId = CalculationId.create();
+
+            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new LeftParenthesisOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new LeftParenthesisOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
+            calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
+            calculator.execute(new UseOperatorCommand(new RightParenthesisOperator(), calculationId));
+            calculator.execute(new UseOperatorCommand(new RightParenthesisOperator(), calculationId));
+        });
     });
 
     describe('when supporting multiple parallel calculations', () => {
 
-        it('maintains separate state for every calculation', () => {
+        it('maintains separate state for every expression', () => {
             const calculator = new Calculator();
             const first  = CalculationId.create();
             const second  = CalculationId.create();
@@ -129,18 +177,38 @@ describe('Calculator', () => {
 
     describe('when dealing with invalid input', () => {
 
-        it('ignores commands it cannot execute', () => {
+        class UnsuportedCommand extends CalculatorCommand<object> {
+            constructor() {
+                super({}, CalculationId.create());
+            }
+        }
+
+        given(
+            null, undefined,
+            {}, 'string', 1, false,
+            new UnsuportedCommand(),
+        ).
+        it('complains when it receives a command it cannot execute', (command: any) => {
             const calculator = new Calculator();
 
-            expect(() => calculator.execute(null)).to.not.throw;    // tslint:disable-line:no-unused-expression
-            expect(calculator.execute(null)).to.be.undefined;       // tslint:disable-line:no-unused-expression
+            expect(() => calculator.execute(command)).to.throw(Error, 'Command not recognised');
         });
 
-        it('ignores the queries it cannot process', () => {
+        class UnsuportedQuery extends CalculatorQuery {
+            constructor() {
+                super(CalculationId.create());
+            }
+        }
+
+        given(
+            null, undefined,
+            {}, 'string', 1, false,
+            new UnsuportedQuery(),
+        ).
+        it('complains when it receives a query it cannot process', (query: any) => {
             const calculator = new Calculator();
 
-            expect(() => calculator.submit(null)).to.not.throw;     // tslint:disable-line:no-unused-expression
-            expect(calculator.submit(null)).to.be.undefined;        // tslint:disable-line:no-unused-expression
+            expect(() => calculator.submit(query)).to.throw(Error, 'Query not recognised');
         });
     });
 });

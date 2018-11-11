@@ -10,7 +10,7 @@ import {
     DomainEvent,
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, JSONData, Photo } from '../../../model';
+import { Artifact, ArtifactType, CorrelationId, Description, JSONData, Name, Photo, TestReport } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 import { MD5Hash } from './MD5Hash';
@@ -33,42 +33,55 @@ export class ArtifactArchiver implements StageCrewMember {
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
-        .when(ArtifactGenerated, this.handleArtifactGenerated)
+        .when(ArtifactGenerated, (e: ArtifactGenerated) => match<Artifact, void>(e.artifact)
+            .when(Photo,        (photo: Photo)           => this.archivePhoto(e.name, photo))
+            .when(TestReport,   (testReport: TestReport) => this.archiveTestReport(e.name, testReport))
+            .else(_ => void 0),
+        )
         .else(_ => void 0)
 
-    private handleArtifactGenerated = ({ name, artifact }: ArtifactGenerated): void => {
+    private archivePhoto(name: Name, photo: Photo) {
+        this.archive(
+            photo.constructor as ArtifactType,
+            name,
+            new Path(`${ sanitise(name.value) }-${ this.hashOf(photo) }.png`),
+            photo.base64EncodedValue,
+            'base64',
+        );
+    }
 
-        const filename = [
-            sanitise(name.value),
-            '-',
-            MD5Hash.of(artifact.base64EncodedValue).value,
-            match<Artifact, string>(artifact)
-                .when(Photo, _ => '.png')
-                .when(JSONData, _ => '.json')
-                .else(_ => '.out'),
-        ].join('');
+    private archiveTestReport(name: Name, report: TestReport) {
+        this.archive(
+            report.constructor as ArtifactType,
+            name,
+            new Path(`${ sanitise(name.value) }-${ this.hashOf(report) }.json`),
+            report.map(JSON.stringify),
+            'utf8',
+        );
+    }
 
+    private hashOf(artifact: Artifact): string {
+        return MD5Hash.of(artifact.base64EncodedValue).value;
+    }
+
+    private archive(type: ArtifactType, name: Name, path: Path, contents: string, encoding: string): void {
         const id = CorrelationId.create();
 
         this.stageManager.notifyOf(new AsyncOperationAttempted(
-            new Description(`[${ this.constructor.name }] Saving '${ filename }'...`),
+            new Description(`[${ this.constructor.name }] Saving '${ path.value }'...`),
             id,
         ));
 
-        match<Artifact, Promise<Path>>(artifact)
-            .when(Photo,    _  => this.fileSystem.store(new Path(filename), artifact.base64EncodedValue,  'base64'))
-            .when(JSONData, _  => this.fileSystem.store(new Path(filename), artifact.map(JSON.stringify), 'utf8'))
-            .else(_            => this.fileSystem.store(new Path(filename), artifact.map(data => data),   'utf8'))
-            .then(path => {
-
+        this.fileSystem.store(path, contents,  encoding)
+            .then(savedPath => {
                 this.stageManager.notifyOf(new ArtifactArchived(
                     name,
-                    artifact.constructor as ArtifactType,
+                    type,
                     path,
                 ));
 
                 this.stageManager.notifyOf(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Saved '${ path.value }'`),
+                    new Description(`[${ this.constructor.name }] Saved '${ savedPath.value }'`),
                     id,
                 ));
             })

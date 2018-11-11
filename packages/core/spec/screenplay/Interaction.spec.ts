@@ -1,9 +1,9 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { Actor, EmitArtifact, Interaction } from '../../src/screenplay';
+import { Actor, Interaction } from '../../src/screenplay';
 
-import { JSONData } from '../../src/model/artifacts';
+import { JSONData, Name } from '../../src/model';
 import { expect } from '../expect';
 
 describe('Interaction', () => {
@@ -53,10 +53,10 @@ describe('Interaction', () => {
     it('can optionally emit an artifact to be attached to the report or stored', () => {
         const spy = sinon.spy();
 
-        const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor, emitArtifact: EmitArtifact) => {
+        const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => {
             spy(actor);
 
-            emitArtifact(JSONData.fromJSON({ token: '123' }), 'Session Token');
+            actor.collect(JSONData.fromJSON({ token: '123' }), new Name('Session Token'));
         });
 
         return expect(Ivonne.attemptsTo(

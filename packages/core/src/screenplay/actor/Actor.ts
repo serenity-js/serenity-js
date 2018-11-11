@@ -1,15 +1,16 @@
-import { TestCompromisedError } from '../../errors';
-import { KnownUnknown, serenity } from '../../index';
+import { ArtifactGenerated, DomainEvent } from '../../events';
+import { Ability, AbilityType, KnowableUnknown, LogicError, serenity, TestCompromisedError } from '../../index';
+import { Artifact, Name, Timestamp } from '../../model';
 import { Clock, StageManager } from '../../stage';
-import { Ability, AbilityType } from '../Ability';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
 import { Question } from '../Question';
 import { AnswersQuestions } from './AnswersQuestions';
+import { CollectsArtifacts } from './CollectsArtifacts';
 import { PerformsTasks } from './PerformsTasks';
 import { UsesAbilities } from './UsesAbilities';
 
-export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
+export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, CollectsArtifacts {
     private readonly abilities = new Map<AbilityType<Ability>, Ability>();
 
     static named(name: string): Actor {
@@ -42,27 +43,11 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         return activities
             .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))
             .reduce((previous: Promise<void>, current: Activity) => {
-                return previous.then(() =>
+                return previous.then(() => {
                     /* todo: add an execution strategy */
-                    current.performAs(this),
-                );
-        }, Promise.resolve(null));
-    }
-
-    answer<T>(knownUnknown: KnownUnknown<T>): Promise<T> {
-        const
-            isAPromise = <V>(v: KnownUnknown<V>): v is Promise<V> => !! (v as any).then,
-            isAQuestion = <V>(v: KnownUnknown<V>): v is Question<V> => !! !! (v as any).answeredBy;
-
-        if (isAPromise(knownUnknown)) {
-            return knownUnknown;
-        }
-
-        if (isAQuestion(knownUnknown)) {
-            return this.answer(knownUnknown.answeredBy(this));
-        }
-
-        return Promise.resolve(knownUnknown as T);
+                    return current.performAs(this);
+                });
+        }, Promise.resolve(void 0));
     }
 
     whoCan(...abilities: Ability[]): Actor {
@@ -71,6 +56,42 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions {
         });
 
         return this;
+    }
+
+    /**
+     * @param {KnowableUnknown<T>} knowableUnknown - a Question<Promise<T>>, Question<T>, Promise<T> or T
+     * @returns {Promise<T>} The answer to the KnowableUnknown
+     */
+    answer<T>(knowableUnknown: KnowableUnknown<T>): Promise<T> {
+        function isAPromise<V>(v: KnowableUnknown<V>): v is Promise<V> {
+            return !!(v as any).then;
+        }
+
+        function isAQuestion<V>(v: KnowableUnknown<V>): v is Question<V> {
+            return !! (v as any).answeredBy;
+        }
+
+        if (knowableUnknown === undefined || knowableUnknown === null) {
+            return Promise.reject(new LogicError(`Can't answer a question that's not been defined.`));
+        }
+
+        if (isAPromise(knowableUnknown)) {
+            return knowableUnknown;
+        }
+
+        if (isAQuestion(knowableUnknown)) {
+            return this.answer(knowableUnknown.answeredBy(this));
+        }
+
+        return Promise.resolve(knowableUnknown as T);
+    }
+
+    collect(artifact: Artifact, name?: Name) {
+        this.stageManager.notifyOf(new ArtifactGenerated(
+            name || new Name(artifact.constructor.name),
+            artifact,
+            this.clock.now(),
+        ));
     }
 
     toString() {

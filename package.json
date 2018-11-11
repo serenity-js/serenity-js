@@ -29,7 +29,7 @@
     "test": "lerna run test --stream --scope @serenity-js/*",
     "integration-tests": "lerna run test --stream --scope @integration/*",
     "compile": "lerna run compile --stream",
-    "verify": "npm run clean && npm run lint && npm run compile && npm test && npm run integration-tests",
+    "verify": "npm run lint && npm run compile && npm test && npm run integration-tests",
     "site": "lerna run site --stream",
     "book:clean": "rimraf _book",
     "book:build": "gitbook build",
@@ -51,7 +51,7 @@
     "@types/chai": "4.1.4",
     "@types/chai-as-promised": "7.1.0",
     "@types/mocha": "5.2.5",
-    "@types/node": "6.0.114",
+    "@types/node": "8.10.37",
     "@types/sinon": "5.0.1",
     "@types/sinon-chai": "3.2.0",
     "chai": "4.1.2",
@@ -113,7 +113,7 @@
     "url": "https://github.com/jan-molak/serenity-js/issues"
   },
   "engines": {
-    "node": ">= 6.9.x",
+    "node": ">= 8.10.x",
     "npm": ">= 3"
   },
   "config": {

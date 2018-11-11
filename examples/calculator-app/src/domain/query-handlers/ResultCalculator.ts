@@ -2,7 +2,8 @@ import { match } from 'tiny-types';
 
 import { CalculatorEvent, OperandEntered, OperatorUsed } from '../events';
 import {
-    AdditionOperator, ArithmeticOperator,
+    AdditionOperator,
+    ArithmeticOperator,
     DivisionOperator,
     LeftParenthesisOperator,
     MultiplicationOperator,
@@ -39,6 +40,7 @@ export class ResultCalculator implements QueryHandler<Operand> {
      * @returns postfixed
      */
     private toPostfix(infixed: Array<Operator | Operand>): Array<ArithmeticOperator | Operand> {
+        // http://wcipeg.com/wiki/Shunting_yard_algorithm/foo.hs
         const operatorPrecedence = {
             [AdditionOperator.Symbol]: 1,
             [SubtractionOperator.Symbol]: 1,

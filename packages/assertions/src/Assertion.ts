@@ -1,7 +1,7 @@
-import { KnownUnknown } from '@serenity-js/core';
+import { KnowableUnknown } from '@serenity-js/core';
 
 export abstract class Assertion<V> {
-    constructor(public readonly expected: KnownUnknown<V>) {
+    constructor(public readonly expected: KnowableUnknown<V>) {
     }
 
     abstract test(expected: V, actual: V): boolean;

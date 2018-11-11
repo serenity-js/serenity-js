@@ -82,7 +82,7 @@ expect(james.toSee(TodoListItems.Displayed)).eventually.equal([ 'Buy some milk' 
 
 The Goal of an Actor is represented by the subject of the scenario:
 
-``` gherkin
+```gherkin
 Scenario: Adding the first todo item
 ```
 

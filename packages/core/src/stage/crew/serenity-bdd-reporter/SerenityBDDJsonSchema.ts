@@ -23,7 +23,7 @@ export interface SerenityBDDReport extends JSONObject {
     sessionId?: string;                 // todo [ ]     protractor                                                  <- how is this used?
     driver?: string;                    // todo [ ]     protractor     'chrome:jill'                                <- how is this used?
     context?: string;                   // done [x]
-    dataTable?: DataTable;              // todo [ ]     cucumber                                                    <- can I use this with mocha?
+    dataTable?: DataTable;              // done [x]     cucumber                                                    <- can I use this with mocha?
     manual: boolean;                    // done [x]
     issues?: string[];                  // done [x]
     testSource: string;                 // done [x]
@@ -41,8 +41,8 @@ export interface TestStep extends JSONObject {
     result: string;                     // done [x]
     children?: TestStep[];              // done [x]
     screenshots?: Screenshot[];         // done [x]
-    reportData?: ReportData;            // todo [ ]
-    restQuery?: RESTQuery;              // todo [ ]
+    reportData?: ReportData;            // done [x]
+    restQuery?: RESTQuery;              // done [x]
     exception?: ErrorDetails;           // done [X]
     // precondition: false;             // not needed?
 }

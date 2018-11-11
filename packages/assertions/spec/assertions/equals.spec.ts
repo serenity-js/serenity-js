@@ -37,7 +37,7 @@ describe('equals', () => {
     it('throws an error when the assertion is not met', () => {
         return expect(Enrique.attemptsTo(
             Ensure.that(true, equals(false)),
-        )).to.be.rejectedWith(AssertionError, 'Expected true to be equal to false');
+        )).to.be.rejectedWith(AssertionError, 'true should be equal to false');
     });
 
     it('contributes to the task description', () => {

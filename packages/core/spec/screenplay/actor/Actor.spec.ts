@@ -100,12 +100,12 @@ describe('Actor', () => {
             clock = sinon.createStubInstance(Clock);
             clock.now.returns(new Timestamp(new Date('2018-06-10T22:57:07.112Z')));
 
-            stageManager = new StageManager(Duration.ofMillis(250), clock);
+            stageManager = new StageManager(Duration.ofMillis(250), clock as any);
 
             recorder = new Recorder();
             stageManager.register(recorder);
 
-            Bob = new Actor('Bob', stageManager, clock);
+            Bob = new Actor('Bob', stageManager, clock as any);
         });
 
         describe('notifies the StageManager of the activities it performs', () => {

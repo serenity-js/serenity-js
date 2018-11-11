@@ -21,7 +21,7 @@ export class TrackedActivity implements Activity {
 
     performAs(actor: (PerformsTasks | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
         const details = new ActivityDetails(
-            // todo: I might an id here to make sure the events match up
+            // todo: I might want an id here to make sure the events match up
             TrackedActivity.describer.describe(this.activity, actor),
         );
 
@@ -32,11 +32,15 @@ export class TrackedActivity implements Activity {
                 const outcome = new ExecutionSuccessful();
                 this.stageManager.notifyOf(new ActivityFinished(details, outcome, this.clock.now()));
             })
-            .catch(e => {
-                const outcome = TrackedActivity.outcomes.outcomeFor(e);
+            .catch(error => {
+                const outcome = TrackedActivity.outcomes.outcomeFor(error);
                 this.stageManager.notifyOf(new ActivityFinished(details, outcome, this.clock.now()));
 
-                throw e;
+                throw error;
             });
+    }
+
+    toString() {
+        return this.activity.toString();
     }
 }

@@ -1,4 +1,6 @@
 import { JSONObject, match } from 'tiny-types';
+import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
+import { inspect } from 'util';
 
 import { Path } from '../../../../io';
 import {
@@ -12,7 +14,7 @@ import {
     IssueTag,
     ManualTag,
     Name,
-    Outcome,
+    Outcome, RequestAndResponse,
     ScenarioDetails,
     ScenarioParameters,
     Tag,
@@ -48,7 +50,7 @@ export class SceneReport {
     private static idGenerator = new IDGenerator();
 
     private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };
-    private readonly activities = new RememberingStack<Partial<TestStep>>();
+    private readonly activities = new ActivityStack();
     private readonly parameters: ScenarioParametersResultLocation[] = [];
     private stepNumber = 0;
 
@@ -111,7 +113,9 @@ export class SceneReport {
                 .when(ContextTag,    _ => (report.context   = tag.name))
                 .else(_ => void 0);
 
-            report.tags.push(serialisedTag);
+            if (! report.tags.find(current => equal(current, serialisedTag))) {
+                report.tags.push(serialisedTag);
+            }
         });
     }
 
@@ -142,8 +146,12 @@ export class SceneReport {
             const activityReport = this.activities.pop();
 
             activityReport.result    = result;
-            activityReport.exception = error;
             activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).milliseconds;
+
+            if (!! error && ! this.activities.haveFailed) {
+                activityReport.exception = error;
+                this.activities.haveFailed = true;
+            }
         }));
     }
 
@@ -170,9 +178,13 @@ export class SceneReport {
 
     withScenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters) {
 
+        const
+            parameterSetName = parameters.name && parameters.name.value,
+            parameterSetDescription = parameters.description && parameters.description.value;
+
         const matches = (params: ScenarioParameters) => (descriptor: DataTableDataSetDescriptor) => {
-            return descriptor.name === parameters.name.value
-                && descriptor.description === parameters.description.value;
+            return descriptor.name === parameterSetName
+                && descriptor.description === parameterSetDescription;
         };
 
         return this.withMutated(report => {
@@ -183,8 +195,8 @@ export class SceneReport {
 
             if (! descriptor) {
                 descriptor = {
-                    name:           parameters.name.value,
-                    description:    parameters.description.value,
+                    name:           parameterSetName,
+                    description:    parameterSetDescription,
                     startRow:       report.dataTable.dataSetDescriptors.reduce((acc, current) => acc + current.rowCount, 0),
                     rowCount:       0,
                 };
@@ -217,6 +229,27 @@ export class SceneReport {
     arbitraryDataCaptured(name: Name, contents: string) {
         return this.withMutated(report => {
             this.activities.mostRecentlyAccessedItem().reportData = { title: name.value, contents };
+        });
+    }
+
+    httpRequestCaptured(requestResponse: RequestAndResponse) {
+        function mapToString(dictionary: {[key: string]: string}) {
+            return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\n');
+        }
+
+        return this.withMutated(report => {
+            this.activities.mostRecentlyAccessedItem().restQuery = {
+                method:          requestResponse.request.method.toUpperCase(),
+                path:            requestResponse.request.url,
+                content:         inspect(requestResponse.request.data),
+                contentType:     requestResponse.request.headers['Content-Type'] || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
+                requestHeaders:  mapToString(requestResponse.request.headers)  || '',
+                requestCookies:  requestResponse.request.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
+                statusCode:      requestResponse.response.status,
+                responseHeaders: mapToString(requestResponse.response.headers) || '',
+                responseCookies: requestResponse.response.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
+                responseBody:    inspect(requestResponse.response.data) || '',
+            };
         });
     }
 
@@ -294,19 +327,25 @@ export class SceneReport {
 }
 
 /** @access private */
-class RememberingStack<T> {
-    private readonly items: T[] = [];
-    private mostRecent: T = undefined;
+class ActivityStack {
+    public haveFailed: boolean = false;
+    private readonly items: Array<Partial<TestStep>> = [];
+    private mostRecent: Partial<TestStep> = undefined;
 
-    push(item: T): T {
+    push(item: Partial<TestStep>): Partial<TestStep> {
         this.items.push(item);
         this.mostRecent = item;
+        this.haveFailed = false;
 
         return this.mostRecent;
     }
 
     pop() {
         const item = this.items.pop();
+        if (this.items.length === 0) {
+            this.haveFailed = false;
+        }
+
         this.mostRecent = item;
 
         return this.mostRecent;

@@ -41,6 +41,12 @@ describe('Ensure', () => {
                 Ensure.that(Promise.resolve(42), equals(LastPromisedResult())),
                 Ensure.that(LastResult(), equals(LastPromisedResult())),
                 Ensure.that(LastPromisedResult(), equals(LastPromisedResult())),
+
+                // todo Gabi's ideas:
+                // Ensure.that(WebElement.of('#id'), not(isVisible()))
+                // Ensure.that(Text.of('#id'), startsWith())
+                // Ensure.that(Attribute.of('#id').called('class'), startsWith())
+
             );
         });
     });
@@ -100,25 +106,25 @@ describe('Ensure', () => {
     );
 
     given([
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: 'actual', expected: 'expected'       },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: 'actual', expected: p('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: 'actual', expected: q('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: 'actual', expected: q(p('expected')) },
+        { description: `'actual' should be equal to 'expected'`,    actual: 'actual', expected: 'expected'       },
+        { description: `'actual' should be equal to 'expected'`,    actual: 'actual', expected: p('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: 'actual', expected: q('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: 'actual', expected: q(p('expected')) },
 
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: p('actual'), expected: 'expected'       },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: p('actual'), expected: p('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: p('actual'), expected: q('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: p('actual'), expected: q(p('expected')) },
+        { description: `'actual' should be equal to 'expected'`,    actual: p('actual'), expected: 'expected'       },
+        { description: `'actual' should be equal to 'expected'`,    actual: p('actual'), expected: p('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: p('actual'), expected: q('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: p('actual'), expected: q(p('expected')) },
 
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q('actual'), expected: 'expected'      },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q('actual'), expected: p('expected')   },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q('actual'), expected: q('expected')   },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q('actual'), expected: q(p('expected')) },
+        { description: `'actual' should be equal to 'expected'`,    actual: q('actual'), expected: 'expected'      },
+        { description: `'actual' should be equal to 'expected'`,    actual: q('actual'), expected: p('expected')   },
+        { description: `'actual' should be equal to 'expected'`,    actual: q('actual'), expected: q('expected')   },
+        { description: `'actual' should be equal to 'expected'`,    actual: q('actual'), expected: q(p('expected')) },
 
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q(p('actual')), expected: 'expected'       },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q(p('actual')), expected: p('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q(p('actual')), expected: q('expected')    },
-        { description: `Expected 'actual' to be equal to 'expected'`,    actual: q(p('actual')), expected: q(p('expected')) },
+        { description: `'actual' should be equal to 'expected'`,    actual: q(p('actual')), expected: 'expected'       },
+        { description: `'actual' should be equal to 'expected'`,    actual: q(p('actual')), expected: p('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: q(p('actual')), expected: q('expected')    },
+        { description: `'actual' should be equal to 'expected'`,    actual: q(p('actual')), expected: q(p('expected')) },
     ]).
     it('rejects a promise when the assertion fails', ({ description, actual, expected }) =>
         expect(Enrique.attemptsTo(
