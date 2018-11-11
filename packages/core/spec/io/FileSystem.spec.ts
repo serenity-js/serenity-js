@@ -9,7 +9,7 @@ describe ('FileSystem', () => {
 
     const
         image        = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
-        imageBuffer  = new Buffer(image, 'base64'),
+        imageBuffer  = Buffer.from(image, 'base64'),
         originalJSON = { name: 'jan' },
         processCWD   = new Path('/Users/jan/projects/serenityjs');
 
