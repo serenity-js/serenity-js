@@ -26,6 +26,8 @@ import { HTTPRequest } from './HTTPRequest';
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS
  * @see https://tools.ietf.org/html/rfc7231#section-4.3.7
+ *
+ * @extends {HTTPRequest}
  */
 export class OptionsRequest extends HTTPRequest {
 
