@@ -1,10 +1,14 @@
 const
-    port = process.env.PORT || 3000,
-    runningInDevMode = `${ process.env.NODE_ENV }`.toLocaleLowerCase() === 'test';
+    http                = require('http'),
+    logger              = require('morgan')('combined'),
+    port                = process.env.PORT || 3000,
+    runningInDevMode    = `${ process.env.NODE_ENV }`.toLocaleLowerCase() === 'test',
+    { requestHandler }  = runningInDevMode ? inMemoryServer() : compiledServer(),
+    server              = http.createServer(requestHandler.use(logger));
 
-(runningInDevMode ? inMemoryServer() : compiledServer())
-    .use(require('morgan')('combined'))
-    .listen(port, () => console.log(`Calculator server started on port ${ port }`));
+server.listen(port, () => {
+    console.log(`Calculator server started on port ${ port }`)
+});
 
 // ---
 

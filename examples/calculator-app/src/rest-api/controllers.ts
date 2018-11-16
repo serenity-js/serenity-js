@@ -18,8 +18,6 @@ export function controllers(api: express.Application, calculator: Calculator) {
     // curl -X POST -H "Content-Type: text/plain" --data "2+2" http://localhost:3000/api/calculations
     api.post('/api/calculations', bodyParser.text(), (req: express.Request, res: express.Response) => {
 
-        // res.status(500).send();
-
         const
             calculation = Expression.fromString(req.body),
             calculationId = CalculationId.create();
@@ -34,8 +32,6 @@ export function controllers(api: express.Application, calculator: Calculator) {
     });
 
     api.get('/api/calculations/:calculation_id', (req: express.Request, res: express.Response) => {
-
-        // res.status(500).send();
 
         const
             calculationId = new CalculationId(req.params.calculation_id),

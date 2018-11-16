@@ -1,0 +1,93 @@
+{
+  "name": "@serenity-js/local-server",
+  "version": "1.0.0",
+  "description": "Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "config": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "http",
+    "rest",
+    "axios",
+    "tdd",
+    "bdd",
+    "test",
+    "testing",
+    "express",
+    "hapi",
+    "koa",
+    "restify"
+  ],
+  "scripts": {
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "nyc --report-dir ../../target/coverage/rest mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 8",
+    "npm": ">= 5"
+  },
+  "dependencies": {
+    "get-port": "4.0.0"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "^1.6.0"
+  },
+  "devDependencies": {
+    "@documentation/esdoc-template": "*",
+    "@integration/testing-tools": "*",
+    "@serenity-js/assertions": "*",
+    "@serenity-js/core": "*",
+    "@serenity-js/rest": "*",
+    "@types/express": "4.16.0",
+    "@types/hapi": "17.6.3",
+    "@types/koa": "2.0.46",
+    "@types/restify": "7.2.6",
+    "axios": "0.18.0",
+    "express": "4.16.4",
+    "hapi": "17.7.0",
+    "koa": "2.6.2",
+    "restify": "7.2.2"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": true
+  }
+}
