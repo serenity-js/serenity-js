@@ -1,13 +1,16 @@
 // https://github.com/restify/node-restify
 import * as restify from 'restify';
 
-const server = restify.createServer();
-
-server.get('/', (req, res, next) => {
-    res.send('Hello World!');
-});
-
 export = {
+    node: '>= 6.9',
     description: 'Restify app',
-    handler: server,
+    handler: () => {
+        const server = restify.createServer();
+
+        server.get('/', (req, res, next) => {
+            res.send('Hello World!');
+        });
+
+        return server;
+    },
 };
