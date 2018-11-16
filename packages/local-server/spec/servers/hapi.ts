@@ -1,11 +1,14 @@
 // https://github.com/hapijs/hapi
 import * as hapi from 'hapi';
 
-const server = new hapi.Server();
-
-server.route({ method: 'GET', path: '/', handler: (req, h) => 'Hello World!' });
-
 export = {
+    node: '>= 8.12',
     description: 'Hapi app',
-    handler: server.listener,
+    handler: () => {
+        const server = new hapi.Server();
+
+        server.route({ method: 'GET', path: '/', handler: (req, h) => 'Hello World!' });
+
+        return server.listener;
+    },
 };
