@@ -32,16 +32,16 @@ describe('equals', () => {
             Ensure.that(actual, equals(expected)),
         )).to.be.fulfilled);
 
-    // todo add a stringification test [ Array(2) ]
+    describe('when used with Ensure', () => {
+        it('throws an error when the assertion is not met', () => {
+            return expect(Enrique.attemptsTo(
+                Ensure.that(true, equals(false)),
+            )).to.be.rejectedWith(AssertionError, 'Expected true to equal false');
+        });
 
-    it('throws an error when the assertion is not met', () => {
-        return expect(Enrique.attemptsTo(
-            Ensure.that(true, equals(false)),
-        )).to.be.rejectedWith(AssertionError, 'true should be equal to false');
-    });
-
-    it('contributes to the task description', () => {
-        expect(Ensure.that(true, equals(true)).toString())
-            .to.equal(`#actor ensures that true is equal to true`);
+        it('contributes to the task description', () => {
+            expect(Ensure.that(true, equals(true)).toString())
+                .to.equal(`#actor ensures that true does equal true`);
+        });
     });
 });

@@ -1,20 +1,17 @@
 import { KnowableUnknown } from '@serenity-js/core';
 
-export abstract class Assertion<V> {
-    constructor(public readonly expected: KnowableUnknown<V>) {
+export abstract class Assertion<Expected, Actual = Expected> {
+    constructor(public readonly expected: KnowableUnknown<Expected>) {
     }
 
-    abstract test(expected: V, actual: V): boolean;
+    abstract test(expected: Expected, actual: Actual): boolean;
 
-    /**
-     * Used in task description
-     * @param descriptionOfActual
-     */
-    abstract describeIs(descriptionOfActual: string): string;
-
-    /**
-     * Used in error description
-     * @param descriptionOfActual
-     */
-    abstract describeShould(descriptionOfActual: string): string;
+    toString(): string {
+        return this.constructor.name
+            .replace(/([A-Z])/g, ' $1')
+            .split(' ')
+            .map(_ => _.toLowerCase())
+            .join(' ')
+            .trim();
+    }
 }

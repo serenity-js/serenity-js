@@ -13,11 +13,7 @@ class Not<T> extends Assertion<T> {
         return ! this.negated.test(expected, actual);
     }
 
-    describeIs(descriptionOfActual: string): string {
-        return `not ${ this.negated.describeIs(descriptionOfActual) }`;
-    }
-
-    describeShould(descriptionOfActual: string): string {
-        return `not ${ this.negated.describeShould(descriptionOfActual) }`;
+    toString(): string {
+        return `not ${ this.negated.toString() }`;
     }
 }
