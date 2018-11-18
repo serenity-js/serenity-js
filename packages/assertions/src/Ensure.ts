@@ -2,18 +2,18 @@ import { Activity, AnswersQuestions, AssertionError, Interaction, KnowableUnknow
 import { Assertion } from './Assertion';
 import { descriptionOf } from './values';
 
-export class Ensure<T> implements Interaction {
+export class Ensure<Expected, Actual = Expected> implements Interaction {
 
-    static that<V>(
-        actual: KnowableUnknown<V>,
-        assertion: Assertion<KnowableUnknown<V>>,
+    static that<E, A>(
+        actual: KnowableUnknown<A>,
+        assertion: Assertion<KnowableUnknown<E>, A>,
     ): Activity {
-        return new Ensure<V>(actual, assertion);
+        return new Ensure<E, A>(actual, assertion);
     }
 
     constructor(
-        private readonly actual: KnowableUnknown<T>,
-        private readonly assertion: Assertion<KnowableUnknown<T>>,
+        private readonly actual: KnowableUnknown<Actual>,
+        private readonly assertion: Assertion<KnowableUnknown<Expected>, Actual>,
     ) {
     }
 
@@ -25,7 +25,7 @@ export class Ensure<T> implements Interaction {
             .then(([ actual, expected ]) => {
                 if (! this.assertion.test(expected, actual)) {
                     throw new AssertionError(
-                        `${ descriptionOf(actual) } should ${ this.assertion.describeShould(descriptionOf(expected)) }`,
+                        `Expected ${ descriptionOf(actual) } to ${ this.assertion.toString() } ${ descriptionOf(expected) }`,
                         this.assertion.expected,
                         this.actual,
                     );
@@ -34,6 +34,6 @@ export class Ensure<T> implements Interaction {
     }
 
     toString() {
-        return `#actor ensures that ${ descriptionOf(this.actual) } is ${ this.assertion.describeIs(descriptionOf(this.assertion.expected)) }`;
+        return `#actor ensures that ${ descriptionOf(this.actual) } does ${ this.assertion.toString() } ${ descriptionOf(this.assertion.expected) }`;
     }
 }

@@ -14,14 +14,17 @@ describe('not', () => {
             Ensure.that(true, not(equals(false))),
         )).to.be.fulfilled);
 
-    it('throws an error when the assertion is not met', () => {
-        return expect(Enrique.attemptsTo(
-            Ensure.that(true, not(equals(true))),
-        )).to.be.rejectedWith(AssertionError, 'true should not be equal to true');
-    });
+    describe('when used with Ensure', () => {
 
-    it('contributes to the task description', () => {
-        expect(Ensure.that(true, not(equals(true))).toString())
-            .to.equal(`#actor ensures that true is not equal to true`);
+        it('throws an error when the negated assertion is not met', () => {
+            return expect(Enrique.attemptsTo(
+                Ensure.that(true, not(equals(true))),
+            )).to.be.rejectedWith(AssertionError, 'Expected true to not equal true');
+        });
+
+        it('contributes to the task description', () => {
+            expect(Ensure.that(true, not(equals(true))).toString())
+                .to.equal(`#actor ensures that true does not equal true`);
+        });
     });
 });
