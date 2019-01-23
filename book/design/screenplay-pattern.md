@@ -187,7 +187,7 @@ Those clients could be a web browser, a web service client, a mobile device driv
 `BrowseTheWeb` is a good example of an Ability that ships with Serenity/JS. To assign the Ability to an Actor:
 
 ``` typescript
-let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser);
+let james = Actor.named('James').whoCan(BrowseTheWeb.using(protractor.browser));
 ```
 
 Once the Actor has the Ability, it can be used in an [Interaction](#interaction),
