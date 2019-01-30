@@ -1,39 +1,28 @@
-import { Activity, AnswersQuestions, AssertionError, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
-import { Assertion } from './Assertion';
-import { descriptionOf } from './values';
+import { AnswersQuestions, Interaction, KnowableUnknown } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
+import { Assertion } from './assertions';
 
-export class Ensure<Expected, Actual = Expected> implements Interaction {
-
-    static that<E, A>(
-        actual: KnowableUnknown<A>,
-        assertion: Assertion<KnowableUnknown<E>, A>,
-    ): Activity {
-        return new Ensure<E, A>(actual, assertion);
+export class Ensure<Actual> implements Interaction {
+    static that<A>(actual: KnowableUnknown<A>, assertion: Assertion<any, A>) {
+        return new Ensure(actual, assertion);
     }
 
     constructor(
         private readonly actual: KnowableUnknown<Actual>,
-        private readonly assertion: Assertion<KnowableUnknown<Expected>, Actual>,
+        private readonly assertion: Assertion<Actual>,
     ) {
     }
 
-    performAs(actor: AnswersQuestions & UsesAbilities): Promise<void> {
+    performAs(actor: AnswersQuestions): PromiseLike<void> {
         return Promise.all([
-                actor.answer(this.actual),
-                actor.answer(this.assertion.expected),
-            ])
-            .then(([ actual, expected ]) => {
-                if (! this.assertion.test(expected, actual)) {
-                    throw new AssertionError(
-                        `Expected ${ descriptionOf(actual) } to ${ this.assertion.toString() } ${ descriptionOf(expected) }`,
-                        this.assertion.expected,
-                        this.actual,
-                    );
-                }
-            });
+            actor.answer(this.actual),
+            actor.answer(this.assertion),
+        ]).
+        then(([ actual, assertion ]) => assertion(actual));
+        // todo: throw AssertionError if assertion not met
     }
 
-    toString() {
-        return `#actor ensures that ${ descriptionOf(this.actual) } does ${ this.assertion.toString() } ${ descriptionOf(this.assertion.expected) }`;
+    toString(): string {
+        return formatted `#actor ensures that ${ this.actual } does ${ this.assertion }`;
     }
 }

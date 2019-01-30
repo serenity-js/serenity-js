@@ -1,132 +1,51 @@
 import 'mocha';
-
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 
-import { Ensure, equals } from '../src';
+import { expect } from '@integration/testing-tools';
+import { Actor, AssertionError, KnowableUnknown, Question } from '@serenity-js/core';
+import { Assertion, Ensure } from '../src';
 
+/** @test {Ensure} */
 describe('Ensure', () => {
 
-    const Enrique = Actor.named('Enrique');
-    const p = value => Promise.resolve(value);
-    const q = value => Question.about(`the answer to some question`, actor => value);
+    const
+        Enrique = Actor.named('Enrique'),
 
-    it('is compatible with all the different permutations of the `KnowableUnknown` parameters', () => {
+        isIdenticalTo = <T>(expected: T) =>
+            Assertion.thatActualShould<T, T>('have value identical to', expected)
+                .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue),
 
-        const LastResult = () => Question.about<number>(`the result of the calculation`, (actor: Actor) => {
-            return 42;
-        });
+        p = <T>(value: T) => Promise.resolve(value),
+        q = <T>(value: T): Question<T> => Question.about(`something`, actor => value);
 
-        const LastPromisedResult = () => Question.about<Promise<number>>(`the result of the calculation`, (actor: Actor) => {
-            return Promise.resolve(42);
-        });
-
-        return Enrique.attemptsTo(
-            Ensure.that(42, equals(42)),
-            Ensure.that(Promise.resolve(42), equals(42)),
-            Ensure.that(LastResult(), equals(42)),
-            Ensure.that(LastPromisedResult(), equals(42)),
-            Ensure.that(42, equals(Promise.resolve(42))),
-            Ensure.that(Promise.resolve(42), equals(Promise.resolve(42))),
-            Ensure.that(LastResult(), equals(Promise.resolve(42))),
-            Ensure.that(LastPromisedResult(), equals(Promise.resolve(42))),
-            Ensure.that(42, equals(LastResult())),
-            Ensure.that(Promise.resolve(42), equals(LastResult())),
-            Ensure.that(LastResult(), equals(Promise.resolve(42))),
-            Ensure.that(LastPromisedResult(), equals(Promise.resolve(42))),
-            Ensure.that(42, equals(LastPromisedResult())),
-            Ensure.that(Promise.resolve(42), equals(LastPromisedResult())),
-            Ensure.that(LastResult(), equals(LastPromisedResult())),
-            Ensure.that(LastPromisedResult(), equals(LastPromisedResult())),
-        );
+    /** @test {Ensure.that} */
+    it('allows the actor to make an assertion', () => {
+        return expect(Enrique.attemptsTo(
+            Ensure.that(4, isIdenticalTo(4)),
+        )).to.be.fulfilled;
     });
 
-    given([
-        { description: `#actor ensures that 'a value' does equal 'a value'`,                    expected: 'a value',        actual: 'a value' },
-        { description: `#actor ensures that 'a value' does equal the promised value`,           expected: p('a value'),     actual: 'a value' },
-        { description: `#actor ensures that 'a value' does equal the answer to some question`,  expected: q('a value'),     actual: 'a value' },
-        { description: `#actor ensures that 'a value' does equal the answer to some question`,  expected: q(p('a value')),  actual: 'a value' },
-
-        { description: `#actor ensures that the promised value does equal 'a value'`,                   expected: 'a value',        actual: p('a value') },
-        { description: `#actor ensures that the promised value does equal the promised value`,          expected: p('a value'),     actual: p('a value') },
-        { description: `#actor ensures that the promised value does equal the answer to some question`, expected: q('a value'),     actual: p('a value') },
-        { description: `#actor ensures that the promised value does equal the answer to some question`, expected: q(p('a value')),  actual: p('a value') },
-
-        { description: `#actor ensures that the answer to some question does equal 'a value'`,                      expected: 'a value',        actual: q('a value') },
-        { description: `#actor ensures that the answer to some question does equal the promised value`,             expected: p('a value'),     actual: q('a value') },
-        { description: `#actor ensures that the answer to some question does equal the answer to some question`,    expected: q('a value'),     actual: q('a value') },
-        { description: `#actor ensures that the answer to some question does equal the answer to some question`,    expected: q(p('a value')),  actual: q('a value') },
-
-        { description: `#actor ensures that the answer to some question does equal 'a value'`,                      expected: 'a value',        actual: q(p('a value')) },
-        { description: `#actor ensures that the answer to some question does equal the promised value`,             expected: p('a value'),     actual: q(p('a value')) },
-        { description: `#actor ensures that the answer to some question does equal the answer to some question`,    expected: q('a value'),     actual: q(p('a value')) },
-        { description: `#actor ensures that the answer to some question does equal the answer to some question`,    expected: q(p('a value')),  actual: q(p('a value')) },
-    ]).
-    it('provides a task description based on the assertion given', ({ description, actual, expected }) => {
-        const task = Ensure.that(actual, equals(expected));
-
-        expect(task.toString()).to.equal(description);
+    /** @test {Ensure.that} */
+    it('fails the actor flow when the assertion is not met', () => {
+        return expect(Enrique.attemptsTo(
+            Ensure.that(4, isIdenticalTo(7)),
+        )).to.be.rejectedWith(AssertionError, 'Expected 4 to have value identical to 7');
     });
 
-    given([
-        { description: 'string, string',                    expected: 'a value',        actual: 'a value' },
-        { description: 'Promise<string>, string',           expected: p('a value'),     actual: 'a value' },
-        { description: 'Question<string>, string',          expected: q('a value'),     actual: 'a value' },
-        { description: 'Question<Promise<string>>, string', expected: q(p('a value')),  actual: 'a value' },
+    /** @test {Ensure.that} */
+    it('provides a description of the assertion being made', () => {
+        expect(Ensure.that(4, isIdenticalTo(7)).toString()).to.equal(`#actor ensures that 4 does have value identical to 7`);
+    });
 
-        { description: 'string, Promise<string>',                       expected: 'a value',        actual: p('a value') },
-        { description: 'Promise<string>, Promise<string>',              expected: p('a value'),     actual: p('a value') },
-        { description: 'Question<string>, Promise<string>',             expected: q('a value'),     actual: p('a value') },
-        { description: 'Question<Promise<string>>, Promise<string>',    expected: q(p('a value')),  actual: p('a value') },
-
-        { description: 'string, Question<string>',                      expected: 'a value',        actual: q('a value') },
-        { description: 'Promise<string>, Question<string>',             expected: p('a value'),     actual: q('a value') },
-        { description: 'Question<string>, Question<string>',            expected: q('a value'),     actual: q('a value') },
-        { description: 'Question<Promise<string>>, Question<string>',   expected: q(p('a value')),  actual: q('a value') },
-
-        { description: 'string, Question<Promise<string>>',                     expected: 'a value',        actual: q(p('a value')) },
-        { description: 'Promise<string>, Question<Promise<string>>',            expected: p('a value'),     actual: q(p('a value')) },
-        { description: 'Question<string>, Question<Promise<string>>',           expected: q('a value'),     actual: q(p('a value')) },
-        { description: 'Question<Promise<string>>, Question<Promise<string>>',  expected: q(p('a value')),  actual: q(p('a value')) },
-    ]).
-    it('returns a fulfilled promise when the assertion passes', ({ actual, expected }) =>
-        expect(Enrique.attemptsTo(
-            Ensure.that(actual, equals(expected)),
-        )).to.be.fulfilled,  // ts-lint:disable-line:no-unused-expression
-    );
-
-    given([
-        { description: `Expected 'actual' to equal 'expected'`,    actual: 'actual', expected: 'expected'       },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: 'actual', expected: p('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: 'actual', expected: q('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: 'actual', expected: q(p('expected')) },
-
-        { description: `Expected 'actual' to equal 'expected'`,    actual: p('actual'), expected: 'expected'       },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: p('actual'), expected: p('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: p('actual'), expected: q('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: p('actual'), expected: q(p('expected')) },
-
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q('actual'), expected: 'expected'      },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q('actual'), expected: p('expected')   },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q('actual'), expected: q('expected')   },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q('actual'), expected: q(p('expected')) },
-
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q(p('actual')), expected: 'expected'       },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q(p('actual')), expected: p('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q(p('actual')), expected: q('expected')    },
-        { description: `Expected 'actual' to equal 'expected'`,    actual: q(p('actual')), expected: q(p('expected')) },
-    ]).
-    it('rejects a promise when the assertion fails', ({ description, actual, expected }) =>
-        expect(Enrique.attemptsTo(
-            Ensure.that(actual, equals(expected)),
-        ))
-        .to.be.rejectedWith(AssertionError, description)
-        .then(error => {
-            expect(error.expected).to.equal(expected);
-            expect(error.actual).to.equal(actual);
-        }),
-    );
-
-    // todo add a stringification test [ Array(2) ]
+    given<KnowableUnknown<number>>(
+        42,
+        p(42),
+        q(42),
+        q(p(42)),
+    ).
+    it('allows for the actual to be a KnowableUnknown<T> as it compares its value', (actual: KnowableUnknown<number>) => {
+        return expect(Enrique.attemptsTo(
+            Ensure.that(actual, isIdenticalTo(42)),
+        )).to.be.fulfilled;
+    });
 });

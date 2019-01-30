@@ -1,47 +1,42 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
+import { TinyTypeOf } from 'tiny-types';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
-import { TinyType, TinyTypeOf } from 'tiny-types';
-
 import { Ensure, equals } from '../../src';
 
+/** @test {equals} */
 describe('equals', () => {
 
-    const Enrique = Actor.named('Enrique');
+    const Astrid = Actor.named('Astrid');
 
-    class Dev {
-        constructor(public readonly name: string) {}
-        code() { return null; }
-    }
     class Name extends TinyTypeOf<string>() {}
 
     given([
-        { description: 'number', actual: 42, expected: 42 },
-        { description: 'boolean', actual: true, expected: true },
-        { description: 'string', actual: 42, expected: 42 },
-        { description: 'Date', actual: new Date(0), expected: new Date(0) },
-        { description: 'object', actual: { name: 'Jan' }, expected: { name: 'Jan' } },
-        { description: 'instance', actual: new Dev('Jan'), expected: new Dev('Jan') },
-        { description: '.equals()', actual: new Name('Jan'), expected: new Name('Jan') },
-        { description: '[ objects ]', actual: [ { k: 1 }, { l: 2 } ], expected: [  { k: 1 }, { l: 2 }  ] },
+        { description: 'string',    expected: 'hello',          actual: 'hello'             },
+        { description: 'number',    expected: 42,               actual: 42                  },
+        { description: 'boolean',   expected: false,            actual: false               },
+        { description: 'object',    expected: { k: 'v' },       actual: { k: 'v' }          },
+        { description: 'TinyType',  expected: new Name('Jan'),  actual: new Name('Jan')     },
+        { description: 'array',     expected: [ null, 2, '3' ], actual: [ null, 2, '3' ]    },
+        { description: 'Date',      expected: new Date('Jan 27, 2019'), actual: new Date('Jan 27, 2019') },
     ]).
-    it('compares by value', ({ description, actual, expected }) =>
-        expect(Enrique.attemptsTo(
+    it(`compares the value of "actual" and "expected" and allows for the actor flow to continue when they match`, ({ actual, expected }) => {
+        return expect(Astrid.attemptsTo(
             Ensure.that(actual, equals(expected)),
-        )).to.be.fulfilled);
+        )).to.be.fulfilled;
+    });
 
-    describe('when used with Ensure', () => {
-        it('throws an error when the assertion is not met', () => {
-            return expect(Enrique.attemptsTo(
-                Ensure.that(true, equals(false)),
-            )).to.be.rejectedWith(AssertionError, 'Expected true to equal false');
-        });
+    /** @test {equals} */
+    it(`breaks the actor flow when the values of "actual" and "expected" don't match`, () => {
+        return expect(Astrid.attemptsTo(
+            Ensure.that(27, equals(42)),
+        )).to.be.rejectedWith(AssertionError, 'Expected 27 to equal 42');
+    });
 
-        it('contributes to the task description', () => {
-            expect(Ensure.that(true, equals(true)).toString())
-                .to.equal(`#actor ensures that true does equal true`);
-        });
+    /** @test {equals} */
+    it(`contributes to a human-readable description`, () => {
+        expect(Ensure.that(27, equals(42)).toString()).to.equal('#actor ensures that 27 does equal 42');
     });
 });

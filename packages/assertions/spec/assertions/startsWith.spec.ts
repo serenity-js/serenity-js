@@ -2,29 +2,29 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
-
 import { Ensure, startsWith } from '../../src';
 
 describe('startsWith', () => {
 
-    const Enrique = Actor.named('Enrique');
+    const Astrid = Actor.named('Astrid');
 
-    it('checks if the actual value ends with the expected value', () =>
-        expect(Enrique.attemptsTo(
+    /** @test {startsWith} */
+    it(`allows for the actor flow to continue when the "actual" starts with "expected"`, () => {
+        return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', startsWith('Hello')),
-        )).to.be.fulfilled);
+        )).to.be.fulfilled;
+    });
 
-    describe('when used with Ensure', () => {
+    /** @test {startsWith} */
+    it(`breaks the actor flow when "actual" does not start with "expected"`, () => {
+        return expect(Astrid.attemptsTo(
+            Ensure.that('Hello World!', startsWith('¡Hola')),
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`);
+    });
 
-        it('throws an error when the assertion is not met', () => {
-            return expect(Enrique.attemptsTo(
-                Ensure.that('Hello World!', startsWith('¡Hola'))),
-            ).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`);
-        });
-
-        it('contributes to the task description', () => {
-            expect(Ensure.that('Hello World!', startsWith('Hello')).toString())
-                .to.equal(`#actor ensures that 'Hello World!' does start with 'Hello'`);
-        });
+    /** @test {startsWith} */
+    it(`contributes to a human-readable description`, () => {
+        expect(Ensure.that('Hello', startsWith('H')).toString())
+            .to.equal(`#actor ensures that 'Hello' does start with 'H'`);
     });
 });

@@ -2,29 +2,29 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
-
 import { Ensure, isLessThan } from '../../src';
 
 describe('isLessThan', () => {
 
-    const Enrique = Actor.named('Enrique');
+    const Astrid = Actor.named('Astrid');
 
-    it('checks if the actual value is less than the expected value', () =>
-        expect(Enrique.attemptsTo(
+    /** @test {isLessThan} */
+    it(`allows for the actor flow to continue when the "actual" is less than "expected"`, () => {
+        return expect(Astrid.attemptsTo(
             Ensure.that(2, isLessThan(3)),
-        )).to.be.fulfilled);
+        )).to.be.fulfilled;
+    });
 
-    describe('when used with Ensure', () => {
+    /** @test {isLessThan} */
+    it(`breaks the actor flow when "actual" is not less than "expected"`, () => {
+        return expect(Astrid.attemptsTo(
+            Ensure.that(3, isLessThan(2)),
+        )).to.be.rejectedWith(AssertionError, `Expected 3 to have value that's less than 2`);
+    });
 
-        it('throws an error when the assertion is not met', () => {
-            return expect(Enrique.attemptsTo(
-                Ensure.that(2, isLessThan(1)),
-            )).to.be.rejectedWith(AssertionError, `Expected 2 to have value less than 1`);
-        });
-
-        it('contributes to the task description', () => {
-            expect(Ensure.that(2, isLessThan(3)).toString())
-                .to.equal(`#actor ensures that 2 does have value less than 3`);
-        });
+    /** @test {isLessThan} */
+    it(`contributes to a human-readable description`, () => {
+        expect(Ensure.that(2, isLessThan(3)).toString())
+            .to.equal(`#actor ensures that 2 does have value that's less than 3`);
     });
 });

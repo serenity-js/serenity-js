@@ -2,29 +2,29 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
-
 import { endsWith, Ensure } from '../../src';
 
 describe('endsWith', () => {
 
-    const Enrique = Actor.named('Enrique');
+    const Astrid = Actor.named('Astrid');
 
-    it('checks if the actual value ends with the expected value', () =>
-        expect(Enrique.attemptsTo(
+    /** @test {endsWith} */
+    it(`allows for the actor flow to continue when the "actual" ends with "expected"`, () => {
+        return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', endsWith('World!')),
-        )).to.be.fulfilled);
+        )).to.be.fulfilled;
+    });
 
-    describe('when used with Ensure', () => {
+    /** @test {endsWith} */
+    it(`breaks the actor flow when "actual" does not end with "expected"`, () => {
+        return expect(Astrid.attemptsTo(
+            Ensure.that('Hello World!', endsWith('Mundo!')),
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`);
+    });
 
-        it('throws an error when the assertion is not met', () => {
-            return expect(Enrique.attemptsTo(
-                Ensure.that('Hello World!', endsWith('Mundo!'))),
-            ).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`);
-        });
-
-        it('contributes to the task description', () => {
-            expect(Ensure.that('Hello World!', endsWith('World!')).toString())
-                .to.equal(`#actor ensures that 'Hello World!' does end with 'World!'`);
-        });
+    /** @test {endsWith} */
+    it(`contributes to a human-readable description`, () => {
+        expect(Ensure.that('Hello', endsWith('o')).toString())
+            .to.equal(`#actor ensures that 'Hello' does end with 'o'`);
     });
 });
