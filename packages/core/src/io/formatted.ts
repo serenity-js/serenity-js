@@ -1,5 +1,23 @@
-import { KnowableUnknown, Question } from '@serenity-js/core';
 import { inspect } from 'util';
+import { KnowableUnknown, Question } from '../screenplay';
+
+/**
+ * @desc
+ * A tag function returning a human-readable description of a template containing one or more {KnowableUnknown}s.
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
+ *
+ * @param {TemplateStringsArray} templates
+ * @param {Array<KnowableUnknown<any>>} placeholders
+ */
+export function formatted(templates: TemplateStringsArray, ...placeholders: Array<KnowableUnknown<any>>) {
+    return templates
+        .map((template, i) => i < placeholders.length
+            ? [ template, descriptionOf(placeholders[i]) ]
+            : [ template ])
+        .reduce((acc, tuple) => acc.concat(tuple))
+        .join('');
+}
 
 /**
  * @desc
@@ -8,13 +26,13 @@ import { inspect } from 'util';
  * @package
  * @param value
  */
-export function descriptionOf(value: KnowableUnknown<any>): string {
+function descriptionOf(value: KnowableUnknown<any>): string {
     if (! isDefined(value)) {
         return inspect(value);
     }
 
     if (isAPromise(value)) {
-        return `the promised value`;
+        return `a promised value`;
     }
 
     if (isAQuestion(value)) {
@@ -122,7 +140,7 @@ function isNative(v: any): v is Function {      // tslint:disable-line:ban-types
         '^' +
         // Coerce `Object#toString` to a string
         String(toString)
-            // Escape any special regexp characters
+        // Escape any special regexp characters
             .replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&')
             // Replace mentions of `toString` with `.*?` to keep the template generic.
             // Replace thing like `for ...` to support environments like Rhino which add extra info

@@ -1,13 +1,9 @@
 import { KnowableUnknown } from '@serenity-js/core';
-import { equal } from 'tiny-types/lib/objects/equal';   // tslint:disable-line:no-submodule-imports
-import { Assertion } from '../Assertion';
+import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 
-export function equals<T>(expected: KnowableUnknown<T>): Assertion<T> {
-    return new Equal(expected);
-}
+import { Assertion } from './Assertion';
 
-class Equal<T> extends Assertion<T> {
-    test(expected: T, actual: T): boolean {
-        return equal(expected, actual);
-    }
+export function equals<T>(expectedValue: KnowableUnknown<T>): Assertion<T> {
+    return Assertion.thatActualShould('equal', expectedValue)
+        .soThat((actual, expected) => equal(actual, expected));
 }
