@@ -4,20 +4,14 @@ import { given } from 'mocha-testdata';
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError, KnowableUnknown, Question } from '@serenity-js/core';
 import { Assertion, Ensure } from '../../src';
+import { isIdenticalTo, p, q } from '../fixtures';
 
 /** @test {Assertion} */
 describe('Assertion', () => {
 
-    const
-        Astrid = Actor.named('Astrid'),
-        p = <T>(value: T) => Promise.resolve(value),
-        q = <T>(value: T): Question<T> => Question.about(`something`, actor => value);
+    const Astrid = Actor.named('Astrid');
 
     describe('allows to easily define an assertion, which', () => {
-
-        const isIdenticalTo = <T>(expected: T) =>
-            Assertion.thatActualShould<T, T>('have value identical to', expected)
-                .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
 
         /**
          * @test {Assertion.that}
