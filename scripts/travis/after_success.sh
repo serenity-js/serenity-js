@@ -11,7 +11,7 @@ if [[ $TRAVIS_BRANCH != 'master' ]]; then
   exit 0
 fi
 
-if [[ $TRAVIS_BRANCH == 'master' ]]; then
+if [[ $TRAVIS_BRANCH == '1.0' ]]; then
   npm run semantic-release
 
   echo "[DEBUG] CHANGELOG"
