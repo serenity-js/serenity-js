@@ -6,6 +6,12 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0
 fi
 
+if [[ $TRAVIS_BRANCH == '2.0' ]]; then
+  echo "Releasing 2.0 alpha"
+  npx lerna publish prerelease --dist-tag next
+  exit 0;
+fi
+
 if [[ $TRAVIS_BRANCH != 'master' ]]; then
   echo "Builds from a branch are not released to NPM"
   exit 0

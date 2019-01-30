@@ -2,10 +2,26 @@
   "lerna": "2.11.0",
   "loglevel": "info",
   "packages": [
-    "packages/*",
-    "integration/*",
+    "documentation/*",
     "examples/*",
-    "documentation/*"
+    "integration/*",
+    "packages/*"
   ],
-  "version": "independent"
+  "version": "2.0.0",
+  "command": {
+    "create": {
+      "homepage": "https://serenity-js.org",
+      "license": "Apache-2.0"
+    },
+    "version": {
+      "allowBranch": "2.0",
+      "conventionalCommits": true,
+      "exact": true,
+      "message": "chore(release): %s",
+      "preid": "alpha"
+    },
+    "publish": {
+      "dist-tag": "next"
+    }
+  }
 }

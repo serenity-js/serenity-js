@@ -6,6 +6,26 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0
 fi
 
+if [[ $TRAVIS_BRANCH == '2.0' ]]; then
+  echo "Building from 2.0"
+
+  git config credential.helper store
+  echo "https://${RELEASE_GH_USERNAME}:${RELEASE_GH_TOKEN}@github.com/jan-molak/serenity-js.git" > ~/.git-credentials
+
+  npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
+
+  git config --global user.email $RELEASE_GH_EMAIL
+  git config --global user.name $RELEASE_GH_USERNAME
+  git config --global push.default simple
+
+  echo "npm whoami"
+  npm whoami #debug
+  echo "git config --list"
+  git config --list #debug
+
+  exit 0
+fi
+
 if [[ $TRAVIS_BRANCH != 'master' ]]; then
   echo "Building from $TRAVIS_BRANCH branch"
   exit 0
