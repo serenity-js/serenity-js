@@ -7,10 +7,6 @@ set -e
 #  exit 0
 #fi
 
-if [[ $TRAVIS_BRANCH == '2.0' ]]; then
-   make site
-fi
-
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
     echo "do nothing, for now"
 #  npm run book:publish
