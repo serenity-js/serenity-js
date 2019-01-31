@@ -1,8 +1,6 @@
-import * as fs from 'fs';
-import * as mockfs from 'mock-fs';
-
 import { FileSystem, Path } from '../../src/io';
 import { expect } from '../expect';
+import { FakeFS } from '../FakeFS';
 
 /** @test {FileSystem} */
 describe ('FileSystem', () => {
@@ -13,75 +11,70 @@ describe ('FileSystem', () => {
         originalJSON = { name: 'jan' },
         processCWD   = new Path('/Users/jan/projects/serenityjs');
 
-    beforeEach(() => mockfs({ [processCWD.value]: {} }));
-    afterEach (() => mockfs.restore());
-
     describe ('storing JSON files', () => {
 
         it ('stores a JSON file in a desired location', () => {
-            const out = new FileSystem(processCWD);
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                }),
+                out = new FileSystem(processCWD, fs);
 
             return out.store(new Path('outlet/some.json'), JSON.stringify(originalJSON)).then(absolutePath => {
 
                 expect(fs.existsSync(absolutePath.value)).to.equal(true);
-                expect(jsonFrom(absolutePath.value)).to.eql(originalJSON);
+                expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
             });
         });
 
         it ('tells the absolute path to a JSON file once it is saved', () => {
-            const out = new FileSystem(processCWD);
-            const dest = new Path('outlet/some.json');
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                }),
+                out = new FileSystem(processCWD, fs),
+                dest = new Path('outlet/some.json');
 
             return out.store(dest, JSON.stringify(originalJSON)).
                 then(result => expect(result.equals(processCWD.resolve(dest))));
         });
 
-        it ('complains when provided with an inaccessible path', () => {
-            mockfs({ '/sys': mockfs.directory({
-                mode: 400,
-                items: {
-                    dir: { /** empty directory */ },
-                },
-            })});
+        it (`complains when the file can't be written`, () => {
+            const fs = FakeFS.with(FakeFS.Empty_Directory);
 
-            const out = new FileSystem(new Path('/sys'));
+            (fs as any).writeFile = () => { // memfs doesn't support mocking error conditions or permissions
+                throw new Error('EACCES, permission denied');
+            };
+
+            const out = new FileSystem(new Path('/'), fs);
 
             return expect(out.store(new Path('dir/file.json'), JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/dir\'');
-        });
-
-        it ('complains when provided with an a path to a file that can\'t be overwritten', () => {
-            mockfs({ '/sys': mockfs.directory({
-                mode: 400,
-                items: {
-                    'file.json': mockfs.file({
-                        mode: 400,
-                        content: '',
-                    }),
-                },
-            })});
-
-            const out = new FileSystem(new Path('/sys'));
-
-            return expect(out.store(new Path('file.json'), JSON.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith('EACCES, permission denied \'/sys/file.json\'');
+                .to.be.eventually.rejectedWith('EACCES, permission denied');
         });
     });
 
     describe ('storing pictures', () => {
 
         it ('stores a base64-encoded picture at a desired location', () => {
-            const out = new FileSystem(processCWD);
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                }),
+                out = new FileSystem(processCWD, fs);
 
             return out.store(new Path('outlet/some.png'), imageBuffer).then(absolutePath => {
                 expect(fs.existsSync(absolutePath.value)).to.equal(true);
-                expect(pictureAt(absolutePath.value)).to.eql(image);
+                expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
             });
         });
 
         it ('tells the absolute path to a JSON file once it is saved', () => {
-            const out = new FileSystem(processCWD);
-            const dest = new Path('outlet/some.png');
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                }),
+                out = new FileSystem(processCWD, fs),
+                dest = new Path('outlet/some.png');
 
             return out.store(dest, imageBuffer).then(absolutePath => {
                 expect(absolutePath.equals(processCWD.join(dest))).to.equal(true);
@@ -89,11 +82,11 @@ describe ('FileSystem', () => {
         });
     });
 
-    function jsonFrom(file: string) {
-        return JSON.parse(fs.readFileSync(file).toString('ascii'));
+    function jsonFrom(file: Buffer) {
+        return JSON.parse(file.toString('ascii'));
     }
 
-    function pictureAt(path: string) {
-        return new Buffer(fs.readFileSync(path)).toString('base64');
+    function pictureAt(file: Buffer) {
+        return new Buffer(file).toString('base64');
     }
 });
