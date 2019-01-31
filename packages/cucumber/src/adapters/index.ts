@@ -1,4 +1,4 @@
-import { serenity } from '@serenity-js/core';
+import { ConfigurationError, serenity } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 
 import Gherkin = require('gherkin');
@@ -30,7 +30,7 @@ export function adapterForCucumber(version: number, cucumber: any) {
         });
     }
     catch (error) {
-        throw new Error(`Cucumber version ${ version } is not supported yet.`);
+        throw new ConfigurationError(`Cucumber version ${ version } is not supported yet.`, error);
     }
 }
 
