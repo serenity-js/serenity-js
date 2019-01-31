@@ -1,0 +1,13 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.1-alpha.0](https://github.com/jan-molak/serenity-js/compare/v1.2.1...v2.0.1-alpha.0) (2019-01-31)
+
+
+### Features
+
+* **cucumber:** support for Cucumber 5.x ([c3bd443](https://github.com/jan-molak/serenity-js/commit/c3bd443)), closes [#28](https://github.com/jan-molak/serenity-js/issues/28)
+* **cucumber:** support for Cucumber.js 3.x ([ecfe34f](https://github.com/jan-molak/serenity-js/commit/ecfe34f)), closes [#28](https://github.com/jan-molak/serenity-js/issues/28)
+* **cucumber:** support for Cucumber.js 4.x ([330d731](https://github.com/jan-molak/serenity-js/commit/330d731)), closes [#28](https://github.com/jan-molak/serenity-js/issues/28)
