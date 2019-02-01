@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.3](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.2...v2.0.1-alpha.3) (2019-01-31)
+
+
+### Bug Fixes
+
+* **cucumber:** Compatibility with Cucumber.js 5.1 ([7cb7a9f](https://github.com/jan-molak/serenity-js/commit/7cb7a9f))
+
+
+
+
+
 ## [2.0.1-alpha.2](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.1...v2.0.1-alpha.2) (2019-01-31)
 
 **Note:** Version bump only for package @serenity-js-examples/cucumber-rest-api-level-testing
