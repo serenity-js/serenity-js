@@ -15,7 +15,8 @@ describe('Clear', () => {
         Field: Target.the('name field').located(by.id('name')),
     };
 
-    /** @test {Enter} */
+    /** @test {Clear} */
+    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of a field', () => Bernie.attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
