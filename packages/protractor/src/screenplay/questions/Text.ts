@@ -2,6 +2,7 @@ import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 
+import { promiseOf } from '../promiseOf';
 import { Target } from './Target';
 
 export abstract class Text<T extends WebElement, R> implements Question<Promise<R>> {
@@ -22,7 +23,7 @@ export abstract class Text<T extends WebElement, R> implements Question<Promise<
 
 class TextOfSingleElement extends Text<ElementFinder, string> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        return actor.answer(this.target).then(el => el.getText());
+        return promiseOf(this.target.answeredBy(actor).getText()) as any;
     }
 
     toString() {
@@ -34,7 +35,7 @@ class TextOfMultipleElements extends Text<ElementArrayFinder, string[]> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         // protractor ignores type definitions for the ElementArrayFinder, hence the Promise<any>
         // https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92
-        return actor.answer(this.target).then(el => el.getText() as Promise<any>);
+        return promiseOf(this.target.answeredBy(actor).getText()) as any;
     }
 
     toString() {

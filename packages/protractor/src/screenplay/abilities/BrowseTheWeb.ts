@@ -159,4 +159,14 @@ export class BrowseTheWeb implements Ability {
     getCurrentUrl(): Promise<string> {
         return promiseOf(this.browser.getCurrentUrl());
     }
+
+    /**
+     * @desc
+     *  Pause the actor flow for a specified number of milliseconds.
+     *
+     * @returns {Promise<string>}
+     */
+    sleep(millis: number): Promise<void> {
+        return promiseOf(this.browser.sleep(millis));
+    }
 }
