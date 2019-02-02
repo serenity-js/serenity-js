@@ -1,8 +1,8 @@
-import { endsWith, Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
 
-import { BrowseTheWeb, Enter, Navigate, Target, Text, Value } from '../../../src';
+import { BrowseTheWeb, Enter, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
 describe('Enter', () => {
