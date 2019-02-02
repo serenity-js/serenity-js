@@ -37,6 +37,5 @@ describe('Enter', () => {
         Enter.theValue(Bernie.name).into(Form.Field),
 
         Ensure.that(Value.of(Form.Field), equals(Bernie.name)),
-        Ensure.that(Text.of(Form.Result), equals(Bernie.name)),
     ));
 });
