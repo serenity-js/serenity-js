@@ -164,9 +164,19 @@ export class BrowseTheWeb implements Ability {
      * @desc
      *  Pause the actor flow for a specified number of milliseconds.
      *
-     * @returns {Promise<string>}
+     * @returns {Promise<void>}
      */
     sleep(millis: number): Promise<void> {
         return promiseOf(this.browser.sleep(millis));
+    }
+
+    /**
+     * @desc
+     *  Pause the actor flow until the condition is met or the timeout expires.
+     *
+     * @returns {Promise<boolean>}
+     */
+    wait(condition: () => Promise<boolean>, timeout: number): Promise<boolean> {
+        return promiseOf(this.browser.wait(condition, timeout));
     }
 }

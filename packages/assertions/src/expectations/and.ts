@@ -3,8 +3,8 @@ import { match } from 'tiny-types';
 import { Expectation } from '../Expectation';
 import { ExpectationNotMet, Outcome } from '../outcomes';
 
-export function and<Actual>(...assertions: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
-    return new And(assertions);
+export function and<Actual>(...expectations: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
+    return new And(expectations);
 }
 
 class And<Actual> extends Expectation<any, Actual> {
