@@ -4,10 +4,11 @@ import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
 import {
     and,
-    Assertion, contains,
+    contains,
     endsWith,
     Ensure,
     equals,
+    Expectation,
     includes,
     isGreaterThan,
     isLessThan,
@@ -41,11 +42,19 @@ describe('not', () => {
     });
 
     it(`flips the outcome of an assertion, but doesn't hide any errors that might have happened while making it`, () => {
-        const blowsUp = () => Assertion.thatActualShould('blow up', 'expected').soThat((actual, expected) => { throw new Error('boom'); });
+        const blowsUp = () => Expectation.thatActualShould('blow up', 'expected').soThat((actual, expected) => { throw new Error('boom'); });
 
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', not(blowsUp())),
         )).to.be.rejectedWith(Error, `boom`);
+    });
+
+    describe(`double negative`, () => {
+        /** @test {not} */
+        it(`contributes to a human-readable description`, () => {
+            expect(Ensure.that('Hello', not(not(startsWith('o')))).toString())
+                .to.equal(`#actor ensures that 'Hello' does start with 'o'`);
+        });
     });
 
     describe('when combined with other assertions, such as', () => {
