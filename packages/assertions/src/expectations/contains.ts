@@ -1,9 +1,9 @@
 import { KnowableUnknown } from '@serenity-js/core';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 
-import { Assertion } from './Assertion';
+import { Expectation } from '../Expectation';
 
-export function contains<Item>(expected: KnowableUnknown<Item>): Assertion<Item, Item[]> {
-    return Assertion.thatActualShould<Item, Item[]>('contain', expected)
+export function contains<Item>(expected: KnowableUnknown<Item>): Expectation<Item, Item[]> {
+    return Expectation.thatActualShould<Item, Item[]>('contain', expected)
         .soThat((actualValue, expectedValue) => !! ~ actualValue.findIndex(av => equal(av, expectedValue)));
 }

@@ -1,5 +1,4 @@
 export * from './and';
-export * from './Assertion';
 export * from './contains';
 export * from './endsWith';
 export * from './equals';

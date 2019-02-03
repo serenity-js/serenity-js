@@ -1,15 +1,18 @@
-import { AnswersQuestions, Interaction, KnowableUnknown } from '@serenity-js/core';
+import { AnswersQuestions, AssertionError, Interaction, KnowableUnknown } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Assertion } from './assertions';
+import { match } from 'tiny-types';
+
+import { Expectation } from './Expectation';
+import { ExpectationNotMet, Outcome } from './outcomes';
 
 export class Ensure<Actual> implements Interaction {
-    static that<A>(actual: KnowableUnknown<A>, assertion: Assertion<any, A>) {
+    static that<A>(actual: KnowableUnknown<A>, assertion: Expectation<any, A>) {
         return new Ensure(actual, assertion);
     }
 
     constructor(
         private readonly actual: KnowableUnknown<Actual>,
-        private readonly assertion: Assertion<Actual>,
+        private readonly assertion: Expectation<Actual>,
     ) {
     }
 
@@ -18,8 +21,19 @@ export class Ensure<Actual> implements Interaction {
             actor.answer(this.actual),
             actor.answer(this.assertion),
         ]).
-        then(([ actual, assertion ]) => assertion(actual));
-        // todo: throw AssertionError if assertion not met
+        then(([ actual, assertion ]) =>
+            assertion(actual).then(outcome =>
+                match<Outcome<any, Actual>, void>(outcome)
+                    .when(ExpectationNotMet, o => {
+                        throw new AssertionError(
+                            `Expected ${ formatted`${actual}` } to ${ o.message }`,
+                            o.expected,
+                            o.actual,
+                        );
+                    })
+                    .else(_ => void 0),
+                ),
+            );
     }
 
     toString(): string {

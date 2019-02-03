@@ -3,18 +3,18 @@ import { given } from 'mocha-testdata';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError, KnowableUnknown, Question } from '@serenity-js/core';
-import { Assertion, Ensure } from '../../src';
+import { Ensure, Expectation } from '../../src';
 import { isIdenticalTo, p, q } from '../fixtures';
 
-/** @test {Assertion} */
-describe('Assertion', () => {
+/** @test {Expectation} */
+describe('Expectation', () => {
 
     const Astrid = Actor.named('Astrid');
 
     describe('allows to easily define an assertion, which', () => {
 
         /**
-         * @test {Assertion.that}
+         * @test {Expectation.that}
          * @test {Ensure.that}
          */
         it('allows the actor flow to continue when the assertion passes', () => {
@@ -24,7 +24,7 @@ describe('Assertion', () => {
         });
 
         /**
-         * @test {Assertion.that}
+         * @test {Expectation.that}
          * @test {Ensure.that}
          */
         it('stops the actor flow when the assertion fails', () => {
