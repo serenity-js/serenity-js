@@ -26,7 +26,7 @@ export class Ensure<Actual> implements Interaction {
                 match<Outcome<any, Actual>, void>(outcome)
                     .when(ExpectationNotMet, o => {
                         throw new AssertionError(
-                            `Expected ${ formatted`${actual}` } to ${ o.message }`,
+                            `Expected ${ formatted`${this.actual}` } to ${ o.message }`,
                             o.expected,
                             o.actual,
                         );

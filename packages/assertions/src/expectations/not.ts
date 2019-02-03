@@ -9,22 +9,22 @@ export function not<Expected, Actual>(assertion: Expectation<Expected, Actual>):
 }
 
 class Not<Expected, Actual> extends Expectation<Expected, Actual> {
-    constructor(private readonly assertion: Expectation<Expected, Actual>) {
+    constructor(private readonly expectation: Expectation<Expected, Actual>) {
         super();
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
 
         return (actual: any) =>
-            this.assertion.answeredBy(actor)(actual)
+            this.expectation.answeredBy(actor)(actual)
                 .then((outcome: Outcome<Expected, Actual>) =>
                     match<Outcome<Expected, Actual>, Outcome<Expected, Actual>>(outcome)
-                        .when(ExpectationMet, o => new ExpectationNotMet(this.flipped(this.assertion.toString()), o.expected, o.actual))
-                        .else(o => new ExpectationMet(this.flipped(this.assertion.toString()), o.expected, o.actual)));
+                        .when(ExpectationMet, o => new ExpectationNotMet(this.flipped(this.expectation.toString()), o.expected, o.actual))
+                        .else(o => new ExpectationMet(this.flipped(this.expectation.toString()), o.expected, o.actual)));
     }
 
     toString(): string {
-        return this.flipped(this.assertion.toString());
+        return this.flipped(this.expectation.toString());
     }
 
     private flipped(message: string): string {
