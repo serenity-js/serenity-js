@@ -109,8 +109,7 @@ export class Notifier {
         const humanReadable = (text: string) => text.replace(/[_-]+/g, ' ');
 
         const
-            separator       = '/',
-            directories     = notEmpty(feature.location.path.directory().value.split(separator)),
+            directories     = notEmpty(feature.location.path.directory().split()),
             featuresIndex   = directories.indexOf('features'),
             hierarchy       = [ ...directories.slice(featuresIndex + 1), feature.name.value ] as string[];
 
