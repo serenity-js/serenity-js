@@ -79,7 +79,7 @@ describe('@serenity-js/cucumber', function() {
                     expect(event.scenario.category).to.equal(expectedScenarioCategory);
                     expect(event.value.name).to.equal(expectedExamplesName);
                     expect(event.value.description).to.equal(expectedExamplesDescription);
-                    expect(event.value.values).to.deep.equal({ result: 'fails' });
+                    expect(event.value.values).to.deep.equal({ result: 'fails with generic error' });
                 })
                 .next(SceneStarts,          event => {
                     expect(event.value.name).to.equal(expectedScenarioName);

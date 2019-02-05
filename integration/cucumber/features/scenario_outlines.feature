@@ -6,8 +6,8 @@ Feature: Serenity/JS recognises scenario outlines
 
     Examples: Example results
 
-      Description of the examples
+    Description of the examples
 
-      | result |
-      | passes |
-      | fails  |
+      | result                   |
+      | passes                   |
+      | fails with generic error |

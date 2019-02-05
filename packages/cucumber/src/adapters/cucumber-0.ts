@@ -1,6 +1,7 @@
-import { serenity } from '@serenity-js/core';
+import { AssertionError, serenity } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import {
+    ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
@@ -181,7 +182,9 @@ function outcomeFrom(status: string, error?: Error) {
             return new ExecutionFailedWithError(error);
 
         case status === 'failed':
-            return new ExecutionFailedWithError(error);
+            return error instanceof AssertionError
+                ? new ExecutionFailedWithAssertionError(error)
+                : new ExecutionFailedWithError(error);
 
         case status === 'pending':
             return new ImplementationPending();

@@ -1,3 +1,4 @@
+import { AssertionError } from '@serenity-js/core';
 import { TableDefinition } from 'cucumber';
 
 type Callback = (error?: Error, pending?: string) => void;
@@ -7,8 +8,12 @@ export = function() {
         done();
     });
 
-    this.Given(/^.*step (?:.*) fails$/, function(done: Callback) {
+    this.Given(/^.*step (?:.*) fails with generic error$/, function(done: Callback) {
         done(new Error(`Something's wrong`));
+    });
+
+    this.Given(/^.*step (?:.*) fails with assertion error$/, function(done: Callback) {
+        done(new AssertionError(`Expected false to equal true`, false, true));
     });
 
     this.Given(/^.*step (?:.*) marked as pending/, function(done: Callback) {

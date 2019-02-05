@@ -17,4 +17,4 @@ Feature: Serenity/JS recognises pending scenarios
 
     Given step number one that passes
       And step number two that is marked as pending
-      And step number three that fails
+      And step number three that fails with generic error

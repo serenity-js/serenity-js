@@ -9,7 +9,7 @@ Feature: Calculations API
 
       | expression | expected_result | description    |
       | 2          | 2               | Literal        |
-      | 2 + 2      | 4               | Addition       |
+      | 2 + 2      | 5               | Addition       |
       | 2 - 3      | -1              | Subtraction    |
       | 2 * 5      | 10              | Multiplication |
       | 5 / 2      | 2.5             | Division       |

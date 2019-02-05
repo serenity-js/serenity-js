@@ -56,7 +56,7 @@ describe('Outcome', () => {
 
             expect(deserialised).to.be.instanceOf(outcome.constructor);
 
-            expect(deserialised.error.name).to.equal(outcome.error.name);
+            expect(deserialised.error.name).to.equal(outcome.error.constructor.name);
             expect(deserialised.error.message).to.equal(outcome.error.message);
             expect(deserialised.error.stack).to.equal(outcome.error.stack);
         });
