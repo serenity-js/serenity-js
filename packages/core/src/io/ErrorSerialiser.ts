@@ -27,7 +27,7 @@ export class ErrorSerialiser {
         }, { name: error.name || error.constructor.name }) as SerialisedError;
     }
 
-    static deserialise(serialisedError: SerialisedError): Error {
+    static deserialise<E extends Error>(serialisedError: SerialisedError): E {
         // todo: de-serialise the cause map well
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
         const deserialised = Object.create(constructor.prototype);
