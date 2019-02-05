@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.11](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.10...v2.0.1-alpha.11) (2019-02-05)
+
+
+### Bug Fixes
+
+* **cucumber:** AssertionErrors are reported as such ([7bd837d](https://github.com/jan-molak/serenity-js/commit/7bd837d))
+
+
+
+
+
 ## [2.0.1-alpha.10](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.9...v2.0.1-alpha.10) (2019-02-05)
 
 **Note:** Version bump only for package @serenity-js/core
