@@ -140,7 +140,7 @@ describe('@serenity-js/cucumber', function() {
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number two that is marked as pending`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails`)))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails with generic error`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ImplementationPending()))
             ;
@@ -173,7 +173,7 @@ describe('@serenity-js/cucumber', function() {
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ImplementationPending()))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number two that is marked as pending`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails`)))
+                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails with generic error`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ImplementationPending()))
             ;

@@ -3,8 +3,9 @@ import * as ErrorStackParser from 'error-stack-parser';
 /** @access package */
 export class ErrorParser {
     parse(error: Error) {
+        // todo: add diff for AssertionError
         return {
-            errorType:    error.name,
+            errorType:    error.constructor.name,
             message:      error.message,
             stackTrace:   ErrorStackParser.parse(error).map(frame => ({
                 declaringClass: '',

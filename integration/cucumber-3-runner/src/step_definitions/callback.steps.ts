@@ -1,3 +1,4 @@
+import { AssertionError } from '@serenity-js/core';
 import { defineSupportCode, TableDefinition } from 'cucumber';
 
 type Callback = (error?: Error, pending?: string) => void;
@@ -8,8 +9,12 @@ defineSupportCode(({ Given }) => {
         done();
     });
 
-    Given(/^.*step (?:.*) fails$/, function(done: Callback) {
+    Given(/^.*step (?:.*) fails with generic error$/, function(done: Callback) {
         done(new Error(`Something's wrong`));
+    });
+
+    Given(/^.*step (?:.*) fails with assertion error$/, function(done: Callback) {
+        done(new AssertionError(`Expected false to equal true`, false, true));
     });
 
     Given(/^.*step (?:.*) marked as pending/, function(done: Callback) {

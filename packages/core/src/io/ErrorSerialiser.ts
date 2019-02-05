@@ -24,7 +24,7 @@ export class ErrorSerialiser {
         return Object.getOwnPropertyNames(error).reduce((serialised, key) => {
             serialised[key] = error[key];
             return serialised;
-        }, { name: error.name || error.constructor.name }) as SerialisedError;
+        }, { name: error.constructor.name || error.name }) as SerialisedError;
     }
 
     static deserialise<E extends Error>(serialisedError: SerialisedError): E {
