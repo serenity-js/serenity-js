@@ -1,4 +1,5 @@
 import { JSONObject, match, TinyType } from 'tiny-types';
+import { AssertionError } from '../errors';
 import { ErrorSerialiser, SerialisedError } from '../io';
 
 export interface SerialisedOutcome extends JSONObject {
@@ -80,7 +81,7 @@ export class ExecutionFailedWithAssertionError extends ProblemIndication {
 
     static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithAssertionError(ErrorSerialiser.deserialise(o.error));
 
-    constructor(error: Error) {
+    constructor(error: AssertionError) {
         super(error, ExecutionFailedWithAssertionError.Code);
     }
 }
