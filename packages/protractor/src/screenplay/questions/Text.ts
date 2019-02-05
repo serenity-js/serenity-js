@@ -39,6 +39,6 @@ class TextOfMultipleElements extends Text<ElementArrayFinder, string[]> {
     }
 
     toString() {
-        return `the text of all ${ this.target }`;
+        return `the text of ${ this.target }`;
     }
 }

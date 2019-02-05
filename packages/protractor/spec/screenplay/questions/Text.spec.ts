@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
@@ -13,6 +14,8 @@ describe('Text', function() {
 
     describe('of', () => {
 
+        const Header = Target.the('header').located(by.tagName('h1'));
+
         /** @test {Text} */
         /** @test {Text.of} */
         it('allows the actor to read the text of the DOM element matching the locator', () => Bernie.attemptsTo(
@@ -24,11 +27,18 @@ describe('Text', function() {
                 </html>
             `)),
 
-            Ensure.that(Text.of(Target.the('header').located(by.tagName('h1'))), equals('Hello World!')),
+            Ensure.that(Text.of(Header), equals('Hello World!')),
         ));
+
+        it(`produces sensible description of the question being asked`, () => {
+            expect(Text.of(Target.the('header').located(by.tagName('h1'))).toString())
+                .to.equal('the text of the header');
+        });
     });
 
     describe('ofAll', () => {
+
+        const Shopping_List_Items = Target.all('shopping list items').located(by.css('li'));
 
         /** @test {Text} */
         /** @test {Text.ofAll} */
@@ -45,7 +55,12 @@ describe('Text', function() {
                 </html>
             `)),
 
-            Ensure.that(Text.ofAll(Target.all('shopping list items').located(by.css('li'))), equals(['milk', 'oats'])),
+            Ensure.that(Text.ofAll(Shopping_List_Items), equals(['milk', 'oats'])),
         ));
+
+        it(`produces sensible description of the question being asked`, () => {
+            expect(Text.ofAll(Shopping_List_Items).toString())
+                .to.equal('the text of all the shopping list items');
+        });
     });
 });
