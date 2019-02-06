@@ -25,6 +25,10 @@ export abstract class Navigate implements Interaction {
         return new NavigateForward();
     }
 
+    static reloadPage() {
+        return new ReloadPage();
+    }
+
     abstract performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void>;
 
     abstract toString(): string;
@@ -63,5 +67,15 @@ class NavigateForward extends Navigate {
 
     toString(): string {
         return formatted `#actor navigates forward in the browser history`;
+    }
+}
+
+class ReloadPage extends Navigate {
+    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        return promiseOf(BrowseTheWeb.as(actor).navigate().refresh());
+    }
+
+    toString(): string {
+        return formatted `#actor reloads the page`;
     }
 }

@@ -72,4 +72,32 @@ describe('Navigate', () => {
                 .to.equal(`#actor navigates forward in the browser history`);
         });
     });
+
+    describe('reloadPage', () => {
+        /** @test {Navigate.to} */
+        it('allows the actor to navigate to a desired destination', () => Bernie.attemptsTo(
+            Navigate.to(pageFromTemplate(`
+                <html>
+                    <body>
+                        <h1 id="h">Hello!</h1>
+                    </body>
+                    <script>
+                        if(window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD) {
+                            document.getElementById('h').innerText = 'Reloaded'
+                        }
+                    </script>
+                </html>
+            `)),
+
+            Navigate.reloadPage(),
+
+            Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Reloaded')),
+        ));
+
+        /** @test {Navigate#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Navigate.reloadPage().toString())
+                .to.equal(`#actor reloads the page`);
+        });
+    });
 });
