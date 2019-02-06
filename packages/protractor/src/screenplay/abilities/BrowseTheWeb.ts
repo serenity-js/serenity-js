@@ -1,5 +1,5 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
-import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
+import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { Navigation } from 'selenium-webdriver';
 import { promiseOf } from '../promiseOf';
 
@@ -85,6 +85,17 @@ export class BrowseTheWeb implements Ability {
      */
     navigate(): Navigation {
         return this.browser.navigate();
+    }
+
+    /**
+     * @desc
+     *  Interface for defining sequences of complex user interactions.
+     *  Each sequence will not be executed until `perform` is called.
+     *
+     * @returns {ActionSequence}
+     */
+    actions(): ActionSequence {
+        return this.browser.actions();
     }
 
     /**

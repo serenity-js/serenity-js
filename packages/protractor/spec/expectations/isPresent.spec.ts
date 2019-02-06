@@ -49,6 +49,6 @@ describe('isPresent', function() {
     /** @test {isPresent} */
     it(`contributes to a human-readable description of a wait`, () => {
         expect(Wait.until(Page.Present_Header, isPresent()).toString())
-            .to.equal(`#actor waits until the header does become present`);
+            .to.equal(`#actor waits up to 5s until the header does become present`);
     });
 });

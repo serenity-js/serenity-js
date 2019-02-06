@@ -24,7 +24,7 @@ export abstract class Target<T extends WebElement> implements Question<T> {
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 }
 
-class TargetSingleElement extends Target<ElementFinder> {
+export class TargetSingleElement extends Target<ElementFinder> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
         return BrowseTheWeb.as(actor).locate(this.locator);
     }
@@ -34,7 +34,7 @@ class TargetSingleElement extends Target<ElementFinder> {
     }
 }
 
-class TargetMultipleElements extends Target<ElementArrayFinder> {
+export class TargetMultipleElements extends Target<ElementArrayFinder> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
         return BrowseTheWeb.as(actor).locateAll(this.locator);
     }

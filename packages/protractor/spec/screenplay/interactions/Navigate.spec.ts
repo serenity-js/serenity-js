@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
@@ -25,6 +26,12 @@ describe('Navigate', () => {
 
             Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Hello World')),
         ));
+
+        /** @test {Navigate#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Navigate.to(`https://serenity-js.org`).toString())
+                .to.equal(`#actor navigates to 'https://serenity-js.org'`);
+        });
     });
 
     describe('back', () => {
@@ -39,6 +46,11 @@ describe('Navigate', () => {
             Ensure.that(Website.url(), endsWith('version/')),
         ));
 
+        /** @test {Navigate#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Navigate.back().toString())
+                .to.equal(`#actor navigates back in the browser history`);
+        });
     });
 
     describe('forward', () => {
@@ -54,5 +66,10 @@ describe('Navigate', () => {
             Ensure.that(Website.url(), endsWith('accessibility/')),
         ));
 
+        /** @test {Navigate#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Navigate.forward().toString())
+                .to.equal(`#actor navigates forward in the browser history`);
+        });
     });
 });

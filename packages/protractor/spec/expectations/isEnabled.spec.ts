@@ -50,6 +50,6 @@ describe('isEnabled', function() {
     /** @test {isEnabled} */
     it(`contributes to a human-readable description of a wait`, () => {
         expect(Wait.until(Page.Enabled_Button, isEnabled()).toString())
-            .to.equal(`#actor waits until the enabled button does become enabled`);
+            .to.equal(`#actor waits up to 5s until the enabled button does become enabled`);
     });
 });

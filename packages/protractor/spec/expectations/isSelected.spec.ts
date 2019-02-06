@@ -60,6 +60,6 @@ describe('isSelected', function() {
     /** @test {isSelected} */
     it(`contributes to a human-readable description of a wait`, () => {
         expect(Wait.until(Languages.TypeScript, isSelected()).toString())
-            .to.equal(`#actor waits until the TypeScript option does become selected`);
+            .to.equal(`#actor waits up to 5s until the TypeScript option does become selected`);
     });
 });

@@ -51,6 +51,6 @@ describe('isVisible', function() {
     /** @test {isVisible} */
     it(`contributes to a human-readable description of a wait`, () => {
         expect(Wait.until(Page.Visible_Header, isVisible()).toString())
-            .to.equal(`#actor waits until the header does become visible`);
+            .to.equal(`#actor waits up to 5s until the header does become visible`);
     });
 });

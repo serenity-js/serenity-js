@@ -61,6 +61,6 @@ class WaitUntil<Actual> implements Interaction {
     }
 
     toString(): string {
-        return formatted`#actor waits until ${ this.actual } does ${ this.expectation }`;
+        return formatted`#actor waits up to ${ this.timeout } until ${ this.actual } does ${ this.expectation }`;
     }
 }

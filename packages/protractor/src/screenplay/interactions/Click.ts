@@ -4,19 +4,19 @@ import { ElementFinder } from 'protractor';
 import { promiseOf } from '../promiseOf';
 import { Target } from '../questions';
 
-export class Clear implements Interaction {
-    static theValueOf(field: Target<ElementFinder>) {
-        return new Clear(field);
+export class Click implements Interaction {
+    static on(target: Target<ElementFinder>) {
+        return new Click(target);
     }
 
-    constructor(private readonly field: Target<ElementFinder>) {
+    constructor(private readonly target: Target<ElementFinder>) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return promiseOf(this.field.answeredBy(actor).clear());
+        return promiseOf(this.target.answeredBy(actor).click());
     }
 
     toString(): string {
-        return formatted `#actor clears the value of ${ this.field }`;
+        return formatted `#actor clicks on ${ this.target }`;
     }
 }

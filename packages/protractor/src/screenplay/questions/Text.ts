@@ -21,7 +21,7 @@ export abstract class Text<T extends WebElement, R> implements Question<Promise<
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<R>;
 }
 
-class TextOfSingleElement extends Text<ElementFinder, string> {
+export class TextOfSingleElement extends Text<ElementFinder, string> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return promiseOf(this.target.answeredBy(actor).getText()) as any;
     }
@@ -31,7 +31,7 @@ class TextOfSingleElement extends Text<ElementFinder, string> {
     }
 }
 
-class TextOfMultipleElements extends Text<ElementArrayFinder, string[]> {
+export class TextOfMultipleElements extends Text<ElementArrayFinder, string[]> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         // protractor ignores type definitions for the ElementArrayFinder, hence the Promise<any>
         // https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92
