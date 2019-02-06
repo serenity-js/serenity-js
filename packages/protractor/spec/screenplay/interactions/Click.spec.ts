@@ -3,40 +3,40 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 
 import { by, protractor } from 'protractor';
-import { BrowseTheWeb, Clear, Navigate, Target, Value } from '../../../src';
+import { Attribute, BrowseTheWeb, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-describe('Clear', () => {
+describe('Click', () => {
 
     const Bernie = Actor.named('Bernie').whoCan(
         BrowseTheWeb.using(protractor.browser),
     );
 
     const Form = {
-        Field: Target.the('name field').located(by.id('name')),
+        Checkbox: Target.the('checkbox').located(by.id('no-spam-please')),
     };
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of a field', () => Bernie.attemptsTo(
+    /** @test {Click} */
+    /** @test {Click.on} */
+    it('allows the actor to click on an element', () => Bernie.attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
                     <form>
-                        <input type="text" id="name" value="Jan" />
+                        <input type="checkbox" id="no-spam-please" />
                     </form>
                 </body>
             </html>
         `)),
 
-        Clear.theValueOf(Form.Field),
+        Click.on(Form.Checkbox),
 
-        Ensure.that(Value.of(Form.Field), equals('')),
+        Ensure.that(Attribute.of(Form.Checkbox).called('checked'), equals('true')),
     ));
 
-    /** @test {Clear#toString} */
+    /** @test {Click#toString} */
     it(`provides a sensible description of the interaction being performed`, () => {
-        expect(Clear.theValueOf(Form.Field).toString())
-            .to.equal('#actor clears the value of the name field');
+        expect(Click.on(Form.Checkbox).toString())
+            .to.equal('#actor clicks on the checkbox');
     });
 });

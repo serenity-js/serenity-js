@@ -1,5 +1,5 @@
 export * from './Attribute';
-export * from './Target';
-export * from './Text';
+export { Target } from './Target';
+export { Text } from './Text';
 export * from './Value';
 export * from './Website';

@@ -30,34 +30,52 @@ describe('Wait', () => {
         </html>
     `);
 
-    /** @test {Wait} */
-    /** @test {Wait.for} */
-    it(`pauses the actor flow for the length of an explicitly-set duration`, () => Bernie.attemptsTo(
-        Navigate.to(Test_Page),
+    describe(`for`, () => {
 
-        Wait.for(Duration.ofMillis(300)),
+        /** @test {Wait} */
+        /** @test {Wait.for} */
+        it(`pauses the actor flow for the length of an explicitly-set duration`, () => Bernie.attemptsTo(
+            Navigate.to(Test_Page),
 
-        Ensure.that(Text.of(Status), equals('Ready!')),
-    ));
+            Wait.for(Duration.ofMillis(300)),
 
-    /** @test {Wait} */
-    /** @test {Wait.until} */
-    it(`pauses the actor flow until the expectation is met`, () => Bernie.attemptsTo(
-        Navigate.to(Test_Page),
+            Ensure.that(Text.of(Status), equals('Ready!')),
+        ));
 
-        Wait.until(Text.of(Status), equals('Ready!')),
+        /** @test {Wait#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Wait.for(Duration.ofMillis(300)).toString())
+                .to.equal(`#actor waits for 300ms`);
+        });
+    });
 
-        Ensure.that(Text.of(Status), equals('Ready!')),
-    ));
+    describe(`until`, () => {
 
-    /** @test {Wait} */
-    /** @test {Wait.upTo} */
-    /** @test {Wait.until} */
-    it('pauses the actor flow until the timeout expires', () => expect(Bernie.attemptsTo(
-        Navigate.to(Test_Page),
+        /** @test {Wait} */
+        /** @test {Wait.until} */
+        it(`pauses the actor flow until the expectation is met`, () => Bernie.attemptsTo(
+            Navigate.to(Test_Page),
 
-        Wait.upTo(Duration.ofMillis(10)).until(Text.of(Status), equals('Ready!')),
-    )).to.be.rejected.then(error => {
-        expect(error.constructor.name).to.equal('TimeoutError');
-    }));
+            Wait.until(Text.of(Status), equals('Ready!')),
+
+            Ensure.that(Text.of(Status), equals('Ready!')),
+        ));
+
+        /** @test {Wait} */
+        /** @test {Wait.upTo} */
+        /** @test {Wait.until} */
+        it('pauses the actor flow until the timeout expires', () => expect(Bernie.attemptsTo(
+            Navigate.to(Test_Page),
+
+            Wait.upTo(Duration.ofMillis(10)).until(Text.of(Status), equals('Ready!')),
+        )).to.be.rejected.then(error => {
+            expect(error.constructor.name).to.equal('TimeoutError');
+        }));
+
+        /** @test {Wait#toString} */
+        it(`provides a sensible description of the interaction being performed`, () => {
+            expect(Wait.upTo(Duration.ofMillis(10)).until(Text.of(Status), equals('Ready!')).toString())
+                .to.equal(`#actor waits up to 10ms until the text of the header does equal 'Ready!'`);
+        });
+    });
 });

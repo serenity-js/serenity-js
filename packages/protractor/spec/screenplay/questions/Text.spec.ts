@@ -30,7 +30,7 @@ describe('Text', function() {
             Ensure.that(Text.of(Header), equals('Hello World!')),
         ));
 
-        it(`produces sensible description of the question being asked`, () => {
+        it(`produces a sensible description of the question being asked`, () => {
             expect(Text.of(Target.the('header').located(by.tagName('h1'))).toString())
                 .to.equal('the text of the header');
         });

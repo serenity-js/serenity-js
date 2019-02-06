@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
@@ -17,6 +18,7 @@ describe('Enter', () => {
     };
 
     /** @test {Enter} */
+    /** @test {Enter.theValue} */
     it('allows the actor to enter the value into a field', () => Bernie.attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
@@ -38,4 +40,10 @@ describe('Enter', () => {
 
         Ensure.that(Value.of(Form.Field), equals(Bernie.name)),
     ));
+
+    /** @test {Enter#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(Enter.theValue(Bernie.name).into(Form.Field).toString())
+            .to.equal(`#actor enters 'Bernie' into the name field`);
+    });
 });
