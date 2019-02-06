@@ -1,8 +1,8 @@
 import * as ErrorStackParser from 'error-stack-parser';
 
 /** @access package */
-export class ErrorParser {
-    parse(error: Error) {
+export class ErrorRenderer {
+    render(error: Error) {
         // todo: add diff for AssertionError
         return {
             errorType:    error.constructor.name,

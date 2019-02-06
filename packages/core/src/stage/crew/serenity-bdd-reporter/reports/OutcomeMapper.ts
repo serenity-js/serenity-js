@@ -10,19 +10,19 @@ import {
     Outcome,
 } from '../../../../model';
 import { ErrorDetails } from '../SerenityBDDJsonSchema';
-import { ErrorParser } from './ErrorParser';
+import { ErrorRenderer } from './ErrorRenderer';
 
 /** @access package */
 export class OutcomeMapper {
-    private static errorParser = new ErrorParser();
+    private static errorRenderer = new ErrorRenderer();
 
     public mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {
-        const parse = OutcomeMapper.errorParser.parse;
+        const render = OutcomeMapper.errorRenderer.render;
 
         return match<Outcome, void>(outcome).
-            when(ExecutionCompromised,              ({ error }: ExecutionCompromised)               => mapAs('COMPROMISED', parse(error))).
-            when(ExecutionFailedWithError,          ({ error }: ExecutionFailedWithError)           => mapAs('ERROR', parse(error))).
-            when(ExecutionFailedWithAssertionError, ({ error }: ExecutionFailedWithAssertionError)  => mapAs('FAILURE', parse(error))).
+            when(ExecutionCompromised,              ({ error }: ExecutionCompromised)               => mapAs('COMPROMISED', render(error))).
+            when(ExecutionFailedWithError,          ({ error }: ExecutionFailedWithError)           => mapAs('ERROR', render(error))).
+            when(ExecutionFailedWithAssertionError, ({ error }: ExecutionFailedWithAssertionError)  => mapAs('FAILURE', render(error))).
             when(ExecutionSkipped,      _ => mapAs('SKIPPED')).
             when(ExecutionIgnored,      _ => mapAs('IGNORED')).
             when(ImplementationPending, _ => mapAs('PENDING')).
