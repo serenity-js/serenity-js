@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.13](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.12...v2.0.1-alpha.13) (2019-02-06)
+
+
+### Features
+
+* **protractor:** Click and DoubleClick interactions ([505e25d](https://github.com/jan-molak/serenity-js/commit/505e25d))
+
+
+
+
+
 ## [2.0.1-alpha.12](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.11...v2.0.1-alpha.12) (2019-02-05)
 
 **Note:** Version bump only for package @serenity-js/protractor
