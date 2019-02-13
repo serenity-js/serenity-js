@@ -9,7 +9,7 @@ export class LocalServer {
      * @returns {Question<string>} Url of the locally running Node.js server
      */
     static url() {
-        return Question.about<string>('URL of the local server', actor => {
+        return Question.about<string>('the URL of the local server', actor => {
             return ManageALocalServer.as(actor).mapInstance(server => {
                 const info = server.address();
 

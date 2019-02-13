@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { OptionsRequest } from '../../src/model';
+import { HeadRequest, OptionsRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {OptionsRequest} */
@@ -34,4 +34,10 @@ describe('OptionsRequest', () => {
                     Accept: 'application/json',
                 },
             }));
+
+    /** @test {Options#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(OptionsRequest.to('/products/2').toString())
+            .to.equal(`an OPTIONS request to '/products/2'`);
+    });
 });

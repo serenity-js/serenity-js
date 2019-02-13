@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { HeadRequest } from '../../src/model';
+import { GetRequest, HeadRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {HeadRequest} */
@@ -34,4 +34,10 @@ describe('HeadRequest', () => {
                     Accept: 'application/json',
                 },
             }));
+
+    /** @test {HeadRequest#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(HeadRequest.to('/products/2').toString())
+            .to.equal(`a HEAD request to '/products/2'`);
+    });
 });

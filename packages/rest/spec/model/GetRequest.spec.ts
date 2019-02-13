@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { GetRequest } from '../../src/model';
+import { DeleteRequest, GetRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {GetRequest} */
@@ -34,4 +34,10 @@ describe('GetRequest', () => {
                     Accept: 'application/json',
                 },
             }));
+
+    /** @test {GetRequest#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(GetRequest.to('/products/2').toString())
+            .to.equal(`a GET request to '/products/2'`);
+    });
 });

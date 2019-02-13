@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { PostRequest } from '../../src/model';
+import { OptionsRequest, PostRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {PostRequest} */
@@ -39,4 +39,10 @@ describe('PostRequest', () => {
                 },
                 data: { name: 'apple' },
             }));
+
+    /** @test {PostRequest#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(PostRequest.to('/products/2').toString())
+            .to.equal(`a POST request to '/products/2'`);
+    });
 });
