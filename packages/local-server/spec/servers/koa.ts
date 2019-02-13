@@ -1,5 +1,5 @@
 // https://github.com/koajs/koa
-import * as Koa from 'koa';
+const Koa = require('koa'); // tslint:disable-line:no-var-requires  @types/koa cause "Type 'Middleware' is not generic" error
 
 export = {
     node: '>= 6.9',
