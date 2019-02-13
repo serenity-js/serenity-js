@@ -13,7 +13,7 @@ import { promiseOf } from '../promiseOf';
  */
 export abstract class Navigate implements Interaction {
 
-    static to(url: string) {
+    static to(url: KnowableUnknown<string>) {
         return new NavigateToUrl(url);
     }
 
