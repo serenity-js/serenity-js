@@ -51,7 +51,7 @@ function descriptionOf(value: KnowableUnknown<any>): string {
         return value.toString();
     }
 
-    return inspect(value);
+    return inspect(value, { breakLength: Infinity, compact: true, sorted: false  }).replace(/\r?\n/g, '');
 }
 
 /**
