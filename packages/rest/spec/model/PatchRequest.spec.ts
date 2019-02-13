@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { PatchRequest } from '../../src/model';
+import { OptionsRequest, PatchRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {PatchRequest} */
@@ -48,4 +48,10 @@ describe('PatchRequest', () => {
                 },
                 data: { name: 'apple' },
             }));
+
+    /** @test {PatchRequest#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(PatchRequest.to('/products/2').toString())
+            .to.equal(`a PATCH request to '/products/2'`);
+    });
 });

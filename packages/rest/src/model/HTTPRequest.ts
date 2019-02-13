@@ -1,4 +1,5 @@
 import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
 
 /**
@@ -61,7 +62,7 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
     }
 
     toString() {
-        return `a ${ this.httpMethodName() } request`;
+        return `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
     }
 
     /**
@@ -73,5 +74,19 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
      */
     private httpMethodName(): string {
         return this.constructor.name.replace(/Request/, '').toUpperCase();
+    }
+
+    /**
+     * @desc
+     *  A human-readable description of the request, such as "a GET request", "an OPTIONS request", etc.
+     *
+     * @private
+     */
+    private requestDescription(): string {
+        const
+            vowels = [ 'A', 'E', 'I', 'O', 'U' ],
+            method = this.httpMethodName();
+
+        return `${ ~vowels.indexOf(method[0]) ? 'an' : 'a' } ${ method } request`;
     }
 }

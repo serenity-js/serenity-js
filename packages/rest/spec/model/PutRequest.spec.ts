@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Actor } from '@serenity-js/core';
-import { PutRequest } from '../../src/model';
+import { PostRequest, PutRequest } from '../../src/model';
 import { expect } from '../expect';
 
 /** @test {PutRequest} */
@@ -48,4 +48,10 @@ describe('PutRequest', () => {
                 },
                 data: { name: 'apple' },
             }));
+
+    /** @test {PutRequest#toString} */
+    it(`provides a sensible description of the interaction being performed`, () => {
+        expect(PutRequest.to('/products/2').toString())
+            .to.equal(`a PUT request to '/products/2'`);
+    });
 });
