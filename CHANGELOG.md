@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.16](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.15...v2.0.1-alpha.16) (2019-02-13)
+
+
+### Bug Fixes
+
+* **protractor:** Navigate.to accepts a KnowableUnknown<string> ([a1847b7](https://github.com/jan-molak/serenity-js/commit/a1847b7))
+
+
+
+
+
 ## [2.0.1-alpha.15](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.14...v2.0.1-alpha.15) (2019-02-13)
 
 
