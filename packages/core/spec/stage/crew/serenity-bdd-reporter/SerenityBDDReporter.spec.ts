@@ -344,10 +344,17 @@ describe('SerenityBDDReporter', () => {
              * @test {ExecutionCompromised}
              */
             it('has been compromised', () => {
-                const error = new TestCompromisedError(`Test database not deployed, no point running the test`);
+                const dbError = new Error(`Could not connect to the database`);
+                dbError.stack = [
+                    'Error: Could not connect to the database',
+                    '    at callFn (/fake/path/node_modules/db-module/index.js:56:78)',
+                    // and so on
+                ].join('\n');
+
+                const error = new TestCompromisedError(`Test database not deployed, no point running the test`, dbError);
                 error.stack = [
-                    'Error: Test database not deployed, no point running the test',
-                    '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',
+                    'TestCompromisedError: Test database not deployed, no point running the test',
+                    '    at callFn (/fake/path/my-test/index.js:12:34)',
                     // and so on
                 ].join('\n');
 
@@ -365,11 +372,23 @@ describe('SerenityBDDReporter', () => {
                     stackTrace: [
                         {
                             declaringClass: '',
-                            fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
-                            lineNumber: 326,
+                            fileName: '/fake/path/my-test/index.js',
+                            lineNumber: 12,
                             methodName: 'callFn()',
                         },
                     ],
+                    rootCause: {
+                        errorType: `Error`,
+                        message: `Could not connect to the database`,
+                        stackTrace: [
+                            {
+                                declaringClass: '',
+                                fileName: '/fake/path/node_modules/db-module/index.js',
+                                lineNumber: 56,
+                                methodName: 'callFn()',
+                            },
+                        ],
+                    },
                 });
             });
         });

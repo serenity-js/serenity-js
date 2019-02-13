@@ -116,4 +116,5 @@ export interface ErrorDetails extends JSONObject {
         fileName: string,
         lineNumber: number,
     }>;
+    rootCause?: ErrorDetails;
 }
