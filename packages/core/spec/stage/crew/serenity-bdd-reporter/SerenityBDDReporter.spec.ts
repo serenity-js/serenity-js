@@ -2,7 +2,7 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { TestCompromisedError } from '../../../../src/errors';
+import { AssertionError, TestCompromisedError } from '../../../../src/errors';
 import {
     ArtifactGenerated,
     SceneFinished,
@@ -276,22 +276,45 @@ describe('SerenityBDDReporter', () => {
              */
             it('has failed with an assertion error', () => {
 
-                try {
-                    expect(true).to.equal(false);
-                } catch (assertionError) {
+                const assertionError = new AssertionError('expected true to equal false', false, true);
 
-                    given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneFinished(defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
-                        new TestRunFinished(),
-                    );
+                given(reporter).isNotifiedOfFollowingEvents(
+                    new SceneFinished(defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
+                    new TestRunFinished(),
+                );
 
-                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
-                    expect(report.result).to.equal('FAILURE');
-                    expect(report.testFailureCause.errorType).to.equal('AssertionError');
-                    expect(report.testFailureCause.message).to.equal('expected true to equal false');
-                    expect(report.testFailureCause.stackTrace).to.be.an('array');
-                }
+                expect(report.result).to.equal('FAILURE');
+                expect(report.testFailureCause.errorType).to.equal('AssertionError');
+                expect(report.testFailureCause.message).to.equal('expected true to equal false');
+                expect(report.testFailureCause.stackTrace).to.be.an('array');
+            });
+
+            /**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinished}
+             * @test {TestCompromisedError}
+             * @test {ExecutionCompromised}
+             */
+            it('has been compromised', () => {
+
+                // const assertionError = new AssertionError('expected true to equal false', false, true);
+                const assertionError = new TestCompromisedError('expected true to equal false');
+
+                given(reporter).isNotifiedOfFollowingEvents(
+                    new SceneFinished(defaultCardScenario, new ExecutionCompromised(assertionError)),
+                    new TestRunFinished(),
+                );
+
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+                expect(report.result).to.equal('COMPROMISED');
+                expect(report.testFailureCause.errorType).to.equal('TestCompromisedError');
+                expect(report.testFailureCause.message).to.equal('expected true to equal false');
+                expect(report.testFailureCause.stackTrace).to.be.an('array');
             });
 
             /**

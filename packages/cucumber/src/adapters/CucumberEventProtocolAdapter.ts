@@ -1,6 +1,7 @@
-import { AssertionError, UnknownError } from '@serenity-js/core/lib/errors';
+import { AssertionError, TestCompromisedError, UnknownError } from '@serenity-js/core/lib/errors';
 import { ErrorSerialiser, Path } from '@serenity-js/core/lib/io';
 import {
+    ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
@@ -103,9 +104,11 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
 
                 case 'ambiguous':
                 case 'failed':
-                    return error instanceof AssertionError
-                        ? new ExecutionFailedWithAssertionError(error)
-                        : new ExecutionFailedWithError(error);
+                    switch (true) {
+                        case error instanceof AssertionError:       return new ExecutionFailedWithAssertionError(error as AssertionError);
+                        case error instanceof TestCompromisedError: return new ExecutionCompromised(error as TestCompromisedError);
+                        default:                                    return new ExecutionFailedWithError(error);
+                    }
 
                 case 'pending':
                     return new ImplementationPending();
