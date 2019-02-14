@@ -6,23 +6,23 @@ import { Expectation } from './Expectation';
 import { ExpectationNotMet, Outcome } from './outcomes';
 
 export class Ensure<Actual> implements Interaction {
-    static that<A>(actual: KnowableUnknown<A>, assertion: Expectation<any, A>) {
-        return new Ensure(actual, assertion);
+    static that<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
+        return new Ensure(actual, expectation);
     }
 
     constructor(
         private readonly actual: KnowableUnknown<Actual>,
-        private readonly assertion: Expectation<Actual>,
+        private readonly expectation: Expectation<Actual>,
     ) {
     }
 
     performAs(actor: AnswersQuestions): PromiseLike<void> {
         return Promise.all([
             actor.answer(this.actual),
-            actor.answer(this.assertion),
+            actor.answer(this.expectation),
         ]).
-        then(([ actual, assertion ]) =>
-            assertion(actual).then(outcome =>
+        then(([ actual, expectation ]) =>
+            expectation(actual).then(outcome =>
                 match<Outcome<any, Actual>, void>(outcome)
                     .when(ExpectationNotMet, o => {
                         throw new AssertionError(
@@ -37,6 +37,6 @@ export class Ensure<Actual> implements Interaction {
     }
 
     toString(): string {
-        return formatted `#actor ensures that ${ this.actual } does ${ this.assertion }`;
+        return formatted `#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }
 }
