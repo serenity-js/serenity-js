@@ -5,10 +5,12 @@ import { RuntimeError } from '../../../../errors';
 export class ErrorRenderer {
     render(error: Error) {
         // todo: add diff for AssertionError
-        return {
-            ...this.renderError(error),
-            ...((error instanceof RuntimeError && error.cause) ? { rootCause: this.renderError(error.cause) } : {}),
-        };
+        // tslint:disable-next-line:prefer-object-spread     Esdoc doesn't understand spread
+        return Object.assign(
+            {},
+            this.renderError(error),
+            ((error instanceof RuntimeError && error.cause) ? { rootCause: this.renderError(error.cause) } : {}),
+        );
     }
 
     private renderError(error: Error) {
