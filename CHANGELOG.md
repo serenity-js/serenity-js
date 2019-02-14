@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.18](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.17...v2.0.1-alpha.18) (2019-02-14)
+
+
+### Bug Fixes
+
+* **core:** `formatted` tag function correctly removes new line characters from the output ([41e9db3](https://github.com/jan-molak/serenity-js/commit/41e9db3))
+* **core:** Serenity BDD reports errors with root causes correctly ([25222a9](https://github.com/jan-molak/serenity-js/commit/25222a9))
+
+
+### Features
+
+* **assertions:** Check.whether enables conditional flow ([abbac18](https://github.com/jan-molak/serenity-js/commit/abbac18))
+
+
+
+
+
 ## [2.0.1-alpha.17](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.16...v2.0.1-alpha.17) (2019-02-13)
 
 
