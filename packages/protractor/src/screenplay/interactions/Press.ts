@@ -10,7 +10,7 @@ export class Press implements Interaction {
 
     static the(...keys: string[]) {
         return {
-            into: (field: Target<ElementFinder>) => new Press(keys, field),
+            in: (field: Target<ElementFinder>) => new Press(keys, field),
         };
     }
 
@@ -26,7 +26,7 @@ export class Press implements Interaction {
     }
 
     toString() {
-        return `#actor types ${ describeSequenceOf(this.keys) } in ${ this.field.toString() }`;
+        return `#actor presses ${ describeSequenceOf(this.keys) } in ${ this.field.toString() }`;
     }
 }
 

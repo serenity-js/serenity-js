@@ -36,8 +36,8 @@ describe('Press', () => {
         it('allows the actor to enter keys individually into a field', () => Bernie.attemptsTo(
             Navigate.to(page),
 
-            Press.the('a').into(Form.Text_Field),
-            Press.the('A').into(Form.Text_Field),
+            Press.the('a').in(Form.Text_Field),
+            Press.the('A').in(Form.Text_Field),
 
             Ensure.that(Value.of(Form.Text_Field), equals('aA')),
         ));
@@ -51,7 +51,7 @@ describe('Press', () => {
         it('allows the actor to use keyboard shortcuts', () => Bernie.attemptsTo(
             Navigate.to(page),
 
-            Press.the(Key.SHIFT, 'a').into(Form.Text_Field),
+            Press.the(Key.SHIFT, 'a').in(Form.Text_Field),
 
             Ensure.that(Value.of(Form.Text_Field), equals(`A`)),
         ));
@@ -61,23 +61,23 @@ describe('Press', () => {
     given([
         {
             description: 'single key',
-            interaction: Press.the('a').into(Form.Text_Field),
-            expected:   `#actor types A in the text field`,
+            interaction: Press.the('a').in(Form.Text_Field),
+            expected:   `#actor presses A in the text field`,
         },
         {
             description: 'sequence of keys',
-            interaction: Press.the('a', 'b', 'c').into(Form.Text_Field),
-            expected:   `#actor types A, B, C in the text field`,
+            interaction: Press.the('a', 'b', 'c').in(Form.Text_Field),
+            expected:   `#actor presses A, B, C in the text field`,
         },
         {
             description: 'keyboard shortcut',
-            interaction: Press.the(Key.CONTROL, 'a').into(Form.Text_Field),
-            expected:   `#actor types Control-A in the text field`,
+            interaction: Press.the(Key.CONTROL, 'a').in(Form.Text_Field),
+            expected:   `#actor presses Control-A in the text field`,
         },
         {
             description: 'complex shortcut',
-            interaction: Press.the(Key.COMMAND, Key.ALT, 'a').into(Form.Text_Field),
-            expected:   `#actor types Command-Alt-A in the text field`,
+            interaction: Press.the(Key.COMMAND, Key.ALT, 'a').in(Form.Text_Field),
+            expected:   `#actor presses Command-Alt-A in the text field`,
         },
     ]).
     /** @test {Press#toString} */

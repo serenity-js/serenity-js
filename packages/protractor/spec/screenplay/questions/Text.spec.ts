@@ -6,7 +6,7 @@ import { by, protractor } from 'protractor';
 import { BrowseTheWeb, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-describe('Text', function() {
+describe('Text', () => {
 
     const Bernie = Actor.named('Bernie').whoCan(
         BrowseTheWeb.using(protractor.browser),
@@ -60,7 +60,7 @@ describe('Text', function() {
 
         it(`produces sensible description of the question being asked`, () => {
             expect(Text.ofAll(Shopping_List_Items).toString())
-                .to.equal('the text of all the shopping list items');
+                .to.equal('the text of the shopping list items');
         });
     });
 });
