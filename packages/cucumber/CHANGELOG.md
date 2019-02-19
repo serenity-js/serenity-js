@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.19](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.18...v2.0.1-alpha.19) (2019-02-14)
+
+
+### Bug Fixes
+
+* **cucumber:** Compromised tests are now correctly reported ([cf49a75](https://github.com/jan-molak/serenity-js/commit/cf49a75))
+
+
+
+
+
 ## [2.0.1-alpha.18](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.17...v2.0.1-alpha.18) (2019-02-14)
 
 **Note:** Version bump only for package @serenity-js/cucumber
