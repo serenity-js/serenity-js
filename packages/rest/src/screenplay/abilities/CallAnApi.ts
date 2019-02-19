@@ -1,4 +1,4 @@
-import { Ability, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
+import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 /**
@@ -165,7 +165,7 @@ export class CallAnApi implements Ability {
                         case /Network Error/.test(rejected.message):
                             throw new TestCompromisedError(`A network error has occurred`, rejected);
                         case rejected instanceof TypeError:
-                            throw new LogicError(`Looks like there was an issue with Axios configuration`, rejected);
+                            throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, rejected);
                         case ! (rejected as AxiosError).response:
                             throw new TestCompromisedError(`The API call has failed`, rejected);
                         default:

@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { LogicError, TestCompromisedError } from '@serenity-js/core';
+import { ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { given } from 'mocha-testdata';
@@ -114,8 +114,8 @@ describe('CallAnApi', () => {
                 callAnApi = CallAnApi.using(axiosInstance);
 
             return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('Looks like there was an issue with Axios configuration')
-                .then((error: LogicError) => {
-                    expect(error).to.be.instanceOf(LogicError);
+                .then((error: ConfigurationError) => {
+                    expect(error).to.be.instanceOf(ConfigurationError);
                     expect(error.stack).to.contain('Caused by: TypeError');
                 });
         });
