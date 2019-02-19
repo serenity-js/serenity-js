@@ -5,7 +5,7 @@ import { by, protractor } from 'protractor';
 import { BrowseTheWeb, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-describe('Value', function() {
+describe('Value', () => {
 
     const Bernie = Actor.named('Bernie').whoCan(
         BrowseTheWeb.using(protractor.browser),
