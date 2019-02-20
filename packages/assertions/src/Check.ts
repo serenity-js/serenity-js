@@ -1,8 +1,7 @@
 import { Activity, AnswersQuestions, KnowableUnknown, PerformsTasks, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { match } from 'tiny-types';
 import { Expectation } from './Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
+import { ExpectationMet } from './outcomes';
 
 export class Check<Actual> implements Task {
     static whether<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
@@ -29,10 +28,9 @@ export class Check<Actual> implements Task {
             actor.answer(this.expectation),
         ]).then(([actual, expectation]) =>
             expectation(actual).then(outcome =>
-                match<Outcome<any, Actual>, void>(outcome)
-                    .when(ExpectationMet,       o => actor.attemptsTo(...this.activities))
-                    .when(ExpectationNotMet,    o => actor.attemptsTo(...this.alternativeActivities))
-                    .else(_ => void 0),
+                    outcome instanceof ExpectationMet
+                        ? actor.attemptsTo(...this.activities)
+                        : actor.attemptsTo(...this.alternativeActivities),
             ),
         );
     }
