@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.20](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.19...v2.0.1-alpha.20) (2019-02-19)
+
+
+### Bug Fixes
+
+* **rest:** Providing an invalid Axios configuration results in a ConfigurationError instead of Logic ([ba9c3db](https://github.com/jan-molak/serenity-js/commit/ba9c3db))
+
+
+### Features
+
+* **protractor:** Targets can be nested within one another ([b8f95c8](https://github.com/jan-molak/serenity-js/commit/b8f95c8)), closes [#187](https://github.com/jan-molak/serenity-js/issues/187) [#143](https://github.com/jan-molak/serenity-js/issues/143)
+
+
+
+
+
 ## [2.0.1-alpha.19](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.18...v2.0.1-alpha.19) (2019-02-14)
 
 
