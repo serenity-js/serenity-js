@@ -1,14 +1,14 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
-import { ElementArrayFinder, ElementFinder, Locator, WebElement } from 'protractor';
+import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { ElementFinder, Locator } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
 
-export abstract class Target<T extends WebElement> implements Question<T> {
+export class Target  {
     static the(name: string) {
         return {
-            located: (byLocator: Locator): Target<ElementFinder> => new TargetElement(name, byLocator),
-            in: (parent: Target<ElementFinder>) => {
+            located: (byLocator: Locator): Question<ElementFinder> => new TargetElement(name, byLocator),
+            in: (parent: KnowableUnknown<ElementFinder>) => {
                 return {
-                    located: (byLocator: Locator): Target<ElementFinder> =>
+                    located: (byLocator: Locator): Question<Promise<ElementFinder>> =>
                         new TargetNestedElement(parent, name, byLocator),
                 };
             },
@@ -17,30 +17,30 @@ export abstract class Target<T extends WebElement> implements Question<T> {
 
     static all(name: string) {
         return {
-            located: (byLocator: Locator): Target<ElementArrayFinder> => new TargetElements(name, byLocator),
-            in: (parent: Target<ElementFinder>) => {
+            located: (byLocator: Locator): Question<Promise<ElementFinder[]>> => new TargetElements(name, byLocator),
+            in: (parent: KnowableUnknown<ElementFinder>) => {
                 return {
-                    located: (byLocator: Locator): Target<ElementArrayFinder> =>
+                    located: (byLocator: Locator): Question<Promise<ElementFinder[]>> =>
                         new TargetNestedElements(parent, name, byLocator),
                 };
             },
         };
     }
+}
 
+export class TargetElement implements Question<ElementFinder> {
     constructor(
         protected readonly name: string,
         protected readonly locator: Locator,
     ) {
     }
 
-    abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
-}
-
-export class TargetElement extends Target<ElementFinder> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
-        const elf = BrowseTheWeb.as(actor).locate(this.locator);
-
-        return override(elf, 'toString', this.toString.bind(this));
+        return override(
+            BrowseTheWeb.as(actor).locate(this.locator),
+            'toString',
+            this.toString.bind(this),
+        );
     }
 
     toString() {
@@ -48,20 +48,27 @@ export class TargetElement extends Target<ElementFinder> {
     }
 }
 
-export class TargetNestedElement extends Target<ElementFinder> {
+export class TargetNestedElement implements Question<Promise<ElementFinder>> {
 
     constructor(
-        private readonly parent: Target<ElementFinder>,
-        name: string,
-        locator: Locator,
+        private readonly parent: KnowableUnknown<ElementFinder>,
+        private readonly name: string,
+        private readonly locator: Locator,
     ) {
-        super(name, locator);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
-        const elf = this.parent.answeredBy(actor).element(this.locator);
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementFinder> {
+        return actor.answer(this.parent).then(parent => override(
+            parent.element(this.locator),
+            'toString',
+            this.toString.bind(this),
+        ));
 
-        return override(elf, 'toString', this.toString.bind(this));
+        // return override(
+        //     this.parent.answeredBy(actor).element(this.locator),
+        //     'toString',
+        //     this.toString.bind(this),
+        // );
     }
 
     toString() {
@@ -69,11 +76,20 @@ export class TargetNestedElement extends Target<ElementFinder> {
     }
 }
 
-export class TargetElements extends Target<ElementArrayFinder> {
-    answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
-        const eaf = BrowseTheWeb.as(actor).locateAll(this.locator);
+export class TargetElements implements Question<Promise<ElementFinder[]>> {
+    constructor(
+        private readonly name: string,
+        private readonly locator: Locator,
+    ) {
+    }
 
-        return override(eaf, 'toString', this.toString.bind(this));
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementFinder[]> {
+        return Promise.resolve(BrowseTheWeb.as(actor).locateAll(this.locator).asElementFinders_())
+            .then(finders => override(
+                finders,
+                'toString',
+                this.toString.bind(this)),
+            );
     }
 
     toString() {
@@ -81,20 +97,23 @@ export class TargetElements extends Target<ElementArrayFinder> {
     }
 }
 
-export class TargetNestedElements extends Target<ElementArrayFinder> {
+export class TargetNestedElements implements Question<Promise<ElementFinder[]>> {
 
     constructor(
-        private readonly parent: Target<ElementFinder>,
-        name: string,
-        locator: Locator,
+        private readonly parent: KnowableUnknown<ElementFinder>,
+        private readonly name: string,
+        private readonly locator: Locator,
     ) {
-        super(name, locator);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
-        const eaf = this.parent.answeredBy(actor).all(this.locator);
-
-        return override(eaf, 'toString', this.toString.bind(this));
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementFinder[]> {
+        return actor.answer(this.parent)
+            .then(parent => parent.all(this.locator).asElementFinders_())
+            .then(finders => override(
+                finders,
+                'toString',
+                this.toString.bind(this),
+            ));
     }
 
     toString() {

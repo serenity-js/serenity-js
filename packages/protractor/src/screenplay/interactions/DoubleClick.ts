@@ -1,23 +1,21 @@
-import { AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
-import { promiseOf } from '../promiseOf';
-import { Target } from '../questions';
 
 export class DoubleClick implements Interaction {
-    static on(target: Target<ElementFinder>) {
+    static on(target: KnowableUnknown<ElementFinder>) {
         return new DoubleClick(target);
     }
 
-    constructor(private readonly target: Target<ElementFinder>) {
+    constructor(private readonly target: KnowableUnknown<ElementFinder>) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return promiseOf(BrowseTheWeb.as(actor).actions()
-            .doubleClick(this.target.answeredBy(actor))
-            .perform(),
-        );
+        return actor.answer(this.target)
+            .then(finder => BrowseTheWeb.as(actor).actions()
+                .doubleClick(finder)
+                .perform());
     }
 
     toString(): string {

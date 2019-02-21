@@ -2,14 +2,13 @@ import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@ser
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { Attribute } from './Attribute';
-import { Target } from './Target';
 
 export class Value implements Question<Promise<string>> {
-    static of(target: Target<ElementFinder>) {
+    static of(target: KnowableUnknown<ElementFinder>) {
         return new Value(target);
     }
 
-    constructor(private readonly target: Target<ElementFinder>) {
+    constructor(private readonly target: KnowableUnknown<ElementFinder>) {
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {

@@ -1,6 +1,6 @@
 import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { NoAnswerFound } from './errors';
+import { NoResultsMatching } from './errors';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './outcomes';
 
@@ -91,7 +91,7 @@ class AllMatchingAnswers<T> implements Question<Promise<T[]>> {
     }
 
     toString() {
-        return formatted `all of ${ this.question }`;
+        return formatted `${ this.question }`;
     }
 }
 
@@ -107,7 +107,7 @@ class FirstAnswer<T> implements Question<Promise<T>> {
             .then(items => this.filters.processAs(actor, items))
             .then(items => {
                 if (items[0] === undefined) {
-                    throw new NoAnswerFound(`There's no ${ this.toString() }`);
+                    throw new NoResultsMatching(`Can't pick ${ this.toString() } as there are no results matching`);
                 }
 
                 return items[0];
@@ -115,7 +115,7 @@ class FirstAnswer<T> implements Question<Promise<T>> {
     }
 
     toString() {
-        return formatted `first of ${ this.question }`;
+        return formatted `the first of ${ this.question }`;
     }
 }
 
@@ -131,7 +131,7 @@ class LastAnswer<T> implements Question<Promise<T>> {
             .then(items => this.filters.processAs(actor, items))
             .then(items => {
                 if (items[items.length - 1] === undefined) {
-                    throw new NoAnswerFound(`There's no ${ this.toString() }`);
+                    throw new NoResultsMatching(`Can't pick ${ this.toString() } as there are no results matching`);
                 }
 
                 return items[items.length - 1];
@@ -139,7 +139,7 @@ class LastAnswer<T> implements Question<Promise<T>> {
     }
 
     toString() {
-        return formatted `last of ${ this.question }`;
+        return formatted `the last of ${ this.question }`;
     }
 }
 
@@ -156,7 +156,7 @@ class NthAnswer<T> implements Question<Promise<T>> {
             .then(items => this.filters.processAs(actor, items))
             .then(items => {
                 if (items[this.index] === undefined) {
-                    throw new NoAnswerFound(`There's no ${ this.toString() }`);
+                    throw new NoResultsMatching(`Can't pick ${ this.toString() } as there are no results matching`);
                 }
 
                 return items[this.index];
@@ -164,7 +164,7 @@ class NthAnswer<T> implements Question<Promise<T>> {
     }
 
     toString() {
-        return this.ordinalSuffixOf(this.index + 1) + formatted ` of ${ this.question }`;
+        return `the ${ this.ordinalSuffixOf(this.index + 1) } ${ formatted `of ${ this.question }` }`;
     }
 
     private ordinalSuffixOf(index: number) {
@@ -199,6 +199,6 @@ class NumberOfMatchingAnswers<T> implements Question<Promise<number>> {
     }
 
     toString() {
-        return formatted `number of ${ this.question }`;
+        return formatted `the number of ${ this.question }`;
     }
 }
