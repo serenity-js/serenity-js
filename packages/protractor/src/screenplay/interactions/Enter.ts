@@ -1,18 +1,17 @@
-import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Interaction, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { Target } from '../questions';
 
 export class Enter implements Interaction {
     static theValue(value: KnowableUnknown<string | number>) {
         return {
-            into: (field: Target<ElementFinder>) => new Enter(value, field),
+            into: (field: KnowableUnknown<ElementFinder>) => new Enter(value, field),
         };
     }
 
     constructor(
         private readonly value: KnowableUnknown<string | number>,
-        private readonly field: Target<ElementFinder>,
+        private readonly field: KnowableUnknown<ElementFinder>,
     ) {
     }
 

@@ -1,8 +1,8 @@
 import { expect } from '@integration/testing-tools';
-import { contains, Ensure, equals } from '@serenity-js/assertions';
+import { contains, Ensure, equals, Pick } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
-import { BrowseTheWeb, Navigate, Target, Text } from '../../../src';
+import { BrowseTheWeb, Click, CSSClasses, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
 /** @target {Target} */
@@ -67,6 +67,7 @@ describe('Target', () => {
     });
 
     describe('provides a sensible description of', () => {
+
         describe('an element that', () => {
 
             it('is being targeted', () => {
@@ -79,10 +80,10 @@ describe('Target', () => {
                     .to.equal('the header');
             });
 
-            it('is nested', () => {
-                expect(ShoppingList.Number_Of_Items_Left.answeredBy(Bernie).toString())
-                    .to.equal('the number of items left in the progress bar in the shopping list app');
-            });
+            it('is nested', () =>
+                ShoppingList.Number_Of_Items_Left.answeredBy(Bernie).then(finder =>
+                    expect(finder.toString()).to.equal('the number of items left in the progress bar in the shopping list app'),
+                ));
         });
 
         describe('elements that', () => {
@@ -92,53 +93,34 @@ describe('Target', () => {
                     .to.equal('all the items in the shopping list app');
             });
 
-            it('have been located', () => {
-                expect(ShoppingList.Items.answeredBy(Bernie).toString())
-                    .to.equal('all the items in the shopping list app');
-            });
+            it('have been located', () =>
+                ShoppingList.Items.answeredBy(Bernie)
+                    .then(answer => expect(answer.toString()).to.equal('all the items in the shopping list app')));
 
-            it('are nested', () => {
-                expect(ShoppingList.Bought_Items.answeredBy(Bernie).toString())
-                    .to.equal('all the bought items in the shopping list');
-            });
+            it('are nested', () =>
+                ShoppingList.Bought_Items.answeredBy(Bernie)
+                    .then(answer => expect(answer.toString()).to.equal('all the bought items in the shopping list')));
         });
     });
 
-    // it('allows the actor to locate first web elements matching the selector', () => Bernie.attemptsTo(
-    //     Navigate.to(shoppingListPage),
-    //
-    //     Ensure.that(Text.of(First.of(ShoppingList.Items)), contains('oats')),
-    // ));
+    describe('when combined with Pick', () => {
 
-    // it('allows the actor to locate first web elements matching the selector and expectation', () => Bernie.attemptsTo(
-    //     Navigate.to(shoppingListPage),
-    //
-    //     Ensure.that(Text.of(First.of(ShoppingList.Items).that(in)), contains('oats')),
-    // ));
+        it('allows the actor to filter the list of web elements to pick the ones of interest', () => Bernie.attemptsTo(
+            Navigate.to(shoppingListPage),
 
-    /*
-        Click.on(First.of(ShoppingList.Items))
-        Click.on(First.of(ShoppingList.Items).that(matches(/milk/)))
+            Ensure.that(
+                Text.of(
+                    Pick.from(ShoppingList.Items).where(CSSClasses.of, contains('buy')).last(),
+                ),
+                equals('coconut milk')),
+        ));
 
-        Click.on(Last.of(ShoppingList.Items))
-        Click.on(Last.of(ShoppingList.Items).that(matches(/milk/)))
+        it('provides a sensible description of the question being asked', () => {
+            const question = Text.of(
+                Pick.from(ShoppingList.Items).where(CSSClasses.of, contains('buy')).last(),
+            );
 
-        Click.on(
-          First.of(
-            Those.of(ShoppingList.Items).whereEach(matches(/milk/))
-          ).that(hasClassThat(matches(/bargain/))
-        )
-
-        Ensure.that(
-          Text.ofAll(
-            Those.of(ShoppingList.Items).whereEach(matches(/milk/))
-          ),
-          includes('coconut milk')
-        )
-     */
-
-    // it(`produces a sensible description of the question being asked`, () => {
-    //     expect(Text.of(Target.the('header').located(by.tagName('h1'))).toString())
-    //         .to.equal('the text of the header');
-    // });
+            expect(question.toString()).to.equal('the text of the last of all the items in the shopping list app');
+        });
+    });
 });

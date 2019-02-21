@@ -4,7 +4,7 @@ import { Actor, Question } from '@serenity-js/core';
 
 import { expect } from '@integration/testing-tools';
 import { given } from 'mocha-testdata';
-import { equals, NoAnswerFound, Pick, startsWith } from '../src';
+import { equals, NoResultsMatching, Pick, startsWith } from '../src';
 
 describe('Pick', () => {
 
@@ -139,16 +139,16 @@ describe('Pick', () => {
             const picked = Pick.from(q(p(animals)));
 
             it('returns the number of answers', () =>
-                expect(picked.count().toString()).to.equal('number of the animals'));
+                expect(picked.count().toString()).to.equal('the number of the animals'));
 
             it('picks all the items', () =>
-                expect(picked.all().toString()).to.equal('all of the animals'));
+                expect(picked.all().toString()).to.equal('the animals'));
 
             it('picks the first item', () =>
-                expect(picked.first().toString()).to.equal('first of the animals'));
+                expect(picked.first().toString()).to.equal('the first of the animals'));
 
             it('picks the last item', () =>
-                expect(picked.last().toString()).to.equal('last of the animals'));
+                expect(picked.last().toString()).to.equal('the last of the animals'));
 
             given([
                 { description: '1st',    index: 0 },
@@ -168,7 +168,7 @@ describe('Pick', () => {
 
                 const question = Question.about<string[]>('the alphabet letters', actor => 'abcdefghijklmnopqrstuvwxyz'.split(''));
 
-                expect(Pick.from(question).get(index).toString()).to.equal(`${ description } of the alphabet letters`);
+                expect(Pick.from(question).get(index).toString()).to.equal(`the ${ description } of the alphabet letters`);
             });
         });
     });
@@ -178,13 +178,13 @@ describe('Pick', () => {
         const picked = Pick.from(q([]));
 
         it('complains when you try to access the first one', () =>
-            expect(picked.first().answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoAnswerFound, `There's no first of the animals`));
+            expect(picked.first().answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoResultsMatching, `Can't pick the first of the animals as there are no results matching`));
 
         it('complains when you try to access the last one', () =>
-            expect(picked.last().answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoAnswerFound, `There's no last of the animals`));
+            expect(picked.last().answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoResultsMatching, `Can't pick the last of the animals as there are no results matching`));
 
         it('complains when you try to access the nth one', () =>
-            expect(picked.get(1).answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoAnswerFound, `There's no 2nd of the animals`));
+            expect(picked.get(1).answeredBy(Alexandra)).to.eventually.be.rejectedWith(NoResultsMatching, `Can't pick the 2nd of the animals as there are no results matching`));
 
         it('returns a count of 0', () =>
             expect(picked.count().answeredBy(Alexandra)).to.eventually.equal(0));

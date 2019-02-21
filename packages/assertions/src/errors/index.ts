@@ -1,1 +1,1 @@
-export * from './NoAnswersFound';
+export * from './NoResultsMatching';
