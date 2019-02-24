@@ -14,19 +14,22 @@ describe ('`formatted` tag function', () => {
         i  = value => ({ inspect: () => value }),
         ts = value => ({ toString: () => value });
 
+    class SomeClass {}
+
     given(
         { description: 'no parameters',             actual: formatted `Hello World!`,                   expected: 'Hello World!'                },
         { description: 'an undefined parameter',    actual: formatted `param: ${ undefined }`,          expected: 'param: undefined'            },
         { description: 'a number parameter',        actual: formatted `Answer: ${ 42 }`,                expected: 'Answer: 42'                  },
-        { description: 'a string parameters',       actual: formatted `Hello ${ 'World' }!`,            expected: "Hello 'World'!"              },
-        { description: 'an object parameters',      actual: formatted `${ { twitter: '@JanMolak'} }`,   expected: "{ twitter: '@JanMolak' }"    },
-        { description: 'an array parameters',       actual: formatted `${ [1, 2, '3'] }`,               expected: "[ 1, 2, '3' ]"               },
+        { description: 'a string parameter',        actual: formatted `Hello ${ 'World' }!`,            expected: "Hello 'World'!"              },
+        { description: 'an object parameter',       actual: formatted `${ { twitter: '@JanMolak'} }`,   expected: "{ twitter: '@JanMolak' }"    },
+        { description: 'an array parameter',        actual: formatted `${ [1, 2, '3'] }`,               expected: "[ 1, 2, '3' ]"               },
         { description: 'an object array parameter', actual: formatted `${ [{ name: 'Jan'}] }`,          expected: "[ { name: 'Jan' } ]"         },
         { description: 'a Date parameter',          actual: formatted `${ new Date('Jan 27, 2019') }`,  expected: '2019-01-27T00:00:00.000Z'    },
         { description: 'a promised parameter',      actual: formatted `${ p('something') }`,            expected: 'a promised value'            },
         { description: 'a question',                actual: formatted `${ q('value') }`,                expected: 'the meaning of life'         },
         { description: 'an inspectable object',     actual: formatted `${ i('result') }`,               expected: 'result'                      },
         { description: 'an "toStringable" object',  actual: formatted `${ ts('result') }`,              expected: 'result'                      },
+        { description: 'a function parameter',      actual: formatted `${ SomeClass }`,                 expected: 'SomeClass'                   },
     ).
     it('produces a human-readable description when given a template with', ({ actual, expected }) => {
         expect(actual).to.equal(expected);
