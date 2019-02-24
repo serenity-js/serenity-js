@@ -47,6 +47,10 @@ function descriptionOf(value: KnowableUnknown<any>): string {
         return value.inspect();
     }
 
+    if (isANamedFunction(value)) {
+        return value.name;
+    }
+
     if (hasItsOwnToString(value)) {
         return value.toString();
     }
@@ -121,6 +125,17 @@ function isADate(v: KnowableUnknown<any>): v is Date {
  */
 function isAPromise<T>(v: KnowableUnknown<T>): v is Promise<T> {
     return !! (v as any).then;
+}
+
+/**
+ * @desc
+ * Checks if the value is a named {@link Function}
+ *
+ * @private
+ * @param {KnowableUnknown<any>} v
+ */
+function isANamedFunction<T>(v: any): v is { name: string } {
+    return {}.toString.call(v) === '[object Function]' && (v as any).name !== '';
 }
 
 /**
