@@ -1,17 +1,18 @@
-import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
+import { withElementFinder } from '../withElementFinder';
 
 export class Clear implements Interaction {
-    static theValueOf(field: KnowableUnknown<ElementFinder>) {
+    static theValueOf(field: Question<ElementFinder> | ElementFinder) {
         return new Clear(field);
     }
 
-    constructor(private readonly field: KnowableUnknown<ElementFinder>) {
+    constructor(private readonly field: Question<ElementFinder> | ElementFinder) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return actor.answer(this.field).then(finder => finder.clear());
+        return withElementFinder(actor, this.field, elf => elf.clear());
     }
 
     toString(): string {

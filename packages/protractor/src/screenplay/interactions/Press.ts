@@ -1,5 +1,6 @@
-import { AnswersQuestions, Interaction, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder, Key } from 'protractor';
+import { withElementFinder } from '../withElementFinder';
 
 /**
  * @desc
@@ -9,19 +10,19 @@ export class Press implements Interaction {
 
     static the(...keys: string[]) {
         return {
-            in: (field: KnowableUnknown<ElementFinder>) => new Press(keys, field),
+            in: (field: Question<ElementFinder> | ElementFinder) => new Press(keys, field),
         };
     }
 
     constructor(
         private readonly keys: string[],
-        private readonly field: KnowableUnknown<ElementFinder>,
+        private readonly field: Question<ElementFinder> | ElementFinder,
     ) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
         return Promise.all(this.keys.map(key => actor.answer(key)))
-            .then(keys => actor.answer(this.field).then(field => field.sendKeys(...keys)));
+            .then(keys => withElementFinder(actor, this.field, elf => elf.sendKeys(...keys)));
     }
 
     toString() {
