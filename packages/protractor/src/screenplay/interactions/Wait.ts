@@ -1,4 +1,4 @@
-import { Expectation, ExpectationMet, Outcome } from '@serenity-js/assertions';
+import { Expectation, ExpectationMet } from '@serenity-js/assertions';
 import { AnswersQuestions, Duration, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 

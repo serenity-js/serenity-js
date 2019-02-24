@@ -1,25 +1,24 @@
 import { AnswersQuestions, Interaction, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
+import { withElementFinder } from '../withElementFinder';
 
 export class Enter implements Interaction {
     static theValue(value: KnowableUnknown<string | number>) {
         return {
-            into: (field: KnowableUnknown<ElementFinder>) => new Enter(value, field),
+            into: (field: Question<ElementFinder> | ElementFinder) => new Enter(value, field),
         };
     }
 
     constructor(
         private readonly value: KnowableUnknown<string | number>,
-        private readonly field: KnowableUnknown<ElementFinder>,
+        private readonly field: Question<ElementFinder> | ElementFinder,
     ) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return Promise.all([
-            actor.answer(this.value),
-            actor.answer(this.field),
-        ]).then(([value, field]) => field.sendKeys(value));
+        return actor.answer(this.value)
+            .then(value => withElementFinder(actor, this.field, elf => elf.sendKeys(value)));
     }
 
     toString(): string {

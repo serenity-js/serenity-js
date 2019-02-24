@@ -1,23 +1,24 @@
-import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
-import { ElementFinder } from 'protractor';
+import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { ElementArrayFinder, ElementFinder } from 'protractor';
+import { withElementFinder } from '../withElementFinder';
 
 export class Text {
 
-    static of(target: KnowableUnknown<ElementFinder>): Question<Promise<string>> {
+    static of(target: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
         return new TextOfSingleElement(target);
     }
 
-    static ofAll(target: KnowableUnknown<ElementFinder[]>): Question<Promise<string[]>> {
+    static ofAll(target: Question<ElementArrayFinder> | ElementArrayFinder): Question<Promise<string[]>> {
         return new TextOfMultipleElements(target);
     }
 }
 
 export class TextOfSingleElement implements Question<Promise<string>> {
-    constructor(protected readonly target: KnowableUnknown<ElementFinder>) {
+    constructor(protected readonly target: Question<ElementFinder> | ElementFinder) {
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        return actor.answer(this.target).then(finder => finder.getText()) as any;
+        return withElementFinder<Promise<string>>(actor, this.target, elf => elf.getText() as any);
     }
 
     toString() {
@@ -26,14 +27,18 @@ export class TextOfSingleElement implements Question<Promise<string>> {
 }
 
 export class TextOfMultipleElements implements Question<Promise<string[]>> {
-    constructor(protected readonly target: KnowableUnknown<ElementFinder[]>) {
+    constructor(protected readonly target: Question<ElementArrayFinder> | ElementArrayFinder) {
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
 
-        return actor.answer(this.target)
-            .then(finders => finders.map(finder => finder.getText()))
-            .then(list => Promise.all(list));
+        const eaf = this.target instanceof ElementArrayFinder
+            ? this.target
+            : this.target.answeredBy(actor);
+
+        // protractor ignores type definitions for the ElementArrayFinder, hence the `any`
+        // https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92
+        return Promise.resolve(eaf.getText() as any) as Promise<string[]>;
     }
 
     toString() {
