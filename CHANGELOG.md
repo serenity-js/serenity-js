@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.22](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.21...v2.0.1-alpha.22) (2019-02-27)
+
+
+### Bug Fixes
+
+* **protractor:** Ensure Protractor ElementFinder is never wrapped in a promise as that makes it fail ([c7994dd](https://github.com/jan-molak/serenity-js/commit/c7994dd))
+
+
+### Features
+
+* **core:** toString method of Screenplay classes prints the name of the function ([f3d738e](https://github.com/jan-molak/serenity-js/commit/f3d738e))
+* **protractor:** Nestable Targets, relative Questions and improvements to Pick ([56ea633](https://github.com/jan-molak/serenity-js/commit/56ea633))
+
+
+
+
+
 ## [2.0.1-alpha.21](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.20...v2.0.1-alpha.21) (2019-02-21)
 
 
