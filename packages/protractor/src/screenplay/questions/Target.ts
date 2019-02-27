@@ -1,16 +1,19 @@
-import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
+import { RelativeQuestion } from './Pick';
 
 export class Target  {
     static the(name: string) {
         return {
-            located: (byLocator: Locator): Question<ElementFinder> => new TargetElement(name, byLocator),
-            in: (parent: Question<ElementFinder> | ElementFinder) => {
+            located: (byLocator: Locator) =>
+                new TargetElement(name, byLocator),
+
+            of: (parent: Question<ElementFinder> | ElementFinder) => {
                 return {
-                    located: (byLocator: Locator): Question<ElementFinder> =>
-                        new TargetNestedElement(parent, name, byLocator),
+                    located: (byLocator: Locator): Question<ElementFinder> & RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder> =>
+                        new TargetNestedElement(parent, new TargetElement(name, byLocator)),
                 };
             },
         };
@@ -18,22 +21,30 @@ export class Target  {
 
     static all(name: string) {
         return {
-            located: (byLocator: Locator): Question<ElementArrayFinder> => new TargetElements(name, byLocator),
-            in: (parent: Question<ElementFinder> | ElementFinder) => {
+            located: (byLocator: Locator) =>
+                new TargetElements(name, byLocator),
+
+            of: (parent: Question<ElementFinder> | ElementFinder) => {
                 return {
-                    located: (byLocator: Locator): Question<ElementArrayFinder> =>
-                        new TargetNestedElements(parent, name, byLocator),
+                    located: (byLocator: Locator) =>
+                        new TargetNestedElements(parent, new TargetElements(name, byLocator)),
                 };
             },
         };
     }
 }
 
-export class TargetElement implements Question<ElementFinder> {
+export class TargetElement
+    implements Question<ElementFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder>
+{
     constructor(
-        protected readonly name: string,
+        protected readonly description: string,
         protected readonly locator: Locator,
     ) {
+    }
+
+    of(parent: Question<ElementFinder> | ElementFinder) {
+        return new TargetNestedElement(parent, this);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
@@ -45,37 +56,76 @@ export class TargetElement implements Question<ElementFinder> {
     }
 
     toString() {
-        return `the ${ this.name }`;
+        return `the ${ this.description }`;
     }
 }
 
-export class TargetNestedElement implements Question<ElementFinder> {
-
+export class TargetNestedElement
+    implements Question<ElementFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder>
+{
     constructor(
         private readonly parent: Question<ElementFinder> | ElementFinder,
-        private readonly name: string,
-        private readonly locator: Locator,
+        private readonly child: Question<ElementFinder> | ElementFinder,
     ) {
+    }
+
+    of(parent: Question<ElementFinder> | ElementFinder) {
+        return new TargetNestedElement(parent, this);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
-        return withElementFinder(actor, this.parent, parent => override(
-            parent.element(this.locator),
-            'toString',
-            this.toString.bind(this),
-        ));
+        return withAnswerOf<ElementFinder, ElementFinder>(actor, this.parent, parent =>
+            withAnswerOf<ElementFinder, ElementFinder>(actor, this.child, child => override(
+                parent.element(child.locator()),
+                'toString',
+                this.toString.bind(this),
+            )));
     }
 
     toString() {
-        return `the ${ this.name } in ${ this.parent }`;
+        return `${ this.child.toString() } of ${ this.parent }`;
     }
 }
 
-export class TargetElements implements Question<ElementArrayFinder> {
+export class TargetNestedElements
+    implements Question<ElementArrayFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
+{
+
     constructor(
-        private readonly name: string,
+        private readonly parent: Question<ElementFinder> | ElementFinder,
+        private readonly children: Question<ElementArrayFinder> | ElementArrayFinder,
+    ) {
+    }
+
+    of(parent: Question<ElementFinder> | ElementFinder) {
+        return new TargetNestedElements(parent, this);
+    }
+
+    answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
+        return withAnswerOf<ElementFinder, ElementArrayFinder>(actor, this.parent, parent =>
+            withAnswerOf<ElementArrayFinder, ElementArrayFinder>(actor, this.children, children => override(
+                parent.all(children.locator()),
+                'toString',
+                this.toString.bind(this),
+            )));
+    }
+
+    toString() {
+        return `${ this.children.toString() } of ${ this.parent }`;
+    }
+}
+
+export class TargetElements
+    implements Question<ElementArrayFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
+{
+    constructor(
+        private readonly description: string,
         private readonly locator: Locator,
     ) {
+    }
+
+    of(parent: Question<ElementFinder> | ElementFinder) {
+        return new TargetNestedElements(parent, this);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
@@ -87,29 +137,7 @@ export class TargetElements implements Question<ElementArrayFinder> {
     }
 
     toString() {
-        return `the ${ this.name }`;
-    }
-}
-
-export class TargetNestedElements implements Question<ElementArrayFinder> {
-
-    constructor(
-        private readonly parent: Question<ElementFinder> | ElementFinder,
-        private readonly name: string,
-        private readonly locator: Locator,
-    ) {
-    }
-
-    answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
-        return withElementFinder(actor, this.parent, parent => override(
-            parent.all(this.locator),
-            'toString',
-            this.toString.bind(this),
-        ));
-    }
-
-    toString() {
-        return `all the ${ this.name } in ${ this.parent }`;
+        return `the ${ this.description }`;
     }
 }
 

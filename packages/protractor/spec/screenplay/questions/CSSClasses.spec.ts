@@ -1,4 +1,4 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { contains, Ensure, equals } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, protractor } from 'protractor';
@@ -39,7 +39,7 @@ describe('CSSClasses', () => {
             { description: 'several-classes',                       expected: ['pretty', 'css', 'classes']  },
             { description: 'several-classes-with-whitespace',       expected: ['pretty', 'css', 'classes']  },
         ]).
-        it(`allows the actor to read the 'value' attribute of a DOM element matching the locator`, ({ description, expected }) =>
+        it(`allows the actor to read the css classes of a DOM element matching the locator`, ({ description, expected }) =>
             Bernie.attemptsTo(
                 Navigate.to(testPage),
 
@@ -48,5 +48,18 @@ describe('CSSClasses', () => {
                     equals(expected),
                 ),
             ));
+
+        /** @test {CSSClasses} */
+        /** @test {CSSClasses#of} */
+        it('allows for a question relative to another target to be asked', () => Bernie.attemptsTo(
+            Navigate.to(testPage),
+
+            Ensure.that(
+                CSSClasses.of(
+                    Target.the(`Element with single-class`).located(by.id('single-class')),
+                ).of(Target.the(`list`).located(by.tagName('ul'))),
+                contains('pretty'),
+            ),
+        ));
     });
 });

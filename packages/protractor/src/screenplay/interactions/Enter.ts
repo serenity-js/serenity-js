@@ -1,7 +1,7 @@
 import { AnswersQuestions, Interaction, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
 
 export class Enter implements Interaction {
     static theValue(value: KnowableUnknown<string | number>) {
@@ -18,7 +18,7 @@ export class Enter implements Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.value)
-            .then(value => withElementFinder(actor, this.field, elf => elf.sendKeys(value)));
+            .then(value => withAnswerOf(actor, this.field, elf => elf.sendKeys(value)));
     }
 
     toString(): string {

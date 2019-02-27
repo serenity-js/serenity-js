@@ -83,7 +83,7 @@ describe('Navigate', () => {
                     </body>
                     <script>
                         if(window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD) {
-                            document.getElementById('h').innerText = 'Reloaded'
+                            document.getElementById('h').textContent = 'Reloaded'
                         }
                     </script>
                 </html>

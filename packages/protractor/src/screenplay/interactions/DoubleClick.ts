@@ -2,7 +2,7 @@ import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenit
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
 
 export class DoubleClick implements Interaction {
     static on(target: Question<ElementFinder> | ElementFinder) {
@@ -13,11 +13,10 @@ export class DoubleClick implements Interaction {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withElementFinder(actor, this.target, elf =>
+        return withAnswerOf(actor, this.target, elf =>
             BrowseTheWeb.as(actor).actions()
                 .doubleClick(elf)
-                .perform(),
-        );
+                .perform());
     }
 
     toString(): string {
