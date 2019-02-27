@@ -1,6 +1,6 @@
 import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder, Key } from 'protractor';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
 
 /**
  * @desc
@@ -22,7 +22,7 @@ export class Press implements Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
         return Promise.all(this.keys.map(key => actor.answer(key)))
-            .then(keys => withElementFinder(actor, this.field, elf => elf.sendKeys(...keys)));
+            .then(keys => withAnswerOf(actor, this.field, elf => elf.sendKeys(...keys)));
     }
 
     toString() {

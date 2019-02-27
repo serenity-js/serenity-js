@@ -5,6 +5,17 @@ export abstract class Question<T> {
         return new AnonymousQuestion<R>(description, body);
     }
 
+    /**
+     * @desc
+     *  Checks if the value is a {@link Question}
+     *
+     * @param maybeQuestion
+     * @returns {boolean}
+     */
+    static isAQuestion<T>(maybeQuestion: any): maybeQuestion is Question<T> {
+        return !! (maybeQuestion as any).answeredBy;
+    }
+
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 }
 

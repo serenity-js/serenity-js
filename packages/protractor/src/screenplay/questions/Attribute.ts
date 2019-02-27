@@ -1,7 +1,7 @@
 import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
 
 export class Attribute implements Question<Promise<string>> {
     static of(target: Question<ElementFinder> | ElementFinder) {
@@ -18,7 +18,7 @@ export class Attribute implements Question<Promise<string>> {
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return actor.answer(this.name)
-            .then(name => withElementFinder(actor, this.target, elf => elf.getAttribute(name)));
+            .then(name => withAnswerOf(actor, this.target, elf => elf.getAttribute(name)));
     }
 
     toString(): string {

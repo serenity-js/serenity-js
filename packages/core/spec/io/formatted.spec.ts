@@ -14,7 +14,7 @@ describe ('`formatted` tag function', () => {
         i  = value => ({ inspect: () => value }),
         ts = value => ({ toString: () => value });
 
-    class SomeClass {}
+    class SomeAttribute {}
 
     given(
         { description: 'no parameters',             actual: formatted `Hello World!`,                   expected: 'Hello World!'                },
@@ -29,7 +29,7 @@ describe ('`formatted` tag function', () => {
         { description: 'a question',                actual: formatted `${ q('value') }`,                expected: 'the meaning of life'         },
         { description: 'an inspectable object',     actual: formatted `${ i('result') }`,               expected: 'result'                      },
         { description: 'an "toStringable" object',  actual: formatted `${ ts('result') }`,              expected: 'result'                      },
-        { description: 'a function parameter',      actual: formatted `${ SomeClass }`,                 expected: 'SomeClass'                   },
+        { description: 'a function parameter',      actual: formatted `${ SomeAttribute }`,             expected: 'SomeAttribute property'      },
     ).
     it('produces a human-readable description when given a template with', ({ actual, expected }) => {
         expect(actual).to.equal(expected);

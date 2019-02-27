@@ -1,5 +1,6 @@
 import { inspect } from 'util';
-import { KnowableUnknown, Question } from '../screenplay';
+import { KnowableUnknown } from '../screenplay/KnowableUnknown';
+import { Question } from '../screenplay/Question';
 
 /**
  * @desc
@@ -35,7 +36,7 @@ function descriptionOf(value: KnowableUnknown<any>): string {
         return `a promised value`;
     }
 
-    if (isAQuestion(value)) {
+    if (Question.isAQuestion(value)) {
         return value.toString();
     }
 
@@ -48,7 +49,7 @@ function descriptionOf(value: KnowableUnknown<any>): string {
     }
 
     if (isANamedFunction(value)) {
-        return value.name;
+        return `${ value.name } property`;
     }
 
     if (hasItsOwnToString(value)) {
@@ -92,17 +93,6 @@ function hasItsOwnToString(v: KnowableUnknown<any>): v is { toString: () => stri
  */
 function isInspectable(v: KnowableUnknown<any>): v is { inspect: () => string } {
     return !! (v as any).inspect && typeof (v as any).inspect === 'function';
-}
-
-/**
- * @desc
- * Checks if the value is a {@link Question}
- *
- * @private
- * @param {KnowableUnknown<any>} v
- */
-function isAQuestion<T>(v: KnowableUnknown<T>): v is Question<T> {
-    return !! (v as any).answeredBy;
 }
 
 /**

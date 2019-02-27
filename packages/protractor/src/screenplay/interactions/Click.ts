@@ -1,7 +1,7 @@
 import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { withElementFinder } from '../withElementFinder';
+import { withAnswerOf } from '../withAnswerOf';
 
 export class Click implements Interaction {
     static on(target: Question<ElementFinder> | ElementFinder) {
@@ -12,7 +12,7 @@ export class Click implements Interaction {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withElementFinder(actor, this.target, elf => elf.click());
+        return withAnswerOf(actor, this.target, elf => elf.click());
     }
 
     toString(): string {
