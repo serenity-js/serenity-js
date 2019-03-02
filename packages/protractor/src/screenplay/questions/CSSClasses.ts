@@ -3,7 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { Attribute } from './Attribute';
 import { RelativeQuestion } from './RelativeQuestion';
-import { TargetNestedElement } from './target';
+import { TargetNestedElement } from './targets';
 
 export class CSSClasses
     implements Question<Promise<string[]>>, RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
