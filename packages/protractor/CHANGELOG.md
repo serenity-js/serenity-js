@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.23](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.22...v2.0.1-alpha.23) (2019-03-02)
+
+
+### Bug Fixes
+
+* **protractor:** Corrected the signatures of factory methods on Target to allow nesting of targets ([c4efd31](https://github.com/jan-molak/serenity-js/commit/c4efd31))
+
+
+### Features
+
+* **protractor:** ExecuteScript interactions and cleanup of the package structure ([753d511](https://github.com/jan-molak/serenity-js/commit/753d511))
+
+
+
+
+
 ## [2.0.1-alpha.22](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.21...v2.0.1-alpha.22) (2019-02-27)
 
 
