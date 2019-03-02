@@ -2,7 +2,7 @@
  * @desc
  *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.
  *
- * @access private
+ * @private
  *
  * @param promiseLike
  * @returns {Promise<T>}

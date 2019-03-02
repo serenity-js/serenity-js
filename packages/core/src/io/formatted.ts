@@ -32,6 +32,10 @@ function descriptionOf(value: KnowableUnknown<any>): string {
         return inspect(value);
     }
 
+    if (Array.isArray(value)) {
+        return `[ ${ value.map(item => descriptionOf(item)).join(', ') } ]`;
+    }
+
     if (isAPromise(value)) {
         return `a promised value`;
     }
@@ -44,16 +48,16 @@ function descriptionOf(value: KnowableUnknown<any>): string {
         return value.toISOString();
     }
 
+    if (hasItsOwnToString(value)) {
+        return value.toString();
+    }
+
     if (isInspectable(value)) {
         return value.inspect();
     }
 
     if (isANamedFunction(value)) {
         return `${ value.name } property`;
-    }
-
-    if (hasItsOwnToString(value)) {
-        return value.toString();
     }
 
     return inspect(value, { breakLength: Infinity, compact: true, sorted: false  }).replace(/\r?\n/g, '');

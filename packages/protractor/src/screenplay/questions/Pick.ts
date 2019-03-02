@@ -1,6 +1,7 @@
 import { Expectation, ExpectationMet } from '@serenity-js/assertions';
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+import { RelativeQuestion } from './RelativeQuestion';
 
 export interface Collection<T> {
     filter(fn: (item: T, index?: number) => boolean | Promise<boolean>): Collection<T>;
@@ -9,12 +10,6 @@ export interface Collection<T> {
     last(): T;
     get(index: number): T;
     count(): PromiseLike<number> | number;
-}
-
-export interface RelativeQuestion<Parent, Answer> {
-    name?: string;
-    toString(): string;
-    of(parent: Parent): Question<Answer>;
 }
 
 export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Collection<Item_Type>> {

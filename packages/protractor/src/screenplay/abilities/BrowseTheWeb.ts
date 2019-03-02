@@ -7,7 +7,7 @@ import { promiseOf } from '../promiseOf';
  * @desc
  *  An {@link Ability} that enables the {@link Actor} to interact with web front-ends using {@link protractor}.
  *
- * @example <caption>Using a default Axios HTTP client</caption>
+ * @example <caption>Using the protractor.browser</caption>
  * import { Actor } from '@serenity-js/core';
  * import { BrowseTheWeb, Navigate, Target } from '@serenity-js/protractor'
  * import { Ensure, equals } from '@serenity-js/assertions';
@@ -147,6 +147,100 @@ export class BrowseTheWeb implements Ability {
      */
     enableAngularSynchronisation(enable: boolean): Promise<boolean> {
         return promiseOf(this.browser.waitForAngularEnabled(enable));
+    }
+
+    /**
+     * @desc
+     *  Schedules a command to execute JavaScript in the context of the currently selected frame or window.
+     *  The script fragment will be executed as the body of an anonymous function.
+     *  If the script is provided as a function object, that function will be converted to a string for injection
+     *  into the target window.
+     *
+     *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
+     *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`.
+     *  Arrays and objects may also be used as script arguments as long as each item adheres
+     *  to the types previously mentioned.
+     *
+     *  The script may refer to any variables accessible from the current window.
+     *  Furthermore, the script will execute in the window's context, thus `document` may be used to refer
+     *  to the current document. Any local variables will not be available once the script has finished executing,
+     *  though global variables will persist.
+     *
+     *  If the script has a return value (i.e. if the script contains a `return` statement),
+     *  then the following steps will be taken for resolving this functions return value:
+     *
+     *  For a HTML element, the value will resolve to a WebElement
+     *  - Null and undefined return values will resolve to null
+     *  - Booleans, numbers, and strings will resolve as is
+     *  - Functions will resolve to their string representation
+     *  - For arrays and objects, each member item will be converted according to the rules above
+     *
+     * @example <caption>Perform a sleep in the browser under test</caption>
+     * BrowseTheWeb.as(actor).executeAsyncScript(`
+     *   return arguments[0].tagName;
+     * `, Target.the('header').located(by.css(h1))
+     *
+     * @see https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
+     * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
+     *
+     * @param {string} description  - useful for debugging
+     * @param {string | Function} script
+     * @param {any[]} args
+     */
+    executeScript(description: string, script: string | Function, ...args: any[]) {        // tslint:disable-line:ban-types
+        return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args));
+    }
+
+    /**
+     * @desc
+     *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
+     *  The script fragment will be executed as the body of an anonymous function.
+     *  If the script is provided as a function object, that function will be converted to a string for injection
+     *  into the target window.
+     *
+     *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
+     *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`
+     *  Arrays and objects may also be used as script arguments as long as each item adheres
+     *  to the types previously mentioned.
+     *
+     *  Unlike executing synchronous JavaScript with {@link BrowseTheWeb#executeScript},
+     *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
+     *
+     *  This callback will always be injected into the executed function as the last argument,
+     *  and thus may be referenced with `arguments[arguments.length - 1]`.
+     *
+     *  The following steps will be taken for resolving this functions return value against
+     *  the first argument to the script's callback function:
+     *
+     *  - For a HTML element, the value will resolve to a WebElement
+     *  - Null and undefined return values will resolve to null
+     *  - Booleans, numbers, and strings will resolve as is
+     *  - Functions will resolve to their string representation
+     *  - For arrays and objects, each member item will be converted according to the rules above
+     *
+     * @example <caption>Perform a sleep in the browser under test</caption>
+     * BrowseTheWeb.as(actor).executeAsyncScript(`
+     *   var delay    = arguments[0];
+     *   var callback = arguments[arguments.length - 1];
+     *
+     *   window.setTimeout(callback, delay);
+     * `, 500)
+     *
+     * @example <caption>Return a value asynchronously</caption>
+     * BrowseTheWeb.as(actor).executeAsyncScript(`
+     *   var callback = arguments[arguments.length - 1];
+     *
+     *   callback('some return value')
+     * `).then(value => doSomethingWithThe(value))
+     *
+     * @see https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript
+     * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-
+     *
+     * @param {string|Function} script
+     * @param {any[]} args
+     */
+    executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // tslint:disable-line:ban-types
+        return promiseOf(this.browser.executeAsyncScript(script, ...args));
     }
 
     /**

@@ -1,9 +1,10 @@
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
+
 import { Attribute } from './Attribute';
-import { RelativeQuestion } from './Pick';
-import { TargetNestedElement } from './Target';
+import { RelativeQuestion } from './RelativeQuestion';
+import { TargetNestedElement } from './target';
 
 export class Value
     implements Question<Promise<string>>, RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
