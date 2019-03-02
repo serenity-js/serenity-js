@@ -12,12 +12,12 @@ import { TargetNestedElements } from './TargetNestedElements';
 export class Target  {
     static the(name: string) {
         return {
-            located: (byLocator: Locator): Question<ElementFinder> & RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder> =>
+            located: (byLocator: Locator): TargetElement =>
                 new TargetElement(name, byLocator),
 
             of: (parent: Question<ElementFinder> | ElementFinder) => {
                 return {
-                    located: (byLocator: Locator): Question<ElementFinder> & RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder> =>
+                    located: (byLocator: Locator): TargetNestedElement =>
                         new TargetNestedElement(parent, new TargetElement(name, byLocator)),
                 };
             },
@@ -26,12 +26,12 @@ export class Target  {
 
     static all(name: string) {
         return {
-            located: (byLocator: Locator): Question<ElementArrayFinder> & RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder> =>
+            located: (byLocator: Locator): TargetElements =>
                 new TargetElements(name, byLocator),
 
             of: (parent: Question<ElementFinder> | ElementFinder) => {
                 return {
-                    located: (byLocator: Locator) =>
+                    located: (byLocator: Locator): TargetNestedElements =>
                         new TargetNestedElements(parent, new TargetElements(name, byLocator)),
                 };
             },

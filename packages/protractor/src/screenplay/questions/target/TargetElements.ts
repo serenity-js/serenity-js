@@ -6,7 +6,7 @@ import { override } from './override';
 import { TargetNestedElements } from './TargetNestedElements';
 
 /**
- * @package
+ * @public
  */
 export class TargetElements
     implements Question<ElementArrayFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
