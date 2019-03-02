@@ -4,7 +4,7 @@ import { ElementFinder } from 'protractor';
 
 import { Attribute } from './Attribute';
 import { RelativeQuestion } from './RelativeQuestion';
-import { TargetNestedElement } from './target';
+import { TargetNestedElement } from './targets';
 
 export class Value
     implements Question<Promise<string>>, RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>

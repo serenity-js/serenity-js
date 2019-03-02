@@ -1,7 +1,7 @@
 export * from './Attribute';
 export * from './CSSClasses';
 export { Pick } from './Pick';
-export { Target } from './target';
+export { Target } from './targets';
 export * from './text';
 export * from './Value';
 export * from './Website';

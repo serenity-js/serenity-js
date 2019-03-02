@@ -3,7 +3,7 @@ import { ElementArrayFinder, ElementFinder } from 'protractor';
 
 import { withAnswerOf } from '../../withAnswerOf';
 import { RelativeQuestion } from '../RelativeQuestion';
-import { TargetNestedElements } from '../target';
+import { TargetNestedElements } from '../targets';
 
 /**
  * @package
