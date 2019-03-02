@@ -22,7 +22,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending, JSONData,
     Name,
-    ScenarioDetails,
+    ScenarioDetails, TestReport,
     Timestamp,
 } from '../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../src/stage';
@@ -85,8 +85,8 @@ describe('SerenityBDDReporter', () => {
          * @test {ExecutionSuccessful}
          * @test {TestRunFinished}
          */
-        it('is a JSONData', () => {
-            expect(artifact).to.be.instanceOf(JSONData);
+        it('is a valid artifact', () => {
+            expect(artifact).to.be.instanceOf(TestReport);
         });
     });
 

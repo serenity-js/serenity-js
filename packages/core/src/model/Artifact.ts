@@ -1,4 +1,4 @@
-import { ensure, isDefined, isString, JSONObject, Predicate, Serialised, TinyType } from 'tiny-types';
+import { ensure, isDefined, isString, JSONObject, Predicate, TinyType } from 'tiny-types';
 
 import { LogicError } from '../errors';
 import * as artifacts from './artifacts';
