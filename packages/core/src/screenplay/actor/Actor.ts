@@ -71,15 +71,15 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
             return !! (v as any).answeredBy;
         }
 
-        if (knowableUnknown === undefined || knowableUnknown === null) {
-            return Promise.reject(new LogicError(`Can't answer a question that's not been defined.`));
+        function isDefined<V>(v: KnowableUnknown<V>) {
+            return ! (knowableUnknown === undefined || knowableUnknown === null);
         }
 
-        if (isAPromise(knowableUnknown)) {
+        if (isDefined(knowableUnknown) && isAPromise(knowableUnknown)) {
             return knowableUnknown;
         }
 
-        if (isAQuestion(knowableUnknown)) {
+        if (isDefined(knowableUnknown) && isAQuestion(knowableUnknown)) {
             return this.answer(knowableUnknown.answeredBy(this));
         }
 

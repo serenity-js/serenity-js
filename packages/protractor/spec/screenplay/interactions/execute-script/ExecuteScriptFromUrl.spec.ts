@@ -7,7 +7,6 @@ import { BrowseTheWeb, ExecuteScript, Navigate, Target, Text } from '../../../..
 
 /** @test {ExecuteScriptFromUrl} */
 describe('ExecuteScriptFromUrl', function() {
-    this.timeout(30000);
 
     const Joe = Actor.named('Joe').whoCan(
         BrowseTheWeb.using(protractor.browser),

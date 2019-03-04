@@ -12,7 +12,6 @@ import { pageFromTemplate } from '../../../fixtures';
 
 /** @test {ExecuteAsynchronousScript} */
 describe('ExecuteAsynchronousScript', function() {
-    this.timeout(30000);
 
     const Joe = Actor.named('Joe').whoCan(
         BrowseTheWeb.using(protractor.browser),
@@ -122,6 +121,18 @@ describe('ExecuteAsynchronousScript', function() {
             .withArguments(Promise.resolve('arg1'), 'arg2', arg3).toString(),
         ).to.equal(`#actor executes an asynchronous script with arguments: [ a promised value, 'arg2', arg number 3 ]`);
     });
+
+    /** @test {ExecuteScript.async} */
+    /** @test {ExecuteAsynchronousScript} */
+    it('complains if the script has failed', () => expect(Joe.attemptsTo(
+        Navigate.to(page),
+
+        ExecuteScript.async(`
+            var callback = arguments[arguments.length - 1];
+
+            throw new Error("something's not quite right here");
+        `),
+    )).to.be.rejectedWith(Error, `something's not quite right here`));
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
