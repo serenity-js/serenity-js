@@ -1,4 +1,4 @@
-import { Ability, UsesAbilities } from '@serenity-js/core';
+import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { Navigation } from 'selenium-webdriver';
 import { promiseOf } from '../promiseOf';
@@ -32,6 +32,11 @@ import { promiseOf } from '../promiseOf';
  * @implements {Ability}
  */
 export class BrowseTheWeb implements Ability {
+
+    /**
+     * @private
+     */
+    private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     /**
      * @desc
@@ -188,7 +193,13 @@ export class BrowseTheWeb implements Ability {
      * @param {any[]} args
      */
     executeScript(description: string, script: string | Function, ...args: any[]) {        // tslint:disable-line:ban-types
-        return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args));
+        return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args))
+            .then(result => {
+                this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
+                    result,
+                );
+                return result;
+            });
     }
 
     /**
@@ -240,7 +251,14 @@ export class BrowseTheWeb implements Ability {
      * @param {any[]} args
      */
     executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // tslint:disable-line:ban-types
-        return promiseOf(this.browser.executeAsyncScript(script, ...args));
+        return promiseOf(this.browser.executeAsyncScript(script, ...args))
+            .then(result => {
+                this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
+                    result,
+                );
+                return result;
+            });
+        // todo: should I wrap this an provide additional diagnostic information? execution time? error handling?
     }
 
     /**
@@ -284,4 +302,16 @@ export class BrowseTheWeb implements Ability {
     wait(condition: () => Promise<boolean>, timeout: number): Promise<boolean> {
         return promiseOf(this.browser.wait(condition, timeout));
     }
+
+    getLastScriptExecutionResult(): any {
+        if (! this.lastScriptExecutionSummary) {
+            throw new LogicError(`Make sure to execute a script before checking on the result`);
+        }
+
+        return this.lastScriptExecutionSummary.result;
+    }
+}
+
+class LastScriptExecutionSummary {
+    constructor(public readonly result: any) {}
 }
