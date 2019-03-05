@@ -191,16 +191,12 @@ describe('SerenityBDDReporter', () => {
 
             expect(report.testSteps).to.have.lengthOf(2);
             expect(report.testSteps[0].number).to.equal(1);
-            expect(report.testSteps[0].reportData).to.deep.equal({
-                title: 'pick a card message',
-                contents: '{\n    \"card\": \"default\"\n}',
-            });
+            expect(report.testSteps[0].reportData.title).to.equal('pick a card message');
+            expect(report.testSteps[0].reportData.contents).to.equal('{\n    "card": "default"\n}');
 
             expect(report.testSteps[1].number).to.equal(2);
-            expect(report.testSteps[1].reportData).to.deep.equal({
-                title: 'make a payment message',
-                contents: '{\n    \"amount\": \"£42\"\n}',
-            });
+            expect(report.testSteps[1].reportData.title).to.equal('make a payment message');
+            expect(report.testSteps[1].reportData.contents).to.deep.equal('{\n    \"amount\": \"£42\"\n}');
         });
     });
 
