@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.26](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.25...v2.0.1-alpha.26) (2019-03-05)
+
+
+### Bug Fixes
+
+* **core:** Ensure the `reportData` entries in the report are compatible with Serenity BDD CLI ([95afc5a](https://github.com/jan-molak/serenity-js/commit/95afc5a))
+
+
+
+
+
 ## [2.0.1-alpha.25](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.24...v2.0.1-alpha.25) (2019-03-04)
 
 
