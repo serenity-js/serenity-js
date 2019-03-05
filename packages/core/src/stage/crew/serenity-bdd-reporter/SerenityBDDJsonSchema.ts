@@ -49,6 +49,9 @@ export interface TestStep extends JSONObject {
 
 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java
 export interface ReportData extends JSONObject {
+    id: string;
+    isEvidence: boolean;
+    path: string;
     title: string;
     contents: string;
 }

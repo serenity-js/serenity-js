@@ -1,3 +1,4 @@
+import cuid = require('cuid');
 import { JSONObject, match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 import { inspect } from 'util';
@@ -228,7 +229,13 @@ export class SceneReport {
 
     arbitraryDataCaptured(name: Name, contents: string) {
         return this.withMutated(report => {
-            this.activities.mostRecentlyAccessedItem().reportData = { title: name.value, contents };
+            this.activities.mostRecentlyAccessedItem().reportData = {
+                id: `report-data-${ cuid() }`,
+                isEvidence: false,
+                path: '',
+                title: name.value,
+                contents,
+            };
         });
     }
 
