@@ -2,8 +2,8 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 
 import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError, KnowableUnknown } from '@serenity-js/core';
-import { Ensure, equals } from '../src';
+import { Actor, AnswersQuestions, AssertionError, KnowableUnknown, LogicError } from '@serenity-js/core';
+import { Ensure, equals, Expectation, Outcome } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Ensure} */
@@ -50,5 +50,22 @@ describe('Ensure', () => {
         return expect(Enrique.attemptsTo(
             Ensure.that(actual, isIdenticalTo(42)),
         )).to.be.fulfilled;
+    });
+
+    /** @test {Ensure.that} */
+    it(`complains when given an Expectation that doesn't conform to the interface`, () => {
+        class BrokenExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
+            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+                return (actual: Actual) => Promise.resolve(null);
+            }
+
+            toString(): string {
+                return `broken`;
+            }
+        }
+
+        return expect(Enrique.attemptsTo(
+            Ensure.that(4, new BrokenExpectation()),
+        )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an Outcome, not null');
     });
 });
