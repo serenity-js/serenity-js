@@ -1,19 +1,9 @@
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, isGreaterThan, isLessThan } from '@serenity-js/assertions';
-import { Actor, Duration } from '@serenity-js/core';
+import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
+import { Actor } from '@serenity-js/core';
 import { by, protractor } from 'protractor';
 
-import {
-    BrowseTheWeb,
-    Enter,
-    ExecuteScript,
-    isVisible,
-    LastScriptExecution,
-    Navigate, Scroll,
-    Target,
-    Value,
-    Wait,
-} from '../../../src';
+import { BrowseTheWeb, ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
 describe('Scroll', function() {

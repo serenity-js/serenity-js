@@ -6,4 +6,5 @@ export { ExecuteScript, LastScriptExecution } from './execute-script';
 export * from './Navigate';
 export * from './Press';
 export * from './Scroll';
+export * from './UseAngular';
 export * from './Wait';
