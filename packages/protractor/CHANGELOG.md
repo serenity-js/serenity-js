@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.29](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.28...v2.0.1-alpha.29) (2019-03-06)
+
+
+### Features
+
+* **protractor:** UseAngular.disableSynchronisation and enableSynchronisation ([0d420c5](https://github.com/jan-molak/serenity-js/commit/0d420c5))
+
+
+
+
+
 ## [2.0.1-alpha.28](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.27...v2.0.1-alpha.28) (2019-03-06)
 
 **Note:** Version bump only for package @serenity-js/protractor
