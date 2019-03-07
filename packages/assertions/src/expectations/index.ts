@@ -1,6 +1,6 @@
 export * from './and';
 export * from './contains';
-export * from './containAtLeastOneThat';
+export * from './containAtLeastOneItemThat';
 export * from './endsWith';
 export * from './equals';
 export * from './includes';

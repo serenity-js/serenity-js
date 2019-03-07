@@ -4,6 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { Actor, AssertionError } from '@serenity-js/core';
 import {
     and,
+    containAtLeastOneItemThat,
     contains,
     endsWith,
     Ensure,
@@ -92,6 +93,24 @@ describe('not', () => {
             it(`contributes to a human-readable description`, () => {
                 expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(contains('o'))).toString())
                     .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain 'o'`);
+            });
+        });
+
+        describe('containAtLeastOneItemThat,', () => {
+
+            /** @test {not} */
+            /** @test {containAtLeastOneItemThat} */
+            it(`produces a sensible error message`, () => {
+                return expect(Astrid.attemptsTo(
+                    Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2))),
+                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`);
+            });
+
+            /** @test {not} */
+            /** @test {containAtLeastOneItemThat} */
+            it(`contributes to a human-readable description`, () => {
+                expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(containAtLeastOneItemThat(equals('o')))).toString())
+                    .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain at least one item that does equal 'o'`);
             });
         });
 

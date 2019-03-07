@@ -3,11 +3,11 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { Expectation } from '../Expectation';
 import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
 
-export function containAtLeastOneThat<Actual>(expectation: Expectation<any, Actual>): Expectation<any, Actual[]> {
-    return new ContainAtLeastOneThatMeetsExpectation(expectation);
+export function containAtLeastOneItemThat<Actual>(expectation: Expectation<any, Actual>): Expectation<any, Actual[]> {
+    return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
 }
 
-class ContainAtLeastOneThatMeetsExpectation<Expected, Actual> extends Expectation<Expected, Actual[]> {
+class ContainAtLeastOneItemThatMeetsExpectation<Expected, Actual> extends Expectation<Expected, Actual[]> {
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
         super();
     }
@@ -23,6 +23,6 @@ class ContainAtLeastOneThatMeetsExpectation<Expected, Actual> extends Expectatio
     }
 
     toString(): string {
-        return formatted `contain at least one that does ${ this.expectation }`;
+        return formatted `contain at least one item that does ${ this.expectation }`;
     }
 }
