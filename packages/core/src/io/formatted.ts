@@ -33,7 +33,7 @@ function descriptionOf(value: KnowableUnknown<any>): string {
     }
 
     if (Array.isArray(value)) {
-        return `[ ${ value.map(item => descriptionOf(item)).join(', ') } ]`;
+        return `[ ${ value.map(item => descriptionOf(item)).join(', ') } ]`.replace(/\s+/, ' ');
     }
 
     if (isAPromise(value)) {
