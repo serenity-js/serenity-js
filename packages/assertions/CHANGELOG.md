@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.30](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.29...v2.0.1-alpha.30) (2019-03-07)
+
+
+### Features
+
+* **assertions:** containAtLeastOneThat(expectation) ([dec5618](https://github.com/jan-molak/serenity-js/commit/dec5618))
+
+
+
+
+
 ## [2.0.1-alpha.29](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.28...v2.0.1-alpha.29) (2019-03-06)
 
 **Note:** Version bump only for package @serenity-js/assertions
