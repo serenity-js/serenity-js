@@ -22,6 +22,7 @@ describe ('`formatted` tag function', () => {
         { description: 'a number parameter',        actual: formatted `Answer: ${ 42 }`,                        expected: 'Answer: 42'                                },
         { description: 'a string parameter',        actual: formatted `Hello ${ 'World' }!`,                    expected: "Hello 'World'!"                            },
         { description: 'an object parameter',       actual: formatted `${ { twitter: '@JanMolak'} }`,           expected: "{ twitter: '@JanMolak' }"                  },
+        { description: 'an empty array',            actual: formatted `${ [] }`,                                expected: '[ ]'                                       },
         { description: 'an array parameter',        actual: formatted `${ [1, 2, '3'] }`,                       expected: "[ 1, 2, '3' ]"                             },
         { description: 'an array of params',        actual: formatted `${ [ Promise.resolve(1), q('2') ] }`,    expected: '[ a promised value, the meaning of life ]' },
         { description: 'an object array parameter', actual: formatted `${ [{ name: 'Jan'}] }`,                  expected: "[ { name: 'Jan' } ]"                       },
