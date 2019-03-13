@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.32](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.31...v2.0.1-alpha.32) (2019-03-13)
+
+**Note:** Version bump only for package @serenity-js-examples/calculator-app
+
+
+
+
+
 ## [2.0.1-alpha.31](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.30...v2.0.1-alpha.31) (2019-03-07)
 
 **Note:** Version bump only for package @serenity-js-examples/calculator-app
