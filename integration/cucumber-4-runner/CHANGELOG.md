@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.31](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.30...v2.0.1-alpha.31) (2019-03-07)
+
+**Note:** Version bump only for package @integration/cucumber-4-runner
+
+
+
+
+
 ## [2.0.1-alpha.30](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.29...v2.0.1-alpha.30) (2019-03-07)
 
 **Note:** Version bump only for package @integration/cucumber-4-runner
