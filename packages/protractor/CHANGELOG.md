@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.33](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.32...v2.0.1-alpha.33) (2019-03-14)
+
+
+### Bug Fixes
+
+* **protractor:** Corrected the interface of LastScriptExecution.result ([09ccdb0](https://github.com/jan-molak/serenity-js/commit/09ccdb0))
+
+
+
+
+
 ## [2.0.1-alpha.32](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.31...v2.0.1-alpha.32) (2019-03-13)
 
 **Note:** Version bump only for package @serenity-js/protractor
