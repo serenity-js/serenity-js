@@ -30,12 +30,12 @@ describe('Scroll', function() {
         Navigate.to(aLongSpell),
 
         ExecuteScript.sync(`return arguments[0].getBoundingClientRect().top;`).withArguments(Page.Execute_Button),
-        Ensure.that(LastScriptExecution.result(), isGreaterThan(1000)),
+        Ensure.that(LastScriptExecution.result<number>(), isGreaterThan(1000)),
 
         Scroll.to(Page.Execute_Button),
 
         ExecuteScript.sync(`return arguments[0].getBoundingClientRect().top;`).withArguments(Page.Execute_Button),
-        Ensure.that(LastScriptExecution.result(), isLessThan(1000)),
+        Ensure.that(LastScriptExecution.result<number>(), isLessThan(1000)),
     ));
 
     /** @test {Enter#toString} */

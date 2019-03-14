@@ -7,9 +7,9 @@ export class LastScriptExecution {
      * @desc
      *  Enables asserting on the result of a function executed via {@link ExecuteScript}.
      *
-     * @returns {Question<Promise<R>>}
+     * @returns {Question<R>}
      */
-    static result<R>(): Question<Promise<R>> {
+    static result<R>(): Question<R> {
         return Question.about(`last script execution result`, actor =>
             BrowseTheWeb.as(actor).getLastScriptExecutionResult());
     }
