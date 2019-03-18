@@ -18,7 +18,7 @@ describe('@serenity-js/local-server', () => {
         stageManager    = createStubInstance(StageManager);
 
     const nadia = new Actor('Nadia', stageManager as any, frozenClock).whoCan(
-            ManageALocalServer.using(function(request, response) {
+            ManageALocalServer.running(function(request, response) {
                 response.setHeader('Connection', 'close');
                 response.end('Hello World!');
             }),
