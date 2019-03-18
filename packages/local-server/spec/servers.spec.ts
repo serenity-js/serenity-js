@@ -23,7 +23,7 @@ describe('ManageALocalServer', () => {
         }
 
         Nadia = Actor.named('Nadia').whoCan(
-            ManageALocalServer.using(handler()),
+            ManageALocalServer.running(handler()),
             CallAnApi.using(axios.create()),
         );
 

@@ -48,7 +48,7 @@ export class ManageALocalServer implements Ability {
      *
      * @returns {ManageALocalServer}
      */
-    static using(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | net.Server) {
+    static running(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | net.Server) {
         const server = typeof listener === 'function'
             ? http.createServer(listener)
             : listener;
