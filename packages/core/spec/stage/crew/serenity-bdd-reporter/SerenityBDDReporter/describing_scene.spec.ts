@@ -25,8 +25,7 @@ describe('SerenityBDDReporter', () => {
     beforeEach(() => {
         stageManager = sinon.createStubInstance(StageManager);
 
-        reporter = new SerenityBDDReporter();
-        reporter.assignTo(stageManager as any);
+        reporter = new SerenityBDDReporter(stageManager as any);
     });
 
     /**

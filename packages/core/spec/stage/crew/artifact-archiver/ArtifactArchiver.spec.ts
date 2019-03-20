@@ -26,8 +26,7 @@ describe('ArtifactArchiver', () => {
         beforeEach(() => {
             stageManager = new StageManager(Duration.ofMillis(250));
 
-            archiver = new ArtifactArchiver(fs as any);
-            archiver.assignTo(stageManager);
+            archiver = new ArtifactArchiver(fs as any, stageManager);
             stageManager.register(archiver);
         });
 
@@ -120,7 +119,7 @@ describe('ArtifactArchiver', () => {
             stageManager = sinon.createStubInstance(StageManager) as any;
 
             archiver     = new ArtifactArchiver(fs as any);
-            archiver.assignTo(stageManager as any);
+            archiver.assignedTo(stageManager as any);
 
             archiver.notifyOf(
                 someEvent,
@@ -140,7 +139,7 @@ describe('ArtifactArchiver', () => {
         stageManager = new StageManager(Duration.ofMillis(250));
 
         archiver = new ArtifactArchiver(fs as any);
-        archiver.assignTo(stageManager);
+        archiver.assignedTo(stageManager);
         stageManager.register(archiver);
 
         const notifyOf = sinon.spy(stageManager, 'notifyOf');

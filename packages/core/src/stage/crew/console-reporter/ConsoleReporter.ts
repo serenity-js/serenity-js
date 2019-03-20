@@ -25,18 +25,18 @@ import WriteStream = NodeJS.WriteStream;
  * @experimental
  */
 export class ConsoleReporter implements StageCrewMember {
-    private stageManager: StageManager;
     private currentIndentation = 0;
     private spacesPerIntend = 4;
 
     constructor(
         private readonly stdout: WriteStream = process.stdout,
         private readonly stderr: WriteStream = process.stderr,
+        private readonly stageManager: StageManager = null,
     ) {
     }
 
-    assignTo(stageManager: StageManager) {
-        this.stageManager = stageManager;
+    assignedTo(stageManager: StageManager) {
+        return new ConsoleReporter(this.stdout, this.stderr, stageManager);
     }
 
     notifyOf(event: DomainEvent): void {

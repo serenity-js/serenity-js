@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor, LogicError } from '@serenity-js/core';
-import { by, error, protractor } from 'protractor';
+import { by, protractor } from 'protractor';
 import { BrowseTheWeb, Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
 

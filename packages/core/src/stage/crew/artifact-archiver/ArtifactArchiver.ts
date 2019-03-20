@@ -10,7 +10,7 @@ import {
     DomainEvent,
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, JSONData, Name, Photo, TestReport } from '../../../model';
+import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
 import { StageCrewMember } from '../../StageCrewMember';
 import { StageManager } from '../../StageManager';
 import { MD5Hash } from './MD5Hash';
@@ -21,15 +21,15 @@ import { MD5Hash } from './MD5Hash';
  * @access public
  */
 export class ArtifactArchiver implements StageCrewMember {
-    private stageManager: StageManager;
 
     constructor(
         private readonly fileSystem: FileSystem,
+        private readonly stageManager: StageManager = null,
     ) {
     }
 
-    assignTo(stageManager: StageManager) {
-        this.stageManager = stageManager;
+    assignedTo(stageManager: StageManager) {
+        return new ArtifactArchiver(this.fileSystem, stageManager);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)

@@ -87,6 +87,6 @@ describe ('FileSystem', () => {
     }
 
     function pictureAt(file: Buffer) {
-        return new Buffer(file).toString('base64');
+        return Buffer.from(file).toString('base64');
     }
 });
