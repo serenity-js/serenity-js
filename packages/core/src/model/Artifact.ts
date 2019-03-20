@@ -8,9 +8,7 @@ export interface SerialisedArtifact extends JSONObject {
     base64EncodedValue: string;
 }
 
-export interface ArtifactType {
-    new (base64EncodedValue: string): Artifact;
-}
+export type ArtifactType = new (base64EncodedValue: string) => Artifact;
 
 export abstract class Artifact extends TinyType {
     static fromJSON(o: SerialisedArtifact) {

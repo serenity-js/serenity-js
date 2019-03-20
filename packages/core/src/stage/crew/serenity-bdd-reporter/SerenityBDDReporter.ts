@@ -43,7 +43,7 @@ export class SerenityBDDReporter implements StageCrewMember {
             this.reports.save(this.currentStrategy.value.handle(e, this.reports.for(this.currentScenario.value)));
         })
 
-    private use(strategy: { new (sd: ScenarioDetails): SceneReportingStrategy }, scenario: ScenarioDetails) {
+    private use(strategy: new (sd: ScenarioDetails) => SceneReportingStrategy, scenario: ScenarioDetails) {
         if (! (this.currentStrategy.isSet() && this.currentStrategy.value.worksFor(scenario))) {
             this.currentStrategy.value = new strategy(scenario);
             this.currentScenario.value = scenario;

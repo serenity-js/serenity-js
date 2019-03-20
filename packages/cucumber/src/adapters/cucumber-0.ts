@@ -95,7 +95,7 @@ function get(object, property) {
         : object[property];
 
     return ({
-        as: function<T>(type: { new (v: any): T}): T {  // tslint:disable-line:object-literal-shorthand esdoc doesn't understand generic anonymous functions
+        as: function<T>(type: new (v: any) => T): T {  // tslint:disable-line:object-literal-shorthand esdoc doesn't understand generic anonymous functions
             return new type(value);
         },
         value: () => value,
