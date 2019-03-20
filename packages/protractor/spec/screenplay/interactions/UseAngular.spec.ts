@@ -4,7 +4,7 @@ import { Actor, Question } from '@serenity-js/core';
 
 import { protractor } from 'protractor';
 import { BrowseTheWeb, UseAngular } from '../../../src';
-import { promiseOf } from '../../../src/screenplay/promiseOf';
+import { promiseOf } from '../../../src/promiseOf';
 
 describe('UseAngular', function() {
 

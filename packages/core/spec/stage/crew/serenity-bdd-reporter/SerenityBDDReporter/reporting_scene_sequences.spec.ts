@@ -33,8 +33,7 @@ describe('SerenityBDDReporter', () => {
     beforeEach(() => {
         stageManager = sinon.createStubInstance(StageManager);
 
-        reporter = new SerenityBDDReporter();
-        reporter.assignTo(stageManager as any);
+        reporter = new SerenityBDDReporter(stageManager as any);
     });
 
     // see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context

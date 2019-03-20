@@ -1,7 +1,7 @@
 import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+import { promiseOf } from '../../promiseOf';
 import { BrowseTheWeb } from '../abilities';
-import { promiseOf } from '../promiseOf';
 
 /**
  * @desc

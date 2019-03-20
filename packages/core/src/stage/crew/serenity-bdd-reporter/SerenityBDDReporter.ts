@@ -20,10 +20,11 @@ export class SerenityBDDReporter implements StageCrewMember {
     private currentScenario = new Current<ScenarioDetails>();
     private currentStrategy = new Current<SceneReportingStrategy>();
 
-    private stageManager: StageManager;
+    constructor(private readonly stageManager: StageManager = null) {
+    }
 
-    assignTo(stageManager: StageManager) {
-        this.stageManager = stageManager;
+    assignedTo(stageManager: StageManager): StageCrewMember {
+        return new SerenityBDDReporter(stageManager);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)

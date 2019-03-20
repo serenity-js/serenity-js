@@ -3,10 +3,14 @@ import { StageCrewMember, StageManager } from '../src/stage';
 
 export class Recorder implements StageCrewMember {
 
-    public readonly events: DomainEvent[] = [];
+    constructor(
+        public readonly events: DomainEvent[] = [],
+        private readonly stageManager: StageManager = null,
+    ) {
+    }
 
-    assignTo(stageManager: StageManager) {
-        // no-op
+    assignedTo(stageManager: StageManager) {
+        return new Recorder(this.events, stageManager);
     }
 
     notifyOf(event: DomainEvent) {

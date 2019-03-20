@@ -15,7 +15,7 @@ export abstract class StageCrewMember {
     /**
      * @param {StageManager} stageManager
      */
-    abstract assignTo(stageManager: StageManager): void;
+    abstract assignedTo(stageManager: StageManager): StageCrewMember;
 
     /**
      * @param {DomainEvent} event

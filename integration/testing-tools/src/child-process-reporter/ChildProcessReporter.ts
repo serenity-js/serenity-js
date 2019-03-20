@@ -4,10 +4,11 @@ import { JSONObject } from 'tiny-types';
 import { DTO } from './DTO';
 
 export class ChildProcessReporter implements StageCrewMember {
-    private stageManager: StageManager;
+    constructor(private readonly stageManager: StageManager = null) {
+    }
 
-    assignTo(stageManager: StageManager) {
-        this.stageManager = stageManager;
+    assignedTo(stageManager: StageManager): StageCrewMember {
+        return new ChildProcessReporter(stageManager);
     }
 
     notifyOf(event: DomainEvent): void {

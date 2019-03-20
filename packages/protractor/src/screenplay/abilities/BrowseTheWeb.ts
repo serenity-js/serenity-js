@@ -1,7 +1,7 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { Navigation } from 'selenium-webdriver';
-import { promiseOf } from '../promiseOf';
+import { promiseOf } from '../../promiseOf';
 
 /**
  * @desc
