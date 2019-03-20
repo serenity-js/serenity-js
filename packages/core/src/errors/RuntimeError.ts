@@ -25,7 +25,7 @@
 export abstract class RuntimeError extends Error {
 
     protected constructor(
-        type: { new(...args: any[]): RuntimeError },
+        type: new (...args: any[]) => RuntimeError,
         message: string,
         public readonly cause?: Error,
     ) {
