@@ -1,15 +1,15 @@
-import { Serialised, TinyType } from 'tiny-types';
+import { JSONObject, TinyType } from 'tiny-types';
 
 import { FileSystemLocation } from '../io';
 import { Category } from './Category';
 import { Name } from './Name';
 
 export class ScenarioDetails extends TinyType {
-    static fromJSON(o: Serialised<ScenarioDetails>) {
+    static fromJSON(o: JSONObject) {
         return new ScenarioDetails(
             Name.fromJSON(o.name as string),
             Category.fromJSON(o.category as string),
-            FileSystemLocation.fromJSON(o.location as Serialised<FileSystemLocation>),
+            FileSystemLocation.fromJSON(o.location as JSONObject),
         );
     }
 

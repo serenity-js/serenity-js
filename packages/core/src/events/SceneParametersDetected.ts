@@ -1,13 +1,13 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { ScenarioDetails, ScenarioParameters } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneParametersDetected extends DomainEvent {
-    public static fromJSON(o: Serialised<SceneParametersDetected>) {
+    public static fromJSON(o: JSONObject) {
         return new SceneParametersDetected(
-            ScenarioDetails.fromJSON(o.scenario as Serialised<ScenarioDetails>),
-            ScenarioParameters.fromJSON(o.value as Serialised<ScenarioParameters>),
+            ScenarioDetails.fromJSON(o.scenario as JSONObject),
+            ScenarioParameters.fromJSON(o.value as JSONObject),
         );
     }
 

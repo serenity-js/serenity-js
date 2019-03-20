@@ -1,13 +1,13 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { ScenarioDetails, Tag, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneTagged extends DomainEvent {
-    static fromJSON(o: Serialised<SceneTagged>) {
+    static fromJSON(o: JSONObject) {
         return new SceneTagged(
-            ScenarioDetails.fromJSON(o.value as Serialised<ScenarioDetails>),
-            Tag.fromJSON(o.tag as Serialised<Tag>),
+            ScenarioDetails.fromJSON(o.value as JSONObject),
+            Tag.fromJSON(o.tag as JSONObject),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }

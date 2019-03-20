@@ -3,11 +3,13 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import {
-    ActivityFinished,
-    ActivityStarts, ArtifactArchived,
+    ArtifactArchived,
     ArtifactGenerated,
+    InteractionStarts,
     SceneFinished,
     SceneStarts,
+    TaskFinished,
+    TaskStarts,
     TestRunFinished,
 } from '../../../../../src/events';
 import { Path } from '../../../../../src/io';
@@ -35,7 +37,7 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
+         * @test {TaskStarts}
          * @test {ActivityFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
@@ -46,8 +48,8 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new ActivityStarts(pickACard),
-                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                    new InteractionStarts(pickACard),
+                    new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
@@ -62,8 +64,8 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
-         * @test {ActivityFinished}
+         * @test {TaskStarts}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -74,10 +76,10 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new ActivityStarts(pickACard),
-                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
-                    new ActivityStarts(makePayment),
-                    new ActivityFinished(makePayment, new ExecutionSuccessful()),
+                    new TaskStarts(pickACard),
+                    new TaskFinished(pickACard, new ExecutionSuccessful()),
+                    new TaskStarts(makePayment),
+                    new TaskFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
@@ -94,8 +96,8 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
-         * @test {ActivityFinished}
+         * @test {TaskStarts}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -106,10 +108,10 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new ActivityStarts(pickACard),
-                        new ActivityStarts(viewListOfCards),
-                        new ActivityFinished(viewListOfCards, new ExecutionSuccessful()),
-                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                    new TaskStarts(pickACard),
+                        new TaskStarts(viewListOfCards),
+                        new TaskFinished(viewListOfCards, new ExecutionSuccessful()),
+                    new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
@@ -128,9 +130,9 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
+         * @test {TaskStarts}
          * @test {ArtifactGenerated}
-         * @test {ActivityFinished}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -140,10 +142,10 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new ActivityStarts(pickACard),
+                    new TaskStarts(pickACard),
                         new ArtifactGenerated(new Name('photo1'), photo),
                         new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
-                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                    new TaskFinished(pickACard, new ExecutionSuccessful()),
                         new ArtifactGenerated(new Name('photo2'), photo),
                         new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
@@ -162,8 +164,8 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
-         * @test {ActivityFinished}
+         * @test {TaskStarts}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -175,14 +177,14 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new ActivityStarts(pickACard),
+                    new TaskStarts(pickACard),
                         new ArtifactGenerated(new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
                         new ArtifactArchived(new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),
-                    new ActivityFinished(pickACard, new ExecutionSuccessful()),
-                    new ActivityStarts(makePayment),
+                    new TaskFinished(pickACard, new ExecutionSuccessful()),
+                    new TaskStarts(makePayment),
                         new ArtifactGenerated(new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
                         new ArtifactArchived(new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
-                    new ActivityFinished(makePayment, new ExecutionSuccessful()),
+                    new TaskFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
@@ -205,9 +207,9 @@ describe('SerenityBDDReporter', () => {
         /**
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
-         * @test {ActivityStarts}
+         * @test {TaskStarts}
          * @test {ArtifactGenerated}
-         * @test {ActivityFinished}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -217,10 +219,10 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                new ActivityStarts(pickACard),
+                new TaskStarts(pickACard),
                 new ArtifactGenerated(new Name('photo1'), photo),
                 new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
-                new ActivityFinished(pickACard, new ExecutionSuccessful()),
+                new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new ArtifactGenerated(new Name('photo2'), photo),
                 new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),

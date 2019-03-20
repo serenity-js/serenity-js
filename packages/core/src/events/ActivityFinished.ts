@@ -1,17 +1,9 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined } from 'tiny-types';
 
-import { ActivityDetails, Outcome, SerialisedOutcome, Timestamp } from '../model';
+import { ActivityDetails, Outcome, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
-export class ActivityFinished extends DomainEvent {
-    static fromJSON(o: Serialised<ActivityFinished>) {
-        return new ActivityFinished(
-            ActivityDetails.fromJSON(o.value as string),
-            Outcome.fromJSON(o.outcome as SerialisedOutcome),
-            Timestamp.fromJSON(o.timestamp as string),
-        );
-    }
-
+export abstract class ActivityFinished extends DomainEvent {
     constructor(
         public readonly value: ActivityDetails,
         public readonly outcome: Outcome,

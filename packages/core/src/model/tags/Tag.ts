@@ -1,11 +1,11 @@
-import { ensure, isDefined, isString, Serialised, TinyType } from 'tiny-types';
+import { ensure, isDefined, isString, JSONObject, TinyType } from 'tiny-types';
 import * as TagTypes from './index';
 
 /**
  * @access public
  */
 export abstract class Tag extends TinyType {
-    static fromJSON(o: Serialised<Tag>) {
+    static fromJSON(o: JSONObject) {
         const type: string = ensure('serialised tag type', o.type, isDefined(), isString()) as string;
 
         const found = Object.keys(TagTypes).find(t => TagTypes[t].Type === type) || TagTypes.ArbitraryTag.name;

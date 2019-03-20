@@ -41,7 +41,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
         // todo: if there are no activities, make it a PendingActivity
         // todo: only change the execution strategy for the duration of the current task; tasks from afterhooks should still get executed
         return activities
-            .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))
+            .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))  // todo: TrackedInteraction, TrackedTask
             .reduce((previous: Promise<void>, current: Activity) => {
                 return previous.then(() => {
                     /* todo: add an execution strategy */
