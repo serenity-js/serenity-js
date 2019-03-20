@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.34](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.33...v2.0.1-alpha.34) (2019-03-18)
+
+
+### Bug Fixes
+
+* **local-server:** More readable API for the ManageALocalServer ability ([5dfe0e5](https://github.com/jan-molak/serenity-js/commit/5dfe0e5))
+
+
+
+
+
 ## [2.0.1-alpha.33](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.32...v2.0.1-alpha.33) (2019-03-14)
 
 **Note:** Version bump only for package @serenity-js/local-server
