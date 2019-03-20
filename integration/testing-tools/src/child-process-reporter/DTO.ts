@@ -1,6 +1,6 @@
-import { Serialised } from 'tiny-types';
+import { JSONObject } from 'tiny-types';
 
-export interface DTO<T extends object> {
+export interface DTO {
     type: string;
-    value: Serialised<T>;
+    value: JSONObject;
 }

@@ -1,6 +1,6 @@
 import { DomainEvent } from '@serenity-js/core/lib/events';
 import { StageCrewMember, StageManager } from '@serenity-js/core/lib/stage';
-import { Serialised } from 'tiny-types';
+import { JSONObject } from 'tiny-types';
 import { DTO } from './DTO';
 
 export class ChildProcessReporter implements StageCrewMember {
@@ -14,10 +14,10 @@ export class ChildProcessReporter implements StageCrewMember {
         process.send(this.serialised(event));
     }
 
-    private serialised(event: DomainEvent): DTO<DomainEvent> {
+    private serialised(event: DomainEvent): DTO {
         return ({
             type:  event.constructor.name,
-            value: event.toJSON() as Serialised<DomainEvent>,
+            value: event.toJSON() as JSONObject,
         });
     }
 }

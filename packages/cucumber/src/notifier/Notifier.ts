@@ -9,7 +9,7 @@ import {
     SceneSequenceDetected,
     SceneStarts,
     SceneTagged,
-    SceneTemplateDetected,
+    SceneTemplateDetected, TaskFinished, TaskStarts,
     TestRunFinished,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
@@ -68,12 +68,12 @@ export class Notifier {
     }
 
     stepStarts(step: Step): void {
-        this.emit(new ActivityStarts(new ActivityDetails(step.name)));
+        this.emit(new TaskStarts(new ActivityDetails(step.name)));
     }
 
     stepFinished(step: Step, outcome: Outcome): void {
         this.emit(
-            new ActivityFinished(
+            new TaskFinished(
                 new ActivityDetails(step.name),
                 outcome,
             ),

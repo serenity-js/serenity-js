@@ -20,7 +20,7 @@ export function spawner(pathToScript: string, options?: childProcess.ForkOptions
                 ...{silent: true},
             });
 
-            spawned.on('message', (message: DTO<events.DomainEvent>) => {
+            spawned.on('message', (message: DTO) => {
                 result.events.push(events[ message.type ].fromJSON(message.value));
             });
 

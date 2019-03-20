@@ -6,9 +6,10 @@ export class Pick {
     constructor(private events: DomainEvent[]) {
     }
 
-    next<T extends DomainEvent>(type: { new(...args: any[]): T }, assertion: (event: T) => void) {
+    // tslint:disable-next-line:ban-types
+    next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void) {
 
-        const foundIndex = this.events.findIndex(event => event.constructor === type);
+        const foundIndex = this.events.findIndex(event => event instanceof type);
 
         if (foundIndex < 0) {
             const found = this.events.map(e => e.constructor.name).join(', ') || 'an empty list';

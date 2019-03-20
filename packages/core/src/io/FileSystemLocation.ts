@@ -1,8 +1,8 @@
-import { Serialised, TinyType } from 'tiny-types';
+import { JSONObject, TinyType } from 'tiny-types';
 import { Path } from './Path';
 
 export class FileSystemLocation extends TinyType {
-    static fromJSON = (o: Serialised<FileSystemLocation>) => new FileSystemLocation(
+    static fromJSON = (o: JSONObject) => new FileSystemLocation(
         Path.fromJSON(o.path as string),
         o.line as number,
         o.column as number,

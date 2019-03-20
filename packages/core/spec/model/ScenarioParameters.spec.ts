@@ -1,5 +1,4 @@
 import 'mocha';
-import { Serialised } from 'tiny-types';
 
 import { Description, Name, ScenarioParameters } from '../../src/model';
 import { expect } from '../expect';
@@ -40,6 +39,6 @@ describe('ScenarioParameters', () => {
                 name: name.toJSON(),
                 description: desciption.toJSON(),
                 values: parameters,
-            } as Serialised<ScenarioParameters>));  // tslint:disable-line:no-object-literal-type-assertion
+            }));
     });
 });

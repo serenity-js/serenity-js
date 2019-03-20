@@ -1,10 +1,10 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { Name, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class TestRunnerDetected extends DomainEvent {
-    public static fromJSON(o: Serialised<TestRunnerDetected>) {
+    public static fromJSON(o: JSONObject) {
         return new TestRunnerDetected(
             Name.fromJSON(o.value as string),
             Timestamp.fromJSON(o.timestamp as string),

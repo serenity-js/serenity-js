@@ -2,13 +2,22 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { ActivityFinished, ActivityStarts } from '../../../src/events';
+import { TaskFinished, TaskStarts } from '../../../src/events';
 import { ActivityDetails, Duration, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
 import { Ability, Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
 import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
-import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from '../example-implementation';
+import {
+    AcousticGuitar,
+    Chords,
+    Guitar,
+    MusicSheets,
+    NumberOfGuitarStringsLeft,
+    PlayAChord,
+    PlayAGuitar,
+    PlayASong,
+} from '../example-implementation';
 
 const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.equal(expected);
 
@@ -120,13 +129,13 @@ describe('Actor', () => {
             ).then(() => {
                 expect(recorder.events).to.have.lengthOf(2);
 
-                expect(recorder.events[ 0 ]).to.equal(new ActivityStarts(details, clock.now()));
+                expect(recorder.events[ 0 ]).to.equal(new TaskStarts(details, clock.now()));
 
-                expect(recorder.events[ 1 ]).to.equal(new ActivityFinished(details, new ExecutionSuccessful(), clock.now()));
+                expect(recorder.events[ 1 ]).to.equal(new TaskFinished(details, new ExecutionSuccessful(), clock.now()));
             }));
         });
 
         /** @test {Actor} */
-        it('reacts to events and changes its behaviour');
+        it('reacts to events and changes its behaviour');   // todo
     });
 });

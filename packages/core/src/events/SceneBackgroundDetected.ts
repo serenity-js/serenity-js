@@ -1,10 +1,10 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { Description, Name } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneBackgroundDetected extends DomainEvent {
-    public static fromJSON(o: Serialised<SceneBackgroundDetected>) {
+    public static fromJSON(o: JSONObject) {
         return new SceneBackgroundDetected(
             Name.fromJSON(o.name as string),
             Description.fromJSON(o.description as string),

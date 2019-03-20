@@ -1,10 +1,10 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { Artifact, Name, SerialisedArtifact, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class ArtifactGenerated extends DomainEvent {
-    static fromJSON(o: Serialised<ArtifactGenerated>) {
+    static fromJSON(o: JSONObject) {
         return new ArtifactGenerated(
             Name.fromJSON(o.name as string),
             Artifact.fromJSON(o.artifact as SerialisedArtifact),

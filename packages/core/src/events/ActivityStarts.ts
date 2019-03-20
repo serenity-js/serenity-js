@@ -1,16 +1,9 @@
-import { ensure, isDefined, Serialised } from 'tiny-types';
+import { ensure, isDefined } from 'tiny-types';
 
 import { ActivityDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
-export class ActivityStarts extends DomainEvent {
-    static fromJSON(o: Serialised<ActivityStarts>) {
-        return new ActivityStarts(
-            ActivityDetails.fromJSON(o.value as string),
-            Timestamp.fromJSON(o.timestamp as string),
-        );
-    }
-
+export abstract class ActivityStarts extends DomainEvent {
     constructor(
         public readonly value: ActivityDetails,
         timestamp?: Timestamp,

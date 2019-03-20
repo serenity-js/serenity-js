@@ -1,8 +1,8 @@
-import { ensure, isDefined, isNumber, Serialised, TinyType } from 'tiny-types';
+import { ensure, isDefined, isNumber, JSONObject, TinyType } from 'tiny-types';
 import { Expression } from './Expression';
 
 export class Result extends TinyType {
-    fromJSON(o: Serialised<Result>): Result {
+    fromJSON(o: JSONObject): Result {
         return new Result(
             Expression.fromString(o.expression as string),
             o.value as number,

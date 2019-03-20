@@ -1,10 +1,10 @@
-import { ensure, isDefined, Serialised, TinyType } from 'tiny-types';
+import { ensure, isDefined, JSONObject, TinyType } from 'tiny-types';
 
 import { Description } from './Description';
 import { Name } from './Name';
 
 export class ScenarioParameters extends TinyType {
-    public static fromJSON(o: Serialised<ScenarioParameters>) {
+    public static fromJSON(o: JSONObject) {
         return new ScenarioParameters(
             Name.fromJSON(o.name as string),
             o.description && Description.fromJSON(o.description as string),
