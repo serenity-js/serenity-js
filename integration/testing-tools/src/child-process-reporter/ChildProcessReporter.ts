@@ -1,14 +1,14 @@
 import { DomainEvent } from '@serenity-js/core/lib/events';
-import { StageCrewMember, StageManager } from '@serenity-js/core/lib/stage';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { JSONObject } from 'tiny-types';
 import { DTO } from './DTO';
 
 export class ChildProcessReporter implements StageCrewMember {
-    constructor(private readonly stageManager: StageManager = null) {
+    constructor(private readonly stage: Stage = null) {
     }
 
-    assignedTo(stageManager: StageManager): StageCrewMember {
-        return new ChildProcessReporter(stageManager);
+    assignedTo(stage: Stage): StageCrewMember {
+        return new ChildProcessReporter(stage);
     }
 
     notifyOf(event: DomainEvent): void {

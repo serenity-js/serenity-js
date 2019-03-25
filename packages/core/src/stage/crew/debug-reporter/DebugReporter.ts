@@ -1,13 +1,13 @@
 import { DomainEvent } from '../../../events';
+import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
-import { StageManager } from '../../StageManager';
 
 export class DebugReporter implements StageCrewMember {
-    constructor(private readonly stageManager: StageManager = null) {
+    constructor(private readonly stage: Stage = null) {
     }
 
-    assignedTo(stageManager: StageManager): StageCrewMember {
-        return new DebugReporter(stageManager);
+    assignedTo(stage: Stage): StageCrewMember {
+        return new DebugReporter(stage);
     }
 
     notifyOf(event: DomainEvent): void {

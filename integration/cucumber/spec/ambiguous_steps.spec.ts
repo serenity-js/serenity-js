@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -39,7 +39,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(1);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A passing scenario')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))

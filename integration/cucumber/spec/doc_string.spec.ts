@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { ActivityStarts } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 
@@ -32,7 +32,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(ActivityStarts, event => expect(event.value.name).to.equal(new Name(
                     'Given a step that receives a doc string:\n' +
                     'Dear customer,\n' +

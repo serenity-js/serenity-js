@@ -1,7 +1,7 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { TestCompromisedError } from '../../src/errors';
+import { ImplementationPendingError, TestCompromisedError } from '../../src/errors';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -29,7 +29,6 @@ describe('Outcome', () => {
         given([
             new ExecutionSkipped(),
             new ExecutionIgnored(),
-            new ImplementationPending(),
             new ExecutionSuccessful(),
         ]).
         it('can be serialised and deserialised', (outcome: Outcome) => {
@@ -50,6 +49,7 @@ describe('Outcome', () => {
             { outcome: new ExecutionCompromised(new TestCompromisedError('Database is down')), description: ExecutionCompromised.name },
             { outcome: new ExecutionFailedWithError(new Error(`Something's wrong`)), description: ExecutionFailedWithError.name },
             { outcome: new ExecutionFailedWithAssertionError(assertionError()), description: ExecutionFailedWithAssertionError.name },
+            { outcome: new ImplementationPending(new ImplementationPendingError('method missing')), description: ImplementationPending.name },
         ]).
         it('can be serialised and deserialised', ({ outcome }: { outcome: ProblemIndication }) => {
             const deserialised: any = Outcome.fromJSON(outcome.toJSON());
@@ -60,7 +60,6 @@ describe('Outcome', () => {
             expect(deserialised.error.message).to.equal(outcome.error.message);
             expect(deserialised.error.stack).to.equal(outcome.error.stack);
         });
-
     });
 
     function assertionError() {

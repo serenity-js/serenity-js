@@ -24,6 +24,7 @@ import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
 import { given } from '../../given';
+import { create } from '../create';
 
 describe('SerenityBDDReporter', () => {
 
@@ -31,9 +32,10 @@ describe('SerenityBDDReporter', () => {
         reporter: SerenityBDDReporter;
 
     beforeEach(() => {
-        stageManager = sinon.createStubInstance(StageManager);
+        const env = create();
 
-        reporter = new SerenityBDDReporter(stageManager as any);
+        stageManager    = env.stageManager;
+        reporter        = env.reporter;
     });
 
     // see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context

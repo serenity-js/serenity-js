@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     SceneFinished,
     SceneParametersDetected,
@@ -46,7 +46,7 @@ describe('@serenity-js/cucumber', function() {
                 expectedExamplesName = new Name('Example results'),
                 expectedExamplesDescription = new Description('Description of the examples');
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneSequenceDetected, event => {
                     expect(event.value.name).to.equal(expectedScenarioName);
                     expect(event.value.category).to.equal(expectedScenarioCategory);

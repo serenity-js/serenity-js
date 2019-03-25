@@ -263,6 +263,22 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @desc
+     *  Schedule a command to take a screenshot. The driver makes a best effort to
+     *  return a base64-encoded screenshot of the following, in order of preference:
+     *
+     *  1. Entire page
+     *  2. Current window
+     *  3. Visible portion of the current frame
+     *  4. The entire display containing the browser
+     *
+     * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
+     */
+    takeScreenshot(): Promise<string> {
+        return promiseOf(this.browser.takeScreenshot());
+    }
+
+    /**
+     * @desc
      *  Returns the title of the current page.
      *
      * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title

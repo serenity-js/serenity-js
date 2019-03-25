@@ -16,6 +16,7 @@ import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-re
 import { expect } from '../../../../expect';
 import { given } from '../../given';
 import { defaultCardScenario } from '../../samples';
+import { create } from '../create';
 
 describe('SerenityBDDReporter', () => {
 
@@ -23,9 +24,10 @@ describe('SerenityBDDReporter', () => {
         reporter: SerenityBDDReporter;
 
     beforeEach(() => {
-        stageManager = sinon.createStubInstance(StageManager);
+        const env = create();
 
-        reporter = new SerenityBDDReporter(stageManager as any);
+        stageManager    = env.stageManager;
+        reporter        = env.reporter;
     });
 
     /**

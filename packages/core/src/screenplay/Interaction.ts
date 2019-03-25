@@ -6,17 +6,18 @@ export abstract class Interaction implements Activity {
         description: string,
         interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => PromiseLike<void> | void,
     ): Interaction {
-        return new AnonymousInteraction(description, interaction);
+        return new DynamicallyGeneratedInteraction(description, interaction);
     }
 
     abstract performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void>;
 }
 
-class AnonymousInteraction implements Interaction {
+class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
         private readonly description: string,
         private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => PromiseLike<void> | void,
     ) {
+        super();
     }
 
     performAs(actor: Actor): PromiseLike<void> {

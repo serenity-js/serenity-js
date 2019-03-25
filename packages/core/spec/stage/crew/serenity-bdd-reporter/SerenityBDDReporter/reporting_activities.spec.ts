@@ -5,7 +5,6 @@ import * as sinon from 'sinon';
 import {
     ArtifactArchived,
     ArtifactGenerated,
-    InteractionStarts,
     SceneFinished,
     SceneStarts,
     TaskFinished,
@@ -19,6 +18,7 @@ import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-re
 import { expect } from '../../../../expect';
 import { given } from '../../given';
 import { defaultCardScenario, photo } from '../../samples';
+import { create } from '../create';
 
 describe('SerenityBDDReporter', () => {
 
@@ -26,9 +26,10 @@ describe('SerenityBDDReporter', () => {
         reporter: SerenityBDDReporter;
 
     beforeEach(() => {
-        stageManager = sinon.createStubInstance(StageManager);
+        const env = create();
 
-        reporter = new SerenityBDDReporter(stageManager as any);
+        stageManager    = env.stageManager;
+        reporter        = env.reporter;
     });
 
     describe('reports the activities that took place during scenario execution:', () => {
@@ -37,7 +38,7 @@ describe('SerenityBDDReporter', () => {
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
          * @test {TaskStarts}
-         * @test {ActivityFinished}
+         * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
          * @test {TestRunFinished}
@@ -47,7 +48,7 @@ describe('SerenityBDDReporter', () => {
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
-                    new InteractionStarts(pickACard),
+                    new TaskStarts(pickACard),
                     new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),

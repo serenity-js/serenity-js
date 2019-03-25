@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
 import { Actor } from '../../src/screenplay';
-import { Cast, Stage } from '../../src/stage';
+import { Cast, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Stage', () => {
@@ -16,6 +16,8 @@ describe('Stage', () => {
         }
     }
 
+    const stageManager = sinon.createStubInstance(StageManager);
+
     /**
      * @test {Stage#actor}
      * @test {Stage#theActorCalled}
@@ -24,7 +26,7 @@ describe('Stage', () => {
         const
             name   = 'Alice',
             actors = sinon.createStubInstance(CustomActors),
-            stage  = new Stage(actors);
+            stage  = new Stage(actors, stageManager as unknown as StageManager);
 
         actors.actor.withArgs(name).returns(Actor.named(name));
 
@@ -38,7 +40,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).returns(Actor.named(name));
 
@@ -53,7 +55,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).returns(Actor.named(name));
 
@@ -74,7 +76,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).returns(Actor.named(name));
 
@@ -92,7 +94,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).returns(Actor.named(name));
 
@@ -111,7 +113,7 @@ describe('Stage', () => {
         it('complains if you try to access the actor in the spotlight, but there isn\'t any yet', () => {
             const
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             expect(
                 () => stage.theActorInTheSpotlight(),
@@ -123,8 +125,14 @@ describe('Stage', () => {
 
         it('complains when instantiated with no Cast', () => {
             expect(() => {
-                const stage = new Stage(null);
+                const stage = new Stage(null, stageManager as unknown as StageManager);
             }).to.throw(Error, 'Cast should be defined');
+        });
+
+        it('complains when instantiated with no StageManager', () => {
+            expect(() => {
+                const stage = new Stage(new CustomActors(), null);
+            }).to.throw(Error, 'StageManager should be defined');
         });
 
         /** @test {Stage#actor} */
@@ -132,7 +140,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).returns(undefined);
 
@@ -146,7 +154,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = sinon.createStubInstance(CustomActors),
-                stage  = new Stage(actors);
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             actors.actor.withArgs(name).throws(new TypeError('Something is not quite right'));
 

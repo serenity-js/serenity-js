@@ -12,8 +12,8 @@ import {
     Outcome,
     ProblemIndication,
 } from '../../../model';
+import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
-import { StageManager } from '../../StageManager';
 import WriteStream = NodeJS.WriteStream;
 
 /**
@@ -31,12 +31,12 @@ export class ConsoleReporter implements StageCrewMember {
     constructor(
         private readonly stdout: WriteStream = process.stdout,
         private readonly stderr: WriteStream = process.stderr,
-        private readonly stageManager: StageManager = null,
+        private readonly stage: Stage = null,
     ) {
     }
 
-    assignedTo(stageManager: StageManager) {
-        return new ConsoleReporter(this.stdout, this.stderr, stageManager);
+    assignedTo(stage: Stage) {
+        return new ConsoleReporter(this.stdout, this.stderr, stage);
     }
 
     notifyOf(event: DomainEvent): void {
@@ -52,7 +52,7 @@ export class ConsoleReporter implements StageCrewMember {
             })
             .when(ActivityFinished,   ({ value, outcome }: ActivityFinished) => {
                 this.print(
-                    outcome.isWorseThan(new ExecutionSuccessful()) ? this.stdout : this.stderr,
+                    outcome.isWorseThan(ExecutionSuccessful) ? this.stdout : this.stderr,
                     this.toStatusIcon(outcome),
                     value.name.value,
                 );
