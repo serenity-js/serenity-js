@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.35](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.34...v2.0.1-alpha.35) (2019-03-20)
+
+
+### Features
+
+* **core:** Tasks and Interactions emit more precise domain events ([d18e55f](https://github.com/jan-molak/serenity-js/commit/d18e55f))
+
+
+
+
+
 ## [2.0.1-alpha.34](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.33...v2.0.1-alpha.34) (2019-03-18)
 
 **Note:** Version bump only for package @serenity-js/assertions
