@@ -1,7 +1,7 @@
 import { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { ManageALocalServer } from '../abilities';
 
-export class StopLocalServer implements Interaction {
+export class StopLocalServer extends Interaction {
     static ifRunning(): Interaction {
         return new StopLocalServer();
     }

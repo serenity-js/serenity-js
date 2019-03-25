@@ -6,7 +6,7 @@ import { withAnswerOf } from '../withAnswerOf';
  * @desc
  *  Note that modifier keys, such as Command, won't work on Mac - https://github.com/angular/protractor/issues/690
  */
-export class Press implements Interaction {
+export class Press extends Interaction {
 
     static the(...keys: string[]) {
         return {
@@ -18,6 +18,7 @@ export class Press implements Interaction {
         private readonly keys: string[],
         private readonly field: Question<ElementFinder> | ElementFinder,
     ) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {

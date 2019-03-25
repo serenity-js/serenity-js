@@ -3,12 +3,13 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
 
-export class Click implements Interaction {
+export class Click extends Interaction {
     static on(target: Question<ElementFinder> | ElementFinder) {
         return new Click(target);
     }
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {

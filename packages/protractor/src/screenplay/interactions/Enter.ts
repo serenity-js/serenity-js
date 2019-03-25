@@ -3,7 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
 
-export class Enter implements Interaction {
+export class Enter extends Interaction {
     static theValue(value: KnowableUnknown<string | number>) {
         return {
             into: (field: Question<ElementFinder> | ElementFinder) => new Enter(value, field),
@@ -14,6 +14,7 @@ export class Enter implements Interaction {
         private readonly value: KnowableUnknown<string | number>,
         private readonly field: Question<ElementFinder> | ElementFinder,
     ) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {

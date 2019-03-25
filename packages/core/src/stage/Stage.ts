@@ -8,6 +8,7 @@ import { StageManager } from './StageManager';
 export class Stage {
     private readonly actorsOnStage: { [name: string]: Actor } = {};
     private actorInTheSpotlight: Actor = null;
+    // todo: add the clock so that it can be removed from the Actor?
 
     constructor(
         private readonly actors: Cast,

@@ -58,7 +58,7 @@ describe('Photographer', () => {
             },
         }, stageManager);
 
-        stageManager.register(recorder);
+        stage.assign(recorder);
     });
 
     describe(`when there's no actor in the spotlight`, () => {
@@ -102,7 +102,7 @@ describe('Photographer', () => {
             { description: 'assertion error',           outcome: new ExecutionFailedWithAssertionError(new AssertionError(`expected false to equal true`, false, true)) },
             { description: 'implementation pending',    outcome: new ImplementationPending(new ImplementationPendingError('method missing'))                            },
         ).
-        it(`does nothing if there's no actor in spotlight, even when a problem occurs`, ({ outcome }) => {
+        it(`does nothing, even when a problem occurs`, ({ outcome }) => {
             givenFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                 new SceneFinished(defaultCardScenario, outcome),

@@ -2,7 +2,7 @@ import { AnswersQuestions } from '../actor';
 import { Interaction } from '../Interaction';
 import { KnowableUnknown } from '../KnowableUnknown';
 
-export class Log implements Interaction {
+export class Log extends Interaction {
     static info(...items: Array<KnowableUnknown<any>>) {
         return new Log(items, console.info);    // tslint:disable-line:no-console
     }
@@ -11,6 +11,7 @@ export class Log implements Interaction {
         private readonly items: Array<KnowableUnknown<any>>,
         private readonly print: (...args: any[]) => void,
     ) {
+        super();
     }
 
     performAs(actor: AnswersQuestions): PromiseLike<void> {

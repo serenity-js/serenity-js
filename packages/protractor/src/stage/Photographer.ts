@@ -1,17 +1,13 @@
 import {
-    ActivityStarts,
-    ArtifactArchived,
     ArtifactGenerated,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     AsyncOperationFailed,
     DomainEvent,
     InteractionFinished,
-    SceneStarts,
-    TaskFinished,
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, ImplementationPending, Photo } from '@serenity-js/core/lib/model';
-import { Stage, StageCrewMember, StageManager } from '@serenity-js/core/lib/stage';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { match } from 'tiny-types';
 import { BrowseTheWeb } from '../screenplay/abilities';
 

@@ -5,7 +5,7 @@ import { match } from 'tiny-types';
 import { Expectation } from './Expectation';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
-export class Ensure<Actual> implements Interaction {
+export class Ensure<Actual> extends Interaction {
     static that<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
         return new Ensure(actual, expectation);
     }
@@ -14,6 +14,7 @@ export class Ensure<Actual> implements Interaction {
         private readonly actual: KnowableUnknown<Actual>,
         private readonly expectation: Expectation<Actual>,
     ) {
+        super();
     }
 
     performAs(actor: AnswersQuestions): PromiseLike<void> {

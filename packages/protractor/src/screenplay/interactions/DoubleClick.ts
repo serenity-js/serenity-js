@@ -4,12 +4,13 @@ import { ElementFinder } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
 import { withAnswerOf } from '../withAnswerOf';
 
-export class DoubleClick implements Interaction {
+export class DoubleClick extends Interaction {
     static on(target: Question<ElementFinder> | ElementFinder) {
         return new DoubleClick(target);
     }
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {

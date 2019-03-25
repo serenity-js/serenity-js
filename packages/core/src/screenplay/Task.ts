@@ -26,8 +26,9 @@ class DynamicallyGeneratedTask extends Task {
     }
 }
 
-class NotImplementedTask implements Task {
+class NotImplementedTask extends Task {
     constructor(private description: string) {
+        super();
     }
 
     performAs(actor: PerformsTasks): PromiseLike<void> {
