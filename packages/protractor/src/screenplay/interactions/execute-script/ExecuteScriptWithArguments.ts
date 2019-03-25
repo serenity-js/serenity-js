@@ -12,12 +12,13 @@ import { Name, TextData } from '@serenity-js/core/lib/model';
  * @public
  * @abstract
  */
-export abstract class ExecuteScriptWithArguments implements Interaction {
+export abstract class ExecuteScriptWithArguments extends Interaction {
 
     constructor(
         protected readonly script: string | Function,                                   // tslint:disable-line:ban-types
         protected readonly args: Array<KnowableUnknown<any>> = [],
     ) {
+        super();
     }
 
     public abstract withArguments(...args: Array<KnowableUnknown<any>>): Interaction;

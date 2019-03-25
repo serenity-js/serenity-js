@@ -24,8 +24,9 @@ export class Wait {
     }
 }
 
-class WaitFor implements Interaction {
+class WaitFor extends Interaction {
     constructor(private readonly duration: KnowableUnknown<Duration>) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
@@ -37,12 +38,13 @@ class WaitFor implements Interaction {
     }
 }
 
-class WaitUntil<Actual> implements Interaction {
+class WaitUntil<Actual> extends Interaction {
     constructor(
         private readonly actual: KnowableUnknown<Actual>,
         private readonly expectation: Expectation<any, Actual>,
         private readonly timeout: Duration,
     ) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {

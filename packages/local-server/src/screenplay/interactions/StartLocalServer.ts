@@ -1,7 +1,7 @@
 import { AnswersQuestions, CollectsArtifacts, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
 import { ManageALocalServer } from '../abilities';
 
-export class StartLocalServer implements Interaction {
+export class StartLocalServer extends Interaction {
     static onRandomPort(): Interaction {
         return new StartLocalServer();
     }
@@ -11,6 +11,7 @@ export class StartLocalServer implements Interaction {
     }
 
     constructor(private readonly preferredPorts: KnowableUnknown<number[]> = []) {
+        super();
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {

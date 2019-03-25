@@ -7,8 +7,9 @@ import { BrowseTheWeb } from '../../abilities';
  * https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html
  * https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement
  */
-export class ExecuteScriptFromUrl implements Interaction {
+export class ExecuteScriptFromUrl extends Interaction {
     constructor(private readonly sourceUrl: string) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {

@@ -4,7 +4,7 @@ import { ElementFinder } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
 import { withAnswerOf } from '../withAnswerOf';
 
-export class Scroll implements Interaction {
+export class Scroll extends Interaction {
     static to(target: Question<ElementFinder> | ElementFinder) {
         return new Scroll(target);
     }
@@ -12,6 +12,7 @@ export class Scroll implements Interaction {
     constructor(
         private readonly target: Question<ElementFinder> | ElementFinder,
     ) {
+        super();
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {

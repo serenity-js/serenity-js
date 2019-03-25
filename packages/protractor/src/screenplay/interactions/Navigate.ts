@@ -9,9 +9,9 @@ import { BrowseTheWeb } from '../abilities';
  *  as well as back and forth in the browser history.
  *
  * @abstract
- * @implements {Interaction}
+ * @extends {Interaction}
  */
-export abstract class Navigate implements Interaction {
+export abstract class Navigate extends Interaction {
 
     static to(url: KnowableUnknown<string>) {
         return new NavigateToUrl(url);

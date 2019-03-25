@@ -3,7 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './outcomes';
 
-export class Check<Actual> implements Task {
+export class Check<Actual> extends Task {
     static whether<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
         return {
             andIfSo: (...activities: Activity[]) => new Check(actual, expectation, activities),
@@ -16,6 +16,7 @@ export class Check<Actual> implements Task {
         private readonly activities: Activity[],
         private readonly alternativeActivities: Activity[] = [],
     ) {
+        super();
     }
 
     otherwise(...alternativeActivities: Activity[]) {

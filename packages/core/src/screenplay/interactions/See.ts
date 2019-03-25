@@ -2,7 +2,7 @@ import { AnswersQuestions, Interaction, Question } from '..';
 
 export type Assertion<A>         = (actual: A) => void;
 
-export class See<S> implements Interaction {
+export class See<S> extends Interaction {
     static if<T>(question: Question<T>, assertion: Assertion<T>) {
         return new See<T>(question, assertion);
     }
@@ -11,6 +11,7 @@ export class See<S> implements Interaction {
         private question: Question<S>,
         private assert: Assertion<S>,
     ) {
+        super();
     }
 
     performAs(actor: AnswersQuestions): PromiseLike<void> {

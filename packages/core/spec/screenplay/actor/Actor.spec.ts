@@ -2,7 +2,7 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { TaskFinished, TaskStarts } from '../../../src/events';
+import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../../src/events';
 import { ActivityDetails, Duration, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
 import { Ability, Actor, See } from '../../../src/screenplay';
 import { Clock, StageManager } from '../../../src/stage';
@@ -129,9 +129,9 @@ describe('Actor', () => {
             ).then(() => {
                 expect(recorder.events).to.have.lengthOf(2);
 
-                expect(recorder.events[ 0 ]).to.equal(new TaskStarts(details, clock.now()));
+                expect(recorder.events[ 0 ]).to.equal(new InteractionStarts(details, clock.now()));
 
-                expect(recorder.events[ 1 ]).to.equal(new TaskFinished(details, new ExecutionSuccessful(), clock.now()));
+                expect(recorder.events[ 1 ]).to.equal(new InteractionFinished(details, new ExecutionSuccessful(), clock.now()));
             }));
         });
 

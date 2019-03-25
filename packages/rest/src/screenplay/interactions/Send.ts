@@ -20,14 +20,15 @@ import { CallAnApi } from '../abilities';
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * @implements {Interaction}
+ * @extends {Interaction}
  */
-export class Send implements Interaction {
+export class Send extends Interaction {
     static a(request: KnowableUnknown<AxiosRequestConfig>): Interaction {
         return new Send(request);
     }
 
     constructor(private readonly request: KnowableUnknown<AxiosRequestConfig>) {
+        super();
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
