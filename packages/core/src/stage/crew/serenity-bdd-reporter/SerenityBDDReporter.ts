@@ -2,8 +2,8 @@ import { match } from 'tiny-types';
 
 import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinished } from '../../../events';
 import { Name, ScenarioDetails, TestReport } from '../../../model';
+import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
-import { StageManager } from '../../StageManager';
 import { Current } from './Current';
 import { SceneReports } from './reports';
 import { SerenityBDDReport } from './SerenityBDDJsonSchema';
@@ -20,11 +20,11 @@ export class SerenityBDDReporter implements StageCrewMember {
     private currentScenario = new Current<ScenarioDetails>();
     private currentStrategy = new Current<SceneReportingStrategy>();
 
-    constructor(private readonly stageManager: StageManager = null) {
+    constructor(private readonly stage: Stage = null) {
     }
 
-    assignedTo(stageManager: StageManager): StageCrewMember {
-        return new SerenityBDDReporter(stageManager);
+    assignedTo(stage: Stage): StageCrewMember {
+        return new SerenityBDDReporter(stage);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
@@ -51,7 +51,7 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     private broadcast(report: Partial<SerenityBDDReport>) {
-        this.stageManager.notifyOf(new ArtifactGenerated(
+        this.stage.manager.notifyOf(new ArtifactGenerated(
             new Name('scenario-report'),
             TestReport.fromJSON(report),
         ));

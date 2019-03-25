@@ -1,4 +1,4 @@
-import { AssertionError, serenity, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, serenity, TestCompromisedError } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
@@ -172,7 +172,7 @@ function outcomeFrom(status: string, error?: Error) {
     // tslint:disable:switch-default
     switch (true) {
         case status === 'undefined':
-            return new ImplementationPending();
+            return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
         case status === 'ambiguous':
             if (! error) {
@@ -190,7 +190,7 @@ function outcomeFrom(status: string, error?: Error) {
             }
 
         case status === 'pending':
-            return new ImplementationPending();
+            return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
         case status === 'passed':
             return new ExecutionSuccessful();

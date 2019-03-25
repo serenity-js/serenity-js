@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { CapabilityTag, FeatureTag } from '@serenity-js/core/lib/model';
 
@@ -32,7 +32,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('example capability')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises capabilities')))
             ;

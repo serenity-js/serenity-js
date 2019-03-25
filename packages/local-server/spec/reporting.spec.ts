@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { expect, Pick } from '@integration/testing-tools';
+import { expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { Actor } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
@@ -42,7 +42,7 @@ describe('@serenity-js/local-server', () => {
         )).to.be.fulfilled.then(() => {
             const events = stageManager.notifyOf.getCalls().map(call => call.lastArg);
 
-            Pick.from(events)
+            PickEvent.from(events)
                 .next(ActivityStarts,   hasName(`Nadia starts the local server`))
                 .next(ActivityFinished, hasName(`Nadia starts the local server`))
                 .next(ActivityFinished, hasName(`Nadia ensures that the URL of the local server does start with 'http://127.0.0.1'`))

@@ -2,6 +2,8 @@ import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, LogicError } from '../errors';
 import { Actor } from '../screenplay/actor';
 import { Cast } from './Cast';
+import { StageCrewMember } from './StageCrewMember';
+import { StageManager } from './StageManager';
 
 export class Stage {
     private readonly actorsOnStage: { [name: string]: Actor } = {};
@@ -9,8 +11,10 @@ export class Stage {
 
     constructor(
         private readonly actors: Cast,
+        public readonly manager: StageManager,
     ) {
         ensure('Cast', actors, isDefined());
+        ensure('StageManager', manager, isDefined());
     }
 
     /**
@@ -32,6 +36,7 @@ export class Stage {
      * @return {Actor}
      */
     actor(name: string): Actor {
+        // todo: Stage should associate Actor with the StageManager, and probably the Clock too
         if (! this.actorsOnStage[name]) {
             let actor;
             try {
@@ -54,8 +59,9 @@ export class Stage {
     }
 
     /**
-     * @desc Returns the last {@link Actor} instantiated via {@link Stage#actor}.
-     * Useful when you don't can't or choose not to reference the actor by their name.
+     * @desc
+     *  Returns the last {@link Actor} instantiated via {@link Stage#actor}.
+     *  Useful when you don't can't or choose not to reference the actor by their name.
      *
      * @throws {@link LogicError} if no {@link Actor} has been activated yet
      * @return {Actor}
@@ -66,6 +72,22 @@ export class Stage {
         }
 
         return this.actorInTheSpotlight;
+    }
+
+    /**
+     * @desc
+     *  Returns {true} if there is an {@link Actor} in the spotlight, {false} otherwise.
+     *
+     * @return {boolean}
+     */
+    theShowHasStarted(): boolean {
+        return !! this.actorInTheSpotlight;
+    }
+
+    assign(...stageCrewMembers: StageCrewMember[]) {
+        stageCrewMembers.forEach(stageCrewMember => {
+            this.manager.register(stageCrewMember.assignedTo(this));
+        });
     }
 
     // todo: might be useful to ensure that the actors release any resources they're holding.

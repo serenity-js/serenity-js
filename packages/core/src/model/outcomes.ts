@@ -12,9 +12,9 @@ export abstract class Outcome extends TinyType {
         .when(ExecutionCompromised.Code,                _ => ExecutionCompromised.fromJSON(o))
         .when(ExecutionFailedWithError.Code,            _ => ExecutionFailedWithError.fromJSON(o))
         .when(ExecutionFailedWithAssertionError.Code,   _ => ExecutionFailedWithAssertionError.fromJSON(o))
+        .when(ImplementationPending.Code,               _ => ImplementationPending.fromJSON(o))
         .when(ExecutionSkipped.Code,                    _ => ExecutionSkipped.fromJSON(o))
         .when(ExecutionIgnored.Code,                    _ => ExecutionIgnored.fromJSON(o))
-        .when(ImplementationPending.Code,               _ => ImplementationPending.fromJSON(o))
         .when(ExecutionSuccessful.Code,                 _ => ExecutionSuccessful.fromJSON(o))
         .else(_ => { throw new Error(`Outcome could not be deserialised: ${ JSON.stringify(o) }`); }) as Outcome
 
@@ -22,8 +22,12 @@ export abstract class Outcome extends TinyType {
         super();
     }
 
-    isWorseThan(another: Outcome): boolean {
-        return this.code < another.code;
+    isWorseThan(another: Outcome | { Code: number }): boolean {
+        const code = (another instanceof Outcome)
+            ? another.code
+            : another.Code;
+
+        return this.code < code;
     }
 
     toJSON(): SerialisedOutcome {
@@ -87,11 +91,25 @@ export class ExecutionFailedWithAssertionError extends ProblemIndication {
 }
 
 /**
+ * A pending Activity is one that has been specified but not yet implemented.
+ * A pending Scene is one that has at least one pending Activity.
+ */
+export class ImplementationPending extends ProblemIndication {
+    static Code = 1 << 3;
+
+    static fromJSON = (o: SerialisedOutcome) => new ImplementationPending(ErrorSerialiser.deserialise(o.error));
+
+    constructor(error: Error) {
+        super(error, ImplementationPending.Code);
+    }
+}
+
+/**
  * The Activity was not executed because a previous one has failed.
  * A whole Scene can be marked as skipped to indicate that it is currently "work-in-progress"
  */
 export class ExecutionSkipped extends Outcome {
-    static Code = 1 << 3;
+    static Code = 1 << 4;
 
     static fromJSON = (o: SerialisedOutcome) => new ExecutionSkipped();
 
@@ -104,26 +122,12 @@ export class ExecutionSkipped extends Outcome {
  * The Activity was deliberately ignored and will not be executed.
  */
 export class ExecutionIgnored extends Outcome {
-    static Code = 1 << 4;
+    static Code = 1 << 5;
 
     static fromJSON = (o: SerialisedOutcome) => new ExecutionIgnored();
 
     constructor() {
         super(ExecutionIgnored.Code);
-    }
-}
-
-/**
- * A pending Activity is one that has been specified but not yet implemented.
- * A pending Scene is one that has at least one pending Activity.
- */
-export class ImplementationPending extends Outcome {
-    static Code = 1 << 5;
-
-    static fromJSON = (o: SerialisedOutcome) => new ImplementationPending();
-
-    constructor() {
-        super(ImplementationPending.Code);
     }
 }
 

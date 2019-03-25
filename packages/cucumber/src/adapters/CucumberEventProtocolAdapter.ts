@@ -1,4 +1,4 @@
-import { AssertionError, TestCompromisedError, UnknownError } from '@serenity-js/core/lib/errors';
+import { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } from '@serenity-js/core/lib/errors';
 import { ErrorSerialiser, Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
@@ -100,7 +100,7 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
             // tslint:disable:switch-default
             switch (result.status) {
                 case 'undefined':
-                    return new ImplementationPending();
+                    return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
                 case 'ambiguous':
                 case 'failed':
@@ -111,7 +111,7 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                     }
 
                 case 'pending':
-                    return new ImplementationPending();
+                    return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
                 case 'passed':
                     return new ExecutionSuccessful();

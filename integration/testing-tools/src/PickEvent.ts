@@ -1,7 +1,7 @@
 import { DomainEvent } from '@serenity-js/core/lib/events';
 
-export class Pick {
-    static from = (events: DomainEvent[]) => new Pick(events);
+export class PickEvent {
+    static from = (events: DomainEvent[]) => new PickEvent(events);
 
     constructor(private events: DomainEvent[]) {
     }

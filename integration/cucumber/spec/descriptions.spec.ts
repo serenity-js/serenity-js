@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { FeatureNarrativeDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Description, Name } from '@serenity-js/core/lib/model';
 
@@ -32,7 +32,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneStarts,              event => expect(event.value.name).to.equal(new Name('First scenario')))
                 .next(FeatureNarrativeDetected, event => {
                     expect(event.description).to.equal(new Description(

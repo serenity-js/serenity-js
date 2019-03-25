@@ -11,8 +11,8 @@ import {
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
 import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
+import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
-import { StageManager } from '../../StageManager';
 import { MD5Hash } from './MD5Hash';
 
 /**
@@ -24,12 +24,12 @@ export class ArtifactArchiver implements StageCrewMember {
 
     constructor(
         private readonly fileSystem: FileSystem,
-        private readonly stageManager: StageManager = null,
+        private readonly stage: Stage = null,
     ) {
     }
 
-    assignedTo(stageManager: StageManager) {
-        return new ArtifactArchiver(this.fileSystem, stageManager);
+    assignedTo(stage: Stage) {
+        return new ArtifactArchiver(this.fileSystem, stage);
     }
 
     notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
@@ -67,26 +67,26 @@ export class ArtifactArchiver implements StageCrewMember {
     private archive(type: ArtifactType, name: Name, path: Path, contents: string, encoding: string): void {
         const id = CorrelationId.create();
 
-        this.stageManager.notifyOf(new AsyncOperationAttempted(
+        this.stage.manager.notifyOf(new AsyncOperationAttempted(
             new Description(`[${ this.constructor.name }] Saving '${ path.value }'...`),
             id,
         ));
 
         this.fileSystem.store(path, contents,  encoding)
             .then(savedPath => {
-                this.stageManager.notifyOf(new ArtifactArchived(
+                this.stage.manager.notifyOf(new ArtifactArchived(
                     name,
                     type,
                     path,
                 ));
 
-                this.stageManager.notifyOf(new AsyncOperationCompleted(
+                this.stage.manager.notifyOf(new AsyncOperationCompleted(
                     new Description(`[${ this.constructor.name }] Saved '${ savedPath.value }'`),
                     id,
                 ));
             })
             .catch(error => {
-                this.stageManager.notifyOf(new AsyncOperationFailed(error, id));
+                this.stage.manager.notifyOf(new AsyncOperationFailed(error, id));
             });
     }
 }

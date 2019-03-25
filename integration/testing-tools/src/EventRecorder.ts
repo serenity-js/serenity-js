@@ -1,7 +1,7 @@
-import { DomainEvent } from '../src/events';
-import { Stage, StageCrewMember } from '../src/stage';
+import { DomainEvent } from '@serenity-js/core/lib/events';
+import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 
-export class Recorder implements StageCrewMember {
+export class EventRecorder implements StageCrewMember {
 
     constructor(
         public readonly events: DomainEvent[] = [],
@@ -10,7 +10,7 @@ export class Recorder implements StageCrewMember {
     }
 
     assignedTo(stage: Stage) {
-        return new Recorder(this.events, stage);
+        return new EventRecorder(this.events, stage);
     }
 
     notifyOf(event: DomainEvent) {

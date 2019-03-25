@@ -1,8 +1,7 @@
 import 'mocha';
 
 import * as sinon from 'sinon';
-
-import { AssertionError, TestCompromisedError } from '../../../../src/errors';
+import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../../../src/errors';
 import {
     ArtifactGenerated,
     SceneFinished,
@@ -20,15 +19,18 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending, JSONData,
+    ImplementationPending,
+    JSONData,
     Name,
-    ScenarioDetails, TestReport,
+    ScenarioDetails,
+    TestReport,
     Timestamp,
 } from '../../../../src/model';
-import { SerenityBDDReporter, StageManager } from '../../../../src/stage';
+import { SerenityBDDReporter, Stage, StageManager } from '../../../../src/stage';
 import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../expect';
 import { given } from '../given';
+import { create } from './create';
 
 describe('SerenityBDDReporter', () => {
 
@@ -52,13 +54,16 @@ describe('SerenityBDDReporter', () => {
         ),
     );
 
-    let stageManager: sinon.SinonStubbedInstance<StageManager>,
+    let stage: Stage,
+        stageManager: sinon.SinonStubbedInstance<StageManager>,
         reporter: SerenityBDDReporter;
 
     beforeEach(() => {
-        stageManager = sinon.createStubInstance(StageManager);
+        const env = create();
 
-        reporter = new SerenityBDDReporter(stageManager as any);
+        stageManager    = env.stageManager;
+        stage           = env.stage;
+        reporter        = env.reporter;
     });
 
     describe('generates a SerenityBDDReport Artifact that', () => {
@@ -219,7 +224,7 @@ describe('SerenityBDDReporter', () => {
             it(`hasn't been implemented yet`, () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneFinished(defaultCardScenario, new ImplementationPending()),
+                    new SceneFinished(defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
                     new TestRunFinished(),
                 );
 

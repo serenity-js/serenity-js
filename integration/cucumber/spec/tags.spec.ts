@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, Pick, SpawnResult } from '@integration/testing-tools';
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, FeatureTag } from '@serenity-js/core/lib/model';
 
@@ -33,7 +33,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneStarts,  event => expect(event.value.name.value).to.equal('A tagged scenario'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@feature-tag')))
@@ -65,7 +65,7 @@ describe('@serenity-js/cucumber', function() {
         then(res => {
             expect(res.exitCode).to.equal(0);
 
-            Pick.from(res.events)
+            PickEvent.from(res.events)
                 .next(SceneStarts,  event => expect(event.value.name.value).to.equal('More tagged scenarios'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@feature-tag')))
