@@ -1,0 +1,106 @@
+import { EventRecorder, expect, givenFollowingEvents, PickEvent } from '@integration/testing-tools';
+import {
+    Activity,
+    AssertionError,
+    ImplementationPendingError,
+    Interaction,
+    LogicError,
+    Task,
+} from '@serenity-js/core';
+import {
+    ArtifactGenerated,
+    SceneFinished,
+    SceneStarts,
+    TaskFinished,
+    TaskStarts,
+    TestRunFinished,
+} from '@serenity-js/core/lib/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import {
+    ActivityDetails,
+    Category,
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionIgnored,
+    ExecutionSkipped,
+    ExecutionSuccessful,
+    ImplementationPending,
+    Name,
+    Outcome,
+    Photo,
+    ScenarioDetails,
+} from '@serenity-js/core/lib/model';
+import { Stage } from '@serenity-js/core/lib/stage';
+import { given } from 'mocha-testdata';
+import { Photographer, TakePhotosOfFailures } from '../../../src/stage';
+import { create } from './create';
+
+describe('Photographer', () => {
+
+    const
+        defaultCardScenario = new ScenarioDetails(
+            new Name('Paying with a default card'),
+            new Category('Online Checkout'),
+            new FileSystemLocation(
+                new Path(`payments/checkout.feature`),
+            ),
+        ),
+        pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+
+    it(`complains when sent DomainEvents before getting assigned to a Stage`, () => {
+        const photographer = new Photographer(new TakePhotosOfFailures());
+        expect(() => photographer.notifyOf(new SceneStarts(defaultCardScenario)))
+            .to.throw(LogicError, `Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`);
+    });
+
+    describe(`when there's no actor in the spotlight`, () => {
+
+        given(
+            new ExecutionSkipped(),
+            new ExecutionIgnored(),
+            new ExecutionSuccessful(),
+        ).
+        it(`doesn't take a picture if everything goes well`, (outcome: Outcome) => {
+            const { stage, recorder } = create();
+
+            const photographer = new Photographer(new TakePhotosOfFailures(), stage);
+            stage.manager.register(photographer);
+
+            givenFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                new TaskStarts(pickACard),
+                new TaskFinished(pickACard, outcome),
+                new SceneFinished(defaultCardScenario, outcome),
+                new TestRunFinished(),
+            ).areSentTo(photographer);
+
+            return stage.manager.waitForNextCue().then(() => {
+                expect(recorder.events).to.have.lengthOf(0);
+            });
+        });
+
+        given(
+            { description: 'compromised',               outcome: new ExecutionCompromised(new Error('Database is down'))                                                },
+            { description: 'error',                     outcome: new ExecutionFailedWithError(new TypeError())                                                          },
+            { description: 'assertion error',           outcome: new ExecutionFailedWithAssertionError(new AssertionError(`expected false to equal true`, false, true)) },
+            { description: 'implementation pending',    outcome: new ImplementationPending(new ImplementationPendingError('method missing'))                            },
+        ).
+        it(`does nothing, even when a problem occurs`, ({ outcome }) => {
+            const { stage, recorder } = create();
+
+            const photographer = new Photographer(new TakePhotosOfFailures(), stage);
+            stage.manager.register(photographer);
+
+            givenFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                new SceneFinished(defaultCardScenario, outcome),
+                new TestRunFinished(),
+            ).areSentTo(photographer);
+
+            return stage.manager.waitForNextCue().then(() => {
+                expect(recorder.events).to.have.lengthOf(0);
+            });
+        });
+    });
+});
