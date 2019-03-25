@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.36](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.35...v2.0.1-alpha.36) (2019-03-25)
+
+
+### Features
+
+* **protractor:** Photographer takes screenshots when an Interaction fails ([5ad6468](https://github.com/jan-molak/serenity-js/commit/5ad6468))
+
+
+
+
+
 ## [2.0.1-alpha.35](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.34...v2.0.1-alpha.35) (2019-03-20)
 
 
