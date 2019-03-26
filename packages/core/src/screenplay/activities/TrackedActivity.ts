@@ -1,5 +1,5 @@
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import { ActivityDetails, ExecutionSuccessful } from '../../model';
+import { ActivityDetails, CorrelationId, ExecutionSuccessful } from '../../model';
 import { Clock, StageManager } from '../../stage';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsTasks, UsesAbilities } from '../actor';
@@ -22,14 +22,13 @@ export class TrackedActivity implements Activity {
 
     performAs(actor: (PerformsTasks | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
         const details = new ActivityDetails(
-            // todo: I might want an id here to make sure the events match up
             TrackedActivity.describer.describe(this.activity, actor),
+            CorrelationId.create(),
         );
 
-        const
-            isInteraction       = this.activity instanceof Interaction,
-            activityStarts      = isInteraction ? InteractionStarts : TaskStarts,
-            activityFinished    = isInteraction ? InteractionFinished : TaskFinished;
+        const [ activityStarts, activityFinished] = this.activity instanceof Interaction
+            ? [ InteractionStarts, InteractionFinished ]
+            : [ TaskStarts, TaskFinished ];
 
         return Promise.resolve()
             .then(() => this.stageManager.notifyOf(new activityStarts(details, this.clock.now())))
