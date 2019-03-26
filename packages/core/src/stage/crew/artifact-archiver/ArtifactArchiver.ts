@@ -1,4 +1,3 @@
-import * as sanitise from 'sanitize-filename';
 import { match } from 'tiny-types';
 
 import {
@@ -44,7 +43,7 @@ export class ArtifactArchiver implements StageCrewMember {
         this.archive(
             photo.constructor as ArtifactType,
             name,
-            new Path(`${ this.sanitised(name.value) }-${ this.hashOf(photo) }.png`),
+            new Path(`photo-${ this.hashOf(photo) }.png`),
             photo.base64EncodedValue,
             'base64',
         );
@@ -54,7 +53,7 @@ export class ArtifactArchiver implements StageCrewMember {
         this.archive(
             report.constructor as ArtifactType,
             name,
-            new Path(`${ this.sanitised(name.value) }-${ this.hashOf(report) }.json`),
+            new Path(`scenario-report-${ this.hashOf(report) }.json`),
             report.map(JSON.stringify),
             'utf8',
         );
@@ -88,11 +87,5 @@ export class ArtifactArchiver implements StageCrewMember {
             .catch(error => {
                 this.stage.manager.notifyOf(new AsyncOperationFailed(error, id));
             });
-    }
-
-    private sanitised(text: string): string {
-        return sanitise(text).toLowerCase()
-            .trim()
-            .replace(/\s+/, '-');
     }
  }
