@@ -80,7 +80,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.manager.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`${jsonArtifactName.value}-b283bd69b0fcd75d754f678ac6685786.json`),
+                    new Path(`scenario-report-b283bd69b0fcd75d754f678ac6685786.json`),
                     JSON.stringify(json),
                 );
             });
@@ -98,7 +98,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.manager.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`${pngArtifactName.value}-4fdc8acbf8f6c958b2726fc8ae435bf5.png`),
+                    new Path(`photo-4fdc8acbf8f6c958b2726fc8ae435bf5.png`),
                     photo.base64EncodedValue,
                     'base64',
                 );
@@ -154,7 +154,7 @@ describe('ArtifactArchiver', () => {
         const notifyOf = sinon.spy(stageManager, 'notifyOf');
 
         stageManager.notifyOf(new ArtifactGenerated(
-            new Name('report'),
+            new Name('some report name'),
             TestReport.fromJSON({ key: 'value' }),
         ));
 
@@ -163,9 +163,9 @@ describe('ArtifactArchiver', () => {
             const archived: ArtifactArchived = notifyOf.getCall(2).lastArg;
 
             expect(archived).to.be.instanceOf(ArtifactArchived);
-            expect(archived.name).to.equal(new Name('report'));
+            expect(archived.name).to.equal(new Name('some report name'));
             expect(archived.type).to.equal(TestReport);
-            expect(archived.path).to.equal(new Path('report-b283bd69b0fcd75d754f678ac6685786.json'));
+            expect(archived.path).to.equal(new Path('scenario-report-b283bd69b0fcd75d754f678ac6685786.json'));
         });
     });
 });

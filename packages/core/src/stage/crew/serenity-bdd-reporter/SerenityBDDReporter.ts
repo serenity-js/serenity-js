@@ -52,7 +52,7 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     private broadcast(report: Partial<SerenityBDDReport>) {
         this.stage.manager.notifyOf(new ArtifactGenerated(
-            new Name('scenario-report'),
+            new Name(report.name),
             TestReport.fromJSON(report),
         ));
     }

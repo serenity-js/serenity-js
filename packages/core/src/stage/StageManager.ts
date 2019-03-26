@@ -51,9 +51,7 @@ export class StageManager {
                 });
                 this.wip.delete(evt.correlationId);
             })
-            .else(_ => void 0);
-
-        this.subscribers.forEach(crewMember => crewMember.notifyOf(event));
+            .else(_ => this.subscribers.forEach(crewMember => crewMember.notifyOf(event)));
     }
 
     waitForNextCue(): Promise<void> {
@@ -79,7 +77,7 @@ export class StageManager {
                     let message = `Some of the async operations have failed:\n`;
 
                     this.failedOperations.forEach((op: FailedAsyncOperationDetails) => {
-                        message += `${ op.taskDescription.value } - ${ op.error.toString() }\n`;
+                        message += `${ op.taskDescription.value } - ${ op.error.stack }\n---\n`;
                     });
 
                     return reject(new Error(message));

@@ -15,9 +15,9 @@ import { StageManager } from './StageManager';
 export abstract class StageCrewMember {
 
     /**
-     * @param {StageManager} stageManager
+     * @param {Stage} stage
      */
-    abstract assignedTo(stageManager: Stage): StageCrewMember;
+    abstract assignedTo(stage: Stage): StageCrewMember;
 
     /**
      * @param {DomainEvent} event
