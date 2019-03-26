@@ -4,20 +4,13 @@ import { Path } from '../io';
 import { Artifact, ArtifactType, Name, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
-export interface SerialisedArtifactArchived extends JSONObject {
-    name:      string;
-    type:      string;
-    path:      string;
-    timestamp: string;
-}
-
 export class ArtifactArchived extends DomainEvent {
-    static fromJSON<E>(o: SerialisedArtifactArchived) {
+    static fromJSON<E>(o: JSONObject) {
         return new ArtifactArchived(
-            Name.fromJSON(o.name),
-            Artifact.ofType(o.type),
-            Path.fromJSON(o.path),
-            Timestamp.fromJSON(o.timestamp),
+            Name.fromJSON(o.name as string),
+            Artifact.ofType(o.type as string),
+            Path.fromJSON(o.path as string),
+            Timestamp.fromJSON(o.timestamp as string),
         );
     }
 

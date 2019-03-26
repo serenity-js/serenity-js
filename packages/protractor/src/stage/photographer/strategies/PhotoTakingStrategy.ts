@@ -1,8 +1,8 @@
 import { UsesAbilities } from '@serenity-js/core';
 import {
     ActivityFinished,
+    ActivityRelatedArtifactGenerated,
     ActivityStarts,
-    ArtifactGenerated,
     AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed,
     DomainEvent,
 } from '@serenity-js/core/lib/events';
@@ -25,7 +25,8 @@ export abstract class PhotoTakingStrategy {
 
             BrowseTheWeb.as(actor).takeScreenshot()
                 .then(screenshot => {
-                    stageManager.notifyOf(new ArtifactGenerated(
+                    stageManager.notifyOf(new ActivityRelatedArtifactGenerated(
+                        event.value,
                         photoName,
                         Photo.fromBase64(screenshot),
                     ));

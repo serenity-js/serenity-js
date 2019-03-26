@@ -8,7 +8,7 @@ import {
     ActivityDetails,
     BrowserTag,
     CapabilityTag,
-    ContextTag,
+    ContextTag, CorrelationId,
     Description,
     ExecutionSuccessful,
     FeatureTag,
@@ -137,7 +137,7 @@ export class SceneReport {
             };
 
             this.activities.last().children.push(activityReport as any);
-            this.activities.push(activityReport);
+            this.activities.push(activityReport, activity.correlationId);
         });
     }
 
@@ -221,9 +221,9 @@ export class SceneReport {
         });
     }
 
-    photoTaken(path: Path) {
+    photoTaken(details: ActivityDetails, path: Path) {
         return this.withMutated(report => {
-            this.activities.mostRecentlyAccessedItem().screenshots.push({ screenshot: path.basename() });
+            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({ screenshot: path.basename() });
         });
     }
 
@@ -338,11 +338,15 @@ class ActivityStack {
     public haveFailed: boolean = false;
     private readonly items: Array<Partial<TestStep>> = [];
     private mostRecent: Partial<TestStep> = undefined;
+    private correlations: { [key: string]: Partial<TestStep> } = {};
 
-    push(item: Partial<TestStep>): Partial<TestStep> {
+    push(item: Partial<TestStep>, correlationId?: CorrelationId): Partial<TestStep> {
         this.items.push(item);
         this.mostRecent = item;
         this.haveFailed = false;
+        if (!! correlationId) {
+            this.correlations[correlationId.value] = item;
+        }
 
         return this.mostRecent;
     }
@@ -364,5 +368,9 @@ class ActivityStack {
 
     mostRecentlyAccessedItem() {
         return this.mostRecent;
+    }
+
+    itemByCorrelationId(correlationId: CorrelationId) {
+        return this.correlations[correlationId.value];
     }
 }

@@ -119,9 +119,7 @@ describe('Actor', () => {
 
         describe('notifies the StageManager of the activities it performs', () => {
 
-            const details = new ActivityDetails(
-                new Name('Bob plays the chord of A'),
-            );
+            const activityName = new Name('Bob plays the chord of A');
 
             /** @test {Actor} */
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -129,9 +127,14 @@ describe('Actor', () => {
             ).then(() => {
                 expect(recorder.events).to.have.lengthOf(2);
 
-                expect(recorder.events[ 0 ]).to.equal(new InteractionStarts(details, clock.now()));
+                expect(recorder.events[ 0 ]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[ 0 ]).to.have.property('value').property('name').equal(activityName);
+                expect(recorder.events[ 0 ]).to.have.property('timestamp').equal(clock.now());
 
-                expect(recorder.events[ 1 ]).to.equal(new InteractionFinished(details, new ExecutionSuccessful(), clock.now()));
+                expect(recorder.events[ 1 ]).to.be.instanceOf(InteractionFinished);
+                expect(recorder.events[ 1 ]).to.have.property('value').property('name').equal(activityName);
+                expect(recorder.events[ 1 ]).to.have.property('outcome').equal(new ExecutionSuccessful());
+                expect(recorder.events[ 1 ]).to.have.property('timestamp').equal(clock.now());
             }));
         });
 

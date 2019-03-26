@@ -1,6 +1,7 @@
 import { match } from 'tiny-types';
 
 import {
+    ActivityRelatedArtifactArchived,
     ArtifactArchived, ArtifactGenerated,
     DomainEvent,
     FeatureNarrativeDetected,
@@ -42,8 +43,8 @@ export abstract class SceneReportingStrategy {
                 .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
                 .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))
                 .else(_ => report))
-            .when(ArtifactArchived,         (e: ArtifactArchived)           => match<ArtifactType, SceneReport>(e.type)
-                .when(Photo,        _ => report.photoTaken(e.path))
+            .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)
+                .when(Photo,                _ => report.photoTaken(e.details, e.path))
                 .else(_ => report))
             .else(_ => report);
     }

@@ -1,20 +1,6 @@
-import { EventRecorder, expect, givenFollowingEvents, PickEvent } from '@integration/testing-tools';
-import {
-    Activity,
-    AssertionError,
-    ImplementationPendingError,
-    Interaction,
-    LogicError,
-    Task,
-} from '@serenity-js/core';
-import {
-    ArtifactGenerated,
-    SceneFinished,
-    SceneStarts,
-    TaskFinished,
-    TaskStarts,
-    TestRunFinished,
-} from '@serenity-js/core/lib/events';
+import { expect, givenFollowingEvents } from '@integration/testing-tools';
+import { AssertionError, ImplementationPendingError, LogicError } from '@serenity-js/core';
+import { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
@@ -28,10 +14,8 @@ import {
     ImplementationPending,
     Name,
     Outcome,
-    Photo,
     ScenarioDetails,
 } from '@serenity-js/core/lib/model';
-import { Stage } from '@serenity-js/core/lib/stage';
 import { given } from 'mocha-testdata';
 import { Photographer, TakePhotosOfFailures } from '../../../src/stage';
 import { create } from './create';

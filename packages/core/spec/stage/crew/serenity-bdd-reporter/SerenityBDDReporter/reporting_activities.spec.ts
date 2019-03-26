@@ -3,6 +3,8 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import {
+    ActivityRelatedArtifactArchived,
+    ActivityRelatedArtifactGenerated,
     ArtifactArchived,
     ArtifactGenerated,
     SceneFinished,
@@ -143,11 +145,11 @@ describe('SerenityBDDReporter', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                     new TaskStarts(pickACard),
-                        new ArtifactGenerated(new Name('photo1'), photo),
-                        new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
+                        new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),
+                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
                     new TaskFinished(pickACard, new ExecutionSuccessful()),
-                        new ArtifactGenerated(new Name('photo2'), photo),
-                        new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
+                        new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
+                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );
@@ -220,11 +222,11 @@ describe('SerenityBDDReporter', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                 new TaskStarts(pickACard),
-                new ArtifactGenerated(new Name('photo1'), photo),
-                new ArtifactArchived(new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
+                new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),
+                new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
                 new TaskFinished(pickACard, new ExecutionSuccessful()),
-                new ArtifactGenerated(new Name('photo2'), photo),
-                new ArtifactArchived(new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
+                new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
+                new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
             );

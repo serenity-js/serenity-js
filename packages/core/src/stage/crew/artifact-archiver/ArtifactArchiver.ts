@@ -1,6 +1,8 @@
 import { match } from 'tiny-types';
 
 import {
+    ActivityRelatedArtifactArchived,
+    ActivityRelatedArtifactGenerated,
     ArtifactArchived,
     ArtifactGenerated,
     AsyncOperationAttempted,
@@ -31,61 +33,80 @@ export class ArtifactArchiver implements StageCrewMember {
         return new ArtifactArchiver(this.fileSystem, stage);
     }
 
-    notifyOf = (event: DomainEvent): void => match<DomainEvent, void>(event)
-        .when(ArtifactGenerated, (e: ArtifactGenerated) => match<Artifact, void>(e.artifact)
-            .when(Photo,        (photo: Photo)           => this.archivePhoto(e.name, photo))
-            .when(TestReport,   (testReport: TestReport) => this.archiveTestReport(e.name, testReport))
-            .else(_ => void 0),
-        )
-        .else(_ => void 0)
+    notifyOf(event: DomainEvent): void {
 
-    private archivePhoto(name: Name, photo: Photo) {
-        this.archive(
-            photo.constructor as ArtifactType,
-            name,
-            new Path(`photo-${ this.hashOf(photo) }.png`),
-            photo.base64EncodedValue,
-            'base64',
-        );
-    }
+        if (! (event instanceof ArtifactGenerated)) {
+            // ignore any other events
+            return void 0;
+        }
 
-    private archiveTestReport(name: Name, report: TestReport) {
-        this.archive(
-            report.constructor as ArtifactType,
-            name,
-            new Path(`scenario-report-${ this.hashOf(report) }.json`),
-            report.map(JSON.stringify),
-            'utf8',
-        );
+        if (event.artifact instanceof Photo) {
+            const relativePath = new Path(`photo-${ this.hashOf(event.artifact) }.png`);
+
+            this.archive(
+                relativePath,
+                event.artifact.base64EncodedValue,
+                'base64',
+                this.archivisationAnnouncement(event, relativePath),
+            );
+        }
+
+        if (event.artifact instanceof TestReport) {
+            const relativePath = new Path(`scenario-report-${ this.hashOf(event.artifact) }.json`);
+
+            this.archive(
+                relativePath,
+                event.artifact.map(JSON.stringify),
+                'utf8',
+                this.archivisationAnnouncement(event, relativePath),
+            );
+        }
     }
 
     private hashOf(artifact: Artifact): string {
         return MD5Hash.of(artifact.base64EncodedValue).value;
     }
 
-    private archive(type: ArtifactType, name: Name, path: Path, contents: string, encoding: string): void {
+    private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
         const id = CorrelationId.create();
 
         this.stage.manager.notifyOf(new AsyncOperationAttempted(
-            new Description(`[${ this.constructor.name }] Saving '${ path.value }'...`),
+            new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),
             id,
         ));
 
-        this.fileSystem.store(path, contents,  encoding)
-            .then(savedPath => {
-                this.stage.manager.notifyOf(new ArtifactArchived(
-                    name,
-                    type,
-                    path,
-                ));
+        this.fileSystem.store(relativePath, contents,  encoding)
+            .then(absolutePath => {
+                announce(relativePath);
 
                 this.stage.manager.notifyOf(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Saved '${ savedPath.value }'`),
+                    new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),
                     id,
                 ));
             })
             .catch(error => {
                 this.stage.manager.notifyOf(new AsyncOperationFailed(error, id));
             });
+    }
+
+    private archivisationAnnouncement(evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
+        return (absolutePath: Path) => {
+            if (evt instanceof ActivityRelatedArtifactGenerated) {
+                this.stage.manager.notifyOf(new ActivityRelatedArtifactArchived(
+                    evt.details,
+                    evt.name,
+                    evt.artifact.constructor as ArtifactType,
+                    relativePathToArtifact,
+                ));
+            }
+
+            if (evt instanceof ArtifactGenerated) {
+                this.stage.manager.notifyOf(new ArtifactArchived(
+                    evt.name,
+                    evt.artifact.constructor as ArtifactType,
+                    relativePathToArtifact,
+                ));
+            }
+        };
     }
  }

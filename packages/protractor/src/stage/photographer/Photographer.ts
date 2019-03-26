@@ -1,15 +1,5 @@
 import { LogicError } from '@serenity-js/core';
-import {
-    ActivityFinished,
-    ActivityStarts,
-    ArtifactGenerated,
-    AsyncOperationAttempted,
-    AsyncOperationCompleted,
-    AsyncOperationFailed,
-    DomainEvent,
-    InteractionFinished,
-} from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ImplementationPending, Photo } from '@serenity-js/core/lib/model';
+import { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
 import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { PhotoTakingStrategy } from './strategies';
 
