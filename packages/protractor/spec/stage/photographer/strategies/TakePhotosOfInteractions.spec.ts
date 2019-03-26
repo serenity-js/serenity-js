@@ -1,6 +1,6 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { ArtifactGenerated } from '@serenity-js/core/lib/events';
-import { Photo } from '@serenity-js/core/lib/model';
+import { ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 
 import { Photographer, TakePhotosOfInteractions } from '../../../../src/stage';
@@ -45,6 +45,22 @@ describe('Photographer', () => {
                     .next(ArtifactGenerated, event => {
                         expect(event.name.value).to.equal(`Betty fails due to Error`);
                         expect(event.artifact).to.be.instanceof(Photo);
+                    });
+            })));
+
+        it(`correlates the photo with the activity it's concerning`, () =>
+            expect(stage.theActorCalled('Betty').attemptsTo(
+                Perform.interactionThatFailsWith(Error),
+            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+
+                let correlationId: CorrelationId;
+
+                PickEvent.from(recorder.events)
+                    .next(ActivityStarts, event => {
+                        correlationId = event.value.correlationId;
+                    })
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.details.correlationId).to.equal(correlationId);
                     });
             })));
 

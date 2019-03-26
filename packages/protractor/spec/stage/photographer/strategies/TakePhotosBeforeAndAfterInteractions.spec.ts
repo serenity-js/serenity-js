@@ -1,7 +1,13 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import { ArtifactGenerated } from '@serenity-js/core/lib/events';
-import { Photo } from '@serenity-js/core/lib/model';
+import {
+    ActivityFinished,
+    ActivityRelatedArtifactGenerated,
+    ActivityStarts,
+    ArtifactGenerated,
+    DomainEvent,
+} from '@serenity-js/core/lib/events';
+import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 
 import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../src/stage';
@@ -85,7 +91,21 @@ describe('Photographer', function() {
                 Perform.interactionThatSucceeds(2),
             )).to.be.fulfilled.then(() => stage.manager.waitForNextCue().then(() => {
 
+                let cid1: CorrelationId,
+                    cid2: CorrelationId;
+
                 PickEvent.from(recorder.events)
+                    .next(ActivityStarts, event => { cid1 = event.value.correlationId; })
+                    .next(ActivityStarts, event => { cid2 = event.value.correlationId; });
+
+                const
+                    firstActivityEvents  = recorder.events.filter(withCorrelationIdOf(cid1)),
+                    secondActivityEvents = recorder.events.filter(withCorrelationIdOf(cid2));
+
+                expect(firstActivityEvents).to.have.lengthOf(4);
+                expect(secondActivityEvents).to.have.lengthOf(4);
+
+                PickEvent.from(firstActivityEvents)
                     .next(ArtifactGenerated, event => {
                         expect(event.name.value).to.equal(`Before Betty succeeds (#1)`);
                         expect(event.artifact).to.be.instanceof(Photo);
@@ -93,7 +113,9 @@ describe('Photographer', function() {
                     .next(ArtifactGenerated, event => {
                         expect(event.name.value).to.equal(`After Betty succeeds (#1)`);
                         expect(event.artifact).to.be.instanceof(Photo);
-                    })
+                    });
+
+                PickEvent.from(secondActivityEvents)
                     .next(ArtifactGenerated, event => {
                         expect(event.name.value).to.equal(`Before Betty succeeds (#2)`);
                         expect(event.artifact).to.be.instanceof(Photo);
@@ -103,5 +125,13 @@ describe('Photographer', function() {
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
+
+        function withCorrelationIdOf(cid: CorrelationId) {
+            return (event: DomainEvent) => {
+                const details = (event as ActivityRelatedArtifactGenerated).details || (event as ActivityStarts | ActivityFinished).value;
+
+                return details && cid.equals(details.correlationId);
+            };
+        }
     });
 });

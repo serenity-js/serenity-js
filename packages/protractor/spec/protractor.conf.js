@@ -29,7 +29,7 @@ exports.config = {
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
-                '--window-size=800x600',
+                '--window-size=200x100',
             ]
         }
     }

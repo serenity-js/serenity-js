@@ -3,7 +3,7 @@ import { Activity, Interaction, Task } from '@serenity-js/core';
 export class Perform {
     static interactionThatSucceeds = (id: number = 1) =>
         Interaction.where(`#actor succeeds (#${id})`, actor => new Promise((resolve, reject) => {
-            setTimeout(resolve, 50);
+            setTimeout(resolve, 10);
         }))
 
     static interactionThatFailsWith = (errorType: new (message: string) => Error) =>
