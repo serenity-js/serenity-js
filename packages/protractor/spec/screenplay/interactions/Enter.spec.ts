@@ -1,16 +1,14 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, Enter, Navigate, Target, Value } from '../../../src';
+import { Enter, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Enter', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Form = {
         Field: Target.the('name field').located(by.id('name')),

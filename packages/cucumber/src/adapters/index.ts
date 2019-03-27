@@ -12,7 +12,7 @@ export function adapterForCucumber(version: number, cucumber: any) {
 
     try {
         const
-            notifier = new Notifier(serenity.stageManager),
+            notifier = new Notifier(serenity),
             mapper   = new FeatureFileMapper(),
             cache    = new Cache<Path, FeatureFileMap>(),
             loader   = new FeatureFileLoader(

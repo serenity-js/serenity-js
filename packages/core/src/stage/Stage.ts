@@ -1,7 +1,9 @@
 import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, LogicError } from '../errors';
+import { DomainEvent } from '../events';
+import { Timestamp } from '../model';
 import { Actor } from '../screenplay/actor';
-import { Cast } from './Cast';
+import { DressingRoom } from './DressingRoom';
 import { StageCrewMember } from './StageCrewMember';
 import { StageManager } from './StageManager';
 
@@ -11,10 +13,10 @@ export class Stage {
     // todo: add the clock so that it can be removed from the Actor?
 
     constructor(
-        private readonly actors: Cast,
-        public readonly manager: StageManager,
+        private readonly dressingRoom: DressingRoom,
+        private readonly manager: StageManager,
     ) {
-        ensure('Cast', actors, isDefined());
+        ensure('DressingRoom', dressingRoom, isDefined());
         ensure('StageManager', manager, isDefined());
     }
 
@@ -30,25 +32,24 @@ export class Stage {
     }
 
     /**
-     * @desc Instantiates a new member of the {@link Cast} or fetches an existing one
+     * @desc Instantiates a new {@link Actor} or fetches an existing one
      * by their name if they've already been instantiated.
      *
      * @param {string} name - case-sensitive name of the Actor
      * @return {Actor}
      */
     actor(name: string): Actor {
-        // todo: Stage should associate Actor with the StageManager, and probably the Clock too
         if (! this.actorsOnStage[name]) {
             let actor;
             try {
-                actor = this.actors.actor(name);
+                actor = this.dressingRoom.prepare(new Actor(name, this));
             }
             catch (error) {
-                throw new ConfigurationError(`CustomActors encountered a problem when instantiating actor "${ name }"`, error);
+                throw new ConfigurationError(`${ this.typeOf(this.dressingRoom) } encountered a problem when preparing actor "${ name }" for stage`, error);
             }
 
             if (! (actor instanceof Actor)) {
-                throw new ConfigurationError(`Instead of a new instance of actor "${ name }", CustomActors returned ${ actor }`);
+                throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.dressingRoom) } returned ${ actor }`);
             }
 
             this.actorsOnStage[name] = actor;
@@ -89,6 +90,28 @@ export class Stage {
         stageCrewMembers.forEach(stageCrewMember => {
             this.manager.register(stageCrewMember.assignedTo(this));
         });
+    }
+
+    announce(event: DomainEvent): void {
+        this.manager.notifyOf(event);
+    }
+
+    currentTime(): Timestamp {
+        return this.manager.currentTime();
+    }
+
+    waitForNextCue(): Promise<void> {
+        return this.manager.waitForNextCue();
+    }
+
+    /**
+     * @private
+     * @param {DressingRoom} dressingRoom
+     */
+    private typeOf(dressingRoom: DressingRoom): string {
+        return this.dressingRoom.constructor !== Object
+            ? this.dressingRoom.constructor.name
+            : 'DressingRoom';
     }
 
     // todo: might be useful to ensure that the actors release any resources they're holding.

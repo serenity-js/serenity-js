@@ -1,18 +1,16 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
 
-import { by, protractor } from 'protractor';
-import { BrowseTheWeb, DoubleClick, Navigate, Target, Text } from '../../../src';
+import { by } from 'protractor';
+import { DoubleClick, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('DoubleClick', () => {
 
     const Interactive_Element = Target.the('interactive element').located(by.id('double-click-me'));
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     /** @test {DoubleClick} */
     /** @test {DoubleClick.on} */

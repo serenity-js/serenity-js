@@ -1,7 +1,7 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError } from '@serenity-js/core';
 import {
     and,
     containAtLeastOneItemThat,
@@ -20,7 +20,7 @@ import {
 
 describe('not', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     /** @test {not} */
     it(`allows for the actor flow to continue when the "actual" meets the expectation`, () => {

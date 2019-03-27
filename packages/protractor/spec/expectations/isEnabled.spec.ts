@@ -1,16 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { Actor, AssertionError } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { AssertionError } from '@serenity-js/core';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, isEnabled, Navigate, Target, Wait } from '../../src';
+import { isEnabled, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isEnabled', function() {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Page = {
         Enabled_Button:     Target.the('enabled button').located(by.id('enabled')),

@@ -1,12 +1,12 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError } from '@serenity-js/core';
 import { Ensure, isAfter } from '../../src';
 
 describe('isAfter', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     /** @test {isAfter} */
     it(`allows for the actor flow to continue when the "actual" is after the "expected"`, () => {

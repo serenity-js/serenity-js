@@ -1,12 +1,12 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError } from '@serenity-js/core';
 import { endsWith, Ensure, or, startsWith } from '../../src';
 
 describe('or', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     describe(`allows for the actor flow to continue when the "actual"`, () => {
 

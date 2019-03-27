@@ -21,13 +21,13 @@ describe('Photographer', () => {
             recorder = testSubject.recorder;
 
             photographer = new Photographer(new TakePhotosOfInteractions(), stage);
-            stage.manager.register(photographer);
+            stage.assign(photographer);
         });
 
         it(`takes a photo when the interaction goes well`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
-            )).to.be.fulfilled.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
@@ -39,7 +39,7 @@ describe('Photographer', () => {
         it(`takes a photo when a problem occurs`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
@@ -51,7 +51,7 @@ describe('Photographer', () => {
         it(`correlates the photo with the activity it's concerning`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 let correlationId: CorrelationId;
 
@@ -71,7 +71,7 @@ describe('Photographer', () => {
                         Perform.interactionThatFailsWith(TypeError),
                     ),
                 ),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
@@ -84,7 +84,7 @@ describe('Photographer', () => {
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
                 Perform.interactionThatSucceeds(2),
-            )).to.be.fulfilled.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {

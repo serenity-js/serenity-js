@@ -1,6 +1,4 @@
 import {
-    ActivityFinished,
-    ActivityStarts,
     DomainEvent,
     FeatureNarrativeDetected,
     SceneDescriptionDetected,
@@ -9,7 +7,9 @@ import {
     SceneSequenceDetected,
     SceneStarts,
     SceneTagged,
-    SceneTemplateDetected, TaskFinished, TaskStarts,
+    SceneTemplateDetected,
+    TaskFinished,
+    TaskStarts,
     TestRunFinished,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
@@ -25,8 +25,8 @@ import {
     Tag,
     ThemeTag,
 } from '@serenity-js/core/lib/model';
-import { StageManager } from '@serenity-js/core/lib/stage';
 
+import { Serenity } from '@serenity-js/core/lib/Serenity';
 import { Feature, Scenario, ScenarioOutline, Step } from '../gherkin';
 import { FeatureFileNode } from '../gherkin/model/FeatureFileNode';
 
@@ -35,7 +35,7 @@ function notEmpty<T>(list: T[]) {
 }
 
 export class Notifier {
-    constructor(private readonly stageManager: StageManager) {
+    constructor(private readonly serenity: Serenity) {
     }
 
     outlineDetected(scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
@@ -123,6 +123,6 @@ export class Notifier {
     }
 
     private emit(...events: DomainEvent[]) {
-        events.forEach(event => this.stageManager.notifyOf(event));
+        events.forEach(event => this.serenity.announce(event));
     }
 }

@@ -1,15 +1,15 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError, KnowableUnknown, Question } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError, KnowableUnknown } from '@serenity-js/core';
 import { Ensure, Expectation } from '../../src';
 import { isIdenticalTo, p, q } from '../fixtures';
 
 /** @test {Expectation} */
 describe('Expectation', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     describe('allows to easily define an assertion, which', () => {
 

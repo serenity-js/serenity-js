@@ -1,14 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { contains, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, Question } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
-import { by, ElementArrayFinder, ElementFinder, protractor } from 'protractor';
-import { BrowseTheWeb, Click, CSSClasses, Navigate, Pick, Target, Text } from '../../../src';
+import { by, ElementArrayFinder, ElementFinder } from 'protractor';
+import { Click, CSSClasses, Navigate, Pick, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Pick', () => {
 
-    const Peter = Actor.named('Peter').whoCan(BrowseTheWeb.using(protractor.browser));
+    const Peter = stage(new UIActors()).actor('Peter');
 
     const shoppingListPage = pageFromTemplate(`
         <html>

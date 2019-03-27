@@ -1,29 +1,35 @@
 import 'mocha';
 
-import { expect, PickEvent } from '@integration/testing-tools';
+import { expect, PickEvent, stage } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
+import { Actor, DressingRoom } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
-import { Clock, StageManager } from '@serenity-js/core/lib/stage';
+import { Clock } from '@serenity-js/core/lib/stage';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
-import { createStubInstance } from 'sinon';
+import sinon = require('sinon');
 
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 
 describe('@serenity-js/local-server', () => {
 
-    const
-        frozenClock     = new Clock(() => new Date('1970-01-01')),
-        stageManager    = createStubInstance(StageManager);
+    const frozenClock     = new Clock(() => new Date('1970-01-01'));
 
-    const nadia = new Actor('Nadia', stageManager as any, frozenClock).whoCan(
-            ManageALocalServer.running(function(request, response) {
-                response.setHeader('Connection', 'close');
-                response.end('Hello World!');
-            }),
-            CallAnApi.using(axios.create()),
-        );
+    class Actors implements DressingRoom {
+        prepare(actor: Actor): Actor {
+            return actor.whoCan(
+                ManageALocalServer.running(function(request, response) {
+                    response.setHeader('Connection', 'close');
+                    response.end('Hello World!');
+                }),
+                CallAnApi.using(axios.create()),
+            );
+        }
+    }
+
+    const theStage = stage(new Actors(), frozenClock);
+
+    sinon.spy(theStage, 'announce');
 
     describe('when managing a local server', () => {
 
@@ -32,7 +38,7 @@ describe('@serenity-js/local-server', () => {
          * @test {StartLocalServer}
          * @test {StopLocalServer}
          */
-        it(`correctly reports actor's activities`, () => expect(nadia.attemptsTo(
+        it(`correctly reports actor's activities`, () => expect(theStage.theActorCalled('Nadia').attemptsTo(
             StartLocalServer.onRandomPort(),
             Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
@@ -40,7 +46,8 @@ describe('@serenity-js/local-server', () => {
             Ensure.that(LastResponse.body(), equals('Hello World!')),
             StopLocalServer.ifRunning(),
         )).to.be.fulfilled.then(() => {
-            const events = stageManager.notifyOf.getCalls().map(call => call.lastArg);
+
+            const events = (theStage.announce as sinon.SinonSpy).getCalls().map(call => call.lastArg);
 
             PickEvent.from(events)
                 .next(ActivityStarts,   hasName(`Nadia starts the local server`))

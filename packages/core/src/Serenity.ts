@@ -1,14 +1,29 @@
-import { Cast, Stage, StageManager } from './stage';
+import { DomainEvent } from './events';
+import { Duration } from './model';
+import { Clock, DressingRoom, Stage, StageCrewMember, StageManager } from './stage';
 
 export class Serenity {
-    constructor(
-        public readonly stageManager: StageManager, // todo: could this be private?
-    ) {
-        // todo: take Clock so that it can be passed to the Stage and therefore the Actors too?
+    private readonly stageManager: StageManager;
+
+    constructor(clock: Clock = new Clock()) {
+        this.stageManager = new StageManager(Duration.ofSeconds(3), clock);
     }
 
-    callToStageFor(actors: Cast): Stage {
+    // todo: make it take config
+    setTheStage(...stageCrewMembers: StageCrewMember[]): void {
+        this.stageManager.register(...stageCrewMembers);
+    }
+
+    callToStageFor(actors: DressingRoom): Stage {
         return new Stage(actors, this.stageManager);
+    }
+
+    announce(event: DomainEvent): void {
+        this.stageManager.notifyOf(event);
+    }
+
+    waitForNextCue(): Promise<void> {
+        return this.stageManager.waitForNextCue();
     }
 
     // todo: add "configure"

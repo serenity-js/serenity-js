@@ -1,13 +1,12 @@
 import 'mocha';
-
-import { Actor } from '@serenity-js/core';
 import { DeleteRequest } from '../../src/model';
+import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
 /** @test {DeleteRequest} */
 describe('DeleteRequest', () => {
 
-    const actor = Actor.named('Apisit');
+    const { actor } = actorUsingAMockedAxiosInstance();
 
     /** @test {DeleteRequest.to} */
     it('represents an Axios request', () =>

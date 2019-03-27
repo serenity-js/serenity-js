@@ -74,14 +74,14 @@ export = function({ notifier, loader, cache }: Dependencies) {
         });
 
         this.registerHandler('AfterScenario', function(scenario, callback) {
-            serenity.stageManager.waitForNextCue()
+            serenity.waitForNextCue()
                 .then(() => callback(), error => callback(error));
         });
 
         this.registerHandler('AfterFeatures', (features, callback) => {
             notifier.testRunFinished();
 
-            serenity.stageManager.waitForNextCue()
+            serenity.waitForNextCue()
                 .then(() => callback(), error => callback(error));
         });
     };

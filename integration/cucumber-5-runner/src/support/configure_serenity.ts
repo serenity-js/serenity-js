@@ -5,7 +5,7 @@ import { setDefaultTimeout } from 'cucumber';
 
 setDefaultTimeout(5000);
 
-serenity.stageManager.register(
+serenity.setTheStage(
     new ChildProcessReporter(),
     new DebugReporter(),
 );

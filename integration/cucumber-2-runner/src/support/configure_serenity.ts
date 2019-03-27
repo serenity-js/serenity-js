@@ -6,7 +6,7 @@ import { defineSupportCode } from 'cucumber';
 defineSupportCode(({ setDefaultTimeout }) => {
     setDefaultTimeout(5000);
 
-    serenity.stageManager.register(
+    serenity.setTheStage(
         new ChildProcessReporter(),
         new DebugReporter(),
     );

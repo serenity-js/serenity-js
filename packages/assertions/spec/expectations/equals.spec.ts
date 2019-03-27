@@ -2,14 +2,14 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 import { TinyTypeOf } from 'tiny-types';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError } from '@serenity-js/core';
 import { Ensure, equals } from '../../src';
 
 /** @test {equals} */
 describe('equals', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     class Name extends TinyTypeOf<string>() {}
 
