@@ -1,16 +1,14 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
+import { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Scroll', function() {
 
-    const Gandalf = Actor.named('Gandalf').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Gandalf = stage(new UIActors()).actor('Gandalf');
 
     const aLongSpell = pageFromTemplate(`
         <html>

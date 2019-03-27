@@ -1,5 +1,3 @@
-import { match } from 'tiny-types';
-
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -11,7 +9,7 @@ import {
     DomainEvent,
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
+import { Artifact, ArtifactType, CorrelationId, Description, Photo, TestReport } from '../../../model';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 import { MD5Hash } from './MD5Hash';
@@ -70,7 +68,7 @@ export class ArtifactArchiver implements StageCrewMember {
     private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
         const id = CorrelationId.create();
 
-        this.stage.manager.notifyOf(new AsyncOperationAttempted(
+        this.stage.announce(new AsyncOperationAttempted(
             new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),
             id,
         ));
@@ -79,20 +77,20 @@ export class ArtifactArchiver implements StageCrewMember {
             .then(absolutePath => {
                 announce(relativePath);
 
-                this.stage.manager.notifyOf(new AsyncOperationCompleted(
+                this.stage.announce(new AsyncOperationCompleted(
                     new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),
                     id,
                 ));
             })
             .catch(error => {
-                this.stage.manager.notifyOf(new AsyncOperationFailed(error, id));
+                this.stage.announce(new AsyncOperationFailed(error, id));
             });
     }
 
     private archivisationAnnouncement(evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
         return (absolutePath: Path) => {
             if (evt instanceof ActivityRelatedArtifactGenerated) {
-                this.stage.manager.notifyOf(new ActivityRelatedArtifactArchived(
+                this.stage.announce(new ActivityRelatedArtifactArchived(
                     evt.details,
                     evt.name,
                     evt.artifact.constructor as ArtifactType,
@@ -101,7 +99,7 @@ export class ArtifactArchiver implements StageCrewMember {
             }
 
             if (evt instanceof ArtifactGenerated) {
-                this.stage.manager.notifyOf(new ArtifactArchived(
+                this.stage.announce(new ArtifactArchived(
                     evt.name,
                     evt.artifact.constructor as ArtifactType,
                     relativePathToArtifact,

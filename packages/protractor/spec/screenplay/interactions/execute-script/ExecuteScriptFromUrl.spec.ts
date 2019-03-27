@@ -1,16 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, LogicError } from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
 
-import { by, protractor } from 'protractor';
-import { BrowseTheWeb, ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { by } from 'protractor';
+import { ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScriptFromUrl} */
 describe('ExecuteScriptFromUrl', function() {
 
-    const Joe = Actor.named('Joe').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Joe = stage(new UIActors()).actor('Joe');
 
     const
         pathToScript = `file://${ require.resolve('./resources/execute-script-sample.js') }`,

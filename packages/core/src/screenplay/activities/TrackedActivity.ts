@@ -1,6 +1,6 @@
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
 import { ActivityDetails, CorrelationId, ExecutionSuccessful } from '../../model';
-import { Clock, StageManager } from '../../stage';
+import { Stage } from '../../stage';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsTasks, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
@@ -15,8 +15,7 @@ export class TrackedActivity implements Activity {
 
     constructor(
         protected readonly activity: Activity,
-        protected readonly stageManager: StageManager,
-        protected readonly clock: Clock,
+        protected readonly stage: Stage,
     ) {
     }
 
@@ -31,15 +30,15 @@ export class TrackedActivity implements Activity {
             : [ TaskStarts, TaskFinished ];
 
         return Promise.resolve()
-            .then(() => this.stageManager.notifyOf(new activityStarts(details, this.clock.now())))
+            .then(() => this.stage.announce(new activityStarts(details, this.stage.currentTime())))
             .then(() => this.activity.performAs(actor))
             .then(() => {
                 const outcome = new ExecutionSuccessful();
-                this.stageManager.notifyOf(new activityFinished(details, outcome, this.clock.now()));
+                this.stage.announce(new activityFinished(details, outcome, this.stage.currentTime()));
             })
             .catch(error => {
                 const outcome = TrackedActivity.outcomes.outcomeFor(error);
-                this.stageManager.notifyOf(new activityFinished(details, outcome, this.clock.now()));
+                this.stage.announce(new activityFinished(details, outcome, this.stage.currentTime()));
 
                 throw error;
             });

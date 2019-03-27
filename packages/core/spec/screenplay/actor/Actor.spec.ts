@@ -2,12 +2,11 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../../src/events';
-import { ActivityDetails, Duration, ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
+import { InteractionFinished, InteractionStarts } from '../../../src/events';
+import { ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
 import { Ability, Actor, See } from '../../../src/screenplay';
-import { Clock, StageManager } from '../../../src/stage';
+import { Stage } from '../../../src/stage';
 import { expect } from '../../expect';
-import { Recorder } from '../../Recorder';
 import {
     AcousticGuitar,
     Chords,
@@ -23,17 +22,23 @@ const equals = (expected: number) => (actual: PromiseLike<number>) => expect(act
 
 describe('Actor', () => {
 
-    let guitar: sinon.SinonStubbedInstance<Guitar>;
+    let
+        guitar: sinon.SinonStubbedInstance<Guitar>,
+        stage: sinon.SinonStubbedInstance<Stage>;
+
     beforeEach(() => {
         guitar = sinon.createStubInstance(AcousticGuitar);
+        stage = sinon.createStubInstance(Stage);
     });
+
+    function actor(name: string) {
+        return new Actor(name, stage as unknown as Stage);
+    }
 
     /** @test {Actor} */
     it('can be identified by their name', () => {
 
-        const actor = Actor.named('Chris');
-
-        expect(actor.name).to.equal('Chris');
+        expect(actor('Chris').name).to.equal('Chris');
     });
 
     /** @test {Actor} */
@@ -41,15 +46,15 @@ describe('Actor', () => {
         class DoCoolThings implements Ability {
         }
 
-        expect(Actor.named('Chris').toString()).to.equal('Actor(name=Chris, abilities=[])');
+        expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[])');
 
-        expect(Actor.named('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[DoCoolThings])');
+        expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[DoCoolThings])');
     });
 
     /** @test {Actor} */
     it('has Abilities allowing them to perform Activities and interact with a given Interface of the system under test', () =>
 
-        Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+        actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
             PlayAChord.of(Chords.AMajor),
         ).
         then(() => {
@@ -59,7 +64,7 @@ describe('Actor', () => {
     /** @test {Actor} */
     it('performs composite Tasks recursively to accomplish their Business Goals', () =>
 
-        Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+        actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
             PlayASong.from(MusicSheets.Wild_Thing),
         ).
         then(() => {
@@ -73,7 +78,7 @@ describe('Actor', () => {
         it('fulfills the promise should the question be answered as expected', () => {
             guitar.availableStrings.returns(Promise.resolve(['E2', 'A2', 'D3', 'G3', 'B3', 'E4' ]));
 
-            return expect(Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+            return expect(actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayASong.from(MusicSheets.Wild_Thing),
                 See.if(NumberOfGuitarStringsLeft(), equals(6)),
             )).to.be.fulfilled;
@@ -84,7 +89,7 @@ describe('Actor', () => {
             const oneStringMissing = ['E2', 'A2', 'D3', 'G3', 'B3' ];
             guitar.availableStrings.returns(Promise.resolve(oneStringMissing));
 
-            return expect(Actor.named('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+            return expect(actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayASong.from(MusicSheets.Wild_Thing),
                 See.if(NumberOfGuitarStringsLeft(), equals(6)),
             )).to.be.rejectedWith('expected 5 to equal 6');
@@ -94,30 +99,23 @@ describe('Actor', () => {
     /** @test {Actor} */
     it('admits if it does not have the Ability necessary to accomplish a given Interaction', () =>
 
-        expect(Actor.named('Ben').attemptsTo(
+        expect(actor('Ben').attemptsTo(
             PlayAChord.of(Chords.AMajor),
         )).to.be.eventually.rejectedWith(`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
     describe('DomainEvent handling', () => {
 
-        let clock: sinon.SinonStubbedInstance<Clock>,
-            stageManager: StageManager,
-            recorder: Recorder,
-            Bob: Actor;
+        let Bob: Actor;
+        const now = new Timestamp(new Date('2018-06-10T22:57:07.112Z'));
 
         beforeEach(() => {
-            clock = sinon.createStubInstance(Clock);
-            clock.now.returns(new Timestamp(new Date('2018-06-10T22:57:07.112Z')));
+            stage = sinon.createStubInstance(Stage);
+            stage.currentTime.returns(now);
 
-            stageManager = new StageManager(Duration.ofMillis(250), clock as any);
-
-            recorder = new Recorder();
-            stageManager.register(recorder);
-
-            Bob = new Actor('Bob', stageManager, clock as any);
+            Bob = new Actor('Bob', stage as unknown as Stage);
         });
 
-        describe('notifies the StageManager of the activities it performs', () => {
+        describe('announces the events that activities it performs', () => {
 
             const activityName = new Name('Bob plays the chord of A');
 
@@ -125,16 +123,20 @@ describe('Actor', () => {
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayAChord.of(Chords.AMajor),
             ).then(() => {
-                expect(recorder.events).to.have.lengthOf(2);
+                expect(stage.announce).to.have.callCount(2);
 
-                expect(recorder.events[ 0 ]).to.be.instanceOf(InteractionStarts);
-                expect(recorder.events[ 0 ]).to.have.property('value').property('name').equal(activityName);
-                expect(recorder.events[ 0 ]).to.have.property('timestamp').equal(clock.now());
+                const
+                    firstEvent = stage.announce.getCall(0).args[0],
+                    secondEvent = stage.announce.getCall(1).args[0];
 
-                expect(recorder.events[ 1 ]).to.be.instanceOf(InteractionFinished);
-                expect(recorder.events[ 1 ]).to.have.property('value').property('name').equal(activityName);
-                expect(recorder.events[ 1 ]).to.have.property('outcome').equal(new ExecutionSuccessful());
-                expect(recorder.events[ 1 ]).to.have.property('timestamp').equal(clock.now());
+                expect(firstEvent).to.be.instanceOf(InteractionStarts);
+                expect(firstEvent).to.have.property('value').property('name').equal(activityName);
+                expect(firstEvent).to.have.property('timestamp').equal(now);
+
+                expect(secondEvent).to.be.instanceOf(InteractionFinished);
+                expect(secondEvent).to.have.property('value').property('name').equal(activityName);
+                expect(secondEvent).to.have.property('outcome').equal(new ExecutionSuccessful());
+                expect(secondEvent).to.have.property('timestamp').equal(now);
             }));
         });
 

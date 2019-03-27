@@ -1,43 +1,44 @@
-import { UsesAbilities } from '@serenity-js/core';
+import { Stage } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
-    AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed,
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    AsyncOperationFailed,
     DomainEvent,
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
-import { StageManager } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb } from '../../../screenplay';
 
 export abstract class PhotoTakingStrategy {
 
-    considerTakingPhoto(event: ActivityStarts | ActivityFinished, stageManager: StageManager, actor: UsesAbilities): void {
+    considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
         if (this.shouldTakeAPhotoOf(event)) {
             const
                 id          = CorrelationId.create(),
                 photoName   = new Name(this.photoNameFor(event));
 
-            stageManager.notifyOf(new AsyncOperationAttempted(
+            stage.announce(new AsyncOperationAttempted(
                 new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ photoName.value }'...`),
                 id,
             ));
 
-            BrowseTheWeb.as(actor).takeScreenshot()
+            BrowseTheWeb.as(stage.theActorInTheSpotlight()).takeScreenshot()
                 .then(screenshot => {
-                    stageManager.notifyOf(new ActivityRelatedArtifactGenerated(
+                    stage.announce(new ActivityRelatedArtifactGenerated(
                         event.value,
                         photoName,
                         Photo.fromBase64(screenshot),
                     ));
 
-                    stageManager.notifyOf(new AsyncOperationCompleted(
+                    stage.announce(new AsyncOperationCompleted(
                         new Description(`[${ this.constructor.name }] Took screenshot of '${ photoName.value }'`),
                         id,
                     ));
                 })
                 .catch(error => {
-                    stageManager.notifyOf(new AsyncOperationFailed(error, id));
+                    stage.announce(new AsyncOperationFailed(error, id));
                 });
         }
     }

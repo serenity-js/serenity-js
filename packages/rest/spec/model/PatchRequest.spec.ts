@@ -1,13 +1,12 @@
 import 'mocha';
-
-import { Actor } from '@serenity-js/core';
-import { OptionsRequest, PatchRequest } from '../../src/model';
+import { PatchRequest } from '../../src/model';
+import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
 /** @test {PatchRequest} */
 describe('PatchRequest', () => {
 
-    const actor = Actor.named('Apisit');
+    const { actor } = actorUsingAMockedAxiosInstance();
 
     /** @test {PatchRequest.to} */
     it('represents an Axios request', () =>

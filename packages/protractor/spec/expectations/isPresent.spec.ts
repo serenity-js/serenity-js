@@ -1,16 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { Actor, AssertionError } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { AssertionError } from '@serenity-js/core';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, isPresent, Navigate, Target, Wait } from '../../src';
+import { isPresent, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isPresent', function() {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Page = {
         Present_Header:         Target.the('header').located(by.tagName('h1')),

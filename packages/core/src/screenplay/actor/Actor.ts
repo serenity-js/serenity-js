@@ -1,7 +1,7 @@
-import { ArtifactGenerated, DomainEvent } from '../../events';
-import { Ability, AbilityType, KnowableUnknown, LogicError, serenity, TestCompromisedError } from '../../index';
-import { Artifact, Name, Timestamp } from '../../model';
-import { Clock, StageManager } from '../../stage';
+import { ArtifactGenerated } from '../../events';
+import { Ability, AbilityType, KnowableUnknown, TestCompromisedError } from '../../index';
+import { Artifact, Name } from '../../model';
+import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
 import { Question } from '../Question';
@@ -11,20 +11,14 @@ import { PerformsTasks } from './PerformsTasks';
 import { UsesAbilities } from './UsesAbilities';
 
 export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, CollectsArtifacts {
-    private readonly abilities = new Map<AbilityType<Ability>, Ability>();
-
-    static named(name: string): Actor {
-        return new Actor(name, serenity.stageManager, new Clock());
-    }
-
     // todo: Actor should have execution strategies
     // todo: the default one executes every activity
     // todo: there could be a dry-run mode that default to skip strategy
 
     constructor(
         public readonly name: string,
-        private stageManager: StageManager,        // todo: this may need to be set by the stage
-        private clock: Clock,                      // todo: this may need to be set by the stage
+        private readonly stage: Stage,
+        private readonly abilities: Map<AbilityType<Ability>, Ability> = new Map<AbilityType<Ability>, Ability>(),
     ) {
     }
 
@@ -41,7 +35,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
         // todo: if there are no activities, make it a PendingActivity
         // todo: only change the execution strategy for the duration of the current task; tasks from afterhooks should still get executed
         return activities
-            .map(activity => new TrackedActivity(activity, this.stageManager, this.clock))  // todo: TrackedInteraction, TrackedTask
+            .map(activity => new TrackedActivity(activity, this.stage))  // todo: TrackedInteraction, TrackedTask
             .reduce((previous: Promise<void>, current: Activity) => {
                 return previous.then(() => {
                     /* todo: add an execution strategy */
@@ -51,11 +45,13 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
     }
 
     whoCan(...abilities: Ability[]): Actor {
+        const map = new Map<AbilityType<Ability>, Ability>(this.abilities);
+
         abilities.forEach(ability => {
-            this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
+            map.set(ability.constructor as AbilityType<Ability>, ability);
         });
 
-        return this;
+        return new Actor(this.name, this.stage, map);
     }
 
     /**
@@ -87,10 +83,10 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
     }
 
     collect(artifact: Artifact, name?: Name) {
-        this.stageManager.notifyOf(new ArtifactGenerated(
+        this.stage.announce(new ArtifactGenerated(
             name || new Name(artifact.constructor.name),
             artifact,
-            this.clock.now(),
+            this.stage.currentTime(),
         ));
     }
 

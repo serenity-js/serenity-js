@@ -1,9 +1,9 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { contains, Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
-import { BrowseTheWeb, Navigate, Target, Text } from '../../../src';
+import { by } from 'protractor';
+import { Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @target {Target} */
 describe('Target', () => {
@@ -35,9 +35,7 @@ describe('Target', () => {
         static Bought_Items = Target.all('bought items').located(by.css('.bought')).of(ShoppingList.List);
     }
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('allows the actor to locate', () => {
 

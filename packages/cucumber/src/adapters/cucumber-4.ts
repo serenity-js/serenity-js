@@ -6,12 +6,12 @@ export = function(dependencies: Dependencies) {
     const { After, AfterAll } = dependencies.cucumber;
 
     After(function() {
-        return serenity.stageManager.waitForNextCue();
+        return serenity.waitForNextCue();
     });
 
     AfterAll(function() {
         dependencies.notifier.testRunFinished();
-        return serenity.stageManager.waitForNextCue();
+        return serenity.waitForNextCue();
     });
 
     return cucumberEventProtocolAdapter(dependencies);

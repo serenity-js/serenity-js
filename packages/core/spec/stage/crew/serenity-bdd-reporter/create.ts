@@ -1,15 +1,17 @@
 import * as sinon from 'sinon';
 import { Actor } from '../../../../src';
-import { Cast, SerenityBDDReporter, Stage, StageManager } from '../../../../src/stage';
+import { DressingRoom, SerenityBDDReporter, Stage, StageManager } from '../../../../src/stage';
 
 export function create() {
-    const dummies: Cast = {
-        actor: (name: string): Actor => null,
-    };
+    class Extras implements DressingRoom {
+        prepare(actor: Actor): Actor {
+            return actor;
+        }
+    }
 
     const
         stageManager    = sinon.createStubInstance(StageManager),
-        stage           = new Stage(dummies, stageManager as unknown as StageManager),
+        stage           = new Stage(new Extras(), stageManager as unknown as StageManager),
         reporter        = new SerenityBDDReporter(stage);
 
     return {

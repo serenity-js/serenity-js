@@ -1,17 +1,16 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, Duration } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { Duration } from '@serenity-js/core';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, Navigate, Target, Text, Wait } from '../../../src';
+import { Navigate, Target, Text, Wait } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
+import { UIActors } from '../../UIActors';
 
 describe('Wait', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Status = Target.the('header').located(by.id('status'));
 

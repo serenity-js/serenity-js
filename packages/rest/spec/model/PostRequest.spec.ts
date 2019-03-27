@@ -1,13 +1,12 @@
 import 'mocha';
-
-import { Actor } from '@serenity-js/core';
-import { OptionsRequest, PostRequest } from '../../src/model';
+import { PostRequest } from '../../src/model';
+import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
 /** @test {PostRequest} */
 describe('PostRequest', () => {
 
-    const actor = Actor.named('Apisit');
+    const { actor } = actorUsingAMockedAxiosInstance();
 
     /** @test {PostRequest.to} */
     it('represents an Axios request', () =>

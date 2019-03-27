@@ -1,16 +1,16 @@
 import 'mocha';
 
+import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { HTTPRequestResponse, Name } from '@serenity-js/core/lib/model';
 import { Clock, StageManager } from '@serenity-js/core/lib/stage';
 
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { createStubInstance } from 'sinon';
-import { CallAnApi, GetRequest, LastResponse, Send } from '../../../src';
-import { actorUsingAMockedAxiosInstance } from '../../actors';
+import sinon = require('sinon');
+import { GetRequest, LastResponse, Send } from '../../../src';
+import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';
 import { expect } from '../../expect';
 
 /** @test {Send} */
@@ -73,11 +73,11 @@ describe('Send', () => {
             axiosInstance = axios.create({
                 url: 'https://myapp.com/api',
             }),
-            mock = new MockAdapter(axiosInstance),
+            mock        = new MockAdapter(axiosInstance),
+            theStage    = stage(new APIActors(axiosInstance), frozenClock),
+            actor       = theStage.theActorCalled('Apisitt');
 
-            stageManager = createStubInstance(StageManager),
-            actor = new Actor('Apisit', stageManager as any, frozenClock)
-                .whoCan(CallAnApi.using(axiosInstance));
+        sinon.spy(theStage, 'announce');
 
         mock.onGet('/products/2').reply(200, {
             id: 2,
@@ -88,7 +88,7 @@ describe('Send', () => {
         return actor.attemptsTo(
             Send.a(GetRequest.to('/products/2')),
         ).then(() => {
-            const events = stageManager.notifyOf.getCalls().map(call => call.lastArg);
+            const events = (theStage.announce as sinon.SinonSpy).getCalls().map(call => call.lastArg);
 
             expect(events).to.have.lengthOf(3);
             expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);

@@ -24,7 +24,7 @@ export class Photographer implements StageCrewMember {
         }
 
         if (event instanceof ActivityStarts || event instanceof ActivityFinished) {
-            this.photoTakingStrategy.considerTakingPhoto(event, this.stage.manager, this.stage.theActorInTheSpotlight());
+            this.photoTakingStrategy.considerTakingPhoto(event, this.stage);
         }
     }
 }

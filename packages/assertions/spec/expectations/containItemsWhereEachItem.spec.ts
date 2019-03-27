@@ -1,12 +1,12 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, AssertionError, Question } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { AssertionError, Question } from '@serenity-js/core';
 import { containItemsWhereEachItem, Ensure, equals, isGreaterThan } from '../../src';
 
 describe('containItemsWhereEachItem', () => {
 
-    const Astrid = Actor.named('Astrid');
+    const Astrid = stage().theActorCalled('Astrid');
 
     /** @test {containItemsWhereEachItem} */
     it(`allows for the actor flow to continue when the "actual" includes only those items that meet the expectation`, () => {

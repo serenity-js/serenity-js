@@ -1,15 +1,15 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
+import { Actor, DressingRoom } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 import { given } from 'mocha-testdata';
 import { satisfies } from 'semver'; // tslint:disable-line:no-implicit-dependencies
-import servers = require('./servers');
 
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
+import servers = require('./servers');
 
 /** @test {ManageALocalServer} */
 describe('ManageALocalServer', () => {
@@ -22,7 +22,16 @@ describe('ManageALocalServer', () => {
             return this.skip();
         }
 
-        Nadia = Actor.named('Nadia').whoCan(
+        class Actors implements DressingRoom {
+            prepare(actor: Actor): Actor {
+                return actor.whoCan(
+                    ManageALocalServer.running(handler()),
+                    CallAnApi.using(axios.create()),
+                );
+            }
+        }
+
+        Nadia = stage(new Actors()).theActorCalled('Nadia').whoCan(
             ManageALocalServer.running(handler()),
             CallAnApi.using(axios.create()),
         );

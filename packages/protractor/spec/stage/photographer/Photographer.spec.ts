@@ -49,7 +49,7 @@ describe('Photographer', () => {
             const { stage, recorder } = create();
 
             const photographer = new Photographer(new TakePhotosOfFailures(), stage);
-            stage.manager.register(photographer);
+            stage.assign(photographer);
 
             givenFollowingEvents(
                 new SceneStarts(defaultCardScenario),
@@ -59,7 +59,7 @@ describe('Photographer', () => {
                 new TestRunFinished(),
             ).areSentTo(photographer);
 
-            return stage.manager.waitForNextCue().then(() => {
+            return stage.waitForNextCue().then(() => {
                 expect(recorder.events).to.have.lengthOf(0);
             });
         });
@@ -74,7 +74,7 @@ describe('Photographer', () => {
             const { stage, recorder } = create();
 
             const photographer = new Photographer(new TakePhotosOfFailures(), stage);
-            stage.manager.register(photographer);
+            stage.assign(photographer);
 
             givenFollowingEvents(
                 new SceneStarts(defaultCardScenario),
@@ -82,7 +82,7 @@ describe('Photographer', () => {
                 new TestRunFinished(),
             ).areSentTo(photographer);
 
-            return stage.manager.waitForNextCue().then(() => {
+            return stage.waitForNextCue().then(() => {
                 expect(recorder.events).to.have.lengthOf(0);
             });
         });

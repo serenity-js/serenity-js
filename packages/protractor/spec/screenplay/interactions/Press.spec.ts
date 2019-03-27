@@ -1,17 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
-import { by, Key, protractor } from 'protractor';
+import { by, Key } from 'protractor';
 
-import { BrowseTheWeb, Navigate, Press, Target, Value } from '../../../src';
+import { Navigate, Press, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Press', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Form = {
         Text_Field:     Target.the('text field').located(by.name('text')),

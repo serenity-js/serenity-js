@@ -21,20 +21,20 @@ describe('Photographer', () => {
             recorder = sut.recorder;
 
             photographer = new Photographer(new TakePhotosOfFailures(), stage);
-            stage.manager.register(photographer);
+            stage.assign(photographer);
         });
 
         it(`does nothing if everything goes well`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(),
-            )).to.be.fulfilled.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
                 expect(recorder.events).to.have.lengthOf(2);    // Interaction starts and finishes
             })));
 
         it(`takes a photo when a problem occurs`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
@@ -46,7 +46,7 @@ describe('Photographer', () => {
         it(`correlates the photo with the activity it's concerning`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 let correlationId: CorrelationId;
 
@@ -66,7 +66,7 @@ describe('Photographer', () => {
                         Perform.interactionThatFailsWith(TypeError),
                     ),
                 ),
-            )).to.be.rejected.then(() => stage.manager.waitForNextCue().then(() => {
+            )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {

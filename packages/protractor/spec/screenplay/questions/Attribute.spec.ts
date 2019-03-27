@@ -1,15 +1,14 @@
+import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { by } from 'protractor';
 
-import { Attribute, BrowseTheWeb, Navigate, Target } from '../../../src';
+import { Attribute, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Attribute', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     /** @test {Attribute} */
     it('allows the actor to read an attribute of a DOM element', () => Bernie.attemptsTo(

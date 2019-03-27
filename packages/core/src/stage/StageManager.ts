@@ -2,7 +2,6 @@ import { match } from 'tiny-types';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
-import { Clock } from './Clock';
 import { StageCrewMember } from './StageCrewMember';
 
 interface AsyncOperationDetails {
@@ -22,8 +21,8 @@ export class StageManager {
     private readonly wip: Map<CorrelationId, AsyncOperationDetails> = new Map();
     private readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
-    constructor(private readonly cueTimeout: Duration = Duration.ofSeconds(3),
-                private readonly clock = new Clock()) {
+    constructor(private readonly cueTimeout: Duration,
+                private readonly clock) {
     }
 
     register(...stageCrewMembers: StageCrewMember[]) {
@@ -96,5 +95,9 @@ export class StageManager {
                 }
             }, 10);
         });
+    }
+
+    currentTime(): Timestamp {
+        return this.clock.now();
     }
 }

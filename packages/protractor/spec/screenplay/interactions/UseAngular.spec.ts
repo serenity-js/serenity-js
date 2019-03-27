@@ -1,16 +1,15 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, Question } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 
 import { protractor } from 'protractor';
-import { BrowseTheWeb, UseAngular } from '../../../src';
+import { UseAngular } from '../../../src';
 import { promiseOf } from '../../../src/promiseOf';
+import { UIActors } from '../../UIActors';
 
 describe('UseAngular', function() {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('synchronisation', () => {
 

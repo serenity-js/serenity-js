@@ -1,21 +1,20 @@
-import { expect } from '@integration/testing-tools';
+import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, Question } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name, TextData } from '@serenity-js/core/lib/model';
-import { Clock, StageManager } from '@serenity-js/core/lib/stage';
+import { Clock } from '@serenity-js/core/lib/stage';
 
-import { by, protractor } from 'protractor';
+import { by } from 'protractor';
 import * as sinon from 'sinon';
-import { BrowseTheWeb, ExecuteScript, Navigate, Target, Value } from '../../../../src';
+import { ExecuteScript, Navigate, Target, Value } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
+import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteAsynchronousScript} */
 describe('ExecuteAsynchronousScript', function() {
 
-    const Joe = Actor.named('Joe').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Joe = stage(new UIActors()).actor('Joe');
 
     const page = pageFromTemplate(`
         <html>
@@ -140,14 +139,15 @@ describe('ExecuteAsynchronousScript', function() {
         const
             frozenClock = new Clock(() => new Date('1970-01-01')),
 
-            stageManager = sinon.createStubInstance(StageManager),
-            actor = new Actor('Ashwin', stageManager as any, frozenClock)
-                .whoCan(BrowseTheWeb.using(protractor.browser));
+            theStage = stage(new UIActors(), frozenClock),
+            actor = theStage.theActorCalled('Ashwin');
+
+        sinon.spy(theStage, 'announce');
 
         return actor.attemptsTo(
             ExecuteScript.async(`arguments[arguments.length - 1]();`),
         ).then(() => {
-            const events = stageManager.notifyOf.getCalls().map(call => call.lastArg);
+            const events = (theStage.announce as sinon.SinonSpy).getCalls().map(call => call.lastArg);
 
             expect(events).to.have.lengthOf(3);
             expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);

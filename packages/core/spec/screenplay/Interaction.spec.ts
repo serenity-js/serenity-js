@@ -4,11 +4,14 @@ import * as sinon from 'sinon';
 import { Actor, Interaction } from '../../src/screenplay';
 
 import { JSONData, Name } from '../../src/model';
+import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Interaction', () => {
 
-    const Ivonne = Actor.named('Ivonne');
+    const
+        stage  = sinon.createStubInstance(Stage),
+        Ivonne = new Actor('Ivonne', stage as unknown as Stage);
 
     describe('when defining an interaction', () => {
 

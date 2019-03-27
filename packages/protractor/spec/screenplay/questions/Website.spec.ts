@@ -1,15 +1,13 @@
+import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
-import { protractor } from 'protractor';
 
-import { BrowseTheWeb, Navigate, Website } from '../../../src';
+import { Navigate, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Website', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('title', () => {
         /** @test {Attribute} */

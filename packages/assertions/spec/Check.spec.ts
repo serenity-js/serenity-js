@@ -1,14 +1,14 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
-import { Actor, Interaction } from '@serenity-js/core';
+import { expect, stage } from '@integration/testing-tools';
+import { Interaction } from '@serenity-js/core';
 import * as sinon from 'sinon';
 import { Check, startsWith } from '../src';
 
 /** @test {Check} */
 describe('Check', () => {
 
-    const Enrique = Actor.named('Enrique');
+    const Enrique = stage().theActorCalled('Enrique');
 
     const Call = (fn: () => void) => Interaction.where(`#actor calls a function`, actor => fn());
 

@@ -1,16 +1,15 @@
+import { stage } from '@integration/testing-tools';
 import { contains, Ensure, equals } from '@serenity-js/assertions';
-import { Actor } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
-import { by, protractor } from 'protractor';
+import { by } from 'protractor';
 
-import { BrowseTheWeb, CSSClasses, Navigate, Target, Value } from '../../../src';
+import { CSSClasses, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('CSSClasses', () => {
 
-    const Bernie = Actor.named('Bernie').whoCan(
-        BrowseTheWeb.using(protractor.browser),
-    );
+    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const testPage = pageFromTemplate(`
             <html>
