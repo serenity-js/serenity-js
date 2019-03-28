@@ -6,14 +6,8 @@ import { setDefaultTimeout } from 'cucumber';
 
 setDefaultTimeout(5000);
 
-// todo: implement serenity.configure(...)
-const crewMembers = [
+serenity.setTheStage(
     new ArtifactArchiver(new FileSystem(new Path('./target/site/serenity'))),
     new SerenityBDDReporter(),
-    new DebugReporter(),
-];
-
-crewMembers.forEach(crewMember => {
-    crewMember.assignTo(serenity.stageManager);
-    serenity.stageManager.register(crewMember);
-});
+    // new DebugReporter(),
+);

@@ -28,6 +28,10 @@ export class InteractDirectly implements Ability {
     constructor(private readonly calculator: Calculator) {
     }
 
+    requestANewCalculationId(): void {
+        this.calculationId = CalculationId.create();
+    }
+
     currentCalculationId(): CalculationId {
         if (! this.calculationId) {
             this.calculationId = CalculationId.create();

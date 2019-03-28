@@ -82,9 +82,9 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
         return Promise.resolve(knowableUnknown as T);
     }
 
-    collect(artifact: Artifact, name?: Name) {
+    collect(artifact: Artifact, name?: string | Name) {
         this.stage.announce(new ArtifactGenerated(
-            name || new Name(artifact.constructor.name),
+            this.nameFrom(name || new Name(artifact.constructor.name)),
             artifact,
             this.stage.currentTime(),
         ));
@@ -98,5 +98,11 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
 
     private can<T extends Ability>(doSomething: AbilityType<T>): boolean {
         return this.abilities.has(doSomething);
+    }
+
+    private nameFrom(maybeName: string | Name): Name {
+        return typeof maybeName === 'string'
+            ? new Name(maybeName)
+            : maybeName;
     }
 }

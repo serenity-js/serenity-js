@@ -1,10 +1,10 @@
-import { EnterOperandCommand, Operand, Operator, UseOperatorCommand } from '@serenity-js-examples/calculator-app';
-import { Actor, EmitArtifact, Interaction } from '@serenity-js/core';
+import { Operator, UseOperatorCommand } from '@serenity-js-examples/calculator-app';
+import { Actor, Interaction } from '@serenity-js/core';
 import { JSONData } from '@serenity-js/core/lib/model';
 import { InteractDirectly } from '../abilities';
 
 export const UseOperator = (operator: Operator) => Interaction.where(`#actor uses the ${ operator.constructor.name }`,
-    (actor: Actor, emitArtifact: EmitArtifact) => {
+    (actor: Actor) => {
         const ability = InteractDirectly.as(actor);
 
         const command = new UseOperatorCommand(
@@ -16,5 +16,5 @@ export const UseOperator = (operator: Operator) => Interaction.where(`#actor use
             command,
         );
 
-        emitArtifact(JSONData.fromJSON(command.toJSON()), command.constructor.name);
+        actor.collect(JSONData.fromJSON(command.toJSON()), command.constructor.name);
     });

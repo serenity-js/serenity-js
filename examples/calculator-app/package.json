@@ -18,9 +18,9 @@
   "scripts": {
     "clean": "rimraf lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "test": "mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
-    "verify": "npm test || true",
+    "verify": "npm test",
     "start": "node index.js",
     "dev": "nodemon --exec 'cross-env PORT=3000 NODE_ENV=TEST npm start'"
   },

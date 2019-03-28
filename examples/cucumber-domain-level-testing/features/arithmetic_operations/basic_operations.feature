@@ -1,5 +1,8 @@
 Feature: Basic arithmetic operations
 
+  Background:
+    Given Dominique has requested a new calculation
+
   Scenario: Addition
 
     When Dominique enters 2
