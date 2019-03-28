@@ -10,10 +10,9 @@ import { StageManager } from './StageManager';
 export class Stage {
     private readonly actorsOnStage: { [name: string]: Actor } = {};
     private actorInTheSpotlight: Actor = null;
-    // todo: add the clock so that it can be removed from the Actor?
 
     constructor(
-        private readonly dressingRoom: DressingRoom,
+        private dressingRoom: DressingRoom,
         private readonly manager: StageManager,
     ) {
         ensure('DressingRoom', dressingRoom, isDefined());
@@ -84,6 +83,14 @@ export class Stage {
      */
     theShowHasStarted(): boolean {
         return !! this.actorInTheSpotlight;
+    }
+
+    callFor(actors: DressingRoom): Stage {
+        ensure('DressingRoom', actors, isDefined());
+
+        this.dressingRoom = actors;
+
+        return this;
     }
 
     assign(...stageCrewMembers: StageCrewMember[]) {

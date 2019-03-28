@@ -1,8 +1,14 @@
 import { Operand, Operator } from '@serenity-js-examples/calculator-app';
-import { Ensure, equals, not } from '@serenity-js/assertions';
+import { Ensure, equals } from '@serenity-js/assertions';
 import { WithStage } from '@serenity-js/cucumber';
-import { Then, When } from 'cucumber';
-import { EnterOperand, ResultOfCalculation, UseOperator } from '../support/screenplay';
+import { Given, Then, When } from 'cucumber';
+import { EnterOperand, RequestANewCalculation, ResultOfCalculation, UseOperator } from '../support/screenplay';
+
+Given(/^(.*) has requested a new calculation/, function(this: WithStage, actorName: string) {
+    return this.stage.theActorCalled(actorName).attemptsTo(
+        RequestANewCalculation(),
+    );
+});
 
 When(/^(.*) enters (\d+)$/, function(this: WithStage, actorName: string, operandValue: string) {
     const actor = ! isPronoun(actorName) ? this.stage.actor(actorName) : this.stage.theActorInTheSpotlight();
@@ -14,7 +20,7 @@ When(/^(.*) enters (\d+)$/, function(this: WithStage, actorName: string, operand
 
 When(/(?:he|she|they) uses? the (.) operator/, function(this: WithStage, operatorSymbol: string) {
     return this.stage.theActorInTheSpotlight().attemptsTo(
-        UseOperator(Operator.from(operatorSymbol)),
+        UseOperator(Operator.fromString(operatorSymbol)),
     );
 });
 

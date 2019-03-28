@@ -1,30 +1,40 @@
 import { DomainEvent } from './events';
-import { Duration } from './model';
+import { Duration, Timestamp } from './model';
 import { Clock, DressingRoom, Stage, StageCrewMember, StageManager } from './stage';
+import { Extras } from './stage/Extras';
 
 export class Serenity {
-    private readonly stageManager: StageManager;
+    private readonly stage: Stage;
 
     constructor(clock: Clock = new Clock()) {
-        this.stageManager = new StageManager(Duration.ofSeconds(3), clock);
+        this.stage = new Stage(
+            new Extras(),
+            new StageManager(Duration.ofSeconds(3), clock),
+        );
     }
 
-    // todo: make it take config
+    /**
+     * @todo make the method receive a config object with cue timeout, stage crew members, test adapter etc.
+     * @experimental
+     * @param stageCrewMembers
+     */
     setTheStage(...stageCrewMembers: StageCrewMember[]): void {
-        this.stageManager.register(...stageCrewMembers);
+        this.stage.assign(...stageCrewMembers);
     }
 
     callToStageFor(actors: DressingRoom): Stage {
-        return new Stage(actors, this.stageManager);
+        return this.stage.callFor(actors);
     }
 
     announce(event: DomainEvent): void {
-        this.stageManager.notifyOf(event);
+        this.stage.announce(event);
+    }
+
+    currentTime(): Timestamp {
+        return this.stage.currentTime();
     }
 
     waitForNextCue(): Promise<void> {
-        return this.stageManager.waitForNextCue();
+        return this.stage.waitForNextCue();
     }
-
-    // todo: add "configure"
 }

@@ -1,11 +1,10 @@
 import { Calculator } from '@serenity-js-examples/calculator-app';
-import { Actor } from '@serenity-js/core';
-import { Cast } from '@serenity-js/core/lib/stage';
+import { Actor, DressingRoom } from '@serenity-js/core';
 
 import { InteractDirectly } from './abilities';
 
-export class Actors implements Cast {
-    actor(name: string) {
-        return Actor.named(name).whoCan(InteractDirectly.with(new Calculator()));
+export class Actors implements DressingRoom {
+    prepare(actor: Actor): Actor {
+        return actor.whoCan(InteractDirectly.with(new Calculator()));
     }
 }
