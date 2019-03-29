@@ -7,7 +7,6 @@ export class IDGenerator {
     }
 
     private dashify = (text: string) => text
-        .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/[ \t\W]/g, '-')
         .replace(/^-+|-+$/g, '')
         .toLowerCase()
