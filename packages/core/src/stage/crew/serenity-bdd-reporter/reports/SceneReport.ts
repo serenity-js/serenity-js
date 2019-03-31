@@ -93,7 +93,14 @@ export class SceneReport {
 
     taggedWith(tag: Tag) {
         return this.withMutated(report => {
-            const nameOfRecorded = (typeOfTag: { Type: string }) => (report.tags.find(t => t.type === typeOfTag.Type) || { name: void 0 }).name;
+            function nameOfRecorded(typeOfTag: { Type: string }) {
+                const serenityBDDCompatible = (text: string) => text[0].toUpperCase() + text.slice(1);
+
+                const found = report.tags.find(t => t.type === typeOfTag.Type);
+
+                return found && serenityBDDCompatible(found.name);
+            }
+
             const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');
 
             const serialisedTag = tag.toJSON();
