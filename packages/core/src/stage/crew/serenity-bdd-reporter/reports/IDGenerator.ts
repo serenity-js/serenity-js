@@ -1,4 +1,4 @@
-import { TinyType, TinyTypeOf } from 'tiny-types';
+import { TinyType } from 'tiny-types';
 
 /** @access package */
 export class IDGenerator {

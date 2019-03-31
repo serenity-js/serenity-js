@@ -106,8 +106,6 @@ export class Notifier {
     }
 
     private scenarioHierarchyTagsFor(feature: Feature): Tag[] {
-        const humanReadable = (text: string) => text.replace(/[_-]+/g, ' ');
-
         const
             directories     = notEmpty(feature.location.path.directory().split()),
             featuresIndex   = directories.indexOf('features'),
@@ -116,8 +114,8 @@ export class Notifier {
         const [ featureName, capabilityName, themeName ]: string[] = hierarchy.reverse();
 
         return notEmpty([
-            themeName       && new ThemeTag(humanReadable(themeName)),
-            capabilityName  && new CapabilityTag(humanReadable(capabilityName)),
+            themeName       && new ThemeTag(themeName),
+            capabilityName  && new CapabilityTag(capabilityName),
             feature         && new FeatureTag(featureName),
         ]);
     }
