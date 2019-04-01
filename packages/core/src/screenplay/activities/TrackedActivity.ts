@@ -2,7 +2,7 @@ import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from
 import { ActivityDetails, CorrelationId, ExecutionSuccessful } from '../../model';
 import { Stage } from '../../stage';
 import { Activity } from '../Activity';
-import { AnswersQuestions, PerformsTasks, UsesAbilities } from '../actor';
+import { AnswersQuestions, PerformsActivities, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
 import { ActivityDescriber } from './ActivityDescriber';
 import { OutcomeMatcher } from './OutcomeMatcher';
@@ -19,7 +19,7 @@ export class TrackedActivity implements Activity {
     ) {
     }
 
-    performAs(actor: (PerformsTasks | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
+    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
         const details = new ActivityDetails(
             TrackedActivity.describer.describe(this.activity, actor),
             CorrelationId.create(),

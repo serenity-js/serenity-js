@@ -1,6 +1,6 @@
 import { ImplementationPendingError } from '../errors';
 import { Activity } from './Activity';
-import { PerformsTasks } from './actor';
+import { PerformsActivities } from './actor';
 
 export abstract class Task implements Activity {
     static where(description: string, ...activities: Activity[]): Task {
@@ -9,7 +9,7 @@ export abstract class Task implements Activity {
             : new NotImplementedTask(description);
     }
 
-    abstract performAs(actor: PerformsTasks): PromiseLike<void>;
+    abstract performAs(actor: PerformsActivities): PromiseLike<void>;
 }
 
 class DynamicallyGeneratedTask extends Task {
@@ -17,7 +17,7 @@ class DynamicallyGeneratedTask extends Task {
         super();
     }
 
-    performAs(actor: PerformsTasks): PromiseLike<void> {
+    performAs(actor: PerformsActivities): PromiseLike<void> {
         return actor.attemptsTo(...this.activities);
     }
 
@@ -31,7 +31,7 @@ class NotImplementedTask extends Task {
         super();
     }
 
-    performAs(actor: PerformsTasks): PromiseLike<void> {
+    performAs(actor: PerformsActivities): PromiseLike<void> {
         return Promise.reject(
             new ImplementationPendingError(`A task where "${ this.toString() }" has not been implemented yet`),
         );

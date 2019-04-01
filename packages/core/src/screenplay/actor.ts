@@ -1,19 +1,99 @@
-import { ArtifactGenerated } from '../../events';
-import { Ability, AbilityType, KnowableUnknown, TestCompromisedError } from '../../index';
-import { Artifact, Name } from '../../model';
-import { Stage } from '../../stage';
-import { TrackedActivity } from '../activities';
-import { Activity } from '../Activity';
-import { Question } from '../Question';
-import { AnswersQuestions } from './AnswersQuestions';
-import { CollectsArtifacts } from './CollectsArtifacts';
-import { PerformsTasks } from './PerformsTasks';
-import { UsesAbilities } from './UsesAbilities';
+import { ArtifactGenerated } from '../events';
+import { Ability, AbilityType, DressingRoom, KnowableUnknown, serenity, TestCompromisedError } from '../index';
+import { Artifact, Name } from '../model';
+import { Stage } from '../stage';
+import { TrackedActivity } from './activities';
+import { Activity } from './Activity';
+import { Question } from './Question';
 
-export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, CollectsArtifacts {
+/**
+ * @desc
+ *  Enables the {@link Actor} to answer a {@link Question} about the system under test
+ *
+ * @public
+ * @interface
+ */
+export interface AnswersQuestions {
+    answer<T>(knownUnknown: KnowableUnknown<T>): Promise<T>;
+}
+
+/**
+ * @desc
+ *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed
+ *
+ * @public
+ * @interface
+ */
+export interface CollectsArtifacts {
+    /**
+     * @desc
+     * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.
+     *
+     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}
+     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report
+     */
+    collect(artifact: Artifact, name?: Name): void;
+}
+
+/**
+ * @desc
+ *  Enables the {@link Actor} to perform an {@link Activity}, such as a {@link Task} or an {@link Interaction}
+ *
+ * @public
+ * @interface
+ */
+export interface PerformsActivities {
+    attemptsTo(...tasks: Activity[]): Promise<void>;
+}
+
+/**
+ * @desc
+ *  Enables the {@link Actor} to have an {@link Ability} or Abilities to perform some {@link Activity}.
+ *
+ * @public
+ * @interface
+ */
+export interface CanHaveAbilities<Returned_Type = UsesAbilities> {
+    /**
+     * @param {Ability[]} abilities
+     * @returns {Actor}
+     */
+    whoCan(...abilities: Ability[]): Returned_Type;
+}
+
+/**
+ * @desc
+ *  Enables the {@link Actor} to use an {@link Ability} to perform some {@link Activity}.
+ *
+ * @public
+ * @interface
+ */
+export interface UsesAbilities {
+
+    /**
+     * @desc
+     *  Grants access to the Actor's ability
+     *
+     * @param {AbilityType<T extends Ability>} doSomething
+     * @returns {T}
+     */
+    abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
+}
+
+export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilities<Actor>, AnswersQuestions, CollectsArtifacts {
     // todo: Actor should have execution strategies
     // todo: the default one executes every activity
     // todo: there could be a dry-run mode that default to skip strategy
+
+    static named(name: string): CanHaveAbilities<Actor> {
+        return {
+            whoCan: (...abilities): Actor => {
+                const stage = serenity.callToStageFor(DressingRoom.whereEveryoneCan(...abilities));
+
+                return stage.theActorCalled(name);
+            },
+        };
+    }
 
     constructor(
         public readonly name: string,
@@ -32,8 +112,6 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
     }
 
     attemptsTo(...activities: Activity[]): Promise<void> {
-        // todo: if there are no activities, make it a PendingActivity
-        // todo: only change the execution strategy for the duration of the current task; tasks from afterhooks should still get executed
         return activities
             .map(activity => new TrackedActivity(activity, this.stage))  // todo: TrackedInteraction, TrackedTask
             .reduce((previous: Promise<void>, current: Activity) => {
@@ -41,7 +119,7 @@ export class Actor implements PerformsTasks, UsesAbilities, AnswersQuestions, Co
                     /* todo: add an execution strategy */
                     return current.performAs(this);
                 });
-        }, Promise.resolve(void 0));
+            }, Promise.resolve(void 0));
     }
 
     whoCan(...abilities: Ability[]): Actor {

@@ -8,7 +8,7 @@ import { StageCrewMember } from './StageCrewMember';
 import { StageManager } from './StageManager';
 
 export class Stage {
-    private readonly actorsOnStage: { [name: string]: Actor } = {};
+    private actorsOnStage: { [name: string]: Actor } = {};
     private actorInTheSpotlight: Actor = null;
 
     constructor(
@@ -89,6 +89,8 @@ export class Stage {
         ensure('DressingRoom', actors, isDefined());
 
         this.dressingRoom = actors;
+        this.actorsOnStage = {};
+        this.actorInTheSpotlight = null;
 
         return this;
     }
