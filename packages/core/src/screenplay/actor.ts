@@ -1,5 +1,5 @@
 import { ArtifactGenerated } from '../events';
-import { Ability, AbilityType, DressingRoom, KnowableUnknown, serenity, TestCompromisedError } from '../index';
+import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../index';
 import { Artifact, Name } from '../model';
 import { Stage } from '../stage';
 import { TrackedActivity } from './activities';
@@ -14,7 +14,7 @@ import { Question } from './Question';
  * @interface
  */
 export interface AnswersQuestions {
-    answer<T>(knownUnknown: KnowableUnknown<T>): Promise<T>;
+    answer<T>(knownUnknown: Answerable<T>): Promise<T>;
 }
 
 /**
@@ -133,31 +133,31 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
     }
 
     /**
-     * @param {KnowableUnknown<T>} knowableUnknown - a Question<Promise<T>>, Question<T>, Promise<T> or T
+     * @param {Answerable<T>} answerable - a Question<Promise<T>>, Question<T>, Promise<T> or T
      * @returns {Promise<T>} The answer to the KnowableUnknown
      */
-    answer<T>(knowableUnknown: KnowableUnknown<T>): Promise<T> {
-        function isAPromise<V>(v: KnowableUnknown<V>): v is Promise<V> {
+    answer<T>(answerable: Answerable<T>): Promise<T> {
+        function isAPromise<V>(v: Answerable<V>): v is Promise<V> {
             return !!(v as any).then;
         }
 
-        function isAQuestion<V>(v: KnowableUnknown<V>): v is Question<V> {
+        function isAQuestion<V>(v: Answerable<V>): v is Question<V> {
             return !! (v as any).answeredBy;
         }
 
-        function isDefined<V>(v: KnowableUnknown<V>) {
-            return ! (knowableUnknown === undefined || knowableUnknown === null);
+        function isDefined<V>(v: Answerable<V>) {
+            return ! (answerable === undefined || answerable === null);
         }
 
-        if (isDefined(knowableUnknown) && isAPromise(knowableUnknown)) {
-            return knowableUnknown;
+        if (isDefined(answerable) && isAPromise(answerable)) {
+            return answerable;
         }
 
-        if (isDefined(knowableUnknown) && isAQuestion(knowableUnknown)) {
-            return this.answer(knowableUnknown.answeredBy(this));
+        if (isDefined(answerable) && isAQuestion(answerable)) {
+            return this.answer(answerable.answeredBy(this));
         }
 
-        return Promise.resolve(knowableUnknown as T);
+        return Promise.resolve(answerable as T);
     }
 
     collect(artifact: Artifact, name?: string | Name) {

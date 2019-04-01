@@ -1,4 +1,4 @@
-import { KnowableUnknown } from '@serenity-js/core';
+import { Answerable } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 import { HTTPRequest } from './HTTPRequest';
 
@@ -46,12 +46,12 @@ export class GetRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<string>} resourceUri
+     * @param {Answerable<string>} resourceUri
      *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
      *
      * @returns {GetRequest}
      */
-    static to(resourceUri: KnowableUnknown<string>): GetRequest {
+    static to(resourceUri: Answerable<string>): GetRequest {
         return new GetRequest(resourceUri);
     }
 
@@ -60,12 +60,12 @@ export class GetRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<AxiosRequestConfig>} config
+     * @param {Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {GetRequest}
      */
-    using(config: KnowableUnknown<AxiosRequestConfig>): GetRequest {
+    using(config: Answerable<AxiosRequestConfig>): GetRequest {
         return new GetRequest(this.resourceUri, undefined, config);
     }
 }

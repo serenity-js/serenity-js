@@ -2,7 +2,7 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 
 import { expect, stage } from '@integration/testing-tools';
-import { AnswersQuestions, AssertionError, KnowableUnknown, LogicError } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, AssertionError, LogicError } from '@serenity-js/core';
 import { Ensure, equals, Expectation, Outcome } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
@@ -39,14 +39,14 @@ describe('Ensure', () => {
         })).toString()).to.equal(`#actor ensures that { person: { name: 'Jan' } } does equal { person: { name: 'Jan' } }`);
     });
 
-    given<KnowableUnknown<number>>(
+    given<Answerable<number>>(
         42,
         p(42),
         q(42),
         q(p(42)),
     ).
     /** @test {Ensure.that} */
-    it('allows for the actual to be a KnowableUnknown<T> as it compares its value', (actual: KnowableUnknown<number>) => {
+    it('allows for the actual to be a Answerable<T> as it compares its value', (actual: Answerable<number>) => {
         return expect(Enrique.attemptsTo(
             Ensure.that(actual, isIdenticalTo(42)),
         )).to.be.fulfilled;

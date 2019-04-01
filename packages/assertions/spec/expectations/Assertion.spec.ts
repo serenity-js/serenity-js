@@ -2,7 +2,7 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 
 import { expect, stage } from '@integration/testing-tools';
-import { AssertionError, KnowableUnknown } from '@serenity-js/core';
+import { Answerable, AssertionError } from '@serenity-js/core';
 import { Ensure, Expectation } from '../../src';
 import { isIdenticalTo, p, q } from '../fixtures';
 
@@ -33,13 +33,13 @@ describe('Expectation', () => {
             )).to.be.rejectedWith(AssertionError, "Expected 4 to have value identical to '4'");
         });
 
-        given<KnowableUnknown<number>>(
+        given<Answerable<number>>(
             42,
             p(42),
             q(42),
             q(p(42)),
         ).
-        it('allows for the expected value to be defined as any KnowableUnknown<T>', (expected: KnowableUnknown<number>) => {
+        it('allows for the expected value to be defined as any Answerable<T>', (expected: Answerable<number>) => {
             return expect(Astrid.attemptsTo(
                 Ensure.that(42, isIdenticalTo(expected)),
             )).to.be.fulfilled;

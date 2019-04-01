@@ -19,6 +19,7 @@ exports.config = {
 
     mochaOpts: {
         compiler: 'ts:ts-node/register',
+        reporter: 'dot',
     },
 
     capabilities: {

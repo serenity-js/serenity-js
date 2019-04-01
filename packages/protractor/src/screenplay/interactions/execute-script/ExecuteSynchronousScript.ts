@@ -1,4 +1,4 @@
-import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { BrowseTheWeb } from '../../abilities';
 import { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';
@@ -8,7 +8,7 @@ import { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';
  */
 export class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
 
-    withArguments(...args: Array<KnowableUnknown<any>>): Interaction {
+    withArguments(...args: Array<Answerable<any>>): Interaction {
         return new ExecuteSynchronousScript(this.script, args);
     }
 

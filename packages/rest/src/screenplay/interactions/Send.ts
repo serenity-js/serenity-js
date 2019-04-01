@@ -1,4 +1,4 @@
-import { AnswersQuestions, CollectsArtifacts, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { Artifact, HTTPRequestResponse, Name, RequestAndResponse } from '@serenity-js/core/lib/model';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CallAnApi } from '../abilities';
@@ -23,11 +23,11 @@ import { CallAnApi } from '../abilities';
  * @extends {Interaction}
  */
 export class Send extends Interaction {
-    static a(request: KnowableUnknown<AxiosRequestConfig>): Interaction {
+    static a(request: Answerable<AxiosRequestConfig>): Interaction {
         return new Send(request);
     }
 
-    constructor(private readonly request: KnowableUnknown<AxiosRequestConfig>) {
+    constructor(private readonly request: Answerable<AxiosRequestConfig>) {
         super();
     }
 

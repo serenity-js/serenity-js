@@ -1,4 +1,4 @@
-import { KnowableUnknown } from '@serenity-js/core';
+import { Answerable } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 import { HTTPRequest } from './HTTPRequest';
 
@@ -46,12 +46,12 @@ export class PutRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<string>} resourceUri
+     * @param {Answerable<string>} resourceUri
      *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
      *
      * @returns {PutRequest}
      */
-    static to(resourceUri: KnowableUnknown<string>): PutRequest {
+    static to(resourceUri: Answerable<string>): PutRequest {
         return new PutRequest(resourceUri);
     }
 
@@ -59,12 +59,12 @@ export class PutRequest extends HTTPRequest {
      * @desc
      *  Configures the object with a request body.
      *
-     * @param {KnowableUnknown<any>} data
+     * @param {Answerable<any>} data
      *  Data to be sent to the `resourceUri`
      *
      * @returns {PutRequest}
      */
-    with(data: KnowableUnknown<any>): PutRequest {
+    with(data: Answerable<any>): PutRequest {
         return new PutRequest(this.resourceUri, data, this.config);
     }
 
@@ -73,7 +73,7 @@ export class PutRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<AxiosRequestConfig>} config
+     * @param {Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {PutRequest}

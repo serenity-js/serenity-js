@@ -1,4 +1,4 @@
-import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
@@ -6,13 +6,13 @@ import { withAnswerOf } from '../withAnswerOf';
 export class Attribute implements Question<Promise<string>> {
     static of(target: Question<ElementFinder> | ElementFinder) {
         return {
-            called: (name: KnowableUnknown<string>) => new Attribute(target, name),
+            called: (name: Answerable<string>) => new Attribute(target, name),
         };
     }
 
     constructor(
         private readonly target: Question<ElementFinder> | ElementFinder,
-        private readonly name: KnowableUnknown<string>,
+        private readonly name: Answerable<string>,
     ) {
     }
 

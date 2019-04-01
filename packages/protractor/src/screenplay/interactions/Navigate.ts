@@ -1,4 +1,4 @@
-import { AnswersQuestions, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { promiseOf } from '../../promiseOf';
 import { BrowseTheWeb } from '../abilities';
@@ -13,7 +13,7 @@ import { BrowseTheWeb } from '../abilities';
  */
 export abstract class Navigate extends Interaction {
 
-    static to(url: KnowableUnknown<string>) {
+    static to(url: Answerable<string>) {
         return new NavigateToUrl(url);
     }
 
@@ -35,7 +35,7 @@ export abstract class Navigate extends Interaction {
 }
 
 class NavigateToUrl extends Navigate {
-    constructor(private readonly url: KnowableUnknown<string>) {
+    constructor(private readonly url: Answerable<string>) {
         super();
     }
 

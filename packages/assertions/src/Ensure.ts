@@ -1,4 +1,4 @@
-import { AnswersQuestions, AssertionError, Interaction, KnowableUnknown, Log, LogicError } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, AssertionError, Interaction, LogicError } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { match } from 'tiny-types';
 
@@ -6,12 +6,12 @@ import { Expectation } from './Expectation';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
 export class Ensure<Actual> extends Interaction {
-    static that<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
+    static that<A>(actual: Answerable<A>, expectation: Expectation<any, A>) {
         return new Ensure(actual, expectation);
     }
 
     constructor(
-        private readonly actual: KnowableUnknown<Actual>,
+        private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<Actual>,
     ) {
         super();
