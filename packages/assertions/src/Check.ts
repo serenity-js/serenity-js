@@ -1,4 +1,4 @@
-import { Activity, AnswersQuestions, KnowableUnknown, PerformsTasks, Task } from '@serenity-js/core';
+import { Activity, AnswersQuestions, KnowableUnknown, PerformsActivities, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './outcomes';
@@ -23,7 +23,7 @@ export class Check<Actual> extends Task {
         return new Check<Actual>(this.actual, this.expectation, this.activities, alternativeActivities);
     }
 
-    performAs(actor: AnswersQuestions & PerformsTasks): PromiseLike<void> {
+    performAs(actor: AnswersQuestions & PerformsActivities): PromiseLike<void> {
         return Promise.all([
             actor.answer(this.actual),
             actor.answer(this.expectation),

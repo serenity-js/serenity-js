@@ -1,4 +1,4 @@
-import { Actor } from '../screenplay/actor';
+import { Ability, Actor } from '../screenplay';
 
 /**
  * @desc
@@ -20,5 +20,21 @@ import { Actor } from '../screenplay/actor';
  * @interface
  */
 export abstract class DressingRoom {
+    static whereEveryoneCan(...abilities: Ability[]): DressingRoom {
+        return new GenericDressingRoom(abilities);
+    }
+
     abstract prepare(actor: Actor): Actor;
+}
+
+/**
+ * @package
+ */
+class GenericDressingRoom implements DressingRoom {
+    constructor(private readonly abilities: Ability[]) {
+    }
+
+    prepare(actor: Actor): Actor {
+        return actor.whoCan(...this.abilities);
+    }
 }

@@ -1,6 +1,6 @@
-import { AnswersQuestions, PerformsTasks, UsesAbilities } from './actor';
+import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 
 export interface Activity {
-    performAs(actor: PerformsTasks | UsesAbilities | AnswersQuestions): PromiseLike<any>;
+    performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): PromiseLike<any>;
     toString(): string;
 }

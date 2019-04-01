@@ -2,11 +2,11 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 
-import { InteractionFinished, InteractionStarts } from '../../../src/events';
-import { ExecutionSuccessful, Name, Timestamp } from '../../../src/model';
-import { Ability, Actor, See } from '../../../src/screenplay';
-import { Stage } from '../../../src/stage';
-import { expect } from '../../expect';
+import { InteractionFinished, InteractionStarts } from '../../src/events';
+import { ExecutionSuccessful, Name, Timestamp } from '../../src/model';
+import { Ability, Actor, See } from '../../src/screenplay';
+import { Stage } from '../../src/stage';
+import { expect } from '../expect';
 import {
     AcousticGuitar,
     Chords,
@@ -16,7 +16,7 @@ import {
     PlayAChord,
     PlayAGuitar,
     PlayASong,
-} from '../example-implementation';
+} from './example-implementation';
 
 const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.equal(expected);
 
@@ -103,6 +103,14 @@ describe('Actor', () => {
             PlayAChord.of(Chords.AMajor),
         )).to.be.eventually.rejectedWith(`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
+    /** @test {Actor} */
+    it(`can be instantiated without explicitly specifying the Stage`, () => {
+
+        const anActor: Actor = Actor.named('Bob').whoCan(PlayAGuitar.suchAs(guitar));
+
+        expect(anActor.name).to.equal('Bob');
+    });
+
     describe('DomainEvent handling', () => {
 
         let Bob: Actor;
@@ -139,8 +147,5 @@ describe('Actor', () => {
                 expect(secondEvent).to.have.property('timestamp').equal(now);
             }));
         });
-
-        /** @test {Actor} */
-        it('reacts to events and changes its behaviour');   // todo
     });
 });
