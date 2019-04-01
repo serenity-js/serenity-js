@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.43](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.42...v2.0.1-alpha.43) (2019-04-01)
+
+
+### Bug Fixes
+
+* **core:** Ensure tags are reported in a format understood by Serenity BDD ([6c4315c](https://github.com/jan-molak/serenity-js/commit/6c4315c))
+
+
+### Features
+
+* **core:** Actor.named('name') allows for instantiating an Actor without explicitly providing the S ([581a6ba](https://github.com/jan-molak/serenity-js/commit/581a6ba))
+
+
+
+
+
 ## [2.0.1-alpha.42](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.41...v2.0.1-alpha.42) (2019-03-29)
 
 
