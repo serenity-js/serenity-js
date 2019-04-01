@@ -1,11 +1,4 @@
-import {
-    AnswersQuestions,
-    CollectsArtifacts,
-    Interaction,
-    KnowableUnknown,
-    Question,
-    UsesAbilities,
-} from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { Name, TextData } from '@serenity-js/core/lib/model';
 
 /**
@@ -16,12 +9,12 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
 
     constructor(
         protected readonly script: string | Function,                                   // tslint:disable-line:ban-types
-        protected readonly args: Array<KnowableUnknown<any>> = [],
+        protected readonly args: Array<Answerable<any>> = [],
     ) {
         super();
     }
 
-    public abstract withArguments(...args: Array<KnowableUnknown<any>>): Interaction;
+    public abstract withArguments(...args: Array<Answerable<any>>): Interaction;
 
     protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;
 
@@ -40,9 +33,9 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
     /**
      * @private
      *
-     * @param {Array<KnowableUnknown<any>>} args
+     * @param {Array<Answerable<any>>} args
      */
-    private answerAll(args: Array<KnowableUnknown<any>>) {
+    private answerAll(args: Array<Answerable<any>>) {
         return {
             as: (actor: AnswersQuestions & UsesAbilities): Promise<any[]> => Promise.all(args.map(arg => {
                 const maybeElementFinder = Question.isAQuestion(arg)

@@ -1,4 +1,4 @@
-import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, UsesAbilities } from '@serenity-js/core';
 import getPort = require('get-port');
 import * as http from 'http';
 import * as net from 'net';

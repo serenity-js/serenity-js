@@ -1,4 +1,4 @@
-import { AnswersQuestions, CollectsArtifacts, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { ManageALocalServer } from '../abilities';
 
 export class StartLocalServer extends Interaction {
@@ -6,11 +6,11 @@ export class StartLocalServer extends Interaction {
         return new StartLocalServer();
     }
 
-    static onOneOfThePreferredPorts(preferredPorts: KnowableUnknown<number[]>): Interaction {
+    static onOneOfThePreferredPorts(preferredPorts: Answerable<number[]>): Interaction {
         return new StartLocalServer(preferredPorts);
     }
 
-    constructor(private readonly preferredPorts: KnowableUnknown<number[]> = []) {
+    constructor(private readonly preferredPorts: Answerable<number[]> = []) {
         super();
     }
 

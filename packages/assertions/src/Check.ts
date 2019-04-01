@@ -1,17 +1,17 @@
-import { Activity, AnswersQuestions, KnowableUnknown, PerformsActivities, Task } from '@serenity-js/core';
+import { Activity, Answerable, AnswersQuestions, PerformsActivities, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './outcomes';
 
 export class Check<Actual> extends Task {
-    static whether<A>(actual: KnowableUnknown<A>, expectation: Expectation<any, A>) {
+    static whether<A>(actual: Answerable<A>, expectation: Expectation<any, A>) {
         return {
             andIfSo: (...activities: Activity[]) => new Check(actual, expectation, activities),
         };
     }
 
     constructor(
-        private readonly actual: KnowableUnknown<Actual>,
+        private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<any, Actual>,
         private readonly activities: Activity[],
         private readonly alternativeActivities: Activity[] = [],

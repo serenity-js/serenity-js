@@ -1,4 +1,4 @@
-import { AnswersQuestions, KnowableUnknown, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
 
@@ -14,20 +14,20 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
     /**
      * @protected
      *
-     * @param {KnowableUnknown<string>} [resourceUri]
+     * @param {Answerable<string>} [resourceUri]
      *  URL to which the request should be sent
      *
-     * @param {KnowableUnknown<any>} [data]
+     * @param {Answerable<any>} [data]
      *  Request body to be sent as part of the Put, Post or Patch request
      *
-     * @param {KnowableUnknown<AxiosRequestConfig>} [config]
+     * @param {Answerable<AxiosRequestConfig>} [config]
      *  Axios request configuration, which can be used to override the defaults
      *  provided when the {@link CallAnApi} {@link Ability} is instantiated
      */
     protected constructor(
-        protected readonly resourceUri?: KnowableUnknown<string>,
-        protected readonly data?: KnowableUnknown<any>,
-        protected readonly config?: KnowableUnknown<AxiosRequestConfig>,
+        protected readonly resourceUri?: Answerable<string>,
+        protected readonly data?: Answerable<any>,
+        protected readonly config?: Answerable<AxiosRequestConfig>,
     ) {
     }
 

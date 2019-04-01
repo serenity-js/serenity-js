@@ -1,4 +1,4 @@
-import { AnswersQuestions, KnowableUnknown, Question } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
@@ -8,7 +8,7 @@ import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 export abstract class Expectation<Expected, Actual = Expected>
     implements Question<(actual: Actual) => Promise<Outcome<Expected, Actual>>>
 {
-    static thatActualShould<E, A>(relationshipName: string, expectedValue: KnowableUnknown<E>): {
+    static thatActualShould<E, A>(relationshipName: string, expectedValue: Answerable<E>): {
         soThat: (statement: (actual: A, expected: E) => boolean) => Expectation<E, A>,
     } {
         return ({
@@ -28,7 +28,7 @@ class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expe
     constructor(
         private readonly description: string,
         private readonly statement: (actual: Actual, expected: Expected) => boolean,
-        private readonly expectedValue: KnowableUnknown<Expected>,
+        private readonly expectedValue: Answerable<Expected>,
     ) {
         super();
     }

@@ -1,12 +1,12 @@
-import { AnswersQuestions, CollectsArtifacts, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { CallAnApi } from '../abilities';
 
 export class ChangeApiUrl extends Interaction {
-    static to(newApiUrl: KnowableUnknown<string>): Interaction {
+    static to(newApiUrl: Answerable<string>): Interaction {
         return new ChangeApiUrl(newApiUrl);
     }
 
-    constructor(private readonly newApiUrl: KnowableUnknown<string>) {
+    constructor(private readonly newApiUrl: Answerable<string>) {
         super();
     }
 

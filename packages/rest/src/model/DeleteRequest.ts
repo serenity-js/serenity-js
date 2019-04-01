@@ -1,4 +1,4 @@
-import { KnowableUnknown } from '@serenity-js/core';
+import { Answerable } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 import { HTTPRequest } from './HTTPRequest';
 
@@ -44,12 +44,12 @@ export class DeleteRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<string>} resourceUri
+     * @param {Answerable<string>} resourceUri
      *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
      *
      * @returns {DeleteRequest}
      */
-    static to(resourceUri: KnowableUnknown<string>): DeleteRequest {
+    static to(resourceUri: Answerable<string>): DeleteRequest {
         return new DeleteRequest(resourceUri);
     }
 
@@ -58,12 +58,12 @@ export class DeleteRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link Ability} was instantiated.
      *
-     * @param {KnowableUnknown<AxiosRequestConfig>} config
+     * @param {Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {DeleteRequest}
      */
-    using(config: KnowableUnknown<AxiosRequestConfig>): DeleteRequest {
+    using(config: Answerable<AxiosRequestConfig>): DeleteRequest {
         return new DeleteRequest(this.resourceUri, undefined, config);
     }
 }

@@ -5,4 +5,4 @@ import { Question } from './Question';
  *
  * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} KnowableUnknown<T>
  */
-export type KnowableUnknown<T> = Question<Promise<T>> | Question<T> | Promise<T> | T;
+export type Answerable<T> = Question<Promise<T>> | Question<T> | Promise<T> | T;

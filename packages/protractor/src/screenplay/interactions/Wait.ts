@@ -1,5 +1,5 @@
 import { Expectation, ExpectationMet } from '@serenity-js/assertions';
-import { AnswersQuestions, Duration, Interaction, KnowableUnknown, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
@@ -7,25 +7,25 @@ import { BrowseTheWeb } from '../abilities';
 export class Wait {
     static Default_Timeout = Duration.ofSeconds(5);
 
-    static for(duration: KnowableUnknown<Duration>): Interaction {
+    static for(duration: Answerable<Duration>): Interaction {
         return new WaitFor(duration);
     }
 
     static upTo(duration: Duration) {
         return {    // esdoc doesn't understand the fat arrow notation with generics, hence this 'function' here
-            until: function until<Actual>(actual: KnowableUnknown<Actual>, expectation: Expectation<any, Actual>): Interaction {
+            until: function until<Actual>(actual: Answerable<Actual>, expectation: Expectation<any, Actual>): Interaction {
                 return new WaitUntil(actual, expectation, duration);
             },
         };
     }
 
-    static until<Actual>(actual: KnowableUnknown<Actual>, expectation: Expectation<any, Actual>): Interaction {
+    static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<any, Actual>): Interaction {
         return new WaitUntil(actual, expectation, Wait.Default_Timeout);
     }
 }
 
 class WaitFor extends Interaction {
-    constructor(private readonly duration: KnowableUnknown<Duration>) {
+    constructor(private readonly duration: Answerable<Duration>) {
         super();
     }
 
@@ -40,7 +40,7 @@ class WaitFor extends Interaction {
 
 class WaitUntil<Actual> extends Interaction {
     constructor(
-        private readonly actual: KnowableUnknown<Actual>,
+        private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<any, Actual>,
         private readonly timeout: Duration,
     ) {

@@ -1,5 +1,5 @@
 import { inspect } from 'util';
-import { KnowableUnknown } from '../screenplay/KnowableUnknown';
+import { Answerable } from '../screenplay/Answerable';
 import { Question } from '../screenplay/Question';
 
 /**
@@ -9,9 +9,9 @@ import { Question } from '../screenplay/Question';
  * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
  *
  * @param {TemplateStringsArray} templates
- * @param {Array<KnowableUnknown<any>>} placeholders
+ * @param {Array<Answerable<any>>} placeholders
  */
-export function formatted(templates: TemplateStringsArray, ...placeholders: Array<KnowableUnknown<any>>) {
+export function formatted(templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>) {
     return templates
         .map((template, i) => i < placeholders.length
             ? [ template, descriptionOf(placeholders[i]) ]
@@ -22,12 +22,12 @@ export function formatted(templates: TemplateStringsArray, ...placeholders: Arra
 
 /**
  * @desc
- * Provides a human-readable and sync description of the {@link KnowableUnknown<T>}
+ * Provides a human-readable and sync description of the {@link Answerable<T>}
  *
  * @package
  * @param value
  */
-function descriptionOf(value: KnowableUnknown<any>): string {
+function descriptionOf(value: Answerable<any>): string {
     if (! isDefined(value)) {
         return inspect(value);
     }
@@ -68,9 +68,9 @@ function descriptionOf(value: KnowableUnknown<any>): string {
  * Checks if the value is defined
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
-function isDefined(v: KnowableUnknown<any>) {
+function isDefined(v: Answerable<any>) {
     return !! v;
 }
 
@@ -79,9 +79,9 @@ function isDefined(v: KnowableUnknown<any>) {
  * Checks if the value defines its own `toString` method
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
-function hasItsOwnToString(v: KnowableUnknown<any>): v is { toString: () => string } {
+function hasItsOwnToString(v: Answerable<any>): v is { toString: () => string } {
     return typeof v === 'object'
         && !! (v as any).toString
         && typeof (v as any).toString === 'function'
@@ -93,9 +93,9 @@ function hasItsOwnToString(v: KnowableUnknown<any>): v is { toString: () => stri
  * Checks if the value defines its own `inspect` method
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
-function isInspectable(v: KnowableUnknown<any>): v is { inspect: () => string } {
+function isInspectable(v: Answerable<any>): v is { inspect: () => string } {
     return !! (v as any).inspect && typeof (v as any).inspect === 'function';
 }
 
@@ -104,9 +104,9 @@ function isInspectable(v: KnowableUnknown<any>): v is { inspect: () => string } 
  * Checks if the value is a {@link Date}
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
-function isADate(v: KnowableUnknown<any>): v is Date {
+function isADate(v: Answerable<any>): v is Date {
     return v instanceof Date;
 }
 
@@ -115,9 +115,9 @@ function isADate(v: KnowableUnknown<any>): v is Date {
  * Checks if the value is a {@link Promise}
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
-function isAPromise<T>(v: KnowableUnknown<T>): v is Promise<T> {
+function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
     return !! (v as any).then;
 }
 
@@ -126,7 +126,7 @@ function isAPromise<T>(v: KnowableUnknown<T>): v is Promise<T> {
  * Checks if the value is a named {@link Function}
  *
  * @private
- * @param {KnowableUnknown<any>} v
+ * @param {Answerable<any>} v
  */
 function isANamedFunction<T>(v: any): v is { name: string } {
     return {}.toString.call(v) === '[object Function]' && (v as any).name !== '';
