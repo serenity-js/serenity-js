@@ -34,16 +34,16 @@ export interface SerenityBDDReport extends JSONObject {
 }
 
 export interface TestStep extends JSONObject {
-    number: number;                     // done [x]
-    description: string;                // done [x]
-    duration: number;                   // done [x]
-    startTime: number;                  // done [x]
-    result: string;                     // done [x]
-    children?: TestStep[];              // done [x]
-    screenshots?: Screenshot[];         // done [x]
-    reportData?: ReportData;            // done [x]
-    restQuery?: RESTQuery;              // done [x]
-    exception?: ErrorDetails;           // done [X]
+    number: number;
+    description: string;
+    duration: number;
+    startTime: number;
+    result: string;
+    children?: TestStep[];
+    screenshots?: Screenshot[];
+    reportData: ReportData[];
+    restQuery?: RESTQuery;
+    exception?: ErrorDetails;
     // precondition: false;             // not needed?
 }
 
