@@ -14,7 +14,7 @@ import {
     TestRunFinished,
 } from '../../../../../src/events';
 import { Path } from '../../../../../src/io';
-import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo } from '../../../../../src/model';
+import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '../../../../../src/model';
 import { SerenityBDDReporter, StageManager } from '../../../../../src/stage';
 import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { expect } from '../../../../expect';
@@ -186,6 +186,7 @@ describe('SerenityBDDReporter', () => {
                     new TaskStarts(makePayment),
                         new ArtifactGenerated(new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
                         new ArtifactArchived(new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
+                        new ArtifactGenerated(new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
                     new TaskFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinished(),
@@ -195,12 +196,16 @@ describe('SerenityBDDReporter', () => {
 
             expect(report.testSteps).to.have.lengthOf(2);
             expect(report.testSteps[0].number).to.equal(1);
-            expect(report.testSteps[0].reportData.title).to.equal('pick a card message');
-            expect(report.testSteps[0].reportData.contents).to.equal('{\n    "card": "default"\n}');
+            expect(report.testSteps[0].reportData[0].title).to.equal('pick a card message');
+            expect(report.testSteps[0].reportData[0].contents).to.equal('{\n    "card": "default"\n}');
 
             expect(report.testSteps[1].number).to.equal(2);
-            expect(report.testSteps[1].reportData.title).to.equal('make a payment message');
-            expect(report.testSteps[1].reportData.contents).to.deep.equal('{\n    \"amount\": \"£42\"\n}');
+
+            expect(report.testSteps[1].reportData[0].title).to.equal('make a payment message');
+            expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\n    \"amount\": \"£42\"\n}');
+
+            expect(report.testSteps[1].reportData[1].title).to.equal('server log');
+            expect(report.testSteps[1].reportData[1].contents).to.deep.equal('received payment request');
         });
     });
 

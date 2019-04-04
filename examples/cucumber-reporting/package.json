@@ -18,9 +18,9 @@
   "scripts": {
     "clean": "rimraf target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test:update-serenity": "serenity update --artifact net.serenity-bdd:serenity-cli:jar:all:2.1.5 --repository https://jcenter.bintray.com/ --ignoreSSL",
+    "test:update-serenity": "serenity update --artifact net.serenity-bdd:serenity-cli:jar:all:2.1.8 --repository https://jcenter.bintray.com/ --ignoreSSL",
     "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber/register.js --require ./features/step_definitions/sample.steps.ts --require ./features/support/configure_serenity.ts",
-    "test:report": "serenity run --artifact net.serenity-bdd:serenity-cli:jar:all:2.1.5",
+    "test:report": "serenity run --artifact net.serenity-bdd:serenity-cli:jar:all:2.1.8",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "verify": "npm test || true"
   },

@@ -140,6 +140,7 @@ export class SceneReport {
                 description: activity.name.value,
                 startTime:   time.toMillisecondTimestamp(),
                 children:    [],
+                reportData:  [],
                 screenshots: [],
             };
 
@@ -236,13 +237,13 @@ export class SceneReport {
 
     arbitraryDataCaptured(name: Name, contents: string) {
         return this.withMutated(report => {
-            this.activities.mostRecentlyAccessedItem().reportData = {
+            this.activities.mostRecentlyAccessedItem().reportData.push({
                 id: `report-data-${ cuid() }`,
                 isEvidence: false,
                 path: '',
                 title: name.value,
                 contents,
-            };
+            });
         });
     }
 
