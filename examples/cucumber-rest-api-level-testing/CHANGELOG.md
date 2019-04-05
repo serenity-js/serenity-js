@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.44](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.43...v2.0.1-alpha.44) (2019-04-04)
+
+
+### Features
+
+* **core:** Serenity/JS reports are compatible with Serenity BDD CLI 2.1.8 ([aea17de](https://github.com/jan-molak/serenity-js/commit/aea17de))
+
+
+
+
+
 ## [2.0.1-alpha.43](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.42...v2.0.1-alpha.43) (2019-04-01)
 
 **Note:** Version bump only for package @serenity-js-examples/cucumber-rest-api-level-testing
