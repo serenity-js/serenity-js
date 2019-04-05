@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.46](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.45...v2.0.1-alpha.46) (2019-04-05)
+
+
+### Bug Fixes
+
+* **core:** Reverted the peerDependencies change as Lerna can't support it ([e27f55f](https://github.com/jan-molak/serenity-js/commit/e27f55f))
+
+
+
+
+
 ## [2.0.1-alpha.45](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.44...v2.0.1-alpha.45) (2019-04-05)
 
 
