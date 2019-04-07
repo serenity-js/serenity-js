@@ -52,6 +52,27 @@ describe('Interaction', () => {
         });
     });
 
+    describe(`when handling errors`, () => {
+        const error = new Error(`We're sorry, something happened`);
+
+        it(`rejects the promise when the interaction function rejects a promise`, () => {
+            const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => Promise.reject(error));
+
+            return expect(Ivonne.attemptsTo(
+                InteractWithTheSystem(),
+            )).to.be.rejectedWith(error);
+        });
+
+        it(`rejects the promise when the interaction function throws an error`, () => {
+
+            const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => { throw error; });
+
+            return expect(Ivonne.attemptsTo(
+                InteractWithTheSystem(),
+            )).to.be.rejectedWith(error);
+        });
+    });
+
     /** @test {Interaction} */
     it('can optionally emit an artifact to be attached to the report or stored', () => {
         const spy = sinon.spy();
