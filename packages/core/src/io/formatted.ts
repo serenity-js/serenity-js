@@ -4,7 +4,7 @@ import { Question } from '../screenplay/Question';
 
 /**
  * @desc
- * A tag function returning a human-readable description of a template containing one or more {KnowableUnknown}s.
+ * A tag function returning a human-readable description of a template containing one or more {Answerable}s.
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
  *

@@ -134,15 +134,11 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
 
     /**
      * @param {Answerable<T>} answerable - a Question<Promise<T>>, Question<T>, Promise<T> or T
-     * @returns {Promise<T>} The answer to the KnowableUnknown
+     * @returns {Promise<T>} The answer to the Answerable
      */
     answer<T>(answerable: Answerable<T>): Promise<T> {
         function isAPromise<V>(v: Answerable<V>): v is Promise<V> {
             return !!(v as any).then;
-        }
-
-        function isAQuestion<V>(v: Answerable<V>): v is Question<V> {
-            return !! (v as any).answeredBy;
         }
 
         function isDefined<V>(v: Answerable<V>) {
@@ -153,7 +149,7 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
             return answerable;
         }
 
-        if (isDefined(answerable) && isAQuestion(answerable)) {
+        if (isDefined(answerable) && Question.isAQuestion(answerable)) {
             return this.answer(answerable.answeredBy(this));
         }
 
