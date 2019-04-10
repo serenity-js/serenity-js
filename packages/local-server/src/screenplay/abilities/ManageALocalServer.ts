@@ -1,6 +1,7 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 import getPort = require('get-port');
 import * as http from 'http';
+import withShutdownSupport = require('http-shutdown');
 import * as net from 'net';
 
 /**
@@ -53,7 +54,7 @@ export class ManageALocalServer implements Ability {
             ? http.createServer(listener)
             : listener;
 
-        return new ManageALocalServer(server);
+        return new ManageALocalServer(withShutdownSupport(server));
     }
 
     /**
@@ -70,9 +71,11 @@ export class ManageALocalServer implements Ability {
 
     /**
      * @param {net~Server} server
-     *  A Node.js server requestListener
+     *  A Node.js server requestListener, with support for server shutdown.
+     *
+     * @see https://www.npmjs.com/package/http-shutdown
      */
-    constructor(private readonly server: net.Server) {
+    constructor(private readonly server: net.Server & { shutdown: (callback: (error?: Error) => void) => void }) {
     }
 
     /**
@@ -83,7 +86,7 @@ export class ManageALocalServer implements Ability {
      * @returns {Promise<void>}
      */
     listen(preferredPorts: number[]): Promise<void> {
-        return getPort(preferredPorts).then(port => new Promise((resolve, reject) => {
+        return getPort({ port: preferredPorts }).then(port => new Promise<void>((resolve, reject) => {
             this.server.listen(port, '127.0.0.1', (error: Error) => {
                 if (!! error) {
                     return reject(error);
@@ -101,7 +104,7 @@ export class ManageALocalServer implements Ability {
      * @param fn
      * @returns {T}
      */
-    mapInstance<T>(fn: (server: net.Server) => T): T {
+    mapInstance<T>(fn: (server: net.Server & { shutdown: (callback: (error?: Error) => void) => void }) => T): T {
         return fn(this.server);
     }
 }

@@ -8,7 +8,7 @@ export class StopLocalServer extends Interaction {
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return ManageALocalServer.as(actor).mapInstance(server => new Promise((resolve, reject) => {
-            server.close((error: Error) => {
+            server.shutdown((error: Error) => {
                 if (!! error) {
                     return reject(error);
                 }
