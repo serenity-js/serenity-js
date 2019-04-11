@@ -1,5 +1,6 @@
 export * from './Clear';
 export * from './Click';
+export * from './DeleteCookies';
 export * from './DoubleClick';
 export * from './Enter';
 export { ExecuteScript, LastScriptExecution } from './execute-script';

@@ -1,4 +1,5 @@
 export * from './Attribute';
+export * from './Cookie';
 export * from './CSSClasses';
 export { Pick } from './Pick';
 export { Target } from './targets';

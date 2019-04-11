@@ -1,6 +1,6 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
-import { Navigation } from 'selenium-webdriver';
+import { Navigation, Options } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
 /**
@@ -97,10 +97,26 @@ export class BrowseTheWeb implements Ability {
      *  Interface for defining sequences of complex user interactions.
      *  Each sequence will not be executed until `perform` is called.
      *
-     * @returns {ActionSequence}
+     * @returns {external:selenium-webdriver.ActionSequence}
      */
     actions(): ActionSequence {
         return this.browser.actions();
+    }
+
+    /**
+     * @desc
+     *  Interface for managing browser and driver state.
+     *
+     * @returns {external:selenium-webdriver.Options}
+     */
+    manage(): Options {
+        /*
+        this.browser.manage().deleteCookie();
+        this.browser.manage().deleteAllCookies();
+        return this.browser.manage().getCookie('asd');
+         */
+
+        return this.browser.manage();
     }
 
     /**
