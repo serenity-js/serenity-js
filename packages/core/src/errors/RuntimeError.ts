@@ -31,6 +31,8 @@ export abstract class RuntimeError extends Error {
     ) {
         super(message);
         Object.setPrototypeOf(this, type.prototype);
+        this.name = this.constructor.name;
+
         Error.captureStackTrace(this, type);
 
         if (!! cause) {
