@@ -2,6 +2,7 @@ import { Ability, UsesAbilities } from '@serenity-js/core';
 import getPort = require('get-port');
 import * as http from 'http';
 import withShutdownSupport = require('http-shutdown');
+import * as https from 'https';
 import * as net from 'net';
 
 /**
@@ -44,17 +45,36 @@ import * as net from 'net';
 export class ManageALocalServer implements Ability {
 
     /**
+     * @private
+     */
+    private readonly server: net.Server & { shutdown: (callback: (error?: Error) => void) => void };
+
+    /**
      * @desc
      *  Ability to manage a Node.js HTTP server using a given server requestListener.
      *
      * @returns {ManageALocalServer}
      */
-    static running(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | net.Server) {
+    static runningAHttpListener(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | net.Server) {
         const server = typeof listener === 'function'
             ? http.createServer(listener)
             : listener;
 
-        return new ManageALocalServer(withShutdownSupport(server));
+        return new ManageALocalServer(SupportedProtocols.HTTP, server);
+    }
+
+    /**
+     * @desc
+     *  Ability to manage a Node.js HTTPS server using a given server requestListener.
+     *
+     * @returns {ManageALocalServer}
+     */
+    static runningAHttpsListener(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | https.Server, options: https.ServerOptions = {}) {
+        const server = typeof listener === 'function'
+            ? https.createServer(options, listener)
+            : listener;
+
+        return new ManageALocalServer(SupportedProtocols.HTTPS, server);
     }
 
     /**
@@ -70,12 +90,16 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
+     * @param {string} protocol
+     *  Protocol to be used when communicating with the running server.
+     *
      * @param {net~Server} server
      *  A Node.js server requestListener, with support for server shutdown.
      *
      * @see https://www.npmjs.com/package/http-shutdown
      */
-    constructor(private readonly server: net.Server & { shutdown: (callback: (error?: Error) => void) => void }) {
+    constructor(private readonly protocol: SupportedProtocols, server: net.Server) {
+        this.server = withShutdownSupport(server);
     }
 
     /**
@@ -104,7 +128,12 @@ export class ManageALocalServer implements Ability {
      * @param fn
      * @returns {T}
      */
-    mapInstance<T>(fn: (server: net.Server & { shutdown: (callback: (error?: Error) => void) => void }) => T): T {
-        return fn(this.server);
+    mapInstance<T>(fn: (server: net.Server & { shutdown: (callback: (error?: Error) => void) => void }, protocol?: SupportedProtocols) => T): T {
+        return fn(this.server, this.protocol);
     }
+}
+
+enum SupportedProtocols {
+    HTTP = 'http',
+    HTTPS = 'https',
 }
