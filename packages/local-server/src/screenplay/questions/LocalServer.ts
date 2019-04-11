@@ -10,7 +10,7 @@ export class LocalServer {
      */
     static url() {
         return Question.about<string>('the URL of the local server', actor => {
-            return ManageALocalServer.as(actor).mapInstance(server => {
+            return ManageALocalServer.as(actor).mapInstance((server, protocol) => {
                 const info = server.address();
 
                 if (! isAddressInfo(info)) {
@@ -18,7 +18,8 @@ export class LocalServer {
                 }
 
                 return [
-                    'http://',
+                    protocol,
+                    '://',
                     `${ info.family }`.toLowerCase() === 'ipv6' ? `[${ info.address }]` : info.address,
                     ':',
                     info.port,
