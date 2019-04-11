@@ -5,4 +5,5 @@ export * from './Answerable';
 export * from './Interaction';
 export * from './interactions';
 export * from './Question';
+export * from './questions';
 export * from './Task';
