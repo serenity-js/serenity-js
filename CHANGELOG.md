@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.48](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.47...v2.0.1-alpha.48) (2019-04-11)
+
+
+### Bug Fixes
+
+* **core:** Corrected the RuntimeError class so that the name of the constructor is present in the st ([0d2164d](https://github.com/jan-molak/serenity-js/commit/0d2164d))
+* **local-server:** Fixed the issue with the local server not getting stopped correctly ([9b0ea01](https://github.com/jan-molak/serenity-js/commit/9b0ea01))
+
+
+### Features
+
+* **core:** Transform allows for transforming an answer to a question ([082adeb](https://github.com/jan-molak/serenity-js/commit/082adeb))
+* **local-server:** Support for testing HTTPS servers ([569d1bc](https://github.com/jan-molak/serenity-js/commit/569d1bc))
+* **protractor:** Support for testing cookies ([15e043b](https://github.com/jan-molak/serenity-js/commit/15e043b))
+
+
+
+
+
 ## [2.0.1-alpha.47](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.46...v2.0.1-alpha.47) (2019-04-07)
 
 **Note:** Version bump only for package serenity-js-monorepo

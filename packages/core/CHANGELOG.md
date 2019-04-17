@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.48](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.47...v2.0.1-alpha.48) (2019-04-11)
+
+
+### Bug Fixes
+
+* **core:** Corrected the RuntimeError class so that the name of the constructor is present in the st ([0d2164d](https://github.com/jan-molak/serenity-js/commit/0d2164d))
+
+
+### Features
+
+* **core:** Transform allows for transforming an answer to a question ([082adeb](https://github.com/jan-molak/serenity-js/commit/082adeb))
+
+
+
+
+
 ## [2.0.1-alpha.47](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.46...v2.0.1-alpha.47) (2019-04-07)
 
 **Note:** Version bump only for package @serenity-js/core

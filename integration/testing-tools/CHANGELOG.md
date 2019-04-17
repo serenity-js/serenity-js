@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.48](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.47...v2.0.1-alpha.48) (2019-04-11)
+
+
+### Features
+
+* **local-server:** Support for testing HTTPS servers ([569d1bc](https://github.com/jan-molak/serenity-js/commit/569d1bc))
+
+
+
+
+
 ## [2.0.1-alpha.47](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.46...v2.0.1-alpha.47) (2019-04-07)
 
 **Note:** Version bump only for package @integration/testing-tools
