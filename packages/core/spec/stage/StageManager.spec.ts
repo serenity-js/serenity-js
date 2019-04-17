@@ -20,7 +20,7 @@ describe('StageManager', () => {
     /** @test {StageManager} */
     it('broadcasts the domain event it receives to all the registered subscribers', () => {
 
-        const stageManager = new StageManager(Duration.ofMillis(250), new Clock());
+        const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
         const crewMember1 = new Recorder();
         const crewMember2 = new Recorder();
 
@@ -41,7 +41,7 @@ describe('StageManager', () => {
      */
     it('keeps track of the work in progress', () => {
 
-        const stageManager = new StageManager(Duration.ofMillis(250), new Clock());
+        const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
 
         const id = CorrelationId.create();
 
@@ -63,7 +63,7 @@ describe('StageManager', () => {
      */
     it('provides details should the work in progress fail to complete', () => {
 
-        const timeout       = Duration.ofMillis(250);
+        const timeout       = Duration.ofMilliseconds(250);
         const stageManager = new StageManager(timeout, new Clock());
 
         stageManager.notifyOf(new AsyncOperationAttempted(
@@ -94,7 +94,7 @@ describe('StageManager', () => {
      */
     it('provides details should the work in progress fail with an error', () => {
 
-        const timeout       = Duration.ofMillis(100);
+        const timeout       = Duration.ofMilliseconds(100);
         const stageManager  = new StageManager(timeout, new Clock());
         const correlationId = CorrelationId.create();
 

@@ -2,7 +2,7 @@ import { ChildProcessReporter } from '@integration/testing-tools';
 import { serenity } from '@serenity-js/core';
 import { DebugReporter } from '@serenity-js/core/lib/stage';
 
-export = function() {
+export = function () {
 
     this.setDefaultTimeout(5000);
 

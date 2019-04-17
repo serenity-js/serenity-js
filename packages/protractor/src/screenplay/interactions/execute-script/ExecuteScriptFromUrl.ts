@@ -26,10 +26,10 @@ export class ExecuteScriptFromUrl extends Interaction {
             }
 
             var script = document.createElement('script');
-            script.onload = function() {
+            script.onload = function () {
                 return callback();
             };
-            script.onerror = function() {
+            script.onerror = function () {
                 return callback("Couldn't load script from " + this.src);
             };
 

@@ -7,7 +7,7 @@ import { isVisible, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 
-describe('isVisible', function() {
+describe('isVisible', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

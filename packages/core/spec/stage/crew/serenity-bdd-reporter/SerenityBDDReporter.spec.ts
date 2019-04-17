@@ -36,7 +36,7 @@ describe('SerenityBDDReporter', () => {
 
     const
         startTime = Timestamp.fromJSON('2018-05-25T00:00:00.123Z'),
-        scenarioDuration = Duration.ofMillis(142);
+        scenarioDuration = Duration.ofMilliseconds(142);
 
     const defaultCardScenario = new ScenarioDetails(
         new Name('Paying with a default card'),
@@ -183,7 +183,7 @@ describe('SerenityBDDReporter', () => {
              * @test {ExecutionSuccessful}
              */
             it('contains the duration of the scenario', () => {
-                expect(report.duration).to.equal(scenarioDuration.milliseconds);
+                expect(report.duration).to.equal(scenarioDuration.inMilliseconds());
             });
         });
 

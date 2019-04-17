@@ -1,4 +1,4 @@
-export = function() {
+export = function () {
 
     this.After(() => {
         // no-op

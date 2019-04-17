@@ -1,6 +1,9 @@
-import { adapterForCucumber, requireFrom } from './adapters';
+import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { listenerForCucumber } from './listeners';
 
-const cucumberVersion = requireFrom(process.cwd(), 'cucumber/package').version.split('.').map(v => parseInt(v, 10))[0];
-const cucumber = requireFrom(process.cwd(), 'cucumber');
+const loader = new ModuleLoader(process.cwd());
 
-export = adapterForCucumber(cucumberVersion, cucumber);
+const version = loader.versionOf('cucumber');
+const cucumber = loader.require('cucumber');
+
+export = listenerForCucumber(version, cucumber);

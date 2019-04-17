@@ -1,5 +1,5 @@
 import { After } from 'cucumber';
 
-After(function() {
+After(function () {
     // no-op
 });

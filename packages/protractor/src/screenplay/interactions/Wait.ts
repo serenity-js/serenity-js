@@ -30,7 +30,7 @@ class WaitFor extends Interaction {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return actor.answer(this.duration).then(duration => BrowseTheWeb.as(actor).sleep(duration.milliseconds));
+        return actor.answer(this.duration).then(duration => BrowseTheWeb.as(actor).sleep(duration.inMilliseconds()));
     }
 
     toString(): string {
@@ -52,13 +52,13 @@ class WaitUntil<Actual> extends Interaction {
             actual = this.actual,
             expectation = this.expectation.answeredBy(actor);
 
-        return BrowseTheWeb.as(actor).wait(function() {
+        return BrowseTheWeb.as(actor).wait(function () {
                 return actor.answer(actual)
                     .then(act => {
                         return expectation(act).then(outcome => outcome instanceof ExpectationMet);
                     });
             },
-            this.timeout.milliseconds,
+            this.timeout.inMilliseconds(),
         ).then(_ => void 0);
     }
 

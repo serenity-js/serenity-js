@@ -9,7 +9,7 @@ export class Serenity {
     constructor(clock: Clock = new Clock()) {
         this.stage = new Stage(
             new Extras(),
-            new StageManager(Duration.ofSeconds(3), clock),
+            new StageManager(Duration.ofSeconds(2), clock),     // todo: cue timeout should be configurable
         );
     }
 

@@ -7,7 +7,7 @@ import { requestHandler } from '@serenity-js-examples/calculator-app';
 export class Actors implements DressingRoom {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            ManageALocalServer.running(requestHandler),
+            ManageALocalServer.runningAHttpListener(requestHandler),
             CallAnApi.at('http://localhost'),
         );
     }

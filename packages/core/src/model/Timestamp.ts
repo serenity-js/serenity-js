@@ -22,11 +22,11 @@ export class Timestamp extends TinyType {
     }
 
     plus(duration: Duration): Timestamp {
-        return new Timestamp(moment(this.value).add(duration.milliseconds, 'ms').toDate());
+        return new Timestamp(moment(this.value).add(duration.inMilliseconds(), 'ms').toDate());
     }
 
     less(duration: Duration): Timestamp {
-        return new Timestamp(moment(this.value).subtract(duration.milliseconds, 'ms').toDate());
+        return new Timestamp(moment(this.value).subtract(duration.inMilliseconds(), 'ms').toDate());
     }
 
     toMillisecondTimestamp(): number {

@@ -1,5 +1,5 @@
 import { Before } from 'cucumber';
 
-Before({ tags: '@wip' }, function() {
+Before({ tags: '@wip' }, function () {
     return 'pending';
 });

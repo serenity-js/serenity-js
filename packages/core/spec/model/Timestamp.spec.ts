@@ -66,8 +66,8 @@ describe('Timestamp', () => {
 
             const a_bit_later = Timestamp.fromJSON('2018-05-01T12:00:02.752Z');
 
-            expect(now.diff(a_bit_later).equals(Duration.ofMillis(2752))).to.equal(true);
-            expect(a_bit_later.diff(now).equals(Duration.ofMillis(2752))).to.equal(true);
+            expect(now.diff(a_bit_later).equals(Duration.ofMilliseconds(2752))).to.equal(true);
+            expect(a_bit_later.diff(now).equals(Duration.ofMilliseconds(2752))).to.equal(true);
         });
 
         /** @test {Timestamp} */

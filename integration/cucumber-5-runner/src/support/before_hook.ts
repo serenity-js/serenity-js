@@ -1,5 +1,5 @@
 import { Before } from 'cucumber';
 
-Before(function() {
+Before(function () {
     // no-op
 });

@@ -84,7 +84,7 @@ export class StageManager {
 
                 // "else" can't happen because this case is covered by the interval check below
 
-            }, this.cueTimeout.milliseconds);
+            }, this.cueTimeout.inMilliseconds());
 
             interval = setInterval(() => {
                 if (this.wip.size === 0 && this.failedOperations.length === 0) {

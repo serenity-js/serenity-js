@@ -7,7 +7,7 @@ import { isClickable, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 
-describe('isClickable', function() {
+describe('isClickable', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

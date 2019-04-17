@@ -112,7 +112,7 @@ export class CallAnApi implements Ability {
      *  Allows for the original Axios config to be changed after the {@link CallAnApi} {@link Ability}
      *  has been instantiated and given to the {@link Actor}.
      *
-     * @param {function(original: AxiosRequestConfig): any} fn
+     * @param {function (original: AxiosRequestConfig): any} fn
      */
     modifyConfig(fn: (original: AxiosRequestConfig) => any): void {
         fn(this.axiosInstance.defaults);

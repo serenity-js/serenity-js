@@ -7,7 +7,7 @@ import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
 /** @test {LastScriptExecution} */
-describe('LastScriptExecution', function() {
+describe('LastScriptExecution', function () {
 
     const Joe = stage(new UIActors()).actor('Joe');
 

@@ -7,7 +7,7 @@ import { isSelected, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 
-describe('isSelected', function() {
+describe('isSelected', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

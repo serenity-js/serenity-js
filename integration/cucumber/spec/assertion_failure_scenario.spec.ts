@@ -14,7 +14,7 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 import { CucumberRunner, cucumberVersions } from '../src';
 
-describe('@serenity-js/cucumber', function() {
+describe('@serenity-js/cucumber', function () {
 
     this.timeout(5000);
 
