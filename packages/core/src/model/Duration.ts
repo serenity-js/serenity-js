@@ -8,15 +8,19 @@ export class Duration extends TinyType {
     private static msPerDay    = Duration.msPerHour * 24;
     private static msPerYear   = Duration.msPerDay * 365;
 
-    static ofMillis  = (milliseconds: number) => new Duration(milliseconds);
-    static ofSeconds = (seconds: number)      => Duration.ofMillis(seconds  * Duration.msPerSecond);
-    static ofMinutes = (minutes: number)      => Duration.ofMillis(minutes  * Duration.msPerMinute);
-    static ofHours   = (hours: number)        => Duration.ofMillis(hours    * Duration.msPerHour);
-    static ofDays    = (days: number)         => Duration.ofMillis(days     * Duration.msPerDay);
-    static ofYears   = (years: number)        => Duration.ofMillis(years    * Duration.msPerYear);
+    static ofMilliseconds   = (milliseconds: number) => new Duration(milliseconds);
+    static ofSeconds        = (seconds: number)      => Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
+    static ofMinutes        = (minutes: number)      => Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
+    static ofHours          = (hours: number)        => Duration.ofMilliseconds(hours    * Duration.msPerHour);
+    static ofDays           = (days: number)         => Duration.ofMilliseconds(days     * Duration.msPerDay);
+    static ofYears          = (years: number)        => Duration.ofMilliseconds(years    * Duration.msPerYear);
 
-    constructor(public readonly milliseconds: number) {
+    constructor(private readonly milliseconds: number) {
         super();
+    }
+
+    inMilliseconds(): number {
+        return this.milliseconds;
     }
 
     toString() {

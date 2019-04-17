@@ -7,7 +7,7 @@ import { isPresent, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 
-describe('isPresent', function() {
+describe('isPresent', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

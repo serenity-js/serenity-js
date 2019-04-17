@@ -129,7 +129,7 @@ export class SceneReport {
 
     executionFinishedAt(time: Timestamp): SceneReport {
         return this.withMutated(report => {
-            report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).milliseconds;
+            report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).inMilliseconds();
         });
     }
 
@@ -155,7 +155,7 @@ export class SceneReport {
             const activityReport = this.activities.pop();
 
             activityReport.result    = result;
-            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).milliseconds;
+            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).inMilliseconds();
 
             if (!! error && ! this.activities.haveFailed) {
                 activityReport.exception = error;

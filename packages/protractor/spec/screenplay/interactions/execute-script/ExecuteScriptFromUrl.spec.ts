@@ -7,7 +7,7 @@ import { ExecuteScript, Navigate, Target, Text } from '../../../../src';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScriptFromUrl} */
-describe('ExecuteScriptFromUrl', function() {
+describe('ExecuteScriptFromUrl', function () {
 
     const Joe = stage(new UIActors()).actor('Joe');
 

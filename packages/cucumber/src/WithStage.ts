@@ -12,14 +12,14 @@ import { Stage } from '@serenity-js/core/lib/stage';
  * import { WithStage } from '@serenity-js/cucumber';
  * import { setWorldConstructor } from 'cucumber';
  *
- * setWorldConstructor(function(this: WithStage, { parameters }) {
+ * setWorldConstructor(function (this: WithStage, { parameters }) {
  *   this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());
  * });
  *
  * @example <caption>features/step_definitions/some.steps.ts</caption>
  * import { WithStage } from '@serenity-js/cucumber';
  *
- * Given(/(.*?) is a registered customer/, function(this: WithStage, actorName: string) {
+ * Given(/(.*?) is a registered customer/, function (this: WithStage, actorName: string) {
  *   return this.stage.actor(actorName).attemptsTo(
  *
  *   );

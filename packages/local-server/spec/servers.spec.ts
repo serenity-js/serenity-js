@@ -20,7 +20,7 @@ describe('ManageALocalServer', () => {
     describe('when working with HTTP', () => {
 
         given(servers).
-        it('allows the Actor to start, stop and access the location of a HTTP', function({ handler, node }) {
+        it('allows the Actor to start, stop and access the location of a HTTP', function ({ handler, node }) {
             if (! satisfies(process.versions.node, node)) {
                 return this.skip();
             }
@@ -64,7 +64,7 @@ describe('ManageALocalServer', () => {
             require('./servers/express'),
             require('./servers/koa'),
         ).
-        it('allows the Actor to start, stop and access the location of a HTTPS', function({ handler, node }) {
+        it('allows the Actor to start, stop and access the location of a HTTPS', function ({ handler, node }) {
             if (! satisfies(process.versions.node, node)) {
                 return this.skip();
             }
@@ -95,7 +95,7 @@ describe('ManageALocalServer', () => {
             return expect(Nadia.attemptsTo(...testHttpsServer)).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
         });
 
-        it('allows the Actor to start, stop and access the location of a HTTPS Hapi app', function() {
+        it('allows the Actor to start, stop and access the location of a HTTPS Hapi app', function () {
             const hapi = require('./servers/hapi');
 
             if (! satisfies(process.versions.node, hapi.node)) {
@@ -130,7 +130,7 @@ describe('ManageALocalServer', () => {
             return expect(Nadia.attemptsTo(...testHttpsServer)).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
         });
 
-        it('allows the Actor to start, stop and access the location of a Restify app', function() {
+        it('allows the Actor to start, stop and access the location of a Restify app', function () {
             const restify = require('./servers/restify');
 
             if (! satisfies(process.versions.node, restify.node)) {

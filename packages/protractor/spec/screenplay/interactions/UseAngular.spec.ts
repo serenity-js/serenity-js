@@ -7,7 +7,7 @@ import { UseAngular } from '../../../src';
 import { promiseOf } from '../../../src/promiseOf';
 import { UIActors } from '../../UIActors';
 
-describe('UseAngular', function() {
+describe('UseAngular', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

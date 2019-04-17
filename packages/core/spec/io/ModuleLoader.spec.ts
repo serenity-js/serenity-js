@@ -1,0 +1,28 @@
+import 'mocha';
+import path = require('path');
+import { ModuleLoader, Version } from '../../src/io';
+import { expect } from '../expect';
+
+describe('ModuleLoader', () => {
+
+    it('returns the major version number of a given package', () => {
+        const loader = new ModuleLoader(__dirname);
+
+        const expectedVersion = require('../../package.json').version;
+
+        expect(loader.versionOf('../../')).to.equal(new Version(expectedVersion));
+    });
+
+    it('returns the major version of the npm-resolved package if the local package could not be found', () => {
+        const loader = new ModuleLoader(path.join(__dirname, 'non-existent', 'local', 'directory'));
+
+        const expectedVersion = require('tiny-types/package.json').version;                             // tslint:disable-line:no-submodule-imports
+
+        expect(loader.versionOf('tiny-types')).to.equal(new Version(expectedVersion));
+    });
+
+    it('complains if neither a local version or the npm-resolved version could not be found', () => {
+        const loader = new ModuleLoader(__dirname);
+        expect(() => loader.versionOf('non-existent-module')).to.throw(Error, `Cannot find module 'non-existent-module/package'`);
+    });
+});

@@ -6,7 +6,7 @@ import { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '..
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
-describe('Scroll', function() {
+describe('Scroll', function () {
 
     const Gandalf = stage(new UIActors()).actor('Gandalf');
 

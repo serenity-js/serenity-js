@@ -1,6 +1,6 @@
-export = function() {
+export = function () {
 
-    this.Before({ tags: ['@wip'] }, function() {
+    this.Before({ tags: ['@wip'] }, function () {
         return 'pending';
     });
 };

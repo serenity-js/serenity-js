@@ -8,7 +8,7 @@ import { JSONObject } from 'tiny-types';
 export interface SerenityBDDReport extends JSONObject {
     name: string;                       // done [x]
     id: string;                         // done [x]
-    testSteps: TestStep[];              // todo [ ]
+    testSteps: TestStep[];              // done [x]
     userStory: UserStory;               // todo [~]    cucumber
     // https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/
     // serenity-core/src/test/resources/historical-reports/sample-report-4.json

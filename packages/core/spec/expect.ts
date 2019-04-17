@@ -4,7 +4,7 @@ import chaiAsPromised = require('chai-as-promised');
 import sinonChai = require('sinon-chai');
 import { TinyType } from 'tiny-types';
 
-chaiModule.use(function(chai, utils) {
+chaiModule.use(function (chai, utils) {
     const Assertion = chai.Assertion;
 
     function tinyTypeEqual(_super) {

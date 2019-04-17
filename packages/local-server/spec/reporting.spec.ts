@@ -18,7 +18,7 @@ describe('@serenity-js/local-server', () => {
     class Actors implements DressingRoom {
         prepare(actor: Actor): Actor {
             return actor.whoCan(
-                ManageALocalServer.runningAHttpListener(function(request, response) {
+                ManageALocalServer.runningAHttpListener(function (request, response) {
                     response.setHeader('Connection', 'close');
                     response.end('Hello World!');
                 }),

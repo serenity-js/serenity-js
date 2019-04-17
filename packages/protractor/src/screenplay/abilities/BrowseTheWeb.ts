@@ -155,7 +155,7 @@ export class BrowseTheWeb implements Ability {
      *
      * @example <caption>protractor.conf.js</caption>
      * exports.config = {
-     *     onPrepare: function() {
+     *     onPrepare: function () {
      *         return browser.waitForAngularEnabled(false);
      *     },
      *

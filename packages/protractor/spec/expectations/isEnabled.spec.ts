@@ -7,7 +7,7 @@ import { isEnabled, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 
-describe('isEnabled', function() {
+describe('isEnabled', function () {
 
     const Bernie = stage(new UIActors()).actor('Bernie');
 

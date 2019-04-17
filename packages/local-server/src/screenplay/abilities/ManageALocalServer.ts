@@ -18,7 +18,7 @@ import * as net from 'net';
  * import axios from 'axios';
  * import * as http from 'http';
  *
- * const server = http.createServer(function(request, response) {
+ * const server = http.createServer(function (request, response) {
  *     response.setHeader('Connection', 'close');
  *     response.end('Hello!');
  * })

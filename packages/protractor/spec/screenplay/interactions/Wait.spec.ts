@@ -19,8 +19,8 @@ describe('Wait', () => {
             <body>
                 <h1 id="status">Loading...</h1>
                 <script>
-                    (function() {
-                        setTimeout(function() {
+                    (function () {
+                        setTimeout(function () {
                             document.getElementById('status').textContent = 'Ready!'
                         }, 200);
                     })();
@@ -36,14 +36,14 @@ describe('Wait', () => {
         it(`pauses the actor flow for the length of an explicitly-set duration`, () => Bernie.attemptsTo(
             Navigate.to(Test_Page),
 
-            Wait.for(Duration.ofMillis(300)),
+            Wait.for(Duration.ofMilliseconds(300)),
 
             Ensure.that(Text.of(Status), equals('Ready!')),
         ));
 
         /** @test {Wait#toString} */
         it(`provides a sensible description of the interaction being performed`, () => {
-            expect(Wait.for(Duration.ofMillis(300)).toString())
+            expect(Wait.for(Duration.ofMilliseconds(300)).toString())
                 .to.equal(`#actor waits for 300ms`);
         });
     });
@@ -66,14 +66,14 @@ describe('Wait', () => {
         it('pauses the actor flow until the timeout expires', () => expect(Bernie.attemptsTo(
             Navigate.to(Test_Page),
 
-            Wait.upTo(Duration.ofMillis(10)).until(Text.of(Status), equals('Ready!')),
+            Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(Status), equals('Ready!')),
         )).to.be.rejected.then(error => {
             expect(error.constructor.name).to.equal('TimeoutError');
         }));
 
         /** @test {Wait#toString} */
         it(`provides a sensible description of the interaction being performed`, () => {
-            expect(Wait.upTo(Duration.ofMillis(10)).until(Text.of(Status), equals('Ready!')).toString())
+            expect(Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(Status), equals('Ready!')).toString())
                 .to.equal(`#actor waits up to 10ms until the text of the header does equal 'Ready!'`);
         });
     });

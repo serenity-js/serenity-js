@@ -14,7 +14,7 @@ import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../
 import { create } from '../create';
 import { Perform } from '../fixtures';
 
-describe('Photographer', function() {
+describe('Photographer', function () {
 
     this.timeout(5000);
 

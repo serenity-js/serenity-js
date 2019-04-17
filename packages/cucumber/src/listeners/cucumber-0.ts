@@ -14,13 +14,13 @@ import { AmbiguousStepDefinitionError } from '../errors';
 import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from '../gherkin';
 import { Dependencies } from './Dependencies';
 
-export = function({ notifier, loader, cache }: Dependencies) {
-    return function() {
-        this.registerHandler('BeforeFeature', function(feature, callback) {
+export = function ({ notifier, loader, cache }: Dependencies) {
+    return function () {
+        this.registerHandler('BeforeFeature', function (feature, callback) {
             loader.load(get(feature, 'uri').as(Path)).then(_ => callback(), error => callback(error));
         });
 
-        this.registerHandler('BeforeScenario', function(scenario) {
+        this.registerHandler('BeforeScenario', function (scenario) {
             const
                 path  = get(scenario, 'uri').as(Path),
                 line  = get(scenario, 'line').value() as number,
@@ -36,7 +36,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
         });
 
-        this.registerHandler('BeforeStep', function(step) {
+        this.registerHandler('BeforeStep', function (step) {
             if (shouldIgnore(step)) {
                 return void 0;
             }
@@ -48,7 +48,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.stepStarts(findStepMatching(step, cache.get(path)));
         });
 
-        this.registerHandler('StepResult', function(result) {
+        this.registerHandler('StepResult', function (result) {
             const
                 step     = get(result, 'step').value(),
                 scenario = get(step, 'scenario').value(),
@@ -61,7 +61,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
         });
 
-        this.registerHandler('ScenarioResult', function(result) {
+        this.registerHandler('ScenarioResult', function (result) {
 
             const
                 scenario = get(result, 'scenario').value(),
@@ -73,7 +73,7 @@ export = function({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
-        this.registerHandler('AfterScenario', function(scenario, callback) {
+        this.registerHandler('AfterScenario', function (scenario, callback) {
             serenity.waitForNextCue()
                 .then(() => callback(), error => callback(error));
         });

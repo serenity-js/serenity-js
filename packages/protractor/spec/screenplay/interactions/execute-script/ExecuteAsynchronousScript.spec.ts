@@ -12,7 +12,7 @@ import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteAsynchronousScript} */
-describe('ExecuteAsynchronousScript', function() {
+describe('ExecuteAsynchronousScript', function () {
 
     const Joe = stage(new UIActors()).actor('Joe');
 
@@ -38,7 +38,7 @@ describe('ExecuteAsynchronousScript', function() {
         ExecuteScript.async(`
             var callback = arguments[arguments.length - 1];
 
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById('name').value = 'Joe';
                 callback();
             }, 100);
@@ -56,7 +56,7 @@ describe('ExecuteAsynchronousScript', function() {
             var name = arguments[0];
             var callback = arguments[arguments.length - 1];
 
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById('name').value = name;
                 callback();
             }, 100);
@@ -74,7 +74,7 @@ describe('ExecuteAsynchronousScript', function() {
             var name = arguments[0];
             var callback = arguments[arguments.length - 1];
 
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById('name').value = name;
                 callback();
             }, 100);
@@ -93,7 +93,7 @@ describe('ExecuteAsynchronousScript', function() {
             var field = arguments[1];
             var callback = arguments[arguments.length - 1];
 
-            setTimeout(function() {
+            setTimeout(function () {
                 field.value = name;
                 callback();
             }, 100);

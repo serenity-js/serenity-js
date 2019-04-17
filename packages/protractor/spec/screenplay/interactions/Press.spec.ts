@@ -42,7 +42,7 @@ describe('Press', () => {
 
     });
 
-    describe('keyboard shortcuts', function() {
+    describe('keyboard shortcuts', function () {
 
         /** @test {Press} */
         /** @test {Press.the} */

@@ -12,7 +12,7 @@ import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteSynchronousScript} */
-describe('ExecuteSynchronousScript', function() {
+describe('ExecuteSynchronousScript', function () {
 
     const Joe = stage(new UIActors()).actor('Joe');
 
