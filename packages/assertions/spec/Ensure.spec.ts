@@ -2,7 +2,7 @@ import 'mocha';
 import { given } from 'mocha-testdata';
 
 import { expect, stage } from '@integration/testing-tools';
-import { Answerable, AnswersQuestions, AssertionError, LogicError } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, AssertionError, LogicError, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { Ensure, equals, Expectation, Outcome } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
@@ -67,5 +67,25 @@ describe('Ensure', () => {
         return expect(Enrique.attemptsTo(
             Ensure.that(4, new BrokenExpectation()),
         )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an Outcome, not null');
+    });
+
+    describe('custom errors', () => {
+
+        it(`allows the actor to fail the flow with a custom RuntimeError, embedding the original error`, () => {
+            return expect(Enrique.attemptsTo(
+                    Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError),
+                ))
+                .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
+                .then((error: RuntimeError) => {
+                    expect(error.cause).to.be.instanceOf(AssertionError);
+                    expect(error.cause.message).to.be.equal('Expected 503 to equal 200');
+                });
+        });
+
+        it(`allows the actor to fail the flow with a custom RuntimeError with a custom error message`, () => {
+            return expect(Enrique.attemptsTo(
+                Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError, 'The server is down. Please cheer it up.'),
+            )).to.be.rejectedWith(TestCompromisedError, 'The server is down. Please cheer it up.');
+        });
     });
 });
