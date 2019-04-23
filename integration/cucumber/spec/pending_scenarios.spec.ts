@@ -170,7 +170,7 @@ describe('@serenity-js/cucumber', function () {
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`Given step number one that passes`)))
-                .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number two that is marked as pending`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name(`And step number three that fails with generic error`)))

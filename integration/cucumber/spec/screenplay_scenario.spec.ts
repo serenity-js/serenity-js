@@ -26,17 +26,13 @@ describe('@serenity-js/cucumber', function () {
             .withStepDefsIn('screenplay')
             .toRun('features/screenplay_scenario.feature'),
 
-        // fixme: a bug in Event Protocol causes Cucumber 3-5 to incorrectly report test-step-start and test-step-finished events
-        // fixme: see https://github.com/cucumber/cucumber-js/issues/1195
-        // ...cucumberVersions(3, 4, 5)
-        //     .thatRequires('lib/support/configure_serenity.js')
-        //     .withStepDefsIn('tasty-cucumber')
-        //     .withArgs(
-        //         // '--format', 'node_modules/@serenity-js/cucumber/register.js',
-        //         '--format', 'event-protocol',
-        //     )
-        //     // .toRun('features/screenplay_scenario.feature'),
-        //     .toRun('features/tasty-cucumber.feature'),
+        ...cucumberVersions(3, 4, 5)
+            .thatRequires('lib/support/configure_serenity.js')
+            .withStepDefsIn('screenplay')
+            .withArgs(
+                '--format', 'node_modules/@serenity-js/cucumber/register.js',
+            )
+            .toRun('features/screenplay_scenario.feature'),
     ]).
     it('recognises Screenplay activities in any part of the Cucumber scenario', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
@@ -68,7 +64,4 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
             ;
         }));
-
-    // todo: I added a skipped test so that I remember to add the tests above back in when the Cucumber bug is fixed
-    it('recognises Screenplay activities in any part of the Cucumber scenario when the Event Protocol is being used');
 });
