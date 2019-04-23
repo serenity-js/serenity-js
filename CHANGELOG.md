@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.50](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.49...v2.0.1-alpha.50) (2019-04-18)
+
+
+### Features
+
+* **assertions:** Ensure can embed the assertion error in any custom RuntimeError ([e18d331](https://github.com/jan-molak/serenity-js/commit/e18d331))
+
+
+
+
+
 ## [2.0.1-alpha.49](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.48...v2.0.1-alpha.49) (2019-04-17)
 
 
