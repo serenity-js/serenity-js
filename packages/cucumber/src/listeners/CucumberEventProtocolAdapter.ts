@@ -1,22 +1,32 @@
 import { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } from '@serenity-js/core/lib/errors';
-import { ErrorSerialiser, Path } from '@serenity-js/core/lib/io';
+import { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending,
+    ImplementationPending, Name,
     Outcome,
 } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../errors';
-import { Feature, ScenarioOutline } from '../gherkin';
+import { Feature, Hook, ScenarioOutline, Step } from '../gherkin';
 import { Scenario } from '../gherkin/model';
 import { CucumberFormatterOptions } from './CucumberFormatterOptions';
 import { Dependencies } from './Dependencies';
 
 import { ensure, isDefined } from 'tiny-types';
+
+interface Location {
+    uri: string;
+    line: number;
+}
+
+interface StepLocations {
+    actionLocation?: Location;
+    sourceLocation?: Location;
+}
 
 export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Dependencies) {
     return class CucumberEventProtocolAdapter {
@@ -34,6 +44,55 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                 const path = new Path(uri);
                 cache.set(path, mapper.map(document, path));
             });
+
+            eventBroadcaster.on('test-case-prepared', ({ steps, sourceLocation }: {
+                steps: StepLocations[],
+                sourceLocation: Location,
+            }) => {
+                ensure('test-case-prepared :: steps', steps, isDefined());
+                ensure('test-case-prepared :: sourceLocation', sourceLocation, isDefined());
+
+                const
+                    path = new Path(sourceLocation.uri),
+                    map = cache.get(path),
+                    scenario = map.get(Scenario).onLine(sourceLocation.line);
+
+                if (!! scenario.outline) {
+                    const outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
+
+                    map.set(new ScenarioOutline(
+                        outline.location,
+                        outline.name,
+                        outline.description,
+                        interleaveStepsAndHooks(outline.steps, steps),
+                        outline.parameters,
+                    )).onLine(scenario.outline.line);
+                } else {
+                    map.set(new Scenario(
+                        scenario.location,
+                        scenario.name,
+                        scenario.description,
+                        interleaveStepsAndHooks(scenario.steps, steps),
+                        scenario.tags,
+                        scenario.outline,
+                    )).onLine(sourceLocation.line);
+                }
+            });
+
+            function interleaveStepsAndHooks(steps: Step[], stepsLocations: StepLocations[]): Array<Step | Hook> {
+                const
+                    isAHook = (stepLocations: StepLocations) =>
+                        stepLocations.actionLocation && ! stepLocations.sourceLocation,
+                    matching  = (location: StepLocations) =>
+                        (step: Step) =>
+                            step.location.path.value === location.sourceLocation.uri && step.location.line === location.sourceLocation.line;
+
+                return stepsLocations.map(location =>
+                    isAHook(location)
+                        ?   new Hook(new FileSystemLocation(new Path(location.actionLocation.uri), location.actionLocation.line), new Name('Setup'))
+                        :   steps.find(matching(location)),
+                );
+            }
 
             eventBroadcaster.on('test-case-started', ({ sourceLocation }) => {
                 ensure('test-case-started :: sourceLocation', sourceLocation, isDefined());
@@ -60,7 +119,7 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                     scenario = map.get(Scenario).onLine(testCase.sourceLocation.line),
                     step     = scenario.steps[index];
 
-                if (!! step) {
+                if (step instanceof Step) { // ignore hooks
                     notifier.stepStarts(step);
                 }
             });
@@ -76,7 +135,7 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                     scenario = map.get(Scenario).onLine(testCase.sourceLocation.line),
                     step     = scenario.steps[index];
 
-                if (!! step) {
+                if (step instanceof Step) { // ignore hooks
                     notifier.stepFinished(step, this.outcomeFrom(result));
                 }
             });
@@ -122,24 +181,15 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
             // tslint:enable:switch-default
         }
 
-        errorFrom(exception: Error | string) {
-            if (exception instanceof Error) {
-                return exception;
+        errorFrom(exception: Error | string): Error {
+            switch (true) {
+                case exception instanceof Error:
+                    return exception as Error;
+                case typeof exception === 'string' && exception.startsWith('Multiple step definitions match'):
+                    return new AmbiguousStepDefinitionError(exception as string);
+                default:
+                    return ErrorSerialiser.deserialiseFromStackTrace(exception as string);
             }
-
-            if (typeof exception === 'string') {
-                switch (true) {
-                    case exception.startsWith('Multiple step definitions match'):
-                        return new AmbiguousStepDefinitionError(exception);
-                    default:
-                        return ErrorSerialiser.deserialiseFromStackTrace(exception);
-                }
-            }
-
-            const message = `Cucumber has reported the following error, which Serenity/JS didn't recognise: "${ exception }"`;
-            this.log(message, exception);
-
-            return new UnknownError(message);
         }
     };
 }

@@ -1,0 +1,13 @@
+[
+  {"type":"source","uri":"features/errors-in-steps.feature","data":"Feature: Event Protocol\n\n  Scenario: Errors in steps\n\n    Given I have a step that throws an error\n","media":{"encoding":"utf-8","type":"text/x.cucumber.gherkin+plain"}},
+  {"type":"gherkin-document","uri":"features/errors-in-steps.feature","document":{"type":"GherkinDocument","feature":{"type":"Feature","tags":[],"location":{"line":1,"column":1},"language":"en","keyword":"Feature","name":"Event Protocol","children":[{"type":"Scenario","tags":[],"location":{"line":3,"column":3},"keyword":"Scenario","name":"Errors in steps","steps":[{"type":"Step","location":{"line":5,"column":5},"keyword":"Given ","text":"I have a step that throws an error"}]}]},"comments":[]}},
+  {"type":"pickle","uri":"features/errors-in-steps.feature","pickle":{"tags":[],"name":"Errors in steps","language":"en","locations":[{"line":3,"column":3}],"steps":[{"text":"I have a step that throws an error","arguments":[],"locations":[{"line":5,"column":11}]}]}},
+  {"type":"pickle-accepted","pickle":{"tags":[],"name":"Errors in steps","language":"en","locations":[{"line":3,"column":3}],"steps":[{"text":"I have a step that throws an error","arguments":[],"locations":[{"line":5,"column":11}]}]},"uri":"features/errors-in-steps.feature"},
+  {"type":"test-run-started"},
+  {"type":"test-case-prepared","steps":[{"sourceLocation":{"uri":"features/errors-in-steps.feature","line":5},"actionLocation":{"uri":"step_definitions/errors.steps.ts","line":3}}],"sourceLocation":{"uri":"features/errors-in-steps.feature","line":3}},
+  {"type":"test-case-started","sourceLocation":{"uri":"features/errors-in-steps.feature","line":3}},
+  {"type":"test-step-started","index":0,"testCase":{"sourceLocation":{"uri":"features/errors-in-steps.feature","line":3}}},
+  {"type":"test-step-finished","index":0,"result":{"duration":0,"exception":"Error: We're sorry, something happened\n    at World.<anonymous> (step_definitions/errors.steps.ts:4:11)","status":"failed"},"testCase":{"sourceLocation":{"uri":"features/errors-in-steps.feature","line":3}}},
+  {"type":"test-case-finished","result":{"duration":0,"status":"failed","exception":"Error: We're sorry, something happened\n    at World.<anonymous> (step_definitions/errors.steps.ts:4:11)"},"sourceLocation":{"uri":"features/errors-in-steps.feature","line":3}},
+  {"type":"test-run-finished","result":{"duration":0,"success":false}}
+]

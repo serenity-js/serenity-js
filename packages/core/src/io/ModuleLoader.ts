@@ -9,9 +9,6 @@ export class ModuleLoader {
     /**
      * @package
      *
-     * @param fromDir
-     *  Directory where NPM should start the module lookup. For example: process.cwd()
-     *
      * @param moduleId
      *  NPM module id, for example 'cucumber' or '@serenity-js/core'
      */

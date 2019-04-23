@@ -1,4 +1,4 @@
-import { ConfigurationError, serenity } from '@serenity-js/core';
+import { ConfigurationError, Serenity } from '@serenity-js/core';
 import { Path, Version } from '@serenity-js/core/lib/io';
 
 import Gherkin = require('gherkin');
@@ -6,7 +6,7 @@ import Gherkin = require('gherkin');
 import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../gherkin';
 import { Notifier } from '../notifier';
 
-export function listenerForCucumber(version: Version, cucumber: any) {
+export function listenerForCucumber(version: Version, cucumber: any, serenity: Serenity) {
 
     try {
         const

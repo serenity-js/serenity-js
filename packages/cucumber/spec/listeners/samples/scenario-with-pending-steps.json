@@ -1,0 +1,15 @@
+[
+  {"type":"source","uri":"features/pending-steps.feature","data":"Feature: Event Protocol\n\n  Scenario: Pending steps\n\n    Given I have a pending step\n    Then I should implement it\n","media":{"encoding":"utf-8","type":"text/x.cucumber.gherkin+plain"}},
+  {"type":"gherkin-document","uri":"features/pending-steps.feature","document":{"type":"GherkinDocument","feature":{"type":"Feature","tags":[],"location":{"line":1,"column":1},"language":"en","keyword":"Feature","name":"Event Protocol","children":[{"type":"Scenario","tags":[],"location":{"line":3,"column":3},"keyword":"Scenario","name":"Pending steps","steps":[{"type":"Step","location":{"line":5,"column":5},"keyword":"Given ","text":"I have a pending step"},{"type":"Step","location":{"line":6,"column":5},"keyword":"Then ","text":"I should implement it"}]}]},"comments":[]}},
+  {"type":"pickle","uri":"features/pending-steps.feature","pickle":{"tags":[],"name":"Pending steps","language":"en","locations":[{"line":3,"column":3}],"steps":[{"text":"I have a pending step","arguments":[],"locations":[{"line":5,"column":11}]},{"text":"I should implement it","arguments":[],"locations":[{"line":6,"column":10}]}]}},
+  {"type":"pickle-accepted","pickle":{"tags":[],"name":"Pending steps","language":"en","locations":[{"line":3,"column":3}],"steps":[{"text":"I have a pending step","arguments":[],"locations":[{"line":5,"column":11}]},{"text":"I should implement it","arguments":[],"locations":[{"line":6,"column":10}]}]},"uri":"features/pending-steps.feature"},
+  {"type":"test-run-started"},
+  {"type":"test-case-prepared","steps":[{"sourceLocation":{"uri":"features/pending-steps.feature","line":5},"actionLocation":{"uri":"step_definitions/pending.steps.ts","line":3}},{"sourceLocation":{"uri":"features/pending-steps.feature","line":6},"actionLocation":{"uri":"step_definitions/pending.steps.ts","line":7}}],"sourceLocation":{"uri":"features/pending-steps.feature","line":3}},
+  {"type":"test-case-started","sourceLocation":{"uri":"features/pending-steps.feature","line":3}},
+  {"type":"test-step-started","index":0,"testCase":{"sourceLocation":{"uri":"features/pending-steps.feature","line":3}}},
+  {"type":"test-step-finished","index":0,"result":{"duration":4,"status":"pending"},"testCase":{"sourceLocation":{"uri":"features/pending-steps.feature","line":3}}},
+  {"type":"test-step-started","index":1,"testCase":{"sourceLocation":{"uri":"features/pending-steps.feature","line":3}}},
+  {"type":"test-step-finished","index":1,"result":{"status":"skipped"},"testCase":{"sourceLocation":{"uri":"features/pending-steps.feature","line":3}}},
+  {"type":"test-case-finished","result":{"duration":4,"status":"pending"},"sourceLocation":{"uri":"features/pending-steps.feature","line":3}},
+  {"type":"test-run-finished","result":{"duration":4,"success":false}}
+]
