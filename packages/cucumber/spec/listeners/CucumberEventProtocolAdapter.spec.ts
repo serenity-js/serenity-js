@@ -56,25 +56,27 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have a tasty cucumber in my belly')))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Given I have a tasty cucumber in my belly'));
-                expect(e.outcome).to.equal(new ExecutionSuccessful());
-            })
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name(`Then I'm very happy`)))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name(`Then I'm very happy`));
-                expect(e.outcome).to.equal(new ExecutionSuccessful());
-            })
-            .next(SceneFinished,        e => {
-                expect(e.value).to.equal(expectedScenarioDetails);
-                expect(e.outcome).to.equal(new ExecutionSuccessful());
-            })
-        ;
+        return serenity.waitForNextCue().then(() => {
+            PickEvent.from(recorder.events)
+                .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have a tasty cucumber in my belly')))
+                .next(TaskFinished,         e => {
+                    expect(e.value.name).to.equal(new Name('Given I have a tasty cucumber in my belly'));
+                    expect(e.outcome).to.equal(new ExecutionSuccessful());
+                })
+                .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name(`Then I'm very happy`)))
+                .next(TaskFinished,         e => {
+                    expect(e.value.name).to.equal(new Name(`Then I'm very happy`));
+                    expect(e.outcome).to.equal(new ExecutionSuccessful());
+                })
+                .next(SceneFinished,        e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.equal(new ExecutionSuccessful());
+                })
+            ;
+        });
     });
 
     it('correctly recognises undefined steps', () => {
@@ -91,25 +93,28 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have an undefined step')))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Given I have an undefined step'));
-                expect(e.outcome).to.be.instanceOf(ImplementationPending);
-            })
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name(`Then I should implement it`)))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Then I should implement it'));
-                expect(e.outcome).to.be.instanceOf(ImplementationPending);
-            })
-            .next(SceneFinished,        e => {
-                expect(e.value).to.equal(expectedScenarioDetails);
-                expect(e.outcome).to.be.instanceOf(ImplementationPending);
-            })
-        ;
+        return serenity.waitForNextCue().then(() => {
+
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I have an undefined step')))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Given I have an undefined step'));
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                })
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name(`Then I should implement it`)))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Then I should implement it'));
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                })
+                .next(SceneFinished, e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                })
+            ;
+        });
     });
 
     it('correctly recognises pending steps', () => {
@@ -126,25 +131,28 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have a pending step')))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Given I have a pending step'));
-                expect(e.outcome).to.be.instanceOf(ImplementationPending);
-            })
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name(`Then I should implement it`)))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Then I should implement it'));
-                expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
-            })
-            .next(SceneFinished,        e => {
-                expect(e.value).to.equal(expectedScenarioDetails);
-                expect(e.outcome).to.be.instanceOf(ImplementationPending);
-            })
-        ;
+        return serenity.waitForNextCue().then(() => {
+
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I have a pending step')))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Given I have a pending step'));
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                })
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name(`Then I should implement it`)))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Then I should implement it'));
+                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
+                })
+                .next(SceneFinished, e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                })
+            ;
+        });
     });
 
     it('correctly recognises ambiguous steps', () => {
@@ -161,27 +169,29 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have an ambiguous step definition')))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Given I have an ambiguous step definition'));
-                expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
-            })
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name(`Then I should correct it`)))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Then I should correct it'));
-                expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
-            })
-            .next(SceneFinished,        e => {
-                expect(e.value).to.equal(expectedScenarioDetails);
-                expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
-            })
-        ;
+        return serenity.waitForNextCue().then(() => {
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I have an ambiguous step definition')))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Given I have an ambiguous step definition'));
+                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
+                })
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name(`Then I should correct it`)))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Then I should correct it'));
+                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
+                })
+                .next(SceneFinished, e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
+                })
+            ;
+        });
     });
 
     it('correctly recognises errors thrown in steps', () => {
@@ -198,24 +208,27 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I have a step that throws an error')))
-            .next(TaskFinished,         e => {
-                expect(e.value.name).to.equal(new Name('Given I have a step that throws an error'));
-                expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);
-                expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);
-            })
-            .next(SceneFinished,        e => {
-                expect(e.value).to.equal(expectedScenarioDetails);
-                expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);
-                expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);
-            })
-        ;
+        return serenity.waitForNextCue().then(() => {
+
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I have a step that throws an error')))
+                .next(TaskFinished, e => {
+                    expect(e.value.name).to.equal(new Name('Given I have a step that throws an error'));
+                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);
+                    expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);
+                })
+                .next(SceneFinished, e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);
+                    expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);
+                })
+            ;
+        });
     });
 
     it('correctly recognises scenario outlines', () => {
@@ -232,28 +245,31 @@ describe('CucumberEventProtocolAdapter', () => {
             ),
         );
 
-        PickEvent.from(recorder.events)
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails(10)))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I like programming')))
-            .next(TaskFinished,         e => expect(e.value.name).to.equal(new Name('Given I like programming')))
-            .next(SceneFinished,        e => expect(e.value).to.equal(expectedScenarioDetails(10)))
+        return serenity.waitForNextCue().then(() => {
 
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails(11)))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I like to play guitar')))
-            .next(TaskFinished,         e => expect(e.value.name).to.equal(new Name('Given I like to play guitar')))
-            .next(SceneFinished,        e => expect(e.value).to.equal(expectedScenarioDetails(11)))
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails(10)))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I like programming')))
+                .next(TaskFinished, e => expect(e.value.name).to.equal(new Name('Given I like programming')))
+                .next(SceneFinished, e => expect(e.value).to.equal(expectedScenarioDetails(10)))
 
-            .next(SceneStarts,          e => expect(e.value).to.equal(expectedScenarioDetails(12)))
-            .next(TestRunnerDetected,   e => expect(e.value).to.equal(new Name('Cucumber')))
-            .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
-            .next(TaskStarts,           e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
-            .next(TaskFinished,         e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
-            .next(SceneFinished,        e => expect(e.value).to.equal(expectedScenarioDetails(12)))
-        ;
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails(11)))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I like to play guitar')))
+                .next(TaskFinished, e => expect(e.value.name).to.equal(new Name('Given I like to play guitar')))
+                .next(SceneFinished, e => expect(e.value).to.equal(expectedScenarioDetails(11)))
+
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails(12)))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
+                .next(TaskFinished, e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
+                .next(SceneFinished, e => expect(e.value).to.equal(expectedScenarioDetails(12)))
+            ;
+        });
     });
 
     function emitAllFrom(events: JSONObject[]): void {
