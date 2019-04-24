@@ -1,5 +1,5 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { Serenity } from '@serenity-js/core';
+import { ImplementationPendingError, Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path, Version } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
@@ -268,6 +268,36 @@ describe('CucumberEventProtocolAdapter', () => {
                 .next(TaskStarts, e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
                 .next(TaskFinished, e => expect(e.value.name).to.equal(new Name('Given I like martial arts')))
                 .next(SceneFinished, e => expect(e.value).to.equal(expectedScenarioDetails(12)))
+            ;
+        });
+    });
+
+    it('considers a scenario with no steps and no hooks to be pending implementation', () => {
+
+        emitAllFrom(require('./samples/pending-scenario.json'));
+
+        const expectedScenarioDetails = new ScenarioDetails(
+            new Name('Implement me'),
+            new Category('Event Protocol'),
+            new FileSystemLocation(
+                new Path('features/pending-scenario.feature'),
+                3,
+                3,
+            ),
+        );
+
+        return serenity.waitForNextCue().then(() => {
+
+            PickEvent.from(recorder.events)
+                .next(SceneStarts, e => expect(e.value).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, e => expect(e.value).to.equal(new Name('Cucumber')))
+                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))
+                .next(SceneFinished, e => {
+                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                    expect((e.outcome as ImplementationPending).error).to.be.instanceOf(ImplementationPendingError);
+                    expect((e.outcome as ImplementationPending).error.message).to.equal(`"Implement me" has no test steps`);
+                })
             ;
         });
     });
