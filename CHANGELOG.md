@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.52](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.51...v2.0.1-alpha.52) (2019-04-24)
+
+
+### Features
+
+* **cucumber:** Scenarios with no steps are marked as pending implementation ([e3d838b](https://github.com/jan-molak/serenity-js/commit/e3d838b))
+
+
+
+
+
 ## [2.0.1-alpha.51](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.50...v2.0.1-alpha.51) (2019-04-23)
 
 
