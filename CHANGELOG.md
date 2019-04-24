@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.54](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.53...v2.0.1-alpha.54) (2019-04-24)
+
+
+### Bug Fixes
+
+* **cucumber:** Corrected how feature file paths are compared on Windows ([2635bed](https://github.com/jan-molak/serenity-js/commit/2635bed))
+
+
+
+
+
 ## [2.0.1-alpha.53](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.52...v2.0.1-alpha.53) (2019-04-24)
 
 
