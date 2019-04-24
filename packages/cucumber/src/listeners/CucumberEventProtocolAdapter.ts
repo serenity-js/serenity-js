@@ -146,10 +146,11 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                 ensure('test-case-finished :: sourceLocation', sourceLocation, isDefined());
 
                 const
-                    map      = cache.get(new Path(sourceLocation.uri)),
-                    scenario = map.get(Scenario).onLine(sourceLocation.line);
+                    map             = cache.get(new Path(sourceLocation.uri)),
+                    scenario        = map.get(Scenario).onLine(sourceLocation.line),
+                    nonHookSteps    = scenario.steps.filter(step => step instanceof Step);
 
-                const outcome: Outcome = scenario.steps.length > 0
+                const outcome: Outcome = nonHookSteps.length > 0
                     ? this.outcomeFrom(result)
                     : new ImplementationPending(new ImplementationPendingError(`"${ scenario.name.value }" has no test steps`));
 
