@@ -85,7 +85,8 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                         stepLocations.actionLocation && ! stepLocations.sourceLocation,
                     matching  = (location: StepLocations) =>
                         (step: Step) =>
-                            step.location.path.value === location.sourceLocation.uri && step.location.line === location.sourceLocation.line;
+                            step.location.path.equals(new Path(location.sourceLocation.uri)) &&
+                            step.location.line === location.sourceLocation.line;
 
                 return stepsLocations.map(location =>
                     isAHook(location)
