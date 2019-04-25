@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.55](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.54...v2.0.1-alpha.55) (2019-04-25)
+
+
+### Bug Fixes
+
+* **cucumber:** Scenario outlines are reported sans the cucumber hooks, as they added no value in thi ([899e496](https://github.com/jan-molak/serenity-js/commit/899e496))
+
+
+
+
+
 ## [2.0.1-alpha.54](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.53...v2.0.1-alpha.54) (2019-04-24)
 
 
