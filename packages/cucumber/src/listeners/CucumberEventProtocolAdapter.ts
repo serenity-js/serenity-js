@@ -64,19 +64,19 @@ export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Depend
                         outline.location,
                         outline.name,
                         outline.description,
-                        interleaveStepsAndHooks(outline.steps, steps),
+                        outline.steps,
                         outline.parameters,
                     )).onLine(scenario.outline.line);
-                } else {
-                    map.set(new Scenario(
-                        scenario.location,
-                        scenario.name,
-                        scenario.description,
-                        interleaveStepsAndHooks(scenario.steps, steps),
-                        scenario.tags,
-                        scenario.outline,
-                    )).onLine(sourceLocation.line);
                 }
+
+                map.set(new Scenario(
+                    scenario.location,
+                    scenario.name,
+                    scenario.description,
+                    interleaveStepsAndHooks(scenario.steps, steps),
+                    scenario.tags,
+                    scenario.outline,
+                )).onLine(sourceLocation.line);
             });
 
             function interleaveStepsAndHooks(steps: Step[], stepsLocations: StepLocations[]): Array<Step | Hook> {
