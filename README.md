@@ -1,6 +1,7 @@
 # Serenity/JS
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/jan-molak/serenity-js.svg)](https://greenkeeper.io/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjan-molak%2Fserenity-js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjan-molak%2Fserenity-js?ref=badge_shield)
 
 [![npm version](https://badge.fury.io/js/serenity-js.svg)](https://badge.fury.io/js/serenity-js)
 [![Build Status](https://travis-ci.org/jan-molak/serenity-js.svg?branch=master)](https://travis-ci.org/jan-molak/serenity-js)
@@ -64,3 +65,6 @@ Serenity/JS library is licensed under the [Apache-2.0](LICENSE.md) license.
 _- Copyright &copy; 2016- [Jan Molak](https://janmolak.com) and the Serenity Team_
 
 [![Analytics](https://ga-beacon.appspot.com/UA-85788349-2/serenity-js/readme.md?pixel)](https://github.com/igrigorik/ga-beacon)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjan-molak%2Fserenity-js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjan-molak%2Fserenity-js?ref=badge_large)
