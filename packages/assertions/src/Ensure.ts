@@ -1,5 +1,7 @@
-import { Answerable, AnswersQuestions, AssertionError, Interaction, LogicError, RuntimeError } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, AssertionError, CollectsArtifacts, Interaction, LogicError, RuntimeError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+import { inspected } from '@serenity-js/core/lib/io/inspected';
+import { Artifact, Name, TextData } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
 import { Expectation } from './Expectation';
@@ -17,7 +19,7 @@ export class Ensure<Actual> extends Interaction {
         super();
     }
 
-    performAs(actor: AnswersQuestions): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
         return Promise.all([
             actor.answer(this.actual),
             actor.answer(this.expectation),
@@ -26,6 +28,8 @@ export class Ensure<Actual> extends Interaction {
             expectation(actual).then(outcome =>
                 match<Outcome<any, Actual>, void>(outcome)
                     .when(ExpectationNotMet, o => {
+                        actor.collect(this.artifactFrom(actual), new Name(`Actual value`));
+
                         throw this.errorForOutcome(o);
                     })
                     .when(ExpectationMet, _ => void 0)
@@ -54,6 +58,13 @@ export class Ensure<Actual> extends Interaction {
             outcome.expected,
             outcome.actual,
         );
+    }
+
+    private artifactFrom(actual: Actual): Artifact {
+        return TextData.fromJSON({
+            contentType: 'text/plain',
+            data: inspected(actual),
+        });
     }
 }
 

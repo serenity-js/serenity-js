@@ -1,15 +1,23 @@
 import 'mocha';
-import { given } from 'mocha-testdata';
 
-import { expect, stage } from '@integration/testing-tools';
-import { Answerable, AnswersQuestions, AssertionError, LogicError, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import { EventRecorder, expect, PickEvent, stage } from '@integration/testing-tools';
+import { Actor, Answerable, AnswersQuestions, AssertionError, LogicError, Question, RuntimeError, Stage, TestCompromisedError } from '@serenity-js/core';
+import { ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { Name } from '@serenity-js/core/lib/model';
+import { given } from 'mocha-testdata';
 import { Ensure, equals, Expectation, Outcome } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Ensure} */
 describe('Ensure', () => {
 
-    const Enrique = stage().theActorCalled('Enrique');
+    let theStage: Stage,
+        Enrique: Actor;
+
+    beforeEach(() => {
+        theStage = stage();
+        Enrique = theStage.theActorCalled('Enrique');
+    });
 
     /** @test {Ensure.that} */
     it('allows the actor to make an assertion', () => {
@@ -67,6 +75,49 @@ describe('Ensure', () => {
         return expect(Enrique.attemptsTo(
             Ensure.that(4, new BrokenExpectation()),
         )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an Outcome, not null');
+    });
+
+    given([{
+        description: 'tiny type',
+        actual: new Name('Bob'),
+        expected: 'Name(value=Bob)',
+    }, {
+        description: 'boolean',
+        actual: true,
+        expected: 'true',
+    }, {
+        description: 'string',
+        actual: 'name',
+        expected: `'name'`,
+    }, {
+        description: 'list',
+        actual: [{ name: 'Bob' }, { name: 'Alice' }],
+        expected: `[\n  { name: 'Bob' },\n  { name: 'Alice' }\n]`,
+    }, {
+        description: 'promise',
+        actual: Promise.resolve(true),
+        expected: `true`,
+    }, {
+        description: 'question',
+        actual: Question.about('some value', actor => 'value'),
+        expected: `'value'`,
+    }]).
+    /** @test {Ensure.that} */
+    it(`emits an artifact describing the actual value`, ({ actual, expected }) => {
+        const recorder = new EventRecorder();
+        theStage.assign(recorder);
+
+        return expect(Enrique.attemptsTo(
+            Ensure.that(actual, equals(null)),  // we don't care about the expectation itself in this test
+        )).to.be.rejected.then(() =>
+
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, e => e.artifact.map(value => {
+                    expect(value.contentType).to.equal('text/plain');
+                    expect(value.data).to.equal(expected);
+                })),
+        );
+
     });
 
     describe('custom errors', () => {
