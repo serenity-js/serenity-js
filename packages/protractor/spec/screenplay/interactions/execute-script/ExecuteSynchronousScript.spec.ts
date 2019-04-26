@@ -102,7 +102,7 @@ describe('ExecuteSynchronousScript', function () {
 
         expect(ExecuteScript.sync(`console.log('hello world');`)
             .withArguments(Promise.resolve('arg1'), 'arg2', arg3).toString(),
-        ).to.equal(`#actor executes a synchronous script with arguments: [ a promised value, 'arg2', arg number 3 ]`);
+        ).to.equal(`#actor executes a synchronous script with arguments: [ a Promise, 'arg2', arg number 3 ]`);
     });
 
     /** @test {ExecuteScript.sync} */
