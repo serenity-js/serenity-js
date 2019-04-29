@@ -45,6 +45,7 @@ Metalsmith(__dirname)
         {pattern: 'modules/**/*.html', metadata: { 'layout': 'api-docs.hbs' }},
     ]))
     .use(inplace({
+        rename: true,
         pattern: [
             '**/*',
         ],

@@ -1,6 +1,6 @@
 ---
 title: The Screenplay Pattern
-layout: default.hbs
+layout: handbook.hbs
 ---
 # The Screenplay Pattern
 
@@ -17,8 +17,6 @@ The Screenplay pattern is new to JavaScript but has been around for a while in v
 It was originally proposed by Antony Marcano in 2007. You can learn more about the origin and history of this model
 in ["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp)
 (by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak) and [at the end of this article](#the-history).
-
-## Background
 
 ## Screenplay by example
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> meta }}
+</head>
+<body>
+
+<div id="top"
+        class="block block-dark block-bb bg-gradient-accent-2 p-0">
+    <div class="container">
+        {{> navigation }}
+    </div>
+</div>
+
+<section id="handbook" class="block block-bb">
+    <section>
+        <div class="container">
+            <div class="row">
+<!--                <div class="col-lg-3 d-none d-lg-block">-->
+                <div class="col-lg-3 col-md-12">
+                    <nav class="toc navigation text-truncate">
+                        <ul class="summary">
+                            <li class="header">Serenity/JS Fundamentals</li>
+                            <li class="chapter">
+                                <a href="#">Serenity/JS Fundamentals</a>
+                                <ul class="articles">
+                                    <li><a href="/handbook/screenplay-pattern.html">Screenplay by example</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <hr />
+                    </nav>
+                </div>
+
+                <div class="col-lg-9 col-md-12">
+                    <div class="content">
+                        {{{ contents }}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+{{> footer }}
+
+{{> scripts }}
+</body>
+</html>

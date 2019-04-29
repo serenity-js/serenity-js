@@ -38,3 +38,39 @@ $accent-2: #454545 !default;
     }
   }
 }
+
+a.anchorjs-link,
+a.anchorjs-link:hover {
+  text-decoration: none;
+}
+
+#handbook {
+  nav.toc {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.summary {
+      margin: 0;
+    }
+
+    ul.articles {
+      margin-left: 10px;
+    }
+
+    .header {
+      font-size: 1.1rem;
+      color: rgb(69, 72, 94);
+      padding: 20px 0 10px;
+    }
+
+    li a {
+      display: block;
+      padding: 6px 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
