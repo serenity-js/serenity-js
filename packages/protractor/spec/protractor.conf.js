@@ -25,6 +25,10 @@ exports.config = {
     capabilities: {
         browserName: 'chrome',
 
+        loggingPrefs: {
+            browser: 'INFO',
+        },
+
         chromeOptions: {
             args: [
                 '--disable-infobars',

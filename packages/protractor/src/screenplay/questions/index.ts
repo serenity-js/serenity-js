@@ -1,4 +1,5 @@
 export * from './Attribute';
+export * from './Browser';
 export * from './Cookie';
 export * from './CSSClasses';
 export { Pick } from './Pick';
