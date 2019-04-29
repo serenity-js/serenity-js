@@ -33,12 +33,16 @@ module.exports = function discoverSerenityJSModules(pattern) {
 
                     const name = pkg.name.split('/')[1];
 
-                    metadata.modules.push({
+                    const descriptor = {
                         href: `/modules/${ name }`,
                         shortName: name,
                         name: pkg.name,
                         description: pkg.description,
-                    });
+                    };
+
+                    if (! metadata.modules.find(m => m.name === descriptor.name)) {
+                        metadata.modules.push(descriptor);
+                    }
                 })).then(() => done(), e => done(e));
         });
     };
