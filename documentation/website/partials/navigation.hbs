@@ -26,17 +26,7 @@
 
     <div class="web-nav-list">
         <a href="/handbook" class="web-nav-item">Handbook</a>
-
-        <div class="web-nav-dropdown">
-            <a href="#!" class="web-nav-item web-nav-dropdown-toggle">Modules<span class="fa fa-chevron-right"></span></a>
-            <div class="web-nav-dropdown-menu">
-                <a href="/modules" class="web-nav-item">Overview</a>
-                {{#each modules}}
-                    <a href="{{ this.href }}" class="web-nav-item">{{ this.name }}</a>
-                {{/each}}
-            </div>
-        </div>
-
+        <a href="/modules" class="web-nav-item">Modules</a>
         <a href="#!" class="web-nav-item">Changelog</a>
         <a href="#!" class="web-nav-item">Support</a>
         <a href="#!" class="web-nav-item">
