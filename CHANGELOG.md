@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.60](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.59...v2.0.1-alpha.60) (2019-04-29)
+
+
+### Features
+
+* **protractor:** Browser.log() allows the actor to read the browser log entries ([2a088b7](https://github.com/jan-molak/serenity-js/commit/2a088b7))
+
+
+
+
+
 ## [2.0.1-alpha.59](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.58...v2.0.1-alpha.59) (2019-04-29)
 
 **Note:** Version bump only for package serenity-js-monorepo
