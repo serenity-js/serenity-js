@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.58](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.57...v2.0.1-alpha.58) (2019-04-26)
+
+**Note:** Version bump only for package @serenity-js-examples/cucumber-rest-api-level-testing
+
+
+
+
+
 ## [2.0.1-alpha.57](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.56...v2.0.1-alpha.57) (2019-04-25)
 
 
