@@ -36,8 +36,8 @@ describe('@serenity-js/cucumber', function () {
             PickEvent.from(res.events)
                 .next(SceneStarts,  event => expect(event.value.name.value).to.equal('A tagged scenario'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@feature-tag')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@scenario-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-tag')))
             ;
         }));
 
@@ -68,14 +68,14 @@ describe('@serenity-js/cucumber', function () {
             PickEvent.from(res.events)
                 .next(SceneStarts,  event => expect(event.value.name.value).to.equal('More tagged scenarios'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@feature-tag')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@scenario-outline-tag')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@example-set-1')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-outline-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('example-set-1')))
                 .next(SceneStarts,  event => expect(event.value.name.value).to.equal('More tagged scenarios'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@feature-tag')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@scenario-outline-tag')))
-                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('@example-set-2')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-outline-tag')))
+                .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('example-set-2')))
             ;
         }));
 });

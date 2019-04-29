@@ -1,5 +1,5 @@
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } from '@serenity-js/core/lib/model';
 
 import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model';
 import * as nodes from '../nodes';
@@ -171,8 +171,14 @@ export class FeatureFileMapper {
         );
     }
 
-    private tagsFrom(...tags: nodes.Tag[][]): ArbitraryTag[] {
-        return [].concat(...tags).map(tag => new ArbitraryTag(tag.name));
+    private tagsFrom(...listsOfTags: nodes.Tag[][]): Tag[] {
+        function flattened<T>(listsOfLists: T[][]): T[] {
+            return listsOfLists.reduce((acc, list) => acc.concat(list), []);
+        }
+
+        return flattened(
+            flattened(listsOfTags).map(tag => Tags.from(tag.name)),
+        );
     }
 
     private interpolateStepArgument(argument: nodes.StepArgument, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]): string {

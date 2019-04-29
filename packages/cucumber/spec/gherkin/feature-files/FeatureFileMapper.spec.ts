@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
 import {
@@ -323,6 +323,19 @@ describe('FeatureFileMapper', () => {
 
             expect(mapper.map(empty, fixtures).size()).to.equal(0);
         });
+    });
+
+    describe('when mapping a tagged scenario', () => {
+
+        it('detects all the applicable tags',  parse('tags.feature', map => {
+            const scenario = map.get(Scenario).onLine(7);
+
+            expect(scenario.tags[0]).to.equal(new IssueTag('ABC-123'));
+            expect(scenario.tags[1]).to.equal(new IssueTag('DEF-456'));
+            expect(scenario.tags[2]).to.equal(new ArbitraryTag('saves-data'));
+            expect(scenario.tags[3]).to.equal(new IssueTag('GHI-789'));
+            expect(scenario.tags[4]).to.equal(new ArbitraryTag('regression'));
+        }));
     });
 
     function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {
