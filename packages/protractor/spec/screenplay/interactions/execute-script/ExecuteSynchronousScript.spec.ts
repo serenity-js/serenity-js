@@ -1,13 +1,13 @@
 import { expect, stage } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, Question } from '@serenity-js/core';
+import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
+import { Question } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name, TextData } from '@serenity-js/core/lib/model';
-import { Clock, StageManager } from '@serenity-js/core/lib/stage';
+import { Clock } from '@serenity-js/core/lib/stage';
 
-import { by, error, protractor } from 'protractor';
+import { by, error } from 'protractor';
 import * as sinon from 'sinon';
-import { BrowseTheWeb, ExecuteScript, Navigate, Target, Value } from '../../../../src';
+import { Browser, ExecuteScript, Navigate, Target, Value } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
@@ -129,10 +129,11 @@ describe('ExecuteSynchronousScript', function () {
 
         return actor.attemptsTo(
             ExecuteScript.sync(`console.log('hello world');`),
+            Ensure.that(Browser.log(), containAtLeastOneItemThat(property('message', includes('hello world')))),
         ).then(() => {
             const events = (theStage.announce as sinon.SinonSpy).getCalls().map(call => call.lastArg);
 
-            expect(events).to.have.lengthOf(3);
+            expect(events).to.have.lengthOf(5);
             expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);
             expect(events[ 1 ]).to.be.instanceOf(ArtifactGenerated);
             expect(events[ 2 ]).to.be.instanceOf(ActivityFinished);

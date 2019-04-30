@@ -1,9 +1,9 @@
 import { expect, stage } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
-import { ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { Browser, ExecuteScript, Navigate, Target, Text } from '../../../../src';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScriptFromUrl} */
@@ -35,7 +35,10 @@ describe('ExecuteScriptFromUrl', function () {
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript + '.invalid'),
-    )).to.be.rejectedWith(LogicError, `Couldn't load script from ${ pathToScript }.invalid`));
+    )).to.be.rejectedWith(LogicError, `Couldn't load script from ${ pathToScript }.invalid`)
+        .then(() => Joe.attemptsTo(
+            Ensure.that(Browser.log(), containAtLeastOneItemThat(property('message', includes('execute-script-sample.js.invalid - Failed to load resource')))),
+        )));
 
     /** @test {ExecuteScript.from} */
     /** @test {ExecuteScriptFromUrl} */
