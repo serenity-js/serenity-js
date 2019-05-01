@@ -1,6 +1,5 @@
-import { Expectation } from '@serenity-js/assertions';
+import { and, Expectation } from '@serenity-js/assertions';
 import { ElementFinder } from 'protractor';
-import { combined } from './combined';
 import { ElementFinderExpectation } from './ElementFinderExpectation';
 import { isPresent } from './isPresent';
 
@@ -10,6 +9,9 @@ import { isPresent } from './isPresent';
  *
  * @returns {Expectation<boolean, ElementFinder>}
  */
-export function isSelected(): Expectation<boolean, ElementFinder> {
-    return combined('become selected', isPresent(), ElementFinderExpectation.to('become selected', actual => actual.isSelected()));
+export function isSelected(): Expectation<any, ElementFinder> {
+    return Expectation.to<ElementFinder>('become selected').soThatActual(and(
+        isPresent(),
+        ElementFinderExpectation.forElementTo('become selected', actual => actual.isSelected()),
+    ));
 }

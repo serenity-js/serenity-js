@@ -18,19 +18,28 @@ export abstract class Expectation<Expected, Actual = Expected>
         });
     }
 
+    static to<A>(relationshipName: string): {
+        soThatActual: (...expectations: Array<Expectation<any, A>>) => Expectation<any, A>,
+    } {
+        return {
+            soThatActual: (expectation: Expectation<any, A>): Expectation<any, A> => {
+                return new ExpectationAlias<A>(relationshipName, expectation);
+            },
+        };
+    }
+
     abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>>;
 
     abstract toString(): string;
 }
 
-class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
+class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<Expected, Actual> {
 
     constructor(
         private readonly description: string,
         private readonly statement: (actual: Actual, expected: Expected) => boolean,
         private readonly expectedValue: Answerable<Expected>,
     ) {
-        super();
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
@@ -45,5 +54,26 @@ class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expe
 
     toString(): string {
         return `${ this.description } ${ formatted `${this.expectedValue}` }`;
+    }
+}
+
+class ExpectationAlias<Actual> implements Expectation<any, Actual> {
+
+    constructor(
+        private readonly description: string,
+        private readonly expectation: Expectation<any, Actual>,
+    ) {
+    }
+
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+
+        return (actual: Actual) =>
+            this.expectation.answeredBy(actor)(actual).then(_ => _ instanceof ExpectationMet
+                ? new ExpectationMet(this.description, _.expected, _.actual)
+                : new ExpectationNotMet(_.message, _.expected, _.actual));
+    }
+
+    toString(): string {
+        return this.description;
     }
 }

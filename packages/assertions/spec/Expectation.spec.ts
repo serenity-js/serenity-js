@@ -1,10 +1,9 @@
-import 'mocha';
-import { given } from 'mocha-testdata';
-
 import { expect, stage } from '@integration/testing-tools';
 import { Answerable, AssertionError } from '@serenity-js/core';
-import { Ensure, Expectation } from '../../src';
-import { isIdenticalTo, p, q } from '../fixtures';
+import 'mocha';
+import { given } from 'mocha-testdata';
+import { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } from '../src';
+import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Expectation} */
 describe('Expectation', () => {
@@ -43,6 +42,31 @@ describe('Expectation', () => {
             return expect(Astrid.attemptsTo(
                 Ensure.that(42, isIdenticalTo(expected)),
             )).to.be.fulfilled;
+        });
+    });
+
+    describe('allows to alias an expectation, so that the alias', () => {
+
+        function isWithin(lowerBound: number, upperBound: number) {
+            return Expectation
+                .to(`have value within ${ lowerBound } and ${ upperBound }`)
+                .soThatActual(and(
+                   or(isGreaterThan(lowerBound), equals(lowerBound)),
+                   or(isLessThan(upperBound), equals(upperBound)),
+                ));
+        }
+
+        /** @test {Expectation.to} */
+        it('contributes to a human-readable description', () => {
+            expect(Ensure.that(5, isWithin(3, 6)).toString())
+                .to.equal(`#actor ensures that 5 does have value within 3 and 6`);
+        });
+
+        /** @test {Expectation.to} */
+        it('provides a precise failure message when the expectation is not met', () => {
+            return expect(Astrid.attemptsTo(
+                Ensure.that(9, isWithin(7, 8)),
+            )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
         });
     });
 });

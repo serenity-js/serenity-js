@@ -1,6 +1,5 @@
-import { Expectation } from '@serenity-js/assertions';
+import { and, Expectation } from '@serenity-js/assertions';
 import { ElementFinder } from 'protractor';
-import { combined } from './combined';
 import { isEnabled } from './isEnabled';
 import { isVisible } from './isVisible';
 
@@ -10,6 +9,6 @@ import { isVisible } from './isVisible';
  *
  * @returns {Expectation<boolean, ElementFinder>}
  */
-export function isClickable(): Expectation<boolean, ElementFinder> {
-    return combined('become clickable', isVisible(), isEnabled());
+export function isClickable(): Expectation<any, ElementFinder> {
+    return Expectation.to<ElementFinder>('become clickable').soThatActual(and(isVisible(), isEnabled()));
 }

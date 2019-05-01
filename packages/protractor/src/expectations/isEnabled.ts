@@ -9,5 +9,5 @@ import { ElementFinderExpectation } from './ElementFinderExpectation';
  * @returns {Expectation<boolean, ElementFinder>}
  */
 export function isEnabled(): Expectation<boolean, ElementFinder> {
-    return ElementFinderExpectation.to('become enabled', actual => actual.isEnabled());
+    return ElementFinderExpectation.forElementTo('become enabled', actual => actual.isEnabled());
 }
