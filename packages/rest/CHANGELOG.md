@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.63](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.62...v2.0.1-alpha.63) (2019-05-01)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
 ## [2.0.1-alpha.62](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.61...v2.0.1-alpha.62) (2019-05-01)
 
 **Note:** Version bump only for package @serenity-js/rest
