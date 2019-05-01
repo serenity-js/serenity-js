@@ -126,7 +126,7 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the Cast does not provide a way to instantiate a given actor', () => {
+        it('complains if the DressingRoom does not provide a way to instantiate a given actor', () => {
             const
                 name   = 'Alice',
                 actors: DressingRoom = {
@@ -140,7 +140,7 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the Cast does not provide a way to instantiate a given actor and mentions the type of the DressingRoom, when available', () => {
+        it('complains if the DressingRoom does not provide a way to prepare a given actor and mentions the type of the DressingRoom, when available', () => {
             class AwesomeActors implements DressingRoom {
                 prepare(actor: Actor): Actor {
                     return undefined;
@@ -158,7 +158,7 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the Cast throws an error during actor instantiation', () => {
+        it('complains if the DressingRoom throws an error during actor instantiation', () => {
             const
                 name   = 'Alice',
                 actors: DressingRoom = {
@@ -172,7 +172,7 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the Cast throws an error during actor instantiation and mentions the type of the DressingRoom, when available', () => {
+        it('complains if the DressingRoom throws an error during actor instantiation and mentions the type of the DressingRoom, when available', () => {
             class MoodyActors implements DressingRoom {
                 prepare(actor: Actor): Actor {
                     throw new Error(`I'm not working today`);
