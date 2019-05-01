@@ -170,4 +170,16 @@ describe('ArtifactArchiver', () => {
             expect(archived.path).to.equal(new Path('scenario-report-b283bd69b0fcd75d754f678ac6685786.json'));
         });
     });
+
+    describe('when instantiated using a factory method', () => {
+        it(`joins the path segments provided so that the developer doesn't need to worry about cross-OS compatibility of the path`, () => {
+            archiver = ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target', 'site/serenity');
+
+            expect((archiver as any).fileSystem.root).to.equal(new Path(process.cwd()).join(new Path('target/site/serenity')));
+        });
+
+        it(`complains if the destination is not provided`, () => {
+            expect(() => ArtifactArchiver.storingArtifactsAt()).to.throw(Error, 'Path to destination directory should have length that is greater than 0');
+        });
+    });
 });
