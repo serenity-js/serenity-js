@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.62](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.61...v2.0.1-alpha.62) (2019-05-01)
+
+
+### Features
+
+* **core:** ArtifactArchiver can be instantiated using a convenient factory method ([6716f5f](https://github.com/jan-molak/serenity-js/commit/6716f5f))
+* **protractor:** Report directory can be configured in protractor.conf.js ([e46f7ec](https://github.com/jan-molak/serenity-js/commit/e46f7ec)), closes [#45](https://github.com/jan-molak/serenity-js/issues/45)
+
+
+
+
+
 ## [2.0.1-alpha.61](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.60...v2.0.1-alpha.61) (2019-04-29)
 
 
