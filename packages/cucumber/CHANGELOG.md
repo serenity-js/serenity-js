@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.61](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.60...v2.0.1-alpha.61) (2019-04-29)
+
+
+### Bug Fixes
+
+* **cucumber:** Corrected how scenario and feature-level [@issue](https://github.com/issue) and [@issues](https://github.com/issues) tags are reported ([2563c5a](https://github.com/jan-molak/serenity-js/commit/2563c5a))
+
+
+
+
+
 ## [2.0.1-alpha.60](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.59...v2.0.1-alpha.60) (2019-04-29)
 
 **Note:** Version bump only for package @serenity-js/cucumber
