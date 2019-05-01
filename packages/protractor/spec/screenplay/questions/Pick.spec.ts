@@ -1,5 +1,5 @@
 import { expect, stage } from '@integration/testing-tools';
-import { contains, Ensure, equals, startsWith } from '@serenity-js/assertions';
+import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
@@ -63,7 +63,7 @@ describe('Pick', () => {
             it(`picks all the items`, () => Peter.attemptsTo(
                 Navigate.to(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contains('coconut milk')),
+                Ensure.that(Text.ofAll(picked.all()), contain('coconut milk')),
             ));
 
             it(`picks the first item`, () => Peter.attemptsTo(
@@ -129,7 +129,7 @@ describe('Pick', () => {
 
     describe('(when a filter is applied)', () => {
 
-        const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Items).where(CSSClasses, contains('buy'));
+        const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Items).where(CSSClasses, contain('buy'));
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
@@ -142,7 +142,7 @@ describe('Pick', () => {
             it(`picks all the items`, () => Peter.attemptsTo(
                 Navigate.to(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contains('coconut milk x')),
+                Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
             it(`picks the first item`, () => Peter.attemptsTo(
@@ -203,7 +203,7 @@ describe('Pick', () => {
 
     describe('(when multiple filters are applied)', () => {
 
-        const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Items).where(CSSClasses, contains('buy')).where(Text, startsWith('coconut'));
+        const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Items).where(CSSClasses, contain('buy')).where(Text, startsWith('coconut'));
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
@@ -216,7 +216,7 @@ describe('Pick', () => {
             it(`picks all the items`, () => Peter.attemptsTo(
                 Navigate.to(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contains('coconut milk x')),
+                Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
             it(`picks the first item`, () => Peter.attemptsTo(
@@ -284,7 +284,7 @@ describe('Pick', () => {
 
         const ItemsLeftToBuy = () =>
             Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Items)
-                .where(CSSClasses, contains('buy'))
+                .where(CSSClasses, contain('buy'))
                 .all();
 
         const LinkTo = (item: Question<ElementFinder> | ElementFinder) => Target.the('link to element').of(item).located(by.css('a'));
@@ -294,7 +294,7 @@ describe('Pick', () => {
 
             Click.on(LinkTo(ItemCalled('coffee'))),
 
-            Ensure.that(CSSClasses.of(ItemCalled('coffee')), contains('buy')),
+            Ensure.that(CSSClasses.of(ItemCalled('coffee')), contain('buy')),
         ));
 
         it('makes it easy for an actor to pick all elements of interest', () => Peter.attemptsTo(

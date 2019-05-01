@@ -1,5 +1,5 @@
 export * from './and';
-export * from './contains';
+export * from './contain';
 export * from './containAtLeastOneItemThat';
 export * from './containItemsWhereEachItem';
 export * from './endsWith';
