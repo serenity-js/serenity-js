@@ -3,14 +3,14 @@ import { Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
-import { Clock } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Config, Runner } from 'protractor';
 import * as sinon from 'sinon';
 
 import { ProtractorFrameworkAdapter, TestRunnerDetector } from '../../src/adapter';
 import { TestRunner } from '../../src/adapter/runners/TestRunner';
 
-describe('ProtractorAdapter', () => {
+describe('ProtractorFrameworkAdapter', () => {
 
     /*
      * Protractor spec:
@@ -230,6 +230,52 @@ describe('ProtractorAdapter', () => {
                         `---`,
                     ''].join('\n'));
             });
+        });
+    });
+
+    describe('configuration', () => {
+        function pickOne<T extends StageCrewMember>(type: new (...args: any[]) => T, crew: StageCrewMember[]): T {
+            const found = crew.filter(member => member instanceof type);
+
+            if (found.length !== 1) {
+                throw new Error(`Found ${ found.length } ${ type.name }s`);
+            }
+
+            return found[0] as T;
+        }
+
+        it('provides sensible defaults when no explicit configuration is provided', () => {
+            protractorRunner.getConfig.returns({});
+
+            return adapter.run([ sample('passing.spec.ts').path ])
+                .then(() => {
+                    const crew = (serenity as any).stage.manager.subscribers;
+
+                    const archiver = pickOne(ArtifactArchiver, crew);
+
+                    expect((archiver as any).fileSystem.root)
+                        .to.equal(new Path(process.cwd() + '/target/site/serenity'));
+                });
+        });
+
+        it(`allows for the defaults to be overridden`, () => {
+            protractorRunner.getConfig.returns({
+                serenity: {
+                    crew: [
+                        ArtifactArchiver.storingArtifactsAt('./custom/output/path'),
+                    ],
+                },
+            });
+
+            return adapter.run([ sample('passing.spec.ts').path ])
+                .then(() => {
+                    const crew = (serenity as any).stage.manager.subscribers;
+
+                    const archiver = pickOne(ArtifactArchiver, crew);
+
+                    expect((archiver as any).fileSystem.root)
+                        .to.equal(new Path(`./custom/output/path`));
+                });
         });
     });
 
