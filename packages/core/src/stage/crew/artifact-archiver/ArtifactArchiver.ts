@@ -1,3 +1,4 @@
+import { ensure, isGreaterThan, property } from 'tiny-types';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -20,6 +21,14 @@ import { MD5Hash } from './MD5Hash';
  * @access public
  */
 export class ArtifactArchiver implements StageCrewMember {
+
+    static storingArtifactsAt(...destination: string[]): ArtifactArchiver {
+        ensure('Path to destination directory', destination, property('length', isGreaterThan(0)));
+
+        const pathToDestination = destination.map(segment => new Path(segment)).reduce((acc, current) => acc.join(current));
+
+        return new ArtifactArchiver(new FileSystem(pathToDestination));
+    }
 
     constructor(
         private readonly fileSystem: FileSystem,
@@ -107,4 +116,4 @@ export class ArtifactArchiver implements StageCrewMember {
             }
         };
     }
- }
+}
