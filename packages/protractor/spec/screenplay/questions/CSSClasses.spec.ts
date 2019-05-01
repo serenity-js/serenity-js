@@ -1,5 +1,5 @@
 import { stage } from '@integration/testing-tools';
-import { contains, Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { given } from 'mocha-testdata';
 import { by } from 'protractor';
 
@@ -57,7 +57,7 @@ describe('CSSClasses', () => {
                 CSSClasses.of(
                     Target.the(`Element with single-class`).located(by.id('single-class')),
                 ).of(Target.the(`list`).located(by.tagName('ul'))),
-                contains('pretty'),
+                contain('pretty'),
             ),
         ));
     });

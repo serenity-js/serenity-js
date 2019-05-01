@@ -1,22 +1,7 @@
-import 'mocha';
-
 import { expect, stage } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
-import {
-    and,
-    containAtLeastOneItemThat,
-    contains,
-    endsWith,
-    Ensure,
-    equals,
-    Expectation,
-    includes,
-    isGreaterThan,
-    isLessThan,
-    not,
-    or,
-    startsWith,
-} from '../../src';
+import 'mocha';
+import { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, Expectation, includes, isGreaterThan, isLessThan, not, or, startsWith } from '../../src';
 
 describe('not', () => {
 
@@ -84,14 +69,14 @@ describe('not', () => {
             /** @test {contains} */
             it(`produces a sensible error message`, () => {
                 return expect(Astrid.attemptsTo(
-                    Ensure.that([ 1, 2, 3 ], not(contains(2)),
+                    Ensure.that([ 1, 2, 3 ], not(contain(2)),
                 ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`);
             });
 
             /** @test {not} */
             /** @test {contains} */
             it(`contributes to a human-readable description`, () => {
-                expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(contains('o'))).toString())
+                expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(contain('o'))).toString())
                     .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain 'o'`);
             });
         });

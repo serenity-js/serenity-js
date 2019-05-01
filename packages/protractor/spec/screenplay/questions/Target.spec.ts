@@ -1,5 +1,5 @@
 import { expect, stage } from '@integration/testing-tools';
-import { contains, Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { by } from 'protractor';
 import { Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
@@ -48,7 +48,7 @@ describe('Target', () => {
         it('all web elements matching the selector', () => Bernie.attemptsTo(
             Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.ofAll(ShoppingList.Items), contains('oats')),
+            Ensure.that(Text.ofAll(ShoppingList.Items), contain('oats')),
         ));
 
         it('an element relative to another target', () => Bernie.attemptsTo(
