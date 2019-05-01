@@ -6,8 +6,8 @@ import { promiseOf } from '../promiseOf';
 /**
  * @access private
  */
-export class ElementFinderExpectation extends Expectation<boolean, ElementFinder> {
-    static to(message: string, fn: (actual: ElementFinder) => PromiseLike<boolean>): Expectation<boolean, ElementFinder> {
+export class ElementFinderExpectation extends Expectation<any, ElementFinder> {
+    static forElementTo(message: string, fn: (actual: ElementFinder) => PromiseLike<boolean>): Expectation<any, ElementFinder> {
         return new ElementFinderExpectation(message, fn);
     }
 
@@ -22,8 +22,8 @@ export class ElementFinderExpectation extends Expectation<boolean, ElementFinder
 
         return (actual: ElementFinder) =>
             promiseOf(this.fn(actual)).then(_ => _
-                ? new ExpectationMet(this.toString(), true, actual)
-                : new ExpectationNotMet(this.toString(), true, actual),
+                ? new ExpectationMet(this.toString(), null, actual)
+                : new ExpectationNotMet(this.toString(), null, actual),
             );
     }
 

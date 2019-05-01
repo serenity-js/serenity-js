@@ -10,5 +10,5 @@ import { ElementFinderExpectation } from './ElementFinderExpectation';
  * @returns {Expectation<boolean, ElementFinder>}
  */
 export function isPresent(): Expectation<boolean, ElementFinder> {
-    return ElementFinderExpectation.to('become present', actual => actual.isPresent());
+    return ElementFinderExpectation.forElementTo('become present', actual => actual.isPresent());
 }
