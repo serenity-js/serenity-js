@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.61](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.60...v2.0.1-alpha.61) (2019-04-29)
+
+**Note:** Version bump only for package @integration/testing-tools
+
+
+
+
+
 ## [2.0.1-alpha.60](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.59...v2.0.1-alpha.60) (2019-04-29)
 
 **Note:** Version bump only for package @integration/testing-tools
