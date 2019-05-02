@@ -1,9 +1,8 @@
-import { Serenity } from '@serenity-js/core';
-import { ArtifactArchiver } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver, Serenity } from '@serenity-js/core';
 import deepmerge = require('deepmerge');
 const isPlainObject = require('is-plain-object');   // tslint:disable-line:no-var-requires fails when using default import
-import { Runner } from 'protractor';
 
+import { Runner } from 'protractor';
 import { Config } from './Config';
 import { ProtractorReport, ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './TestRunnerDetector';
