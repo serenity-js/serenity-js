@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.64](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.63...v2.0.1-alpha.64) (2019-05-02)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
 ## [2.0.1-alpha.63](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.62...v2.0.1-alpha.63) (2019-05-01)
 
 **Note:** Version bump only for package @serenity-js/local-server
