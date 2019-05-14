@@ -1,10 +1,11 @@
-import * as ErrorStackParser from 'error-stack-parser';
 import { RuntimeError } from '../../../../errors';
+import { ErrorStackParser } from '../../../../io';
 
 /** @access package */
 export class ErrorRenderer {
+    private static parser = new ErrorStackParser();
+
     render(error: Error) {
-        // todo: add diff for AssertionError
         // tslint:disable-next-line:prefer-object-spread     Esdoc doesn't understand spread
         return Object.assign(
             {},
@@ -17,7 +18,7 @@ export class ErrorRenderer {
         return {
             errorType:    error.constructor.name,
             message:      error.message,
-            stackTrace:   ErrorStackParser.parse(error).map(frame => ({
+            stackTrace:   ErrorRenderer.parser.parse(error).map(frame => ({
                 declaringClass: '',
                 methodName:     `${ frame.functionName }(${ (frame.args || []).join(', ') })`,
                 fileName:       frame.fileName,
