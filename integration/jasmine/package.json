@@ -1,0 +1,39 @@
+{
+  "name": "@integration/jasmine",
+  "version": "2.0.1-alpha.64",
+  "description": "Jasmine integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "parallel-mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "test:parallel": "mocha-parallel-tests --opts ../../mocha.opts 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "2.0.1-alpha.64",
+    "@serenity-js/core": "2.0.1-alpha.64",
+    "@serenity-js/jasmine": "2.0.1-alpha.64",
+    "jasmine": "^3.4.0"
+  }
+}

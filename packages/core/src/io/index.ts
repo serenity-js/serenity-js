@@ -1,4 +1,5 @@
 export * from './ErrorSerialiser';
+export * from './ErrorStackParser';
 export * from './FileSystem';
 export * from './FileSystemLocation';
 export * from './formatted';

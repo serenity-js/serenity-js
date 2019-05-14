@@ -9,5 +9,6 @@ export * from './Name';
 export * from './outcomes';
 export * from './ScenarioDetails';
 export * from './ScenarioParameters';
+export * from './TestSuiteDetails';
 export * from './tags';
 export * from './Timestamp';

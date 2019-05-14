@@ -1,0 +1,78 @@
+{
+  "name": "@serenity-js/jasmine",
+  "version": "2.0.1-alpha.64",
+  "description": "Serenity/JS adapter for the Jasmine test runner",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "jasmine",
+    "tdd",
+    "bdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "nyc --report-dir ../../target/coverage/jasmine mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "gherkin": "5.1.0"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "2.x",
+    "jasmine-core": "^3.4.0"
+  },
+  "devDependencies": {
+    "@documentation/esdoc-template": "2.0.1-alpha.64",
+    "@integration/testing-tools": "2.0.1-alpha.64",
+    "@serenity-js/core": "2.0.1-alpha.64",
+    "jasmine-core": "^3.4.0"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": true
+  }
+}
