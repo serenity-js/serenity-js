@@ -1,9 +1,14 @@
 import { expect } from '@integration/testing-tools';
+import * as sinon from 'sinon';
 import serenityReporterForJasmine = require('../src');
 
 describe('@serenity-js/jasmine', () => {
 
     beforeEach(() => {
+        const env = {
+            afterEach: sinon.spy(),
+        };
+
         (global as any).jasmine = {
             Spec: function Spec() {
                 this.result = {};
@@ -11,6 +16,7 @@ describe('@serenity-js/jasmine', () => {
             Suite: function Suite() {
                 this.result = {};
             },
+            getEnv: () => env,
         };
     });
 
@@ -28,7 +34,7 @@ describe('@serenity-js/jasmine', () => {
                 const spec = new (global as any).jasmine.Spec();
 
                 expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(28);
+                expect(spec.result.location.line).to.equal(34);
                 expect(spec.result.location.column).to.equal(30);
             });
 
@@ -58,9 +64,19 @@ describe('@serenity-js/jasmine', () => {
                 const spec = new (global as any).jasmine.Suite();
 
                 expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(58);
+                expect(spec.result.location.line).to.equal(64);
                 expect(spec.result.location.column).to.equal(30);
             });
         });
+    });
+
+    /**
+     * @test {bootstrap}
+     * @test {monkeyPatched}
+     */
+    it('registers an afterEach hook to ensure Serenity/JS is synchronised with Jasmine', () => {
+        serenityReporterForJasmine();
+
+        expect((global as any).jasmine.getEnv().afterEach).to.have.been.calledOnce; // tslint:disable-line:no-unused-expression
     });
 });

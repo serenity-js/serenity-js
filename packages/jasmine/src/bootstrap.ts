@@ -24,5 +24,7 @@ export function bootstrap() {
     jasmine.Suite = monkeyPatched(jasmine.Suite);
     jasmine.Spec = monkeyPatched(jasmine.Spec);
 
+    jasmine.getEnv().afterEach(() => serenity.waitForNextCue());
+
     return new SerenityReporterForJasmine(serenity);
 }
