@@ -21,7 +21,7 @@ export class CucumberCLIAdapter {
                 version         = this.loader.versionOf('cucumber'),
                 argv            = this.options.asArgumentsForCucumber(version),
 
-                serenityListener = this.loader.resolve('@serenity-js/cucumber/register');
+                serenityListener = this.loader.resolve('@serenity-js/cucumber');
 
             if (version.isAtLeast(new Version('2.0.0'))) {
                 return new cucumber.Cli({
