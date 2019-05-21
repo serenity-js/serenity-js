@@ -1,7 +1,5 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { serenity } from '@serenity-js/core';
-import { DebugReporter } from '@serenity-js/core/lib/stage';
-import { WithStage } from '@serenity-js/cucumber';
+import { DebugReporter, serenity, WithStage } from '@serenity-js/core';
 import { setDefaultTimeout, setWorldConstructor } from 'cucumber';
 import { Actors } from './Actors';
 

@@ -1,5 +1,5 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { WithStage } from '@serenity-js/cucumber';
+import { WithStage } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { Navigate, UseAngular, Website } from '@serenity-js/protractor';
 import { After, Then, When } from 'cucumber';

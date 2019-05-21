@@ -1,5 +1,4 @@
-import { Interaction } from '@serenity-js/core';
-import { WithStage } from '@serenity-js/cucumber';
+import { Interaction, WithStage } from '@serenity-js/core';
 import { After, Before, Then, When } from 'cucumber';
 
 const

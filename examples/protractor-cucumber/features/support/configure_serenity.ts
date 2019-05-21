@@ -1,7 +1,5 @@
-import { serenity } from '@serenity-js/core';
+import { ArtifactArchiver, ConsoleReporter, serenity, SerenityBDDReporter, WithStage } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { ArtifactArchiver, ConsoleReporter, DebugReporter, SerenityBDDReporter } from '@serenity-js/core/lib/stage';
-import { WithStage } from '@serenity-js/cucumber';
 
 import { setDefaultTimeout, setWorldConstructor } from 'cucumber';
 import { Actors } from './screenplay';
@@ -16,6 +14,6 @@ serenity.setTheStage(
 
 setDefaultTimeout(1000);
 
-setWorldConstructor(function(this: WithStage, { parameters }) {
+setWorldConstructor(function (this: WithStage, { parameters }) {
     this.stage = serenity.callToStageFor(new Actors());
 });
