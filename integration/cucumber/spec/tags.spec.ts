@@ -13,7 +13,7 @@ describe('@serenity-js/cucumber', function () {
     given([
         ...cucumberVersions(1, 2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/register.js',
+                'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -24,7 +24,7 @@ describe('@serenity-js/cucumber', function () {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber/register.js',
+                '--format', 'node_modules/@serenity-js/cucumber',
             )
             .toRun('features/tags.feature'),
     ]).
@@ -44,7 +44,7 @@ describe('@serenity-js/cucumber', function () {
     given([
         ...cucumberVersions(1, 2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber/register.js',
+                'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
@@ -55,7 +55,7 @@ describe('@serenity-js/cucumber', function () {
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
-                '--format', 'node_modules/@serenity-js/cucumber/register.js',
+                '--format', 'node_modules/@serenity-js/cucumber',
                 '--name', 'More tagged scenarios',
             )
             .toRun('features/tags.feature'),
