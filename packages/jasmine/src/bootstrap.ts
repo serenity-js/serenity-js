@@ -17,10 +17,10 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
  *
  * @see {@link monkeyPatched}
  * @see {@link SerenityReporterForJasmine}
+ *
+ * @param jasmine - the global.jasmine instance
  */
-export function bootstrap() {
-    const jasmine = (global as any).jasmine;
-
+export function bootstrap(jasmine = (global as any).jasmine) {
     jasmine.Suite = monkeyPatched(jasmine.Suite);
     jasmine.Spec = monkeyPatched(jasmine.Spec);
 

@@ -1,0 +1,41 @@
+{
+  "name": "@integration/protractor-jasmine",
+  "version": "2.0.1-alpha.65",
+  "description": "Protractor/Jasmine integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "parallel-mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "test:parallel": "mocha-parallel-tests --opts ../../mocha.opts 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "@serenity-js/core": "2.0.1-alpha.65",
+    "@serenity-js/jasmine": "2.0.1-alpha.65",
+    "@serenity-js/protractor": "2.0.1-alpha.65",
+    "@integration/testing-tools": "2.0.1-alpha.65",
+    "chromedriver": "^74.0.0",
+    "protractor": "^5.4.2"
+  }
+}

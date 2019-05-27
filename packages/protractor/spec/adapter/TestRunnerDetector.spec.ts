@@ -2,8 +2,9 @@ import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { TestRunnerDetector } from '../../src/adapter';
 import { CucumberTestRunner } from '../../src/adapter/runners/CucumberTestRunner';
+import { JasmineTestRunner } from '../../src/adapter/runners/JasmineTestRunner';
 
-describe(`TestRunnerDetector`, () => {
+describe('TestRunnerDetector', () => {
 
     let detector: TestRunnerDetector;
 
@@ -11,9 +12,9 @@ describe(`TestRunnerDetector`, () => {
         detector = new TestRunnerDetector(new ModuleLoader(process.cwd()));
     });
 
-    describe(`when configured with a specific runner`, () => {
+    describe('when configured with a specific runner', () => {
 
-        it(`uses the CucumberTestRunner`, () => {
+        it('uses the CucumberTestRunner', () => {
             const runner = detector.runnerFor({
                 serenity: {
                     runner: 'cucumber',
@@ -23,14 +24,22 @@ describe(`TestRunnerDetector`, () => {
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it(`uses the MochaTestRunner`);
+        it('uses the JasmineTestRunner', () => {
+            const runner = detector.runnerFor({
+                serenity: {
+                    runner: 'jasmine',
+                },
+            });
 
-        it(`uses the JasmineTestRunner`);
+            expect(runner).to.be.instanceOf(JasmineTestRunner);
+        });
+
+        it('uses the MochaTestRunner');
     });
 
-    describe(`when no relevant configuration is provided`, () => {
+    describe('when no specific test runner is set', () => {
 
-        it(`uses the CucumberTestRunner when cucumberOpts are specified`, () => {
+        it('uses the CucumberTestRunner when cucumberOpts are specified', () => {
             const runner = detector.runnerFor({
                 cucumberOpts: {
                     require: [
@@ -43,11 +52,23 @@ describe(`TestRunnerDetector`, () => {
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it(`uses the MochaTestRunner when mochaOpts are specified`);
+        it('uses the JasmineTestRunner when jasmineNodeOpts are specified', () => {
+            const runner = detector.runnerFor({
+                jasmineNodeOpts: {
+                    grep: 'some spec.*',
+                },
+            });
 
-        it(`uses the JasmineTestRunner when jasmineNodeOpts are specified`);
+            expect(runner).to.be.instanceOf(JasmineTestRunner);
+        });
 
-        it(`uses the JasmineTestRunner when no other runners are specified`);
+        it('uses the JasmineTestRunner when no other runners are specified', () => {
+            const runner = detector.runnerFor({});
+
+            expect(runner).to.be.instanceOf(JasmineTestRunner);
+        });
+
+        it('uses the MochaTestRunner when mochaOpts are specified');
     });
 
     describe('to support test runner options specified in the capabilities section', () => {

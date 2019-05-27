@@ -4,12 +4,14 @@ import serenityReporterForJasmine = require('../src');
 
 describe('@serenity-js/jasmine', () => {
 
+    let jasmine: any;
+
     beforeEach(() => {
         const env = {
             afterEach: sinon.spy(),
         };
 
-        (global as any).jasmine = {
+        jasmine = {
             Spec: function Spec() {
                 this.result = {};
             },
@@ -29,12 +31,12 @@ describe('@serenity-js/jasmine', () => {
              * @test {monkeyPatched}
              */
             it('knows the location of the invoker', () => {
-                serenityReporterForJasmine();
+                serenityReporterForJasmine(jasmine);
 
-                const spec = new (global as any).jasmine.Spec();
+                const spec = new jasmine.Spec();
 
                 expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(34);
+                expect(spec.result.location.line).to.equal(36);
                 expect(spec.result.location.column).to.equal(30);
             });
 
@@ -44,11 +46,11 @@ describe('@serenity-js/jasmine', () => {
              */
             it('has all the static members of the original constructor function', () => {
 
-                (global as any).jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';
+                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';
 
-                serenityReporterForJasmine();
+                serenityReporterForJasmine(jasmine);
 
-                expect((global as any).jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');
+                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');
             });
         });
 
@@ -59,12 +61,12 @@ describe('@serenity-js/jasmine', () => {
              * @test {monkeyPatched}
              */
             it('knows the location of the invoker', () => {
-                serenityReporterForJasmine();
+                serenityReporterForJasmine(jasmine);
 
-                const spec = new (global as any).jasmine.Suite();
+                const spec = new jasmine.Suite();
 
                 expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(64);
+                expect(spec.result.location.line).to.equal(66);
                 expect(spec.result.location.column).to.equal(30);
             });
         });
@@ -75,8 +77,8 @@ describe('@serenity-js/jasmine', () => {
      * @test {monkeyPatched}
      */
     it('registers an afterEach hook to ensure Serenity/JS is synchronised with Jasmine', () => {
-        serenityReporterForJasmine();
+        serenityReporterForJasmine(jasmine);
 
-        expect((global as any).jasmine.getEnv().afterEach).to.have.been.calledOnce; // tslint:disable-line:no-unused-expression
+        expect(jasmine.getEnv().afterEach).to.have.been.calledOnce; // tslint:disable-line:no-unused-expression
     });
 });
