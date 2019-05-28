@@ -154,12 +154,13 @@ describe('SerenityReporterForJasmine', () => {
             });
 
             /**
-             * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
-             *
              * @test {SerenityReporterForJasmine#suiteStarted}
              * @test {SerenityReporterForJasmine#suiteDone}
              */
             it('ends with an error, reporting the first error that has occurred', () => {
+                /*
+                 * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
+                 */
                 reporter.suiteStarted({
                     id: 'suite1',
                     description: 'a suite',
@@ -630,10 +631,6 @@ describe('SerenityReporterForJasmine', () => {
             });
         });
 
-        /**
-         * @test {SerenityReporterForJasmine#specStarted}
-         * @test {SerenityReporterForJasmine#specDone}
-         */
         describe('the `it` block is not nested within a `describe` block and', () => {
 
             beforeEach(() => {
@@ -677,11 +674,19 @@ describe('SerenityReporterForJasmine', () => {
                 });
             });
 
+            /**
+             * @test {SerenityReporterForJasmine#specStarted}
+             * @test {SerenityReporterForJasmine#specDone}
+             */
             it('tags the feature as "unknown"', () => {
                 PickEvent.from(listener.events)
                     .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Unknown feature')));
             });
 
+            /**
+             * @test {SerenityReporterForJasmine#specStarted}
+             * @test {SerenityReporterForJasmine#specDone}
+             */
             it('correctly derives the name of the spec', () => {
                 PickEvent.from(listener.events)
                     .next(SceneStarts,      event => expect(event.value.name.value).to.equal('A scenario passes'))
