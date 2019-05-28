@@ -12,6 +12,9 @@ export interface Collection<T> {
     count(): PromiseLike<number> | number;
 }
 
+/**
+ * @experimental
+ */
 export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Collection<Item_Type>> {
 
     static from<IT, CT extends Collection<IT> = Collection<IT>>(collection: Question<CT> | CT) {

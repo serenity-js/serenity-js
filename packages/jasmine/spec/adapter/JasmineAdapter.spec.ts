@@ -4,6 +4,7 @@ import * as sinon from 'sinon';
 import { JasmineAdapter } from '../../src/adapter';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 
+/** @test JasmineAdapter */
 describe('JasmineAdapter', () => {
 
     let loader: sinon.SinonStubbedInstance<ModuleLoader>;
@@ -28,6 +29,7 @@ describe('JasmineAdapter', () => {
         (global as any).jasmine = void 0;
     });
 
+    /** @test JasmineAdapter#run */
     it('defaults to running tests sequentially rather than in a random order', () => {
 
         const
@@ -47,6 +49,7 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
+    /** @test JasmineAdapter#run */
     it('configures the default timeout interval if required', () => {
 
         const
