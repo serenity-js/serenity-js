@@ -49,7 +49,7 @@ describe('PutRequest', () => {
             }));
 
     /** @test {PutRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(PutRequest.to('/products/2').toString())
             .to.equal(`a PUT request to '/products/2'`);
     });

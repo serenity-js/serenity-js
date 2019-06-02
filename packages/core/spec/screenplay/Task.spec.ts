@@ -24,7 +24,7 @@ describe('Task', () => {
     );
 
     /** @test {Task} */
-    it(`provides a convenient factory method for defining tasks`, () => {
+    it('provides a convenient factory method for defining tasks', () => {
 
         const Lara = new Actor('Lara', stage as unknown as Stage);
 
@@ -32,12 +32,12 @@ describe('Task', () => {
     });
 
     /** @test {Task} */
-    it(`provides a way to describe a collection of activities`, () => {
+    it('provides a way to describe a collection of activities', () => {
         expect(ShootAnArrow().toString()).to.equal(`#actor shoots an arrow`);
     });
 
     /** @test {Task} */
-    it(`generates a pending task if no activities are provided`, () => {
+    it('generates a pending task if no activities are provided', () => {
 
         const Lara = new Actor('Lara', stage as unknown as Stage);
 

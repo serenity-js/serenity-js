@@ -45,7 +45,7 @@ interface ScenarioParametersResultLocation {
     outcome?: Outcome;
 }
 
-/** @access package */
+/** @package */
 export class SceneReport {
     private static outcomeMapper = new OutcomeMapper();
     private static idGenerator = new IDGenerator();
@@ -341,7 +341,9 @@ export class SceneReport {
     }
 }
 
-/** @access private */
+/**
+ * @package
+ */
 class ActivityStack {
     public haveFailed: boolean = false;
     private readonly items: Array<Partial<TestStep>> = [];

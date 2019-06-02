@@ -108,7 +108,7 @@ describe('ArtifactArchiver', () => {
         });
     });
 
-    describe(`when it encounters events it's not interested in`, () => {
+    describe('when it encounters events it\'s not interested in', () => {
 
         class SomeEvent extends DomainEvent {
             constructor() {
@@ -121,7 +121,7 @@ describe('ArtifactArchiver', () => {
         /**
          * @test {ArtifactArchiver}
          */
-        it(`ignores them`, () => {
+        it('ignores them', () => {
             const stageManager = sinon.createStubInstance(StageManager);
 
             fs           = sinon.createStubInstance(FileSystem);
@@ -172,13 +172,13 @@ describe('ArtifactArchiver', () => {
     });
 
     describe('when instantiated using a factory method', () => {
-        it(`joins the path segments provided so that the developer doesn't need to worry about cross-OS compatibility of the path`, () => {
+        it('joins the path segments provided so that the developer doesn\'t need to worry about cross-OS compatibility of the path', () => {
             archiver = ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target', 'site/serenity');
 
             expect((archiver as any).fileSystem.root).to.equal(new Path(process.cwd()).join(new Path('target/site/serenity')));
         });
 
-        it(`complains if the destination is not provided`, () => {
+        it('complains if the destination is not provided', () => {
             expect(() => ArtifactArchiver.storingArtifactsAt()).to.throw(Error, 'Path to destination directory should have length that is greater than 0');
         });
     });

@@ -11,6 +11,9 @@ export function property<Actual, Property extends keyof Actual>(
     return new HasProperty(propertyName, expectation);
 }
 
+/**
+ * @package
+ */
 class HasProperty<Property extends keyof Actual, Actual> extends Expectation<Actual[Property], Actual> {
     constructor(
         private readonly propertyName: Property,

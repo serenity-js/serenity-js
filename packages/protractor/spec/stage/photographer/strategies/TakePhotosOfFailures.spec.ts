@@ -9,7 +9,7 @@ import { Perform } from '../fixtures';
 
 describe('Photographer', () => {
 
-    describe(`when instructed to take a photo of failed interactions,`, () => {
+    describe('when instructed to take a photo of failed interactions,', () => {
 
         let photographer: Photographer,
             stage: Stage,
@@ -24,14 +24,14 @@ describe('Photographer', () => {
             stage.assign(photographer);
         });
 
-        it(`does nothing if everything goes well`, () =>
+        it('does nothing if everything goes well', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
                 expect(recorder.events).to.have.lengthOf(2);    // Interaction starts and finishes
             })));
 
-        it(`takes a photo when a problem occurs`, () =>
+        it('takes a photo when a problem occurs', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -43,7 +43,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`correlates the photo with the activity it's concerning`, () =>
+        it('correlates the photo with the activity it\'s concerning', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -59,7 +59,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`takes only one picture, even though nested tasks might all be marked as failing`, () =>
+        it('takes only one picture, even though nested tasks might all be marked as failing', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.taskWith(
                     Perform.taskWith(

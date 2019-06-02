@@ -35,7 +35,7 @@ describe('OptionsRequest', () => {
             }));
 
     /** @test {Options#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(OptionsRequest.to('/products/2').toString())
             .to.equal(`an OPTIONS request to '/products/2'`);
     });

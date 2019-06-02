@@ -13,6 +13,9 @@ export class DeleteCookies {
     }
 }
 
+/**
+ * @package
+ */
 class DeleteCookieCalled implements Interaction {
     constructor(private readonly name: Answerable<string>) {
     }
@@ -27,6 +30,9 @@ class DeleteCookieCalled implements Interaction {
     }
 }
 
+/**
+ * @package
+ */
 class DeletesAllCookies implements Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return promiseOf(BrowseTheWeb.as(actor).manage().deleteAllCookies());

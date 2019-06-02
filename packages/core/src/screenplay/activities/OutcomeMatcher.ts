@@ -8,7 +8,7 @@ import {
     ProblemIndication,
 } from '../../model';
 
-/** @access package */
+/** @package */
 export class OutcomeMatcher {
     outcomeFor(error: Error | any): ProblemIndication {
         return match<Error, ProblemIndication>(error)

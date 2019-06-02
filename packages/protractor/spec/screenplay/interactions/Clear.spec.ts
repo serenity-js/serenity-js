@@ -33,7 +33,7 @@ describe('Clear', () => {
     ));
 
     /** @test {Clear#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(Clear.theValueOf(Form.Field).toString())
             .to.equal('#actor clears the value of the name field');
     });

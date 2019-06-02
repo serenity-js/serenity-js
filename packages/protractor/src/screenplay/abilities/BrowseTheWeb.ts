@@ -344,6 +344,9 @@ export class BrowseTheWeb implements Ability {
     }
 }
 
+/**
+ * @package
+ */
 class LastScriptExecutionSummary {
     constructor(public readonly result: any) {}
 }

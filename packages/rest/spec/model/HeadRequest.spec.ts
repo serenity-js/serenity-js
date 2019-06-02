@@ -35,7 +35,7 @@ describe('HeadRequest', () => {
             }));
 
     /** @test {HeadRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(HeadRequest.to('/products/2').toString())
             .to.equal(`a HEAD request to '/products/2'`);
     });

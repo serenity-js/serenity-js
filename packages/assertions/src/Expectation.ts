@@ -33,6 +33,9 @@ export abstract class Expectation<Expected, Actual = Expected>
     abstract toString(): string;
 }
 
+/**
+ * @package
+ */
 class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<Expected, Actual> {
 
     constructor(
@@ -57,6 +60,9 @@ class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<E
     }
 }
 
+/**
+ * @package
+ */
 class ExpectationAlias<Actual> implements Expectation<any, Actual> {
 
     constructor(

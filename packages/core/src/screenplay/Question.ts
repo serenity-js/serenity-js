@@ -19,6 +19,9 @@ export abstract class Question<T> {
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 }
 
+/**
+ * @package
+ */
 class AnonymousQuestion<T> implements Question<T> {
     constructor(private description: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
     }

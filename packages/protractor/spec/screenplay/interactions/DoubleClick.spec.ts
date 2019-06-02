@@ -36,7 +36,7 @@ describe('DoubleClick', () => {
     ));
 
     /** @test {DoubleClick#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(DoubleClick.on(Interactive_Element).toString())
             .to.equal('#actor double-clicks on the interactive element');
     });

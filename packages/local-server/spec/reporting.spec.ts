@@ -38,7 +38,7 @@ describe('@serenity-js/local-server', () => {
          * @test {StartLocalServer}
          * @test {StopLocalServer}
          */
-        it(`correctly reports actor's activities`, () => expect(theStage.theActorCalled('Nadia').attemptsTo(
+        it('correctly reports actor\'s activities', () => expect(theStage.theActorCalled('Nadia').attemptsTo(
             StartLocalServer.onRandomPort(),
             Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),

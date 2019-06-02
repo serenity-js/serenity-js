@@ -8,6 +8,9 @@ export function not<Expected, Actual>(assertion: Expectation<Expected, Actual>):
     return new Not<Expected, Actual>(assertion);
 }
 
+/**
+ * @package
+ */
 class Not<Expected, Actual> extends Expectation<Expected, Actual> {
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
         super();

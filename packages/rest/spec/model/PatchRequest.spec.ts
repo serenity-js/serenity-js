@@ -49,7 +49,7 @@ describe('PatchRequest', () => {
             }));
 
     /** @test {PatchRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(PatchRequest.to('/products/2').toString())
             .to.equal(`a PATCH request to '/products/2'`);
     });

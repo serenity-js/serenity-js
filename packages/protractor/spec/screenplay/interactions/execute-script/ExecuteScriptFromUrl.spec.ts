@@ -51,7 +51,7 @@ describe('ExecuteScriptFromUrl', function () {
 
     /** @test {ExecuteScript.from} */
     /** @test {ExecuteScriptFromUrl#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(`#actor executes a script from ${ pathToScript }`);
     });

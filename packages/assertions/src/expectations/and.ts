@@ -7,6 +7,9 @@ export function and<Actual>(...expectations: Array<Expectation<any, Actual>>): E
     return new And(expectations);
 }
 
+/**
+ * @package
+ */
 class And<Actual> extends Expectation<any, Actual> {
     constructor(private readonly expectations: Array<Expectation<any, Actual>>) {
         super();

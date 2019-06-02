@@ -1,5 +1,5 @@
 /**
- * @access package
+ * @package
  */
 export class Current<T> {
     constructor(private val: T = null) {

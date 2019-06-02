@@ -24,6 +24,9 @@ export class Wait {
     }
 }
 
+/**
+ * @package
+ */
 class WaitFor extends Interaction {
     constructor(private readonly duration: Answerable<Duration>) {
         super();
@@ -38,6 +41,9 @@ class WaitFor extends Interaction {
     }
 }
 
+/**
+ * @package
+ */
 class WaitUntil<Actual> extends Interaction {
     constructor(
         private readonly actual: Answerable<Actual>,

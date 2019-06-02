@@ -1,7 +1,7 @@
 import { RuntimeError } from '../../../../errors';
 import { ErrorStackParser } from '../../../../io';
 
-/** @access package */
+/** @package */
 export class ErrorRenderer {
     private static parser = new ErrorStackParser();
 

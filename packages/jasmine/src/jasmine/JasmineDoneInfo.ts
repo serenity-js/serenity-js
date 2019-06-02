@@ -1,3 +1,6 @@
+import { Expectation } from './Expectation';
+import { Order } from './Order';
+
 /**
  * @desc
  *  Information passed to the Reporter#jasmineDone event.
@@ -5,9 +8,6 @@
  * @package
  * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo
  */
-import { Expectation } from './Expectation';
-import { Order } from './Order';
-
 export interface JasmineDoneInfo {
 
     /** The overall result of the suite: 'passed', 'failed', or 'incomplete'. */

@@ -31,33 +31,33 @@ describe('isSelected', function () {
     ));
 
     /** @test {isSelected} */
-    it(`allows the actor flow to continue when the element is selected`, () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is selected', () => expect(Bernie.attemptsTo(
         Wait.until(Languages.TypeScript, isSelected()),
         Ensure.that(Languages.TypeScript, isSelected()),
     )).to.be.fulfilled);
 
     /** @test {isSelected} */
-    it(`breaks the actor flow when element is not selected`, () => {
+    it('breaks the actor flow when element is not selected', () => {
         return expect(Bernie.attemptsTo(
             Ensure.that(Languages.JavaScript, isSelected()),
         )).to.be.rejectedWith(AssertionError, `Expected the JavaScript option to become selected`);
     });
 
     /** @test {isSelected} */
-    it(`breaks the actor flow when element is not present`, () => {
+    it('breaks the actor flow when element is not present', () => {
         return expect(Bernie.attemptsTo(
             Ensure.that(Languages.Java, isSelected()),
         )).to.be.rejectedWith(AssertionError, `Expected the Java option to become present`);
     });
 
     /** @test {isSelected} */
-    it(`contributes to a human-readable description of an assertion`, () => {
+    it('contributes to a human-readable description of an assertion', () => {
         expect(Ensure.that(Languages.TypeScript, isSelected()).toString())
             .to.equal(`#actor ensures that the TypeScript option does become selected`);
     });
 
     /** @test {isSelected} */
-    it(`contributes to a human-readable description of a wait`, () => {
+    it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Languages.TypeScript, isSelected()).toString())
             .to.equal(`#actor waits up to 5s until the TypeScript option does become selected`);
     });

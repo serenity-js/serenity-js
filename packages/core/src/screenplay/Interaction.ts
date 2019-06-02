@@ -12,6 +12,9 @@ export abstract class Interaction implements Activity {
     abstract performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void>;
 }
 
+/**
+ * @package
+ */
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
         private readonly description: string,

@@ -1,4 +1,4 @@
-/** @access package */
+/** @package */
 
 import { JSONObject } from 'tiny-types';
 

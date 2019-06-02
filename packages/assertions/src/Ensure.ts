@@ -68,6 +68,9 @@ export class Ensure<Actual> extends Interaction {
     }
 }
 
+/**
+ * @package
+ */
 class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
     constructor(
         actual: Answerable<Actual>,

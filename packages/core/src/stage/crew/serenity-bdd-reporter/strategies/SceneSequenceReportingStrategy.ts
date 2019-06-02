@@ -14,7 +14,7 @@ import { SceneReport } from '../reports';
 import { SceneReportingStrategy } from './SceneReportingStrategy';
 
 /**
- * @access package
+ * @package
  */
 export class SceneSequenceReportingStrategy extends SceneReportingStrategy {
 

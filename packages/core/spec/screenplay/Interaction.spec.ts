@@ -16,7 +16,7 @@ describe('Interaction', () => {
     describe('when defining an interaction', () => {
 
         /** @test {Interaction} */
-        it(`provides a convenient factory method for synchronous interactions`, () => {
+        it('provides a convenient factory method for synchronous interactions', () => {
             const spy = sinon.spy();
 
             const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => {
@@ -33,7 +33,7 @@ describe('Interaction', () => {
         });
 
         /** @test {Interaction} */
-        it(`provides a convenient factory method for asynchronous interactions`, () => {
+        it('provides a convenient factory method for asynchronous interactions', () => {
             const spy = sinon.spy();
 
             const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => {
@@ -52,10 +52,10 @@ describe('Interaction', () => {
         });
     });
 
-    describe(`when handling errors`, () => {
+    describe('when handling errors', () => {
         const error = new Error(`We're sorry, something happened`);
 
-        it(`rejects the promise when the interaction function rejects a promise`, () => {
+        it('rejects the promise when the interaction function rejects a promise', () => {
             const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => Promise.reject(error));
 
             return expect(Ivonne.attemptsTo(
@@ -63,7 +63,7 @@ describe('Interaction', () => {
             )).to.be.rejectedWith(error);
         });
 
-        it(`rejects the promise when the interaction function throws an error`, () => {
+        it('rejects the promise when the interaction function throws an error', () => {
 
             const InteractWithTheSystem = () => Interaction.where(`#actor interacts with the system`, (actor: Actor) => { throw error; });
 

@@ -7,7 +7,7 @@ import { Interaction } from '../Interaction';
 import { ActivityDescriber } from './ActivityDescriber';
 import { OutcomeMatcher } from './OutcomeMatcher';
 
-/** @access package */
+/** @package */
 export class TrackedActivity implements Activity {
 
     protected static readonly describer = new ActivityDescriber();

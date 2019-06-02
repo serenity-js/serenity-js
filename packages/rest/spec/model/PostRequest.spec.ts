@@ -40,7 +40,7 @@ describe('PostRequest', () => {
             }));
 
     /** @test {PostRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(PostRequest.to('/products/2').toString())
             .to.equal(`a POST request to '/products/2'`);
     });

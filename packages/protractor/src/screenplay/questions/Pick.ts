@@ -58,6 +58,9 @@ export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Col
     }
 }
 
+/**
+ * @package
+ */
 class Filters<Item_Type, Collection_Type
     extends Collection<Item_Type>>
     implements Question<(ct: Collection_Type) => Collection_Type>
@@ -88,6 +91,9 @@ class Filters<Item_Type, Collection_Type
     }
 }
 
+/**
+ * @package
+ */
 class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_Type>
     implements Question<(ct: Collection_Type) => Collection_Type>
 {
@@ -112,6 +118,9 @@ class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_
     }
 }
 
+/**
+ * @package
+ */
 abstract class QuestionAboutCollectionItems<IT, CT extends Collection<IT>, Answer_Type>
     implements Question<Answer_Type>
 {
@@ -141,6 +150,9 @@ abstract class QuestionAboutCollectionItems<IT, CT extends Collection<IT>, Answe
     }
 }
 
+/**
+ * @package
+ */
 class NumberOfMatchingItems<IT, CT extends Collection<IT>>
     extends QuestionAboutCollectionItems<IT, CT, Promise<number>>
 {
@@ -153,6 +165,9 @@ class NumberOfMatchingItems<IT, CT extends Collection<IT>>
     }
 }
 
+/**
+ * @package
+ */
 class AllMatchingItems<IT, CT extends Collection<IT>> extends QuestionAboutCollectionItems<IT, CT, CT> {
 
     constructor(collection: Question<CT> | CT, filters: Filters<IT, CT>) {
@@ -164,6 +179,9 @@ class AllMatchingItems<IT, CT extends Collection<IT>> extends QuestionAboutColle
     }
 }
 
+/**
+ * @package
+ */
 class FirstMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutCollectionItems<IT, CT, IT> {
 
     constructor(collection: Question<CT> | CT, filters: Filters<IT, CT>) {
@@ -175,6 +193,9 @@ class FirstMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutColl
     }
 }
 
+/**
+ * @package
+ */
 class LastMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutCollectionItems<IT, CT, IT> {
 
     constructor(collection: Question<CT> | CT, filters: Filters<IT, CT>) {
@@ -186,6 +207,9 @@ class LastMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutColle
     }
 }
 
+/**
+ * @package
+ */
 class NthMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutCollectionItems<IT, CT, IT> {
     private static ordinalSuffixOf(index: number) {
         const

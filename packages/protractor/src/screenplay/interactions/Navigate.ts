@@ -34,6 +34,9 @@ export abstract class Navigate extends Interaction {
     abstract toString(): string;
 }
 
+/**
+ * @package
+ */
 class NavigateToUrl extends Navigate {
     constructor(private readonly url: Answerable<string>) {
         super();
@@ -50,6 +53,9 @@ class NavigateToUrl extends Navigate {
     }
 }
 
+/**
+ * @package
+ */
 class NavigateBack extends Navigate {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return promiseOf(BrowseTheWeb.as(actor).navigate().back());
@@ -60,6 +66,9 @@ class NavigateBack extends Navigate {
     }
 }
 
+/**
+ * @package
+ */
 class NavigateForward extends Navigate {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return promiseOf(BrowseTheWeb.as(actor).navigate().forward());
@@ -70,6 +79,9 @@ class NavigateForward extends Navigate {
     }
 }
 
+/**
+ * @package
+ */
 class ReloadPage extends Navigate {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return promiseOf(BrowseTheWeb.as(actor).navigate().refresh());

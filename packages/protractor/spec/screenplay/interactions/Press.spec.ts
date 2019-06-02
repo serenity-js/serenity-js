@@ -79,7 +79,7 @@ describe('Press', () => {
         },
     ]).
     /** @test {Press#toString} */
-    it(`provides a sensible description of the interaction being performed`, ({ interaction, expected }) => {
+    it('provides a sensible description of the interaction being performed', ({ interaction, expected }) => {
         expect(interaction.toString()).to.equal(expected);
     });
 });

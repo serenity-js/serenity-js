@@ -37,7 +37,7 @@ describe('Scroll', function () {
     ));
 
     /** @test {Enter#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(Scroll.to(Page.Execute_Button).toString())
             .to.equal(`#actor scrolls to the "Cast!" button`);
     });

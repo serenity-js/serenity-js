@@ -7,6 +7,9 @@ export function or<Actual>(...assertions: Array<Expectation<any, Actual>>): Expe
     return new Or(assertions);
 }
 
+/**
+ * @package
+ */
 class Or<Actual> extends Expectation<any, Actual> {
     private static readonly Separator = ' or ';
 

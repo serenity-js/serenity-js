@@ -35,7 +35,7 @@ describe('DeleteRequest', () => {
             }));
 
     /** @test {DeleteRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(DeleteRequest.to('/products/2').toString())
             .to.equal(`a DELETE request to '/products/2'`);
     });
