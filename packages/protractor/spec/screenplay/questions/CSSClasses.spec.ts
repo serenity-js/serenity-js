@@ -38,7 +38,7 @@ describe('CSSClasses', () => {
             { description: 'several-classes',                       expected: ['pretty', 'css', 'classes']  },
             { description: 'several-classes-with-whitespace',       expected: ['pretty', 'css', 'classes']  },
         ]).
-        it(`allows the actor to read the css classes of a DOM element matching the locator`, ({ description, expected }) =>
+        it('allows the actor to read the css classes of a DOM element matching the locator', ({ description, expected }) =>
             Bernie.attemptsTo(
                 Navigate.to(testPage),
 

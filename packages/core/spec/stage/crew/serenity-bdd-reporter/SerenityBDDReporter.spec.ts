@@ -221,7 +221,7 @@ describe('SerenityBDDReporter', () => {
              * @test {TestRunFinished}
              * @test {ImplementationPending}
              */
-            it(`hasn't been implemented yet`, () => {
+            it('hasn\'t been implemented yet', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),

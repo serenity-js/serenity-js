@@ -40,7 +40,7 @@ describe('UseAngular', function () {
         });
 
         /** @test {UseAngular} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(UseAngular.enableSynchronisation().toString())
                 .to.equal(`#actor enables synchronisation with Angular`);
 

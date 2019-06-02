@@ -11,16 +11,16 @@ describe ('Path', () => {
         const linuxPath = new Path(`features/search/full-text.feature`),
             windowsPath = new Path(`features\\search\\full-text.feature`);
 
-        it(`produces the same result no matter what path it's instantiated with`, () => {
+        it('produces the same result no matter what path it\'s instantiated with', () => {
             expect(linuxPath).to.equal(windowsPath);
         });
 
-        it(`exposes the normalised path string`, () => {
+        it('exposes the normalised path string', () => {
             expect(linuxPath.value).to.equal(windowsPath.value);
             expect(linuxPath.value).to.equal(`features/search/full-text.feature`);
         });
 
-        it(`splits the same`, () => {
+        it('splits the same', () => {
             expect(linuxPath.split()).to.deep.equal([
                 'features',
                 'search',

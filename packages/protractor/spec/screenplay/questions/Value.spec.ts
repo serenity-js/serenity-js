@@ -14,7 +14,7 @@ describe('Value', () => {
 
         /** @test {Text} */
         /** @test {Text.of} */
-        it(`allows the actor to read the 'value' attribute of a DOM element matching the locator`, () => Bernie.attemptsTo(
+        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => Bernie.attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>
@@ -30,7 +30,7 @@ describe('Value', () => {
 
         /** @test {Text} */
         /** @test {Text#of} */
-        it(`allows the actor to read the 'value' attribute of a DOM element matching the locator`, () => Bernie.attemptsTo(
+        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => Bernie.attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>

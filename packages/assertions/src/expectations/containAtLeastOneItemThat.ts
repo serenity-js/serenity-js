@@ -7,6 +7,9 @@ export function containAtLeastOneItemThat<Actual>(expectation: Expectation<any, 
     return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
 }
 
+/**
+ * @package
+ */
 class ContainAtLeastOneItemThatMeetsExpectation<Expected, Actual> extends Expectation<Expected, Actual[]> {
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
         super();

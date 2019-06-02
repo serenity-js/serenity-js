@@ -37,6 +37,9 @@ export class Cookie {
     }
 }
 
+/**
+ * @package
+ */
 class CookieDetails implements Question<Promise<IWebDriverOptionsCookie>> {
     constructor(private readonly name: Answerable<string>) {
     }

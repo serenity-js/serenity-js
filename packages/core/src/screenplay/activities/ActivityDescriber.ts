@@ -1,7 +1,7 @@
 import { Name } from '../../model';
 import { Activity } from '../Activity';
 
-/** @access package */
+/** @package */
 export class ActivityDescriber {
 
     describe(activity: Activity, actor: { name: string }): Name {

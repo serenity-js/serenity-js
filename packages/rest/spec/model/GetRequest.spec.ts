@@ -35,7 +35,7 @@ describe('GetRequest', () => {
             }));
 
     /** @test {GetRequest#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(GetRequest.to('/products/2').toString())
             .to.equal(`a GET request to '/products/2'`);
     });

@@ -7,7 +7,7 @@ import * as net from 'net';
 
 /**
  * @desc
- *  An {@link Ability} that enables the {@link Actor} to manage a local Node.js server.
+ *  An {@link Ability} that enables the {@link @serenity-js/core/lib/screenplay~Actor} to manage a local Node.js server.
  *
  * @example <caption>Using a raw Node.js server</caption>
  * import { Actor } from '@serenity-js/core';
@@ -82,7 +82,7 @@ export class ManageALocalServer implements Ability {
      *  Used to access the Actor's ability to {@link ManageALocalServer} from within the {@link Interaction} classes,
      *  such as {@link StartLocalServer}.
      *
-     * @param {UsesAbilities} actor
+     * @param {core/lib/screenplay~UsesAbilities} actor
      * @return {ManageALocalServer}
      */
     static as(actor: UsesAbilities): ManageALocalServer {

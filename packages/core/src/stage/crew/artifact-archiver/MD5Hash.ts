@@ -1,11 +1,16 @@
 import { createHash } from 'crypto';
-import { TinyType, TinyTypeOf } from 'tiny-types';
+import { ensure, isDefined, TinyType } from 'tiny-types';
 
 /**
- * @access package
+ * @package
  */
-export class MD5Hash extends TinyTypeOf<string>() {
+export class MD5Hash extends TinyType {
     static of(value: string): MD5Hash {
         return new MD5Hash(createHash('md5').update(value).digest('hex'));
+    }
+
+    constructor(public readonly value: string) {
+        super();
+        ensure(this.constructor.name, value, isDefined());
     }
 }

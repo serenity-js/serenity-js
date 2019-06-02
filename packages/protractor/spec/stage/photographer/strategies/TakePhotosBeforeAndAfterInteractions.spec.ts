@@ -18,7 +18,7 @@ describe('Photographer', function () {
 
     this.timeout(5000);
 
-    describe(`when instructed to take photos before and after all interactions`, () => {
+    describe('when instructed to take photos before and after all interactions', () => {
 
         let photographer: Photographer,
             stage: Stage,
@@ -33,7 +33,7 @@ describe('Photographer', function () {
             stage.assign(photographer);
         });
 
-        it(`takes a before and after photo when the interaction goes well`, () =>
+        it('takes a before and after photo when the interaction goes well', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
@@ -49,7 +49,7 @@ describe('Photographer', function () {
                     });
             })));
 
-        it(`takes a photo when a problem occurs`, () =>
+        it('takes a photo when a problem occurs', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -65,7 +65,7 @@ describe('Photographer', function () {
                     });
             })));
 
-        it(`takes a photo before and after Interaction, even though nested tasks might all be marked as failing`, () =>
+        it('takes a photo before and after Interaction, even though nested tasks might all be marked as failing', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.taskWith(
                     Perform.taskWith(
@@ -85,7 +85,7 @@ describe('Photographer', function () {
                     });
             })));
 
-        it(`takes two photos per interaction`, () =>
+        it('takes two photos per interaction', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
                 Perform.interactionThatSucceeds(2),

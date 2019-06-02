@@ -12,6 +12,9 @@ export abstract class Task implements Activity {
     abstract performAs(actor: PerformsActivities): PromiseLike<void>;
 }
 
+/**
+ * @package
+ */
 class DynamicallyGeneratedTask extends Task {
     constructor(private description: string, private activities: Activity[]) {
         super();
@@ -26,6 +29,9 @@ class DynamicallyGeneratedTask extends Task {
     }
 }
 
+/**
+ * @package
+ */
 class NotImplementedTask extends Task {
     constructor(private description: string) {
         super();

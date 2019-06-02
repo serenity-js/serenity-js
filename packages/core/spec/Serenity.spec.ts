@@ -8,7 +8,7 @@ import { expect } from './expect';
 
 describe('Serenity', () => {
 
-    it(`constructs a Stage and connects it with a provided DressingRoom`, () => {
+    it('constructs a Stage and connects it with a provided DressingRoom', () => {
 
         const prepareSpy = sinon.spy();
 
@@ -30,7 +30,7 @@ describe('Serenity', () => {
         expect(prepareSpy.getCall(0).args[0]).to.equal(Joe);
     });
 
-    it(`enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers`, () => {
+    it('enables propagation of DomainEvents triggered by Actors\' Activities and StageCrewMembers', () => {
 
         class Extras implements DressingRoom {
             prepare(actor: Actor): Actor {
@@ -66,7 +66,7 @@ describe('Serenity', () => {
         });
     });
 
-    it(`allows for external parties, such as test runner adapters, to announce DomainEvents`, () => {
+    it('allows for external parties, such as test runner adapters, to announce DomainEvents', () => {
 
         const frozenClock = new Clock(() => new Date('1983-07-03'));
         const serenity = new Serenity(frozenClock);

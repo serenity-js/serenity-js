@@ -33,7 +33,7 @@ describe('Click', () => {
     ));
 
     /** @test {Click#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(Click.on(Form.Checkbox).toString())
             .to.equal('#actor clicks on the checkbox');
     });

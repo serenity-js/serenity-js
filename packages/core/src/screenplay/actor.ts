@@ -13,8 +13,8 @@ import { Question } from './Question';
  * @public
  * @interface
  */
-export interface AnswersQuestions {
-    answer<T>(knownUnknown: Answerable<T>): Promise<T>;
+export abstract class AnswersQuestions {
+    abstract answer<T>(knownUnknown: Answerable<T>): Promise<T>;
 }
 
 /**
@@ -24,7 +24,7 @@ export interface AnswersQuestions {
  * @public
  * @interface
  */
-export interface CollectsArtifacts {
+export abstract class CollectsArtifacts {
     /**
      * @desc
      * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.
@@ -32,7 +32,7 @@ export interface CollectsArtifacts {
      * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}
      * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report
      */
-    collect(artifact: Artifact, name?: Name): void;
+    abstract collect(artifact: Artifact, name?: Name): void;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface CollectsArtifacts {
  * @public
  * @interface
  */
-export interface PerformsActivities {
-    attemptsTo(...tasks: Activity[]): Promise<void>;
+export abstract class PerformsActivities {
+    abstract attemptsTo(...tasks: Activity[]): Promise<void>;
 }
 
 /**
@@ -53,12 +53,12 @@ export interface PerformsActivities {
  * @public
  * @interface
  */
-export interface CanHaveAbilities<Returned_Type = UsesAbilities> {
+export abstract class CanHaveAbilities<Returned_Type = UsesAbilities> {
     /**
      * @param {Ability[]} abilities
      * @returns {Actor}
      */
-    whoCan(...abilities: Ability[]): Returned_Type;
+    abstract whoCan(...abilities: Ability[]): Returned_Type;
 }
 
 /**
@@ -68,7 +68,7 @@ export interface CanHaveAbilities<Returned_Type = UsesAbilities> {
  * @public
  * @interface
  */
-export interface UsesAbilities {
+export abstract class UsesAbilities {
 
     /**
      * @desc
@@ -77,7 +77,7 @@ export interface UsesAbilities {
      * @param {AbilityType<T extends Ability>} doSomething
      * @returns {T}
      */
-    abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
+    abstract abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
 }
 
 export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilities<Actor>, AnswersQuestions, CollectsArtifacts {

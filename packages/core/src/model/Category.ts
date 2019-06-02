@@ -1,7 +1,12 @@
-import { TinyType, TinyTypeOf } from 'tiny-types';
+import { ensure, isDefined, TinyType } from 'tiny-types';
 
-export class Category extends TinyTypeOf<string>() {
+export class Category extends TinyType {
     static fromJSON(v: string) {
         return new Category(v);
+    }
+
+    constructor(public readonly value: string) {
+        super();
+        ensure(this.constructor.name, value, isDefined());
     }
 }

@@ -31,7 +31,7 @@ describe('ProtractorReporter', () => {
     );
 
     /** @test {ProtractorReporter} */
-    it(`ignores events outcomes Protractor doesn't care about`, () => {
+    it('ignores events outcomes Protractor doesn\'t care about', () => {
 
         expect(reporter.notifyOf(new SceneFinished(details, new ExecutionSkipped()))).to.be.undefined;  // tslint:disable-line:no-unused-expression
 
@@ -42,7 +42,7 @@ describe('ProtractorReporter', () => {
     });
 
     /** @test {ProtractorReporter} */
-    it(`ignores domain events Protractor doesn't care about`, () => {
+    it('ignores domain events Protractor doesn\'t care about', () => {
 
         const artifact = TextData.fromJSON({ contentType: 'text/plain', data: 'one,two,three'});
 

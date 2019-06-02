@@ -22,7 +22,7 @@ import {
 import { SceneReport } from '../reports';
 
 /**
- * @access package
+ * @package
  */
 export abstract class SceneReportingStrategy {
 

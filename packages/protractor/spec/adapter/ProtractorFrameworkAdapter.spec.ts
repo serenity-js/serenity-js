@@ -258,7 +258,7 @@ describe('ProtractorFrameworkAdapter', () => {
                 });
         });
 
-        it(`allows for the defaults to be overridden`, () => {
+        it('allows for the defaults to be overridden', () => {
             protractorRunner.getConfig.returns({
                 serenity: {
                     crew: [

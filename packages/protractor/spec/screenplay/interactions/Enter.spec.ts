@@ -40,7 +40,7 @@ describe('Enter', () => {
     ));
 
     /** @test {Enter#toString} */
-    it(`provides a sensible description of the interaction being performed`, () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(Enter.theValue(Bernie.name).into(Form.Field).toString())
             .to.equal(`#actor enters 'Bernie' into the name field`);
     });

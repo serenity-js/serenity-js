@@ -49,7 +49,7 @@ describe('Cookie', () => {
 
             /** @test {Cookie} */
             /** @test {Cookie#valueOf} */
-            it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+            it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.valueOf('not-so-favourite'), equals(undefined)),
             ));
@@ -71,7 +71,7 @@ describe('Cookie', () => {
 
             /** @test {Cookie} */
             /** @test {Cookie#pathOf} */
-            it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+            it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.pathOf('not-so-favourite'), equals(undefined)),
             ));
@@ -93,7 +93,7 @@ describe('Cookie', () => {
 
             /** @test {Cookie} */
             /** @test {Cookie#domainOf} */
-            it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+            it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.domainOf('not-so-favourite'), equals(undefined)),
             ));
@@ -118,7 +118,7 @@ describe('Cookie', () => {
 
             /** @test {Cookie} */
             /** @test {Cookie#isHTTPOnly} */
-            it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+            it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.isHTTPOnly('not-so-favourite'), equals(undefined)),
             ));
@@ -150,7 +150,7 @@ describe('Cookie', () => {
 
             /** @test {Cookie} */
             /** @test {Cookie#expiryDateOf} */
-            it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+            it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.expiryDateOf('not-so-favourite'), equals(undefined)),
             ));
@@ -195,7 +195,7 @@ describe('Cookie', () => {
 
         /** @test {Cookie} */
         /** @test {Cookie#isSecure} */
-        it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
+        it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
             Ensure.that(Cookie.isSecure('not-so-favourite'), equals(undefined)),
         ));

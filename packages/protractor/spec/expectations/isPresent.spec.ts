@@ -27,26 +27,26 @@ describe('isPresent', function () {
     ));
 
     /** @test {isPresent} */
-    it(`allows the actor flow to continue when the element is present in the DOM`, () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is present in the DOM', () => expect(Bernie.attemptsTo(
         Wait.until(Page.Present_Header, isPresent()),
         Ensure.that(Page.Present_Header, isPresent()),
     )).to.be.fulfilled);
 
     /** @test {isPresent} */
-    it(`breaks the actor flow when element is not present in the DOM`, () => {
+    it('breaks the actor flow when element is not present in the DOM', () => {
         return expect(Bernie.attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
         )).to.be.rejectedWith(AssertionError, `Expected the non-existent header to become present`);
     });
 
     /** @test {isPresent} */
-    it(`contributes to a human-readable description of an assertion`, () => {
+    it('contributes to a human-readable description of an assertion', () => {
         expect(Ensure.that(Page.Present_Header, isPresent()).toString())
             .to.equal(`#actor ensures that the header does become present`);
     });
 
     /** @test {isPresent} */
-    it(`contributes to a human-readable description of a wait`, () => {
+    it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Page.Present_Header, isPresent()).toString())
             .to.equal(`#actor waits up to 5s until the header does become present`);
     });

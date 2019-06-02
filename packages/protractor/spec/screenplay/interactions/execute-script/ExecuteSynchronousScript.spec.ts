@@ -88,7 +88,7 @@ describe('ExecuteSynchronousScript', function () {
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
     /** @test {ExecuteSynchronousScript#toString} */
-    it(`provides a sensible description of the interaction being performed when invoked without arguments`, () => {
+    it('provides a sensible description of the interaction being performed when invoked without arguments', () => {
         expect(ExecuteScript.sync(`
             console.log('hello world');
         `).toString()).to.equal(`#actor executes a synchronous script`);
@@ -97,7 +97,7 @@ describe('ExecuteSynchronousScript', function () {
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
     /** @test {ExecuteSynchronousScript#toString} */
-    it(`provides a sensible description of the interaction being performed when invoked with arguments`, () => {
+    it('provides a sensible description of the interaction being performed when invoked with arguments', () => {
         const arg3 = Question.about('arg number 3', actor => void 0);
 
         expect(ExecuteScript.sync(`console.log('hello world');`)

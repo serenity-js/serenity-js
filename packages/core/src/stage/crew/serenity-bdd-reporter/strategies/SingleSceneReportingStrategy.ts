@@ -6,7 +6,7 @@ import { SceneReport } from '../reports';
 import { SceneReportingStrategy } from './SceneReportingStrategy';
 
 /**
- * @access package
+ * @package
  */
 export class SingleSceneReportingStrategy extends SceneReportingStrategy {
     worksFor(anotherScenario: ScenarioDetails): boolean {

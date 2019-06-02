@@ -1,0 +1,46 @@
+{
+  "name": "@documentation/esdoc-typescript-plugin",
+  "version": "2.0.1-alpha.67",
+  "description": "A TypeScript plugin for ESDoc",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "http://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "exit 0",
+    "lint": "exit 0",
+    "test": "rimraf ./target && node ./spec/init.js && mocha --opts ../../mocha.opts 'spec/**/*.spec.*' -R spec",
+    "compile": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-molak/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-molak/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "typescript": "^3.4.5",
+    "@babel/parser": "7.4.5"
+  },
+  "devDependencies": {
+    "@integration/testing-tools": "2.0.1-alpha.67",
+    "esdoc": "^1.1.0"
+  },
+  "main": "src/Plugin.js"
+}

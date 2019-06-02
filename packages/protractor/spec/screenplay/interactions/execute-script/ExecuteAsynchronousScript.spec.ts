@@ -105,7 +105,7 @@ describe('ExecuteAsynchronousScript', function () {
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
     /** @test {ExecuteAsynchronousScript#toString} */
-    it(`provides a sensible description of the interaction being performed when invoked without arguments`, () => {
+    it('provides a sensible description of the interaction being performed when invoked without arguments', () => {
         expect(ExecuteScript.async(`
             arguments[arguments.length - 1]();
         `).toString()).to.equal(`#actor executes an asynchronous script`);
@@ -113,7 +113,7 @@ describe('ExecuteAsynchronousScript', function () {
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript#toString} */
-    it(`provides a sensible description of the interaction being performed when invoked with arguments`, () => {
+    it('provides a sensible description of the interaction being performed when invoked with arguments', () => {
         const arg3 = Question.about('arg number 3', actor => void 0);
 
         expect(ExecuteScript.async(`arguments[arguments.length - 1]();`)

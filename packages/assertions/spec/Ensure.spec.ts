@@ -61,7 +61,7 @@ describe('Ensure', () => {
     });
 
     /** @test {Ensure.that} */
-    it(`complains when given an Expectation that doesn't conform to the interface`, () => {
+    it('complains when given an Expectation that doesn\'t conform to the interface', () => {
         class BrokenExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
             answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
                 return (actual: Actual) => Promise.resolve(null);
@@ -103,7 +103,7 @@ describe('Ensure', () => {
         expected: `'value'`,
     }]).
     /** @test {Ensure.that} */
-    it(`emits an artifact describing the actual value`, ({ actual, expected }) => {
+    it('emits an artifact describing the actual value', ({ actual, expected }) => {
         const recorder = new EventRecorder();
         theStage.assign(recorder);
 
@@ -122,7 +122,7 @@ describe('Ensure', () => {
 
     describe('custom errors', () => {
 
-        it(`allows the actor to fail the flow with a custom RuntimeError, embedding the original error`, () => {
+        it('allows the actor to fail the flow with a custom RuntimeError, embedding the original error', () => {
             return expect(Enrique.attemptsTo(
                     Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError),
                 ))
@@ -133,7 +133,7 @@ describe('Ensure', () => {
                 });
         });
 
-        it(`allows the actor to fail the flow with a custom RuntimeError with a custom error message`, () => {
+        it('allows the actor to fail the flow with a custom RuntimeError with a custom error message', () => {
             return expect(Enrique.attemptsTo(
                 Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError, 'The server is down. Please cheer it up.'),
             )).to.be.rejectedWith(TestCompromisedError, 'The server is down. Please cheer it up.');

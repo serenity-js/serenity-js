@@ -12,7 +12,7 @@ import {
 import { ErrorDetails } from '../SerenityBDDJsonSchema';
 import { ErrorRenderer } from './ErrorRenderer';
 
-/** @access package */
+/** @package */
 export class OutcomeMapper {
     private static errorRenderer = new ErrorRenderer();
 

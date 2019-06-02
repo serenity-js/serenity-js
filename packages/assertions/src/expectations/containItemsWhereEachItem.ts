@@ -7,6 +7,9 @@ export function containItemsWhereEachItem<Actual>(expectation: Expectation<any, 
     return new ContainItemsWhereEachItemMeetsExpectation(expectation);
 }
 
+/**
+ * @package
+ */
 class ContainItemsWhereEachItemMeetsExpectation<Expected, Actual> extends Expectation<Expected, Actual[]> {
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
         super();

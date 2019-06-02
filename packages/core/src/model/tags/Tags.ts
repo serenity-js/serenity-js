@@ -3,7 +3,7 @@ import { match } from 'tiny-types';
 import { ArbitraryTag, IssueTag, ManualTag, Tag } from './';
 
 /**
- * @access package
+ * @package
  */
 export class Tags {
     private static Pattern = /^@([\w-]+)[:\s]?(.*)/i;

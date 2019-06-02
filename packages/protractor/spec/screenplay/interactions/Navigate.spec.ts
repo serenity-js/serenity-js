@@ -26,7 +26,7 @@ describe('Navigate', () => {
         ));
 
         /** @test {Navigate#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).toString())
                 .to.equal(`#actor navigates to 'https://serenity-js.org'`);
         });
@@ -45,7 +45,7 @@ describe('Navigate', () => {
         ));
 
         /** @test {Navigate#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.back().toString())
                 .to.equal(`#actor navigates back in the browser history`);
         });
@@ -65,7 +65,7 @@ describe('Navigate', () => {
         ));
 
         /** @test {Navigate#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.forward().toString())
                 .to.equal(`#actor navigates forward in the browser history`);
         });
@@ -93,7 +93,7 @@ describe('Navigate', () => {
         ));
 
         /** @test {Navigate#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.reloadPage().toString())
                 .to.equal(`#actor reloads the page`);
         });

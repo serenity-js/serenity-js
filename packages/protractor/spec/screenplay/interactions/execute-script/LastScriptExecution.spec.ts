@@ -93,7 +93,7 @@ describe('LastScriptExecution', function () {
 
     /** @test {ExecuteAsynchronousScript} */
     /** @test {LastScriptExecution} */
-    it(`complains if the script hasn't been executed yet`, () => expect(Joe.attemptsTo(
+    it('complains if the script hasn\'t been executed yet', () => expect(Joe.attemptsTo(
         Navigate.to(page),
 
         Ensure.that(LastScriptExecution.result<string>(), equals(Joe.name)),

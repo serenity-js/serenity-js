@@ -29,11 +29,11 @@ describe('Wait', () => {
         </html>
     `);
 
-    describe(`for`, () => {
+    describe('for', () => {
 
         /** @test {Wait} */
         /** @test {Wait.for} */
-        it(`pauses the actor flow for the length of an explicitly-set duration`, () => Bernie.attemptsTo(
+        it('pauses the actor flow for the length of an explicitly-set duration', () => Bernie.attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.for(Duration.ofMilliseconds(300)),
@@ -42,17 +42,17 @@ describe('Wait', () => {
         ));
 
         /** @test {Wait#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.for(Duration.ofMilliseconds(300)).toString())
                 .to.equal(`#actor waits for 300ms`);
         });
     });
 
-    describe(`until`, () => {
+    describe('until', () => {
 
         /** @test {Wait} */
         /** @test {Wait.until} */
-        it(`pauses the actor flow until the expectation is met`, () => Bernie.attemptsTo(
+        it('pauses the actor flow until the expectation is met', () => Bernie.attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.until(Text.of(Status), equals('Ready!')),
@@ -72,7 +72,7 @@ describe('Wait', () => {
         }));
 
         /** @test {Wait#toString} */
-        it(`provides a sensible description of the interaction being performed`, () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(Status), equals('Ready!')).toString())
                 .to.equal(`#actor waits up to 10ms until the text of the header does equal 'Ready!'`);
         });

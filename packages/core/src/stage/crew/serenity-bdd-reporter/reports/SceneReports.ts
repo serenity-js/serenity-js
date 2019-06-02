@@ -2,7 +2,7 @@ import { ScenarioDetails } from '../../../../model';
 import { IDGenerator } from './IDGenerator';
 import { SceneReport } from './SceneReport';
 
-/** @access package */
+/** @package */
 export class SceneReports {
     private static idGenerator = new IDGenerator();
     private readonly reports: { [entryId: string]: SceneReport } = {};

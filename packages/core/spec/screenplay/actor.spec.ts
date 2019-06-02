@@ -104,7 +104,7 @@ describe('Actor', () => {
         )).to.be.eventually.rejectedWith(`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
     /** @test {Actor} */
-    it(`can be instantiated without explicitly specifying the Stage`, () => {
+    it('can be instantiated without explicitly specifying the Stage', () => {
 
         const anActor: Actor = Actor.named('Bob').whoCan(PlayAGuitar.suchAs(guitar));
 

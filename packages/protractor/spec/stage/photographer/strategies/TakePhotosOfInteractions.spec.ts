@@ -9,7 +9,7 @@ import { Perform } from '../fixtures';
 
 describe('Photographer', () => {
 
-    describe(`when instructed to take a photo of all interactions`, () => {
+    describe('when instructed to take a photo of all interactions', () => {
 
         let photographer: Photographer,
             stage: Stage,
@@ -24,7 +24,7 @@ describe('Photographer', () => {
             stage.assign(photographer);
         });
 
-        it(`takes a photo when the interaction goes well`, () =>
+        it('takes a photo when the interaction goes well', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
@@ -36,7 +36,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`takes a photo when a problem occurs`, () =>
+        it('takes a photo when a problem occurs', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -48,7 +48,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`correlates the photo with the activity it's concerning`, () =>
+        it('correlates the photo with the activity it\'s concerning', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -64,7 +64,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`takes only one photo, even though nested tasks might all be marked as failing`, () =>
+        it('takes only one photo, even though nested tasks might all be marked as failing', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.taskWith(
                     Perform.taskWith(
@@ -80,7 +80,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it(`takes one photo per interaction`, () =>
+        it('takes one photo per interaction', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(1),
                 Perform.interactionThatSucceeds(2),
