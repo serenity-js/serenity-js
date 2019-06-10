@@ -44,9 +44,7 @@ import { Stage } from './Stage';
  *     );
  *   })
  * });
- *
- * @interface
  */
-export abstract class WithStage {
+export interface WithStage {
     stage: Stage;
 }

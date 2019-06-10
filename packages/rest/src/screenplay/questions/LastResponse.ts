@@ -4,7 +4,7 @@ import { CallAnApi } from '../abilities';
 /**
  * @desc
  *  Provides access to the properties of the last {@link AxiosResponse} object,
- *  cached on the {@link CallAnApi} {@link Ability}.
+ *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.
  *
  * @example <caption>Verify response to a GET request</caption>
  *  import { Actor } from '@serenity-js/core';

@@ -1,4 +1,5 @@
 export * from './Ability';
+export * from './AbilityType';
 export * from './Activity';
 export * from './actor';
 export * from './Answerable';

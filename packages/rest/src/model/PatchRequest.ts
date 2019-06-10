@@ -32,7 +32,7 @@ export class PatchRequest extends HTTPRequest {
      *
      *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      *  it gets concatenated with the URL provided to the Axios instance
-     *  when the {@link CallAnApi} {@link Ability} was instantiated.
+     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
      * @param {Answerable<string>} resourceUri
      *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
@@ -59,7 +59,7 @@ export class PatchRequest extends HTTPRequest {
     /**
      * @desc
      *  Overrides the default Axios request configuration provided
-     *  when {@link CallAnApi} {@link Ability} was instantiated.
+     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
      * @param {Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides

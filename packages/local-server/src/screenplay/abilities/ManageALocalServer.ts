@@ -7,12 +7,13 @@ import * as net from 'net';
 
 /**
  * @desc
- *  An {@link Ability} that enables the {@link @serenity-js/core/lib/screenplay~Actor} to manage a local Node.js server.
+ *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ *  to manage a local [Node.js](https://nodejs.org/en/) server.
  *
  * @example <caption>Using a raw Node.js server</caption>
  * import { Actor } from '@serenity-js/core';
  * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
- * import { ManageALocalTestServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-test-server'
+ * import { ManageALocalTestServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'
  * import { Ensure, equals } from '@serenity-js/assertions';
  *
  * import axios from 'axios';
@@ -39,20 +40,17 @@ import * as net from 'net';
  * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
  * @see https://nodejs.org/api/http.html#http_class_http_server
  *
- * @public
- * @implements {Ability}
+ * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  */
 export class ManageALocalServer implements Ability {
 
-    /**
-     * @private
-     */
     private readonly server: net.Server & { shutdown: (callback: (error?: Error) => void) => void };
 
     /**
      * @desc
-     *  Ability to manage a Node.js HTTP server using a given server requestListener.
+     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided server `requestListener`.
      *
+     * @param listener
      * @returns {ManageALocalServer}
      */
     static runningAHttpListener(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | net.Server) {
@@ -65,8 +63,9 @@ export class ManageALocalServer implements Ability {
 
     /**
      * @desc
-     *  Ability to manage a Node.js HTTPS server using a given server requestListener.
+     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
+     * @param listener
      * @returns {ManageALocalServer}
      */
     static runningAHttpsListener(listener: (request: http.IncomingMessage, response: http.ServerResponse) => void | https.Server, options: https.ServerOptions = {}) {
@@ -79,10 +78,11 @@ export class ManageALocalServer implements Ability {
 
     /**
      * @desc
-     *  Used to access the Actor's ability to {@link ManageALocalServer} from within the {@link Interaction} classes,
+     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}'s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}
+     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
      *  such as {@link StartLocalServer}.
      *
-     * @param {core/lib/screenplay~UsesAbilities} actor
+     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor
      * @return {ManageALocalServer}
      */
     static as(actor: UsesAbilities): ManageALocalServer {
@@ -90,11 +90,9 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * @param {string} protocol
-     *  Protocol to be used when communicating with the running server.
+     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`
      *
-     * @param {net~Server} server
-     *  A Node.js server requestListener, with support for server shutdown.
+     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
      *
      * @see https://www.npmjs.com/package/http-shutdown
      */
