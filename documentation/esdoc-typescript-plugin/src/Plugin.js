@@ -9,9 +9,6 @@ class Plugin {
     }
 
     onStart(ev) {
-
-        // console.log('[ParamParser]', require('esdoc/out/src/Parser/ParamParser'))
-
         if (!ev.data.option) return;
         if ('enable' in ev.data.option) this._enable = ev.data.option.enable;
     }
@@ -41,8 +38,6 @@ class Plugin {
         if (!this._enable) return;
 
         const filePath = ev.data.filePath;
-
-        // todo: can I make it support {@link @serenity-js} here?
 
         ev.data.parser = code => {
 
@@ -80,7 +75,7 @@ class Plugin {
 
             if (jsDocNode && jsDocNode.comment) lines.splice(jsDocNode.pos, jsDocNode.end - jsDocNode.pos);
 
-            const newComment = this._transpileComment(node, jsDocNode ? jsDocNode.comment : '', code);
+            const newComment = this._transpileComment(node, jsDocNode && jsDocNode.comment ? jsDocNode.comment : '', code);
             lines.splice(node.pos, 0, newComment);
         }
 
@@ -129,9 +124,11 @@ class Plugin {
             case ts.SyntaxKind.MethodDeclaration:
                 this._applyCallableParam(node, tags);
                 this._applyCallableReturn(node, tags);
+                this._applyAccessModifiers(node, tags);
                 break;
             case ts.SyntaxKind.PropertyDeclaration:
                 this._applyClassProperty(node, tags);
+                this._applyAccessModifiers(node, tags);
                 break;
             case ts.SyntaxKind.GetAccessor:
                 this._applyClassMethodGetter(node, tags);
@@ -146,6 +143,37 @@ class Plugin {
         }
 
         return `\n/*${CommentParser.buildComment(tags)} */\n`;
+    }
+
+    _applyAccessModifiers(node, tags) {
+        const flags = ts.getCombinedModifierFlags(node);
+
+        const
+            isStatic = flags & ts.ModifierFlags.Static,
+            isAbstract = flags & ts.ModifierFlags.Abstract,
+            isPublic = flags & ts.ModifierFlags.Public,
+            isProtected = flags & ts.ModifierFlags.Protected,
+            isPrivate = flags & ts.ModifierFlags.Private;
+
+        if (isStatic) {
+            tags.push({ tagName: '@static', tagValue: '\\TRUE' }) ;
+        }
+
+        if (isProtected) {
+            tags.push({ tagName: '@access', tagValue: 'protected' });
+        }
+
+        if (isPrivate) {
+            tags.push({ tagName: '@access', tagValue: 'private' });
+        }
+
+        if (isAbstract) {
+            tags.push({ tagName: '@abstract', tagValue: '\\TRUE' });
+        }
+
+        if (isPublic || ! (isPublic || isProtected || isPrivate)) {
+            tags.push({ tagName: '@access', tagValue: 'public' });
+        }
     }
 
     _applyLOC(node, tags, code) {

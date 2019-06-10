@@ -1,3 +1,4 @@
+require('./.esdoc-patches');
 const path = require('path');
 
 module.exports = {
@@ -15,7 +16,10 @@ module.exports = {
             externals: 'node_modules/@serenity-js/*/target/site/exported.js',
             enable: true,
         } },
-        { name: 'esdoc-accessor-plugin', option: {enable: true, 'access': ['public', 'protected'], 'autoPrivate': true } },
+        { name: 'esdoc-accessor-plugin', option: {
+            enable: true,
+            access: ['public', 'protected'],
+        } },
         { name: 'esdoc-external-ecmascript-plugin', option: {enable: false} },
         { name: 'esdoc-undocumented-identifier-plugin', option: {enable: true} },
         { name: 'esdoc-unexported-identifier-plugin', option: {enable: false} },
