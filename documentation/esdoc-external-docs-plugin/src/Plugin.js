@@ -10,7 +10,7 @@ class Plugin {
         this._enable = true;
         this._source = undefined;
         this._destination = undefined;
-        this._externals = [];
+        this._externalImports = [];
     }
 
     onStart(ev) {
@@ -27,10 +27,10 @@ class Plugin {
         glob.sync(ev.data.option.externals).forEach((pathToExports) => {
             const moduleName = pathToExports.match(/@serenity-js\/(.*?)\//)[1];
 
-            const exportsFileName = `.exports-${moduleName}.js`;
-            const destination = path.join(this._source, exportsFileName);
+            const importsFileName = `.imports-from-${moduleName}.js`;
+            const destination = path.join(this._source, importsFileName);
 
-            this._externals.push(destination);
+            this._externalImports.push(destination);
 
             fs.copyFileSync(pathToExports, path.resolve(destination))
         });
@@ -39,10 +39,13 @@ class Plugin {
     onHandleDocs(event) {
 
         // remove temp files
-        this._externals.forEach(pathToExportsFile => {
-            rimraf.sync(pathToExportsFile);
+        this._externalImports.forEach(pathToExternalImportsFile => {
+            rimraf.sync(pathToExternalImportsFile);
 
-            const tagIndex = event.data.docs.findIndex(doc => doc.kind === 'file' && doc.name === pathToExportsFile);
+            const tagIndex = event.data.docs.findIndex(doc =>
+                doc.kind === 'file' && doc.name === pathToExternalImportsFile,
+            );
+
             event.data.docs.splice(tagIndex, 1);
         });
 
@@ -51,7 +54,7 @@ class Plugin {
          * see https://github.com/esdoc/esdoc-plugins/blob/master/esdoc-external-ecmascript-plugin/src/Plugin.js#L18
          */
         for (const doc of event.data.docs) {
-            if (doc.kind === 'external' && this._externals.includes(doc.memberof)) {
+            if (doc.kind === 'external' && this._externalImports.includes(doc.memberof)) {
                 doc.builtinExternal = true;
             }
         }
@@ -79,7 +82,7 @@ class Plugin {
             mkdirp.sync(this._destination);
             fs.writeFileSync(path.resolve(this._destination, 'exported.json'), JSON.stringify(exported[module], null, 4));
             fs.writeFileSync(path.resolve(this._destination, 'exported.js'), exported[module].map(doc =>
-                `/** @external {${ doc.id.substring('@serenity-js/'.length) }} ${ doc.pathToDocs } */`
+                `/** @external {${ doc.id }} ${ doc.pathToDocs } */`
             ).join('\n'));
         }
     }
