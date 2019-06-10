@@ -22,7 +22,7 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
      *
      * @param {Answerable<AxiosRequestConfig>} [config]
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@link CallAnApi} {@link Ability} is instantiated
+     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
      */
     protected constructor(
         protected readonly resourceUri?: Answerable<string>,

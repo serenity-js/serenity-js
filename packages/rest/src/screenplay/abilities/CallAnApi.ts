@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, Axi
 
 /**
  * @desc
- *  An {@link Ability} that enables the {@link Actor} to call a HTTP API.
+ *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.
  *
  * @example <caption>Using a default Axios HTTP client</caption>
  * import { Actor } from '@serenity-js/core';
@@ -46,7 +46,7 @@ import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, Axi
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
  *
  * @public
- * @implements {Ability}
+ * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  */
 export class CallAnApi implements Ability {
 
@@ -109,7 +109,7 @@ export class CallAnApi implements Ability {
 
     /**
      * @desc
-     *  Allows for the original Axios config to be changed after the {@link CallAnApi} {@link Ability}
+     *  Allows for the original Axios config to be changed after the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
      *  has been instantiated and given to the {@link Actor}.
      *
      * @param {function (original: AxiosRequestConfig): any} fn
@@ -125,7 +125,7 @@ export class CallAnApi implements Ability {
      *
      * @param {AxiosRequestConfig} config
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@link CallAnApi} {@link Ability} is instantiated
+     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
      *
      * @returns {Promise<AxiosResponse>}
      *  A promise of an AxiosResponse

@@ -3,9 +3,8 @@
  *  Configuration object that will be passed to the JasmineRunner.
  *
  * @see https://jasmine.github.io/setup/nodejs.html
- * @interface
  */
-export abstract class JasmineConfig {
+export interface JasmineConfig {
 
     /**
      * @desc

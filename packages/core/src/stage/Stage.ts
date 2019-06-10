@@ -64,7 +64,7 @@ export class Stage {
      *  Returns the last {@link Actor} instantiated via {@link Stage#actor}.
      *  Useful when you don't can't or choose not to reference the actor by their name.
      *
-     * @throws {@link LogicError} if no {@link Actor} has been activated yet
+     * @throws {LogicError} if no {Actor} has been activated yet
      * @return {Actor}
      */
     theActorInTheSpotlight(): Actor {

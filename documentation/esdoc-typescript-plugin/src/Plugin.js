@@ -63,19 +63,25 @@ class Plugin {
 
     _convertTypeScriptToDocumentedJavaScript(filePath, code) {
 
+        // hack: make typescript code look like es6
+        const es6code = code
+            // replace interface with an abstract class so that it's preserved
+            .replace(/(\*\/)(?:.|[\r\n])*export[\s]+interface/mg, '* @interface */\nexport abstract class')
+        ;
+
         // create ast and get target nodes
-        const sourceFile = ts.createSourceFile(filePath, code, ts.ScriptTarget.Latest, true);
+        const sourceFile = ts.createSourceFile(filePath, es6code, ts.ScriptTarget.Latest, true);
         const nodes = this._getTargetTSNodes(sourceFile);
 
         // rewrite jsdoc comment
         nodes.sort((a,b) => b.pos - a.pos); // hack: transpile comment with reverse
-        const lines = [...code];
+        const lines = [...es6code];
         for (const node of nodes) {
             const jsDocNode = this._getJSDocNode(node);
 
             if (jsDocNode && jsDocNode.comment) lines.splice(jsDocNode.pos, jsDocNode.end - jsDocNode.pos);
 
-            const newComment = this._transpileComment(node, jsDocNode && jsDocNode.comment ? jsDocNode.comment : '', code);
+            const newComment = this._transpileComment(node, jsDocNode && jsDocNode.comment ? jsDocNode.comment : '', es6code);
             lines.splice(node.pos, 0, newComment);
         }
 

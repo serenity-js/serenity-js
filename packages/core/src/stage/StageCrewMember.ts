@@ -9,18 +9,16 @@ import { StageManager } from './StageManager';
  *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.
  *
  *  Useful when you're interested in implementing custom reporters.
- *
- * @interface
  */
-export abstract class StageCrewMember {
+export interface StageCrewMember {
 
     /**
      * @param {Stage} stage
      */
-    abstract assignedTo(stage: Stage): StageCrewMember;
+    assignedTo(stage: Stage): StageCrewMember;
 
     /**
      * @param {DomainEvent} event
      */
-    abstract notifyOf(event: DomainEvent): void;
+    notifyOf(event: DomainEvent): void;
 }

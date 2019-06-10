@@ -5,7 +5,7 @@ import { promiseOf } from '../../promiseOf';
 
 /**
  * @desc
- *  An {@link Ability} that enables the {@link Actor} to interact with web front-ends using {@link protractor}.
+ *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to interact with web front-ends using {@link protractor}.
  *
  * @example <caption>Using the protractor.browser</caption>
  * import { Actor } from '@serenity-js/core';
@@ -29,7 +29,7 @@ import { promiseOf } from '../../promiseOf';
  * @see https://www.protractortest.org/
  *
  * @public
- * @implements {Ability}
+ * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  */
 export class BrowseTheWeb implements Ability {
 

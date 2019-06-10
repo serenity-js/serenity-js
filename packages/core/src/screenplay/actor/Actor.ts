@@ -1,84 +1,15 @@
-import { ArtifactGenerated } from '../events';
-import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../index';
-import { Artifact, Name } from '../model';
-import { Stage } from '../stage';
-import { TrackedActivity } from './activities';
-import { Activity } from './Activity';
-import { Question } from './Question';
-
-/**
- * @desc
- *  Enables the {@link Actor} to answer a {@link Question} about the system under test
- *
- * @public
- * @interface
- */
-export abstract class AnswersQuestions {
-    abstract answer<T>(knownUnknown: Answerable<T>): Promise<T>;
-}
-
-/**
- * @desc
- *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed
- *
- * @public
- * @interface
- */
-export abstract class CollectsArtifacts {
-    /**
-     * @desc
-     * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.
-     *
-     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}
-     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report
-     */
-    abstract collect(artifact: Artifact, name?: Name): void;
-}
-
-/**
- * @desc
- *  Enables the {@link Actor} to perform an {@link Activity}, such as a {@link Task} or an {@link Interaction}
- *
- * @public
- * @interface
- */
-export abstract class PerformsActivities {
-    abstract attemptsTo(...tasks: Activity[]): Promise<void>;
-}
-
-/**
- * @desc
- *  Enables the {@link Actor} to have an {@link Ability} or Abilities to perform some {@link Activity}.
- *
- * @public
- * @interface
- */
-export abstract class CanHaveAbilities<Returned_Type = UsesAbilities> {
-    /**
-     * @param {Ability[]} abilities
-     * @returns {Actor}
-     */
-    abstract whoCan(...abilities: Ability[]): Returned_Type;
-}
-
-/**
- * @desc
- *  Enables the {@link Actor} to use an {@link Ability} to perform some {@link Activity}.
- *
- * @public
- * @interface
- */
-export abstract class UsesAbilities {
-
-    /**
-     * @desc
-     *  Grants access to the Actor's ability
-     *
-     * @param {AbilityType<T extends Ability>} doSomething
-     * @returns {T}
-     */
-    abstract abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
-}
+import { ArtifactGenerated } from '../../events';
+import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../../index';
+import { Artifact, Name } from '../../model';
+import { Stage } from '../../stage';
+import { TrackedActivity } from '../activities';
+import { Activity } from '../Activity';
+import { Question } from '../Question';
+import { AnswersQuestions } from './AnswersQuestions';
+import { CanHaveAbilities } from './CanHaveAbilities';
+import { CollectsArtifacts } from './CollectsArtifacts';
+import { PerformsActivities } from './PerformsActivities';
+import { UsesAbilities } from './UsesAbilities';
 
 export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilities<Actor>, AnswersQuestions, CollectsArtifacts {
     // todo: Actor should have execution strategies
@@ -156,6 +87,13 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
         return Promise.resolve(answerable as T);
     }
 
+    /**
+     * @desc
+     *  Announce collection of an {@link Artifact} so that it can be picked up by a {@link StageCrewMember}.
+     *
+     * @param {Artifact} artifact
+     * @param {?(string | Name)} name
+     */
     collect(artifact: Artifact, name?: string | Name) {
         this.stage.announce(new ArtifactGenerated(
             this.nameFrom(name || new Name(artifact.constructor.name)),
