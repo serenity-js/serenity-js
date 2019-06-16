@@ -31,7 +31,7 @@ export class LocalServer {
 
 /**
  * @param maybeAddressInfo
- * * @private
+ * @private
  */
 function isAddressInfo(maybeAddressInfo: AddressInfo | string): maybeAddressInfo is AddressInfo {
     return typeof maybeAddressInfo !== 'string'
