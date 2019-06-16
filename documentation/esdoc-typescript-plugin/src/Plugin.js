@@ -22,8 +22,6 @@ class Plugin {
 
     onHandleDocs(event) {
 
-        const externalDocs = {};
-
         // clean up - simplify import path
         for (const doc of event.data.docs) {
             if (! (isImportable(doc) && belongsToSerenityJS(doc))) {
@@ -47,9 +45,11 @@ class Plugin {
                 return babel.parse(sourceCode, {
                     sourceType: 'module',
                     plugins: [
+                        // 'classPrivateProperties',
+                        // 'classPrivateMethods',
                         'classProperties',
-                        'typescript',
                         'objectRestSpread',
+                        'typescript',
                     ],
                 });
             } catch (error) {
@@ -98,6 +98,7 @@ class Plugin {
                 case ts.SyntaxKind.ClassDeclaration:
                 case ts.SyntaxKind.MethodDeclaration:
                 case ts.SyntaxKind.PropertyDeclaration:
+                case ts.SyntaxKind.PropertySignature:
                 case ts.SyntaxKind.GetAccessor:
                 case ts.SyntaxKind.SetAccessor:
                 case ts.SyntaxKind.FunctionDeclaration:
@@ -136,6 +137,10 @@ class Plugin {
                 this._applyClassProperty(node, tags);
                 this._applyAccessModifiers(node, tags);
                 break;
+            case ts.SyntaxKind.PropertySignature:
+                this._applyClassProperty(node, tags);
+                this._applyAccessModifiers(node, tags);
+                break;
             case ts.SyntaxKind.GetAccessor:
                 this._applyClassMethodGetter(node, tags);
                 break;
@@ -166,11 +171,11 @@ class Plugin {
         }
 
         if (isProtected) {
-            tags.push({ tagName: '@access', tagValue: 'protected' });
+            tags.push({ tagName: '@protected', tagValue: '\\TRUE' });
         }
 
         if (isPrivate) {
-            tags.push({ tagName: '@access', tagValue: 'private' });
+            tags.push({ tagName: '@private', tagValue: '\\TRUE' });
         }
 
         if (isAbstract) {
@@ -178,7 +183,7 @@ class Plugin {
         }
 
         if (isPublic || ! (isPublic || isProtected || isPrivate)) {
-            tags.push({ tagName: '@access', tagValue: 'public' });
+            tags.push({ tagName: '@public', tagValue: '\\TRUE' });
         }
     }
 
@@ -194,7 +199,7 @@ class Plugin {
     _applyCallableParam(node, tags) {
         const types = node.parameters.map(param => {
             return {
-                type: this._getTypeFromAnnotation(param.type),
+                type: this._getTypeOf(param),
                 name: param.name.text
             };
         });
@@ -234,7 +239,7 @@ class Plugin {
         if (!node.type) return;
 
         // get type
-        const type = this._getTypeFromAnnotation(node.type);
+        const type = this._getTypeOf(node);
         if (!type) return;
 
         // get comments
@@ -252,7 +257,7 @@ class Plugin {
         if (!node.type) return;
 
         // get type
-        const type = this._getTypeFromAnnotation(node.type);
+        const type = this._getTypeOf(node);
         if (!type) return;
 
         // get comments
@@ -269,7 +274,7 @@ class Plugin {
         if (!node.parameters) return;
 
         // get type
-        const type = this._getTypeFromAnnotation(node.parameters[0].type);
+        const type = this._getTypeOf(node.parameters[0]);
         if (!type) return;
 
         // get comment
@@ -285,29 +290,53 @@ class Plugin {
         if (!node.type) return;
 
         // get type
-        const type = this._getTypeFromAnnotation(node.type);
+        // const type = this._getTypeFromAnnotation(node.type);
+        const type = this._getTypeOf(node);
         if (!type) return;
 
         // get comments
         const typeComment = tags.find(tag => tag.tagName === '@type');
 
-        if (typeComment && typeComment.tagValue.charAt(0) !== '{') { // type with comment but does not have tpe
+        if (typeComment && typeComment.tagValue && typeComment.tagValue.charAt(0) !== '{') { // type with comment but does not have tpe
             typeComment.tagValue = `{${type}}`;
         } else {
             tags.push({tagName: '@type', tagValue: `{${type}}`});
         }
     }
 
-    _getTypeFromAnnotation(typeNode) {
-        if (!typeNode) {
+    _getTypeOf(node) {
+        if (node.typeName) {
+            return node.typeName.escapedText;
+        }
+
+        if (! node.type) {
+            // todo: console.log('>> no type', node);
             return 'undefined';
         }
 
-        switch(typeNode.kind) {
-            case ts.SyntaxKind.NumberKeyword: return 'number';
-            case ts.SyntaxKind.StringKeyword: return 'string';
+        switch (node.type.kind) {
+            case ts.SyntaxKind.NumberKeyword:  return 'number';
+            case ts.SyntaxKind.StringKeyword:  return 'string';
             case ts.SyntaxKind.BooleanKeyword: return 'boolean';
-            case ts.SyntaxKind.TypeReference: return typeNode.typeName.text;
+            case ts.SyntaxKind.VoidKeyword:    return 'void';
+            case ts.SyntaxKind.AnyKeyword:     return 'any';
+            case ts.SyntaxKind.FunctionType:   return 'Function';
+            case ts.SyntaxKind.UnionType:
+                return node.type.types
+                    .map(type => this._getTypeOf(type))
+                    .join(' | ');
+            case ts.SyntaxKind.IntersectionType:
+                return node.type.types
+                    .map(type => this._getTypeOf(type))
+                    .join(' & ');
+            // case ts.SyntaxKind.TypeLiteral:
+            //     // console.log('>> object', typeNode.members)
+            //     return 'object';
+            case ts.SyntaxKind.TypeReference:
+                return node.type.typeName.text;
+            default:
+                // todo: console.log('>> _getTypeOf', node.name && node.name.escapedText, ts.SyntaxKind[node.type.kind]);
+                return 'UNKNOWN';
         }
     }
 }
