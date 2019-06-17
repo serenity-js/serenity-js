@@ -27,7 +27,7 @@ describe ('`formatted` tag function', () => {
         { description: 'an array parameter',        actual: formatted `${ [1, 2, '3'] }`,                       expected: "[ 1, 2, '3' ]"                             },
         { description: 'an array of params',        actual: formatted `${ [ Promise.resolve(1), q('2') ] }`,    expected: '[ a Promise, the meaning of life ]'        },
         { description: 'an object array parameter', actual: formatted `${ [{ name: 'Jan'}] }`,                  expected: "[ { name: 'Jan' } ]"                       },
-        { description: 'a Date parameter',          actual: formatted `${ new Date('Jan 27, 2019') }`,          expected: '2019-01-27T00:00:00.000Z'                  },
+        { description: 'a Date parameter',          actual: formatted `${ new Date(818035920000) }`,            expected: '1995-12-04T00:12:00.000Z'                  },
         { description: 'a promised parameter',      actual: formatted `${ p('something') }`,                    expected: 'a Promise'                                 },
         { description: 'a question',                actual: formatted `${ q('value') }`,                        expected: 'the meaning of life'                       },
         { description: 'an inspectable object',     actual: formatted `${ i('result') }`,                       expected: 'result'                                    },
