@@ -23,6 +23,8 @@ import { HTTPRequest } from './HTTPRequest';
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
  * @see https://tools.ietf.org/html/rfc5789
+ *
+ * @extends {HTTPRequest}
  */
 export class PatchRequest extends HTTPRequest {
 
@@ -34,8 +36,9 @@ export class PatchRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<string>} resourceUri
-     *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri
+     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  should send the {@link HTTPRequest}.
      *
      * @returns {PatchRequest}
      */
@@ -47,7 +50,7 @@ export class PatchRequest extends HTTPRequest {
      * @desc
      *  Configures the object with a request body.
      *
-     * @param {Answerable<any>} data
+     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data
      *  Data to be sent to the `resourceUri`
      *
      * @returns {PatchRequest}
@@ -61,7 +64,7 @@ export class PatchRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<AxiosRequestConfig>} config
+     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {PatchRequest}

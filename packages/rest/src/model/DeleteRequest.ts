@@ -44,8 +44,9 @@ export class DeleteRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<string>} resourceUri
-     *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri
+     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  should send the {@link HTTPRequest}.
      *
      * @returns {DeleteRequest}
      */
@@ -58,7 +59,7 @@ export class DeleteRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<AxiosRequestConfig>} config
+     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {DeleteRequest}

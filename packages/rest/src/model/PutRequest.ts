@@ -46,8 +46,9 @@ export class PutRequest extends HTTPRequest {
      *  it gets concatenated with the URL provided to the Axios instance
      *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<string>} resourceUri
-     *  The URI where the {@link Actor} should send the {@link HTTPRequest}.
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri
+     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  should send the {@link HTTPRequest}.
      *
      * @returns {PutRequest}
      */
@@ -59,7 +60,7 @@ export class PutRequest extends HTTPRequest {
      * @desc
      *  Configures the object with a request body.
      *
-     * @param {Answerable<any>} data
+     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data
      *  Data to be sent to the `resourceUri`
      *
      * @returns {PutRequest}
@@ -73,7 +74,7 @@ export class PutRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<AxiosRequestConfig>} config
+     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {PutRequest}

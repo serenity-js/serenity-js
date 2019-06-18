@@ -4,7 +4,8 @@ import { AxiosRequestConfig } from 'axios';
 
 /**
  * @desc
- *  HTTP Request sent by the {@link Actor} using the {@link Send} {@link Interaction}
+ *  HTTP Request sent by the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ *  using the {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}
  *
  * @abstract
  * @implements {Question<Promise<AxiosRequestConfig>>}
@@ -14,13 +15,13 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
     /**
      * @protected
      *
-     * @param {Answerable<string>} [resourceUri]
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} [resourceUri]
      *  URL to which the request should be sent
      *
-     * @param {Answerable<any>} [data]
+     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} [data]
      *  Request body to be sent as part of the Put, Post or Patch request
      *
-     * @param {Answerable<AxiosRequestConfig>} [config]
+     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} [config]
      *  Axios request configuration, which can be used to override the defaults
      *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
      */
@@ -33,7 +34,7 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
 
     /**
      * @desc
-     *  Resolves the {@link Question} in the context of a given {@link Actor}
+     *  Resolves the {@link Question} in the context of a given {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *
      * @param {AnswersQuestions & UsesAbilities} actor
      * @returns {Promise<AxiosRequestConfig>}
@@ -61,26 +62,23 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
             }, {}));
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     */
     toString() {
         return `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
     }
 
     /**
-     * @desc
-     *  Determines the request method based on the name of the request class.
-     *  For example: GetRequest => GET, PostRequest => POST, etc.
-     *
-     * @private
+     * Determines the request method based on the name of the request class.
+     * For example: GetRequest => GET, PostRequest => POST, etc.
      */
     private httpMethodName(): string {
         return this.constructor.name.replace(/Request/, '').toUpperCase();
     }
 
     /**
-     * @desc
-     *  A human-readable description of the request, such as "a GET request", "an OPTIONS request", etc.
-     *
-     * @private
+     * A human-readable description of the request, such as "a GET request", "an OPTIONS request", etc.
      */
     private requestDescription(): string {
         const

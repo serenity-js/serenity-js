@@ -90,7 +90,8 @@ export class CallAnApi implements Ability {
 
     /**
      * @desc
-     *  Used to access the Actor's ability to {@link CallAnApi} from within the {@link Interaction} classes,
+     *  Used to access the Actor's ability to {@link CallAnApi}
+     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
      *  such as {@link Send}.
      *
      * @param {UsesAbilities} actor
@@ -109,10 +110,12 @@ export class CallAnApi implements Ability {
 
     /**
      * @desc
-     *  Allows for the original Axios config to be changed after the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     *  Allows for the original Axios config to be changed after
+     *  the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
      *  has been instantiated and given to the {@link Actor}.
      *
      * @param {function (original: AxiosRequestConfig): any} fn
+     * @returns {void}
      */
     modifyConfig(fn: (original: AxiosRequestConfig) => any): void {
         fn(this.axiosInstance.defaults);
@@ -140,6 +143,7 @@ export class CallAnApi implements Ability {
      *  Useful when you need to extract a portion of the {@link AxiosResponse} object.
      *
      * @param {function<T>(AxiosResponse): T} fn - mapper function
+     * @returns {T}
      */
     mapLastResponse<T>(fn: (response: AxiosResponse) => T): T {
         if (!this.lastResponse) {
@@ -149,7 +153,6 @@ export class CallAnApi implements Ability {
         return fn(this.lastResponse);
     }
 
-    /** @private */
     private captureResponseOf(promisedResponse: AxiosPromise): AxiosPromise {
         return promisedResponse
             .then(
