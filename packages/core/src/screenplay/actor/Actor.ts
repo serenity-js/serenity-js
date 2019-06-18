@@ -112,6 +112,14 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
         return this.abilities.has(doSomething);
     }
 
+    /**
+     * @desc
+     *  Instantiates a {@link Name} based on the string value of the parameter,
+     *  or returns the argument if it's already an instance of {@link Name}.
+     *
+     * @param {string | Name} maybeName
+     * @returns {Name}
+     */
     private nameFrom(maybeName: string | Name): Name {
         return typeof maybeName === 'string'
             ? new Name(maybeName)

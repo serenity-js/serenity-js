@@ -29,7 +29,7 @@ export class LastResponse {
      * @desc
      *  Enables asserting on the {@link LastResponse} status
      *
-     * @returns {Question<number>}
+     * @returns {@serenity-js/core/lib/screenplay~Question<number>}
      */
     static status(): Question<number> {
         return Question.about<number>(`the status of the last response`, actor => {
@@ -41,7 +41,7 @@ export class LastResponse {
      * @desc
      *  Enables asserting on the {@link LastResponse} body
      *
-     * @returns {Question<any>}
+     * @returns {@serenity-js/core/lib/screenplay~Question<any>}
      */
     static body(): Question<any> {
         return Question.about<any>(`the body of the last response`, actor => {
@@ -53,7 +53,8 @@ export class LastResponse {
      * @desc
      *  Enables asserting on one of the {@link LastResponse}'s headers
      *
-     * @returns {Question<string>}
+     * @param {string} name
+     * @returns {@serenity-js/core/lib/screenplay~Question<string>}
      */
     static header(name: string): Question<string> {
         return Question.about<string>(`the '${ name }' header of the last response`, actor => {
@@ -63,9 +64,10 @@ export class LastResponse {
 
     /**
      * @desc
-     *  Enables asserting on all of the {@link LastResponse}'s headers
+     *  Enables asserting on all of the {@link LastResponse}'s headers,
+     *  returned as an object where the keys represent header names.
      *
-     * @returns {Question<{ [header: string ]: string }>}
+     * @returns {@serenity-js/core/lib/screenplay~Question<object>}
      */
     static headers() {
         return Question.about<{ [header: string ]: string }>(`the headers or the last response`, actor => {

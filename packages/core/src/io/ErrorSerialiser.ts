@@ -1,9 +1,26 @@
 import { JSONObject } from 'tiny-types';
 import * as serenitySpecificErrors from '../errors';
 
+/**
+ *
+ * @extends {tiny-types~JSONObject}
+ * @public
+ */
 export interface SerialisedError extends JSONObject {
+    /**
+     *  Name of the constructor function used to instantiate
+     *  the original {@link Error} object.
+     */
     name:    string;
+
+    /**
+     *  Message of the original {@link Error} object
+     */
     message: string;
+
+    /**
+     *  Stack trace of the original {@link Error} object
+     */
     stack:   string;
 }
 

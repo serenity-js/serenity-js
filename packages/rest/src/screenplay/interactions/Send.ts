@@ -6,7 +6,8 @@ import { CallAnApi } from '../abilities';
 /**
  * @desc
  *  Sends a {@link HTTPRequest} to a specified url.
- *  The response to the request is made available via the {@link LastResponse} {@link Question}s.
+ *  The response to the request is made available via the {@link LastResponse}
+ *  {@link @serenity-js/core/lib/screenplay~Question}s.
  *
  * @example <caption>Send a GET request</caption>
  *  import { Actor } from '@serenity-js/core';
@@ -23,14 +24,35 @@ import { CallAnApi } from '../abilities';
  * @extends {Interaction}
  */
 export class Send extends Interaction {
+
+    /**
+     * @desc
+     *  Instantiates a new {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {@serenity-js/lib/core/screenplay~Answerable<AxiosRequestConfig>} request
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     */
     static a(request: Answerable<AxiosRequestConfig>): Interaction {
         return new Send(request);
     }
 
+    /**
+     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} request
+     */
     constructor(private readonly request: Answerable<AxiosRequestConfig>) {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities & @serenity-js/core/lib/screenplay/actor~CollectsArtifacts & @serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay~Actor}
+     */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.request)
             .then(config => CallAnApi.as(actor).request(config))
@@ -45,7 +67,7 @@ export class Send extends Interaction {
      *  Generates a description of the REST interaction
      *
      * @returns {string}
-     *  Description of the {@link Interaction}
+     *  Description of the {@link @serenity-js/core/lib/screenplay~Interaction}
      */
     toString() {
         return `#actor sends ${ this.request.toString() }`;

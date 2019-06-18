@@ -1,6 +1,12 @@
 import { JSONObject } from 'tiny-types';
 import { JSONData } from './JSONData';
 
+/**
+ * @desc
+ *  The value of the {@link HTTPRequestResponse} {@link Artifact} describing a HTTP request/response pair.
+ *
+ * @public
+ */
 export interface RequestAndResponse extends JSONObject {
     request: {
         url: string;
@@ -15,6 +21,12 @@ export interface RequestAndResponse extends JSONObject {
     };
 }
 
+/**
+ * @desc
+ *  An {@link Artifact} describing a HTTP request/response pair.
+ *
+ * @public
+ */
 export class HTTPRequestResponse extends JSONData {
     static fromJSON(value: RequestAndResponse) {
         return new HTTPRequestResponse(Buffer.from(JSON.stringify(value, null, 0), 'utf8').toString('base64'));
