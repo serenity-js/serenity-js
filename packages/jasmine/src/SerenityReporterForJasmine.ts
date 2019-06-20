@@ -38,9 +38,7 @@ import { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } from './jasmine
  * @see {@link bootstrap}
  */
 export class SerenityReporterForJasmine {
-    /**
-     * @private
-     */
+
     private describes: SuiteResult[] = [];
 
     constructor(private readonly serenity: Serenity) {

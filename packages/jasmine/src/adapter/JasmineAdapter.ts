@@ -4,8 +4,8 @@ import { JasmineConfig } from './JasmineConfig';
 
 /**
  * @desc
- *  Allows for programmatic execution of Jasmine test scenarios, using {@link SerenityReporterForJasmine}
- *  to report progress.
+ *  Allows for programmatic execution of Jasmine test scenarios,
+ *  using {@link SerenityReporterForJasmine} to report progress.
  */
 export class JasmineAdapter {
 
@@ -15,6 +15,10 @@ export class JasmineAdapter {
     ) {
     }
 
+    /**
+     * @param {string[]} pathsToScenarios
+     * @returns {Promise<void>}
+     */
     run(pathsToScenarios: string[]): Promise<void> {
         return new Promise((resolve, reject) => {
             const
