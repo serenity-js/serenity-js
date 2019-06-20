@@ -16,6 +16,7 @@ const
     debug            = require('./plugins/debug'),
     renamePath       = require('./plugins/renamePath'),
     sources          = require('./plugins/sources'),
+    source           = require('./plugins/source'),
     pathToFile       = require('./plugins/pathToFile'),
     highlightEsdoc   = require('./plugins/highlighEsdoc'),
     discoverModules  = require('./plugins/discoverModules'),
@@ -28,6 +29,8 @@ Metalsmith(__dirname)
     .source('src')
     .use(sources('./node_modules/@serenity-js/*/target/site'))
     .use(renamePath(/\.\/node_modules\/@serenity-js\/(.*)\/target\/site\//, 'modules/$1/'))
+    .use(source('../../CHANGELOG.md'))
+    .use(renamePath(/\.\.\/\.\.\/(.*)/, '$1'))
     .destination('target/site')
     // .ignore()
     .clean(true)
@@ -42,6 +45,7 @@ Metalsmith(__dirname)
     }))
     .use(discoverModules('./node_modules/@serenity-js/*/package.json'))
     .use(fileMetadata([
+        {pattern: '*.md', metadata: { 'layout': 'single-page-markdown.hbs' }},
         {pattern: 'modules/**/*.html', metadata: { 'layout': 'api-docs.hbs' }},
     ]))
     .use(inplace({
