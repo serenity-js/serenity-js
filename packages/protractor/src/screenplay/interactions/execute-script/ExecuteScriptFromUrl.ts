@@ -2,7 +2,7 @@ import { AnswersQuestions, Interaction, LogicError, UsesAbilities } from '@seren
 import { BrowseTheWeb } from '../../abilities';
 
 /**
- * @public
+ * @package
  *
  * https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html
  * https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement

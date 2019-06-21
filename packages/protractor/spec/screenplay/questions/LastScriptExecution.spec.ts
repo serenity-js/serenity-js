@@ -2,9 +2,9 @@ import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
 import { by } from 'protractor';
-import { Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '../../../../src';
-import { pageFromTemplate } from '../../../fixtures';
-import { UIActors } from '../../../UIActors';
+import { Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '../../../src';
+import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {LastScriptExecution} */
 describe('LastScriptExecution', function () {
