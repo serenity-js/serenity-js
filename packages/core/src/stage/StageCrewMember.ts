@@ -13,12 +13,21 @@ import { StageManager } from './StageManager';
 export interface StageCrewMember {
 
     /**
-     * @param {Stage} stage
+     * @desc
+     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     *
+     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember;
 
     /**
+     * @desc
+     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
+     *  this {@link StageCrewMember} is assigned to.
+     *
      * @param {DomainEvent} event
+     * @returns void
      */
     notifyOf(event: DomainEvent): void;
 }
