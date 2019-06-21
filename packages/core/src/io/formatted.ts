@@ -3,12 +3,13 @@ import { inspected } from './inspected';
 
 /**
  * @desc
- * A tag function returning a human-readable description of a template containing one or more {Answerable}s.
+ *  A tag function returning a human-readable description of a template containing one or more {Answerable}s.
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
  *
  * @param {TemplateStringsArray} templates
  * @param {Array<Answerable<any>>} placeholders
+ * @returns {string}
  */
 export function formatted(templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>) {
     const compacted = (multiline: string) => multiline.replace(/\r?\n/g, ' ').replace(/\s+/g, ' ');
