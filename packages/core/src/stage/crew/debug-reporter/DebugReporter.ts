@@ -1,16 +1,62 @@
+import WriteStream = NodeJS.WriteStream;
 import { DomainEvent } from '../../../events';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 
+/**
+ * @desc
+ *  Serialises all the {@link DomainEvent} objects it receives and outputs
+ *  them as [ndjson](http://ndjson.org/)
+ *  so that they can be analysed by the Serenity/JS team.
+ *
+ * @example <caption>Writing the DomainEvents to a file</caption>
+ * import { serenity } form '@serenity-js/core';
+ * import fs = require('fs');
+ *
+ * serenity.setTheStage(
+ *     new DebugReporter(fs.createWriteStream('./debug-output.ndjson')),
+ * );
+ *
+ * @extends {StageCrewMember}
+ */
 export class DebugReporter implements StageCrewMember {
-    constructor(private readonly stage: Stage = null) {
+
+    /**
+     * @param {WriteStream} output - A WriteStream that should receive the output
+     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to
+     */
+    constructor(
+        private readonly output: WriteStream = process.stdout,
+        private readonly stage: Stage = null,
+    ) {
     }
 
+    /**
+     * @desc
+     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     *
+     * @see {@link StageCrewMember}
+     *
+     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
+     */
     assignedTo(stage: Stage): StageCrewMember {
-        return new DebugReporter(stage);
+        return new DebugReporter(this.output, stage);
     }
 
+    /**
+     * @desc
+     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
+     *  this {@link StageCrewMember} is assigned to.
+     *
+     * @see {@link StageCrewMember}
+     *
+     * @param {DomainEvent} event
+     * @returns void
+     */
     notifyOf(event: DomainEvent): void {
-        console.log('[DebugReporter]', event.toString());   // tslint:disable-line:no-console
+        this.output.write(
+            JSON.stringify({ type: event.constructor.name, event: event.toJSON() }) + '\n',
+        );
     }
 }
