@@ -5,7 +5,7 @@ import { expect } from '../expect';
 
 describe('RuntimeError', () => {
 
-    describe('subclasses', () => {
+    describe('subclass', () => {
 
         class CustomError extends RuntimeError {
             constructor(message: string) {
@@ -39,7 +39,7 @@ describe('RuntimeError', () => {
         });
     });
 
-    describe('error propagation', () => {
+    describe('when propagating errors', () => {
 
         class ApplicationError extends RuntimeError {
             constructor(message: string, cause?: Error) {
