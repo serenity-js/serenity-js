@@ -1,6 +1,5 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { serenity } from '@serenity-js/core';
-import { DebugReporter } from '@serenity-js/core/lib/stage';
+import { serenity, StreamReporter } from '@serenity-js/core';
 
 export = function () {
 
@@ -8,6 +7,6 @@ export = function () {
 
     serenity.setTheStage(
         new ChildProcessReporter(),
-        new DebugReporter(),
+        new StreamReporter(),
     );
 };

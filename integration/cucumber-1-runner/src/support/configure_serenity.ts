@@ -1,5 +1,5 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { DebugReporter, serenity, WithStage } from '@serenity-js/core';
+import { serenity, StreamReporter, WithStage } from '@serenity-js/core';
 import { Actors } from './Actors';
 
 export = function () {
@@ -8,7 +8,7 @@ export = function () {
 
     serenity.setTheStage(
         new ChildProcessReporter(),
-        new DebugReporter(),
+        new StreamReporter(),
     );
 
     this.World = function (this: WithStage) {

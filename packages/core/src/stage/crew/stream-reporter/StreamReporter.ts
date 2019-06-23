@@ -5,21 +5,28 @@ import { StageCrewMember } from '../../StageCrewMember';
 
 /**
  * @desc
- *  Serialises all the {@link DomainEvent} objects it receives and outputs
+ *  Serialises all the {@link DomainEvent} objects it receives and streams
  *  them as [ndjson](http://ndjson.org/)
- *  so that they can be analysed by the Serenity/JS team.
+ *  to the output stream.
  *
- * @example <caption>Writing the DomainEvents to a file</caption>
- * import { serenity } form '@serenity-js/core';
+ * @example <caption>Writing DomainEvents to standard output</caption>
+ * import { serenity, StreamReporter } form '@serenity-js/core';
+ *
+ * serenity.setTheStage(
+ *     new StreamReporter(process.stdout),
+ * );
+ *
+ * @example <caption>Writing DomainEvents to a file</caption>
+ * import { serenity, StreamReporter } form '@serenity-js/core';
  * import fs = require('fs');
  *
  * serenity.setTheStage(
- *     new DebugReporter(fs.createWriteStream('./debug-output.ndjson')),
+ *     new StreamReporter(fs.createWriteStream('./debug-output.ndjson')),
  * );
  *
  * @extends {StageCrewMember}
  */
-export class DebugReporter implements StageCrewMember {
+export class StreamReporter implements StageCrewMember {
 
     /**
      * @param {WriteStream} output - A WriteStream that should receive the output
@@ -41,18 +48,17 @@ export class DebugReporter implements StageCrewMember {
      * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember {
-        return new DebugReporter(this.output, stage);
+        return new StreamReporter(this.output, stage);
     }
 
     /**
      * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     *  this {@link StageCrewMember} is assigned to.
+     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
      *
      * @see {@link StageCrewMember}
      *
      * @param {DomainEvent} event
-     * @returns void
+     * @returns {void}
      */
     notifyOf(event: DomainEvent): void {
         this.output.write(
