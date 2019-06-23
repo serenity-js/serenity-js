@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.71](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.70...v2.0.1-alpha.71) (2019-06-23)
+
+
+### Features
+
+* **core:** The new StreamReporter helps to analyse issues that have occurred at runtime ([f96f9f8](https://github.com/jan-molak/serenity-js/commit/f96f9f8))
+
+
+
+
+
 ## [2.0.1-alpha.70](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.69...v2.0.1-alpha.70) (2019-06-22)
 
 **Note:** Version bump only for package @integration/cucumber-3-runner
