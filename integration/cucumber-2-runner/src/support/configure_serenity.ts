@@ -1,5 +1,5 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { DebugReporter, serenity, WithStage } from '@serenity-js/core';
+import { serenity, StreamReporter, WithStage } from '@serenity-js/core';
 import { defineSupportCode } from 'cucumber';
 import { Actors } from './Actors';
 
@@ -8,7 +8,7 @@ defineSupportCode(({ setDefaultTimeout, setWorldConstructor }) => {
 
     serenity.setTheStage(
         new ChildProcessReporter(),
-        new DebugReporter(),
+        new StreamReporter(),
     );
 
     setWorldConstructor(function (this: WithStage) {

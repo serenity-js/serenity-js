@@ -1,6 +1,6 @@
 const
     path = require('path'),
-    { DebugReporter } = require('@serenity-js/core'),
+    { StreamReporter } = require('@serenity-js/core'),
     { ChildProcessReporter } = require('@integration/testing-tools');
 
 exports.config = {
@@ -20,7 +20,7 @@ exports.config = {
         runner: 'jasmine',
         crew: [
             new ChildProcessReporter(),
-            new DebugReporter(),
+            new StreamReporter(),
         ]
     },
 

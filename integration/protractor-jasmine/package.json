@@ -16,8 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "parallel-mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
-    "test:parallel": "mocha-parallel-tests --opts ../../mocha.opts 'spec/**/*.spec.*'"
+    "test": "mocha --opts ../../mocha.opts 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
