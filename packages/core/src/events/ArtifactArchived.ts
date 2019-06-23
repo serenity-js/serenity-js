@@ -26,4 +26,13 @@ export class ArtifactArchived extends DomainEvent {
         ensure('type', type, isDefined());
         ensure('path', path, isDefined());
     }
+
+    toJSON(): JSONObject {
+        return {
+            name: this.name.toJSON(),
+            type: this.type.name,
+            path: this.path.toJSON(),
+            timestamp: this.timestamp.toJSON(),
+        };
+    }
 }

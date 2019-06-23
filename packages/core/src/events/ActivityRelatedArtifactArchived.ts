@@ -25,4 +25,14 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
         super(name, type, path, timestamp);
         ensure('details', details, isDefined());
     }
+
+    toJSON(): JSONObject {
+        return {
+            details: this.details.toJSON(),
+            name: this.name.toJSON(),
+            type: this.type.name,
+            path: this.path.toJSON(),
+            timestamp: this.timestamp.toJSON(),
+        };
+    }
 }

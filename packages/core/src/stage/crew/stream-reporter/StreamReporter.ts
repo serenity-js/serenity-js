@@ -21,7 +21,7 @@ import { StageCrewMember } from '../../StageCrewMember';
  * import fs = require('fs');
  *
  * serenity.setTheStage(
- *     new StreamReporter(fs.createWriteStream('./debug-output.ndjson')),
+ *     new StreamReporter(fs.createWriteStream('./events.ndjson')),
  * );
  *
  * @extends {StageCrewMember}
