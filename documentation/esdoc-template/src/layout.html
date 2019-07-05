@@ -1,19 +1,29 @@
 <section>
-  <div class="container">
+  <main class="container">
     <div class="row">
-      <div class="col-lg-3 d-none d-lg-block">
-
+      <aside id="sidebar" class="col-lg-3 col-md-12">
         <nav class="toc navigation text-truncate" data-ice="nav">
-          <h3><a href="index.html">Readme</a></h3>
-          <h3><a href="identifiers.html">API Reference</a></h3>
-          <h3><a href="source.html">Source</a></h3>
-          <h3><a href="test.html" data-ice="testLink">Tests</a></h3>
+          <ul>
+            <li><a href="/modules">Modules</a></li>
+            <ul>
+            {{#each modules}}
+            <li><a href="{{ href }}" title="{{ description }}" class="{{#if (eq name ../module.name)}}active{{/if}}">{{ name }}</a></li>
+            {{/each}}
+            </ul>
+          </ul>
+          <hr />
+          <ul>
+            <li></li><a href="index.html">Readme</a></li>
+            <li></li><a href="source.html">Source code</a></li>
+            <li></li><a href="test.html" data-ice="testLink">Specs</a></li>
+            <li></li><a href="identifiers.html">API Reference</a></li>
+          </ul>
         </nav>
-      </div>
+      </aside>
 
-      <div class="col-lg-9 col-md-12">
-        <div class="content" data-ice="content"></div>
-      </div>
+      <section class="col-lg-9 col-md-12">
+        <article class="content" data-ice="content"></article>
+      </section>
     </div>
-  </div>
+  </main>
 </section>

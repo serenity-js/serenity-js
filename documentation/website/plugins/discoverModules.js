@@ -19,8 +19,22 @@ module.exports = function discoverSerenityJSModules(pattern) {
         });
     }
 
+    function moduleFor(pathToFile, discoveredModules) {
+        const moduleNameMatcher = /modules\/(.*?)\//;
+
+        if (! moduleNameMatcher.test(pathToFile)) {
+            // the file does not belong to any module (css files fall into this category)
+            return undefined;
+        }
+
+        const [ , moduleName ] = pathToFile.match(moduleNameMatcher);
+
+        return discoveredModules.find(module => module.shortName === moduleName);
+    }
+
     return function(files, ms, done) {
 
+        // build global metadata of all discovered modules
         glob(pattern, (err, matchedPackageJsonFiles) => {
             if (!! err) {
                 return done(err);
@@ -43,7 +57,16 @@ module.exports = function discoverSerenityJSModules(pattern) {
                     if (! metadata.modules.find(m => m.name === descriptor.name)) {
                         metadata.modules.push(descriptor);
                     }
-                })).then(() => done(), e => done(e));
+
+                    return descriptor;
+                }))
+                .then(moduleDescriptors => {
+                    // make every file "aware" of what module they belong to
+                    for (const f in files) {
+                        files[f].module = moduleFor(f, moduleDescriptors);
+                    }
+                })
+                .then(() => done(), e => done(e));
         });
     };
 };

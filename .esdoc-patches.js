@@ -1,5 +1,7 @@
 const
     assert = require('assert'),
+    path   = require('path'),
+    fs     = require('fs'),
     AbstractDoc = require('esdoc/out/src/Doc/AbstractDoc').default;
 
 // --- Monkey patches
@@ -165,4 +167,23 @@ require('esdoc-publish-html-plugin/out/src/Builder/DocResolver').default.prototy
     });
 
     this._data.__RESOLVED_LINK__ = true;
+};
+
+const _exec = require('esdoc-publish-html-plugin/out/src/Plugin')._exec.bind(require('esdoc-publish-html-plugin/out/src/Plugin'));
+require('esdoc-publish-html-plugin/out/src/Plugin')._exec = function patched_exec(tags, writeFile, copyDir, readFile) {
+
+    /**
+     * write .hbs instead of html so that they can be processed with MetalSmith
+     */
+    function patched_writeFile(filePath, content, option) {
+        const
+            [ext, ...parts] = filePath.split('.').reverse(),
+            fileName = parts.reverse().join('.');
+
+        const newFilePath = (ext === 'html') ? `${fileName}.html.hbs` : filePath;
+
+        return writeFile(newFilePath, content, option);
+    }
+
+    return _exec(tags, patched_writeFile, copyDir, readFile);
 };
