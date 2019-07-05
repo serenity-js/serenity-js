@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> meta }}
+</head>
+<body>
+
+<div id="top"
+     class="block block-dark block-bb bg-gradient-accent-2 p-0">
+    <div class="container">
+        {{> navigation }}
+    </div>
+</div>
+
+<section id="changelog">
+    <section>
+        <div class="container">
+            <div class="row">
+                <aside id="sidebar" class="col-lg-3 col-md-12">
+                    <nav class="toc navigation text-truncate">
+                        <ul>
+                        {{#each toc }}
+                            <li><a href="CHANGELOG.html#{{ id }}">{{ text }}</a></li>
+                        {{/each}}
+                        </ul>
+                    </nav>
+                </aside>
+
+                <section class="col-lg-9 col-md-12">
+                    <article class="content">{{{ contents }}}</article>
+                </section>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+{{> footer }}
+
+{{> scripts }}
+</body>
+</html>

@@ -4,6 +4,7 @@ const
     devMode          = process.env.NODE_ENV === 'dev',
     noop             = (config) => null,
     Metalsmith       = require('metalsmith'),
+    autotoc          = require('metalsmith-autotoc'),
     inplace          = require('metalsmith-in-place'),
     ignore           = require('metalsmith-ignore'),
     layouts          = require('metalsmith-layouts'),
@@ -45,7 +46,7 @@ Metalsmith(__dirname)
     }))
     .use(discoverModules('./node_modules/@serenity-js/*/package.json'))
     .use(fileMetadata([
-        {pattern: '*.md', metadata: { 'layout': 'single-page-markdown.hbs' }},
+        {pattern: 'CHANGELOG.md', metadata: { 'layout': 'changelog.hbs', 'autotoc': true }},
         {pattern: 'modules/**/*.hbs', metadata: { 'layout': 'api-docs.hbs' }},
         {pattern: 'modules/index.hbs', metadata: { 'layout': 'default.hbs' }},
     ]))
@@ -58,6 +59,7 @@ Metalsmith(__dirname)
             highlight:  (code, language) => highlight.highlightAuto(code, language ? [language] : highlightedLanguages).value,
         }
     }))
+    .use(autotoc({selector: 'h2'}))
     .use(highlightEsdoc(highlight, highlightedLanguages))
     .use(pathToFile())
     .use(layouts({
