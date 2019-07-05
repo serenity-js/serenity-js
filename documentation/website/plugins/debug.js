@@ -1,3 +1,5 @@
+const { inspect } = require('util');
+
 module.exports = function debug(logToConsole) {
     return function(files, metalsmith, done) {
         setImmediate(done);
@@ -8,10 +10,10 @@ module.exports = function debug(logToConsole) {
 
             // console.log(files);
 
-            // for (const f in files) {
-            //     console.log('\nFILE:');
-            //     console.log(files[f]);
-            // }
+            for (const f in files) {
+                console.log(`\nFILE: ${ f }`);
+                console.log(inspect(files[f]));
+            }
         }
     };
 };

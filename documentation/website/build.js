@@ -46,7 +46,8 @@ Metalsmith(__dirname)
     .use(discoverModules('./node_modules/@serenity-js/*/package.json'))
     .use(fileMetadata([
         {pattern: '*.md', metadata: { 'layout': 'single-page-markdown.hbs' }},
-        {pattern: 'modules/**/*.html', metadata: { 'layout': 'api-docs.hbs' }},
+        {pattern: 'modules/**/*.hbs', metadata: { 'layout': 'api-docs.hbs' }},
+        {pattern: 'modules/index.hbs', metadata: { 'layout': 'default.hbs' }},
     ]))
     .use(inplace({
         rename: true,
@@ -68,7 +69,7 @@ Metalsmith(__dirname)
     .use(sass({
         outputStyle: 'expanded',
     }))
-    .use(debug(false))
+    // .use(debug(true))
     .use(browserSync({
         server: 'target/site',
         files: [

@@ -15,11 +15,6 @@
       border: none;
       margin-top: 0px;
     }
-
-    div {
-      border-top: 1px solid #ddd;
-      padding-top: 12px;
-    }
   }
 
   ul, ol {
@@ -156,19 +151,29 @@
   /*border-right: 1px solid #ddd;*/
   /*}*/
 
-  .navigation ul {
-    padding: 0;
-  }
+  .navigation {
+    ul {
+      padding: 0;
 
-  .navigation li {
-    list-style: none;
-    margin: 4px 0;
-    white-space: nowrap;
-  }
+      ul {
+        padding-left: 0.75em;
+      }
+    }
 
-  .navigation li a {
-    color: #666;
-    border: none;
+    li {
+      list-style: none;
+      margin: 4px 0;
+      white-space: nowrap;
+    }
+
+    a {
+      color: #666;
+      border: none;
+    }
+
+    a.active {
+      color: #000;
+    }
   }
 
   .navigation .nav-dir-path {

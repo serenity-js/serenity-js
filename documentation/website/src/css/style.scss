@@ -44,6 +44,35 @@ a.anchorjs-link:hover {
   text-decoration: none;
 }
 
+#sidebar {
+  @media screen and (max-width: 992px) {
+    background-color: #FFFDF9;
+    border-bottom: 1px solid #F8E7CF;
+  }
+
+  @media screen and (min-width: 992px) {
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: -100vw;
+      content: "";
+      display: block;
+      background-color: #FFFDF9;
+      z-index: -1;
+    }
+
+    border-right: 1px solid #F8E7CF;
+  }
+
+  padding: 0.75em 1.5em 2.25em;
+}
+
+.content {
+  padding: 1.5em;
+}
+
 #handbook {
   nav.toc {
     ul {
