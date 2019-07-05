@@ -1,6 +1,7 @@
 ---
 title: The Screenplay Pattern
 layout: handbook.hbs
+autotoc: true
 ---
 # The Screenplay Pattern
 
