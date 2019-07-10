@@ -96,36 +96,59 @@ a.anchorjs-link:hover {
   padding: 1.5em;
 }
 
-#handbook {
+#sidebar {
   nav.toc {
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
     ul.summary {
       margin: 0;
+      list-style: none;
+      padding: 0;
+
+      li {
+        &.header {
+          text-transform: capitalize;
+          font-size: 1.1rem;
+          color: rgb(69, 72, 94);
+          padding: 20px 0 0px;
+          margin-bottom: 10px;
+          border-bottom:1px solid rgb(229, 229, 229);
+
+          a {
+            font-size: 1.1rem;
+            color: rgb(69, 72, 94);
+          }
+        }
+
+        &.chapter,
+        &.article {
+          a {
+            font-size: 1.0rem;
+            display: block;
+            padding: 6px 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+      }
     }
 
     ul.articles {
       margin-left: 10px;
     }
+  }
+}
 
-    .header {
-      font-size: 1.1rem;
-      color: rgb(69, 72, 94);
-      padding: 20px 0 0px;
-      margin-bottom: 10px;
-      border-bottom:1px solid rgb(229, 229, 229);
-    }
+article.content {
+  h1 {
+    margin-bottom: 1rem;
+  }
 
-    li a {
-      display: block;
-      padding: 6px 0;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  h2 {
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  h3 {
+    margin: 1rem 0 0.5rem 0;
   }
 }
 
