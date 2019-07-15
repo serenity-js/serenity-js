@@ -1,5 +1,5 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Duration } from '@serenity-js/core';
+import { AssertionError, Duration } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text, Wait } from '../../../src';
@@ -63,12 +63,18 @@ describe('Wait', () => {
         /** @test {Wait} */
         /** @test {Wait.upTo} */
         /** @test {Wait.until} */
-        it('pauses the actor flow until the timeout expires', () => expect(Bernie.attemptsTo(
+        it('fails the actor flow when the timeout expires', () => expect(Bernie.attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(Status), equals('Ready!')),
-        )).to.be.rejected.then(error => {
-            expect(error.constructor.name).to.equal('TimeoutError');
+        )).to.be.rejected.then((error: AssertionError) => {
+            expect(error).to.be.instanceOf(AssertionError);
+            expect(error.message).to.be.equal(`Waited 10ms for the text of the header to equal 'Ready!'`);
+            expect(error.actual).to.be.equal('Loading...');
+            expect(error.expected).to.be.equal('Ready!');
+
+            expect(error.cause.name).to.equal('TimeoutError');
+            expect(error.cause.message).to.match(/^Wait timed out after.*/);
         }));
 
         /** @test {Wait#toString} */

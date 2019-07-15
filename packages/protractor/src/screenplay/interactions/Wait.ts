@@ -1,5 +1,5 @@
-import { Expectation, ExpectationMet } from '@serenity-js/assertions';
-import { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } from '@serenity-js/core';
+import { Expectation, ExpectationMet, Outcome } from '@serenity-js/assertions';
+import { Answerable, AnswersQuestions, AssertionError, Duration, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
@@ -55,17 +55,36 @@ class WaitUntil<Actual> extends Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         const
-            actual = this.actual,
+            actual      = this.actual,
             expectation = this.expectation.answeredBy(actor);
 
-        return BrowseTheWeb.as(actor).wait(function () {
-                return actor.answer(actual)
-                    .then(act => {
-                        return expectation(act).then(outcome => outcome instanceof ExpectationMet);
-                    });
-            },
-            this.timeout.inMilliseconds(),
-        ).then(_ => void 0);
+        let expectationOutcome: Outcome<any, Actual>;
+
+        return BrowseTheWeb.as(actor)
+            .wait(function () {
+                    return actor.answer(actual)
+                        .then(act => expectation(act))
+                        .then(outcome => {
+                            expectationOutcome = outcome;
+
+                            return outcome instanceof ExpectationMet;
+                        });
+                },
+                this.timeout.inMilliseconds(),
+            )
+            .then(_ => void 0)
+            .catch(error => {
+                if (!! expectationOutcome) {
+                    throw new AssertionError(
+                        `Waited ${ this.timeout.toString() } for ${ formatted `${ this.actual }` } to ${ this.expectation.toString() }`,
+                        expectationOutcome.expected,
+                        expectationOutcome.actual,
+                        error,
+                    );
+                }
+
+                throw error;
+            });
     }
 
     toString(): string {
