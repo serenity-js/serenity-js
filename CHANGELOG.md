@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.75](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.74...v2.0.1-alpha.75) (2019-07-16)
+
+
+### Features
+
+* **protractor:** Wait.until(expectation) fails with an AssertionError if the expectation is not met ([bfff8d6](https://github.com/jan-molak/serenity-js/commit/bfff8d6))
+
+
+
+
+
 ## [2.0.1-alpha.74](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.73...v2.0.1-alpha.74) (2019-07-07)
 
 **Note:** Version bump only for package serenity-js-monorepo
