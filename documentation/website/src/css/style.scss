@@ -44,10 +44,15 @@ a.anchorjs-link:hover {
   text-decoration: none;
 }
 
+#merits {
+  p { text-align: left; }
+}
+
 #sidebar {
   @media screen and (max-width: 992px) {
-    background-color: #FFFDF9;
-    border-bottom: 1px solid #F8E7CF;
+    background-color: #f8f8f8;
+
+    border-bottom: 1px solid #bdbadf;
   }
 
   @media screen and (min-width: 992px) {
@@ -59,11 +64,18 @@ a.anchorjs-link:hover {
       left: -100vw;
       content: "";
       display: block;
-      background-color: #FFFDF9;
+      //background-color: #FFFDF9;
+
+      background: -webkit-gradient(linear,left top,right top,from(#e5e5e5),to(#f8f8f8));
+      background: -webkit-linear-gradient(left,#e5e5e5,#f8f8f8);
+      background: -o-linear-gradient(left,#e5e5e5,#f8f8f8);
+      background: linear-gradient(to right,#e5e5e5,#f8f8f8);
+      background-color: #efefef;
+
       z-index: -1;
     }
 
-    border-right: 1px solid #F8E7CF;
+    border-right: 1px solid #bdbadf;
   }
 
   padding: 0.75em 1.5em 2.25em;
@@ -83,7 +95,7 @@ a.anchorjs-link:hover {
   }
 
   a {
-    color: #666;
+    color: #232323;
     border: none;
   }
 
@@ -107,14 +119,15 @@ a.anchorjs-link:hover {
         &.header {
           text-transform: capitalize;
           font-size: 1.1rem;
-          color: rgb(69, 72, 94);
+          font-weight: bold;
+          color: rgb(53, 56, 67);
           padding: 20px 0 0px;
           margin-bottom: 10px;
           border-bottom:1px solid rgb(229, 229, 229);
 
           a {
             font-size: 1.1rem;
-            color: rgb(69, 72, 94);
+            color: rgb(53, 56, 67);
           }
         }
 
