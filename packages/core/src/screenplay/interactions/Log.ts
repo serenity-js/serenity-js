@@ -6,7 +6,7 @@ import { Interaction } from '../Interaction';
  * @experimental
  */
 export class Log extends Interaction {
-    static info(...items: Array<Answerable<any>>) {
+    static the(...items: Array<Answerable<any>>) {
         return new Log(items, console.info);    // tslint:disable-line:no-console
     }
 
