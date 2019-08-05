@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.76](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.75...v2.0.1-alpha.76) (2019-08-05)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
 ## [2.0.1-alpha.75](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.74...v2.0.1-alpha.75) (2019-07-16)
 
 

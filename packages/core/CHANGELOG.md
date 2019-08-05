@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.76](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.75...v2.0.1-alpha.76) (2019-08-05)
+
+
+### Bug Fixes
+
+* **core:** Renamed Log.info(answerable) to Log.the(answerable), since it's all getting logged to std out anyway. ([8705efd](https://github.com/jan-molak/serenity-js/commit/8705efd))
+* **core:** Renamed Log.info(answerable) to Log.the(answerable), since it's all getting logged to std out anyway. ([5290c8b](https://github.com/jan-molak/serenity-js/commit/5290c8b))
+
+
+### Features
+
+* **core:** The ability to TakeNotes and the associated TakeNote.of(question), which makes the Actor remember the answer to a question and Note.of(question), which makes the Actor retrieve the remembered value. ([a0e7f99](https://github.com/jan-molak/serenity-js/commit/a0e7f99)), closes [#318](https://github.com/jan-molak/serenity-js/issues/318)
+
+
+
+
+
 ## [2.0.1-alpha.75](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.74...v2.0.1-alpha.75) (2019-07-16)
 
 **Note:** Version bump only for package @serenity-js/core
