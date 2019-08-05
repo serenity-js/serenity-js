@@ -2,6 +2,9 @@ import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Question } from '../Question';
 
+/**
+ * @experimental
+ */
 export class Transform<Answer_Type extends any, Output_Type> implements Question<Promise<Output_Type>> {
     static the<AT extends any, OT>(questions: Answerable<AT> | Array<Answerable<AT>>, transformation: (...answers: AT[]) => OT) {
         return new Transform<AT, OT>([].concat(questions), transformation);
