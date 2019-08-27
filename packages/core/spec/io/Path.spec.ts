@@ -44,12 +44,34 @@ describe ('Path', () => {
         expect(p1.join(p2)).to.equal(new Path('/home/jan/file.json'));
     });
 
+    it('can split an absolute path', () => {
+        const
+            p = new Path('/home/jan/directory/file.json');
+
+        expect(p.split()).to.deep.equal([ 'home', 'jan', 'directory', 'file.json' ]);
+    });
+
+    it('can split a relative path', () => {
+        const p = new Path('directory/file.json');
+
+        expect(p.split()).to.deep.equal([ 'directory', 'file.json' ]);
+    });
+
     it('can resolve two paths', () => {
         const
             p1 = new Path('/home/jan/documents'),
             p2 = new Path('../projects');
 
         expect(p1.resolve(p2)).to.equal(new Path('/home/jan/projects'));
+    });
+
+    it('knows the root directory', () => {
+        expect(new Path('/home/jan/documents').root()).to.equal(new Path('/'));
+    });
+
+    it(`knows if it's absolute or relative`, () => {
+        expect(new Path('/home/jan/documents').isAbsolute()).to.equal(true);
+        expect(new Path('documents').isAbsolute()).to.equal(false);
     });
 
     given(

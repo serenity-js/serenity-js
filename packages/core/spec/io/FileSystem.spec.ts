@@ -11,7 +11,7 @@ describe ('FileSystem', () => {
         originalJSON = { name: 'jan' },
         processCWD   = new Path('/Users/jan/projects/serenityjs');
 
-    describe ('storing JSON files', () => {
+    describe ('when storing JSON files', () => {
 
         it ('stores a JSON file in a desired location', () => {
             const
@@ -53,7 +53,7 @@ describe ('FileSystem', () => {
         });
     });
 
-    describe ('storing pictures', () => {
+    describe ('when storing pictures', () => {
 
         it ('stores a base64-encoded picture at a desired location', () => {
             const
@@ -78,6 +78,60 @@ describe ('FileSystem', () => {
 
             return out.store(dest, imageBuffer).then(absolutePath => {
                 expect(absolutePath.equals(processCWD.join(dest))).to.equal(true);
+            });
+        });
+    });
+
+    describe ('when removing', () => {
+
+        describe('individual files', () => {
+
+            it('removes the file', () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                            outlet: {
+                                subdir: {
+                                    'file-to-be-deleted.json': '{}',
+                                    'file-not-to-be-deleted.json': '{}',
+                                },
+                            },
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                return out.remove(new Path('outlet/subdir/file-to-be-deleted.json')).then(() => {
+
+                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
+                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-not-to-be-deleted.json')).value)).to.equal(true);
+                });
+            });
+        });
+
+        describe('directories', () => {
+
+            it('removes the directory recursively', () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                            outlet: {
+                                subdir: {
+                                    'file-to-be-deleted.json': '{}',
+                                },
+                                another: {
+                                    'file-not-to-be-deleted.json': '{}',
+                                },
+                            },
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                return out.remove(new Path('outlet/subdir')).then(() => {
+
+                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
+                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir')).value)).to.equal(false);
+                    expect(fs.existsSync(processCWD.join(new Path('outlet/another/file-not-to-be-deleted.json')).value)).to.equal(true);
+                });
             });
         });
     });
