@@ -10,14 +10,16 @@
  * @property {string} sourceDir     A relative path to the directory where the intermediate Serenity/JS JSON reports have been generated
  * @property {string} reportDir     A relative path to the directory where the Serenity BDD HTML report should be generated
  * @property {string} featuresDir   A relative path to the Cucumber.js features directory (if Cucumber is used)
+ * @property {string} log           A Logback log level that Serenity BDD CLI should use (info, warn, debug)
  *
  * @public
  */
 export const defaults = {
     artifact:    'net.serenity-bdd:serenity-cli:jar:all:2.1.9',
-    repository:  'http://jcenter.bintray.com/',
-    cacheDir:    'cache',
+    repository:  'https://jcenter.bintray.com/',
+    cacheDir:    'node_modules/@serenity-js/cache',
     sourceDir:   'target/site/serenity',
     reportDir:   'target/site/serenity',
     featuresDir: 'features',
+    log:         'warn',
 };

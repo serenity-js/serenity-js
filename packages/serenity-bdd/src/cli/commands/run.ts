@@ -6,6 +6,7 @@ import { defaults } from '../defaults';
 import { GAV } from '../model';
 import { Printer } from '../Printer';
 import { Complain, InvokeSerenityBDD, SerenityBDDArguments } from '../screenplay';
+import { SystemProperties } from '../screenplay/questions/SystemProperties';
 import { NotificationReporter, ProgressReporter } from '../stage';
 
 export = {
@@ -45,6 +46,11 @@ export = {
             default: path.basename(process.cwd()),
             describe: `Project name to appear in the Serenity reports`,
         },
+        log: {
+            default: defaults.log,
+            choices: [ 'warn', 'info', 'debug' ],
+            describe: `A Logback log level to pass to the Serenity BDD CLI jar`,
+        },
     },
     handler: (argv: Argv & WithStage) => {
 
@@ -52,7 +58,8 @@ export = {
             printer         = new Printer(process.stdout, process.stderr),
             actor           = argv.stage.theActorCalled('Serenity/JS'),
             artifactGAV     = GAV.fromString(argv.artifact),
-            pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath());
+            pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath()),
+            moduleRoot      = path.resolve(__dirname, '../../../');
 
         argv.stage.assign(
             new NotificationReporter(printer),
@@ -61,7 +68,11 @@ export = {
 
         return actor.attemptsTo(
             InvokeSerenityBDD.at(pathToArtifact)
-                .with(SerenityBDDArguments.from(argv)),
+                .withProperties(SystemProperties.from({
+                    'LOG_LEVEL': argv.log,
+                    'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
+                }))
+                .withArguments(SerenityBDDArguments.from(argv)),
         )
         .catch(error => actor.attemptsTo(
             Complain.about(error),
