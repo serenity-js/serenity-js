@@ -20,7 +20,9 @@ export class Path extends TinyType {
     }
 
     split(): string[] {
-        return this.value.split(Path.Separator);
+        return this.value
+            .split(Path.Separator)
+            .filter(segment => !! segment); // so that we ignore the trailing path separator in absolute paths
     }
 
     resolve(another: Path) {
@@ -33,5 +35,13 @@ export class Path extends TinyType {
 
     basename(): string {
         return path.basename(this.value);
+    }
+
+    isAbsolute(): boolean {
+        return path.isAbsolute(this.value);
+    }
+
+    root(): Path {
+        return new Path(path.parse(this.value).root);
     }
 }
