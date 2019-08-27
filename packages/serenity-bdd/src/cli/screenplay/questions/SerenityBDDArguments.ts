@@ -28,6 +28,10 @@ export class SerenityBDDArguments extends Question<string[]> {
             .filter(key => !! ~ SerenityBDDArguments.Allowed.indexOf(key) && !! this.argv[key])
             .map(arg => [`--${ arg }`, this.argv[arg]]));
     }
+
+    toString() {
+        return 'Serenity BDD arguments';
+    }
 }
 
 function flatten(list: any[]) {
