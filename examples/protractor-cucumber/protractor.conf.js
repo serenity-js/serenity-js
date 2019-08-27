@@ -1,5 +1,6 @@
 const
-    { ArtifactArchiver, ConsoleReporter, SerenityBDDReporter } = require('@serenity-js/core'),
+    { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd'),
     { FileSystem, Path } = require('@serenity-js/core/lib/io');
 
 exports.config = {

@@ -1,7 +1,8 @@
 const
     path = require('path'),
     { FileSystem, Path } = require('@serenity-js/core/lib/io'),
-    { ArtifactArchiver, ConsoleReporter, SerenityBDDReporter } = require('@serenity-js/core');
+    { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
