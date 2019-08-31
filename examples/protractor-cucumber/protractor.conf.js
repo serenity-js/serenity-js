@@ -1,7 +1,6 @@
 const
     { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
-    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd'),
-    { FileSystem, Path } = require('@serenity-js/core/lib/io');
+    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
@@ -18,7 +17,7 @@ exports.config = {
 
     serenity: {
         crew: [
-            new ArtifactArchiver(new FileSystem(new Path('./target/site/serenity'))),
+            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
             new ConsoleReporter(),
         ]

@@ -1,7 +1,6 @@
 const
     path = require('path'),
-    { FileSystem, Path } = require('@serenity-js/core/lib/io'),
-    { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { ArtifactArchiver } = require('@serenity-js/core'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
@@ -20,7 +19,7 @@ exports.config = {
     serenity: {
         runner: 'jasmine',
         crew: [
-            new ArtifactArchiver(new FileSystem(new Path('./target/site/serenity'))),
+            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
             new ConsoleReporter(),
         ]

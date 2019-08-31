@@ -1,5 +1,3 @@
-// const { protractor } = require('protractor');
-
 exports.config = {
     chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
