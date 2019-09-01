@@ -19,12 +19,12 @@ const
     sources          = require('./plugins/sources'),
     source           = require('./plugins/source'),
     pathToFile       = require('./plugins/pathToFile'),
-    highlightEsdoc   = require('./plugins/highlighEsdoc'),
+    highlightEsdoc   = require('./plugins/highlightEsdoc'),
     discoverModules  = require('./plugins/discoverModules'),
     browserSync      = devMode ? require('metalsmith-browser-sync') : noop,
     highlight        = require('highlight.js'),
 
-    highlightedLanguages = ['typescript', 'javascript', 'json', 'gherkin'];
+    highlightedLanguages = ['typescript', 'javascript', 'json', 'gherkin', 'bash'];
 
 Metalsmith(__dirname)
     .source('src')
