@@ -14,6 +14,8 @@ notifications:
 node_js:
   - '8'
   - '10'
+services:
+  - xvfb
 before_install: scripts/travis/before_install.sh
 before_script: scripts/travis/before_script.sh
 script: scripts/travis/script.sh
