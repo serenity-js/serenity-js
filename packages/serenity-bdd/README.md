@@ -89,14 +89,14 @@ or when the one you have is not up to date. Otherwise no outbound network calls 
 If you're behind a corporate proxy server that causes certificate errors you can tell the wrapper to ignore the SSL certificate check:
 
 ```
-serenity-bdd update --ignoreSSL
+npx serenity-bdd update --ignoreSSL
 ```
 
 You can also tell it to download the Serenity BDD reporting CLI jar from your company's artifact repository
 if you can't use the official Bintray one:
 
 ```
-serenity-bdd update --repository https://artifactory.example.org/
+npx serenity-bdd update --repository https://artifactory.example.org/
 ```
 
 To learn more about the `update` command, run:

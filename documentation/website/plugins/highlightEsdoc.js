@@ -16,13 +16,13 @@ module.exports = function highlightEsdoc(highlight, languages) {
 
                 const result = highlight.highlightAuto(el.text(), languages);
 
-                if (! result.language) {
-                    return done(new Error(`Could not detect the language of the following code sample: ${result.value}`));
-                }
+                // if (! result.language) {
+                //     return done(new Error(`Could not detect the language of the following code sample: ${result.value}`));
+                // }
 
                 el.html(result.value);
                 el.addClass('hljs');
-                el.addClass(result.language);
+                el.addClass(result.language || 'plaintext');
             });
 
             files[path].contents = Buffer.from($.html());
