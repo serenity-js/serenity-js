@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.77](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.76...v2.0.1-alpha.77) (2019-09-01)
+
+
+### Features
+
+* **protractor:** Photographer.whoWill(..) factory method to make instantiation of the Photographer ([2880116](https://github.com/jan-molak/serenity-js/commit/2880116)), closes [#335](https://github.com/jan-molak/serenity-js/issues/335)
+* **serenity-bdd:** "serenity-bdd run" command can be configured with "--log" to specify the amount ([05cd487](https://github.com/jan-molak/serenity-js/commit/05cd487))
+* **serenity-bdd:** Extracted the SerenityBDDReporter into a separate module ([fe7cfca](https://github.com/jan-molak/serenity-js/commit/fe7cfca))
+
+
+
+
+
 ## [2.0.1-alpha.76](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.75...v2.0.1-alpha.76) (2019-08-05)
 
 
