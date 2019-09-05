@@ -69,9 +69,11 @@ export class FileSystem {
                     }
 
                     const caughtErr = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);
-                    if (! caughtErr || caughtErr && current.equals(relativeOrAbsolutePathToDirectory)) {
+                    if (! caughtErr || (caughtErr && current.equals(relativeOrAbsolutePathToDirectory))) {
                         throw error; // Throw if it's just the last created dir.
                     }
+
+                    return resolve(current);
                 });
             }));
         }, Promise.resolve(absolutePath.root()));
