@@ -121,4 +121,12 @@ export class BrowseTheWeb implements Ability {
             ? maybeTarget.resolveUsing(this.browser.element)
             : maybeTarget;
     }
+
+    switchToFrame(index: number): PromiseLike<void> {
+        return this.browser.switchTo().frame(index);
+    }
+
+    switchToDefaultContent(): PromiseLike<void> {
+        return this.browser.switchTo().defaultContent();
+    }
 }

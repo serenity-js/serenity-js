@@ -32,3 +32,14 @@ class SwitchToWindow implements Interaction {
 
     performAs = (actor: UsesAbilities) => BrowseTheWeb.as(actor).switchToWindow(this.handle);
 }
+
+class SwitchToFrame implements Interaction{
+    constructor(private index: number){
+    }
+
+    performAs = (actor : UsesAbilities) => BrowseTheWeb.as(actor).switchToFrame(this.index);
+}
+
+class SwitchToDefaultContent implements Interaction{
+    performAs = (actor : UsesAbilities) => BrowseTheWeb.as(actor).switchToDefaultContent(); 
+}
