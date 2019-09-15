@@ -42,17 +42,18 @@
     "node": ">= 6.9.x",
     "npm": ">= 3"
   },
+  "dependencies": {
+    "axios": "^0.19.0"
+  },
   "peerDependencies": {
-    "@serenity-js/core": "2.x",
-    "axios": "^0.18.0"
+    "@serenity-js/core": "2.x"
   },
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.1-alpha.77",
     "@integration/testing-tools": "2.0.1-alpha.77",
     "@serenity-js/assertions": "2.0.1-alpha.77",
     "@serenity-js/core": "2.0.1-alpha.77",
-    "axios": "0.18.0",
-    "axios-mock-adapter": "^1.16.0"
+    "axios-mock-adapter": "^1.17.0"
   },
   "nyc": {
     "include": [

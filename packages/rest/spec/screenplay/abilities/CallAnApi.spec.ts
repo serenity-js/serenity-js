@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import axios from 'axios';
+import axios, { Method } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { given } from 'mocha-testdata';
 
@@ -23,7 +23,7 @@ describe('CallAnApi', () => {
     it('allows the Actor to interact with HTTP endpoints via', ({description, verification}) => {
         const
             { callAnApi, mock } = mockedAxiosInstance(),
-            method = description,
+            method = description as Method,
             url = '/products/2';
 
         mock[verification](url).reply(200);
