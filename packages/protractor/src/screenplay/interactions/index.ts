@@ -4,6 +4,7 @@ export * from './DeleteCookies';
 export * from './DoubleClick';
 export * from './Enter';
 export { ExecuteScript } from './execute-script';
+export * from './Hover';
 export * from './Navigate';
 export * from './Press';
 export * from './Scroll';

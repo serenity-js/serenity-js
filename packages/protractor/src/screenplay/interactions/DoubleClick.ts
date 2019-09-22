@@ -14,10 +14,16 @@ export class DoubleClick extends Interaction {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
+        // Since the deprecation of Webdriver's ControlFlow,
+        // Protractor's doubleClick might behave incorrectly when promises are used.
+        // The mouseMove/doubleClick combo works around that problem.
+        // See https://github.com/angular/protractor/issues/4578
+
         return withAnswerOf(actor, this.target, elf =>
             BrowseTheWeb.as(actor).actions()
-                .doubleClick(elf)
-                .perform());
+                .mouseMove(elf)
+                .perform()
+                .then(() => BrowseTheWeb.as(actor).actions().doubleClick().perform()));
     }
 
     toString(): string {
