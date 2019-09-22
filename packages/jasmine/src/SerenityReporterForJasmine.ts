@@ -148,7 +148,7 @@ export class SerenityReporterForJasmine {
     private currentScenarioNameFor(itBlockDescription: string): string {
         const [ topSuite, ...rest ] = this.describes;
 
-        return rest.reduce((acc, current) => `${ current.description } ${ acc }`, itBlockDescription);
+        return rest.reverse().reduce((acc, current) => `${ current.description } ${ acc }`, itBlockDescription);
     }
 
     /**
