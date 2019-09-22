@@ -44,13 +44,12 @@
     "commit": "git-cz",
     "lerna": "lerna",
     "gitbook": "gitbook",
-    "postinstall": "lerna bootstrap --hoist && link-parent-bin -c packages && link-parent-bin -c integration && link-parent-bin -c examples && link-parent-bin -c documentation",
+    "postinstall": "lerna bootstrap --hoist --nohoist=@types/jasmine --nohoist=@types/mocha && link-parent-bin -c packages && link-parent-bin -c integration && link-parent-bin -c examples && link-parent-bin -c documentation",
     "travis-deploy-once": "travis-deploy-once"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/chai-as-promised": "^7.1.0",
-    "@types/mocha": "^5.2.6",
     "@types/node": "10.x",
     "@types/sinon": "5.0.1",
     "@types/sinon-chai": "3.2.0",
