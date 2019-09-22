@@ -1,6 +1,7 @@
 const
     path = require('path'),
     { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { Photographer, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
@@ -9,9 +10,11 @@ exports.config = {
 
     directConnect: true,
 
+    // seleniumAddress: 'http://localhost:9515',
+
     allScriptsTimeout: 11000,
 
-    specs: [ 'spec/*.spec.ts', ],
+    specs: [ 'spec/**/*.spec.ts', ],
 
     framework:      'custom',
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
@@ -20,6 +23,7 @@ exports.config = {
         runner: 'jasmine',
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+            Photographer.whoWill(TakePhotosOfInteractions),
             new SerenityBDDReporter(),
             new ConsoleReporter(),
         ]
@@ -43,7 +47,7 @@ exports.config = {
                 '--disable-infobars',
                 '--no-sandbox',
                 '--disable-gpu',
-                '--window-size=1024x768',
+                '--window-size=800,600',
                 // '--headless',
             ],
         },
