@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.82](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.81...v2.0.1-alpha.82) (2019-09-22)
+
+**Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
+
+
+
+
+
 ## [2.0.1-alpha.81](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.80...v2.0.1-alpha.81) (2019-09-16)
 
 **Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
