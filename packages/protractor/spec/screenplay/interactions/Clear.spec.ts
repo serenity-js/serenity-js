@@ -1,8 +1,9 @@
 import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
-import { Clear, Navigate, Target, Value } from '../../../src';
+import { Clear, Navigate, Target, Text, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
@@ -85,6 +86,20 @@ describe('Clear', () => {
 
         Ensure.that(Value.of(Form.Field), equals('')),
     ));
+
+    /** @test {Clear} */
+    /** @test {Clear.theValueOf} */
+    it('complains if the element cannot be cleared', () => expect(Bernie.attemptsTo(
+        Navigate.to(pageFromTemplate(`
+            <html dir="rtl">
+                <body>
+                    <div id="field">Hello World!</div>
+                </body>
+            </html>
+        `)),
+
+        Clear.theValueOf(Form.Field),
+    )).to.be.rejectedWith(LogicError, `The input field doesn't seem to have a 'value' attribute that could be cleared.`));
 
     /** @test {Clear#toString} */
     it('provides a sensible description of the interaction being performed', () => {
