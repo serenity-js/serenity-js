@@ -3,7 +3,7 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
-import { Clear, Navigate, Target, Text, Value } from '../../../src';
+import { Clear, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
