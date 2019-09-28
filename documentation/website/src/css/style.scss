@@ -172,3 +172,40 @@ article.content {
     p, ul { margin-bottom: 1.5em; }
   }
 }
+
+#handbook {
+  .content {
+    p {
+      letter-spacing: 0.2px;
+      line-height: 160%;
+      text-rendering: optimizeLegibility;
+    }
+  }
+
+  article footer {
+    clear: both;
+    margin: 4em 0 0;
+    border-top: 1px solid #e3e3e3;
+    text-align: center;
+    color: #999;
+    line-height: 1.2em;
+    padding-top: 2em;
+    position: relative;
+    overflow: auto;
+
+    a {
+      display: inline-block;
+      width: 50%;
+    }
+
+    a:first-child {
+      text-align: left;
+      float: left;
+    }
+
+    a:last-child {
+      text-align: right;
+      float: right;
+    }
+  }
+}

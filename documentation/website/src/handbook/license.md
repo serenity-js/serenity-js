@@ -1,5 +1,5 @@
 ---
-title: About Serenity/JS
+title: License
 layout: handbook.hbs
 ---
 # License
