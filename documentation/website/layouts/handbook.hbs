@@ -19,35 +19,31 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate" data-ice="nav">
                         <ul class="summary">
-                            <li class="header">Introduction</li>
-                            <li class="chapter"><a href="/handbook/index.html">About Serenity/JS</a></li>
-                            <li class="chapter"><a href="/handbook/license.html">License</a></li>
-                            <li class="chapter"><a href="/handbook/index.html">Overview</a></li>
-                            <li class="chapter"><a href="/handbook/index.html">Tutorial</a></li>
-
-                            <li class="header">Living documentation</li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Serenity/JS Reports</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Reports for Cucumber</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Reports for Jasmine</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Reports for Protractor</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Stage Crew</a></li>
-
-                            <li class="header">Acceptance Testing</li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">The Screenplay Pattern</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Actors</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Abilities</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Stage</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Tasks</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Interactions</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Questions</a></li>
-                            <li class="chapter"><a href="/handbook/screenplay-pattern.html">Assertions</a></li>
+                            {{#each articles}}
+                                <li class="{{this.type}}"><a href="{{this.href}}">{{this.title}}</a></li>
+                            {{/each}}
                         </ul>
                     </nav>
                 </aside>
 
                 <div class="col-lg-9 col-md-12">
                     <article class="content">
+
                         {{{ contents }}}
+                        <footer>
+                            {{#if previous}}
+                                <a href="{{ previous.href }}">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span>{{previous.title}}</span>
+                                </a>
+                            {{/if}}
+                            {{#if next}}
+                                <a href="{{ next.href }}">
+                                    <span>{{next.title}}</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            {{/if}}
+                        </footer>
                     </article>
                 </div>
             </div>

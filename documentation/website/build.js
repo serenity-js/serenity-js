@@ -21,6 +21,7 @@ const
     pathToFile       = require('./plugins/pathToFile'),
     highlightEsdoc   = require('./plugins/highlightEsdoc'),
     discoverModules  = require('./plugins/discoverModules'),
+    bindHandbook     = require('./plugins/bindHandbook'),
     browserSync      = devMode ? require('metalsmith-browser-sync') : noop,
     highlight        = require('highlight.js'),
 
@@ -45,6 +46,7 @@ Metalsmith(__dirname)
         }
     }))
     .use(discoverModules('./node_modules/@serenity-js/*/package.json'))
+    .use(bindHandbook('./src/handbook-toc.yml'))
     .use(fileMetadata([
         {pattern: 'CHANGELOG.md', metadata: { 'layout': 'changelog.hbs', 'autotoc': true }},
         {pattern: 'modules/**/*.hbs', metadata: { 'layout': 'api-docs.hbs' }},

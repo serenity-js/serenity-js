@@ -1,8 +1,8 @@
 ---
-title: About Serenity/JS
+title: Overview
 layout: handbook.hbs
 ---
-# About Serenity/JS
+# The Serenity/JS Handbook
 
 Serenity/JS is a next-generation acceptance testing library that can change the way you and your team think about and design your automated acceptance tests. With Serenity/JS, you can say goodbye to unmaintainable test script spaghetti and create high-quality, user-centred test scenarios using a scalable test DSL designed specifically for *your domain* and *your business*. All this thanks to the [Serenity/JS Screenplay Pattern](/handbook/screenplay-pattern.html).
 
