@@ -13,8 +13,10 @@ import { Question } from '../Question';
  *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
  *
- *  const VoucherCode = () => Target.the('voucher code').located(by.id('voucher'));
- *  const AppliedVoucherCode = () => Target.the('voucher code').located(by.id('applied-voucher'));
+ *  class Vouchers {
+ *      static code             = Target.the('voucher code').located(by.id('voucher'));
+ *      static appliedVoucher   = Target.the('voucher code').located(by.id('applied-voucher'));
+ *  }
  *
  *  const actor = Actor.named('Noah').whoCan(
  *      TakeNotes.usingAnEmptyNotepad(),
@@ -22,9 +24,9 @@ import { Question } from '../Question';
  *  );
  *
  *  actor.attemptsTo(
- *      TakeNote.of(Text.of(VoucherCode())),
+ *      TakeNote.of(Text.of(Vouchers.code)),
  *      // ... add the product to a basket, go to checkout, etc.
- *      Ensure.that(AppliedVoucherCode(), equals(VoucherCode())),
+ *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
  * @see {@link Note}
