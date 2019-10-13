@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.85](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.84...v2.0.1-alpha.85) (2019-10-13)
+
+
+### Bug Fixes
+
+* **core:** Dropped support for node 6 ([74d1ece](https://github.com/jan-molak/serenity-js/commit/74d1ece))
+
+
+
+
+
 ## [2.0.1-alpha.84](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.83...v2.0.1-alpha.84) (2019-09-24)
 
 **Note:** Version bump only for package @serenity-js/assertions
