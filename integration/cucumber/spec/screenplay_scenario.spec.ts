@@ -26,7 +26,7 @@ describe('@serenity-js/cucumber', function () {
             .withStepDefsIn('screenplay')
             .toRun('features/screenplay_scenario.feature'),
 
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('screenplay')
             .withArgs(

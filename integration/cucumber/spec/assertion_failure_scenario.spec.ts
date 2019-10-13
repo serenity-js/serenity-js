@@ -27,7 +27,7 @@ describe('@serenity-js/cucumber', function () {
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .toRun('features/assertion_failure_scenario.feature'),
 
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
