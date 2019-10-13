@@ -26,7 +26,7 @@ describe('@serenity-js/cucumber', function () {
             .withStepDefsIn('ambiguous')
             .toRun('features/passing_scenario.feature'),
 
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('ambiguous')
             .withArgs(

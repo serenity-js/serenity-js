@@ -30,14 +30,14 @@ describe('@serenity-js/cucumber', function () {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber',
+                'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps marked as pending', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
@@ -74,14 +74,14 @@ describe('@serenity-js/cucumber', function () {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber',
+                'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
             .withStepDefsIn('promise', 'callback', 'synchronous')
             .withArgs('--name', 'A scenario with steps that have not been implemented yet', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
             .withStepDefsIn('synchronous', 'promise', 'callback')
             .withArgs(
@@ -119,7 +119,7 @@ describe('@serenity-js/cucumber', function () {
 
         ...cucumberVersions(2)
             .thatRequires(
-                'node_modules/@serenity-js/cucumber',
+                'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
@@ -147,7 +147,7 @@ describe('@serenity-js/cucumber', function () {
         }));
 
     given([
-        ...cucumberVersions(3, 4, 5)
+        ...cucumberVersions(3, 4, 5, 6)
             .thatRequires(
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
