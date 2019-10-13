@@ -1,7 +1,6 @@
 import { contain, Ensure, equals, property } from '@serenity-js/assertions';
 import { Interaction, WithStage } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
-import { ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start, ToggleItem } from './support/screenplay';
+import { ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start } from './support/screenplay';
 
 describe('Managing a Todo List', () => {
 
@@ -45,37 +44,6 @@ describe('Managing a Todo List', () => {
                     Ensure.that(RecordedItems(), contain('Buy an apple')),
                 );
             });
-
-                // todo: upgrade to prot 6.0.0?
-
-            // it('uses plain old Protractor', async function (this: WithStage) {
-            //     await protractor.browser.get('http://todomvc.com/examples/angularjs/#/');
-            //
-            //     await protractor.element(by.css('.new-todo')).sendKeys('Walk the dog');
-            //     await protractor.element(by.css('.new-todo')).sendKeys(protractor.Key.ENTER);
-            //
-            //     // await protractor.browser.sleep(1000);
-            //
-            //     // await protractor.browser.sleep(1000);
-            //
-            //     // protractor.element(by.xpath(`//li[*[@class='view' and contains(.,'${ 'Walk the dog' }')]]//input[contains(@class, 'edit')]`)),
-            //
-            //     await protractor.browser.actions()
-            //         .mouseMove(
-            //             protractor.element(by.xpath(`//li[*[@class='view' and contains(.,'${ 'Walk the dog' }')]]//label`)),
-            //             // { x: 1, y: 1},
-            //         )
-            //         .perform()
-            //         .then(() =>
-            //             protractor.browser.actions()
-            //             .doubleClick(
-            //                 protractor.element(by.xpath(`//li[*[@class='view' and contains(.,'${ 'Walk the dog' }')]]//label`)),
-            //             )
-            //             .perform(),
-            //         );
-            //
-            //     await protractor.browser.sleep(2000);
-            // });
         });
     });
 });
