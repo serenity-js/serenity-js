@@ -6,7 +6,7 @@
 <body>
 
 <div id="top"
-        class="block block-dark block-bb bg-gradient-accent-2 p-0">
+        class="block block-dark block-bb bg-gradient-accent-2 p-0 d-print-none">
     <div class="container">
         {{> navigation }}
     </div>
@@ -16,7 +16,7 @@
     <section>
         <div class="container">
             <div class="row">
-                <aside id="sidebar" class="col-lg-3 col-md-12">
+                <aside id="sidebar" class="col-lg-3 col-md-12 d-print-none">
                     <nav class="toc navigation text-truncate" data-ice="nav">
                         <ul class="summary">
                             {{#each articles}}
@@ -32,7 +32,7 @@
                         <section>
                             {{{ contents }}}
                         </section>
-                        <footer>
+                        <footer class="d-print-none">
                             {{#if previous}}
                                 <a href="{{ previous.href }}">
                                     <i class="fa fa-chevron-left"></i>

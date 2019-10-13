@@ -16,6 +16,7 @@ const
     sass             = require('metalsmith-sass'),
     debug            = require('./plugins/debug'),
     renamePath       = require('./plugins/renamePath'),
+    replace          = require('./plugins/replace'),
     sources          = require('./plugins/sources'),
     source           = require('./plugins/source'),
     pathToFile       = require('./plugins/pathToFile'),
@@ -24,8 +25,11 @@ const
     bindHandbook     = require('./plugins/bindHandbook'),
     browserSync      = devMode ? require('metalsmith-browser-sync') : noop,
     highlight        = require('highlight.js'),
+    pkg              = require('../../package'),
+    lerna            = require('../../lerna'),
+    escape           = require('querystring').escape,
 
-    highlightedLanguages = ['typescript', 'javascript', 'json', 'gherkin', 'bash'];
+    highlightedLanguages = ['gherkin', 'typescript', 'javascript', 'json', 'bash', 'console'];
 
 Metalsmith(__dirname)
     .source('src')
@@ -46,6 +50,31 @@ Metalsmith(__dirname)
         }
     }))
     .use(discoverModules('./node_modules/@serenity-js/*/package.json'))
+    .use(replace(/\.md$/, {
+        options: {
+            matchCase: false,
+            caseSensitive: true,
+            isolatedWord: false,
+        },
+        subs: [
+            {
+                search: '%package.engines.node%',
+                replace: pkg.engines.node,
+            },
+            {
+                search: '%package.engines.npm%',
+                replace: pkg.engines.npm,
+            },
+            {
+                search: '%process.version%',
+                replace: process.version,
+            },
+            {
+                search: '%lerna.version%',
+                replace: lerna.version,
+            }
+        ]
+    }))
     .use(bindHandbook('./src/handbook-toc.yml'))
     .use(fileMetadata([
         {pattern: 'CHANGELOG.md', metadata: { 'layout': 'changelog.hbs', 'autotoc': true }},
