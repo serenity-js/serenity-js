@@ -2,8 +2,6 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 
-let i = 0;
-
 module.exports = function highlightEsdoc(highlight, languages) {
 
     return function(files, ms, done) {

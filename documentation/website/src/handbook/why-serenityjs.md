@@ -23,10 +23,10 @@ No matter if you're new to test automation or have years of experience under you
 
 ## Who uses Serenity/JS?
 
-Serenity/JS is used by many Fortune 500 companies, top-tier investment banks, insurance, e-commerce and financial institutions
-who use it to automate verification of complex user workflows and require the in-depth reporting that satisfies their audit requirements.
+Serenity/JS is used by many Fortune 500 companies, top-tier investment banks and financial institutions as well as insurance, e-commerce and airline companies
+who rely on it to automate verification of complex user workflows and require the in-depth reporting that satisfies their audit requirements.
 
-However, Serenity/JS is also used by start-ups and small teams who need to make their test suites accessible to team members with mixed skillsets and keep the maintenance costs down.
+However, Serenity/JS is also used by start-ups and small teams who need to make their test suites accessible to team members with mixed skill sets and keep the maintenance costs down.
 
 ## Features
 

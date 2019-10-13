@@ -157,11 +157,11 @@ article.content {
   }
 
   h2 {
-    margin: 1rem 0 0.5rem 0;
+    margin: 2rem 0 0.5rem 0;
   }
 
   h3 {
-    margin: 1rem 0 0.5rem 0;
+    margin: 2rem 0 0.5rem 0;
   }
 }
 
@@ -180,6 +180,10 @@ article.content {
       line-height: 160%;
       text-rendering: optimizeLegibility;
     }
+  }
+
+  code {
+    margin: 1em auto;
   }
 
   article footer {
@@ -236,5 +240,31 @@ article.content section {
     -o-transition: box-shadow .2s, color .2s;
     color: #000;
     text-decoration: none
+  }
+}
+
+blockquote{
+  font-size: 1.2em;
+  width:90%;
+  margin:2em auto;
+  font-style:italic;
+  color: #555555;
+  padding:1.2em 30px 1.2em 75px;
+  border-left:8px solid rgb(252, 210, 62);
+  line-height:1.6;
+  position: relative;
+  background:#F8F8F8;
+
+  &::before{
+    content: "\201C";
+    color: rgb(62, 65, 82);
+    font-size:4em;
+    position: absolute;
+    left: 10px;
+    top:-10px;
+  }
+
+  &::after{
+    content: '';
   }
 }
