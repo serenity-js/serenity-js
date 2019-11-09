@@ -1,6 +1,6 @@
-import { ArtifactGenerated } from '../../events';
+import { ActivityRelatedArtifactGenerated, ArtifactGenerated } from '../../events';
 import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../../index';
-import { Artifact, Name } from '../../model';
+import { ActivityDetails, Artifact, Name } from '../../model';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
@@ -95,7 +95,8 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
      * @param {?(string | Name)} name
      */
     collect(artifact: Artifact, name?: string | Name) {
-        this.stage.announce(new ArtifactGenerated(
+        this.stage.announce(new ActivityRelatedArtifactGenerated(
+            this.stage.currentActivityDetails(),
             this.nameFrom(name || new Name(artifact.constructor.name)),
             artifact,
             this.stage.currentTime(),

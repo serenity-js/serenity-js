@@ -1,15 +1,21 @@
 import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, LogicError } from '../errors';
 import { DomainEvent } from '../events';
-import { Timestamp } from '../model';
+import { ActivityDetails, CorrelationId, Timestamp } from '../model';
+import { Activity } from '../screenplay';
+import { ActivityDescriber } from '../screenplay/activities/ActivityDescriber';
 import { Actor } from '../screenplay/actor';
 import { DressingRoom } from './DressingRoom';
 import { StageCrewMember } from './StageCrewMember';
 import { StageManager } from './StageManager';
 
 export class Stage {
+    private static readonly describer = new ActivityDescriber();
+
     private actorsOnStage: { [name: string]: Actor } = {};
     private actorInTheSpotlight: Actor = null;
+
+    private detailsOfCurrentActivity: ActivityDetails = null;
 
     constructor(
         private dressingRoom: DressingRoom,
@@ -107,6 +113,23 @@ export class Stage {
 
     currentTime(): Timestamp {
         return this.manager.currentTime();
+    }
+
+    activityDetailsFor(activity: Activity, actor: { name: string }): ActivityDetails {
+        this.detailsOfCurrentActivity = new ActivityDetails(
+            Stage.describer.describe(activity, actor),
+            CorrelationId.create(),
+        );
+
+        return this.detailsOfCurrentActivity;
+    }
+
+    currentActivityDetails(): ActivityDetails {
+        if (! this.detailsOfCurrentActivity) {
+            throw new LogicError(`No activity is being performed. Did you call activityDetailsFor before invoking currentActivityDetails?`);
+        }
+
+        return this.detailsOfCurrentActivity;
     }
 
     waitForNextCue(): Promise<void> {

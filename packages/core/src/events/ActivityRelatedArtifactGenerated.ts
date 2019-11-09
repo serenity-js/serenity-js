@@ -20,6 +20,6 @@ export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
         timestamp?: Timestamp,
     ) {
         super(name, artifact, timestamp);
-        ensure('details', details, isDefined());
+        ensure('activity details', details, isDefined());
     }
 }

@@ -3,7 +3,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
-import { Actor } from '../../src/screenplay';
+import { Actor, Interaction } from '../../src/screenplay';
 import { DressingRoom, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
@@ -108,6 +108,40 @@ describe('Stage', () => {
             expect(
                 () => stage.theActorInTheSpotlight(),
             ).to.throw(LogicError, `There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`);
+        });
+    });
+
+    describe('when correlating activities', () => {
+
+        const SomeActivity = () => Interaction.where(`#actor doesn't do much`, actor => void 0);
+
+        it('provides ActivityDetails for a given Activity', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            const details = stage.activityDetailsFor(SomeActivity(), stage.actor('Alice'));
+
+            expect(details.name.value).to.equal(`Alice doesn't do much`);
+            expect(details.correlationId.value).to.be.a('string');    // tslint:disable-line:no-unused-expression
+        });
+
+        it('allows for the recently ActivityDetails to be retrieved', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            const details = stage.activityDetailsFor(SomeActivity(), stage.actor('Alice'));
+
+            expect(stage.currentActivityDetails()).to.equal(details);
+        });
+
+        it('complains if ActivityDetails attempted to be retrieved before they have been generated', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            expect(() => stage.currentActivityDetails()).to.throw(LogicError, 'No activity is being performed. Did you call activityDetailsFor before invoking currentActivityDetails?');
         });
     });
 

@@ -1,5 +1,6 @@
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
 
+import filenamify = require('filenamify');
 import path = require('upath');
 
 export class Path extends TinyType {
@@ -12,7 +13,13 @@ export class Path extends TinyType {
         super();
         ensure(Path.name, value, isDefined(), property('length', isGreaterThan(0)));
 
-        this.value = path.normalize(value);
+        const normalised = path.normalize(value);
+
+        this.value = path.join(
+            path.dirname(normalised),
+            filenamify(path.basename(normalised), { replacement: '-' })
+                .replace(/[\s-]+/g, '-'),
+        );
     }
 
     join(another: Path) {

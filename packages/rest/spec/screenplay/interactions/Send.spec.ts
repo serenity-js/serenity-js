@@ -1,13 +1,12 @@
-import 'mocha';
-
 import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { ActivityFinished, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
-import { HTTPRequestResponse, Name } from '@serenity-js/core/lib/model';
-import { Clock, StageManager } from '@serenity-js/core/lib/stage';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
+import { HTTPRequestResponse } from '@serenity-js/core/lib/model';
+import { Clock } from '@serenity-js/core/lib/stage';
 
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import 'mocha';
 import sinon = require('sinon');
 import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';
@@ -92,29 +91,27 @@ describe('Send', () => {
 
             expect(events).to.have.lengthOf(3);
             expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);
-            expect(events[ 1 ]).to.be.instanceOf(ArtifactGenerated);
+            expect(events[ 1 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
             expect(events[ 2 ]).to.be.instanceOf(ActivityFinished);
 
-            expect((events[ 1 ] as ArtifactGenerated).equals(
-                new ArtifactGenerated(
-                    new Name(`request get /products/2`),
-                    HTTPRequestResponse.fromJSON({
-                        request: {
-                            method: 'get',
-                            url: '/products/2',
-                            headers: { Accept: 'application/json, text/plain, */*' },
-                        },
-                        response: {
-                            status: 200,
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            data: { id: 2 },
-                        },
-                    }),
-                    frozenClock.now(),
-                ),
-            )).to.equal(true, JSON.stringify(events[ 1 ].toJSON()));
+            const artifactGenerated = events[ 1 ] as ActivityRelatedArtifactGenerated;
+
+            expect(artifactGenerated.name.value).to.equal(`request get /products/2`);
+            expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({
+                request: {
+                    method: 'get',
+                    url: '/products/2',
+                    headers: { Accept: 'application/json, text/plain, */*' },
+                },
+                response: {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: { id: 2 },
+                },
+            }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+            expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
         });
     });
 });

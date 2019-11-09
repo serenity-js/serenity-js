@@ -39,8 +39,10 @@ describe('ArtifactArchiver', () => {
 
         const
             json = { key: 'value' },
-            jsonArtifactName = new Name('expected-json-artifact-name'),
-            pngArtifactName  = new Name('expected-png-artifact-name');
+            jsonArtifactName = new Name('Scenario Name'),
+            expectedJsonFileName = 'scenario-name',
+            pngArtifactName  = new Name('PNG Artifact name'),
+            expectedPngFileName = 'png-artifact-name';
 
         /**
          * @test {ArtifactArchiver}
@@ -82,7 +84,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`scenario-report-b283bd69b0fcd75d754f678ac6685786.json`),
+                    new Path(`scenario-${ expectedJsonFileName }.json`),
                     JSON.stringify(json),
                 );
             });
@@ -100,7 +102,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`photo-4fdc8acbf8f6c958b2726fc8ae435bf5.png`),
+                    new Path(`photo-${ expectedPngFileName }.png`),
                     photo.base64EncodedValue,
                     'base64',
                 );
@@ -156,7 +158,7 @@ describe('ArtifactArchiver', () => {
         const notifyOf = sinon.spy(stageManager, 'notifyOf');
 
         stageManager.notifyOf(new ArtifactGenerated(
-            new Name('some report name'),
+            new Name('Some Report Name'),
             TestReport.fromJSON({ key: 'value' }),
         ));
 
@@ -165,9 +167,9 @@ describe('ArtifactArchiver', () => {
             const archived: ArtifactArchived = notifyOf.getCall(2).lastArg;
 
             expect(archived).to.be.instanceOf(ArtifactArchived);
-            expect(archived.name).to.equal(new Name('some report name'));
+            expect(archived.name).to.equal(new Name('Some Report Name'));
             expect(archived.type).to.equal(TestReport);
-            expect(archived.path).to.equal(new Path('scenario-report-b283bd69b0fcd75d754f678ac6685786.json'));
+            expect(archived.path).to.equal(new Path('scenario-some-report-name.json'));
         });
     });
 
