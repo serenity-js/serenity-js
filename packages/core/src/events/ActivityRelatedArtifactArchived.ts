@@ -23,7 +23,7 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
         timestamp?: Timestamp,
     ) {
         super(name, type, path, timestamp);
-        ensure('details', details, isDefined());
+        ensure('activity details', details, isDefined());
     }
 
     toJSON(): JSONObject {

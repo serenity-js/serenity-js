@@ -3,8 +3,8 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { InteractionFinished, InteractionStarts } from '../../src/events';
-import { ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, See } from '../../src/screenplay';
+import { ActivityDetails, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
+import { Ability, Activity, Actor, See } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import {
@@ -29,6 +29,9 @@ describe('Actor', () => {
     beforeEach(() => {
         guitar = sinon.createStubInstance(AcousticGuitar);
         stage = sinon.createStubInstance(Stage);
+
+        // activityDetailsFor is a bit more involved than that, but this is a good approximation
+        stage.activityDetailsFor.callsFake((activity: Activity) => new ActivityDetails(new Name(activity.toString())));
     });
 
     function actor(name: string) {
@@ -115,17 +118,17 @@ describe('Actor', () => {
 
         let Bob: Actor;
         const now = new Timestamp(new Date('2018-06-10T22:57:07.112Z'));
+        const activityName = new Name('Bob plays the chord of A');
 
         beforeEach(() => {
             stage = sinon.createStubInstance(Stage);
             stage.currentTime.returns(now);
+            stage.activityDetailsFor.returns(new ActivityDetails(activityName));
 
             Bob = new Actor('Bob', stage as unknown as Stage);
         });
 
         describe('announces the events that activities it performs', () => {
-
-            const activityName = new Name('Bob plays the chord of A');
 
             /** @test {Actor} */
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(

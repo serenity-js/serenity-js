@@ -48,7 +48,7 @@ export class ArtifactArchiver implements StageCrewMember {
         }
 
         if (event.artifact instanceof Photo) {
-            const relativePath = new Path(`photo-${ this.hashOf(event.artifact) }.png`);
+            const relativePath = new Path(`photo-${ event.name.value.toLocaleLowerCase() }.png`);
 
             this.archive(
                 relativePath,
@@ -59,7 +59,7 @@ export class ArtifactArchiver implements StageCrewMember {
         }
 
         if (event.artifact instanceof TestReport) {
-            const relativePath = new Path(`scenario-report-${ this.hashOf(event.artifact) }.json`);
+            const relativePath = new Path(`scenario-${ event.name.value.toLocaleLowerCase() }.json`);
 
             this.archive(
                 relativePath,
@@ -68,10 +68,6 @@ export class ArtifactArchiver implements StageCrewMember {
                 this.archivisationAnnouncement(event, relativePath),
             );
         }
-    }
-
-    private hashOf(artifact: Artifact): string {
-        return MD5Hash.of(artifact.base64EncodedValue).value;
     }
 
     private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
@@ -106,8 +102,7 @@ export class ArtifactArchiver implements StageCrewMember {
                     relativePathToArtifact,
                 ));
             }
-
-            if (evt instanceof ArtifactGenerated) {
+            else if (evt instanceof ArtifactGenerated) {
                 this.stage.announce(new ArtifactArchived(
                     evt.name,
                     evt.artifact.constructor as ArtifactType,

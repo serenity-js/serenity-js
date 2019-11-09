@@ -1,5 +1,6 @@
 import * as sinon from 'sinon';
-import { Actor, Note, Question, TakeNote, TakeNotes } from '../../../src/screenplay';
+import { ActivityDetails, Name } from '../../../src/model';
+import { Activity, Actor, Note, Question, TakeNote, TakeNotes } from '../../../src/screenplay';
 import { Stage } from '../../../src/stage';
 import { EnsureSame } from '../EnsureSame';
 
@@ -14,6 +15,8 @@ describe('TakeNote', () => {
 
     beforeEach(() => {
         stage = sinon.createStubInstance(Stage);
+        // activityDetailsFor is a bit more involved than that, but this is a good approximation
+        stage.activityDetailsFor.callsFake((activity: Activity) => new ActivityDetails(new Name(activity.toString())));
 
         Noah = new Actor('Noah', stage as unknown as Stage).whoCan(TakeNotes.usingAnEmptyNotepad());
     });

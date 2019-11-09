@@ -20,10 +20,7 @@ export class TrackedActivity implements Activity {
     }
 
     performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
-        const details = new ActivityDetails(
-            TrackedActivity.describer.describe(this.activity, actor),
-            CorrelationId.create(),
-        );
+        const details = this.stage.activityDetailsFor(this.activity, actor);
 
         const [ activityStarts, activityFinished] = this.activity instanceof Interaction
             ? [ InteractionStarts, InteractionFinished ]

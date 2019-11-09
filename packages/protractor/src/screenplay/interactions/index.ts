@@ -8,5 +8,6 @@ export * from './Hover';
 export * from './Navigate';
 export * from './Press';
 export * from './Scroll';
+export * from './TakeScreenshot';
 export * from './UseAngular';
 export * from './Wait';

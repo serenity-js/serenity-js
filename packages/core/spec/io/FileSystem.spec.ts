@@ -20,8 +20,7 @@ describe ('FileSystem', () => {
                 }),
                 out = new FileSystem(processCWD, fs);
 
-            return out.store(new Path('outlet/some.json'), JSON.stringify(originalJSON)).then(absolutePath => {
-
+            return expect(out.store(new Path('outlet/some.json'), JSON.stringify(originalJSON))).to.be.fulfilled.then(absolutePath => {
                 expect(fs.existsSync(absolutePath.value)).to.equal(true);
                 expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
             });
@@ -35,7 +34,7 @@ describe ('FileSystem', () => {
                 out = new FileSystem(processCWD, fs),
                 dest = new Path('outlet/some.json');
 
-            return out.store(dest, JSON.stringify(originalJSON)).
+            return expect(out.store(dest, JSON.stringify(originalJSON))).to.be.fulfilled.
                 then(result => expect(result.equals(processCWD.resolve(dest))));
         });
 
@@ -62,7 +61,7 @@ describe ('FileSystem', () => {
                 }),
                 out = new FileSystem(processCWD, fs);
 
-            return out.store(new Path('outlet/some.png'), imageBuffer).then(absolutePath => {
+            return expect(out.store(new Path('outlet/some.png'), imageBuffer)).to.be.fulfilled.then(absolutePath => {
                 expect(fs.existsSync(absolutePath.value)).to.equal(true);
                 expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
             });
@@ -76,7 +75,7 @@ describe ('FileSystem', () => {
                 out = new FileSystem(processCWD, fs),
                 dest = new Path('outlet/some.png');
 
-            return out.store(dest, imageBuffer).then(absolutePath => {
+            return expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(absolutePath => {
                 expect(absolutePath.equals(processCWD.join(dest))).to.equal(true);
             });
         });
@@ -100,7 +99,7 @@ describe ('FileSystem', () => {
                     }),
                     out = new FileSystem(processCWD, fs);
 
-                return out.remove(new Path('outlet/subdir/file-to-be-deleted.json')).then(() => {
+                return expect(out.remove(new Path('outlet/subdir/file-to-be-deleted.json'))).to.be.fulfilled.then(() => {
 
                     expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
                     expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-not-to-be-deleted.json')).value)).to.equal(true);
@@ -126,7 +125,7 @@ describe ('FileSystem', () => {
                     }),
                     out = new FileSystem(processCWD, fs);
 
-                return out.remove(new Path('outlet/subdir')).then(() => {
+                return expect(out.remove(new Path('outlet/subdir'))).to.be.fulfilled.then(() => {
 
                     expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
                     expect(fs.existsSync(processCWD.join(new Path('outlet/subdir')).value)).to.equal(false);

@@ -1,8 +1,8 @@
 import { expect, stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Question } from '@serenity-js/core';
-import { ActivityFinished, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
-import { Name, TextData } from '@serenity-js/core/lib/model';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
 
 import { by } from 'protractor';
@@ -154,16 +154,16 @@ describe('ExecuteAsynchronousScript', function () {
             expect(events[ 1 ]).to.be.instanceOf(ArtifactGenerated);
             expect(events[ 2 ]).to.be.instanceOf(ActivityFinished);
 
-            expect((events[ 1 ] as ArtifactGenerated).equals(
-                new ArtifactGenerated(
-                    new Name(`Script source`),
-                    TextData.fromJSON({
-                        contentType: 'text/javascript;charset=UTF-8',
-                        data: 'arguments[arguments.length - 1]();',
-                    }),
-                    frozenClock.now(),
-                ),
-            )).to.equal(true, JSON.stringify(events[ 1 ].toJSON()));
+            const artifactGenerated = events[ 1 ] as ActivityRelatedArtifactGenerated;
+
+            expect(artifactGenerated.name.value).to.equal(`Script source`);
+
+            expect(artifactGenerated.artifact.equals(TextData.fromJSON({
+                contentType: 'text/javascript;charset=UTF-8',
+                data: 'arguments[arguments.length - 1]();',
+            }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+
+            expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
         });
     });
 });
