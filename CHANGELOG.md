@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.87](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.86...v2.0.1-alpha.87) (2019-11-10)
+
+
+### Bug Fixes
+
+* **protractor:** Names of artifacts produced during the test run are easier to distinguish ([da91e93](https://github.com/jan-molak/serenity-js/commit/da91e93)), closes [#132](https://github.com/jan-molak/serenity-js/issues/132)
+
+
+
+
+
 ## [2.0.1-alpha.86](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.85...v2.0.1-alpha.86) (2019-11-09)
 
 
