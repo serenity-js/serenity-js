@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.86](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.85...v2.0.1-alpha.86) (2019-11-09)
+
+
+### Features
+
+* **protractor:** TakeScreenshot allows the actor to capture screenshots at any point during the sce ([1d07075](https://github.com/jan-molak/serenity-js/commit/1d07075))
+
+
+
+
+
 ## [2.0.1-alpha.85](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.84...v2.0.1-alpha.85) (2019-10-13)
 
 
