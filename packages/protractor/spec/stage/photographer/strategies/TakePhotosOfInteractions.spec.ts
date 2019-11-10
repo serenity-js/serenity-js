@@ -1,7 +1,8 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
+import { protractor } from 'protractor';
 
 import { Photographer, TakePhotosOfInteractions } from '../../../../src/stage';
 import { create } from '../create';
@@ -30,8 +31,8 @@ describe('Photographer', () => {
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty succeeds (#1)`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -42,8 +43,8 @@ describe('Photographer', () => {
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty fails due to Error`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty fails due to Error$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -74,8 +75,8 @@ describe('Photographer', () => {
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty fails due to TypeError`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty fails due to TypeError$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -87,13 +88,28 @@ describe('Photographer', () => {
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty succeeds (#1)`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty succeeds (#2)`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty succeeds \(#2\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
+                    });
+            })));
+
+        it('includes the browser context in the name of the emitted artifact', () =>
+            expect(stage.theActorCalled('Betty').attemptsTo(
+                Perform.interactionThatSucceeds(1),
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().
+            then(() => protractor.browser.getCapabilities()).
+            then(capabilities => {
+
+                PickEvent.from(recorder.events)
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.equal(
+                            `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Betty succeeds (#1)`,
+                        );
                     });
             })));
     });

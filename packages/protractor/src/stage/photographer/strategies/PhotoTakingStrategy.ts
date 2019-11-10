@@ -35,34 +35,45 @@ export abstract class PhotoTakingStrategy {
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
         if (this.shouldTakeAPhotoOf(event)) {
             const
-                id          = CorrelationId.create(),
-                photoName   = new Name(this.photoNameFor(event));
+                id              = CorrelationId.create(),
+                nameSuffix      = this.photoNameFor(event),
+                browseTheWeb    = BrowseTheWeb.as(stage.theActorInTheSpotlight());
 
             stage.announce(new AsyncOperationAttempted(
-                new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ photoName.value }'...`),
+                new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
                 id,
             ));
 
-            BrowseTheWeb.as(stage.theActorInTheSpotlight()).takeScreenshot()
-                .then(screenshot => {
-                    stage.announce(new ActivityRelatedArtifactGenerated(
-                        event.value,
-                        photoName,
-                        Photo.fromBase64(screenshot),
-                    ));
+            Promise.all([
+                browseTheWeb.takeScreenshot(),
+                browseTheWeb.getCapabilities(),
+            ]).then(([ screenshot, capabilities ]) => {
 
-                    stage.announce(new AsyncOperationCompleted(
-                        new Description(`[${ this.constructor.name }] Took screenshot of '${ photoName.value }'`),
-                        id,
-                    ));
-                })
-                .catch(error => {
-                    stage.announce(new AsyncOperationFailed(error, id));
-                });
+                const
+                    context   = [ capabilities.get('platform'), capabilities.get('browserName'), capabilities.get('version') ],
+                    photoName = this.combinedNameFrom(...context, nameSuffix);
+
+                stage.announce(new ActivityRelatedArtifactGenerated(
+                    event.value,
+                    photoName,
+                    Photo.fromBase64(screenshot),
+                ));
+
+                stage.announce(new AsyncOperationCompleted(
+                    new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
+                    id,
+                ));
+            }).catch(error => {
+                stage.announce(new AsyncOperationFailed(error, id));
+            });
         }
     }
 
     protected abstract shouldTakeAPhotoOf(event: DomainEvent): boolean;
 
     protected abstract photoNameFor(event: DomainEvent): string;
+
+    private combinedNameFrom(...parts: string[]): Name {
+        return new Name(parts.filter(v => !! v).join('-'));
+    }
 }

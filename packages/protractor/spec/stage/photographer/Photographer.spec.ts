@@ -38,7 +38,7 @@ describe('Photographer', () => {
             .to.throw(LogicError, `Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`);
     });
 
-    describe('when there\'s no actor in the spotlight', () => {
+    describe(`when there's no actor in the spotlight`, () => {
 
         given(
             new ExecutionSkipped(),

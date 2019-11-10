@@ -1,14 +1,9 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import {
-    ActivityFinished,
-    ActivityRelatedArtifactGenerated,
-    ActivityStarts,
-    ArtifactGenerated,
-    DomainEvent,
-} from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
+import { protractor } from 'protractor';
 
 import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../src/stage';
 import { create } from '../create';
@@ -40,11 +35,11 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Before Betty succeeds (#1)`);
+                        expect(event.name.value).to.match(/Before Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`After Betty succeeds (#1)`);
+                        expect(event.name.value).to.match(/After Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -56,11 +51,11 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Before Betty fails due to Error`);
+                        expect(event.name.value).to.match(/Before Betty fails due to Error$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`After Betty fails due to Error`);
+                        expect(event.name.value).to.match(/After Betty fails due to Error$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -76,11 +71,11 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Before Betty fails due to TypeError`);
+                        expect(event.name.value).to.match(/Before Betty fails due to TypeError$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`After Betty fails due to TypeError`);
+                        expect(event.name.value).to.match(/After Betty fails due to TypeError$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
@@ -107,21 +102,43 @@ describe('Photographer', function () {
 
                 PickEvent.from(firstActivityEvents)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Before Betty succeeds (#1)`);
+                        expect(event.name.value).to.match(/Before Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`After Betty succeeds (#1)`);
+                        expect(event.name.value).to.match(/After Betty succeeds \(#1\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
 
                 PickEvent.from(secondActivityEvents)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Before Betty succeeds (#2)`);
+                        expect(event.name.value).to.match(/Before Betty succeeds \(#2\)$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`After Betty succeeds (#2)`);
+                        expect(event.name.value).to.match(/After Betty succeeds \(#2\)$/);
+                        expect(event.artifact).to.be.instanceof(Photo);
+                    });
+            })));
+
+        it('includes the browser context in the name of the emitted artifact', () =>
+            expect(stage.theActorCalled('Betty').attemptsTo(
+                Perform.interactionThatSucceeds(1),
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().
+            then(() => protractor.browser.getCapabilities()).
+            then(capabilities => {
+
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        expect(event.name.value).to.equal(
+                            `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Before Betty succeeds (#1)`,
+                        );
+                        expect(event.artifact).to.be.instanceof(Photo);
+                    })
+                    .next(ArtifactGenerated, event => {
+                        expect(event.name.value).to.equal(
+                            `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-After Betty succeeds (#1)`,
+                        );
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
