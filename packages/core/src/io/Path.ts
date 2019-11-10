@@ -9,17 +9,26 @@ export class Path extends TinyType {
 
     static fromJSON = (v: string) => new Path(v);
 
+    static fromSanitisedString(value: string) {
+        const
+            normalised = path.normalize(value).replace(/[\/\\"':]/gi, ''),
+            extension  = path.extname(normalised),
+            basename   = path.basename(normalised, extension),
+            filename   = filenamify(basename, { replacement: '-', maxLength: 250 })
+                .trim()
+                .replace(/[\s-]+/g, '-');
+
+        return new Path(path.join(
+            path.dirname(normalised),
+            `${ filename }${ extension }`,
+        ));
+    }
+
     constructor(value: string) {
         super();
         ensure(Path.name, value, isDefined(), property('length', isGreaterThan(0)));
 
-        const normalised = path.normalize(value);
-
-        this.value = path.join(
-            path.dirname(normalised),
-            filenamify(path.basename(normalised), { replacement: '-' })
-                .replace(/[\s-]+/g, '-'),
-        );
+        this.value = path.normalize(value);
     }
 
     join(another: Path) {

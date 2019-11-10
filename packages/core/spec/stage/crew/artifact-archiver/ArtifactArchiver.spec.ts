@@ -13,6 +13,11 @@ import { photo } from '../samples';
 /** @test {ArtifactArchiver} */
 describe('ArtifactArchiver', () => {
 
+    const
+        json = { key: 'value' },
+        jsonValueShortHash = '64cdd772d3',
+        photoShortHash = '6808b2e9fe';
+
     let stage:          Stage,
         fs:             sinon.SinonStubbedInstance<FileSystem>,
         archiver:       ArtifactArchiver;
@@ -38,7 +43,6 @@ describe('ArtifactArchiver', () => {
         });
 
         const
-            json = { key: 'value' },
             jsonArtifactName = new Name('Scenario Name'),
             expectedJsonFileName = 'scenario-name',
             pngArtifactName  = new Name('PNG Artifact name'),
@@ -84,7 +88,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`scenario-${ expectedJsonFileName }.json`),
+                    new Path(`scenario-${ expectedJsonFileName }-${ jsonValueShortHash }.json`),
                     JSON.stringify(json),
                 );
             });
@@ -102,7 +106,7 @@ describe('ArtifactArchiver', () => {
 
             return stage.waitForNextCue().then(() => {
                 expect(fs.store).to.have.been.calledWith(
-                    new Path(`photo-${ expectedPngFileName }.png`),
+                    new Path(`photo-${ expectedPngFileName }-${ photoShortHash }.png`),
                     photo.base64EncodedValue,
                     'base64',
                 );
@@ -159,7 +163,7 @@ describe('ArtifactArchiver', () => {
 
         stageManager.notifyOf(new ArtifactGenerated(
             new Name('Some Report Name'),
-            TestReport.fromJSON({ key: 'value' }),
+            TestReport.fromJSON(json),
         ));
 
         return expect(stageManager.waitForNextCue()).to.be.fulfilled.then(() => {
@@ -169,7 +173,7 @@ describe('ArtifactArchiver', () => {
             expect(archived).to.be.instanceOf(ArtifactArchived);
             expect(archived.name).to.equal(new Name('Some Report Name'));
             expect(archived.type).to.equal(TestReport);
-            expect(archived.path).to.equal(new Path('scenario-some-report-name.json'));
+            expect(archived.path).to.equal(new Path(`scenario-some-report-name-${ jsonValueShortHash }.json`));
         });
     });
 

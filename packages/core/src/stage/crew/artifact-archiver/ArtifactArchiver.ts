@@ -10,10 +10,10 @@ import {
     DomainEvent,
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, Photo, TestReport } from '../../../model';
+import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
-import { MD5Hash } from './MD5Hash';
+import { Hash } from './Hash';
 
 /**
  * @desc Stores any {@link Artifact}s emitted through {@link ArtifactGenerated} events on the {@link FileSystem}
@@ -42,32 +42,44 @@ export class ArtifactArchiver implements StageCrewMember {
 
     notifyOf(event: DomainEvent): void {
 
-        if (! (event instanceof ArtifactGenerated)) {
+        if (!(event instanceof ArtifactGenerated)) {
             // ignore any other events
             return void 0;
         }
 
         if (event.artifact instanceof Photo) {
-            const relativePath = new Path(`photo-${ event.name.value.toLocaleLowerCase() }.png`);
+            const filename = this.fileNameFor('photo', event.name, event.artifact, 'png');
 
             this.archive(
-                relativePath,
+                filename,
                 event.artifact.base64EncodedValue,
                 'base64',
-                this.archivisationAnnouncement(event, relativePath),
+                this.archivisationAnnouncement(event, filename),
             );
         }
 
         if (event.artifact instanceof TestReport) {
-            const relativePath = new Path(`scenario-${ event.name.value.toLocaleLowerCase() }.json`);
+            const filename = this.fileNameFor('scenario', event.name, event.artifact, 'json');
 
             this.archive(
-                relativePath,
+                filename,
                 event.artifact.map(JSON.stringify),
                 'utf8',
-                this.archivisationAnnouncement(event, relativePath),
+                this.archivisationAnnouncement(event, filename),
             );
         }
+    }
+
+    private fileNameFor(prefix: string, artifactName: Name, artifact: Artifact, extension: string): Path {
+        const hash = Hash.of(artifact.base64EncodedValue).short();
+        return Path.fromSanitisedString(
+            // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems
+            // note: we can't do that in the Path constructor as the Path can be used to join other paths,
+            // so restricting the length of the _path_ itself would not be correct.
+            `${ prefix.substring(0, 10) }-${ artifactName.value.toLocaleLowerCase().substring(0, 220) }-${ hash }.${ extension }`,
+            // characters:     10        1         220                                                 1    10   1    4            < 250
+
+        );
     }
 
     private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
@@ -78,7 +90,7 @@ export class ArtifactArchiver implements StageCrewMember {
             id,
         ));
 
-        this.fileSystem.store(relativePath, contents,  encoding)
+        this.fileSystem.store(relativePath, contents, encoding)
             .then(absolutePath => {
                 announce(relativePath);
 
@@ -101,8 +113,7 @@ export class ArtifactArchiver implements StageCrewMember {
                     evt.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
                 ));
-            }
-            else if (evt instanceof ArtifactGenerated) {
+            } else if (evt instanceof ArtifactGenerated) {
                 this.stage.announce(new ArtifactArchived(
                     evt.name,
                     evt.artifact.constructor as ArtifactType,

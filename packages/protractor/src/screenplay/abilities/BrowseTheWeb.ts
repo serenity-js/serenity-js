@@ -1,6 +1,6 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
-import { Navigation, Options } from 'selenium-webdriver';
+import { Capabilities, Navigation, Options } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
 /**
@@ -313,6 +313,20 @@ export class BrowseTheWeb implements Ability {
      */
     getCurrentUrl(): Promise<string> {
         return promiseOf(this.browser.getCurrentUrl());
+    }
+
+    /**
+     * @desc
+     *  Returns the  capabilities of the browser used in the current session.
+     *
+     *  By default, the session `capabilities` specified in the `protractor.conf.js`
+     *  indicate the _desired_ properties of the remote browser. However, if the remote cannot satisfy
+     *  all the requirements, it will still create a session.
+     *
+     * @returns {Promise<Capabilities>} The actual capabilities of this browser.
+     */
+    getCapabilities(): Promise<Capabilities> {
+        return promiseOf(this.browser.getCapabilities());
     }
 
     /**

@@ -2,6 +2,7 @@ import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
+import { protractor } from 'protractor';
 
 import { Photographer, TakePhotosOfFailures } from '../../../../src/stage/photographer';
 import { create } from '../create';
@@ -37,13 +38,13 @@ describe('Photographer', () => {
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty fails due to Error`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty fails due to Error$/);
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
 
-        it('correlates the photo with the activity it\'s concerning', () =>
+        it(`correlates the photo with the activity it is concerning`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -69,9 +70,24 @@ describe('Photographer', () => {
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(`Betty fails due to TypeError`);
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.match(/Betty fails due to TypeError$/);
                         expect(event.artifact).to.be.instanceof(Photo);
+                    });
+            })));
+
+        it(`includes the browser context in the name of the emitted artifact`, () =>
+            expect(stage.theActorCalled('Betty').attemptsTo(
+                Perform.interactionThatFailsWith(Error),
+            )).to.be.rejected.then(() => stage.waitForNextCue().
+            then(() => protractor.browser.getCapabilities()).
+            then(capabilities => {
+
+                PickEvent.from(recorder.events)
+                    .next(ActivityRelatedArtifactGenerated, event => {
+                        expect(event.name.value).to.equal(
+                            `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Betty fails due to Error`,
+                        );
                     });
             })));
     });
