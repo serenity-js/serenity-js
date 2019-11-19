@@ -1,3 +1,4 @@
+export * from './Alert';
 export * from './Attribute';
 export * from './Browser';
 export * from './Cookie';

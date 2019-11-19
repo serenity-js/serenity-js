@@ -26,13 +26,24 @@ export class TakeScreenshot extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
      */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
+
         return Promise.all([
             BrowseTheWeb.as(actor).takeScreenshot(),
             actor.answer(this.name),
-        ]).then(([ screenshot, name ]) => actor.collect(
+        ]).then(([screenshot, name]) => actor.collect(
             Photo.fromBase64(screenshot),
             new Name(name),
-        ));
+        )).catch((error: Error) => {
+            if (!this.allowableErrorOccurred(error)) {
+                throw error;
+            }
+        });
+    }
+
+    private allowableErrorOccurred(error: Error): boolean {
+        return error.message.includes('does not have a valid session ID')
+            || error.message.includes('Session ID is null')
+            || error.message.includes('unexpected alert open');
     }
 
     /**
@@ -42,6 +53,6 @@ export class TakeScreenshot extends Interaction {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor takes a screenshot of ${this.name}`;
+        return formatted`#actor takes a screenshot of ${this.name}`;
     }
 }

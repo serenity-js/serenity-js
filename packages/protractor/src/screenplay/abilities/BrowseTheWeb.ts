@@ -1,6 +1,6 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
-import { Capabilities, Navigation, Options } from 'selenium-webdriver';
+import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
 /**
@@ -342,6 +342,46 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @desc
+     *  Switch the browser to an alert if there is one.
+     *
+     * @returns {AlertPromise}
+     */
+    switchToAlert(): AlertPromise {
+        return this.browser.switchTo().alert();
+    }
+
+    /**
+     * @desc
+     *  Accept an active alert.
+     *
+     * @returns {Promise<void>}
+     */
+    acceptAlert(): Promise<void> {
+        return promiseOf(this.switchToAlert().accept());
+    }
+
+    /**
+     * @desc
+     *  Return the text of the alert.
+     *
+     * @returns {Promise<string>}
+     */
+    alertText(): Promise<string> {
+        return promiseOf(this.switchToAlert().getText());
+    }
+
+    /**
+     * @desc
+     *  Dismiss an active alert.
+     *
+     * @returns {Promise<void>}
+     */
+    dismissAlert(): Promise<void> {
+        return promiseOf(this.switchToAlert().dismiss());
+    }
+
+    /**
+     * @desc
      *  Pause the actor flow until the condition is met or the timeout expires.
      *
      * @returns {Promise<boolean>}
@@ -351,7 +391,7 @@ export class BrowseTheWeb implements Ability {
     }
 
     getLastScriptExecutionResult(): any {
-        if (! this.lastScriptExecutionSummary) {
+        if (!this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
         }
 
@@ -363,5 +403,6 @@ export class BrowseTheWeb implements Ability {
  * @package
  */
 class LastScriptExecutionSummary {
-    constructor(public readonly result: any) {}
+    constructor(public readonly result: any) {
+    }
 }
