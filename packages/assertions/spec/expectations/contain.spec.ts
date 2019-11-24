@@ -19,7 +19,11 @@ describe('contain', () => {
     it('breaks the actor flow when "actual" does not contain the "expected" text', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that([ 'Hello', 'World' ], contain('Mundo')),
-        )).to.be.rejectedWith(AssertionError, `Expected [ 'Hello', 'World' ] to contain 'Mundo'`);
+        )).to.be.rejectedWith(AssertionError, `Expected [ 'Hello', 'World' ] to contain 'Mundo'`)
+            .then((error: AssertionError) => {
+                expect(error.expected.toString()).to.equal('Mundo');
+                expect(error.actual).to.deep.equal([ 'Hello', 'World' ]);
+            });
     });
 
     /** @test {contains} */

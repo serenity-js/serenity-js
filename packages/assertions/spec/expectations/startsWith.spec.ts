@@ -19,7 +19,11 @@ describe('startsWith', () => {
     it('breaks the actor flow when "actual" does not start with "expected"', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', startsWith('¡Hola')),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal('¡Hola');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {startsWith} */

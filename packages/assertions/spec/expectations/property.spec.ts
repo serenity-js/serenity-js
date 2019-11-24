@@ -19,7 +19,11 @@ describe('hasProperty', () => {
     it('breaks the actor flow when "actual" does not have a property that meets the expectation', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello!', property('length', equals(0))),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello!' to have property 'length' that does equal 0`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello!' to have property 'length' that does equal 0`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(0);
+                expect(error.actual).to.equal(6);
+            });
     });
 
     /** @test {hasProperty} */

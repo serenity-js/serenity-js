@@ -19,7 +19,11 @@ describe('includes', () => {
     it('breaks the actor flow when "actual" does not include the "expected" text', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', includes('Mundo')),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to include 'Mundo'`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to include 'Mundo'`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal('Mundo');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {includes} */

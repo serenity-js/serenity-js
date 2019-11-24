@@ -19,7 +19,11 @@ describe('endsWith', () => {
     it('breaks the actor flow when "actual" does not end with "expected"', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', endsWith('Mundo!')),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal('Mundo!');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {endsWith} */

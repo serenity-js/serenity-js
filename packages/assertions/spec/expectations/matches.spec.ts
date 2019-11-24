@@ -19,7 +19,11 @@ describe('matches', () => {
     it('breaks the actor flow when "actual" does not match the "expected"', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', matches(/mundo$/gi)),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to match /mundo$/gi`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to match /mundo$/gi`)
+            .then((error: AssertionError) => {
+                expect(error.expected.toString()).to.equal('/mundo$/gi');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {matches} */

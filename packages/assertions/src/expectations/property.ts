@@ -22,15 +22,15 @@ class HasProperty<Property extends keyof Actual, Actual> extends Expectation<Act
         super();
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Actual[Property], any>> {
 
         return (actual: Actual) =>
             this.expectation.answeredBy(actor)(actual[this.propertyName])
                 .then((outcome: Outcome<any, Actual[Property]>) => {
 
                     return outcome instanceof ExpectationMet
-                        ? new ExpectationMet(this.toString(), outcome.expected, actual)
-                        : new ExpectationNotMet(this.toString(), outcome.expected, actual);
+                        ? new ExpectationMet(this.toString(), outcome.expected, actual[this.propertyName])
+                        : new ExpectationNotMet(this.toString(), outcome.expected, actual[this.propertyName]);
                 });
     }
 

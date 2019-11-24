@@ -19,7 +19,11 @@ describe('isGreaterThan', () => {
     it('breaks the actor flow when "actual" is not greater than "expected"', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that(0, isGreaterThan(2)),
-        )).to.be.rejectedWith(AssertionError, `Expected 0 to have value greater than 2`);
+        )).to.be.rejectedWith(AssertionError, `Expected 0 to have value greater than 2`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(2);
+                expect(error.actual).to.equal(0);
+            });
     });
 
     /** @test {isGreaterThan} */

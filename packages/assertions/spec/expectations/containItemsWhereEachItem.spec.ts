@@ -19,14 +19,22 @@ describe('containItemsWhereEachItem', () => {
     it('breaks the actor flow when "actual" contains at least one item that does not meet the expectation', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that([ 7, 7, 2 ], containItemsWhereEachItem(equals(7))),
-        )).to.be.rejectedWith(AssertionError, `Expected [ 7, 7, 2 ] to contain items where each item does equal 7`);
+        )).to.be.rejectedWith(AssertionError, `Expected [ 7, 7, 2 ] to contain items where each item does equal 7`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(7);
+                expect(error.actual).to.deep.equal([ 7, 7, 2 ]);
+            });
     });
 
     /** @test {containItemsWhereEachItem} */
     it('breaks the actor flow when "actual" is an empty list', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that([], containItemsWhereEachItem(equals(42))),
-        )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain items where each item does equal 42`);
+        )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain items where each item does equal 42`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(null);
+                expect(error.actual).to.deep.equal([]);
+            });
     });
 
     /** @test {atLeastOne} */

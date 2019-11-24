@@ -18,7 +18,11 @@ describe('not', () => {
     it('breaks the actor flow when "actual" does not meet the expectation', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', not(startsWith('Hello'))),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to not start with 'Hello'`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to not start with 'Hello'`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal('Hello');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {not} */
@@ -52,7 +56,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))),
-                )).to.be.rejectedWith(AssertionError, `Expected 3 to not have value greater than 2 and have value that's less than 4`);
+                )).to.be.rejectedWith(AssertionError, `Expected 3 to not have value greater than 2 and have value that's less than 4`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(4);
+                        expect(error.actual).to.equal(3);
+                    });
             });
 
             /** @test {not} */
@@ -70,7 +78,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(contain(2)),
-                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`);
+                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(2);
+                        expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
+                    });
             });
 
             /** @test {not} */
@@ -88,7 +100,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2))),
-                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`);
+                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(2);
+                        expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
+                    });
             });
 
             /** @test {not} */
@@ -106,7 +122,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that('Hello', not(endsWith('o'))),
-                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not end with 'o'`);
+                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not end with 'o'`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal('o');
+                        expect(error.actual).to.equal('Hello');
+                    });
             });
 
             /** @test {not} */
@@ -124,7 +144,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that(true, not(equals(true))),
-                )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`);
+                )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(true);
+                        expect(error.actual).to.equal(true);
+                    });
             });
 
             /** @test {not} */
@@ -142,7 +166,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that('Hello', not(includes('Hello'))),
-                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not include 'Hello'`);
+                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not include 'Hello'`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal('Hello');
+                        expect(error.actual).to.equal('Hello');
+                    });
             });
 
             /** @test {not} */
@@ -160,7 +188,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that(2, not(isGreaterThan(1))),
-                )).to.be.rejectedWith(AssertionError, `Expected 2 to not have value greater than 1`);
+                )).to.be.rejectedWith(AssertionError, `Expected 2 to not have value greater than 1`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(1);
+                        expect(error.actual).to.equal(2);
+                    });
             });
 
             /** @test {not} */
@@ -178,7 +210,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that(1, not(isLessThan(2))),
-                )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value that's less than 2`);
+                )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value that's less than 2`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(2);
+                        expect(error.actual).to.equal(1);
+                    });
             });
 
             /** @test {not} */
@@ -196,7 +232,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that(1, not(or(isGreaterThan(0), isLessThan(2)))),
-                )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value greater than 0 or have value that's less than 2`);
+                )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value greater than 0 or have value that's less than 2`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(0);
+                        expect(error.actual).to.equal(1);
+                    });
             });
 
             /** @test {not} */
@@ -214,7 +254,11 @@ describe('not', () => {
             it('produces a sensible error message', () => {
                 return expect(Astrid.attemptsTo(
                     Ensure.that('Hello', not(startsWith('H'))),
-                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not start with 'H'`);
+                )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not start with 'H'`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal('H');
+                        expect(error.actual).to.equal('Hello');
+                    });
             });
 
             /** @test {not} */
