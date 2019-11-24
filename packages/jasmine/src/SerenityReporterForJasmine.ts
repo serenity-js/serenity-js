@@ -180,6 +180,12 @@ export class SerenityReporterForJasmine {
             ? ErrorSerialiser.deserialiseFromStackTrace(failure.stack)
             : new Error(failure.message);
 
+        if (cause instanceof AssertionError) {
+            // sadly, Jasmine error propagation mechanism is rather basic
+            // and unable to serialise the expected/actual properties of the error
+            return new ExecutionFailedWithAssertionError(cause);
+        }
+
         if (!! failure.matcherName) {                       // the presence of a non-empty matcherName property indicates an assertion error
             return new ExecutionFailedWithAssertionError(
                 new AssertionError(failure.message, failure.expected, failure.actual, cause),
