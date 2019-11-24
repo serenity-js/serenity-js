@@ -59,7 +59,7 @@ export class ErrorSerialiser {
     static deserialiseFromStackTrace(stack: string) {
         const lines = stack.split('\n');
 
-        const pattern = /^([^\s:]+):\s(.*)$/;
+        const pattern = /^([^\s:]*Error):\s(.*)$/;
         if (! pattern.test(lines[0])) {
             return new Error(stack);
         }

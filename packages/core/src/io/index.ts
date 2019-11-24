@@ -5,4 +5,5 @@ export * from './FileSystemLocation';
 export * from './formatted';
 export * from './ModuleLoader';
 export * from './Path';
+export * from './trimmed';
 export * from './Version';
