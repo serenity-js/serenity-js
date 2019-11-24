@@ -11,11 +11,11 @@ describe('Duration', () => {
 
         given<Duration, number>(
             [ Duration.ofMilliseconds(1),     1                               ],
-            [ Duration.ofSeconds(1),    1 * 1000                        ],
-            [ Duration.ofMinutes(1),    60 * 1 * 1000                   ],
-            [ Duration.ofHours(1),      60 * 60 * 1 * 1000              ],
-            [ Duration.ofDays(1),       24 * 60 * 60 * 1 * 1000         ],
-            [ Duration.ofYears(1),      365 * 24 * 60 * 60 * 1 * 1000   ],
+            [ Duration.ofSeconds(1),          1 * 1000                        ],
+            [ Duration.ofMinutes(1),          60 * 1 * 1000                   ],
+            [ Duration.ofHours(1),            60 * 60 * 1 * 1000              ],
+            [ Duration.ofDays(1),             24 * 60 * 60 * 1 * 1000         ],
+            [ Duration.ofYears(1),            365 * 24 * 60 * 60 * 1 * 1000   ],
         ).
         it('can be easily converted to milliseconds', (duration: Duration, expectedMilliseconds: number) => {
             expect(duration.inMilliseconds()).to.equal(expectedMilliseconds);
@@ -30,6 +30,17 @@ describe('Duration', () => {
         ).
         it('can be presented in a human-friendly format', (duration: Duration, expected: string) => {
             expect(duration.toString()).to.equal(expected);
+        });
+    });
+
+    describe('when performing computations', () => {
+        const
+            oneMinute   = Duration.ofMinutes(1),
+            tenSeconds  = Duration.ofSeconds(10);
+
+        it('allows for durations to be added', () => {
+
+            expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(70));
         });
     });
 });

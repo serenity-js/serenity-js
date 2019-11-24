@@ -1,5 +1,6 @@
 const
-    { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { ConsoleReporter } = require('@serenity-js/console-reporter'),
+    { ArtifactArchiver, StreamReporter } = require('@serenity-js/core'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
@@ -19,7 +20,8 @@ exports.config = {
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
-            new ConsoleReporter(),
+            // ConsoleReporter.forDarkTerminals(),
+            new StreamReporter(),
         ]
     },
 
@@ -29,7 +31,7 @@ exports.config = {
             'features/support/setup.ts',
         ],
         'require-module': ['ts-node/register'],
-        tags: [],
+        tags: [ '@wip' ],
     },
 
     capabilities: {
