@@ -39,6 +39,7 @@ import { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } from './jasmine
  */
 export class SerenityReporterForJasmine {
 
+    private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/;
     private describes: SuiteResult[] = [];
 
     constructor(private readonly serenity: Serenity) {
@@ -176,22 +177,59 @@ export class SerenityReporterForJasmine {
      * @returns {ProblemIndication}
      */
     private failureOutcomeFrom(failure: Expectation): ProblemIndication {
-        const cause = !! failure.stack
-            ? ErrorSerialiser.deserialiseFromStackTrace(failure.stack)
-            : new Error(failure.message);
+        const error = this.errorFrom(failure);
 
-        if (cause instanceof AssertionError) {
+        if (error instanceof AssertionError) {
             // sadly, Jasmine error propagation mechanism is rather basic
-            // and unable to serialise the expected/actual properties of the error
-            return new ExecutionFailedWithAssertionError(cause);
+            // and unable to serialise the expected/actual properties of the AssertionError object
+            return new ExecutionFailedWithAssertionError(error);
         }
 
-        if (!! failure.matcherName) {                       // the presence of a non-empty matcherName property indicates an assertion error
+        if (!! failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
             return new ExecutionFailedWithAssertionError(
-                new AssertionError(failure.message, failure.expected, failure.actual, cause),
+                new AssertionError(failure.message, failure.expected, failure.actual, error),
             );
         }
 
-        return new ExecutionFailedWithError(cause);
+        return new ExecutionFailedWithError(error);
+    }
+
+    private errorFrom(failure: Expectation): Error {
+        if (this.containsCorrectlySerialisedError(failure)) {
+            return ErrorSerialiser.deserialiseFromStackTrace(failure.stack);
+        }
+
+        if (this.containsIncorrectlySerialisedError(failure)) {
+            return ErrorSerialiser.deserialiseFromStackTrace(this.repairedStackTraceOf(failure));
+        }
+
+        return new Error(failure.message);
+    }
+
+    private containsCorrectlySerialisedError(failure: Expectation): boolean {
+        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split('\n')[0]);
+    }
+
+    private containsIncorrectlySerialisedError(failure: Expectation): boolean {
+        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.message);
+    }
+
+    /**
+     * It seems like Jasmine mixes up serialisation and display logic,
+     * which means that its "failure.stack" is not really an Error stacktrace,
+     * but rather something along the lines of:
+     * "error properties: AssertionError: undefined"
+     * where the error message is lost, and there's an "error properties:" prefix present.
+     *
+     * Probably caused by this:
+     * https://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93
+     *
+     * @param {Expectation} failure
+     */
+    private repairedStackTraceOf(failure: Expectation): string {
+        return [
+            failure.message,
+            ...failure.stack.split('\n').slice(1),
+        ].join('\n');
     }
 }
