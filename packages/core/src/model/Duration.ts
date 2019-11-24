@@ -19,6 +19,10 @@ export class Duration extends TinyType {
         super();
     }
 
+    plus(another: Duration) {
+        return new Duration(this.milliseconds + another.milliseconds);
+    }
+
     inMilliseconds(): number {
         return this.milliseconds;
     }

@@ -1,7 +1,7 @@
 {
-  "name": "@serenity-js/serenity-bdd",
+  "name": "@serenity-js/console-reporter",
   "version": "2.0.1-alpha.87",
-  "description": "Serenity BDD reporter for Serenity/JS",
+  "description": "Serenity/JS console reporter",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -14,9 +14,6 @@
   },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
-  "bin": {
-    "serenity-bdd": "bin/serenity-bdd"
-  },
   "keywords": [
     "serenity-js",
     "tdd",
@@ -27,7 +24,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "nyc --report-dir ../../target/coverage/serenity-bdd mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "test": "nyc --report-dir ../../target/coverage/console-reporter mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -43,28 +40,19 @@
     "npm": ">= 5"
   },
   "dependencies": {
-    "axios": "^0.19.0",
     "chalk": "^3.0.0",
-    "find-java-home": "^1.0.0",
-    "progress": "^2.0.3",
-    "tiny-types": "^1.12.1",
-    "which": "^1.3.1",
-    "yargs": "^13.3.0"
+    "diff": "^4.0.1",
+    "tiny-types": "^1.12.1"
   },
   "peerDependencies": {
-    "@serenity-js/assertions": "2.x",
-    "@serenity-js/core": "2.x",
-    "@serenity-js/rest": "2.x"
+    "@serenity-js/core": "2.x"
   },
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.1-alpha.85",
     "@integration/testing-tools": "2.0.1-alpha.87",
-    "@serenity-js/assertions": "2.0.1-alpha.87",
     "@serenity-js/core": "2.0.1-alpha.87",
-    "@serenity-js/rest": "2.0.1-alpha.87",
-    "@types/mocha": "^5.2.6",
-    "@types/progress": "^2.0.3",
-    "memfs": "2.15.5"
+    "@types/diff": "^4.0.2",
+    "@types/mocha": "^5.2.6"
   },
   "nyc": {
     "include": [

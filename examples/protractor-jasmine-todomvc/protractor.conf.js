@@ -1,6 +1,7 @@
 const
     path = require('path'),
-    { ArtifactArchiver, ConsoleReporter } = require('@serenity-js/core'),
+    { ConsoleReporter } = require('@serenity-js/console-reporter'),
+    { ArtifactArchiver } = require('@serenity-js/core'),
     { Photographer, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
@@ -25,7 +26,7 @@ exports.config = {
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             Photographer.whoWill(TakePhotosOfInteractions),
             new SerenityBDDReporter(),
-            new ConsoleReporter(),
+            ConsoleReporter.forDarkTerminals(),
         ]
     },
 
