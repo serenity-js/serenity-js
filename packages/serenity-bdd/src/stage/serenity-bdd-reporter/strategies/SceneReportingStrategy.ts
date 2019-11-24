@@ -8,6 +8,7 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
+import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import { Artifact, ArtifactType, AssertionReport, HTTPRequestResponse, JSONData, LogEntry, Photo, ScenarioDetails, TextData } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { SceneReport } from '../reports';
@@ -16,6 +17,12 @@ import { SceneReport } from '../reports';
  * @package
  */
 export abstract class SceneReportingStrategy {
+
+    private static readonly differ = new AssertionReportDiffer({
+        expected: line => `+ ${ line }`,
+        actual:   line => `- ${ line }`,
+        matching: line => `  ${ line }`,
+    });
 
     constructor(protected readonly scenario: ScenarioDetails) {
     }
@@ -34,7 +41,9 @@ export abstract class SceneReportingStrategy {
                 .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
                 .when(LogEntry,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
                 .when(AssertionReport,      _ =>
-                    report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => `expected: ${ artifactContents.expected }\n\nactual: ${artifactContents.actual}`)),
+                    report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents =>
+                        SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),
+                    )),
                 )
                 .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))
                 .else(_ => report))
