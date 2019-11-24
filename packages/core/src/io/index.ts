@@ -1,3 +1,4 @@
+export * from './AssertionReportDiffer';
 export * from './ErrorSerialiser';
 export * from './ErrorStackParser';
 export * from './FileSystem';
