@@ -32,7 +32,11 @@ describe('equals', () => {
     it('breaks the actor flow when the values of "actual" and "expected" don\'t match', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that(27, equals(42)),
-        )).to.be.rejectedWith(AssertionError, 'Expected 27 to equal 42');
+        )).to.be.rejectedWith(AssertionError, 'Expected 27 to equal 42')
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(42);
+                expect(error.actual).to.equal(27);
+            });
     });
 
     /** @test {equals} */

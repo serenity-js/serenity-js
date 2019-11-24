@@ -19,14 +19,22 @@ describe('containAtLeastOneItemThat', () => {
     it('breaks the actor flow when "actual" does not include at least one item that meets the expectation', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(equals(7))),
-        )).to.be.rejectedWith(AssertionError, `Expected [ 0, 1, 2 ] to contain at least one item that does equal 7`);
+        )).to.be.rejectedWith(AssertionError, `Expected [ 0, 1, 2 ] to contain at least one item that does equal 7`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(7);
+                expect(error.actual).to.deep.equal([ 0, 1, 2 ]);
+            });
     });
 
     /** @test {containAtLeastOneItemThat} */
     it('breaks the actor flow when "actual" is an empty list', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that([], containAtLeastOneItemThat(equals(42))),
-        )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain at least one item that does equal 42`);
+        )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain at least one item that does equal 42`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(null);
+                expect(error.actual).to.deep.equal([ ]);
+            });
     });
 
     /** @test {atLeastOne} */

@@ -8,7 +8,7 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { Artifact, ArtifactType, HTTPRequestResponse, JSONData, Photo, ScenarioDetails, TextData } from '@serenity-js/core/lib/model';
+import { Artifact, ArtifactType, AssertionReport, HTTPRequestResponse, JSONData, LogEntry, Photo, ScenarioDetails, TextData } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { SceneReport } from '../reports';
 
@@ -32,6 +32,10 @@ export abstract class SceneReportingStrategy {
             .when(ArtifactGenerated,        (e: ArtifactGenerated)          => match<Artifact, SceneReport>(e.artifact)
                 .when(HTTPRequestResponse,  _ => report.httpRequestCaptured(e.artifact.map(data => data)))
                 .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
+                .when(LogEntry,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
+                .when(AssertionReport,      _ =>
+                    report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => `expected: ${ artifactContents.expected }\n\nactual: ${artifactContents.actual}`)),
+                )
                 .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))
                 .else(_ => report))
             .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)

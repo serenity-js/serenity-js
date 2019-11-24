@@ -19,7 +19,11 @@ describe('isLessThan', () => {
     it('breaks the actor flow when "actual" is not less than "expected"', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that(3, isLessThan(2)),
-        )).to.be.rejectedWith(AssertionError, `Expected 3 to have value that's less than 2`);
+        )).to.be.rejectedWith(AssertionError, `Expected 3 to have value that's less than 2`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal(2);
+                expect(error.actual).to.equal(3);
+            });
     });
 
     /** @test {isLessThan} */

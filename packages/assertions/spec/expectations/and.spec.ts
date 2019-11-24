@@ -21,14 +21,22 @@ describe('and', () => {
         it('does not meet the first expectation', () => {
             return expect(Astrid.attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('¡Hola'), endsWith('World!'))),
-            )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`);
+            )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`)
+                .then((error: AssertionError) => {
+                    expect(error.expected.toString()).to.equal('¡Hola');
+                    expect(error.actual).to.equal('Hello World!');
+                });
         });
 
         /** @test {and} */
         it('does not meet the second expectation', () => {
             return expect(Astrid.attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('Mundo!'))),
-            )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!`);
+            )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!`)
+                .then((error: AssertionError) => {
+                    expect(error.expected.toString()).to.equal('Mundo!');
+                    expect(error.actual).to.equal('Hello World!');
+                });
         });
     });
 

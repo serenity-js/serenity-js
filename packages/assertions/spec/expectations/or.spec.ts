@@ -29,7 +29,11 @@ describe('or', () => {
     it('breaks the actor flow when "actual" does meets none of the expectations', () => {
         return expect(Astrid.attemptsTo(
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'`);
+        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'`)
+            .then((error: AssertionError) => {
+                expect(error.expected).to.equal('¡Hola');
+                expect(error.actual).to.equal('Hello World!');
+            });
     });
 
     /** @test {or} */
