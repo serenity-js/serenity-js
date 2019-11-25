@@ -36,7 +36,42 @@ import { SummaryFormatter } from './SummaryFormatter';
 import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
 
 /**
+ * @desc
+ *  Uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
+ *  to report on progress of your Serenity/JS acceptance tests.
+ *
+ *  `ConsoleReporter` ships with colour themes for both dark and light terminals,
+ *  as well as a monochromatic theme for those moments when you're in a noir mood
+ *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
+ *
+ * @example <caption>Registering the reporter programmatically</caption>
+ * import { serenity } form '@serenity-js/core';
+ * import { ConsoleReporter } form '@serenity-js/console-reporter';
+ *
+ * serenity.setTheStage(
+ *     ConsoleReporter.withDefaultColourSupport(),
+ * );
+ *
+ * @example <caption>Registering the reporter using Protractor configuration</caption>
+ * // protractor.conf.js
+ * const { ConsoleReporter } = require('@serenity-js/console-reporter');
+ *
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *     crew: [
+ *       ConsoleReporter.withDefaultColourSupport(),
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *
+ *   // other Protractor config
+ * };
+ *
  * @public
+ * @implements {@serenity-js/core/lib/stage~StageCrewMember}
  */
 export class ConsoleReporter implements StageCrewMember {
 
@@ -46,6 +81,22 @@ export class ConsoleReporter implements StageCrewMember {
     private firstError: FirstError = new FirstError();
     private readonly summaryFormatter: SummaryFormatter;
 
+    /**
+     * @desc
+     *  Instantiates a `ConsoleReporter` that auto-detects
+     *  your terminal's support for colours and use a colour theme
+     *  for dark terminals if successful.
+     *
+     *  Please note that spawning your test process from another process
+     *  (by using [npm-failsafe](https://www.npmjs.com/package/npm-failsafe), for example)
+     *  causes the `ConsoleReporter` to use the monochromatic colour scheme,
+     *  as colour support can't be detected in child processes.
+     *
+     *  If the above describes your setup, use {@link ConsoleReporter#forDarkTerminals}
+     *  or {@link ConsoleReporter#forLightTerminals} to make the sub-process produce colour output.
+     *
+     * @returns {ConsoleReporter}
+     */
     static withDefaultColourSupport() {
         return new ConsoleReporter(
             new Printer(process.stdout),
@@ -53,6 +104,15 @@ export class ConsoleReporter implements StageCrewMember {
         );
     }
 
+    /**
+     * @desc
+     *  Instantiates a `ConsoleReporter` with a monochromatic colour theme.
+     *  Good for terminals with no colour support (like the `cmd.exe` on Windows),
+     *  or for when you need to pipe the output to a text file and want
+     *  to avoid printing control characters.
+     *
+     * @returns {ConsoleReporter}
+     */
     static forMonochromaticTerminals() {
         return new ConsoleReporter(
             new Printer(process.stdout),
@@ -60,6 +120,12 @@ export class ConsoleReporter implements StageCrewMember {
         );
     }
 
+    /**
+     * @desc
+     *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with dark backgrounds.
+     *
+     * @returns {ConsoleReporter}
+     */
     static forDarkTerminals() {
         return new ConsoleReporter(
             new Printer(process.stdout),
@@ -67,6 +133,12 @@ export class ConsoleReporter implements StageCrewMember {
         );
     }
 
+    /**
+     * @desc
+     *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with light backgrounds.
+     *
+     * @returns {ConsoleReporter}
+     */
     static forLightTerminals() {
         return new ConsoleReporter(
             new Printer(process.stdout),
@@ -74,6 +146,11 @@ export class ConsoleReporter implements StageCrewMember {
         );
     }
 
+    /**
+     * @param {Printer} printer
+     * @param {TerminalTheme} theme
+     * @param {@serenity-js/core/lib/stage~Stage} stage
+     */
     constructor(
         private readonly printer: Printer,
         private readonly theme: TerminalTheme,
@@ -82,10 +159,29 @@ export class ConsoleReporter implements StageCrewMember {
         this.summaryFormatter = new SummaryFormatter(this.theme);
     }
 
+    /**
+     * @desc
+     *  Creates a new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
+     *  and assigns it to a given {@link @serenity-js/core/lib/stage~Stage}.
+     *
+     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     *
+     * @param {@serenity-js/core/lib/stage~Stage} stage - An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to
+     * @returns {@serenity-js/core/lib/stage~StageCrewMember} - A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
+     */
     assignedTo(stage: Stage) {
         return new ConsoleReporter(this.printer, this.theme, stage);
     }
 
+    /**
+     * @desc
+     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
+     *
+     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     *
+     * @param {@serenity-js/core/lib/events~DomainEvent} event
+     * @returns {void}
+     */
     notifyOf(event: DomainEvent): void {
         match(event)
             .when(SceneStarts, (e: SceneStarts) => {
@@ -138,16 +234,17 @@ export class ConsoleReporter implements StageCrewMember {
 
                 artifacts.forEach(evt => {
                     if (evt.artifact instanceof AssertionReport) {
-                        const details = evt.artifact.map((artifactContents: { expected: string, actual: string }) =>
-                            this.theme.diff(artifactContents.expected, artifactContents.actual),
-                        );
+                        const details = evt.artifact.map(
+                            (artifactContents: { expected: string, actual: string }) =>
+                                this.theme.diff(
+                                    artifactContents.expected,
+                                    artifactContents.actual,
+                                ),
+                            );
 
                         this.printer.println();
-                        this.printer.println('Difference:');
 
-                        this.printer.indent();
                         this.printer.println(details);
-                        this.printer.outdent();
 
                         this.printer.println();
                     }

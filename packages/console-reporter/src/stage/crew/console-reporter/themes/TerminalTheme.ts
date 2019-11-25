@@ -1,12 +1,14 @@
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped, ExecutionSuccessful,
-    ImplementationPending, Outcome,
-} from '@serenity-js/core/lib/model';
+import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
+import { Outcome } from '@serenity-js/core/lib/model';
 
+/**
+ * @desc
+ *  Decorates text with control characters to make the terminal
+ *  print output in colour.
+ *
+ * @public
+ * @abstract
+ */
 export abstract class TerminalTheme {
     abstract heading(...parts: any[]): string;
     abstract outcome(outcome: Outcome | string, ...parts: any[]): string;
@@ -14,10 +16,38 @@ export abstract class TerminalTheme {
     abstract diff(expected: string, actual: string): string;
     abstract log(...parts: any[]): string;
 
+    /**
+     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
+     */
+    constructor(protected readonly differ: AssertionReportDiffer) {
+    }
+
+    /**
+     * @desc
+     *  Converts the `parts` to `string` and joins them together.
+     *
+     * @protected
+     *
+     * @param {any[]} parts
+     *
+     * @returns {string}
+     */
     protected joined(parts: any[]): string {
         return parts.map(String).join('');
     }
 
+    /**
+     * @desc
+     *  Repeats a given `pattern` so that it takes up to `maxLength` characters.
+     *  Used to produce separator lines.
+     *
+     * @protected
+     *
+     * @param {string} pattern
+     * @param {number} [maxLength=80] maxLength
+     *
+     * @returns {string}
+     */
     protected repeat(pattern: string, maxLength = 80) {
         if (! pattern) {
             return '';

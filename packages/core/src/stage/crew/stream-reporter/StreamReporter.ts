@@ -24,7 +24,7 @@ import { StageCrewMember } from '../../StageCrewMember';
  *     new StreamReporter(fs.createWriteStream('./events.ndjson')),
  * );
  *
- * @extends {StageCrewMember}
+ * @implements {StageCrewMember}
  */
 export class StreamReporter implements StageCrewMember {
 

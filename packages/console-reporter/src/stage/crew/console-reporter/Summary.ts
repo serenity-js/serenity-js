@@ -50,12 +50,18 @@ export class Summary {
     }
 }
 
+/**
+ * @package
+ */
 export interface AggregatedCategories {
     categories: {[categoryName: string]: AggregatedCategory};
     totalTime: Duration;
     numberOfScenarios: number;
 }
 
+/**
+ * @package
+ */
 export interface AggregatedCategory {
     name: string;
     outcomes: {[outcomeType: string]: { count: number, code: number }};

@@ -1,7 +1,3 @@
-// todo: configurable colour scheme?
-// todo: diffSummary.ts
-// todo: timeout error with events out of order
-
 import { expect } from '@integration/testing-tools';
 import { Actor, Clock, DressingRoom, Duration, Stage, StageManager } from '@serenity-js/core';
 import * as events from '@serenity-js/core/lib/events';
@@ -11,7 +7,6 @@ import { ConsoleReporter } from '../../../../src';
 import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
 import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
 
-/* @test {ConsoleReporter} */
 describe('ConsoleReporter', () => {
 
     let stdout: FakeWritableStream,
@@ -26,7 +21,7 @@ describe('ConsoleReporter', () => {
         emitter = new EventStreamEmitter(stage);
 
         reporter = new ConsoleReporter(
-            new Printer(stdout as unknown as NodeJS.WritableStream),    // todo: configure color output?
+            new Printer(stdout as unknown as NodeJS.WritableStream),
             new ThemeForMonochromaticTerminals(),
         );
 
@@ -35,6 +30,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the scenario passes', () => {
 
+        /** @test {ConsoleReporter} */
         it('prints the passing steps and the scenario summary', () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-13T23:50:41.568Z","value":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-13T23:50:41.569Z","value":"Cucumber"}}
@@ -73,6 +69,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the scenario fails with an error', () => {
 
+        /** @test {ConsoleReporter} */
         it('prints the error message next to the step that has failed, and a full stack trace at the bottom', () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-13T23:59:38.642Z","value":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-13T23:59:38.642Z","value":"Cucumber"}}
@@ -113,6 +110,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
+        /** @test {ConsoleReporter} */
         it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-14T00:09:59.914Z","value":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-14T00:09:59.914Z","value":"Cucumber"}}
@@ -157,6 +155,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
+        /** @test {ConsoleReporter} */
         it('prints the details of the failed assertion', () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-14T01:27:21.134Z","value":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-14T01:27:21.134Z","value":"Cucumber"}}
@@ -183,16 +182,13 @@ describe('ConsoleReporter', () => {
                 |   Given a step that fails with an assertion error
                 |     ✗ Artemis ensures that list of numbers does equal a Promise (2ms)
                 |
-                |       Difference:
-                |         expected: [
-                |           1,
-                |           2
-                |         ]
+                |       Difference (+ expected, - actual):
                 |
-                |         actual: [
+                |         [
                 |           1,
-                |           2,
-                |           3
+                |       -   2,
+                |       -   3
+                |       +   2
                 |         ]
                 |
                 |   ⇢ And a step that passes
@@ -217,6 +213,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
+        /** @test {ConsoleReporter} */
         it('pinpoints exactly where the failure happened', () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-14T23:27:24.800Z","value":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-14T23:27:24.800Z","value":"Cucumber"}}
@@ -250,10 +247,10 @@ describe('ConsoleReporter', () => {
                 |         ✗ Artemis ensures that the database server status does equal 'working' (7ms)
                 |           TestCompromisedError: Database server is down
                 |
-                |           Difference:
-                |             expected: 'working'
+                |           Difference (+ expected, - actual):
                 |
-                |             actual: 'down'
+                |           - 'down'
+                |           + 'working'
                 |
                 |   ⇢ And a step that passes
                 |
@@ -286,6 +283,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the developer logs arbitrary data', () => {
 
+        /** @test {ConsoleReporter} */
         it(`prints it together with an appropriate name for each entry (if different from the content itself)`, () => emitter.emit(`
             {"type":"SceneStarts","event":{"timestamp":"2019-11-15T01:05:12.366Z","value":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}
             {"type":"TestRunnerDetected","event":{"timestamp":"2019-11-15T01:05:12.366Z","value":"Cucumber"}}
