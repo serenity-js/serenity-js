@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.88](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.87...v2.0.1-alpha.88) (2019-11-25)
+
+
+### Bug Fixes
+
+* **jasmine:** Report AssertionErrors correctly ([5eae90b](https://github.com/jan-molak/serenity-js/commit/5eae90b))
+* **jasmine:** Scenarios failed due to an AssertionError are marked as such ([da3eaa3](https://github.com/jan-molak/serenity-js/commit/da3eaa3))
+
+
+
+
+
 ## [2.0.1-alpha.87](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.86...v2.0.1-alpha.87) (2019-11-10)
 
 **Note:** Version bump only for package @serenity-js/jasmine
