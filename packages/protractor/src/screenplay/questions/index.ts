@@ -8,3 +8,4 @@ export { Target } from './targets';
 export * from './text';
 export * from './Value';
 export * from './Website';
+export * from './Window';
