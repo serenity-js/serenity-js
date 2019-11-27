@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.88](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.87...v2.0.1-alpha.88) (2019-11-25)
+
+
+### Bug Fixes
+
+* **assertions:** Ensure correct 'actual' and 'expected' values are captured when an Expectation fail ([e503e55](https://github.com/jan-molak/serenity-js/commit/e503e55))
+* **core:** ErrorSerialiser correctly interprets assertion errors reported by Jasmine ([55451da](https://github.com/jan-molak/serenity-js/commit/55451da))
+
+
+### Features
+
+* **console-reporter:** New and shiny ConsoleReporter module to replace the experimental ConsoleRepo ([689937d](https://github.com/jan-molak/serenity-js/commit/689937d))
+* **serenity-bdd:** AssertionErrors are reported together with a diff of actual/expected ([6b7a55e](https://github.com/jan-molak/serenity-js/commit/6b7a55e))
+
+
+
+
+
 ## [2.0.1-alpha.87](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.86...v2.0.1-alpha.87) (2019-11-10)
 
 
