@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { monkeyPatched } from './mokeyPatched';
+import { monkeyPatched } from './monkeyPatched';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
 
 /**

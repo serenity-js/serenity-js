@@ -30,14 +30,15 @@ describe('@serenity-js/jasmine', () => {
              * @test {bootstrap}
              * @test {monkeyPatched}
              */
-            it('knows the location of the invoker', () => {
+            it('defaults to an unknown location if the real one could not be determined', () => {
+                // detecting the real location is done in Jasmine integration tests
                 serenityReporterForJasmine(jasmine);
 
                 const spec = new jasmine.Spec();
 
-                expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(36);
-                expect(spec.result.location.column).to.equal(30);
+                expect(spec.result.location.path).to.equal('unknown');
+                expect(spec.result.location.line).to.equal(0);
+                expect(spec.result.location.column).to.equal(0);
             });
 
             /**
@@ -60,14 +61,15 @@ describe('@serenity-js/jasmine', () => {
              * @test {bootstrap}
              * @test {monkeyPatched}
              */
-            it('knows the location of the invoker', () => {
+            it('defaults to an unknown location if the real one could not be determined', () => {
+                // detecting the real location is done in Jasmine integration tests
                 serenityReporterForJasmine(jasmine);
 
                 const spec = new jasmine.Suite();
 
-                expect(spec.result.location.path).to.match(/monkeyPatched.spec.ts$/);
-                expect(spec.result.location.line).to.equal(66);
-                expect(spec.result.location.column).to.equal(30);
+                expect(spec.result.location.path).to.equal('unknown');
+                expect(spec.result.location.line).to.equal(0);
+                expect(spec.result.location.column).to.equal(0);
             });
         });
     });

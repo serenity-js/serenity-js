@@ -35,7 +35,12 @@ export function monkeyPatched(jasmineConstructor: any) {
  * @package
  */
 function callerLocation() {
-    const caller = parser.parse(new Error()).filter(frame => ! /node_modules/.test(frame.fileName))[2];
+    const callers = parser.parse(new Error())
+        .filter(frame => ! /(node_modules)/.test(frame.fileName))
+        .filter(frame => /^(Suite|Object)/.test(frame.functionName));
+
+    const caller = callers[0] || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };
+
     return {
         path: caller.fileName,
         line: caller.lineNumber,
