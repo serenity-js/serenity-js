@@ -24,11 +24,35 @@ describe('TestRunnerDetector', () => {
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
+        it('uses the CucumberTestRunner even when the Jasmine config is present as well', () => {
+            const runner = detector.runnerFor({
+                serenity: {
+                    runner: 'cucumber',
+                },
+                cucumberOpts: {},
+                jasmineNodeOpts: {},
+            });
+
+            expect(runner).to.be.instanceOf(CucumberTestRunner);
+        });
+
         it('uses the JasmineTestRunner', () => {
             const runner = detector.runnerFor({
                 serenity: {
                     runner: 'jasmine',
                 },
+            });
+
+            expect(runner).to.be.instanceOf(JasmineTestRunner);
+        });
+
+        it('uses the JasmineTestRunner even when the Cucumber config is present as well', () => {
+            const runner = detector.runnerFor({
+                serenity: {
+                    runner: 'jasmine',
+                },
+                cucumberOpts: {},
+                jasmineNodeOpts: {},
             });
 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
