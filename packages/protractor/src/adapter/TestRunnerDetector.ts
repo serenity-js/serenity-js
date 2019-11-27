@@ -25,14 +25,32 @@ export class TestRunnerDetector {
 
         // todo: simplify and introduce a config object with "as(String)", "as(Object)", etc. to avoid issues with undefined
         // todo: and config merge too, using on deepmerge
-        if (
-            (config.serenity && config.serenity.runner && config.serenity.runner === 'cucumber') ||
-            (config.cucumberOpts)
-        ) {
-            const { CucumberTestRunner } = require('./runners/CucumberTestRunner');
-            return new CucumberTestRunner(config.cucumberOpts || {}, this.loader);
-        }
 
+        const
+            specifiesRunnerFor = (type: string) =>
+                !!config.serenity &&
+                !!config.serenity.runner &&
+                config.serenity.runner === type;
+
+        switch (true) {
+            case specifiesRunnerFor('cucumber'):
+                return this.useCucumber(config);
+            case specifiesRunnerFor('jasmine'):
+                return this.useJasmine(config);
+            case !! config.cucumberOpts:
+                return this.useCucumber(config);
+            case !! config.jasmineNodeOpts:
+            default:
+                return this.useJasmine(config);
+        }
+    }
+
+    private useCucumber(config: Config): TestRunner {
+        const { CucumberTestRunner } = require('./runners/CucumberTestRunner');
+        return new CucumberTestRunner(config.cucumberOpts || {}, this.loader);
+    }
+
+    private useJasmine(config: Config): TestRunner {
         const { JasmineTestRunner } = require('./runners/JasmineTestRunner');
         return new JasmineTestRunner(config.jasmineNodeOpts, this.loader);
     }
