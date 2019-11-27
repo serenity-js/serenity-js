@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.89](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.88...v2.0.1-alpha.89) (2019-11-27)
+
+
+### Bug Fixes
+
+* **jasmine:** Corrected the source detection logic ([1e91f25](https://github.com/jan-molak/serenity-js/commit/1e91f25))
+* **protractor:** Corrected the test runner detector ([e5e638b](https://github.com/jan-molak/serenity-js/commit/e5e638b))
+
+
+
+
+
 ## [2.0.1-alpha.88](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.87...v2.0.1-alpha.88) (2019-11-25)
 
 
