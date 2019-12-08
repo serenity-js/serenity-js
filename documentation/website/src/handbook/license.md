@@ -10,5 +10,9 @@ Serenity/JS is a free and open-source project, licensed under the terms of the [
 
 This documentation is licensed under the terms of the [Creative Commons BY-SA license](http://creativecommons.org/licenses/by-sa/4.0/).
 
+Cite as "From the Serenity/JS Handbook by Jan Molak".
+
 <a class="image" href="https://opensource.org/licenses/Apache-2.0" target="_blank"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 <a class="image" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" alt="License"></a>
+
+Serenity/JS and the Serenity/JS Logo are trademarks or registered trademarks of SmartCode Ltd.
