@@ -34,13 +34,13 @@
                         </section>
                         <footer class="d-print-none">
                             {{#if previous}}
-                                <a href="{{ previous.href }}">
+                                <a class="previous" href="{{ previous.href }}">
                                     <i class="fa fa-chevron-left"></i>
                                     <span>{{previous.title}}</span>
                                 </a>
                             {{/if}}
                             {{#if next}}
-                                <a href="{{ next.href }}">
+                                <a class="next" href="{{ next.href }}">
                                     <span>{{next.title}}</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>

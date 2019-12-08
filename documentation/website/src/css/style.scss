@@ -202,12 +202,12 @@ article.content {
       width: 50%;
     }
 
-    a:first-child {
+    a.previous {
       text-align: left;
       float: left;
     }
 
-    a:last-child {
+    a.next {
       text-align: right;
       float: right;
     }
@@ -266,5 +266,30 @@ blockquote{
 
   &::after{
     content: '';
+  }
+}
+
+.pro-tip {
+  border: 1px solid #bdbadf;
+  border-radius: 5px;
+  background-color: #F8F8F8;
+  padding: 1em 1em 1em 0;
+  margin: 2em 0;
+
+  .icon {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 1em;
+  }
+
+  i.fas {
+    float:left;
+    display:block;
+    text-align:center;
+  }
+
+  .text {
+    display: table-cell;
+    vertical-align: center;
   }
 }
