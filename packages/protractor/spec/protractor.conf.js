@@ -22,6 +22,7 @@ exports.config = {
 
     capabilities: {
         browserName: 'chrome',
+        acceptInsecureCerts : true,
 
         loggingPrefs: {
             browser: 'INFO',

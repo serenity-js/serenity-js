@@ -19,6 +19,8 @@ describe('Cookie', () => {
                 httpOnly:   !! req.query.httpOnly,
                 secure:     !! req.query.secure,
                 expires:    req.query.expires && new Date(req.query.expires),
+                // https://www.chromestatus.com/feature/5633521622188032
+                // sameSite:   !! req.query.secure ? 'None' : undefined,
             }).status(200).send();
         });
 
@@ -195,7 +197,7 @@ describe('Cookie', () => {
 
         /** @test {Cookie} */
         /** @test {Cookie#isSecure} */
-        it('returns an undefined when it can\'t retrieve it', () => Sid.attemptsTo(
+        it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
             Ensure.that(Cookie.isSecure('not-so-favourite'), equals(undefined)),
         ));
