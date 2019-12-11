@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.94](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.93...v2.0.1-alpha.94) (2019-12-11)
+
+
+### Bug Fixes
+
+* **protractor:** updated the version of Chromedriver ([f1c6a57](https://github.com/jan-molak/serenity-js/commit/f1c6a57))
+
+
+
+
+
 ## [2.0.1-alpha.92](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.91...v2.0.1-alpha.92) (2019-12-09)
 
 **Note:** Version bump only for package @integration/protractor-jasmine
