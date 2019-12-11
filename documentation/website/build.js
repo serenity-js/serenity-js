@@ -13,6 +13,7 @@ const
     cleanCSS         = require('metalsmith-clean-css'),
     fileMetadata     = require('metalsmith-filemetadata'),
     uglify           = require('metalsmith-uglify'),
+    path             = require('metalsmith-path'),
     rename           = require('metalsmith-rename'),
     sass             = require('metalsmith-sass'),
     debug            = require('./plugins/debug'),
@@ -82,6 +83,10 @@ Metalsmith(__dirname)
         {pattern: 'modules/**/*.hbs', metadata: { 'layout': 'api-docs.hbs' }},
         {pattern: 'modules/index.hbs', metadata: { 'layout': 'default.hbs' }},
     ]))
+    .use(path({
+        extensions: [ '.md' ],
+        baseDirectory: 'documentation/website/src/',
+    }))
     .use(rename([
         // any ALL-CAPS markdown files
         [ /([A-Z]+).md/, filename => filename.toLowerCase() ]
