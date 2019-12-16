@@ -4,10 +4,12 @@ layout: handbook.hbs
 ---
 # Abilities
 
-In [the Screenplay Pattern](/handbook/design-guide/screenplay-pattern.html), the "ability" is what enables
+An "ability" is one of the five building blocks of [the Screenplay Pattern](/handbook/design-guide/screenplay-pattern.html).
+It's what enables
 the [actor](/handbook/design-guide/actors.html) to interact with the system under test.
 
-In more technical terms, the "ability" is an implementation of [the adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern).
+In more technical terms, the [`Ability`](/modules/core/class/src/screenplay/Ability.ts~Ability.html)
+is an implementation of [the adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern).
 An "ability" is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you'd call from an [interaction](/handbook/design-guide/interactions.html) or [question](/handbook/design-guide/questions.html) class to access the system under test.
 
 ![The Screenplay Pattern](/handbook/design-guide/images/the-screenplay-pattern.png)
