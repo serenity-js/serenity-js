@@ -5,8 +5,8 @@ import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/mo
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { SerenityBDDReporter } from '../../../../src';
-import { SerenityBDDReport } from '../../../../src/stage/serenity-bdd-reporter/SerenityBDDJsonSchema';
+import { SerenityBDDReporter } from '../../../../../src';
+import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { given } from '../../given';
 import { defaultCardScenario } from '../../samples';
 import { create } from '../create';
