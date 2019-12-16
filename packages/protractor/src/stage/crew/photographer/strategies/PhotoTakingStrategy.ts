@@ -9,7 +9,7 @@ import {
     DomainEvent,
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
-import { BrowseTheWeb } from '../../../screenplay';
+import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
  * @desc

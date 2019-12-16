@@ -17,7 +17,7 @@ import {
     ScenarioDetails,
 } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-import { Photographer, TakePhotosOfFailures } from '../../../src/stage';
+import { Photographer, TakePhotosOfFailures } from '../../../../src/stage';
 import { create } from './create';
 
 describe('Photographer', () => {

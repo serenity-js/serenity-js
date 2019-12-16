@@ -2,7 +2,7 @@ import { EventRecorder } from '@integration/testing-tools';
 import { Actor, DressingRoom, Duration } from '@serenity-js/core';
 import { Clock, Stage, StageManager } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
-import { BrowseTheWeb } from '../../../src/screenplay/abilities';
+import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
 
 class UIActors implements DressingRoom {
     prepare(actor: Actor): Actor {

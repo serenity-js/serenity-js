@@ -5,7 +5,7 @@ import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
 
-import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../src/stage';
+import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../../src/stage';
 import { create } from '../create';
 import { Perform } from '../fixtures';
 
