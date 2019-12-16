@@ -1,6 +1,5 @@
 import { Question } from '@serenity-js/core';
-import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
-import { RelativeQuestion } from '../RelativeQuestion';
+import { ElementFinder, Locator } from 'protractor';
 import { TargetElement } from './TargetElement';
 import { TargetElements } from './TargetElements';
 import { TargetNestedElement } from './TargetNestedElement';

@@ -1,10 +1,10 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
 
-import { Photographer, TakePhotosOfFailures } from '../../../../src/stage/photographer';
+import { Photographer, TakePhotosOfFailures } from '../../../../../src/stage';
 import { create } from '../create';
 import { Perform } from '../fixtures';
 
