@@ -17,9 +17,19 @@ import { Ability, Actor } from '../screenplay';
  *  }
  *
  *  const stage = serenity.callToStageFor(new UIActors());
+ *
+ * @see {@link Stage}
  * @interface
  */
 export abstract class DressingRoom {
+    /**
+     * @desc
+     *  Creates a generic `DressingRoom` implementation, where every actor
+     *  is given all the abilities specified when the method is called.
+     *
+     * @param {Ability[]} abilities
+     * @returns {DressingRoom}
+     */
     static whereEveryoneCan(...abilities: Ability[]): DressingRoom {
         return new GenericDressingRoom(abilities);
     }
