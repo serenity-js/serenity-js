@@ -104,10 +104,10 @@ import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenit
 
 class Greet extends Interaction {
     static all(...names: string[]) {
-        return new Greet(name);
+        return new Greet(names);
     }
 
-    constructor(private readonly name: string[]) {
+    constructor(private readonly names: string[]) {
         super();
     }
 
