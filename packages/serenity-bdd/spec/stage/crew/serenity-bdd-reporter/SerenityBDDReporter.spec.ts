@@ -21,8 +21,8 @@ import {
 import 'mocha';
 
 import * as sinon from 'sinon';
-import { SerenityBDDReporter } from '../../../src/stage';
-import { SerenityBDDReport } from '../../../src/stage/serenity-bdd-reporter/SerenityBDDJsonSchema';
+import { SerenityBDDReporter } from '../../../../src/stage';
+import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { given } from '../given';
 import { create } from './create';
 
