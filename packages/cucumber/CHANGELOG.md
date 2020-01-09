@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.101](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.100...v2.0.1-alpha.101) (2020-01-09)
+
+**Note:** Version bump only for package @serenity-js/cucumber
+
+
+
+
+
 ## [2.0.1-alpha.99](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.98...v2.0.1-alpha.99) (2020-01-09)
 
 **Note:** Version bump only for package @serenity-js/cucumber
