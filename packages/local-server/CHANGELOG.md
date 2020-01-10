@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.102](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.101...v2.0.1-alpha.102) (2020-01-10)
+
+
+### Bug Fixes
+
+* **local-server:** updated http-shutdown to the latest version ([b9afc8a](https://github.com/jan-molak/serenity-js/commit/b9afc8a380002d4cb43e1e9edb4056e0405b2e76)), closes [thedillonb/http-shutdown#18](https://github.com/thedillonb/http-shutdown/issues/18)
+
+
+
+
+
 ## [2.0.1-alpha.101](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.100...v2.0.1-alpha.101) (2020-01-09)
 
 **Note:** Version bump only for package @serenity-js/local-server
