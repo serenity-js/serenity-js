@@ -1,6 +1,8 @@
 'use strict';
 
 const
+    { readFileSync } = require('fs'),
+    { resolve }      = require('path'),
     devMode          = process.env.NODE_ENV === 'dev',
     noop             = (config) => null,
     Metalsmith       = require('metalsmith'),
@@ -15,6 +17,7 @@ const
     uglify           = require('metalsmith-uglify'),
     path             = require('metalsmith-path'),
     rename           = require('metalsmith-rename'),
+    sitemap          = require('metalsmith-sitemap'),
     sass             = require('metalsmith-sass'),
     debug            = require('./plugins/debug'),
     renamePath       = require('./plugins/renamePath'),
@@ -25,7 +28,7 @@ const
     highlightEsdoc   = require('./plugins/highlightEsdoc'),
     discoverModules  = require('./plugins/discoverModules'),
     bindHandbook     = require('./plugins/bindHandbook'),
-    browserSync      = devMode ? require('metalsmith-browser-sync') : noop,
+    browserSync      = require('metalsmith-browser-sync'),
     highlight        = require('highlight.js'),
     pkg              = require('../../package'),
     lerna            = require('../../lerna'),
@@ -112,16 +115,32 @@ Metalsmith(__dirname)
     .use(sass({
         outputStyle: 'expanded',
     }))
+    .use(sitemap({
+        hostname: 'https://serenity-js.org',
+        lastmod: new Date(),
+        changefreq: 'weekly',
+        priority: 0.5,
+    }))
     // .use(debug(true))
-    .use(browserSync({
+    .use(devMode ? browserSync({
         server: 'target/site',
         files: [
             'src/**/*',
             'node_modules/@serenity-js/(.*)/target/site/**/*',
             'layouts/**/*',
             'partials/**/*'
-        ]
-    }))
+        ],
+        callbacks: {
+            ready: function(err, bs) {
+                const baseDir = bs.options.get('server').get('baseDir').get(0);
+
+                bs.addMiddleware("*", function (req, res) {
+                    res.write(readFileSync(resolve(__dirname, baseDir, '404.html')));
+                    res.end();
+                });
+            }
+        }
+    }) : noop)
     .build(err => {
         if (err) {
             console.error(err);
