@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Design Guide
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Serenity/JS Design Guide
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>
@@ -13,3 +12,6 @@ layout: handbook.hbs
         </p>
     </div>
 </div>
+
+TODO:
+- describe the pattern language of the Serenity/JS framework

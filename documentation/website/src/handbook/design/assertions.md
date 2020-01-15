@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Assertions
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Assertions
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

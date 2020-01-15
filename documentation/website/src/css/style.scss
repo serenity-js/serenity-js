@@ -101,6 +101,7 @@ a.anchorjs-link:hover {
 
   a.active {
     color: #000;
+    font-weight: bold;
   }
 }
 
@@ -164,9 +165,20 @@ article.content {
     margin: 2rem 0 0.5rem 0;
   }
 
-  img {
-    width: 90%;
-    margin: 2em 5%;
+  figure {
+    img {
+      width: 90%;
+      margin: 0 5% 2em 5%;
+    }
+
+    margin: 2em 0;
+
+    figcaption {
+      span {
+        border-top: 1px solid #666;
+        padding-top: 0.5em;
+      }
+    }
   }
 }
 

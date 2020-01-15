@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Creational Patterns
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Object creation patterns
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

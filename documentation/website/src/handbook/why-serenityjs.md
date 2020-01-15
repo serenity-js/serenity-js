@@ -6,13 +6,13 @@ layout: handbook.hbs
 
 As the applications we develop become even more sophisticated and business-critical,
 the priorities for test automation systems change as well.
-The responsibility of automated tests is no longer limited to simple, functional verification of the system, but rather,
-they are often expected to capture the business language and intent behind its various features, act as its living documentation,
-and a communication medium between the various stakeholders.
+The responsibility of automated tests is no longer limited to simple, functional verification of the system.
+Instead, the tests are often expected to capture the business language and intent behind the system's various features,
+act as its living documentation, and a communication medium between the various stakeholders.
 
 Furthermore, the advent of [shift-left testing](https://en.wikipedia.org/wiki/Shift-left_testing)
 has also changed who is responsible for writing and maintaining the tests.
-What historically used to be the job of a single person now became a responsibility of the entire team.
+What historically used to be the job of a single person now became a responsibility of the entire delivery team.
 This means that even though the quality of the automated tests themselves might not have been the primary concern in the past,
 they're now a first-class citizens in any mission-critical codebase and need to be designed with the same amount of scrutiny
 as production code.

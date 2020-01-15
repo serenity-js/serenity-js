@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Errors
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Errors
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>
@@ -13,3 +12,9 @@ layout: handbook.hbs
         </p>
     </div>
 </div>
+
+Todo:
+- Compromised scenarios
+- runtime errors
+- logic errors
+- reporting
