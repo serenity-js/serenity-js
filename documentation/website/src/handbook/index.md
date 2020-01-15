@@ -10,8 +10,8 @@ The [extensible and modular design](/modules/) of Serenity/JS enables you to cre
 
 On top of that, Serenity/JS comes with world-class reporting capabilities to give you insight into what requirements have been verified, and not only what tests have been executed. The living documentation produced by Serenity/JS helps you demonstrate both _what_ your system does and _why_ it's doing it and can play a significant role in establishing trust between the business and engineering, assessing the release readiness of your system, and meeting your audit requirements.
 
-In summary, Serenity/JS can help you and your team create high-quality, reliable automated acceptance tests that are a pleasure to work with
-and this handbook will help you get started.
+In summary, Serenity/JS can help you and your team create high-quality, reliable automated acceptance tests that are a pleasure to work with.
+This handbook will help you get started.
 
 Have fun testing!
 

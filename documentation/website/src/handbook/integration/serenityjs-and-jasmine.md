@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Serenity/JS and Jasmine
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Serenity/JS and Jasmine
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

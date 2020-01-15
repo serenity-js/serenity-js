@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Integration Guide
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Serenity/JS Integration Guide
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

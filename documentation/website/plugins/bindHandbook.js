@@ -10,37 +10,47 @@ module.exports = function bindHandbook(pathToTableOfContents) {
     return function(files, metalsmith, done) {
         setImmediate(done);
 
-        const toc = yaml.parse(fs.readFileSync(pathToTableOfContents).toString());
+        try {
 
-        // const articles = [];
+            const toc = yaml.parse(fs.readFileSync(pathToTableOfContents).toString());
 
-        const articles = Object.keys(toc)
-            .map(header => [
-                {
-                    type: 'header',
-                    path:  header,
-                },
-                ...toc[header].map(chapter => ({
-                    type: 'chapter',
-                    path: chapter,
-                }))])
-            .reduce((acc, current) => acc.concat(current), [])
-            .map(article => ({
-                ...article,
-                title:  files[article.path].title,
-                href:   `/${ article.path.replace('.md', '.html') }`,
-            }));
+            const articles = Object.keys(toc)
+                .map(header => [
+                    {
+                        type: 'header',
+                        path: header,
+                    },
+                    ...toc[header].map(chapter => ({
+                        type: 'chapter',
+                        path: chapter,
+                    }))])
+                .reduce((acc, current) => acc.concat(current), [])
+                .map(article => {
+                    if (! files[article.path]) {
+                        throw new Error(`No article found at ${ article.path }`);
+                    }
 
-        articles.forEach((article, i) => {
-            if (i > 0) {
-                files[article.path].previous = articles[i - 1];
-            }
+                    return {
+                        ...article,
+                        title: files[article.path].title,
+                        href: `/${ article.path.replace('.md', '.html') }`,
+                    }
+                });
 
-            if (i < articles.length - 1) {
-                files[article.path].next = articles[i + 1];
-            }
+            articles.forEach((article, i) => {
+                if (i > 0) {
+                    files[article.path].previous = articles[i - 1];
+                }
 
-            files[article.path].articles = articles;
-        });
+                if (i < articles.length - 1) {
+                    files[article.path].next = articles[i + 1];
+                }
+
+                files[article.path].articles = articles;
+            });
+        }
+        catch(error) {
+            done(error);
+        }
     };
 };

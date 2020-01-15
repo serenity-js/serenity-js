@@ -1,12 +1,10 @@
 ---
-title: Installation
+title: Runtime dependencies
 layout: handbook.hbs
 ---
-# Installation
+# Runtime dependencies
 
-## Prerequisites
-
-### Node.js
+## Node.js
 
 Serenity/JS is a Node.js program. To help ensure maximum stability, it relies on a recent (**%package.engines.node%**)
 [Long-Term Support (LTS)](https://github.com/nodejs/Release) version of the [Node.js platform](https://nodejs.org/).
@@ -22,7 +20,7 @@ $ node --version
 %process.version%
 ```
 
-### A Node.js project
+## A Node.js project
 
 Serenity/JS is typically installed
 as a [dev dependency](https://docs.npmjs.com/files/package.json#devdependencies)
@@ -58,7 +56,7 @@ appearing under `example`, with contents similar to the following:
 }
 ```
 
-### Java Runtime Environment
+## Java Runtime Environment
 
 Serenity/JS delegates the work of generating the illustrated HTML reports to [Serenity BDD](http://serenity-bdd.info/),
 which is a Java library and therefore requires
@@ -90,7 +88,7 @@ $ echo $JAVA_HOME
 Please consult the [Oracle documentation](https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html)
 for more details.
 
-### A web browser
+## A web browser
 
 If you're planning to make your acceptance tests interact with a web interface, you'll also need a web browser.
 [Google Chrome](https://www.google.com/chrome/) is a great one to start with.

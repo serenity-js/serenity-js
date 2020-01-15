@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Tasks
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Tasks
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

@@ -1,9 +1,8 @@
 ---
-title: Thinking in Serenity/JS
+title: Stage
 layout: handbook.hbs
 ---
-
-# Thinking in Serenity/JS
+# Stage
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

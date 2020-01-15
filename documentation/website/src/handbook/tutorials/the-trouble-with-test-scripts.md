@@ -113,14 +113,14 @@ So let's see what we can do about this sorry state of affairs and find a way to 
 As Selenium WebDriver became more popular in the late 2000s, and test suites began to grow bigger,
 developers and testers new to browser-based test automation needed a way to address issues with test scripts.
 
-In response to this need, the [Selenium team](https://docs.seleniumhq.org/) proposed the [Page Object Pattern](https://docs.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern).
+In response to this need, the [Selenium team](https://docs.seleniumhq.org/) proposed the [Page Object Pattern](https://selenium.dev/documentation/en/guidelines_and_recommendations/page_object_models/).
 This simple pattern focuses on the user interface and models it in terms of pages, with each page being represented by a distinct class encapsulating both the definition of the page structure and the tasks that a user can perform on that page.
 
 The original Page Object Pattern was later [refined by Martin Fowler](https://martinfowler.com/bliki/PageObject.html), who proposed that instead of thinking of the entire application as a set of pages, each page should be considered in terms of smaller page objects or "widgets" that the page contained. The implementation below uses that refined version, as it's more representative of what you'd find in the more modern codebases.
 
 What you'll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
-For simplicity, I've implemented the page object representing the TodoList in the same file as the test using it, as well as the test-specific [teardown method](https://jasmine.github.io/api/3.5/global.html#afterEach)
-that prevents the application state from leaking between the tests. I've also annotated the code to highlight features and limitations of this implementation:
+For simplicity, I've implemented the page object representing the `TodoList` in the same file as the test using it, as well as the test-specific [teardown method](https://jasmine.github.io/api/3.5/global.html#afterEach)
+that prevents the application state from leaking between the tests. I've also annotated the code to highlight the features and limitations of this implementation:
 
 ```javascript
 describe('Todo List App', function () {
@@ -220,8 +220,8 @@ As you can see above, the clarity of our test has already improved:
   This helps to avoid duplicating the locators all over the test.
 - The low-level Protractor API calls, such as `element` or `element.all`, have been extracted and encapsulated within "task methods" such as `recordItemCalled(name)`,
   `completeItemCalled(name)` and `filterToShowActiveItemsOnly()` available on the `TodoList` page object instance.
-  Those methods not only encapsulate the interaction logic, but also offer a much more business-focused API. 
-- The `TodoList` page object also offers a way for us to retrieve the `textOfRecordedItems()`, which we use to perform the assertion.
+  Those methods not only encapsulate the interaction logic but also offer a much more business-focused API.
+- Additionally, the `TodoList` page object also offers a way for us to retrieve the `textOfRecordedItems()`, which we use to perform the assertion.
 
 However, some issues are still outstanding:
 - Since opening the web browser doesn't, strictly speaking, belong to the responsibilities of the page object, the code doing it is still left in the test.
@@ -244,12 +244,12 @@ In all the above cases, deliberate or unintended changes to the page object carr
 
 Page Objects introduce another, much more subtle problem, though.
 
-As the name implies, _Page Objects_ reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects not only the way your test is structured, but also the way _you think_ about the application too.
+As the name implies, _Page Objects_ reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects not only the way your test is structured but also the way _you think_ about the application.
 Just as we shape our tools, they shape us too - instead of placing the primary focus on **what** the user needs to do with the application, Page Objects lead you to focus on **how** the user interacts with individual pages. As a result, the tests become tightly coupled to the structure of the user interface, making them more brittle and more likely to be affected by UI changes.
 
 > Coupling the tests to the structure of the system they verify results in a test suite that's brittle and more likely to fail when the implementation of the system changes.
 
-Even though Page Objects reduce code duplication and encourage reuse across tests within a single project and a single test suite, the design falls short if we need to enable code reuse across multiple projects and teams. This of course affects the scalability and accessibility of our solution.
+Even though Page Objects reduce code duplication and encourage reuse across tests within a single project and a single test suite, the design falls short if we need to enable code reuse across multiple projects and teams. This, of course, affects the scalability and accessibility of our solution.
 
 Also, the fact that each page object is tightly coupled to Protractor APIs: `element` and `by` - global functions that are browser instance-specific - makes it impossible to use this design "as is" for multi-browser testing (chat systems, workflow systems, multi-player games, etc.).
 
@@ -261,9 +261,9 @@ Let's see if we can find the missing ingredients!
 
 ## Cucumber
 
-At this point you're probably wondering if adding [Cucumber](https://github.com/cucumber/cucumber-js) into the mix could introduce the layer of abstraction our example code so desperately needs?
+At this point, you're probably wondering if adding [Cucumber](https://github.com/cucumber/cucumber-js) into the mix could introduce the layer of abstraction our example code so desperately needs?
 
-What such move would definitely help us with is to introduce a layer of domain-specific language we could use to capture the vernacular of the business stakeholders.
+What such a move would definitely help us with is to introduce a layer of domain-specific language we could use to capture the vernacular of the business stakeholders.
 Additionally, expressing acceptance test scenarios in a human-readable language, such as English, makes it easier for non-technical stakeholders to work with and review.
 
 At the business level, our test scenario could be expressed as follows:
@@ -279,15 +279,7 @@ Scenario: Filter the list to show active items
 
 This looks better, doesn't it?
 
-But even with a gold standard Cucumber scenario like the one above, the Cucumber step definitions suffer from the same issues
-our previous Protractor/Jasmine scenario has experienced:
-- low-level API calls are still left in the code, and now they're accompanied by additional data transformation responsible for mapping the plain-English scenario to the automation code (such as `itemsFrom(commaSeparatedItems)`),
-- the low-level clean up code is still present in the `After` hook,
-- the step definitions have to switch between the `async/await` and Promises, depending on the context of the API call,
-- and we haven't addressed any of the problems introduced with Page Objects!
-
-Not to mention, that Cucumber, while an excellent collaboration and documentation tool, doesn't address concerns around
-code re-usability: you can't call a Cucumber step from within another step, for example, and [neither should you](https://cucumber.io/docs/guides/anti-patterns/#support-for-conjunction-steps).
+Let's look at the implementation of the [step library](https://cucumber.io/docs/gherkin/step-organization/) that powers this test, though:
 
 ```javascript
 const { Given, Then, When, Before, After } = require('cucumber');
@@ -330,14 +322,24 @@ function itemsFrom(commaSeparatedItems) {
 }
 ```
 
+Even with a gold standard Cucumber scenario like the one above, the Cucumber step definitions suffer from the same issues
+our previous Protractor/Jasmine scenario has experienced:
+- low-level API calls are still left in the code, and now they're accompanied by additional data transformation functions responsible for mapping the plain-English scenario to the automation code (such as `itemsFrom(commaSeparatedItems)`),
+- the low-level cleanup code is still present in the `After` hook,
+- the step definitions have to switch between the `async/await` and Promises, depending on the context of the API call,
+- and we haven't addressed any of the problems introduced with Page Objects!
+
+Not to mention, that Cucumber, while an excellent collaboration and documentation tool, doesn't address concerns around
+code re-usability: you can't call a Cucumber step from within another step, for example, and [neither should you](https://cucumber.io/docs/guides/anti-patterns/#support-for-conjunction-steps).
+
 ## Summary
 
 As you can see, even though Protractor, WebDriver and other similar tools are excellent at automating low-level interactions with the system under test, their APIs are simply too low-level to express the business intent behind those interactions. Also, using tools like that directly in our tests leads to an implementation that's full of noise, distractions and accidental detail.
 
-The Page Object(s) Pattern addresses some of the problems, but it falls short if what you want is a test automation system that's easy to extend, maintain and scale to multiple projects and teams.
+The Page Object(s) Pattern addresses some of the problems but falls short if what you want is a test automation system that's easy to extend, maintain and scale to multiple projects and teams.
 
 While adding Cucumber into the mix could help to capture the business language and slightly improve the reports our tests produce, it doesn't by itself address the code duplication or code structure issues. I'm afraid that even gold standard Cucumber scenarios can't address that because there's still something we're missing.
 
-To find out what that is, we might need to change the way we're thinking about our tests.vernacular
+To find out what that is, we might need to change the way we think about our tests.
 
 We need to start [thinking in Serenity/JS](/handbook/tutorials/thinking-in-serenity-js.html).
