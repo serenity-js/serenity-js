@@ -2,7 +2,7 @@ import 'mocha';
 
 import { certificates, expect, stage } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, DressingRoom } from '@serenity-js/core';
+import { Actor, DressingRoom, LogicError } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 import * as https from 'https';
@@ -45,6 +45,26 @@ describe('ManageALocalServer', () => {
             )).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
         });
 
+        given(servers).
+        it('complains when the actor tries to access a URL of a server that is not running', function ({ handler, node }) {
+            if (! satisfies(process.versions.node, node)) {
+                return this.skip();
+            }
+
+            class Actors implements DressingRoom {
+                prepare(actor: Actor): Actor {
+                    return actor.whoCan(
+                        ManageALocalServer.runningAHttpListener(handler()),
+                    );
+                }
+            }
+
+            Nadia = stage(new Actors()).theActorCalled('Nadia');
+
+            return expect(Nadia.attemptsTo(
+                Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
+            )).to.be.rejectedWith(LogicError, 'The server has not been started yet');
+        });
     });
 
     // ---

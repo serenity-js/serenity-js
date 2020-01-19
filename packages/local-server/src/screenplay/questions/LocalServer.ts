@@ -13,6 +13,10 @@ export class LocalServer {
             return ManageALocalServer.as(actor).mapInstance((server, protocol) => {
                 const info = server.address();
 
+                if (! info) {
+                    throw new LogicError(`The server has not been started yet`);
+                }
+
                 if (! isAddressInfo(info)) {
                     throw new LogicError(`A pipe or UNIX domain socket server does not have a URL`);
                 }
