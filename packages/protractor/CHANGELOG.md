@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.107](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.106...v2.0.1-alpha.107) (2020-01-19)
+
+
+### Bug Fixes
+
+* **protractor:** support restarting the browser between test scenarios ([21b5a41](https://github.com/jan-molak/serenity-js/commit/21b5a4187dbbc9babf70e75cda8b42e5e2531d17))
+
+
+
+
+
 ## [2.0.1-alpha.106](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.105...v2.0.1-alpha.106) (2020-01-19)
 
 **Note:** Version bump only for package @serenity-js/protractor

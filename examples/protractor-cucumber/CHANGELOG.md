@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.107](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.106...v2.0.1-alpha.107) (2020-01-19)
+
+
+### Bug Fixes
+
+* **cucumber:** cucumber adapter waits for async tasks to complete before starting a scenario ([0ed2d4c](https://github.com/jan-molak/serenity-js/commit/0ed2d4c023f39857355eb98ff8311d0e5ed174dc)), closes [#56](https://github.com/jan-molak/serenity-js/issues/56)
+
+
+
+
+
 ## [2.0.1-alpha.106](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.105...v2.0.1-alpha.106) (2020-01-19)
 
 **Note:** Version bump only for package @serenity-js-examples/protractor-cucumber
