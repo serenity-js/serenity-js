@@ -2,12 +2,13 @@ const
     path = require('path'),
     { ConsoleReporter } = require('@serenity-js/console-reporter'),
     { ArtifactArchiver } = require('@serenity-js/core'),
-    { Photographer, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
+    { Photographer, TakePhotosOfInteractions, TakePhotosOfFailures } = require('@serenity-js/protractor'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
     SELENIUM_PROMISE_MANAGER: false,
+    // restartBrowserBetweenTests: false,
 
     directConnect: true,
 
@@ -24,7 +25,7 @@ exports.config = {
         runner: 'jasmine',
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            Photographer.whoWill(TakePhotosOfInteractions),
+            Photographer.whoWill(TakePhotosOfFailures),
             new SerenityBDDReporter(),
             ConsoleReporter.forDarkTerminals(),
         ]
