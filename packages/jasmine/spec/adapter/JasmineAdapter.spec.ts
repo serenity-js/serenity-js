@@ -15,9 +15,8 @@ describe('JasmineAdapter', () => {
             Suite: () => void 0,
             Spec: () => void 0,
             getEnv() {
-                // todo: test invoking after each;
                 return {
-                    afterEach: () => void 0,
+                    beforeEach: () => void 0,
                 };
             },
         };

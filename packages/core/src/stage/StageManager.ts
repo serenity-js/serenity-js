@@ -1,5 +1,3 @@
-import { match } from 'tiny-types';
-
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { StageCrewMember } from './StageCrewMember';
@@ -30,27 +28,9 @@ export class StageManager {
     }
 
     notifyOf(event: DomainEvent): void {
-        match<DomainEvent, void>(event)
-            .when(AsyncOperationAttempted, (evt: AsyncOperationAttempted) => {
-                this.wip.set(evt.correlationId, {
-                    taskDescription: evt.taskDescription,
-                    startedAt: evt.timestamp,
-                });
-            })
-            .when(AsyncOperationCompleted, (evt: AsyncOperationCompleted) => {
-                this.wip.delete(evt.correlationId);
-            })
-            .when(AsyncOperationFailed, (evt: AsyncOperationFailed) => {
-                const original = this.wip.get(evt.correlationId);
-                this.failedOperations.push({
-                    taskDescription:    original.taskDescription,
-                    startedAt:          original.startedAt,
-                    duration:           evt.timestamp.diff(original.startedAt),
-                    error:              evt.error,
-                });
-                this.wip.delete(evt.correlationId);
-            })
-            .else(_ => this.subscribers.forEach(crewMember => crewMember.notifyOf(event)));
+        this.handleAsyncOperation(event);
+
+        this.subscribers.forEach(crewMember => crewMember.notifyOf(event));
     }
 
     waitForNextCue(): Promise<void> {
@@ -99,5 +79,27 @@ export class StageManager {
 
     currentTime(): Timestamp {
         return this.clock.now();
+    }
+
+    private handleAsyncOperation(event: DomainEvent): void {
+        if (event instanceof AsyncOperationAttempted) {
+            this.wip.set(event.correlationId, {
+                taskDescription: event.taskDescription,
+                startedAt: event.timestamp,
+            });
+        }
+        else if (event instanceof AsyncOperationCompleted) {
+            this.wip.delete(event.correlationId);
+        }
+        else if (event instanceof AsyncOperationFailed) {
+            const original = this.wip.get(event.correlationId);
+            this.failedOperations.push({
+                taskDescription:    original.taskDescription,
+                startedAt:          original.startedAt,
+                duration:           event.timestamp.diff(original.startedAt),
+                error:              event.error,
+            });
+            this.wip.delete(event.correlationId);
+        }
     }
 }

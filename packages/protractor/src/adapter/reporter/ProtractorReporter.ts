@@ -36,12 +36,12 @@ export class ProtractorReporter implements StageCrewMember {
                         }],
                     });
 
-                    this.runner.emit('testPass', {
-                        name:       e.value.name.value,
-                        category:   e.value.category.value,
+                    this.afterEach().then(() => {
+                        this.runner.emit('testPass', {
+                            name:       e.value.name.value,
+                            category:   e.value.category.value,
+                        });
                     });
-
-                    this.afterEach();
                 })
                 .when(ProblemIndication, (o: ProblemIndication) => {
 
@@ -57,12 +57,12 @@ export class ProtractorReporter implements StageCrewMember {
                         }],
                     });
 
-                    this.runner.emit('testFail', {
-                        name:       e.value.name.value,
-                        category:   e.value.category.value,
+                    this.afterEach().then(() => {
+                        this.runner.emit('testFail', {
+                            name:       e.value.name.value,
+                            category:   e.value.category.value,
+                        });
                     });
-
-                    this.afterEach();
                 })
                 .else(() => /* ignore */ void 0),
             )
@@ -73,24 +73,27 @@ export class ProtractorReporter implements StageCrewMember {
         return this.reported;
     }
 
-    private afterEach(): void {
-        if (this.runner.afterEach) {
+    private afterEach(): PromiseLike<void> {
+        if (! this.runner.afterEach) {
+            return Promise.resolve();
+        }
 
-            const id = CorrelationId.create();
+        const id = CorrelationId.create();
 
-            this.stage.announce(new AsyncOperationAttempted(
-                new Description(`[${ this.constructor.name }] Invoking ProtractorRunner.afterEach...`),
-                id,
-            ));
+        this.stage.announce(new AsyncOperationAttempted(
+            new Description(`[${ this.constructor.name }] Invoking ProtractorRunner.afterEach...`),
+            id,
+        ));
 
-            Promise.resolve(this.runner.afterEach() as PromiseLike<void>)
-                .then(
-                    () => this.stage.announce(new AsyncOperationCompleted(
+        return Promise.resolve(this.runner.afterEach() as PromiseLike<void> | undefined)
+            .then(
+                () =>
+                    this.stage.announce(new AsyncOperationCompleted(
                         new Description(`[${ this.constructor.name }] ProtractorRunner.afterEach succeeded`),
                         id,
                     )),
-                    error => this.stage.announce(new AsyncOperationFailed(error, id)),
-                );
-        }
+                error =>
+                    this.stage.announce(new AsyncOperationFailed(error, id)),
+            );
     }
 }

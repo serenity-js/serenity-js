@@ -8,7 +8,7 @@ describe('@serenity-js/jasmine', () => {
 
     beforeEach(() => {
         const env = {
-            afterEach: sinon.spy(),
+            beforeEach: sinon.spy(),
         };
 
         jasmine = {
@@ -78,9 +78,9 @@ describe('@serenity-js/jasmine', () => {
      * @test {bootstrap}
      * @test {monkeyPatched}
      */
-    it('registers an afterEach hook to ensure Serenity/JS is synchronised with Jasmine', () => {
+    it('registers a beforeEach hook to ensure Serenity/JS is synchronised with Jasmine', () => {
         serenityReporterForJasmine(jasmine);
 
-        expect(jasmine.getEnv().afterEach).to.have.been.calledOnce; // tslint:disable-line:no-unused-expression
+        expect(jasmine.getEnv().beforeEach).to.have.been.calledOnce; // tslint:disable-line:no-unused-expression
     });
 });

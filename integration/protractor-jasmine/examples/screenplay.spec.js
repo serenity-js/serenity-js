@@ -1,6 +1,6 @@
 const
     { Actor } = require('@serenity-js/core'),
-    { BrowseTheWeb, Navigate } = require('@serenity-js/protractor'),
+    { BrowseTheWeb, Navigate, UseAngular } = require('@serenity-js/protractor'),
     { protractor } = require('protractor');
 
 describe('Jasmine', () => {
@@ -12,15 +12,16 @@ describe('Jasmine', () => {
     describe('A screenplay scenario', () => {
 
         beforeEach(() => Jasmine.attemptsTo(
-            Navigate.to('chrome://version/')
+            UseAngular.disableSynchronisation(),
+            Navigate.to('chrome://version/'),
         ));
 
         it('passes', () => Jasmine.attemptsTo(
-            Navigate.to('chrome://accessibility/')
+            Navigate.to('chrome://accessibility/'),
         ));
 
         afterEach(() => Jasmine.attemptsTo(
-            Navigate.to('chrome://chrome-urls/')
+            Navigate.to('chrome://chrome-urls/'),
         ));
     });
 });

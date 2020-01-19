@@ -38,6 +38,17 @@ export class JasmineAdapter {
             runner.loadConfig(Object.assign(
                 {
                     /*
+                     * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled
+                     */
+                    oneFailurePerSpec: true,
+
+                    /*
+                     * A spec should stop execution as soon as there's a hook or spec failure
+                     * See https://github.com/angular/protractor/issues/3234
+                     */
+                    stopSpecOnExpectationFailure: true,
+
+                    /*
                      * Default to not executing tests at random.
                      * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76
                      */
@@ -48,6 +59,7 @@ export class JasmineAdapter {
 
             runner.addReporter(reporter(jasmine));
 
+            // todo: wait for the wip queue to drain here again?
             runner.onComplete((passed: boolean) => resolve());
 
             runner.configureDefaultReporter(this.config);
