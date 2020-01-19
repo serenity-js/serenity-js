@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.106](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.105...v2.0.1-alpha.106) (2020-01-19)
+
+
+### Bug Fixes
+
+* **local-server:** trying to access data of a server that's not running throws a meaningful error ([ff6d012](https://github.com/jan-molak/serenity-js/commit/ff6d012fd6e7c0b069a0afd3cc76250d8b828dfe))
+
+
+
+
+
 ## [2.0.1-alpha.105](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.104...v2.0.1-alpha.105) (2020-01-16)
 
 **Note:** Version bump only for package @serenity-js/local-server
