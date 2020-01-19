@@ -3,15 +3,15 @@ import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
-    const { After, AfterAll } = dependencies.cucumber;
+    const { Before, AfterAll } = dependencies.cucumber;
 
-    After(function () {
+    Before(function () {
         return serenity.waitForNextCue();
     });
 
     AfterAll(function () {
-        dependencies.notifier.testRunFinished();
-        return serenity.waitForNextCue();
+        return serenity.waitForNextCue()
+            .then(() => dependencies.notifier.testRunFinished());
     });
 
     return cucumberEventProtocolAdapter(dependencies);

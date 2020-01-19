@@ -20,6 +20,11 @@ export = function ({ notifier, loader, cache }: Dependencies) {
             loader.load(get(feature, 'uri').as(Path)).then(_ => callback(), error => callback(error));
         });
 
+        this.registerHandler('BeforeScenario', function (scenario, callback) {
+            serenity.waitForNextCue()
+                .then(() => callback(), error => callback(error));
+        });
+
         this.registerHandler('BeforeScenario', function (scenario) {
             const
                 path  = get(scenario, 'uri').as(Path),
@@ -73,15 +78,9 @@ export = function ({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
-        this.registerHandler('AfterScenario', function (scenario, callback) {
-            serenity.waitForNextCue()
-                .then(() => callback(), error => callback(error));
-        });
-
         this.registerHandler('AfterFeatures', (features, callback) => {
-            notifier.testRunFinished();
-
             serenity.waitForNextCue()
+                .then(() => notifier.testRunFinished())
                 .then(() => callback(), error => callback(error));
         });
     };
