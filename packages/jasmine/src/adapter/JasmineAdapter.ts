@@ -59,7 +59,6 @@ export class JasmineAdapter {
 
             runner.addReporter(reporter(jasmine));
 
-            // todo: wait for the wip queue to drain here again?
             runner.onComplete((passed: boolean) => resolve());
 
             runner.configureDefaultReporter(this.config);

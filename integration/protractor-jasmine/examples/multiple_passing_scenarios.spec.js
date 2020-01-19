@@ -10,7 +10,6 @@ describe('Jasmine', () => {
         let Jasmine;
 
         beforeEach(() => {
-            require('fs').appendFileSync(require('path').resolve(process.cwd(), 'jasmine.log'), `    >> [spec] new actor created\n`);
             Jasmine = Actor.named('Jasmine').whoCan(
                 BrowseTheWeb.using(protractor.browser),
             );

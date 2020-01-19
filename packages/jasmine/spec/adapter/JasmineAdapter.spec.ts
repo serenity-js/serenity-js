@@ -17,6 +17,7 @@ describe('JasmineAdapter', () => {
             getEnv() {
                 return {
                     beforeEach: () => void 0,
+                    afterAll: () => void 0,
                 };
             },
         };
