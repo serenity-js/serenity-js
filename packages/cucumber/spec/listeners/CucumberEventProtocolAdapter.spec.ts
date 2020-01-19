@@ -16,7 +16,7 @@ describe('CucumberEventProtocolAdapter', () => {
     type CucumberHook = () => Promise<void> | void;
 
     const fakeCucumber = {
-        After: (hook: CucumberHook) => Promise.resolve(hook()),
+        Before: (hook: CucumberHook) => Promise.resolve(hook()),
         AfterAll: (hook: CucumberHook) => Promise.resolve(hook()),
     };
 

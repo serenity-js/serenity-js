@@ -7,6 +7,8 @@ exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
     SELENIUM_PROMISE_MANAGER: false,
 
+    // restartBrowserBetweenTests: true,
+
     directConnect: true,
 
     allScriptsTimeout: 11000,
@@ -31,7 +33,6 @@ exports.config = {
             'features/support/setup.ts',
         ],
         'require-module': ['ts-node/register'],
-        tags: [ '@wip' ],
     },
 
     capabilities: {

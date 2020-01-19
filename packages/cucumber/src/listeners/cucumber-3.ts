@@ -4,14 +4,14 @@ import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
 
-    dependencies.cucumber.defineSupportCode(({ After, AfterAll }) => {
-        After(function () {
+    dependencies.cucumber.defineSupportCode(({ Before, AfterAll }) => {
+        Before(function () {
             return serenity.waitForNextCue();
         });
 
         AfterAll(function () {
-            dependencies.notifier.testRunFinished();
-            return serenity.waitForNextCue();
+            return serenity.waitForNextCue()
+                .then(() => dependencies.notifier.testRunFinished());
         });
     });
 
