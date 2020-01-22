@@ -74,15 +74,4 @@ describe('@serenity-js/jasmine', () => {
             });
         });
     });
-
-    /**
-     * @test {bootstrap}
-     * @test {monkeyPatched}
-     */
-    it('registers a beforeEach and afterAll hooks to ensure Serenity/JS is synchronised with Jasmine', () => {
-        serenityReporterForJasmine(jasmine);
-
-        expect(jasmine.getEnv().beforeEach).to.have.been.calledOnce;    // tslint:disable-line:no-unused-expression
-        expect(jasmine.getEnv().afterAll).to.have.been.calledOnce;      // tslint:disable-line:no-unused-expression
-    });
 });

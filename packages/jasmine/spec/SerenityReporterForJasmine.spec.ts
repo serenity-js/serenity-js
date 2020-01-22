@@ -267,7 +267,7 @@ describe('SerenityReporterForJasmine', () => {
 
             describe('starts and', () => {
 
-                beforeEach(() => {
+                beforeEach(async () => {
                     reporter.suiteStarted({
                         id: 'suite1',
                         description: 'Jasmine',
@@ -312,7 +312,7 @@ describe('SerenityReporterForJasmine', () => {
                         },
                     });
 
-                    reporter.specDone({
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'passes',
                         fullName: 'Jasmine A scenario passes',
@@ -420,8 +420,8 @@ describe('SerenityReporterForJasmine', () => {
                 /**
                  * @test {SerenityReporterForJasmine#specDone}
                  */
-                it('has been excluded', () => {
-                    reporter.specDone({
+                it('has been excluded', async () => {
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -441,8 +441,8 @@ describe('SerenityReporterForJasmine', () => {
                 /**
                  * @test {SerenityReporterForJasmine#specDone}
                  */
-                it('is marked as pending', () => {
-                    reporter.specDone({
+                it('is marked as pending', async () => {
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -466,8 +466,8 @@ describe('SerenityReporterForJasmine', () => {
                 /**
                  * @test {SerenityReporterForJasmine#specDone}
                  */
-                it('has failed with an error', () => {
-                    reporter.specDone({
+                it('has failed with an error', async () => {
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -498,8 +498,8 @@ describe('SerenityReporterForJasmine', () => {
                 /**
                  * @test {SerenityReporterForJasmine#specDone}
                  */
-                it('has failed with no stack trace', () => {
-                    reporter.specDone({
+                it('has failed with no stack trace', async () => {
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -530,8 +530,8 @@ describe('SerenityReporterForJasmine', () => {
                 /**
                  * @test {SerenityReporterForJasmine#specDone}
                  */
-                it('has failed with an assertion error', () => {
-                    reporter.specDone({
+                it('has failed with an assertion error', async () => {
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -564,10 +564,10 @@ describe('SerenityReporterForJasmine', () => {
                 });
 
                 /** @test {SerenityReporterForJasmine#specDone} */
-                it('has failed with multiple errors', () => {
+                it('has failed with multiple errors', async () => {
                     // The failure with multiple errors could only happen when someone has
                     // a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting
-                    reporter.specDone({
+                    await reporter.specDone({
                         id: 'spec0',
                         description: 'scenario',
                         fullName: 'scenario',
@@ -633,7 +633,7 @@ describe('SerenityReporterForJasmine', () => {
 
         describe('the `it` block is not nested within a `describe` block and', () => {
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 reporter.specStarted({
                     id: 'spec0',
                     description: 'A scenario passes',
@@ -650,7 +650,7 @@ describe('SerenityReporterForJasmine', () => {
                     },
                 });
 
-                reporter.specDone({
+                await reporter.specDone({
                     id: 'spec0',
                     description: 'A scenario passes',
                     fullName: 'A scenario passes',
