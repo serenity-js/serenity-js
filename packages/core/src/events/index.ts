@@ -15,6 +15,7 @@ export * from './SceneBackgroundDetected';
 export * from './SceneDescriptionDetected';
 export * from './SceneStarts';
 export * from './SceneFinished';
+export * from './SceneFinishes';
 export * from './SceneTagged';
 export * from './SceneSequenceDetected';
 export * from './SceneTemplateDetected';

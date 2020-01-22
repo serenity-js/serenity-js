@@ -2,6 +2,7 @@ import { AssertionError, ImplementationPendingError, Serenity } from '@serenity-
 import {
     DomainEvent,
     SceneFinished,
+    SceneFinishes,
     SceneStarts,
     SceneTagged,
     TaskFinished,
@@ -67,7 +68,7 @@ export class SerenityReporterForJasmine {
         );
     }
 
-    specDone(result: SpecResult) {
+    specDone(result: SpecResult): Promise<void> {
 
         /**
          * Serenity doesn't allow for more than one failure per activity, but Jasmine does.
@@ -84,10 +85,19 @@ export class SerenityReporterForJasmine {
             });
         }
 
-        this.emit(new SceneFinished(
+        this.emit(new SceneFinishes(
             this.scenarioDetailsOf(result),
-            this.outcomeFrom(result),
+            this.serenity.currentTime(),
         ));
+
+        return this.serenity.waitForNextCue()
+            .then(() => {
+                this.emit(new SceneFinished(
+                    this.scenarioDetailsOf(result),
+                    this.outcomeFrom(result),
+                    this.serenity.currentTime(),
+                ));
+            });
     }
 
     /**
@@ -95,8 +105,6 @@ export class SerenityReporterForJasmine {
      */
     jasmineDone(suiteInfo: JasmineDoneInfo) {
         this.emit(new TestRunFinished(this.serenity.currentTime()));
-
-        return this.serenity.waitForNextCue();
     }
 
     /**

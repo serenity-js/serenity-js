@@ -1,9 +1,8 @@
 import { Stage } from '@serenity-js/core';
-import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import { CorrelationId, Description, ExecutionSuccessful, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
-import { match } from 'tiny-types';
 import { ProtractorReport } from './ProtractorReport';
 
 export class ProtractorReporter implements StageCrewMember {
@@ -21,56 +20,65 @@ export class ProtractorReporter implements StageCrewMember {
     }
 
     notifyOf(event: DomainEvent): void {
-        return match<DomainEvent, void>(event)
-            .when(SceneStarts, (e: SceneStarts) => {
-                this.startTime[e.value.toString()] = e.timestamp;
-            })
-            .when(SceneFinished, (e: SceneFinished) => match<Outcome, void>(e.outcome)
-                .when(ExecutionSuccessful, (o: ExecutionSuccessful) => {
+        if (event instanceof SceneStarts) {
+            this.recordStart(event);
+        }
 
-                    this.reported.specResults.push({
-                        description:    `${ e.value.category.value } ${ e.value.name.value }`,
-                        duration:       e.timestamp.diff(this.startTime[e.value.toString()]).inMilliseconds(),
-                        assertions: [{
-                            passed: true,
-                        }],
-                    });
+        else if (event instanceof SceneFinishes) {
+            this.afterEach();
+        }
 
-                    this.afterEach().then(() => {
-                        this.runner.emit('testPass', {
-                            name:       e.value.name.value,
-                            category:   e.value.category.value,
-                        });
-                    });
-                })
-                .when(ProblemIndication, (o: ProblemIndication) => {
+        else if (event instanceof SceneFinished && event.outcome instanceof ExecutionSuccessful) {
+            this.recordSuccess(event);
 
-                    this.reported.failedCount++;
+            this.runner.emit('testPass', {
+                name:       event.value.name.value,
+                category:   event.value.category.value,
+            });
+        }
 
-                    this.reported.specResults.push({
-                        description:    `${ e.value.category.value } ${ e.value.name.value }`,
-                        duration:       e.timestamp.diff(this.startTime[e.value.toString()]).inMilliseconds(),
-                        assertions: [{
-                            passed:     false,
-                            errorMsg:   o.error.message,
-                            stackTrace: o.error.stack,
-                        }],
-                    });
+        else if (event instanceof SceneFinished && event.outcome instanceof ProblemIndication) {
+            this.recordFailure(event);
 
-                    this.afterEach().then(() => {
-                        this.runner.emit('testFail', {
-                            name:       e.value.name.value,
-                            category:   e.value.category.value,
-                        });
-                    });
-                })
-                .else(() => /* ignore */ void 0),
-            )
-            .else(() => /* ignore */ void 0);
+            this.runner.emit('testFail', {
+                name:       event.value.name.value,
+                category:   event.value.category.value,
+            });
+        }
     }
 
     report(): ProtractorReport {
         return this.reported;
+    }
+
+    private recordFailure(event: SceneFinished) {
+        const outcome = (event.outcome as ProblemIndication);
+
+        this.reported.failedCount++;
+
+        this.reported.specResults.push({
+            description: `${ event.value.category.value } ${ event.value.name.value }`,
+            duration: event.timestamp.diff(this.startTime[event.value.toString()]).inMilliseconds(),
+            assertions: [{
+                passed: false,
+                errorMsg: outcome.error.message,
+                stackTrace: outcome.error.stack,
+            }],
+        });
+    }
+
+    private recordStart(event: SceneStarts) {
+        this.startTime[event.value.toString()] = event.timestamp;
+    }
+
+    private recordSuccess(event: SceneFinished) {
+        this.reported.specResults.push({
+            description: `${ event.value.category.value } ${ event.value.name.value }`,
+            duration: event.timestamp.diff(this.startTime[event.value.toString()]).inMilliseconds(),
+            assertions: [{
+                passed: true,
+            }],
+        });
     }
 
     private afterEach(): PromiseLike<void> {
@@ -83,6 +91,7 @@ export class ProtractorReporter implements StageCrewMember {
         this.stage.announce(new AsyncOperationAttempted(
             new Description(`[${ this.constructor.name }] Invoking ProtractorRunner.afterEach...`),
             id,
+            this.stage.currentTime(),
         ));
 
         return Promise.resolve(this.runner.afterEach() as PromiseLike<void> | undefined)
@@ -91,9 +100,10 @@ export class ProtractorReporter implements StageCrewMember {
                     this.stage.announce(new AsyncOperationCompleted(
                         new Description(`[${ this.constructor.name }] ProtractorRunner.afterEach succeeded`),
                         id,
+                        this.stage.currentTime(),
                     )),
                 error =>
-                    this.stage.announce(new AsyncOperationFailed(error, id)),
+                    this.stage.announce(new AsyncOperationFailed(error, id, this.stage.currentTime())),
             );
     }
 }

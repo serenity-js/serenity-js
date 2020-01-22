@@ -1,6 +1,6 @@
 import { expect } from '@integration/testing-tools';
-import { Serenity } from '@serenity-js/core';
-import { SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
+import { Serenity, Stage } from '@serenity-js/core';
+import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
@@ -46,7 +46,25 @@ describe('ProtractorFrameworkAdapter', () => {
         adapter = new ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector as unknown as TestRunnerDetector);
     });
 
-    beforeEach(() => protractorRunner.getConfig.returns({}));
+    class TestRunnerSimulator implements StageCrewMember {
+        constructor(private readonly stage: Stage = null) {
+        }
+
+        assignedTo(stage: Stage): StageCrewMember {
+            return new TestRunnerSimulator(stage);
+        }
+
+        notifyOf(event: DomainEvent): void {
+            if (event instanceof SceneStarts) {
+                this.stage.announce(new SceneFinishes(event.value, this.stage.currentTime()));
+            }
+        }
+
+    }
+
+    beforeEach(() => {
+        protractorRunner.getConfig.returns({ });
+    });
 
     const expectedError = new Error(`We're sorry, something happened`);
     expectedError.stack = `Error: We're sorry, something happened`;
@@ -74,7 +92,7 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 0,
                         specResults: [{
                             description: sample('passing.spec.ts').description,
-                            duration: 250,
+                            duration: 1000,
                             assertions: [{
                                 passed:     true,
                             }],
@@ -87,7 +105,7 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 1,
                         specResults: [{
                             description: sample('failing.spec.ts').description,
-                            duration:    250,
+                            duration:    1000,
                             assertions: [{
                                 passed:     false,
                                 errorMsg:   (sample('failing.spec.ts').outcome as ProblemIndication).error.message,
@@ -102,13 +120,13 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 1,
                         specResults: [{
                             description: sample('passing.spec.ts').description,
-                            duration: 250,
+                            duration: 1000,
                             assertions: [{
                                 passed:     true,
                             }],
                         }, {
                             description: sample('failing.spec.ts').description,
-                            duration: 250,
+                            duration: 1000,
                             assertions: [{
                                 passed:     false,
                                 errorMsg:   (sample('failing.spec.ts').outcome as ProblemIndication).error.message,
@@ -116,7 +134,7 @@ describe('ProtractorFrameworkAdapter', () => {
                             }],
                         }, {
                             description: sample('passing.spec.ts').description,
-                            duration: 250,
+                            duration: 1000,
                             assertions: [{
                                 passed:     true,
                             }],
@@ -207,7 +225,7 @@ describe('ProtractorFrameworkAdapter', () => {
 
         describe('error handling', function () {
 
-            this.timeout(3000);
+            this.timeout(7000);
 
             it('fails the test run when runner.afterEach errors out', () => {
                 protractorRunner.afterEach.throws(expectedError);
@@ -302,13 +320,18 @@ describe('ProtractorFrameworkAdapter', () => {
                         this.serenityInstance.currentTime(),
                     ));
 
-                    // ... an actual test operunner would now execute the test and then announce the outcome
+                    // ... an actual test runner would now execute the test and then announce the outcome
 
                     this.serenityInstance.announce(
-                        new SceneFinished(details, scenario.outcome, this.serenityInstance.currentTime()),
+                        new SceneFinishes(details, this.serenityInstance.currentTime()),
                     );
 
-                    return this.serenityInstance.waitForNextCue();
+                    return this.serenityInstance.waitForNextCue()
+                        .then(() => {
+                            this.serenityInstance.announce(
+                                new SceneFinished(details, scenario.outcome, this.serenityInstance.currentTime()),
+                            );
+                        });
 
                 }), Promise.resolve(void 0));
         }

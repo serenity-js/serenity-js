@@ -25,7 +25,7 @@ export class ProtractorFrameworkAdapter {
         const runner    = this.detector.runnerFor(config);
         const reporter  = new ProtractorReporter(this.protractorRunner);
 
-        this.serenity.setTheStage(reporter, ...config.serenity.crew);
+        this.serenity.setTheStage(...config.serenity.crew, reporter);
 
         return Promise.resolve()
             .then(() => this.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
