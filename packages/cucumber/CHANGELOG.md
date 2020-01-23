@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.109](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.108...v2.0.1-alpha.109) (2020-01-23)
+
+
+### Bug Fixes
+
+* **cucumber:** corrected synchronisation of async events ([d39bc7c](https://github.com/jan-molak/serenity-js/commit/d39bc7c1b8dcf09939d35f7c1d3144abb1e59453)), closes [#405](https://github.com/jan-molak/serenity-js/issues/405)
+* **cucumber:** ensure async events are correctly synchronised before the test run finishes ([d69aeae](https://github.com/jan-molak/serenity-js/commit/d69aeae48524865f68a175d04ef800f5045b3712)), closes [#405](https://github.com/jan-molak/serenity-js/issues/405)
+
+
+
+
+
 ## [2.0.1-alpha.108](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.107...v2.0.1-alpha.108) (2020-01-20)
 
 **Note:** Version bump only for package @serenity-js/cucumber
