@@ -1,4 +1,4 @@
-import { AssertionError, ImplementationPendingError, serenity, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
@@ -14,15 +14,11 @@ import { AmbiguousStepDefinitionError } from '../errors';
 import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from '../gherkin';
 import { Dependencies } from './Dependencies';
 
-export = function ({ notifier, loader, cache }: Dependencies) {
+export = function ({ serenity, notifier, loader, cache }: Dependencies) {
     return function () {
         this.registerHandler('BeforeFeature', function (feature, callback) {
-            loader.load(get(feature, 'uri').as(Path)).then(_ => callback(), error => callback(error));
-        });
-
-        this.registerHandler('BeforeScenario', function (scenario, callback) {
-            serenity.waitForNextCue()
-                .then(() => callback(), error => callback(error));
+            loader.load(get(feature, 'uri').as(Path))
+                .then(_ => callback(), error => callback(error));
         });
 
         this.registerHandler('BeforeScenario', function (scenario) {
@@ -66,6 +62,19 @@ export = function ({ notifier, loader, cache }: Dependencies) {
             notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
         });
 
+        this.registerHandler('AfterScenario', function (scenario, callback) {
+            const
+                path     = get(scenario, 'uri').as(Path),
+                line     = get(scenario, 'line').value() as number;
+
+            const map = cache.get(path);
+
+            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature));
+
+            serenity.waitForNextCue()
+                .then(() => callback(), error => callback(error));
+        });
+
         this.registerHandler('ScenarioResult', function (result) {
 
             const
@@ -78,10 +87,8 @@ export = function ({ notifier, loader, cache }: Dependencies) {
             notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
-        this.registerHandler('AfterFeatures', (features, callback) => {
-            serenity.waitForNextCue()
-                .then(() => notifier.testRunFinished())
-                .then(() => callback(), error => callback(error));
+        this.registerHandler('AfterFeatures', features => {
+            notifier.testRunFinished();
         });
     };
 };

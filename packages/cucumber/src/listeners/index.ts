@@ -20,6 +20,7 @@ export function listenerForCucumber(version: Version, cucumber: any, serenity: S
             );
 
         return require(`./cucumber-${ version.major() }`)({
+            serenity,
             notifier,
             mapper,
             cache,

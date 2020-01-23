@@ -15,8 +15,10 @@ describe('CucumberEventProtocolAdapter', () => {
 
     type CucumberHook = () => Promise<void> | void;
 
+    let afterHook: CucumberHook;
+
     const fakeCucumber = {
-        Before: (hook: CucumberHook) => Promise.resolve(hook()),
+        After: (hook: CucumberHook) => { afterHook = hook; },
         AfterAll: (hook: CucumberHook) => Promise.resolve(hook()),
     };
 
@@ -32,6 +34,8 @@ describe('CucumberEventProtocolAdapter', () => {
         serenity = new Serenity();
         recorder = new EventRecorder();
         eventBroadcaster = new EventEmitter();
+
+        eventBroadcaster.on('test-case-finished', () => afterHook());
 
         serenity.setTheStage(
             recorder,
