@@ -48,8 +48,8 @@ describe('SerenityReporterForJasmine', () => {
 
         describe('the test run', () => {
             /** @test {SerenityReporterForJasmine#jasmineDone} */
-            it('ends', () => {
-                reporter.jasmineDone({
+            it('ends', async () => {
+                await reporter.jasmineDone({
                     overallStatus: 'passed',
                     incompleteReason: undefined,
                     order: {
