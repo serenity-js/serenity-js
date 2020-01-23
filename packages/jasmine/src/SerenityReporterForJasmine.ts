@@ -104,7 +104,10 @@ export class SerenityReporterForJasmine {
      * @param {JasmineDoneInfo} suiteInfo
      */
     jasmineDone(suiteInfo: JasmineDoneInfo) {
-        this.emit(new TestRunFinished(this.serenity.currentTime()));
+        return this.serenity.waitForNextCue()
+            .then(() => {
+                this.emit(new TestRunFinished(this.serenity.currentTime()));
+            });
     }
 
     /**
