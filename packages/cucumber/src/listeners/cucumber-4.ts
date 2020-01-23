@@ -11,7 +11,10 @@ export = function (dependencies: Dependencies) {
     });
 
     AfterAll(function () {
-        dependencies.notifier.testRunFinished();
+        return dependencies.serenity.waitForNextCue()
+            .then(() => {
+                dependencies.notifier.testRunFinished();
+            });
     });
 
     return cucumberEventProtocolAdapter(dependencies);
