@@ -87,8 +87,10 @@ export = function ({ serenity, notifier, loader, cache }: Dependencies) {
             notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
         });
 
-        this.registerHandler('AfterFeatures', features => {
-            notifier.testRunFinished();
+        this.registerHandler('AfterFeatures', (features, callback) => {
+            serenity.waitForNextCue()
+                .then(() => notifier.testRunFinished())
+                .then(() => callback(), error => callback(error));
         });
     };
 };
