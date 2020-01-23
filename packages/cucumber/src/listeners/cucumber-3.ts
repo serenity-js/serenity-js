@@ -1,17 +1,17 @@
-import { serenity } from '@serenity-js/core';
 import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
 
-    dependencies.cucumber.defineSupportCode(({ Before, AfterAll }) => {
-        Before(function () {
-            return serenity.waitForNextCue();
+    dependencies.cucumber.defineSupportCode(({ After, AfterAll }) => {
+        After(function () {
+            dependencies.notifier.currentScenarioFinishes();
+
+            return dependencies.serenity.waitForNextCue();
         });
 
         AfterAll(function () {
-            return serenity.waitForNextCue()
-                .then(() => dependencies.notifier.testRunFinished());
+            dependencies.notifier.testRunFinished();
         });
     });
 

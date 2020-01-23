@@ -28,7 +28,7 @@ interface StepLocations {
     sourceLocation?: Location;
 }
 
-export function cucumberEventProtocolAdapter({ notifier, mapper, cache }: Dependencies) {
+export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache }: Dependencies) {
     return class CucumberEventProtocolAdapter {
 
         // note: exported class expression can't have private properties
