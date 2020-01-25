@@ -2,7 +2,7 @@ import { ensure, isDefined, isNumber, JSONObject, TinyType } from 'tiny-types';
 import { Expression } from './Expression';
 
 export class Result extends TinyType {
-    fromJSON(o: JSONObject): Result {
+    static fromJSON(o: JSONObject): Result {
         return new Result(
             Expression.fromString(o.expression as string),
             o.value as number,
