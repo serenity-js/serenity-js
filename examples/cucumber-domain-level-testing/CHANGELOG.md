@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.110](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.109...v2.0.1-alpha.110) (2020-01-25)
+
+
+### Features
+
+* **core:** new APIs to make configuring and using Serenity/JS easier ([d11a80d](https://github.com/jan-molak/serenity-js/commit/d11a80de66519cb16b6eaa61a39694006a76b5fb))
+
+
+
+
+
 ## [2.0.1-alpha.109](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.108...v2.0.1-alpha.109) (2020-01-23)
 
 **Note:** Version bump only for package @serenity-js-examples/cucumber-domain-level-testing
