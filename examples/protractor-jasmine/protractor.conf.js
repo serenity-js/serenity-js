@@ -22,7 +22,7 @@ exports.config = {
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
-            new ConsoleReporter(),
+            ConsoleReporter.withDefaultColourSupport(),
         ]
     },
 
