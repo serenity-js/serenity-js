@@ -1,15 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { LogicError } from '@serenity-js/core';
+import { actorCalled, LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Clear, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Clear', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Form = {
         Field: Target.the('input field').located(by.id('field')),
@@ -17,7 +14,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of an input field', () => Bernie.attemptsTo(
+    it('allows the actor to clear the value of an input field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -35,7 +32,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of an number field', () => Bernie.attemptsTo(
+    it('allows the actor to clear the value of an number field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -53,7 +50,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of a date field', () => Bernie.attemptsTo(
+    it('allows the actor to clear the value of a date field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -71,7 +68,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of an RTL input field', () => Bernie.attemptsTo(
+    it('allows the actor to clear the value of an RTL input field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html dir="rtl">
                 <body>
@@ -89,7 +86,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('complains if the element cannot be cleared', () => expect(Bernie.attemptsTo(
+    it('complains if the element cannot be cleared', () => expect(actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html dir="rtl">
                 <body>

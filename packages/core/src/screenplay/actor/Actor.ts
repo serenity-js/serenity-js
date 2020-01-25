@@ -1,6 +1,6 @@
-import { ActivityRelatedArtifactGenerated, ArtifactGenerated } from '../../events';
+import { ActivityRelatedArtifactGenerated } from '../../events';
 import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../../index';
-import { ActivityDetails, Artifact, Name } from '../../model';
+import { Artifact, Name } from '../../model';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
@@ -16,12 +16,18 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
     // todo: the default one executes every activity
     // todo: there could be a dry-run mode that default to skip strategy
 
+    /**
+     * @deprecated
+     * @param name
+     */
     static named(name: string): CanHaveAbilities<Actor> {
         return {
             whoCan: (...abilities): Actor => {
-                const stage = serenity.callToStageFor(DressingRoom.whereEveryoneCan(...abilities));
+                serenity.configure({
+                    actors: DressingRoom.whereEveryoneCan(...abilities),
+                });
 
-                return stage.theActorCalled(name);
+                return serenity.theActorCalled(name);
             },
         };
     }
@@ -54,13 +60,11 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
     }
 
     whoCan(...abilities: Ability[]): Actor {
-        const map = new Map<AbilityType<Ability>, Ability>(this.abilities);
-
         abilities.forEach(ability => {
-            map.set(ability.constructor as AbilityType<Ability>, ability);
+            this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
         });
 
-        return new Actor(this.name, this.stage, map);
+        return this;
     }
 
     /**

@@ -1,14 +1,12 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { Interaction } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, Interaction } from '@serenity-js/core';
 import * as sinon from 'sinon';
 import { Check, startsWith } from '../src';
 
 /** @test {Check} */
 describe('Check', () => {
-
-    const Enrique = stage().theActorCalled('Enrique');
 
     const Call = (fn: () => void) => Interaction.where(`#actor calls a function`, actor => fn());
 
@@ -20,7 +18,7 @@ describe('Check', () => {
         /** @test {Check.whether} */
         /** @test {Check#andIfSo} */
         it('makes the actor execute the activities when the expectation is met', () =>
-            expect(Enrique.attemptsTo(
+            expect(actorCalled('Enrique').attemptsTo(
                 Check.whether('Hello World', startsWith('Hello'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -35,7 +33,7 @@ describe('Check', () => {
         /** @test {Check.whether} */
         /** @test {Check#andIfSo} */
         it('makes the actor ignore the activities when the expectation is not met', () =>
-            expect(Enrique.attemptsTo(
+            expect(actorCalled('Enrique').attemptsTo(
                 Check.whether('Hello World', startsWith('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -52,7 +50,7 @@ describe('Check', () => {
         /** @test {Check#andIfSo} */
         /** @test {Check#otherwise} */
         it('makes the actor execute the activities when the expectation is met', () =>
-            expect(Enrique.attemptsTo(
+            expect(actorCalled('Enrique').attemptsTo(
                 Check.whether('Hello World', startsWith('Hello'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -70,7 +68,7 @@ describe('Check', () => {
         /** @test {Check#andIfSo} */
         /** @test {Check#otherwise} */
         it('makes the actor execute the alternative activities when the expectation is not met', () =>
-            expect(Enrique.attemptsTo(
+            expect(actorCalled('Enrique').attemptsTo(
                 Check.whether('Hello World', startsWith('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),

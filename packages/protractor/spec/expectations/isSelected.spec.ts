@@ -1,15 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isSelected, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
-import { UIActors } from '../UIActors';
 
 describe('isSelected', function () {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Languages = {
         TypeScript: Target.the('TypeScript option').located(by.css('select[name="languages"] > option[value="TypeScript"]')),
@@ -17,7 +14,7 @@ describe('isSelected', function () {
         Java:       Target.the('Java option').located(by.css('select[name="languages"] > option[value="Java"]')),
     };
 
-    beforeEach(() => Bernie.attemptsTo(
+    beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -31,21 +28,21 @@ describe('isSelected', function () {
     ));
 
     /** @test {isSelected} */
-    it('allows the actor flow to continue when the element is selected', () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is selected', () => expect(actorCalled('Bernie').attemptsTo(
         Wait.until(Languages.TypeScript, isSelected()),
         Ensure.that(Languages.TypeScript, isSelected()),
     )).to.be.fulfilled);
 
     /** @test {isSelected} */
     it('breaks the actor flow when element is not selected', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Languages.JavaScript, isSelected()),
         )).to.be.rejectedWith(AssertionError, `Expected the JavaScript option to become selected`);
     });
 
     /** @test {isSelected} */
     it('breaks the actor flow when element is not present', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Languages.Java, isSelected()),
         )).to.be.rejectedWith(AssertionError, `Expected the Java option to become present`);
     });

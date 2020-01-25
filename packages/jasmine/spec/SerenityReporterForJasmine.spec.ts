@@ -41,7 +41,7 @@ describe('SerenityReporterForJasmine', () => {
         reporter = new SerenityReporterForJasmine(serenity);
         listener = new Listener();
 
-        serenity.setTheStage(listener);
+        serenity.configure({ crew: [ listener ] });
     });
 
     describe('notifies Serenity when', () => {

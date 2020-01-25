@@ -1,32 +1,27 @@
 import { equals } from '@serenity-js/assertions';
-import { WithStage } from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
 import { After, Before, Then, When } from 'cucumber';
 import { RequestCalculationOf, VerifyResultAt } from '../support/screenplay';
 
-Before(function () {
-    return this.stage.theActorCalled('Apisitt').attemptsTo(                     // todo: change to Maggie
+Before(() =>
+    actorCalled('Apisitt').attemptsTo(
         StartLocalServer.onRandomPort(),
         ChangeApiUrl.to(LocalServer.url()),
-        // TakeNote.of(LocalServer.url())               // Question or Question<Promise>; Pass between actors
-    );
-});
+    ));
 
-When(/^(.*) asks for the following calculation: (.*)$/, function (this: WithStage, actorName: string, expression: string) {
-    return this.stage.actor(actorName).attemptsTo(
+When(/^(.*) asks for the following calculation: (.*)$/, (actorName: string, expression: string) =>
+    actorCalled(actorName).attemptsTo(
         RequestCalculationOf(expression),
-    );
-});
+    ));
 
-Then(/(?:he|she|they) should get a result of ([\d-.]+)/, function (this: WithStage, expectedResult: string) {
-    return this.stage.theActorInTheSpotlight().attemptsTo(
+Then(/(?:he|she|they) should get a result of ([\d-.]+)/, (expectedResult: string) =>
+    actorInTheSpotlight().attemptsTo(
         VerifyResultAt(LastResponse.header('location'), equals({ result: Number(expectedResult) })),
-    );
-});
+    ));
 
-After(function () {
-    return this.stage.theActorCalled('Apisitt').attemptsTo(
+After(() =>
+    actorCalled('Apisitt').attemptsTo(
         StopLocalServer.ifRunning(),
-    );
-});
+    ));

@@ -5,8 +5,10 @@ export = function () {
 
     this.setDefaultTimeout(5000);
 
-    serenity.setTheStage(
-        new ChildProcessReporter(),
-        new StreamReporter(),
-    );
+    serenity.configure({
+        crew: [
+            new ChildProcessReporter(),
+            new StreamReporter(),
+        ],
+    });
 };

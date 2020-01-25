@@ -1,16 +1,12 @@
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { AssertionError, Duration } from '@serenity-js/core';
+import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text, Wait } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-import { expect, stage } from '@integration/testing-tools';
-import { UIActors } from '../../UIActors';
-
 describe('Wait', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Status = Target.the('header').located(by.id('status'));
 
@@ -33,7 +29,7 @@ describe('Wait', () => {
 
         /** @test {Wait} */
         /** @test {Wait.for} */
-        it('pauses the actor flow for the length of an explicitly-set duration', () => Bernie.attemptsTo(
+        it('pauses the actor flow for the length of an explicitly-set duration', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.for(Duration.ofMilliseconds(300)),
@@ -52,7 +48,7 @@ describe('Wait', () => {
 
         /** @test {Wait} */
         /** @test {Wait.until} */
-        it('pauses the actor flow until the expectation is met', () => Bernie.attemptsTo(
+        it('pauses the actor flow until the expectation is met', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.until(Text.of(Status), equals('Ready!')),
@@ -63,7 +59,7 @@ describe('Wait', () => {
         /** @test {Wait} */
         /** @test {Wait.upTo} */
         /** @test {Wait.until} */
-        it('fails the actor flow when the timeout expires', () => expect(Bernie.attemptsTo(
+        it('fails the actor flow when the timeout expires', () => expect(actorCalled('Bernie').attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(Status), equals('Ready!')),

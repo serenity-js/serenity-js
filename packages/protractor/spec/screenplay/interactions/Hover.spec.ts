@@ -1,14 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Attribute, Hover, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Hover', function () {
-
-    const Mickey = stage(new UIActors()).actor('Mickey');
 
     const pageWithALink = pageFromTemplate(`
         <html>
@@ -29,7 +27,7 @@ describe('Hover', function () {
 
     /** @test {Scroll} */
     /** @test {Scroll.to} */
-    it('allows the actor to move the mouse to a given target', () => Mickey.attemptsTo(
+    it('allows the actor to move the mouse to a given target', () => actorCalled('Mickey').attemptsTo(
         Navigate.to(pageWithALink),
 
         Ensure.that(Attribute.of(Page.Link).called('class'), equals('off')),

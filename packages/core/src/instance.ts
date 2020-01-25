@@ -1,6 +1,24 @@
+import { Actor } from './screenplay/actor';
 import { Serenity } from './Serenity';
-import { Clock } from './stage';
+import { SerenityConfig } from './SerenityConfig';
+import { Clock, DressingRoom } from './stage';
 
 const clock = new Clock();
 
 export const serenity = new Serenity(clock);
+
+export function configure(config: SerenityConfig) {
+    return serenity.configure(config);
+}
+
+export function engage(actors: DressingRoom) {
+    return serenity.engage(actors);
+}
+
+export function actorCalled(name: string): Actor {
+    return serenity.theActorCalled(name);
+}
+
+export function actorInTheSpotlight(): Actor {
+    return serenity.theActorInTheSpotlight();
+}

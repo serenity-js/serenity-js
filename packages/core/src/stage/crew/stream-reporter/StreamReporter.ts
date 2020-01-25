@@ -12,17 +12,17 @@ import { StageCrewMember } from '../../StageCrewMember';
  * @example <caption>Writing DomainEvents to standard output</caption>
  * import { serenity, StreamReporter } form '@serenity-js/core';
  *
- * serenity.setTheStage(
- *     new StreamReporter(process.stdout),
- * );
+ * serenity.configure({
+ *     crew: [ new StreamReporter(process.stdout) ],
+ * });
  *
  * @example <caption>Writing DomainEvents to a file</caption>
  * import { serenity, StreamReporter } form '@serenity-js/core';
  * import fs = require('fs');
  *
- * serenity.setTheStage(
- *     new StreamReporter(fs.createWriteStream('./events.ndjson')),
- * );
+ * serenity.configure({
+ *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],
+ * });
  *
  * @implements {StageCrewMember}
  */

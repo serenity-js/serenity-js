@@ -1,15 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isClickable, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
-import { UIActors } from '../UIActors';
 
 describe('isClickable', function () {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Page = {
         Enabled_Button:     Target.the('enabled button').located(by.id('enabled')),
@@ -17,7 +14,7 @@ describe('isClickable', function () {
         Hidden_Button:      Target.the('hidden button').located(by.id('hidden')),
     };
 
-    beforeEach(() => Bernie.attemptsTo(
+    beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -30,21 +27,21 @@ describe('isClickable', function () {
     ));
 
     /** @test {isClickable} */
-    it('allows the actor flow to continue when the element is clickable', () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is clickable', () => expect(actorCalled('Bernie').attemptsTo(
         Wait.until(Page.Enabled_Button, isClickable()),
         Ensure.that(Page.Enabled_Button, isClickable()),
     )).to.be.fulfilled);
 
     /** @test {isClickable} */
     it('breaks the actor flow when element is disabled', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Page.Disabled_Button, isClickable()),
         )).to.be.rejectedWith(AssertionError, `Expected the disabled button to become enabled`);
     });
 
     /** @test {isClickable} */
     it('breaks the actor flow when element is not visible', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Page.Hidden_Button, isClickable()),
         )).to.be.rejectedWith(AssertionError, `Expected the hidden button to become displayed`);
     });

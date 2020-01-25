@@ -1,7 +1,8 @@
 const
     path = require('path'),
     { StreamReporter } = require('@serenity-js/core'),
-    { ChildProcessReporter } = require('@integration/testing-tools');
+    { ChildProcessReporter } = require('@integration/testing-tools'),
+    { Actors } = require('./Actors');
 
 exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
@@ -18,6 +19,7 @@ exports.config = {
 
     serenity: {
         runner: 'jasmine',
+        actors: new Actors(),
         crew: [
             new ChildProcessReporter(),
             new StreamReporter(),

@@ -1,20 +1,17 @@
-import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Value', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('of', () => {
 
         /** @test {Text} */
         /** @test {Text.of} */
-        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => Bernie.attemptsTo(
+        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>
@@ -30,7 +27,7 @@ describe('Value', () => {
 
         /** @test {Text} */
         /** @test {Text#of} */
-        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => Bernie.attemptsTo(
+        it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>
@@ -46,7 +43,7 @@ describe('Value', () => {
 
         /** @test {CSSClasses} */
         /** @test {CSSClasses#of} */
-        it('allows for a question relative to another target to be asked', () => Bernie.attemptsTo(
+        it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>

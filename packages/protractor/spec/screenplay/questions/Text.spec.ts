@@ -1,14 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Text', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('of', () => {
 
@@ -16,7 +14,7 @@ describe('Text', () => {
 
         /** @test {Text} */
         /** @test {Text.of} */
-        it('allows the actor to read the text of the DOM element matching the locator', () => Bernie.attemptsTo(
+        it('allows the actor to read the text of the DOM element matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                 <body>
@@ -52,7 +50,7 @@ describe('Text', () => {
 
         /** @test {Text} */
         /** @test {Text.ofAll} */
-        it('allows the actor to read the text of all DOM elements matching the locator', () => Bernie.attemptsTo(
+        it('allows the actor to read the text of all DOM elements matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(testPage),
 
             Ensure.that(Text.ofAll(Shopping_List_Items), equals(['milk', 'oats'])),
@@ -60,7 +58,7 @@ describe('Text', () => {
 
         /** @test {Text} */
         /** @test {Text.ofAll} */
-        it('allows for a question relative to another target to be asked', () => Bernie.attemptsTo(
+        it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(testPage),
 
             Ensure.that(Text.ofAll(Shopping_List_Items).of(Target.the('body').located(by.tagName('body'))), equals(['milk', 'oats'])),

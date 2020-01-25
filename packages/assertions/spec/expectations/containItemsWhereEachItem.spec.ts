@@ -1,23 +1,21 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError, Question } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError, Question } from '@serenity-js/core';
 import { containItemsWhereEachItem, Ensure, equals, isGreaterThan } from '../../src';
 
 describe('containItemsWhereEachItem', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {containItemsWhereEachItem} */
     it('allows for the actor flow to continue when the "actual" includes only those items that meet the expectation', () => {
-        return Astrid.attemptsTo(
+        return actorCalled('Astrid').attemptsTo(
             Ensure.that([ 1, 2, 3 ], containItemsWhereEachItem(isGreaterThan(0))),
         );
     });
 
     /** @test {containItemsWhereEachItem} */
     it('breaks the actor flow when "actual" contains at least one item that does not meet the expectation', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([ 7, 7, 2 ], containItemsWhereEachItem(equals(7))),
         )).to.be.rejectedWith(AssertionError, `Expected [ 7, 7, 2 ] to contain items where each item does equal 7`)
             .then((error: AssertionError) => {
@@ -28,7 +26,7 @@ describe('containItemsWhereEachItem', () => {
 
     /** @test {containItemsWhereEachItem} */
     it('breaks the actor flow when "actual" is an empty list', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([], containItemsWhereEachItem(equals(42))),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain items where each item does equal 42`)
             .then((error: AssertionError) => {

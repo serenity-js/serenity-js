@@ -1,15 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { Actor, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isVisible, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
-import { UIActors } from '../UIActors';
 
 describe('isVisible', function () {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Page = {
         Visible_Header:        Target.the('header').located(by.tagName('h1')),
@@ -17,7 +14,7 @@ describe('isVisible', function () {
         Non_Existent_Header:   Target.the('non-existent header').located(by.tagName('h3')),
     };
 
-    beforeEach(() => Bernie.attemptsTo(
+    beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -29,14 +26,14 @@ describe('isVisible', function () {
     ));
 
     /** @test {isVisible} */
-    it('allows the actor flow to continue when the element is visible', () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is visible', () => expect(actorCalled('Bernie').attemptsTo(
         Wait.until(Page.Visible_Header, isVisible()),
         Ensure.that(Page.Visible_Header, isVisible()),
     )).to.be.fulfilled);
 
     /** @test {isVisible} */
     it('breaks the actor flow when element is not visible', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Page.Invisible_Header, isVisible()),
         )).to.be.rejectedWith(AssertionError, `Expected the invisible header to become displayed`);
     });

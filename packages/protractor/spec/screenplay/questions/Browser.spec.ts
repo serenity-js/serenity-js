@@ -1,18 +1,14 @@
-import { stage } from '@integration/testing-tools';
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
-import { Log } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Browser, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Browser', () => {
 
-    const Bernie = stage(new UIActors()).actor('Bernie');
-
     /** @test {Browser.log} */
-    it('returns no entries if the console log is empty', () => Bernie.attemptsTo(
+    it('returns no entries if the console log is empty', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html lang="en" />
         `)),
@@ -21,7 +17,7 @@ describe('Browser', () => {
     ));
 
     /** @test {Browser.log} */
-    it('allows the actor to read the browser log entries', () => Bernie.attemptsTo(
+    it('allows the actor to read the browser log entries', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html lang="en">
                 <body>
@@ -38,7 +34,7 @@ describe('Browser', () => {
     const Trigger = Target.the('trigger button').located(by.id('trigger'));
 
     /** @test {Browser.log} */
-    it('clears the log upon invocation', () => Bernie.attemptsTo(
+    it('clears the log upon invocation', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html lang="en">
                 <body>

@@ -1,22 +1,19 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isPresent, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
-import { UIActors } from '../UIActors';
 
 describe('isPresent', function () {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Page = {
         Present_Header:         Target.the('header').located(by.tagName('h1')),
         Non_Existent_Header:    Target.the('non-existent header').located(by.tagName('h2')),
     };
 
-    beforeEach(() => Bernie.attemptsTo(
+    beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
@@ -27,14 +24,14 @@ describe('isPresent', function () {
     ));
 
     /** @test {isPresent} */
-    it('allows the actor flow to continue when the element is present in the DOM', () => expect(Bernie.attemptsTo(
+    it('allows the actor flow to continue when the element is present in the DOM', () => expect(actorCalled('Bernie').attemptsTo(
         Wait.until(Page.Present_Header, isPresent()),
         Ensure.that(Page.Present_Header, isPresent()),
     )).to.be.fulfilled);
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () => {
-        return expect(Bernie.attemptsTo(
+        return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
         )).to.be.rejectedWith(AssertionError, `Expected the non-existent header to become present`);
     });

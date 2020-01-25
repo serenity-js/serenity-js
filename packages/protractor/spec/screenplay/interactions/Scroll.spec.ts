@@ -1,14 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Scroll', function () {
-
-    const Gandalf = stage(new UIActors()).actor('Gandalf');
 
     const aLongSpell = pageFromTemplate(`
         <html>
@@ -24,7 +22,7 @@ describe('Scroll', function () {
 
     /** @test {Scroll} */
     /** @test {Scroll.to} */
-    it('allows the actor to scroll to a given target so that it appears in the viewport', () => Gandalf.attemptsTo(
+    it('allows the actor to scroll to a given target so that it appears in the viewport', () => actorCalled('Gandalf').attemptsTo(
         Navigate.to(aLongSpell),
 
         ExecuteScript.sync(`return arguments[0].getBoundingClientRect().top;`).withArguments(Page.Execute_Button),

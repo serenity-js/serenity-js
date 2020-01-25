@@ -18,6 +18,7 @@ describe('CucumberEventProtocolAdapter', () => {
     let afterHook: CucumberHook;
 
     const fakeCucumber = {
+        Before: (hook: CucumberHook) => Promise.resolve(hook()),
         After: (hook: CucumberHook) => { afterHook = hook; },
         AfterAll: (hook: CucumberHook) => Promise.resolve(hook()),
     };
@@ -37,9 +38,9 @@ describe('CucumberEventProtocolAdapter', () => {
 
         eventBroadcaster.on('test-case-finished', () => afterHook());
 
-        serenity.setTheStage(
-            recorder,
-        );
+        serenity.configure({
+            crew: [recorder],
+        });
 
         const listener = listenerForCucumber(new Version('5.0.0'), fakeCucumber, serenity);
 

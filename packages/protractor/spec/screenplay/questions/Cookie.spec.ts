@@ -1,6 +1,6 @@
 import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, Question, Transform } from '@serenity-js/core';
+import { Actor, actorCalled, Question, Transform } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import express = require('express');
 
@@ -31,7 +31,7 @@ describe('Cookie', () => {
     describe('over HTTP', () => {
 
         // Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You're welcome.
-        const Sid = Actor.named('Sid').whoCan(
+        const Sid = actorCalled('Sid').whoCan(
             BrowseTheWeb.using(protractor.browser),
             ManageALocalServer.runningAHttpListener(cookieCutterApp),
         );
@@ -167,7 +167,7 @@ describe('Cookie', () => {
 
     describe('when working with secure cookies', () => {
 
-        const Sid = Actor.named('Secure Sid').whoCan(
+        const Sid = actorCalled('Secure Sid').whoCan(
             BrowseTheWeb.using(protractor.browser),
             ManageALocalServer.runningAHttpsListener(cookieCutterApp, {
                 cert:               certificates.cert,

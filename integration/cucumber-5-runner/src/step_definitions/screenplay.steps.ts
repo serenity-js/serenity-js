@@ -1,4 +1,4 @@
-import { Interaction, WithStage } from '@serenity-js/core';
+import { Interaction, serenity } from '@serenity-js/core';
 import { After, Before, Then, When } from 'cucumber';
 
 const
@@ -8,28 +8,24 @@ const
     Loose           = () => Interaction.where(`#actor releases the bowstring`, actor => void 0),
     RetrieveArrow   = () => Interaction.where(`#actor retrieves the arrow from the target`, actor => void 0);
 
-Before(function (this: WithStage) {
-    return this.stage.theActorCalled('Lara').attemptsTo(
+Before(() =>
+    serenity.theActorCalled('Lara').attemptsTo(
         MakeAnArrow(),
-    );
-});
+    ));
 
-When(/^(.*) shoots an arrow$/, function (this: WithStage, actorName: string) {
-    return this.stage.theActorCalled(actorName).attemptsTo(
+When(/^(.*) shoots an arrow$/, (actorName: string) =>
+    serenity.theActorCalled(actorName).attemptsTo(
         Nock(),
         Draw(),
         Loose(),
-    );
-});
+    ));
 
-Then(/^she should hit a target$/, function (this: WithStage) {
-    return this.stage.theActorInTheSpotlight().attemptsTo(
+Then(/^she should hit a target$/, () =>
+    serenity.theActorInTheSpotlight().attemptsTo(
         // some assertion
-    );
-});
+    ));
 
-After(function () {
-    return this.stage.theActorCalled('Lara').attemptsTo(
+After(() =>
+    serenity.theActorInTheSpotlight().attemptsTo(
         RetrieveArrow(),
-    );
-});
+    ));

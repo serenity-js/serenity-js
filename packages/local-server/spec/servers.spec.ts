@@ -2,7 +2,7 @@ import 'mocha';
 
 import { certificates, expect, stage } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, DressingRoom, LogicError } from '@serenity-js/core';
+import { Actor, actorCalled, actorInTheSpotlight, configure, DressingRoom, LogicError } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 import * as https from 'https';
@@ -14,8 +14,6 @@ import servers = require('./servers');
 
 /** @test {ManageALocalServer} */
 describe('ManageALocalServer', () => {
-
-    let Nadia: Actor;
 
     describe('when working with HTTP', () => {
 
@@ -34,15 +32,17 @@ describe('ManageALocalServer', () => {
                 }
             }
 
-            Nadia = stage(new Actors()).theActorCalled('Nadia');
+            configure({
+                actors: new Actors(),
+            });
 
-            return expect(Nadia.attemptsTo(
+            return expect(actorCalled('Nadia').attemptsTo(
                 StartLocalServer.onRandomPort(),
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(200)),
                 Ensure.that(LastResponse.body(), equals('Hello World!')),
-            )).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
+            )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
 
         given(servers).
@@ -59,9 +59,11 @@ describe('ManageALocalServer', () => {
                 }
             }
 
-            Nadia = stage(new Actors()).theActorCalled('Nadia');
+            configure({
+                actors: new Actors(),
+            });
 
-            return expect(Nadia.attemptsTo(
+            return expect(actorCalled('Nadia').attemptsTo(
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             )).to.be.rejectedWith(LogicError, 'The server has not been started yet');
         });
@@ -110,9 +112,11 @@ describe('ManageALocalServer', () => {
                 }
             }
 
-            Nadia = stage(new Actors()).theActorCalled('Nadia');
+            configure({
+                actors: new Actors(),
+            });
 
-            return expect(Nadia.attemptsTo(...testHttpsServer)).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
 
         it('allows the Actor to start, stop and access the location of a HTTPS Hapi app', function () {
@@ -145,9 +149,11 @@ describe('ManageALocalServer', () => {
                 }
             }
 
-            Nadia = stage(new Actors()).theActorCalled('Nadia');
+            configure({
+                actors: new Actors(),
+            });
 
-            return expect(Nadia.attemptsTo(...testHttpsServer)).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
 
         it('allows the Actor to start, stop and access the location of a Restify app', function () {
@@ -176,13 +182,15 @@ describe('ManageALocalServer', () => {
                 }
             }
 
-            Nadia = stage(new Actors()).theActorCalled('Nadia');
+            configure({
+                actors: new Actors(),
+            });
 
-            return expect(Nadia.attemptsTo(...testHttpsServer)).to.be.fulfilled;                                                  // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
     });
 
-    afterEach(() => Nadia.attemptsTo(
+    afterEach(() => actorInTheSpotlight().attemptsTo(
         StopLocalServer.ifRunning(),
     ));
 });

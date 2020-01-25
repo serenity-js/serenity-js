@@ -22,9 +22,11 @@ describe('Serenity', () => {
 
         const serenity = new Serenity(new Clock());
 
-        const stage = serenity.callToStageFor(new Extras());
+        serenity.configure({
+            actors: new Extras(),
+        });
 
-        const Joe = stage.theActorCalled('Joe');
+        const Joe = serenity.theActorCalled('Joe');
 
         expect(prepareSpy).to.have.been.calledOnce;                      // tslint:disable-line:no-unused-expression
         expect(prepareSpy.getCall(0).args[0]).to.equal(Joe);
@@ -46,12 +48,12 @@ describe('Serenity', () => {
         const serenity = new Serenity(frozenClock);
         const listener = new Listener<ActivityStarts | ActivityFinished>();
 
-        serenity.setTheStage(listener);
+        serenity.configure({
+            actors: new Extras(),
+            crew: [ listener ],
+        });
 
-        const theStage  = serenity.callToStageFor(new Extras());
-        const Joe       = theStage.theActorCalled('Joe');
-
-        return Joe.attemptsTo(
+        return serenity.theActorCalled('Joe').attemptsTo(
             PerformSomeInteraction(),
         ).
         then(() => serenity.waitForNextCue()).
@@ -74,7 +76,7 @@ describe('Serenity', () => {
 
         const testRunnerName = new Name('mocha');
 
-        serenity.setTheStage(listener);
+        serenity.configure({ crew: [ listener ] });
 
         serenity.announce(new TestRunnerDetected(testRunnerName, serenity.currentTime()));
 
