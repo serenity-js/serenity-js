@@ -1,7 +1,7 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { ActivityRelatedArtifactGenerated } from '../../src/events';
+import { ActivityRelatedArtifactGenerated, ArtifactGenerated } from '../../src/events';
 import { JSONData, Name } from '../../src/model';
 import { Actor, Interaction } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
@@ -99,8 +99,10 @@ describe('Interaction', () => {
         ))
         .to.be.fulfilled
         .then(() => {
-            expect(stageManager.notifyOf.args[1][0].name).to.equal(expectedArtifactName);
-            expect(stageManager.notifyOf.args[1][0].artifact).to.equal(expectedArtifact);
+            const event = stageManager.notifyOf.args[1][0] as ArtifactGenerated;
+
+            expect(event.name).to.equal(expectedArtifactName);
+            expect(event.artifact).to.equal(expectedArtifact);
         });
     });
 });
