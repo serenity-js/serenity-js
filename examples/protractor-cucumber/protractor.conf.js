@@ -22,8 +22,8 @@ exports.config = {
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
-            // ConsoleReporter.forDarkTerminals(),
-            new StreamReporter(),
+            ConsoleReporter.forDarkTerminals(),
+            // new StreamReporter(),
         ]
     },
 
