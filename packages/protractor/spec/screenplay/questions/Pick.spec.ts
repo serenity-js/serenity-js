@@ -1,15 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Question } from '@serenity-js/core';
+import { actorCalled, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
 import { Click, CSSClasses, Navigate, Pick, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Pick', () => {
-
-    const Peter = stage(new UIActors()).actor('Peter');
 
     const shoppingListPage = pageFromTemplate(`
         <html>
@@ -54,31 +51,31 @@ describe('Pick', () => {
 
             const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Titles);
 
-            it('gets the number of items', () => Peter.attemptsTo(
+            it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(3)),
             ));
 
-            it('picks all the items', () => Peter.attemptsTo(
+            it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk')),
             ));
 
-            it('picks the first item', () => Peter.attemptsTo(
+            it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), equals('oats')),
             ));
 
-            it('picks the last item', () => Peter.attemptsTo(
+            it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), equals('coffee')),
             ));
 
-            it('picks the nth item', () => Peter.attemptsTo(
+            it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.get(1)), equals('coconut milk')),
@@ -133,31 +130,31 @@ describe('Pick', () => {
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
-            it('gets the number of items', () => Peter.attemptsTo(
+            it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(2)),
             ));
 
-            it('picks all the items', () => Peter.attemptsTo(
+            it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
-            it('picks the first item', () => Peter.attemptsTo(
+            it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), startsWith('oats')),
             ));
 
-            it('picks the last item', () => Peter.attemptsTo(
+            it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), startsWith('coconut milk')),
             ));
 
-            it('picks the nth item', () => Peter.attemptsTo(
+            it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.get(1)), startsWith('coconut milk')),
@@ -207,31 +204,31 @@ describe('Pick', () => {
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
-            it('gets the number of items', () => Peter.attemptsTo(
+            it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(1)),
             ));
 
-            it('picks all the items', () => Peter.attemptsTo(
+            it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
-            it('picks the first item', () => Peter.attemptsTo(
+            it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), startsWith('coconut milk')),
             ));
 
-            it('picks the last item', () => Peter.attemptsTo(
+            it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), startsWith('coconut milk')),
             ));
 
-            it('picks the nth item', () => Peter.attemptsTo(
+            it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.get(0)), startsWith('coconut milk')),
@@ -289,7 +286,7 @@ describe('Pick', () => {
 
         const LinkTo = (item: Question<ElementFinder> | ElementFinder) => Target.the('link to element').of(item).located(by.css('a'));
 
-        it('makes it easy for an actor to pick the element of interest', () => Peter.attemptsTo(
+        it('makes it easy for an actor to pick the element of interest', () => actorCalled('Peter').attemptsTo(
             Navigate.to(shoppingListPage),
 
             Click.on(LinkTo(ItemCalled('coffee'))),
@@ -297,7 +294,7 @@ describe('Pick', () => {
             Ensure.that(CSSClasses.of(ItemCalled('coffee')), contain('buy')),
         ));
 
-        it('makes it easy for an actor to pick all elements of interest', () => Peter.attemptsTo(
+        it('makes it easy for an actor to pick all elements of interest', () => actorCalled('Peter').attemptsTo(
             Navigate.to(shoppingListPage),
 
             Click.on(LinkTo(ItemCalled('coconut milk'))),

@@ -1,15 +1,13 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, Key } from 'protractor';
 
 import { Navigate, Press, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Press', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Form = {
         Text_Field:     Target.the('text field').located(by.name('text')),
@@ -31,7 +29,7 @@ describe('Press', () => {
 
         /** @test {Press} */
         /** @test {Press.the} */
-        it('allows the actor to enter keys individually into a field', () => Bernie.attemptsTo(
+        it('allows the actor to enter keys individually into a field', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(page),
 
             Press.the('a').in(Form.Text_Field),
@@ -46,7 +44,7 @@ describe('Press', () => {
 
         /** @test {Press} */
         /** @test {Press.the} */
-        it('allows the actor to use keyboard shortcuts', () => Bernie.attemptsTo(
+        it('allows the actor to use keyboard shortcuts', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(page),
 
             Press.the(Key.SHIFT, 'a').in(Form.Text_Field),

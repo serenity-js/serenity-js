@@ -1,22 +1,21 @@
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError } from '@serenity-js/core';
 import 'mocha';
+
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, Expectation, includes, isGreaterThan, isLessThan, not, or, startsWith } from '../../src';
 
 describe('not', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {not} */
     it('allows for the actor flow to continue when the "actual" meets the expectation', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(startsWith('¡Hola'))),
         )).to.be.fulfilled;
     });
 
     /** @test {not} */
     it('breaks the actor flow when "actual" does not meet the expectation', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(startsWith('Hello'))),
         )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to not start with 'Hello'`)
             .then((error: AssertionError) => {
@@ -34,7 +33,7 @@ describe('not', () => {
     it('flips the outcome of an assertion, but doesn\'t hide any errors that might have happened while making it', () => {
         const blowsUp = () => Expectation.thatActualShould('blow up', 'expected').soThat((actual, expected) => { throw new Error('boom'); });
 
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(blowsUp())),
         )).to.be.rejectedWith(Error, `boom`);
     });
@@ -54,7 +53,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {and} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))),
                 )).to.be.rejectedWith(AssertionError, `Expected 3 to not have value greater than 2 and have value that's less than 4`)
                     .then((error: AssertionError) => {
@@ -76,7 +75,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {contains} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(contain(2)),
                 ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`)
                     .then((error: AssertionError) => {
@@ -98,7 +97,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {containAtLeastOneItemThat} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2))),
                 ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`)
                     .then((error: AssertionError) => {
@@ -120,7 +119,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {endsWith} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(endsWith('o'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not end with 'o'`)
                     .then((error: AssertionError) => {
@@ -142,7 +141,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {equals} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(true, not(equals(true))),
                 )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`)
                     .then((error: AssertionError) => {
@@ -164,7 +163,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {includes} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(includes('Hello'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not include 'Hello'`)
                     .then((error: AssertionError) => {
@@ -186,7 +185,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {isGreaterThan} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(2, not(isGreaterThan(1))),
                 )).to.be.rejectedWith(AssertionError, `Expected 2 to not have value greater than 1`)
                     .then((error: AssertionError) => {
@@ -208,7 +207,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {isLessThan} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(1, not(isLessThan(2))),
                 )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value that's less than 2`)
                     .then((error: AssertionError) => {
@@ -230,7 +229,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {or} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(1, not(or(isGreaterThan(0), isLessThan(2)))),
                 )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value greater than 0 or have value that's less than 2`)
                     .then((error: AssertionError) => {
@@ -252,7 +251,7 @@ describe('not', () => {
             /** @test {not} */
             /** @test {startsWith} */
             it('produces a sensible error message', () => {
-                return expect(Astrid.attemptsTo(
+                return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(startsWith('H'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not start with 'H'`)
                     .then((error: AssertionError) => {

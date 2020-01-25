@@ -1,20 +1,18 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { DoubleClick, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('DoubleClick', () => {
 
     const Interactive_Element = Target.the('interactive element').located(by.id('double-click-me'));
 
-    const Bernie = stage(new UIActors()).actor('Bernie');
-
     /** @test {DoubleClick} */
     /** @test {DoubleClick.on} */
-    it('allows the actor to clear the value of a field', () => Bernie.attemptsTo(
+    it('allows the actor to clear the value of a field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>

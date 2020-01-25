@@ -91,14 +91,27 @@ export class Stage {
         return !! this.actorInTheSpotlight;
     }
 
+    /**
+     * @deprecated
+     * @param {DressingRoom} actors
+     * @return {Stage}
+     */
     callFor(actors: DressingRoom): Stage {
-        ensure('DressingRoom', actors, isDefined());
-
-        this.dressingRoom = actors;
-        this.actorsOnStage = {};
-        this.actorInTheSpotlight = null;
+        this.resetActors();
+        this.engage(actors);
 
         return this;
+    }
+
+    resetActors(): void {
+        this.actorsOnStage       = {};
+        this.actorInTheSpotlight = null;
+    }
+
+    engage(actors: DressingRoom) {
+        ensure('DressingRoom', actors, isDefined());
+
+        this.dressingRoom        = actors;
     }
 
     assign(...stageCrewMembers: StageCrewMember[]) {

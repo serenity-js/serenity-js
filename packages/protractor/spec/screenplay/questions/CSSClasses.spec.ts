@@ -1,15 +1,12 @@
-import { stage } from '@integration/testing-tools';
 import { contain, Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by } from 'protractor';
 
 import { CSSClasses, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('CSSClasses', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const testPage = pageFromTemplate(`
             <html>
@@ -39,7 +36,7 @@ describe('CSSClasses', () => {
             { description: 'several-classes-with-whitespace',       expected: ['pretty', 'css', 'classes']  },
         ]).
         it('allows the actor to read the css classes of a DOM element matching the locator', ({ description, expected }) =>
-            Bernie.attemptsTo(
+            actorCalled('Bernie').attemptsTo(
                 Navigate.to(testPage),
 
                 Ensure.that(
@@ -50,7 +47,7 @@ describe('CSSClasses', () => {
 
         /** @test {CSSClasses} */
         /** @test {CSSClasses#of} */
-        it('allows for a question relative to another target to be asked', () => Bernie.attemptsTo(
+        it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(testPage),
 
             Ensure.that(

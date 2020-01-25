@@ -21,7 +21,7 @@ describe('ProtractorReporter', () => {
         reporter            = new ProtractorReporter(protractorRunner);
         serenity            = new Serenity();
 
-        serenity.setTheStage(reporter);
+        serenity.configure({ crew: [ reporter ] });
     });
 
     const details = new ScenarioDetails(

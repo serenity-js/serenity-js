@@ -1,17 +1,14 @@
-import { stage } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 
 import { Navigate, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Website', () => {
 
-    const Bernie = stage(new UIActors()).actor('Bernie');
-
     describe('title', () => {
         /** @test {Attribute} */
-        it('allows the actor to read an attribute of a DOM element', () => Bernie.attemptsTo(
+        it('allows the actor to read an attribute of a DOM element', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                     <head>
@@ -27,7 +24,7 @@ describe('Website', () => {
     describe('url', () => {
 
         /** @test {Attribute} */
-        it('allows the actor to read an attribute of a DOM element', () => Bernie.attemptsTo(
+        it('allows the actor to read an attribute of a DOM element', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(`chrome://accessibility/`),
 
             Ensure.that(Website.url(), equals(`chrome://accessibility/`)),

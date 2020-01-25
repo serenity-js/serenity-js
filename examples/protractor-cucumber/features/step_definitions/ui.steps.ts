@@ -1,25 +1,28 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { WithStage } from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, engage } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { Navigate, UseAngular, Website } from '@serenity-js/protractor';
-import { After, Then, When } from 'cucumber';
+import { After, Before, Then, When } from 'cucumber';
+import { Actors } from '../support/screenplay';
 
-When(/^(.*) navigates to the test website$/, function(this: WithStage, actorName: string) {
-    return this.stage.actor(actorName).attemptsTo(
+Before(() => {
+    console.log('Cucumber :: sneario-level before')
+    engage(new Actors())
+});
+
+When(/^(.*) navigates to the test website$/, (actorName: string) =>
+    actorCalled(actorName).attemptsTo(
         StartLocalServer.onRandomPort(),
         UseAngular.disableSynchronisation(),
         Navigate.to(LocalServer.url()),
-    );
-});
+    ));
 
-Then(/(?:he|she|they) should see the title of "(.*)"/, function(this: WithStage, expectedTitle: string) {
-    return this.stage.theActorInTheSpotlight().attemptsTo(
+Then(/(?:he|she|they) should see the title of "(.*)"/, (expectedTitle: string) =>
+    actorInTheSpotlight().attemptsTo(
         Ensure.that(Website.title(), equals(expectedTitle)),
-    );
-});
+    ));
 
-After(function () {
-    return this.stage.theActorCalled('Umbra').attemptsTo(
+After(() =>
+    actorCalled('Umbra').attemptsTo(
         StopLocalServer.ifRunning(),
-    );
-});
+    ));

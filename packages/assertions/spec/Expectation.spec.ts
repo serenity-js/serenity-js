@@ -1,14 +1,13 @@
-import { expect, stage } from '@integration/testing-tools';
-import { Answerable, AssertionError } from '@serenity-js/core';
 import 'mocha';
+
+import { expect } from '@integration/testing-tools';
+import { actorCalled, Answerable, AssertionError } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Expectation} */
 describe('Expectation', () => {
-
-    const Astrid = stage().theActorCalled('Astrid');
 
     describe('allows to easily define an assertion, which', () => {
 
@@ -17,7 +16,7 @@ describe('Expectation', () => {
          * @test {Ensure.that}
          */
         it('allows the actor flow to continue when the assertion passes', () => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(4, isIdenticalTo(4)),
             )).to.be.fulfilled;
         });
@@ -27,7 +26,7 @@ describe('Expectation', () => {
          * @test {Ensure.that}
          */
         it('stops the actor flow when the assertion fails', () => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(4, isIdenticalTo('4' as any)),
             )).to.be.rejectedWith(AssertionError, "Expected 4 to have value identical to '4'");
         });
@@ -39,7 +38,7 @@ describe('Expectation', () => {
             q(p(42)),
         ).
         it('allows for the expected value to be defined as any Answerable<T>', (expected: Answerable<number>) => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(42, isIdenticalTo(expected)),
             )).to.be.fulfilled;
         });
@@ -64,7 +63,7 @@ describe('Expectation', () => {
 
         /** @test {Expectation.to} */
         it('provides a precise failure message when the expectation is not met', () => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(9, isWithin(7, 8)),
             )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
         });

@@ -1,13 +1,15 @@
-import { stage } from '@integration/testing-tools';
+import 'mocha';
+
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
+import { EventRecorder } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { HTTPRequestResponse } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
 
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import 'mocha';
-import sinon = require('sinon');
 import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';
 import { expect } from '../../expect';
@@ -66,17 +68,18 @@ describe('Send', () => {
      * @test {GetRequest.to}
      */
     it('emits the events so that the details of the HTTP interaction can be reported', () => {
-        const
-            frozenClock = new Clock(() => new Date('1970-01-01')),
+        const frozenClock = new Clock(() => new Date('1970-01-01'));
+        const axiosInstance = axios.create({
+            url: 'https://myapp.com/api',
+        });
+        const mock     = new MockAdapter(axiosInstance);
+        const serenity = new Serenity(frozenClock);
+        const recorder = new EventRecorder();
 
-            axiosInstance = axios.create({
-                url: 'https://myapp.com/api',
-            }),
-            mock        = new MockAdapter(axiosInstance),
-            theStage    = stage(new APIActors(axiosInstance), frozenClock),
-            actor       = theStage.theActorCalled('Apisitt');
-
-        sinon.spy(theStage, 'announce');
+        serenity.configure({
+            actors: new APIActors(axiosInstance),
+            crew: [ recorder ],
+        });
 
         mock.onGet('/products/2').reply(200, {
             id: 2,
@@ -84,10 +87,10 @@ describe('Send', () => {
             'Content-Type': 'application/json',
         });
 
-        return actor.attemptsTo(
+        return serenity.theActorCalled('Apisitt').attemptsTo(
             Send.a(GetRequest.to('/products/2')),
         ).then(() => {
-            const events = (theStage.announce as sinon.SinonSpy).getCalls().map(call => call.lastArg);
+            const events = recorder.events;
 
             expect(events).to.have.lengthOf(3);
             expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);
@@ -111,7 +114,9 @@ describe('Send', () => {
                     data: { id: 2 },
                 },
             }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
-            expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
+
+            expect(artifactGenerated.timestamp.equals(frozenClock.now()))
+                .to.equal(true, artifactGenerated.timestamp.toString());
         });
     });
 });

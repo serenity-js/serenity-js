@@ -1,4 +1,4 @@
-import { Interaction, WithStage } from '@serenity-js/core';
+import { Interaction, serenity } from '@serenity-js/core';
 
 const
     MakeAnArrow     = () => Interaction.where(`#actor makes an arrow`, actor => void 0),
@@ -8,29 +8,25 @@ const
     RetrieveArrow   = () => Interaction.where(`#actor retrieves the arrow from the target`, actor => void 0);
 
 export = function () {
-    this.Before(function (this: WithStage) {
-        return this.stage.theActorCalled('Lara').attemptsTo(
+    this.Before(() =>
+        serenity.theActorCalled('Lara').attemptsTo(
             MakeAnArrow(),
-        );
-    });
+        ));
 
-    this.When(/^(.*) shoots an arrow$/, function (this: WithStage, actorName: string) {
-        return this.stage.theActorCalled(actorName).attemptsTo(
+    this.When(/^(.*) shoots an arrow$/, (actorName: string) =>
+        serenity.theActorCalled(actorName).attemptsTo(
             Nock(),
             Draw(),
             Loose(),
-        );
-    });
+        ));
 
-    this.Then(/^she should hit a target$/, function (this: WithStage) {
-        return this.stage.theActorInTheSpotlight().attemptsTo(
+    this.Then(/^she should hit a target$/, () =>
+        serenity.theActorInTheSpotlight().attemptsTo(
             // some assertion
-        );
-    });
+        ));
 
-    this.After(function (this: WithStage) {
-        return this.stage.theActorCalled('Lara').attemptsTo(
+    this.After(() =>
+        serenity.theActorInTheSpotlight().attemptsTo(
             RetrieveArrow(),
-        );
-    });
+        ));
 };

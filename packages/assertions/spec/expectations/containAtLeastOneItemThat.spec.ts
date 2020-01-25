@@ -1,23 +1,21 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError, Question } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError, Question } from '@serenity-js/core';
 import { containAtLeastOneItemThat, Ensure, equals, isGreaterThan } from '../../src';
 
 describe('containAtLeastOneItemThat', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {containAtLeastOneItemThat} */
     it('allows for the actor flow to continue when the "actual" includes at least one item that meets the expectation', () => {
-        return Astrid.attemptsTo(
+        return actorCalled('Astrid').attemptsTo(
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(isGreaterThan(1))),
         );
     });
 
     /** @test {containAtLeastOneItemThat} */
     it('breaks the actor flow when "actual" does not include at least one item that meets the expectation', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(equals(7))),
         )).to.be.rejectedWith(AssertionError, `Expected [ 0, 1, 2 ] to contain at least one item that does equal 7`)
             .then((error: AssertionError) => {
@@ -28,7 +26,7 @@ describe('containAtLeastOneItemThat', () => {
 
     /** @test {containAtLeastOneItemThat} */
     it('breaks the actor flow when "actual" is an empty list', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([], containAtLeastOneItemThat(equals(42))),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain at least one item that does equal 42`)
             .then((error: AssertionError) => {

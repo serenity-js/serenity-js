@@ -1,19 +1,17 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Navigate', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     describe('to', () => {
 
         /** @test {Navigate.to} */
-        it('allows the actor to navigate to a desired destination', () => Bernie.attemptsTo(
+        it('allows the actor to navigate to a desired destination', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                     <body>
@@ -35,7 +33,7 @@ describe('Navigate', () => {
     describe('back', () => {
 
         /** @test {Navigate.back} */
-        it('allows the actor to navigate back in the browser history', () => Bernie.attemptsTo(
+        it('allows the actor to navigate back in the browser history', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(`chrome://version/`),
             Navigate.to(`chrome://accessibility/`),
 
@@ -54,7 +52,7 @@ describe('Navigate', () => {
     describe('forward', () => {
 
         /** @test {Navigate.forward} */
-        it('allows the actor to navigate forward in the browser history', () => Bernie.attemptsTo(
+        it('allows the actor to navigate forward in the browser history', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(`chrome://version/`),
             Navigate.to(`chrome://accessibility/`),
 
@@ -73,7 +71,7 @@ describe('Navigate', () => {
 
     describe('reloadPage', () => {
         /** @test {Navigate.to} */
-        it('allows the actor to navigate to a desired destination', () => Bernie.attemptsTo(
+        it('allows the actor to navigate to a desired destination', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
                     <body>

@@ -1,6 +1,6 @@
 import yargs = require('yargs');
 
-import { serenity } from '@serenity-js/core';
+import { engage } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { Actors } from './stage';
 
@@ -27,7 +27,6 @@ export type Interceptor = (error: Error, parsed: { [key: string]: string | numbe
  * @package
  */
 export function bootstrap(argv: string[], interceptor?: Interceptor) {
-
     yargs()
         .version(require('../../package.json').version)
         .demand(1)
@@ -39,7 +38,5 @@ export function bootstrap(argv: string[], interceptor?: Interceptor) {
         .epilog(`copyright (C) 2016-${ new Date().getFullYear() } ${ pkg.author.name } <${ pkg.author.email }>`)
         .commandDir('./commands')
         .alias('h', 'help').help()
-        .parse(argv, {
-            stage: serenity.callToStageFor(new Actors(new Path(process.cwd()))),
-        }, interceptor);
+        .parse(argv, { }, interceptor);
 }

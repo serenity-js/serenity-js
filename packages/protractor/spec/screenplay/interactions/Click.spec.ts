@@ -1,14 +1,12 @@
-import { expect, stage } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Attribute, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
 
 describe('Click', () => {
-
-    const Bernie = stage(new UIActors()).actor('Bernie');
 
     const Form = {
         Checkbox: Target.the('checkbox').located(by.id('no-spam-please')),
@@ -16,7 +14,7 @@ describe('Click', () => {
 
     /** @test {Click} */
     /** @test {Click.on} */
-    it('allows the actor to click on an element', () => Bernie.attemptsTo(
+    it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>

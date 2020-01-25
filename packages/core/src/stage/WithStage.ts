@@ -44,6 +44,8 @@ import { Stage } from './Stage';
  *     );
  *   })
  * });
+ *
+ * @deprecated Please use serenity.actor() and serenity.actorInTheSpotlight() instead
  */
 export interface WithStage {
     stage: Stage;

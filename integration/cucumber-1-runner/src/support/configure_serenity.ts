@@ -1,17 +1,16 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { serenity, StreamReporter, WithStage } from '@serenity-js/core';
+import { serenity, StreamReporter } from '@serenity-js/core';
 import { Actors } from './Actors';
 
 export = function () {
 
+    serenity.configure({
+        actors: new Actors(),
+        crew: [
+            new ChildProcessReporter(),
+            new StreamReporter(),
+        ],
+    });
+
     this.setDefaultTimeout(5000);
-
-    serenity.setTheStage(
-        new ChildProcessReporter(),
-        new StreamReporter(),
-    );
-
-    this.World = function (this: WithStage) {
-        this.stage = serenity.callToStageFor(new Actors());
-    };
 };

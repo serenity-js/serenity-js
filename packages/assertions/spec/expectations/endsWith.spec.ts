@@ -1,23 +1,21 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { endsWith, Ensure } from '../../src';
 
 describe('endsWith', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {endsWith} */
     it('allows for the actor flow to continue when the "actual" ends with "expected"', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', endsWith('World!')),
         )).to.be.fulfilled;
     });
 
     /** @test {endsWith} */
     it('breaks the actor flow when "actual" does not end with "expected"', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', endsWith('Mundo!')),
         )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`)
             .then((error: AssertionError) => {

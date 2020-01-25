@@ -48,9 +48,9 @@ import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForM
  * import { serenity } form '@serenity-js/core';
  * import { ConsoleReporter } form '@serenity-js/console-reporter';
  *
- * serenity.setTheStage(
- *     ConsoleReporter.withDefaultColourSupport(),
- * );
+ * serenity.configure({
+ *     crew: [ ConsoleReporter.withDefaultColourSupport() ],
+ * });
  *
  * @example <caption>Registering the reporter using Protractor configuration</caption>
  * // protractor.conf.js

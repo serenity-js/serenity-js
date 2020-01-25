@@ -1,9 +1,6 @@
-import { StageCrewMember } from '@serenity-js/core/lib/stage';
+import { SerenityConfig } from '@serenity-js/core';
 import { Config as ProtractorConfig } from 'protractor';
 
 export interface Config extends ProtractorConfig {
-    serenity: {
-        runner?: string;
-        crew?:   StageCrewMember[];
-    };
+    serenity: SerenityConfig & { runner?: string };
 }

@@ -1,23 +1,21 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { Ensure, isGreaterThan } from '../../src';
 
 describe('isGreaterThan', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {isGreaterThan} */
     it('allows for the actor flow to continue when the "actual" is greater than "expected"', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(5, isGreaterThan(4)),
         )).to.be.fulfilled;
     });
 
     /** @test {isGreaterThan} */
     it('breaks the actor flow when "actual" is not greater than "expected"', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(0, isGreaterThan(2)),
         )).to.be.rejectedWith(AssertionError, `Expected 0 to have value greater than 2`)
             .then((error: AssertionError) => {

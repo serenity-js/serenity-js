@@ -1,16 +1,14 @@
 import 'mocha';
 
-import { expect, stage } from '@integration/testing-tools';
-import { AssertionError } from '@serenity-js/core';
+import { expect } from '@integration/testing-tools';
+import { actorCalled, AssertionError } from '@serenity-js/core';
 import { and, endsWith, Ensure, startsWith } from '../../src';
 
 describe('and', () => {
 
-    const Astrid = stage().theActorCalled('Astrid');
-
     /** @test {and} */
     it('allows for the actor flow to continue when the "actual" meets all the expectations', () => {
-        return expect(Astrid.attemptsTo(
+        return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('World!'))),
         )).to.be.fulfilled;
     });
@@ -19,7 +17,7 @@ describe('and', () => {
 
         /** @test {and} */
         it('does not meet the first expectation', () => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('¡Hola'), endsWith('World!'))),
             )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola'`)
                 .then((error: AssertionError) => {
@@ -30,7 +28,7 @@ describe('and', () => {
 
         /** @test {and} */
         it('does not meet the second expectation', () => {
-            return expect(Astrid.attemptsTo(
+            return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('Mundo!'))),
             )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!`)
                 .then((error: AssertionError) => {

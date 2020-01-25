@@ -1,5 +1,5 @@
-import { EventRecorder, expect, PickEvent, stage } from '@integration/testing-tools';
-import { Actor, Stage } from '@serenity-js/core';
+import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { actorCalled, configure } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 
 import { Navigate, TakeScreenshot } from '../../../src';
@@ -8,17 +8,15 @@ import { UIActors } from '../../UIActors';
 
 describe('TakeScreenshot', () => {
 
-    let theStage: Stage,
-        Bernie: Actor,
-        recorder: EventRecorder;
+    let recorder: EventRecorder;
 
     beforeEach(() => {
         recorder = new EventRecorder();
 
-        theStage = stage(new UIActors());
-        theStage.assign(recorder);
-
-        Bernie = theStage.actor('Bernie');
+        configure({
+            actors: new UIActors(),
+            crew: [ recorder ],
+        });
     });
 
     const page = pageFromTemplate(`
@@ -33,7 +31,7 @@ describe('TakeScreenshot', () => {
 
     /** @test {TakeScreenshot} */
     /** @test {TakeScreenshot.of} */
-    it('allows the actor to take a screenshot with an arbitrary name', () => Bernie.attemptsTo(
+    it('allows the actor to take a screenshot with an arbitrary name', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(page),
         TakeScreenshot.of('the page'),
     ).then(() => {
