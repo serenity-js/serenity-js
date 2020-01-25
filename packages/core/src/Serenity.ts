@@ -120,7 +120,11 @@ function deprecated(method: string, message: string) {
     const callers = new ErrorStackParser().parse(new Error())
         .filter(frame => ! /(node_modules)/.test(frame.fileName));
 
-    console.warn(`[${ callers[2].fileName }:${ callers[2].lineNumber }]`, `${ method } has been deprecated. ${ message }`);   // tslint:disable-line:no-console
+    const location = !! callers[2]
+        ? `[${ callers[2].fileName }:${ callers[2].lineNumber }] `
+        : '';
+
+    console.warn(`${ location }${ method } has been deprecated. ${ message }`);   // tslint:disable-line:no-console
 }
 
 /**
