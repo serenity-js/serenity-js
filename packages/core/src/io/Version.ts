@@ -3,7 +3,7 @@ import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
 
 export class Version extends TinyType {
 
-    fromJSON(version: string) {
+    static fromJSON(version: string) {
         return new Version(version);
     }
 
