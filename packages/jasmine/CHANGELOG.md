@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.113](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.112...v2.0.1-alpha.113) (2020-01-26)
+
+
+### Bug Fixes
+
+* **jasmine:** report scenarios with compromised interactions as compromised instead of broken ([f828f1f](https://github.com/jan-molak/serenity-js/commit/f828f1f08e333aba5c262580d7be10817217a374))
+
+
+
+
+
 ## [2.0.1-alpha.112](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.111...v2.0.1-alpha.112) (2020-01-25)
 
 **Note:** Version bump only for package @serenity-js/jasmine
