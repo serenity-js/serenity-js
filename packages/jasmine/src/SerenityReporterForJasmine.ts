@@ -1,4 +1,4 @@
-import { AssertionError, ImplementationPendingError, Serenity } from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -16,7 +16,7 @@ import { ErrorSerialiser, FileSystemLocation } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     Category,
-    CorrelationId,
+    CorrelationId, ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
@@ -196,6 +196,10 @@ export class SerenityReporterForJasmine {
             // sadly, Jasmine error propagation mechanism is rather basic
             // and unable to serialise the expected/actual properties of the AssertionError object
             return new ExecutionFailedWithAssertionError(error);
+        }
+
+        if (error instanceof TestCompromisedError) {
+            return new ExecutionCompromised(error);
         }
 
         if (!! failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
