@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.112](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.111...v2.0.1-alpha.112) (2020-01-25)
+
+
+### Bug Fixes
+
+* **core:** corrected the file location provided with the deprecation message ([170956d](https://github.com/jan-molak/serenity-js/commit/170956d90e24d87a7cb866c39173c386e2baed3d))
+
+
+
+
+
 ## [2.0.1-alpha.111](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.110...v2.0.1-alpha.111) (2020-01-25)
 
 **Note:** Version bump only for package serenity-js-monorepo
