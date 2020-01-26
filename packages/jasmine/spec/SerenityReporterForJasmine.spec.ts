@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember } from '@serenity-js/core';
+import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -15,7 +15,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
 import {
-    CorrelationId, ExecutionFailedWithAssertionError,
+    CorrelationId, ExecutionCompromised, ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
@@ -492,6 +492,35 @@ describe('SerenityReporterForJasmine', () => {
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                             expect(outcome.error).to.be.instanceOf(Error);
                             expect(outcome.error.message).to.equal('Something happened');
+                        });
+                });
+
+                it('as compromised', async () => {
+                    await reporter.specDone({
+                        id: 'spec0',
+                        description: 'scenario',
+                        fullName: 'scenario',
+                        failedExpectations:
+                            [ { matcherName: '',
+                                message: 'TestCompromisedError: The API call has failed',
+                                stack: 'error properties: TestCompromisedError: undefined\n    at <Jasmine>\n',
+                                passed: false,
+                                expected: '',
+                                actual: '' } ],
+                        passedExpectations: [],
+                        deprecationWarnings: [],
+                        pendingReason: '',
+                        duration: null,
+                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        status: 'failed',
+                    });
+
+                    PickEvent.from(listener.events)
+                        .next(SceneFinished,    event => {
+                            const outcome = event.outcome as ExecutionCompromised;
+                            expect(outcome).to.be.instanceOf(ExecutionCompromised);
+                            expect(outcome.error).to.be.instanceOf(TestCompromisedError);
+                            expect(outcome.error.message).to.equal('The API call has failed');
                         });
                 });
 
