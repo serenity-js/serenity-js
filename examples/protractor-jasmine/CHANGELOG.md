@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.114](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.113...v2.0.1-alpha.114) (2020-01-27)
+
+**Note:** Version bump only for package @serenity-js-examples/protractor-jasmine
+
+
+
+
+
 ## [2.0.1-alpha.113](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.112...v2.0.1-alpha.113) (2020-01-26)
 
 **Note:** Version bump only for package @serenity-js-examples/protractor-jasmine
