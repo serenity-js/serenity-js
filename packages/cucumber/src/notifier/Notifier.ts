@@ -12,6 +12,7 @@ import {
     TaskFinished,
     TaskStarts,
     TestRunFinished,
+    TestRunFinishes,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
 import { ActivityDetails, CapabilityTag, Category, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
@@ -93,6 +94,12 @@ export class Notifier {
                 outcome,
                 this.serenity.currentTime(),
             ),
+        );
+    }
+
+    testRunFinishes() {
+        this.emit(
+            new TestRunFinishes(this.serenity.currentTime()),
         );
     }
 

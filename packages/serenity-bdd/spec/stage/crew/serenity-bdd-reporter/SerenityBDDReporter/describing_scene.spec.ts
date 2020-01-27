@@ -1,8 +1,9 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
-import 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src';
@@ -29,14 +30,14 @@ describe('SerenityBDDReporter', () => {
      * @test {SceneBackgroundDetected}
      * @test {SceneFinished}
      * @test {ExecutionSuccessful}
-     * @test {TestRunFinished}
+     * @test {TestRunFinishes}
      */
     it('captures information about scenario background', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(defaultCardScenario),
                 new SceneBackgroundDetected(new Name('Background title'), new Description('Background description')),
             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-            new TestRunFinished(),
+            new TestRunFinishes(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -51,14 +52,14 @@ describe('SerenityBDDReporter', () => {
      * @test {SceneDescriptionDetected}
      * @test {SceneFinished}
      * @test {ExecutionSuccessful}
-     * @test {TestRunFinished}
+     * @test {TestRunFinishes}
      */
     it('captures the description of the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(defaultCardScenario),
             new SceneDescriptionDetected(new Description('Scenario description')),
             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-            new TestRunFinished(),
+            new TestRunFinishes(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -72,14 +73,14 @@ describe('SerenityBDDReporter', () => {
      * @test {FeatureNarrativeDetected}
      * @test {SceneFinished}
      * @test {ExecutionSuccessful}
-     * @test {TestRunFinished}
+     * @test {TestRunFinishes}
      */
     it('captures the narrative behind the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(defaultCardScenario),
             new FeatureNarrativeDetected(new Description('Feature narrative')),
             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-            new TestRunFinished(),
+            new TestRunFinishes(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);

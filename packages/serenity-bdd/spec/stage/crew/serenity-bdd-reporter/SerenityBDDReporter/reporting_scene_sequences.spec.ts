@@ -1,9 +1,10 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinished } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, Description, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
-import 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -59,7 +60,7 @@ describe('SerenityBDDReporter', () => {
      * @test {SceneStarts}
      * @test {SceneFinished}
      * @test {ExecutionSuccessful}
-     * @test {TestRunFinished}
+     * @test {TestRunFinishes}
      */
     it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {
         given(reporter).isNotifiedOfFollowingEvents(
@@ -87,7 +88,7 @@ describe('SerenityBDDReporter', () => {
                 ),
                 new SceneStarts(scenario2),
                 new SceneFinished(scenario2, new ExecutionSuccessful()),
-            new TestRunFinished(),
+            new TestRunFinishes(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -130,7 +131,7 @@ describe('SerenityBDDReporter', () => {
      * @test {SceneFinished}
      * @test {ExecutionFailedWithError}
      * @test {ExecutionSuccessful}
-     * @test {TestRunFinished}
+     * @test {TestRunFinishes}
      */
     it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
@@ -159,7 +160,7 @@ describe('SerenityBDDReporter', () => {
                 ),
                 new SceneStarts(scenario2),
                 new SceneFinished(scenario2, new ExecutionSuccessful()),
-            new TestRunFinished(),
+            new TestRunFinishes(),
         );
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
