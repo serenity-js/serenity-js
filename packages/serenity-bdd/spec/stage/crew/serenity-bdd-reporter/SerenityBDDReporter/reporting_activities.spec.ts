@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import {
@@ -9,11 +11,10 @@ import {
     SceneStarts,
     TaskFinished,
     TaskStarts,
-    TestRunFinished,
+    TestRunFinishes,
 } from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/lib/model';
-import 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -43,7 +44,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('reports the outcome of a single activity', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
@@ -53,7 +54,7 @@ describe('SerenityBDDReporter', () => {
                     new TaskStarts(pickACard),
                     new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -70,7 +71,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('reports the outcome of a sequence of several activities', () => {
             const pickACard   = new ActivityDetails(new Name('Pick the default credit card'));
@@ -83,7 +84,7 @@ describe('SerenityBDDReporter', () => {
                     new TaskStarts(makePayment),
                     new TaskFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -102,7 +103,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('reports the outcome of nested activities', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
@@ -115,7 +116,7 @@ describe('SerenityBDDReporter', () => {
                         new TaskFinished(viewListOfCards, new ExecutionSuccessful()),
                     new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -137,7 +138,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('records the events in a correct order', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
@@ -151,7 +152,7 @@ describe('SerenityBDDReporter', () => {
                         new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
                         new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -170,7 +171,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
             const
@@ -189,7 +190,7 @@ describe('SerenityBDDReporter', () => {
                         new ArtifactGenerated(new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
                     new TaskFinished(makePayment, new ExecutionSuccessful()),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -219,7 +220,7 @@ describe('SerenityBDDReporter', () => {
          * @test {TaskFinished}
          * @test {ExecutionSuccessful}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('records the arbitrary JSON data emitted during the interaction', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
@@ -233,7 +234,7 @@ describe('SerenityBDDReporter', () => {
                 new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
                 new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);

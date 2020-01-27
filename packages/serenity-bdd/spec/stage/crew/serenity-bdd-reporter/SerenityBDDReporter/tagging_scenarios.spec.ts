@@ -1,8 +1,9 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
-import 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -41,13 +42,13 @@ describe('SerenityBDDReporter', () => {
                  * @test {SerenityBDDReporter}
                  * @test {SceneStarts}
                  * @test {SceneFinished}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  */
                 it('is marked map automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -60,7 +61,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {ManualTag}
                  */
@@ -68,7 +69,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ManualTag()),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -88,7 +89,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {IssueTag}
                  */
@@ -97,7 +98,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new IssueTag('ABC-1234')),
                         new SceneTagged(defaultCardScenario, new IssueTag('DEF-5678')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -124,7 +125,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {ArbitraryTag}
                  */
@@ -132,7 +133,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ArbitraryTag('regression')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -151,7 +152,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {FeatureTag}
                  */
@@ -159,7 +160,7 @@ describe('SerenityBDDReporter', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -180,7 +181,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {FeatureTag}
                  * @test {CapabilityTag}
@@ -190,7 +191,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -214,7 +215,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {SceneStarts}
                  * @test {SceneFinished}
                  * @test {SceneTagged}
-                 * @test {TestRunFinished}
+                 * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  * @test {FeatureTag}
                  * @test {CapabilityTag}
@@ -226,7 +227,7 @@ describe('SerenityBDDReporter', () => {
                         new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
                         new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                        new TestRunFinished(),
+                        new TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -255,7 +256,7 @@ describe('SerenityBDDReporter', () => {
                      * @test {SceneStarts}
                      * @test {SceneFinished}
                      * @test {SceneTagged}
-                     * @test {TestRunFinished}
+                     * @test {TestRunFinishes}
                      * @test {ExecutionSuccessful}
                      * @test {BrowserTag}
                      */
@@ -263,7 +264,7 @@ describe('SerenityBDDReporter', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(defaultCardScenario, new BrowserTag('chrome')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                            new TestRunFinished(),
+                            new TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -281,7 +282,7 @@ describe('SerenityBDDReporter', () => {
                      * @test {SceneStarts}
                      * @test {SceneFinished}
                      * @test {SceneTagged}
-                     * @test {TestRunFinished}
+                     * @test {TestRunFinishes}
                      * @test {ExecutionSuccessful}
                      * @test {ContextTag}
                      */
@@ -289,7 +290,7 @@ describe('SerenityBDDReporter', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                            new TestRunFinished(),
+                            new TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -307,7 +308,7 @@ describe('SerenityBDDReporter', () => {
                      * @test {SceneStarts}
                      * @test {SceneFinished}
                      * @test {SceneTagged}
-                     * @test {TestRunFinished}
+                     * @test {TestRunFinishes}
                      * @test {ExecutionSuccessful}
                      * @test {BrowserTag}
                      * @test {ContextTag}
@@ -317,7 +318,7 @@ describe('SerenityBDDReporter', () => {
                             new SceneTagged(defaultCardScenario, new BrowserTag('safari')),
                             new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                            new TestRunFinished(),
+                            new TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);

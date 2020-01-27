@@ -88,6 +88,8 @@ export = function ({ serenity, notifier, loader, cache }: Dependencies) {
         });
 
         this.registerHandler('AfterFeatures', (features, callback) => {
+            notifier.testRunFinishes();
+
             serenity.waitForNextCue()
                 .then(() => notifier.testRunFinished())
                 .then(() => callback(), error => callback(error));

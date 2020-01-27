@@ -1,6 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } from '@serenity-js/core';
-import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinished, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     Category,
@@ -68,7 +68,7 @@ describe('SerenityBDDReporter', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             expect(stageManager.notifyOf.callCount).to.equal(1);
@@ -81,7 +81,7 @@ describe('SerenityBDDReporter', () => {
          * @test {SceneStarts}
          * @test {SceneFinished}
          * @test {ExecutionSuccessful}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          */
         it('is a valid artifact', () => {
             expect(artifact).to.be.instanceOf(TestReport);
@@ -94,7 +94,7 @@ describe('SerenityBDDReporter', () => {
          * @test {SerenityBDDReporter}
          * @test {SceneStarts}
          * @test {SceneFinished}
-         * @test {TestRunFinished}
+         * @test {TestRunFinishes}
          * @test {ExecutionSuccessful}
          * @test {ExecutionIgnored}
          */
@@ -104,7 +104,7 @@ describe('SerenityBDDReporter', () => {
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new SceneStarts(voucherScenario),
                 new SceneFinished(voucherScenario, new ExecutionIgnored()),
-                new TestRunFinished(),
+                new TestRunFinishes(),
             );
 
             expect(stageManager.notifyOf.callCount).to.equal(2);
@@ -129,7 +129,7 @@ describe('SerenityBDDReporter', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneStarts(defaultCardScenario, startTime),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -139,7 +139,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('contains the id of the scenario', () => {
@@ -150,7 +150,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('contains the name of the scenario', () => {
@@ -162,7 +162,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('contains the start time of the scenario', () => {
@@ -173,7 +173,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('contains the duration of the scenario', () => {
@@ -193,14 +193,14 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('has finished with success', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -212,14 +212,14 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ImplementationPending}
              */
             it('hasn\'t been implemented yet', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -231,14 +231,14 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionIgnored}
              */
             it('has been ignored', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionIgnored()),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -250,14 +250,14 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSkipped}
              */
             it('has been skipped', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionSkipped()),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -269,7 +269,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionFailedWithAssertionError}
              */
             it('has failed with an assertion error', () => {
@@ -278,7 +278,7 @@ describe('SerenityBDDReporter', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -293,7 +293,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {TestCompromisedError}
              * @test {ExecutionCompromised}
              */
@@ -304,7 +304,7 @@ describe('SerenityBDDReporter', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionCompromised(assertionError)),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -319,7 +319,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionFailedWithError}
              */
             it('has failed with a non-assertion error', () => {
@@ -334,7 +334,7 @@ describe('SerenityBDDReporter', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionFailedWithError(error)),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -361,7 +361,7 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionCompromised}
              */
             it('has been compromised', () => {
@@ -381,7 +381,7 @@ describe('SerenityBDDReporter', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionCompromised(error)),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -427,14 +427,14 @@ describe('SerenityBDDReporter', () => {
              * @test {TestRunnerDetected}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('specifies the test runner', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new TestRunnerDetected(new Name('Cucumber')),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
@@ -446,13 +446,13 @@ describe('SerenityBDDReporter', () => {
              * @test {SerenityBDDReporter}
              * @test {SceneStarts}
              * @test {SceneFinished}
-             * @test {TestRunFinished}
+             * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */
             it('specifies the user story covered', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
-                    new TestRunFinished(),
+                    new TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);

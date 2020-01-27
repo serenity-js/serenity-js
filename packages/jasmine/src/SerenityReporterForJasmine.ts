@@ -8,6 +8,7 @@ import {
     TaskFinished,
     TaskStarts,
     TestRunFinished,
+    TestRunFinishes,
     TestRunnerDetected,
     TestSuiteFinished,
     TestSuiteStarts,
@@ -16,7 +17,8 @@ import { ErrorSerialiser, FileSystemLocation } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     Category,
-    CorrelationId, ExecutionCompromised,
+    CorrelationId,
+    ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
@@ -104,6 +106,8 @@ export class SerenityReporterForJasmine {
      * @param {JasmineDoneInfo} suiteInfo
      */
     jasmineDone(suiteInfo: JasmineDoneInfo) {
+        this.emit(new TestRunFinishes(this.serenity.currentTime()));
+
         return this.serenity.waitForNextCue()
             .then(() => {
                 this.emit(new TestRunFinished(this.serenity.currentTime()));

@@ -1,5 +1,5 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { Name, ScenarioDetails, TestReport } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
@@ -35,7 +35,7 @@ export class SerenityBDDReporter implements StageCrewMember {
 
             this.reports.save(this.currentStrategy.value.handle(e, this.reports.for(this.currentScenario.value)));
         })
-        .when(TestRunFinished, _ => {
+        .when(TestRunFinishes, _ => {
             this.reports.map(report => this.broadcast(report.toJSON()));
         })
         .else(e => {
