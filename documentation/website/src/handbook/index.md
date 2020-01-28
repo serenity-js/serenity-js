@@ -4,7 +4,7 @@ layout: handbook.hbs
 ---
 # The Serenity/JS Handbook
 
-Serenity/JS is a next-generation acceptance testing framework that can change the way you and your team think about and design your automated acceptance tests. With Serenity/JS, you can say goodbye to unmaintainable [test script spaghetti](/handbook/tutorials/) and create high-quality, user-centred test scenarios using a scalable test DSL designed specifically for *your domain* and *your business*.
+Serenity/JS is a next-generation acceptance testing framework that can change the way you and your team think about and design your automated acceptance tests. With Serenity/JS, you can say goodbye to unmaintainable [test script spaghetti](/handbook/thinking-in-serenity-js/) and create high-quality, user-centred test scenarios using a scalable test DSL designed specifically for *your domain* and *your business*.
 
 The [extensible and modular design](/modules/) of Serenity/JS enables you to create various types of automated acceptance tests interacting with any interface of your system. Out of the box, Serenity/JS provides strong support for both [Web](/modules/protractor) and [HTTP/REST API](/modules/rest) testing, management of [popular Node.js HTTP servers](/modules/local-server/), as well as integration with popular test and collaboration tools, such as [Cucumber.js](/modules/cucumber), [Jasmine](/modules/protractor) or [Protractor](/modules/protractor).
 

@@ -1,8 +1,8 @@
 ---
-title: Tasks
+title: Full-stack acceptance testing
 layout: handbook.hbs
 ---
-# Tasks
+# Full-stack acceptance testing
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>
