@@ -301,19 +301,20 @@ blockquote{
   border: 1px solid #bdbadf;
   border-radius: 5px;
   background-color: #F8F8F8;
-  padding: 1em 1em 1em 0;
+  padding: 1em 1em 0 0;
   margin: 2em 0;
 
   .icon {
     display: table-cell;
     vertical-align: middle;
     padding: 0 1em;
-  }
 
-  i.fas {
-    float:left;
-    display:block;
-    text-align:center;
+    i {
+      float:left;
+      display:block;
+      text-align:center;
+      margin-top:-0.5em;
+    }
   }
 
   .text {

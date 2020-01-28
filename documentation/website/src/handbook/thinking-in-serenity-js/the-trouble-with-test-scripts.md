@@ -18,7 +18,7 @@ As a forgetful person
 I want to be able to filter my todos to see active items only
 ```
 
-<img src="/handbook/tutorials/images/todomvc.gif"
+<img src="/handbook/thinking-in-serenity-js/images/todomvc.gif"
 alt="TodoMVC Angular.js app by Christoph Burgdorf, Eric Bidelman, Jacob Mumm and Igor Minar"
 style="display: block; margin:0 auto; width:640px;" />
 
@@ -334,7 +334,7 @@ code re-usability: you can't call a Cucumber step from within another step, for 
 
 ## Summary
 
-As you can see, even though Protractor, WebDriver and other similar tools are excellent at automating low-level interactions with the system under test, their APIs are simply too low-level to express the business intent behind those interactions. Also, using tools like that directly in our tests leads to an implementation that's full of noise, distractions and accidental detail.
+As you can see, even though Protractor, WebDriver and other similar tools are excellent at automating low-level interactions with the system under test, their APIs are simply too low-level to express the business intent behind those interactions. Also, using tools like that directly in our tests leads to an implementation that's full of noise, distractions, and accidental detail.
 
 The Page Object(s) Pattern addresses some of the problems but falls short if what you want is a test automation system that's easy to extend, maintain and scale to multiple projects and teams.
 
@@ -342,4 +342,4 @@ While adding Cucumber into the mix could help to capture the business language a
 
 To find out what that is, we might need to change the way we think about our tests.
 
-We need to start [thinking in Serenity/JS](/handbook/tutorials/thinking-in-serenity-js.html).
+We need to start [thinking in Serenity/JS](/handbook/thinking-in-serenity-js/screenplay-by-example.html).
