@@ -1,6 +1,7 @@
 import 'mocha';
 
 import * as sinon from 'sinon';
+import { ConfigurationError } from '../../src/errors';
 
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { ActivityDetails, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
@@ -104,7 +105,7 @@ describe('Actor', () => {
 
         expect(actor('Ben').attemptsTo(
             PlayAChord.of(Chords.AMajor),
-        )).to.be.eventually.rejectedWith(`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
+        )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
     /** @test {Actor} */
     it('can be instantiated without explicitly specifying the Stage', () => {
