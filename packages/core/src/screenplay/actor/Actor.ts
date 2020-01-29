@@ -1,5 +1,5 @@
 import { ActivityRelatedArtifactGenerated } from '../../events';
-import { Ability, AbilityType, Answerable, DressingRoom, serenity, TestCompromisedError } from '../../index';
+import { Ability, AbilityType, Answerable, ConfigurationError, DressingRoom, serenity, TestCompromisedError } from '../../index';
 import { Artifact, Name } from '../../model';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
@@ -41,7 +41,7 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
 
     abilityTo<T extends Ability>(doSomething: AbilityType<T>): T {
         if (! this.can(doSomething)) {
-            throw new TestCompromisedError(`${ this.name } can't ${ doSomething.name } yet. ` +
+            throw new ConfigurationError(`${ this.name } can't ${ doSomething.name } yet. ` +
                 `Did you give them the ability to do so?`);
         }
 
