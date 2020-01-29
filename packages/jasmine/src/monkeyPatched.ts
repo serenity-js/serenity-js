@@ -10,9 +10,18 @@ const parser = new ErrorStackParser();
  *  This helps to make reporting more accurate.
  *
  * @param jasmineConstructor - A Jasmine constructor function to be patched
+ * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
  */
-export function monkeyPatched(jasmineConstructor: any) {
+export function monkeyPatched(
+    jasmineConstructor: any,
+    wrappers: {[key: string]: (original: (attrs: object) => any) => (attrs: object) => any} = {},
+) {
     const result = function MonkeyPatched(attrs: object) {
+
+        Object.keys(wrappers).forEach(key => {
+            attrs[key] = wrappers[key](attrs[key]);
+        });
+
         const instance = new jasmineConstructor(attrs);
         instance.result.location = callerLocation();
 
