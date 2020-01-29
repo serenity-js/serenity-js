@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.116](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.115...v2.0.1-alpha.116) (2020-01-29)
+
+
+### Bug Fixes
+
+* **core:** actor throws ConfigurationError when it's not given the abilities needed to run the test ([d99ac88](https://github.com/jan-molak/serenity-js/commit/d99ac88b2024b70e1d0d16420613a0b941fc1a99))
+
+
+
+
+
 ## [2.0.1-alpha.115](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.114...v2.0.1-alpha.115) (2020-01-27)
 
 **Note:** Version bump only for package @serenity-js/core
