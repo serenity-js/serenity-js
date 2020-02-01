@@ -19,7 +19,10 @@ import { Ability, Actor } from '../screenplay';
  *  const stage = serenity.callToStageFor(new UIActors());
  *
  * @see {@link Stage}
+ * @see {@link Cast}
  * @interface
+ *
+ * @deprecated Please use the Cast instead
  */
 export abstract class DressingRoom {
     /**

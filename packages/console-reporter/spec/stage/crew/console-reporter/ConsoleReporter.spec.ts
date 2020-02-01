@@ -1,8 +1,9 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
-import { Actor, Clock, DressingRoom, Duration, Stage, StageManager } from '@serenity-js/core';
+import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
 import * as events from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import 'mocha';
 import { ConsoleReporter } from '../../../../src';
 import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
 import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
@@ -382,7 +383,7 @@ class FakeWritableStream implements Partial<NodeJS.WritableStream> {
     }
 }
 
-class Extras implements DressingRoom {
+class Extras implements Cast {
     prepare(actor: Actor): Actor {
         return actor;
     }

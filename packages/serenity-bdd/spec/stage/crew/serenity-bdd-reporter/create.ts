@@ -1,9 +1,9 @@
-import { Actor, DressingRoom, Stage, StageManager } from '@serenity-js/core';
+import { Actor, Cast, Stage, StageManager } from '@serenity-js/core';
 import * as sinon from 'sinon';
 import { SerenityBDDReporter } from '../../../../src';
 
 export function create() {
-    class Extras implements DressingRoom {
+    class Extras implements Cast {
         prepare(actor: Actor): Actor {
             return actor;
         }

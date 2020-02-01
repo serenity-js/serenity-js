@@ -4,12 +4,12 @@ import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
 import { Actor, Interaction } from '../../src/screenplay';
-import { DressingRoom, Stage, StageManager } from '../../src/stage';
+import { Cast, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Stage', () => {
 
-    class Extras implements DressingRoom {
+    class Extras implements Cast {
         prepare(actor: Actor): Actor {
             return actor;
         }
@@ -147,10 +147,10 @@ describe('Stage', () => {
 
     describe('when an error occurs', () => {
 
-        it('complains when instantiated with no DressingRoom', () => {
+        it('complains when instantiated with no Cast', () => {
             expect(() => {
                 const stage = new Stage(null, stageManager as unknown as StageManager);
-            }).to.throw(Error, 'DressingRoom should be defined');
+            }).to.throw(Error, 'Cast should be defined');
         });
 
         it('complains when instantiated with no StageManager', () => {
@@ -160,22 +160,22 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the DressingRoom does not provide a way to instantiate a given actor', () => {
+        it('complains if the Cast does not provide a way to instantiate a given actor', () => {
             const
                 name   = 'Alice',
-                actors: DressingRoom = {
+                actors: Cast = {
                     prepare: (actor: Actor) => undefined,
                 },
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             expect(() => {
                 stage.actor(name);
-            }).to.throw(ConfigurationError, `Instead of a new instance of actor "${ name }", DressingRoom returned undefined`);
+            }).to.throw(ConfigurationError, `Instead of a new instance of actor "${ name }", Cast returned undefined`);
         });
 
         /** @test {Stage#actor} */
-        it('complains if the DressingRoom does not provide a way to prepare a given actor and mentions the type of the DressingRoom, when available', () => {
-            class AwesomeActors implements DressingRoom {
+        it('complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available', () => {
+            class AwesomeActors implements Cast {
                 prepare(actor: Actor): Actor {
                     return undefined;
                 }
@@ -192,22 +192,22 @@ describe('Stage', () => {
         });
 
         /** @test {Stage#actor} */
-        it('complains if the DressingRoom throws an error during actor instantiation', () => {
+        it('complains if the Cast throws an error during actor instantiation', () => {
             const
                 name   = 'Alice',
-                actors: DressingRoom = {
+                actors: Cast = {
                     prepare: (actor: Actor) => { throw new Error(`I'm not working today`); },
                 },
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
             expect(() => {
                 stage.actor(name);
-            }).to.throw(ConfigurationError, `DressingRoom encountered a problem when preparing actor "${ name }" for stage`);
+            }).to.throw(ConfigurationError, `Cast encountered a problem when preparing actor "${ name }" for stage`);
         });
 
         /** @test {Stage#actor} */
-        it('complains if the DressingRoom throws an error during actor instantiation and mentions the type of the DressingRoom, when available', () => {
-            class MoodyActors implements DressingRoom {
+        it('complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available', () => {
+            class MoodyActors implements Cast {
                 prepare(actor: Actor): Actor {
                     throw new Error(`I'm not working today`);
                 }

@@ -1,14 +1,14 @@
 import 'mocha';
 
-import { certificates, expect, stage } from '@integration/testing-tools';
+import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, actorInTheSpotlight, configure, DressingRoom, LogicError } from '@serenity-js/core';
+import { Actor, actorCalled, actorInTheSpotlight, Cast, configure, LogicError } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
+
 import axios from 'axios';
 import * as https from 'https';
 import { given } from 'mocha-testdata';
 import { satisfies } from 'semver'; // tslint:disable-line:no-implicit-dependencies
-
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 import servers = require('./servers');
 
@@ -23,7 +23,7 @@ describe('ManageALocalServer', () => {
                 return this.skip();
             }
 
-            class Actors implements DressingRoom {
+            class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
                         ManageALocalServer.runningAHttpListener(handler()),
@@ -51,7 +51,7 @@ describe('ManageALocalServer', () => {
                 return this.skip();
             }
 
-            class Actors implements DressingRoom {
+            class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
                         ManageALocalServer.runningAHttpListener(handler()),
@@ -91,7 +91,7 @@ describe('ManageALocalServer', () => {
                 return this.skip();
             }
 
-            class Actors implements DressingRoom {
+            class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(handler(), {
@@ -126,7 +126,7 @@ describe('ManageALocalServer', () => {
                 return this.skip();
             }
 
-            class Actors implements DressingRoom {
+            class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(hapi.handler({
@@ -163,7 +163,7 @@ describe('ManageALocalServer', () => {
                 return this.skip();
             }
 
-            class Actors implements DressingRoom {
+            class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(restify.handler({

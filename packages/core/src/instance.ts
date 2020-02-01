@@ -1,7 +1,7 @@
 import { Actor } from './screenplay/actor';
 import { Serenity } from './Serenity';
 import { SerenityConfig } from './SerenityConfig';
-import { Clock, DressingRoom } from './stage';
+import { Cast, Clock } from './stage';
 
 const clock = new Clock();
 
@@ -18,7 +18,7 @@ export function configure(config: SerenityConfig) {
     return serenity.configure(config);
 }
 
-export function engage(actors: DressingRoom) {
+export function engage(actors: Cast) {
     return serenity.engage(actors);
 }
 

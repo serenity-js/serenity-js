@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, configure, DressingRoom } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } fr
 
 describe('@serenity-js/local-server', () => {
 
-    class Actors implements DressingRoom {
+    class Actors implements Cast {
         prepare(actor: Actor): Actor {
             return actor.whoCan(
                 ManageALocalServer.runningAHttpListener(function (request, response) {
