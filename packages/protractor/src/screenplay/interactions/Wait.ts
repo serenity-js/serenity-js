@@ -32,10 +32,28 @@ class WaitFor extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.duration).then(duration => BrowseTheWeb.as(actor).sleep(duration.inMilliseconds()));
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return formatted`#actor waits for ${ this.duration }`;
     }
@@ -53,6 +71,18 @@ class WaitUntil<Actual> extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         const
             actual      = this.actual,
@@ -87,6 +117,12 @@ class WaitUntil<Actual> extends Interaction {
             });
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return formatted`#actor waits up to ${ this.timeout } until ${ this.actual } does ${ this.expectation }`;
     }

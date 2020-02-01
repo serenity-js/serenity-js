@@ -7,6 +7,13 @@ const clock = new Clock();
 
 export const serenity = new Serenity(clock);
 
+/**
+ * @desc
+ *  Configure Serenity/JS
+ *
+ * @param {SerenityConfig} config
+ * @return {void}
+ */
 export function configure(config: SerenityConfig) {
     return serenity.configure(config);
 }

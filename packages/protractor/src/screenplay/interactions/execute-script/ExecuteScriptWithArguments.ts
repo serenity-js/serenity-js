@@ -18,6 +18,19 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
 
     protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): PromiseLike<void> {
         return this.answerAll(this.args).as(actor)
             .then(args => this.executeAs(actor, args))

@@ -4,6 +4,9 @@ import * as fs from 'fs';
 import { GherkinDocument } from '../nodes';
 import { UnableToParseFeatureFileError, UnableToReadFeatureFileError } from './errors';
 
+/**
+ * @private
+ */
 export class FeatureFileParser {
     constructor(private readonly gherkinParser: { parse: (feature: string) => GherkinDocument }) {
     }

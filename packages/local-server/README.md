@@ -15,9 +15,9 @@ or raw [Node.js](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transactio
 ### Example test
 
 ```
-import { Actor } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core';
 import {
-    ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer
+    ManageALocalServer, StartLocalTestServer, StopLocalTestServer
 } from '@serenity-js/local-server'
 import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
 import { Ensure, equals } from '@serenity-js/assertions';
@@ -25,7 +25,7 @@ import axios from 'axios';
 
 import { requestListener } from './listener';                           (1)
 
-const actor = Actor.named('Apisit').whoCan(
+const actor = actorCalled('Apisit').whoCan(
     ManageALocalServer.using(requestListener),                          (2)
     CallAnApi.using(axios.create()),
 );

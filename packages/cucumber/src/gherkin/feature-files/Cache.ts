@@ -1,6 +1,9 @@
 import { TinyType } from 'tiny-types';
 import { UnableToRetrieveFeatureFileMap } from './errors';
 
+/**
+ * @private
+ */
 export class Cache<Key extends TinyType, Value> {
     constructor(private store: { [id: string]: Value } = {}) {
     }

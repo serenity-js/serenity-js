@@ -1,6 +1,15 @@
 import { Activity } from './Activity';
 import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './actor';
 
+/**
+ * @desc
+ *  Directly exercises the {@link Actor}'s {@link Ability} to interact
+ *  with the System Under Test.
+ *
+ * @implements {Activity}
+ * @see {@link Ability}
+ * @see {@link Actor}
+ */
 export abstract class Interaction implements Activity {
     static where(
         description: string,
@@ -9,6 +18,18 @@ export abstract class Interaction implements Activity {
         return new DynamicallyGeneratedInteraction(description, interaction);
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  perform this {@link Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link Actor}
+     * @see {@link UsesAbilities}
+     * @see {@link AnswersQuestions}
+     */
     abstract performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void>;
 }
 
@@ -23,6 +44,16 @@ class DynamicallyGeneratedInteraction extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  perform this {@link Interaction}.
+     *
+     * @param {Actor} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link Actor}
+     */
     performAs(actor: Actor): PromiseLike<void> {
         try {
             return Promise.resolve(this.interaction(actor));
@@ -31,6 +62,12 @@ class DynamicallyGeneratedInteraction extends Interaction {
         }
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link Activity}.
+     *
+     * @returns {string}
+     */
     toString() {
         return this.description;
     }

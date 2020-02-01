@@ -8,6 +8,10 @@ import { isVisible } from './isVisible';
  *  Expectation that the element is visible and enabled, and therefore clickable
  *
  * @returns {Expectation<boolean, ElementFinder>}
+ *
+ * @see {@link @serenity-js/assertions~Ensure}
+ * @see {@link @serenity-js/assertions~Check}
+ * @see {@link Wait}
  */
 export function isClickable(): Expectation<any, ElementFinder> {
     return Expectation.to<ElementFinder>('become clickable').soThatActual(and(isVisible(), isEnabled()));

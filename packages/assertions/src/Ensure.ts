@@ -7,6 +7,9 @@ import { match } from 'tiny-types';
 import { Expectation } from './Expectation';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
+/**
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ */
 export class Ensure<Actual> extends Interaction {
     static that<A>(actual: Answerable<A>, expectation: Expectation<any, A>): Ensure<A> {
         return new Ensure(actual, expectation);
@@ -19,6 +22,19 @@ export class Ensure<Actual> extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
         return Promise.all([
             actor.answer(this.actual),
@@ -40,6 +56,12 @@ export class Ensure<Actual> extends Interaction {
             );
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return formatted `#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }

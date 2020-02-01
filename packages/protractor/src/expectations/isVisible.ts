@@ -8,6 +8,10 @@ import { isPresent } from './isPresent';
  *  Expectation that the element is present in the DOM of the page and visible.
  *
  * @returns {Expectation<boolean, ElementFinder>}
+ *
+ * @see {@link @serenity-js/assertions~Ensure}
+ * @see {@link @serenity-js/assertions~Check}
+ * @see {@link Wait}
  */
 export function isVisible(): Expectation<any, ElementFinder> {
     return Expectation.to<ElementFinder>('become visible').soThatActual(and(

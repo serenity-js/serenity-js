@@ -1,3 +1,6 @@
+/**
+ * @private
+ */
 export interface CucumberFormatterOptions {
     colorFns: any;
     cwd: any;

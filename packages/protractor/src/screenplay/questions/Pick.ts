@@ -72,6 +72,18 @@ class Filters<Item_Type, Collection_Type
         return new Filters(this.filters.concat(filter));
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): (ct: Collection_Type) => Collection_Type {
         return (collection: Collection_Type) =>
             this.filters.reduce((filteredCollection, filter) =>
@@ -80,6 +92,9 @@ class Filters<Item_Type, Collection_Type
             );
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         const fullDescription = this.filters
             .reduce((description, filter) => description.concat(filter.toString()), [ ])
@@ -103,6 +118,18 @@ class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_
     ) {
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): (ct: Collection_Type) => Collection_Type {
         return (collection: Collection_Type) =>
             collection.filter((item: Item_Type) => {
@@ -113,6 +140,9 @@ class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_
             }) as Collection_Type;
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         return formatted `${ this.question } does ${ this.expectation }`;
     }
@@ -131,8 +161,23 @@ abstract class QuestionAboutCollectionItems<IT, CT extends Collection<IT>, Answe
     ) {
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): Answer_Type;
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         return `${ this.description } ${ formatted `${ this.collection }`} ${ this.filters.toString() }`.trim();
     }
@@ -160,6 +205,18 @@ class NumberOfMatchingItems<IT, CT extends Collection<IT>>
         super(collection, filters, 'the number of');
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<number> {
         return Promise.resolve(this.collectionFilteredBy(actor).count());
     }
@@ -174,6 +231,18 @@ class AllMatchingItems<IT, CT extends Collection<IT>> extends QuestionAboutColle
         super(collection, filters, '');
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): CT {
         return this.collectionFilteredBy(actor);
     }
@@ -188,6 +257,18 @@ class FirstMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutColl
         super(collection, filters, 'the first of');
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): IT {
         return this.collectionFilteredBy(actor).first();
     }
@@ -202,6 +283,18 @@ class LastMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutColle
         super(collection, filters, 'the last of');
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): IT {
         return this.collectionFilteredBy(actor).last();
     }
@@ -236,6 +329,18 @@ class NthMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutCollec
         super(collection, filters, `the ${ NthMatchingItem.ordinalSuffixOf(index + 1) } of`);
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): IT {
         return this.collectionFilteredBy(actor).get(this.index);
     }

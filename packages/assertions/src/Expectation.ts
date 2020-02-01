@@ -3,21 +3,84 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
 /**
- * todo: document usage examples
+ * @public
+ *
+ * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>
+ */
+export type Predicate<A, E> = (actual: A, expected: E) => boolean;
+
+/**
+ * @desc
+ *  Defines an expectation to be used with:
+ *  - {@link Ensure} - to perform a verification
+ *  - {@link Check} - to control the execution flow
+ *
+ * @implements {@serenity-js/core/lib/screenplay~Question}
+ *
+ * @see {@link Ensure}
+ * @see {@link Check}
  */
 export abstract class Expectation<Expected, Actual = Expected>
     implements Question<(actual: Actual) => Promise<Outcome<Expected, Actual>>>
 {
+
+    /**
+     * @desc
+     *  Used to define a simple {@link Expectation}
+     *
+     * @example
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Expectation, Ensure } from '@serenity-js/assertions';
+     *
+     *  function isDivisibleBy(expected: Answerable<number>): Expectation<number> {
+     *      return Expectation.thatActualShould<number, number>('have value divisible by', expected)
+     *          .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0);
+     *  }
+     *
+     *  actorCalled('Erica').attemptsTo(
+     *      Ensure.that(4, isDivisibleBy(2)),
+     *  );
+     *
+     * @param {string} relationshipName
+     * @param {@serenity-js/core/lib/screenplay~Answerable<E>} expectedValue
+     *
+     * @returns {"soThat": function(predicate: Predicate<A,E>): Expectation<E, A>}
+     */
     static thatActualShould<E, A>(relationshipName: string, expectedValue: Answerable<E>): {
-        soThat: (statement: (actual: A, expected: E) => boolean) => Expectation<E, A>,
+        soThat: (predicate: Predicate<A, E>) => Expectation<E, A>,
     } {
         return ({
-            soThat: (statement: (actual: A, expected: E) => boolean): Expectation<E, A> => {
-                return new DynamicallyGeneratedExpectation<E, A>(relationshipName, statement, expectedValue);
+            soThat: (predicate: Predicate<A, E>): Expectation<E, A> => {
+                return new DynamicallyGeneratedExpectation<E, A>(relationshipName, predicate, expectedValue);
             },
         });
     }
 
+    /**
+     * @desc
+     *  Used to compose {@link Expectation}s.
+     *
+     * @example
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';
+     *
+     *  function isWithin(lowerBound: number, upperBound: number) {
+     *      return Expectation
+     *          .to(`have value within ${ lowerBound } and ${ upperBound }`)
+     *          .soThatActual(and(
+     *              or(isGreaterThan(lowerBound), equals(lowerBound)),
+     *              or(isLessThan(upperBound), equals(upperBound)),
+     *          ));
+     *  }
+     *
+     *  actorCalled('Erica').attemptsTo(
+     *      Ensure.that(5, isWithin(3, 6)),
+     *  );
+     *
+     * @param {string} relationshipName
+     *
+     * @returns {"soThat": function(...expectations: Array<Expectation<any, A>>): Expectation<any, A>}
+     */
     static to<A>(relationshipName: string): {
         soThatActual: (...expectations: Array<Expectation<any, A>>) => Expectation<any, A>,
     } {
@@ -40,7 +103,7 @@ class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<E
 
     constructor(
         private readonly description: string,
-        private readonly statement: (actual: Actual, expected: Expected) => boolean,
+        private readonly predicate: Predicate<Actual, Expected>,
         private readonly expectedValue: Answerable<Expected>,
     ) {
     }
@@ -49,7 +112,7 @@ class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<E
 
         return (actual: Actual) => actor.answer(this.expectedValue)
             .then(expected => {
-                return this.statement(actual, expected)
+                return this.predicate(actual, expected)
                     ? new ExpectationMet(this.toString(), expected, actual)
                     : new ExpectationNotMet(this.toString(), expected, actual);
             });

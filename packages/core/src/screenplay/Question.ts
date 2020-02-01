@@ -42,6 +42,10 @@ import { AnswersQuestions, UsesAbilities } from './actor';
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
  *     Ensure.that(RequestWasSuccessful(), equals(true)),
  * );
+ *
+ * @see {@link Actor}
+ * @see {@link Interaction}
+ * @see {@link Ability}
  */
 export abstract class Question<T> {
 

@@ -1,7 +1,7 @@
 import { Check, equals, not } from '@serenity-js/assertions';
 import { AnswersQuestions, Log, Note, PerformsActivities, Question, TakeNote, Task, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import { Notify, Spawn } from '../interactions';
+import { Spawn } from '../interactions';
 import { TerminateFlow } from '../interactions/TerminateFlow';
 import { FileExists, JavaExecutable } from '../questions';
 
@@ -29,6 +29,19 @@ export class InvokeSerenityBDD extends Task {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
+     *
+     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
 
         return Promise.all([
@@ -49,6 +62,12 @@ export class InvokeSerenityBDD extends Task {
         );
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return `#actor invokes Serenity BDD`;
     }

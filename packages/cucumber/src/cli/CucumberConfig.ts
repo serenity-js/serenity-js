@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface CucumberConfig {
     /**
      * @desc

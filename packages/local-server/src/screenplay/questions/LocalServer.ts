@@ -6,7 +6,14 @@ import { AddressInfo } from 'net';
 export class LocalServer {
 
     /**
-     * @returns {Question<string>} Url of the locally running Node.js server
+     * @desc
+     *  Retrieves the URL of the local server started
+     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<string>} Url of the locally running Node.js server
+     *
+     * @see {@link StartLocalServer}
+     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
      */
     static url() {
         return Question.about<string>('the URL of the local server', actor => {

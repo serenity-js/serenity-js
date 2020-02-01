@@ -2,6 +2,9 @@ import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { JasmineAdapter, JasmineConfig } from '@serenity-js/jasmine/lib/adapter';     // tslint:disable-line:no-submodule-imports
 import { TestRunner } from './TestRunner';
 
+/**
+ * @private
+ */
 export class JasmineTestRunner implements TestRunner {
     constructor(
         private readonly config: JasmineConfig,

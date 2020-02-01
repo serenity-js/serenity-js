@@ -21,11 +21,29 @@ export class Press extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
         return Promise.all(this.keys.map(key => actor.answer(key)))
-            .then(keys => withAnswerOf(actor, this.field, elf => elf.sendKeys(...keys)));
+            .then(keys => withAnswerOf(actor, this.field, (elf: ElementFinder) => elf.sendKeys(...keys)));
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString() {
         return `#actor presses ${ describeSequenceOf(this.keys) } in ${ this.field.toString() }`;
     }

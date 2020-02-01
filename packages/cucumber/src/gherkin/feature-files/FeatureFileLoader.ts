@@ -5,6 +5,9 @@ import { FeatureFileMap } from './FeatureFileMap';
 import { FeatureFileMapper } from './FeatureFileMapper';
 import { FeatureFileParser } from './FeatureFileParser';
 
+/**
+ * @private
+ */
 export class FeatureFileLoader {
     constructor(
         private readonly parser: FeatureFileParser,

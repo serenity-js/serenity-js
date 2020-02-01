@@ -12,8 +12,20 @@ export class Clear extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withAnswerOf(actor, this.field, elf =>
+        return withAnswerOf(actor, this.field, (elf: ElementFinder) =>
             elf.getAttribute('value').then(value => {
                 if (! value) {
                     throw new LogicError(
@@ -25,6 +37,12 @@ export class Clear extends Interaction {
             }));
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return formatted `#actor clears the value of ${ this.field }`;
     }

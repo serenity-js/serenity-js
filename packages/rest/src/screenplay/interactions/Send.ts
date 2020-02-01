@@ -48,10 +48,13 @@ export class Send extends Interaction {
      *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities & @serenity-js/core/lib/screenplay/actor~CollectsArtifacts & @serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
+     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
      * @returns {Promise<void>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.request)
@@ -64,10 +67,9 @@ export class Send extends Interaction {
 
     /**
      * @desc
-     *  Generates a description of the REST interaction
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
      * @returns {string}
-     *  Description of the {@link @serenity-js/core/lib/screenplay~Interaction}
      */
     toString() {
         return `#actor sends ${ this.request.toString() }`;

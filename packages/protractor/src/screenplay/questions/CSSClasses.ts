@@ -19,6 +19,18 @@ export class CSSClasses
         return new CSSClasses(new TargetNestedElement(parent, this.target));
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         return Attribute.of(this.target).called('class').answeredBy(actor)
             .then(attribute => attribute
@@ -29,6 +41,9 @@ export class CSSClasses
             );
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString(): string {
         return formatted `the CSS classes of ${ this.target}`;
     }

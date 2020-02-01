@@ -1,3 +1,4 @@
+import { formatted } from '../../io';
 import { TakeNotes } from '../abilities';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
@@ -51,11 +52,29 @@ export class TakeNote<Answer> extends Interaction {
     }
 
     /**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  perform this {@link Interaction}.
+     *
      * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {PromiseLike<void>}
+     * @returns {Promise<void>}
+     *
+     * @see {@link Actor}
+     * @see {@link UsesAbilities}
+     * @see {@link AnswersQuestions}
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.question)
             .then(answer => TakeNotes.as(actor).record(this.question, answer));
+    }
+
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link Activity}.
+     *
+     * @returns {string}
+     */
+    toString() {
+        return formatted `#actor takes note ${ this.question }`;
     }
 }

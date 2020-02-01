@@ -12,6 +12,18 @@ export class ExecuteScriptFromUrl extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
         return BrowseTheWeb.as(actor).executeAsyncScript(`
             var src = arguments[0];
@@ -43,6 +55,12 @@ export class ExecuteScriptFromUrl extends Interaction {
         });
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return `#actor executes a script from ${ this.sourceUrl }`;
     }

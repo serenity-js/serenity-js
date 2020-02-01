@@ -4,6 +4,9 @@ import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/mod
 import { FeatureFileNode } from './FeatureFileNode';
 import { Step } from './Step';
 
+/**
+ * @private
+ */
 export class ScenarioOutline extends FeatureFileNode {
     constructor(
         location: FileSystemLocation,

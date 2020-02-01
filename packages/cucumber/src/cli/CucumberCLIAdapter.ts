@@ -2,6 +2,9 @@ import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
 
+/**
+ * @private
+ */
 export class CucumberCLIAdapter {
 
     private readonly options: CucumberOptions;

@@ -4,6 +4,9 @@ import { Description, Name } from '@serenity-js/core/lib/model';
 import { FeatureFileNode } from './FeatureFileNode';
 import { Step } from './Step';
 
+/**
+ * @private
+ */
 export class Background extends FeatureFileNode {
     constructor(
         location: FileSystemLocation,
