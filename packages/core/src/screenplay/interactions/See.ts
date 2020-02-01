@@ -1,9 +1,12 @@
 import { AnswersQuestions, Interaction, Question } from '..';
 
-export type Assertion<A>         = (actual: A) => void;
+export type Assertion<A> = (actual: A) => void;
 
+/**
+ * @deprecated
+ */
 export class See<S> extends Interaction {
-    static if<T>(question: Question<T>, assertion: Assertion<T>) {
+    static if<T>(question: Question<T>, assertion: Assertion<T>): Interaction {
         return new See<T>(question, assertion);
     }
 
@@ -14,9 +17,28 @@ export class See<S> extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  perform this {@link Interaction}.
+     *
+     * @param {AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link Actor}
+     * @see {@link AnswersQuestions}
+     */
     performAs(actor: AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.question).then(this.assert);
     }
 
-    toString = () => `#actor checks ${this.question}`;
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link Activity}.
+     *
+     * @returns {string}
+     */
+    toString() {
+        return `#actor checks ${this.question}`;
+    }
 }

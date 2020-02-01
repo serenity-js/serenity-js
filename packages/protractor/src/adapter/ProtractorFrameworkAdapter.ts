@@ -7,6 +7,9 @@ import { Config } from './Config';
 import { ProtractorReport, ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './TestRunnerDetector';
 
+/**
+ * @private
+ */
 export class ProtractorFrameworkAdapter {
     constructor(
         private readonly serenity: Serenity,
@@ -15,6 +18,12 @@ export class ProtractorFrameworkAdapter {
     ) {
     }
 
+    /**
+     * @param {string[]} specs
+     *  Paths to spec files
+     *
+     * @return {Promise<ProtractorReport>}
+     */
     run(specs: string[]): Promise<ProtractorReport> {
 
         const noop      = () => void 0;

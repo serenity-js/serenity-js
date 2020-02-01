@@ -23,9 +23,22 @@ export class StreamResponse extends Interaction {
         super();
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.request)
-            .then(config => CallAnApi.as(actor).request({
+            .then((config: AxiosRequestConfig) => CallAnApi.as(actor).request({
                 ...config,
                 responseType: 'stream',
             }).
@@ -59,6 +72,12 @@ export class StreamResponse extends Interaction {
             })));
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString() {
         return formatted `#actor saves response to ${ this.request } in ${ this.destination.value }`;
     }

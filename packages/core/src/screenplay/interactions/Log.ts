@@ -50,8 +50,13 @@ export class Log extends Interaction {
      *  Makes the provided {@link Actor}
      *  perform this {@link Interaction}.
      *
-     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
+     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor
      * @returns {Promise<void>}
+     *
+     * @see {@link Actor}
+     * @see {@link UsesAbilities}
+     * @see {@link AnswersQuestions}
+     * @see {@link CollectsArtifacts}
      */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         return Promise.all(
@@ -66,10 +71,9 @@ export class Log extends Interaction {
 
     /**
      * @desc
-     *  Generates a description of this interaction
+     *  Generates a description to be used when reporting this {@link Activity}.
      *
      * @returns {string}
-     *  Description of the {@link Interaction}
      */
     toString() {
         return `#actor logs: ${ this.items.join(', ') }`;

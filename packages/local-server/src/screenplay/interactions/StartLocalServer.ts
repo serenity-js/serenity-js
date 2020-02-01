@@ -40,13 +40,17 @@ export class StartLocalServer extends Interaction {
     }
 
     /**
-     * Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities & @serenity-js/core/lib/screenplay/actor~CollectsArtifacts & @serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
+     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
      * @returns {Promise<void>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.preferredPorts)
@@ -54,7 +58,10 @@ export class StartLocalServer extends Interaction {
     }
 
     /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
      */
     toString(): string {
         return `#actor starts the local server`;

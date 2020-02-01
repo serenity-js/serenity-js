@@ -21,6 +21,18 @@ export class TargetElements
         return new TargetNestedElements(parent, this);
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementArrayFinder {
         return override(
             BrowseTheWeb.as(actor).locateAll(this.locator),
@@ -29,6 +41,9 @@ export class TargetElements
         );
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         return `the ${ this.description }`;
     }

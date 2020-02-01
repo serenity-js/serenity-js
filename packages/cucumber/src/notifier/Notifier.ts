@@ -25,6 +25,9 @@ function notEmpty<T>(list: T[]) {
     return list.filter(item => !! item);
 }
 
+/**
+ * @private
+ */
 export class Notifier {
     private currentScenario: ScenarioDetails;
 

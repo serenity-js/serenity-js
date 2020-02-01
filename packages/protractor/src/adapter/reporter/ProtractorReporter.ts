@@ -5,6 +5,9 @@ import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
 import { ProtractorReport } from './ProtractorReport';
 
+/**
+ * @private
+ */
 export class ProtractorReporter implements StageCrewMember {
     private readonly startTime: { [key: string ]: Timestamp } = {};
 

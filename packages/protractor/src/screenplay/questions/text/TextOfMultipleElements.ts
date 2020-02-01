@@ -18,6 +18,18 @@ export class TextOfMultipleElements
         return new TextOfMultipleElements(new TargetNestedElements(parent, this.target));
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
 
         // protractor ignores type definitions for the ElementArrayFinder, hence the `any`
@@ -25,6 +37,9 @@ export class TextOfMultipleElements
         return withAnswerOf(actor, this.target, eaf => Promise.resolve(eaf.getText() as any) as Promise<string[]>);
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         return `the text of ${ this.target }`;
     }

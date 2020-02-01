@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { actorCalled, Interaction } from '@serenity-js/core';
+import { actorCalled, Interaction, Log, Note, Question, Task } from '@serenity-js/core';
 import * as sinon from 'sinon';
-import { Check, startsWith } from '../src';
+import { Check, equals, startsWith } from '../src';
 
 /** @test {Check} */
 describe('Check', () => {

@@ -8,6 +8,10 @@ import { isPresent } from './isPresent';
  *  Expectation that the element is present and selected
  *
  * @returns {Expectation<boolean, ElementFinder>}
+ *
+ * @see {@link @serenity-js/assertions~Ensure}
+ * @see {@link @serenity-js/assertions~Check}
+ * @see {@link Wait}
  */
 export function isSelected(): Expectation<any, ElementFinder> {
     return Expectation.to<ElementFinder>('become selected').soThatActual(and(

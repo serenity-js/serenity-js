@@ -30,12 +30,14 @@ This can be done in your `protractor.conf.js` file if you're using Protractor, o
 #### Programmatic configuration
 
 ```typescript
-import { serenity } form '@serenity-js/core';
+import { configure } form '@serenity-js/core';
 import { ConsoleReporter } form '@serenity-js/console-reporter';
 
-serenity.setTheStage(
-    ConsoleReporter.withDefaultColourSupport(),
-);
+configure({
+    crew: [
+        ConsoleReporter.withDefaultColourSupport(),
+    ],
+});
 ```
 
 #### Protractor

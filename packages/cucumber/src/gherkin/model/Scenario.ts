@@ -5,6 +5,9 @@ import { FeatureFileNode } from './FeatureFileNode';
 import { Hook } from './Hook';
 import { Step } from './Step';
 
+/**
+ * @private
+ */
 export class Scenario extends FeatureFileNode {
     constructor(
         location: FileSystemLocation,

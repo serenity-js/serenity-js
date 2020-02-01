@@ -3,6 +3,9 @@ import { Path } from '@serenity-js/core/lib/io';
 import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper } from '../gherkin';
 import { Notifier } from '../notifier';
 
+/**
+ * @private
+ */
 export interface Dependencies {
     serenity: Serenity;
     notifier: Notifier;

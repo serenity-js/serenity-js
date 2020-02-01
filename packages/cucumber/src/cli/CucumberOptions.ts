@@ -1,6 +1,9 @@
 import { Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 
+/**
+ * @private
+ */
 export class CucumberOptions {
     constructor(private readonly config: CucumberConfig) {
     }

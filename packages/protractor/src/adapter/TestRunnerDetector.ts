@@ -3,6 +3,9 @@ import { Config } from 'protractor';
 
 import { TestRunner } from './runners/TestRunner';
 
+/**
+ * @private
+ */
 export class TestRunnerDetector {
 
     static protractorCliOptions() {

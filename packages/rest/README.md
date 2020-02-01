@@ -12,11 +12,11 @@ Learn more at [serenity-js.org](https://serenity-js.org/modules/rest/)!
 ### Example test
 
 ```typescript
-import { Actor } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core';
 import { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest'
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
 
-const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+const actor = actorCalled('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
 
 actor.attemptsTo(
     // no users present in the system

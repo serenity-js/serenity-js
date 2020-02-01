@@ -44,12 +44,27 @@ class CookieDetails implements Question<Promise<IWebDriverOptionsCookie>> {
     constructor(private readonly name: Answerable<string>) {
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<IWebDriverOptionsCookie> {
         return actor.answer(this.name)
             .then(name => BrowseTheWeb.as(actor).manage().getCookie(name))
             .then(details => !! details ? details : undefined);
     }
 
+    /**
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
     toString() {
         return `the details of the "${ this.name } cookie`;
     }

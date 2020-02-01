@@ -6,9 +6,11 @@ import { ProtractorReport } from './reporter';
 import { TestRunnerDetector } from './TestRunnerDetector';
 
 /**
- * todo: write integration tests
+ * @param {protractor~Runner} runner
+ * @param {string[]} specs
+ * @returns {Promise<ProtractorReport>}
  *
- * @see https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/README.md#framework-adapters-for-protractor
+ * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
  */
 export function run(runner: Runner, specs: string[]): Promise<ProtractorReport> {
     return new ProtractorFrameworkAdapter(

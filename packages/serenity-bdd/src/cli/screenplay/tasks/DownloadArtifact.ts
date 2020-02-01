@@ -32,6 +32,19 @@ export class DownloadArtifact extends Task {
         return new DownloadArtifact(this.gav, this.repository, this.destinationDirectory, config);
     }
 
+    /**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
+     *
+     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
         const
             tempFileName        = new Path(`${ this.gav.toPath().value }.download`),
@@ -49,6 +62,12 @@ export class DownloadArtifact extends Task {
         );
     }
 
+    /**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *
+     * @returns {string}
+     */
     toString(): string {
         return `#actor downloads ${ this.gav.toPath().value } from ${ this.repository.toString() }`;
     }

@@ -1,6 +1,9 @@
 import { Constructable, Constructor } from '../constructables';
 import { ItemNotFoundError } from './errors';
 
+/**
+ * @private
+ */
 export class FeatureFileMap {
 
     constructor(private readonly map: { [line: number]: Constructable<any> } = {}) {
