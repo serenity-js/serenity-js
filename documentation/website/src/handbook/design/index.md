@@ -4,15 +4,11 @@ layout: handbook.hbs
 ---
 # Serenity/JS Design Guide
 
-<div class="pro-tip">
-    <div class="icon"><i class="fas fa-tools"></i></div>
-    <div class="text">
-        <p>
-            This section is coming soon. Stay tuned!
-        </p>
-        <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
-    </div>
-</div>
+This part of the Serenity/JS Handbook will help you gain a deeper understanding of the pattern language behind Serenity/JS and use its key concepts more effectively.
 
-TODO:
-- describe the pattern language of the Serenity/JS framework
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>Please note:</strong> 
+     The public APIs of [Serenity/JS modules](/modules) have their usage demonstrated in unit tests, linked from the documentation of each API.
+    </p></div>
+</div>

@@ -6,9 +6,15 @@ layout: handbook.hbs
 
 Copyright &copy; [Jan Molak](https://janmolak.com), [smartcode ltd](http://smartcodeltd.co.uk)
 
+---
+
 Serenity/JS is a free and open-source project, licensed under the terms of the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0).
 
+Learn more about [commercial support and training packages](/support.html). 
+
 <a class="image" href="https://opensource.org/licenses/Apache-2.0" target="_blank"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
+
+---
 
 This documentation is licensed under [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/). You are free to share, copy, and redistribute the material in any medium or format as well as adapt, remix, transform, and build upon the material under the following terms:
 1. you must give appropriate credit - cite as "From the Serenity/JS Handbook by Jan Molak",
