@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> meta }}
+</head>
+<body>
+
+<div id="top"
+     class="block block-dark block-bb bg-gradient-accent-2 p-0 d-print-none">
+    <div class="container">
+        {{> navigation }}
+    </div>
+</div>
+
+<section id="error">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 mx-auto pb-5 my-8">
+                <div class="box">
+                    <div class="box-head box-head-accent-2"></div>
+                    <div class="box-block box-b box-bt-0">
+                        {{{ contents }}}
+                    </div>
+                </div>
+
+                <div class="text-center mt-1">
+                    <a href="/" class="mx-3">Home</a>
+                    <span class="text-soft">|</span>
+                    <a href="/support.html" class="mx-3">Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{> footer }}
+
+{{> scripts }}
+</body>
+</html>

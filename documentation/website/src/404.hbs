@@ -1,0 +1,60 @@
+---
+title: Serenity/JS
+layout: error.hbs
+---
+<h2 class="mb-4">Page not found <span class="text-soft">(Error 404)</span></h2>
+
+<h4>What's going on?</h4>
+<p>
+    The page or resource you requested can not be found on the server. This can be
+    caused by a mistyped URL, a broken link or if the webmaster
+    has moved or deleted the resource.
+</p>
+
+<h4>What to do now:</h4>
+
+<ul>
+    <li>If you've typed in the URL manually, make sure you've spelled it correctly</li>
+    <li>
+        If you think this is a mistake, <a href="https://github.com/jan-molak/serenity-js/issues">
+        please raise a ticket on Github.</a>
+    </li>
+
+</ul>
+
+<script type="text/javascript">
+    var baseUrl = 'http://localhost:3000';
+    var pageFound = {
+        '/introduction.html': '',
+        '/changelog.html': '',
+        '/from-scripts-to-serenity/readme.html': '',
+        '/from-scripts-to-serenity/speaking-the-right-language.html': '',
+        '/from-scripts-to-serenity/writing-what-you-would-like-to-read.html': '',
+        '/from-scripts-to-serenity/making-the-tests-speak-for-themselves.html': '',
+        '/overview/readme.html': '',
+        '/overview/reporting.html': '',
+        '/overview/prerequisites.html': '',
+        '/overview/retrofitting.html': '',
+        '/overview/installation.html': '',
+        '/overview/configuration.html': '',
+        '/cucumber/readme.html': '',
+        '/cucumber/overview.html': '',
+        '/cucumber/automation.html': '',
+        '/cucumber/execution.html': '',
+        '/mocha/readme.html': '',
+        '/mocha/overview.html': '',
+        '/mocha/automation.html': '',
+        '/mocha/execution.html': '',
+        '/design/readme.html': '',
+        '/design/screenplay-pattern.html': '/handbook/design/screenplay-pattern.html',
+        '/design/stage.html': '',
+        '/design/assertions.html': '',
+        '/community.html': '',
+        '/support.html': '',
+        '/license.html': '',
+    }[window.location.pathname];
+
+    if (pageFound) {
+        window.location.href = baseUrl + pageFound;
+    }
+</script>
