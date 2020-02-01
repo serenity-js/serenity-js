@@ -17,7 +17,7 @@ import { Stage } from './Stage';
  * import { setWorldConstructor } from 'cucumber';
  *
  * setWorldConstructor(function (this: WithStage, { parameters }) {
- *   this.stage = serenity.callToStageFor(new SomeImplementationOfTheDressingRoomInterface());
+ *   this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());
  * });
  *
  * // features/step_definitions/some.steps.ts
@@ -35,7 +35,7 @@ import { Stage } from './Stage';
  *
  * describe('Using the Stage', () => {
  *   beforeEach(function (this: WithStage) {
- *     this.stage = serenity.callToStageFor(new SomeImplementationOfTheDressingRoomInterface());
+ *     this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());
  *   });
  *
  *   it('makes it easy to access the Actors', function(this: WithStage) {

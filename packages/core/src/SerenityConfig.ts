@@ -1,11 +1,11 @@
 import { Duration } from './model';
-import { DressingRoom, StageCrewMember } from './stage';
+import { Cast, StageCrewMember } from './stage';
 
 /**
  * @interface
  */
 export abstract class SerenityConfig {
-    actors?:        DressingRoom;
+    actors?:        Cast;
     crew?:          StageCrewMember[];
     cueTimeout?:    Duration;
 }

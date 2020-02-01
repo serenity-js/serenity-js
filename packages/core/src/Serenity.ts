@@ -5,7 +5,7 @@ import { ErrorStackParser } from './io';
 import { Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor';
 import { SerenityConfig } from './SerenityConfig';
-import { Clock, DressingRoom, Stage, StageCrewMember, StageManager } from './stage';
+import { Cast, Clock, Stage, StageCrewMember, StageManager } from './stage';
 import { Extras } from './stage/Extras';
 
 export class Serenity {
@@ -55,16 +55,16 @@ export class Serenity {
     }
 
     /**
-     * Re-configures Serenity/JS to use a new {@link DressingRoom}
+     * Re-configures Serenity/JS to use a new {@link Cast}
      * to prepare the {@link Actor}s for the performance.
      *
      * Typically, you'd call this method in a "before each"
      * hook of your test runner of choice.
      *
-     * @param {DressingRoom} actors
+     * @param {Cast} actors
      * @return {void}
      */
-    engage(actors: DressingRoom): void {
+    engage(actors: Cast): void {
         this.stage.engage(
             ensure('actors', actors, property('prepare', isDefined())),
         );
@@ -108,7 +108,7 @@ export class Serenity {
      * @deprecated
      * @param actors
      */
-    callToStageFor(actors: DressingRoom): Stage {
+    callToStageFor(actors: Cast): Stage {
         deprecated('serenity.callToStageFor(...)', 'Please use `actorCalled(name)` and `actorInTheSpotlight()` functions from @serenity-js/core to access the actors instead.');
 
         return this.stage.callFor(actors);

@@ -1,4 +1,4 @@
-import { Actor, DressingRoom, TakeNotes } from '@serenity-js/core';
+import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { CallAnApi } from '@serenity-js/rest';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { UseFileSystem } from '../screenplay';
 /**
  * @package
  */
-export class Actors implements DressingRoom {
+export class Actors implements Cast {
     constructor(private readonly rootDir: Path) {
     }
 

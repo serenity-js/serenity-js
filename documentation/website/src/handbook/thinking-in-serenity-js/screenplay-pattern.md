@@ -163,16 +163,16 @@ describe('Todo List App', () => {
 
 However, there's a more elegant way to do it that doesn't require you to [repeat yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) in every test you write.
 
-The alternative is for the actors to gain their abilities when they prepare for the performance in the [`DressingRoom`](/modules/core/class/src/stage/DressingRoom.ts~DressingRoom.html), and then tell Serenity/JS to [`engage(..)`](/modules/core/function/index.html#static-function-engage) the actors before the scenario starts:
+The alternative is to [`engage(..)`](/modules/core/function/index.html#static-function-engage) a [`Cast`](/modules/core/class/src/stage/Cast.ts~Cast.html) of actors, who gain their abilities when they prepare for the performance before the scenario starts:
 
 ```typescript
 // spec/todo.spec.ts
 
-import { Actor, actorCalled, DressingRoom, engage } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, engage } from '@serenity-js/core';
 import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';
 import { protractor } from 'protractor';
 
-class Actors implements DressingRoom {
+class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -270,11 +270,11 @@ If you wanted to experiment with some of the above questions, you could expand t
 import 'jasmine';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, actorCalled, DressingRoom, engage } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, engage } from '@serenity-js/core';
 import { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } from '@serenity-js/protractor';
 import { by, protractor } from 'protractor';
 
-class Actors implements DressingRoom {
+class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -339,11 +339,11 @@ To make an actor perform a task, you pass it to the `attemptsTo(..)` method, jus
 import 'jasmine';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, actorCalled, DressingRoom, engage, Task } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, engage, Task } from '@serenity-js/core';
 import { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } from '@serenity-js/protractor';
 import { by, protractor } from 'protractor';
 
-class Actors implements DressingRoom {
+class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
             BrowseTheWeb.using(protractor.browser),

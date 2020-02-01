@@ -1,11 +1,10 @@
-import { stage } from '@integration/testing-tools';
-import { Actor, actorCalled, configure, DressingRoom } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { CallAnApi } from '../src';
 
-export class APIActors implements DressingRoom {
+export class APIActors implements Cast {
     constructor(private readonly axiosInstance: AxiosInstance) {
     }
 

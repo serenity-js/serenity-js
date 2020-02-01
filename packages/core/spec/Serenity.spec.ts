@@ -3,17 +3,17 @@ import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } fro
 import { Name } from '../src/model';
 import { Actor, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';
-import { Clock, DressingRoom, Stage, StageCrewMember } from '../src/stage';
+import { Cast, Clock, Stage, StageCrewMember } from '../src/stage';
 import { expect } from './expect';
 
 describe('Serenity', () => {
 
-    it('constructs a Stage and connects it with a provided DressingRoom', () => {
+    it('constructs a Stage and connects it with a provided Cast', () => {
 
         const prepareSpy = sinon.spy();
 
         // no-op actors with no special Abilities
-        class Extras implements DressingRoom {
+        class Extras implements Cast {
             prepare(actor: Actor): Actor {
                 prepareSpy(actor);
                 return actor;
@@ -34,7 +34,7 @@ describe('Serenity', () => {
 
     it('enables propagation of DomainEvents triggered by Actors\' Activities and StageCrewMembers', () => {
 
-        class Extras implements DressingRoom {
+        class Extras implements Cast {
             prepare(actor: Actor): Actor {
                 return actor;
             }

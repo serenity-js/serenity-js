@@ -5,7 +5,7 @@ import { ActivityDetails, CorrelationId, Timestamp } from '../model';
 import { Activity } from '../screenplay';
 import { ActivityDescriber } from '../screenplay/activities/ActivityDescriber';
 import { Actor } from '../screenplay/actor';
-import { DressingRoom } from './DressingRoom';
+import { Cast } from './Cast';
 import { StageCrewMember } from './StageCrewMember';
 import { StageManager } from './StageManager';
 
@@ -18,10 +18,10 @@ export class Stage {
     private detailsOfCurrentActivity: ActivityDetails = null;
 
     constructor(
-        private dressingRoom: DressingRoom,
+        private cast: Cast,
         private readonly manager: StageManager,
     ) {
-        ensure('DressingRoom', dressingRoom, isDefined());
+        ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
     }
 
@@ -47,14 +47,14 @@ export class Stage {
         if (! this.actorsOnStage[name]) {
             let actor;
             try {
-                actor = this.dressingRoom.prepare(new Actor(name, this));
+                actor = this.cast.prepare(new Actor(name, this));
             }
             catch (error) {
-                throw new ConfigurationError(`${ this.typeOf(this.dressingRoom) } encountered a problem when preparing actor "${ name }" for stage`, error);
+                throw new ConfigurationError(`${ this.typeOf(this.cast) } encountered a problem when preparing actor "${ name }" for stage`, error);
             }
 
             if (! (actor instanceof Actor)) {
-                throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.dressingRoom) } returned ${ actor }`);
+                throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.cast) } returned ${ actor }`);
             }
 
             this.actorsOnStage[name] = actor;
@@ -93,10 +93,10 @@ export class Stage {
 
     /**
      * @deprecated
-     * @param {DressingRoom} actors
+     * @param {Cast} actors
      * @return {Stage}
      */
-    callFor(actors: DressingRoom): Stage {
+    callFor(actors: Cast): Stage {
         this.resetActors();
         this.engage(actors);
 
@@ -108,10 +108,10 @@ export class Stage {
         this.actorInTheSpotlight = null;
     }
 
-    engage(actors: DressingRoom) {
-        ensure('DressingRoom', actors, isDefined());
+    engage(actors: Cast) {
+        ensure('Cast', actors, isDefined());
 
-        this.dressingRoom        = actors;
+        this.cast        = actors;
     }
 
     assign(...stageCrewMembers: StageCrewMember[]) {
@@ -151,12 +151,12 @@ export class Stage {
 
     /**
      * @private
-     * @param {DressingRoom} dressingRoom
+     * @param {Cast} cast
      */
-    private typeOf(dressingRoom: DressingRoom): string {
-        return this.dressingRoom.constructor !== Object
-            ? this.dressingRoom.constructor.name
-            : 'DressingRoom';
+    private typeOf(cast: Cast): string {
+        return this.cast.constructor !== Object
+            ? this.cast.constructor.name
+            : 'Cast';
     }
 
     // todo: might be useful to ensure that the actors release any resources they're holding.

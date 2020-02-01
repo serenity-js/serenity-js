@@ -5,7 +5,7 @@ import { Actor } from '../../../../src';
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
 import { Duration, JSONData, Name, TestReport } from '../../../../src/model';
-import { ArtifactArchiver, Clock, DressingRoom, Stage, StageManager } from '../../../../src/stage';
+import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../src/stage';
 
 import { expect } from '../../../expect';
 import { photo } from '../samples';
@@ -22,7 +22,7 @@ describe('ArtifactArchiver', () => {
         fs:             sinon.SinonStubbedInstance<FileSystem>,
         archiver:       ArtifactArchiver;
 
-    class Extras implements DressingRoom {
+    class Extras implements Cast {
         prepare(actor: Actor): Actor {
             return actor;
         }

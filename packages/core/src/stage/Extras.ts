@@ -1,5 +1,5 @@
 import { Actor } from '../screenplay';
-import { DressingRoom } from './DressingRoom';
+import { Cast } from './Cast';
 
 /**
  * @desc
@@ -7,7 +7,7 @@ import { DressingRoom } from './DressingRoom';
  *
  * @private
  */
-export class Extras implements DressingRoom {
+export class Extras implements Cast {
     prepare(actor: Actor): Actor {
         return actor;
     }

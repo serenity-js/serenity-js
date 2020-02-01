@@ -1,5 +1,5 @@
 import { ActivityRelatedArtifactGenerated } from '../../events';
-import { Ability, AbilityType, Answerable, ConfigurationError, DressingRoom, serenity, TestCompromisedError } from '../../index';
+import { Ability, AbilityType, Answerable, Cast, ConfigurationError, serenity } from '../../index';
 import { Artifact, Name } from '../../model';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
@@ -24,7 +24,7 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
         return {
             whoCan: (...abilities): Actor => {
                 serenity.configure({
-                    actors: DressingRoom.whereEveryoneCan(...abilities),
+                    actors: Cast.whereEveryoneCan(...abilities),
                 });
 
                 return serenity.theActorCalled(name);
