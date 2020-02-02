@@ -9,8 +9,8 @@ The goal of the Serenity/JS Handbook is to help you get started with writing sca
 The book consists of the following parts:
 - **Overview**, which provides an overview of the project, its license, support, and contribution models. 
 - **Thinking in Serenity/JS**, which provides examples and a step-by-step explanation of the ideas behind Serenity/JS, to help you understand not only the APIs of the framework, but also its spirit. 
-- **Design Guide**, which provides an in-depth explanation and more advanced usage examples of the key elements of the Serenity/JS  
 - **Integration Guide**, which provides information on integrating Serenity/JS with other test frameworks and tools.
+- **Design Guide**, which provides an in-depth explanation and more advanced usage examples of the key elements of the Serenity/JS  
 
 If you'd like to dive straight into the code, visit [Serenity/JS Github](https://github.com/serenity-js) where you can find:
  - [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples) demonstrating the usage of the framework,
