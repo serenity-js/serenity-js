@@ -40,7 +40,7 @@ In particular, Serenity/JS enables:
 - Multi-actor testing
 - In-depth reporting and automatic screenshots
 - An easy way to introduce and follow [SOLID design](https://en.wikipedia.org/wiki/SOLID) principles
-- An effortless integration with popular test and collaboration tools, such as [Cucumber.js](https://github.com/cucumber/cucumber-js) and [Jasmine](https://jasmine.github.io/).
+- An effortless integration with popular test and collaboration tools, such as [Cucumber.js](/modules/cucumber) and [Jasmine](/modules/jasmine).
 - An easy way of sharing the test code across projects and teams
 
 Read on to find out more!
