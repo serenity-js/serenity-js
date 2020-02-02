@@ -1,63 +1,53 @@
 # Serenity/JS
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fcore.svg)](https://badge.fury.io/js/%40serenity-js%2Fcore)
+[![Downloads](https://img.shields.io/npm/dm/@serenity-js/core.svg)](https://npm-stat.com/charts.html?package=@serenity-js/core)
+[![Build Status](https://travis-ci.org/serenity-js/serenity-js.svg?branch=master)](https://travis-ci.org/serenity-js/serenity-js)
+[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/jan-molak/serenity-js.svg)](https://greenkeeper.io/)
+[![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=master)](https://coveralls.io/github/serenity-js/serenity-js?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
+[![Dependencies](https://flat.badgen.net/dependabot/serenity-js/serenity-js?icon=dependabot)](https://github.com/serenity-js/serenity-js)
 
-[![npm version](https://badge.fury.io/js/serenity-js.svg)](https://badge.fury.io/js/serenity-js)
-[![Build Status](https://travis-ci.org/jan-molak/serenity-js.svg?branch=master)](https://travis-ci.org/jan-molak/serenity-js)
-[![Coverage Status](https://coveralls.io/repos/github/jan-molak/serenity-js/badge.svg)](https://coveralls.io/github/jan-molak/serenity-js)
-[![npm](https://img.shields.io/npm/dm/serenity-js.svg)](https://npm-stat.com/charts.html?package=serenity-js)
-[![Known Vulnerabilities](https://snyk.io/test/github/jan-molak/serenity-js/badge.svg)](https://snyk.io/test/github/jan-molak/serenity-js)
-
+[![Serenity/JS on Github](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
+[![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Stories in Ready](https://badge.waffle.io/jan-molak/serenity-js.png?label=ready&title=Ready)](https://waffle.io/jan-molak/serenity-js?utm_source=badge)
 
-Serenity/JS is a node.js library designed to make acceptance and regression testing of modern web applications
-faster, more collaborative and easier to scale.
+[Serenity/JS](https://serenity-js.org) is a Node.js framework designed to make acceptance and regression testing
+of modern full-stack applications faster, more collaborative and easier to scale.
 
-**Serenity/JS is a next generation acceptance testing library, expanding the capabilities of 
-[Angular Protractor](https://github.com/angular/protractor) to give you:**
-* **the flexibility and expressiveness of the [Screenplay Pattern](http://serenity-js.org/design/screenplay-pattern.html)**,  
-  _so that your test scenarios stay free of noise and focused on the business logic_,
-* **the power and visibility of [Serenity BDD](http://serenity-bdd.info/#/documentation)
-[narrative reports](http://serenity-bdd.info/docs/serenity/#_detailed_description_of_aggregation_reports)**,  
-  _so that failure analysis and release readiness assessment become more efficient_,
-* **an easy way to introduce and follow [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_&#40;object-oriented_design&#41;)**,  
-  _to keep your code simple, reusable and easy to extend_,
-* **effortless integration with popular test automation tools like [Cucumber](http://serenity-js.org/cucumber/readme.html), [Mocha](http://serenity-js.org/mocha/readme.html) and Chai**,  
-  _so that you can introduce it into your existing toolchain **today**,  
-  with just a single, [one-line code change](http://serenity-js.org/overview/retrofitting.html)_!
+**Find out more at [serenity-js.org](https://serenity-js.org)!**
 
-Although Serenity/JS provides strong support for automating web tests using Protractor and Webdriver,
-it works very effectively for non-web tests too! Those include tests that exercise web services or even call application code directly.
-
-**Find out more at [serenity-js.org](http://serenity-js.org)!**
-
-[![Serenity/JS: Next Generation Acceptance Testing for Angular Apps](http://img.youtube.com/vi/YYgkFgBxEwc/0.jpg)](http://www.youtube.com/watch?v=YYgkFgBxEwc "Serenity/JS: Next Generation Acceptance Testing for Angular Apps")
+<!-- 
+[![Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern](https://img.youtube.com/vi/djPMf-n93Rw/0.jpg)](https://www.youtube.com/watch?v=djPMf-n93Rw)
+-->
 
 ## Help and Support
 
-[http://serenity-js.org/support.html](http://serenity-js.org/support.html)
+[https://serenity-js.org/support.html](https://serenity-js.org/support.html)
 
 ## Your feedback matters!
 
 Do you find Serenity/JS useful? Give it a star! &#9733;
 
-Found a bug? Need a feature? Raise [an issue](https://github.com/jan-molak/serenity-js/issues?state=open)
+Found a bug? Need a feature? Raise [an issue](https://github.com/serenity-js/serenity-js/issues?state=open)
 or submit a pull request.
 
-Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
+Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak) 
+
+If you'd like to chat with fellow users of Serenity/JS, join us on [Gitter Chat](https://gitter.im/serenity-js/Lobby).
 
 ## Friends of Serenity/JS
 
 Serenity/JS is continuously delivered to you thanks to:
-* the time and commitment of [the author](https://janmolak.com/) and [the contributors](https://github.com/jan-molak/serenity-js/graphs/contributors)
-* a battery of browsers provided by [BrowserStack](https://www.browserstack.com)
-
-[![tested on BrowserStack](docs/images/browserstack-logo.png)](http://bit.ly/JBMBS)
+* the time and commitment of [the author](https://janmolak.com/) and [the contributors](https://github.com/serenity-js/serenity-js/graphs/contributors)
+* the [amazing sponsors](https://serenity-js.org/community/sponsors.html)
 
 ## License
 
-Serenity/JS library is licensed under the [Apache-2.0](LICENSE.md) license.
+The Serenity/JS code base is licensed under the [Apache-2.0](LICENSE.md) license, 
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/). [Learn more](https://serenity-js.org/license.html).
+
+For corporate sponsorship or commercial support, please check out the [Support Guide](https://serenity-js.org/support.html).
 
 ----
 
