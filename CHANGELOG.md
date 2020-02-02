@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.126](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.125...v2.0.1-alpha.126) (2020-02-02)
+
+**Note:** Version bump only for package serenity-js-monorepo
+
+
+
+
+
 ## [2.0.1-alpha.125](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.124...v2.0.1-alpha.125) (2020-02-02)
 
 **Note:** Version bump only for package serenity-js-monorepo
