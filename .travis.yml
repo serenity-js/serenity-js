@@ -5,6 +5,8 @@ notifications:
 node_js:
   - '6'
   - '8'
+services:
+  - xvfb
 addons:
   chrome: stable
 before_install: scripts/travis/before_install.sh
