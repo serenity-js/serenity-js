@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+npm run coverage:publish
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "Pull requests are not released to NPM."
   exit 0
@@ -28,5 +30,3 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
 
   npm run coverage:publish
 fi
-
-npm run coverage:publish
