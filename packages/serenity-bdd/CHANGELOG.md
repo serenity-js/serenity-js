@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.119](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.118...v2.0.1-alpha.119) (2020-02-02)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
 ## [2.0.1-alpha.118](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.117...v2.0.1-alpha.118) (2020-02-01)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
