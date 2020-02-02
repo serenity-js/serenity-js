@@ -31,7 +31,7 @@
     "compile": "lerna run compile --stream",
     "verify": "npm run lint && npm run compile && npm test && npm run integration-tests",
     "site": "lerna run site --stream",
-    "site:publish": "gh-pages -d documentation/website/target/site -b gh-pages-2.0",
+    "site:publish": "gh-pages -d documentation/website/target/site -b gh-pages-2.0 -r \"https://${GH_TOKEN}@github.com/jan-molak/serenity-js.git\"",
     "~book:clean": "rimraf _book",
     "~book:build": "gitbook build",
     "~prebook:publish": "npm run book:clean && npm run book:build",
