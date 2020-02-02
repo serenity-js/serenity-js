@@ -7,16 +7,8 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 if [[ $TRAVIS_BRANCH == '2.0' ]]; then
-  echo "Building the website"
-  make site
-
   echo "Releasing 2.0 alpha"
   npx lerna publish prerelease --dist-tag next --yes
-
-  ls -lah ./target
-  ls -lah ./target/coverage
-
-  npm run coverage:publish
   npm run site:publish
   exit 0;
 fi
@@ -36,3 +28,5 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
 
   npm run coverage:publish
 fi
+
+npm run coverage:publish
