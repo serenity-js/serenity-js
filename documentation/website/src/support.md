@@ -19,7 +19,7 @@ If you'd like to chat with fellow Serenity/JS users, [join us on Gitter](https:/
 
 ## Sponsoring
 
-If you feel like Serenity/JS has made your life a little bit easier, please consider joining those [amazing people](/community/sponsors.html) in sponsoring this project on Github.
+If you feel like Serenity/JS has made your life a little bit easier, please consider joining [these amazing people](/community/sponsors.html) in sponsoring this project on Github.
 Even a small donation goes a long way and helps secure development time to bring new features, bug fixes, and tutorials to the Serenity/JS community!
 
 <a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a>
