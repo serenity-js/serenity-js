@@ -8,3 +8,12 @@ update_configs:
     ignored_updates:
       - match:
           dependency_name: "cucumber"
+      - match:
+          dependency_name: "@types/cucumber"
+      - match:
+          dependency_name: "selenium-webdriver"
+      - match:
+          dependency_name: "@types/selenium-webdriver"
+      - match:
+          dependency_name: "@types/node"
+          version_requirement: "13.x"
