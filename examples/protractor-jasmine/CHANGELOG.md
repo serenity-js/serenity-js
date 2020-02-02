@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.126](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.125...v2.0.1-alpha.126) (2020-02-02)
+
+
+### Bug Fixes
+
+* **npm:** corrected the repo URL after the jan-molak -> serenity-js repo  migration ([a451199](https://github.com/serenity-js/serenity-js/commit/a4511995c50bf08977aa6c4c0f5d22ba7ead343f))
+
+
+
+
+
 ## [2.0.1-alpha.119](https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.118...v2.0.1-alpha.119) (2020-02-02)
 
 **Note:** Version bump only for package @serenity-js-examples/protractor-jasmine
