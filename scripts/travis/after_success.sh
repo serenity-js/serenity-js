@@ -14,6 +14,7 @@ if [[ $TRAVIS_BRANCH == '2.0' ]]; then
   npx lerna publish prerelease --dist-tag next --yes
 
   npm run site:publish
+  npm run coverage:publish
   exit 0;
 fi
 
