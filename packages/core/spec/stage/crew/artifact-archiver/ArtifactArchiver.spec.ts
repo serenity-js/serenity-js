@@ -185,7 +185,7 @@ describe('ArtifactArchiver', () => {
         });
 
         it('complains if the destination is not provided', () => {
-            expect(() => ArtifactArchiver.storingArtifactsAt()).to.throw(Error, 'Path to destination directory should have length that is greater than 0');
+            expect(() => ArtifactArchiver.storingArtifactsAt()).to.throw(Error, `Path to destination directory should have a property "length" that is greater than 0`);
         });
     });
 });
