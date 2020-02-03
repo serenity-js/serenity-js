@@ -1,0 +1,3814 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 15635,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 118,
+      "column": 171
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 15635,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 118,
+        "column": 171
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [],
+    "directives": [],
+    "innerComments": [
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~Serenity} /modules/core/class/src/Serenity.ts~Serenity.html ",
+        "start": 0,
+        "end": 95,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 95
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~SerenityConfig} /modules/core/class/src/SerenityConfig.ts~SerenityConfig.html ",
+        "start": 96,
+        "end": 209,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 113
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~AssertionError} /modules/core/class/src/errors/AssertionError.ts~AssertionError.html ",
+        "start": 210,
+        "end": 341,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 131
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~ConfigurationError} /modules/core/class/src/errors/ConfigurationError.ts~ConfigurationError.html ",
+        "start": 342,
+        "end": 485,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 143
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~ImplementationPendingError} /modules/core/class/src/errors/ImplementationPendingError.ts~ImplementationPendingError.html ",
+        "start": 486,
+        "end": 653,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 167
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~LogicError} /modules/core/class/src/errors/LogicError.ts~LogicError.html ",
+        "start": 654,
+        "end": 773,
+        "loc": {
+          "start": {
+            "line": 6,
+            "column": 0
+          },
+          "end": {
+            "line": 6,
+            "column": 119
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~RuntimeError} /modules/core/class/src/errors/RuntimeError.ts~RuntimeError.html ",
+        "start": 774,
+        "end": 899,
+        "loc": {
+          "start": {
+            "line": 7,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 125
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~TestCompromisedError} /modules/core/class/src/errors/TestCompromisedError.ts~TestCompromisedError.html ",
+        "start": 900,
+        "end": 1049,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 8,
+            "column": 149
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/errors~UnknownError} /modules/core/class/src/errors/UnknownError.ts~UnknownError.html ",
+        "start": 1050,
+        "end": 1175,
+        "loc": {
+          "start": {
+            "line": 9,
+            "column": 0
+          },
+          "end": {
+            "line": 9,
+            "column": 125
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ActivityFinished} /modules/core/class/src/events/ActivityFinished.ts~ActivityFinished.html ",
+        "start": 1176,
+        "end": 1313,
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 137
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ActivityRelatedArtifactArchived} /modules/core/class/src/events/ActivityRelatedArtifactArchived.ts~ActivityRelatedArtifactArchived.html ",
+        "start": 1314,
+        "end": 1496,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 11,
+            "column": 182
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ActivityRelatedArtifactGenerated} /modules/core/class/src/events/ActivityRelatedArtifactGenerated.ts~ActivityRelatedArtifactGenerated.html ",
+        "start": 1497,
+        "end": 1682,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 12,
+            "column": 185
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ActivityStarts} /modules/core/class/src/events/ActivityStarts.ts~ActivityStarts.html ",
+        "start": 1683,
+        "end": 1814,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 131
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ArtifactArchived} /modules/core/class/src/events/ArtifactArchived.ts~ArtifactArchived.html ",
+        "start": 1815,
+        "end": 1952,
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 0
+          },
+          "end": {
+            "line": 14,
+            "column": 137
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~ArtifactGenerated} /modules/core/class/src/events/ArtifactGenerated.ts~ArtifactGenerated.html ",
+        "start": 1953,
+        "end": 2093,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 140
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~AsyncOperationAttempted} /modules/core/class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html ",
+        "start": 2094,
+        "end": 2252,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 16,
+            "column": 158
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~AsyncOperationCompleted} /modules/core/class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html ",
+        "start": 2253,
+        "end": 2411,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 158
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~AsyncOperationFailed} /modules/core/class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html ",
+        "start": 2412,
+        "end": 2561,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 18,
+            "column": 149
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~DomainEvent} /modules/core/class/src/events/DomainEvent.ts~DomainEvent.html ",
+        "start": 2562,
+        "end": 2684,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 122
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~FeatureNarrativeDetected} /modules/core/class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html ",
+        "start": 2685,
+        "end": 2846,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 161
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~InteractionFinished} /modules/core/class/src/events/InteractionFinished.ts~InteractionFinished.html ",
+        "start": 2847,
+        "end": 2993,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 21,
+            "column": 146
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~InteractionStarts} /modules/core/class/src/events/InteractionStarts.ts~InteractionStarts.html ",
+        "start": 2994,
+        "end": 3134,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 22,
+            "column": 140
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneBackgroundDetected} /modules/core/class/src/events/SceneBackgroundDetected.ts~SceneBackgroundDetected.html ",
+        "start": 3135,
+        "end": 3293,
+        "loc": {
+          "start": {
+            "line": 23,
+            "column": 0
+          },
+          "end": {
+            "line": 23,
+            "column": 158
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneDescriptionDetected} /modules/core/class/src/events/SceneDescriptionDetected.ts~SceneDescriptionDetected.html ",
+        "start": 3294,
+        "end": 3455,
+        "loc": {
+          "start": {
+            "line": 24,
+            "column": 0
+          },
+          "end": {
+            "line": 24,
+            "column": 161
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneFinished} /modules/core/class/src/events/SceneFinished.ts~SceneFinished.html ",
+        "start": 3456,
+        "end": 3584,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 25,
+            "column": 128
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneFinishes} /modules/core/class/src/events/SceneFinishes.ts~SceneFinishes.html ",
+        "start": 3585,
+        "end": 3713,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 26,
+            "column": 128
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneParametersDetected} /modules/core/class/src/events/SceneParametersDetected.ts~SceneParametersDetected.html ",
+        "start": 3714,
+        "end": 3872,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 158
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneSequenceDetected} /modules/core/class/src/events/SceneSequenceDetected.ts~SceneSequenceDetected.html ",
+        "start": 3873,
+        "end": 4025,
+        "loc": {
+          "start": {
+            "line": 28,
+            "column": 0
+          },
+          "end": {
+            "line": 28,
+            "column": 152
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneStarts} /modules/core/class/src/events/SceneStarts.ts~SceneStarts.html ",
+        "start": 4026,
+        "end": 4148,
+        "loc": {
+          "start": {
+            "line": 29,
+            "column": 0
+          },
+          "end": {
+            "line": 29,
+            "column": 122
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneTagged} /modules/core/class/src/events/SceneTagged.ts~SceneTagged.html ",
+        "start": 4149,
+        "end": 4271,
+        "loc": {
+          "start": {
+            "line": 30,
+            "column": 0
+          },
+          "end": {
+            "line": 30,
+            "column": 122
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~SceneTemplateDetected} /modules/core/class/src/events/SceneTemplateDetected.ts~SceneTemplateDetected.html ",
+        "start": 4272,
+        "end": 4424,
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 0
+          },
+          "end": {
+            "line": 31,
+            "column": 152
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TaskFinished} /modules/core/class/src/events/TaskFinished.ts~TaskFinished.html ",
+        "start": 4425,
+        "end": 4550,
+        "loc": {
+          "start": {
+            "line": 32,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 125
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TaskStarts} /modules/core/class/src/events/TaskStarts.ts~TaskStarts.html ",
+        "start": 4551,
+        "end": 4670,
+        "loc": {
+          "start": {
+            "line": 33,
+            "column": 0
+          },
+          "end": {
+            "line": 33,
+            "column": 119
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TestRunFinished} /modules/core/class/src/events/TestRunFinished.ts~TestRunFinished.html ",
+        "start": 4671,
+        "end": 4805,
+        "loc": {
+          "start": {
+            "line": 34,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 134
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TestRunFinishes} /modules/core/class/src/events/TestRunFinishes.ts~TestRunFinishes.html ",
+        "start": 4806,
+        "end": 4940,
+        "loc": {
+          "start": {
+            "line": 35,
+            "column": 0
+          },
+          "end": {
+            "line": 35,
+            "column": 134
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TestRunnerDetected} /modules/core/class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html ",
+        "start": 4941,
+        "end": 5084,
+        "loc": {
+          "start": {
+            "line": 36,
+            "column": 0
+          },
+          "end": {
+            "line": 36,
+            "column": 143
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TestSuiteFinished} /modules/core/class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html ",
+        "start": 5085,
+        "end": 5225,
+        "loc": {
+          "start": {
+            "line": 37,
+            "column": 0
+          },
+          "end": {
+            "line": 37,
+            "column": 140
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/events~TestSuiteStarts} /modules/core/class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html ",
+        "start": 5226,
+        "end": 5360,
+        "loc": {
+          "start": {
+            "line": 38,
+            "column": 0
+          },
+          "end": {
+            "line": 38,
+            "column": 134
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~serenity} /modules/core/variable/src/instance.ts~serenity.html ",
+        "start": 5361,
+        "end": 5459,
+        "loc": {
+          "start": {
+            "line": 39,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 98
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~configure} /modules/core/function/src/instance.ts~configure.html ",
+        "start": 5460,
+        "end": 5560,
+        "loc": {
+          "start": {
+            "line": 40,
+            "column": 0
+          },
+          "end": {
+            "line": 40,
+            "column": 100
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~engage} /modules/core/function/src/instance.ts~engage.html ",
+        "start": 5561,
+        "end": 5655,
+        "loc": {
+          "start": {
+            "line": 41,
+            "column": 0
+          },
+          "end": {
+            "line": 41,
+            "column": 94
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~actorCalled} /modules/core/function/src/instance.ts~actorCalled.html ",
+        "start": 5656,
+        "end": 5760,
+        "loc": {
+          "start": {
+            "line": 42,
+            "column": 0
+          },
+          "end": {
+            "line": 42,
+            "column": 104
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core~actorInTheSpotlight} /modules/core/function/src/instance.ts~actorInTheSpotlight.html ",
+        "start": 5761,
+        "end": 5881,
+        "loc": {
+          "start": {
+            "line": 43,
+            "column": 0
+          },
+          "end": {
+            "line": 43,
+            "column": 120
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~AssertionReportDiffer} /modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html ",
+        "start": 5882,
+        "end": 6026,
+        "loc": {
+          "start": {
+            "line": 44,
+            "column": 0
+          },
+          "end": {
+            "line": 44,
+            "column": 144
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~SerialisedError} /modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html ",
+        "start": 6027,
+        "end": 6153,
+        "loc": {
+          "start": {
+            "line": 45,
+            "column": 0
+          },
+          "end": {
+            "line": 45,
+            "column": 126
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~ErrorSerialiser} /modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html ",
+        "start": 6154,
+        "end": 6280,
+        "loc": {
+          "start": {
+            "line": 46,
+            "column": 0
+          },
+          "end": {
+            "line": 46,
+            "column": 126
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html ",
+        "start": 6281,
+        "end": 6392,
+        "loc": {
+          "start": {
+            "line": 47,
+            "column": 0
+          },
+          "end": {
+            "line": 47,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html ",
+        "start": 6393,
+        "end": 6528,
+        "loc": {
+          "start": {
+            "line": 48,
+            "column": 0
+          },
+          "end": {
+            "line": 48,
+            "column": 135
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html ",
+        "start": 6529,
+        "end": 6646,
+        "loc": {
+          "start": {
+            "line": 49,
+            "column": 0
+          },
+          "end": {
+            "line": 49,
+            "column": 117
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html ",
+        "start": 6647,
+        "end": 6740,
+        "loc": {
+          "start": {
+            "line": 50,
+            "column": 0
+          },
+          "end": {
+            "line": 50,
+            "column": 93
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html ",
+        "start": 6741,
+        "end": 6843,
+        "loc": {
+          "start": {
+            "line": 51,
+            "column": 0
+          },
+          "end": {
+            "line": 51,
+            "column": 102
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~formatted} /modules/core/function/src/io/formatted.ts~formatted.html ",
+        "start": 6844,
+        "end": 6955,
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 0
+          },
+          "end": {
+            "line": 52,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~inspected} /modules/core/function/src/io/inspected.ts~inspected.html ",
+        "start": 6956,
+        "end": 7067,
+        "loc": {
+          "start": {
+            "line": 53,
+            "column": 0
+          },
+          "end": {
+            "line": 53,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/io~trimmed} /modules/core/function/src/io/trimmed.ts~trimmed.html ",
+        "start": 7068,
+        "end": 7173,
+        "loc": {
+          "start": {
+            "line": 54,
+            "column": 0
+          },
+          "end": {
+            "line": 54,
+            "column": 105
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ActivityDetails} /modules/core/class/src/model/ActivityDetails.ts~ActivityDetails.html ",
+        "start": 7174,
+        "end": 7306,
+        "loc": {
+          "start": {
+            "line": 55,
+            "column": 0
+          },
+          "end": {
+            "line": 55,
+            "column": 132
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Artifact} /modules/core/class/src/model/Artifact.ts~Artifact.html ",
+        "start": 7307,
+        "end": 7418,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 56,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Category} /modules/core/class/src/model/Category.ts~Category.html ",
+        "start": 7419,
+        "end": 7530,
+        "loc": {
+          "start": {
+            "line": 57,
+            "column": 0
+          },
+          "end": {
+            "line": 57,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~CorrelationId} /modules/core/class/src/model/CorrelationId.ts~CorrelationId.html ",
+        "start": 7531,
+        "end": 7657,
+        "loc": {
+          "start": {
+            "line": 58,
+            "column": 0
+          },
+          "end": {
+            "line": 58,
+            "column": 126
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Description} /modules/core/class/src/model/Description.ts~Description.html ",
+        "start": 7658,
+        "end": 7778,
+        "loc": {
+          "start": {
+            "line": 59,
+            "column": 0
+          },
+          "end": {
+            "line": 59,
+            "column": 120
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Duration} /modules/core/class/src/model/Duration.ts~Duration.html ",
+        "start": 7779,
+        "end": 7890,
+        "loc": {
+          "start": {
+            "line": 60,
+            "column": 0
+          },
+          "end": {
+            "line": 60,
+            "column": 111
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Name} /modules/core/class/src/model/Name.ts~Name.html ",
+        "start": 7891,
+        "end": 7990,
+        "loc": {
+          "start": {
+            "line": 61,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 99
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ScenarioDetails} /modules/core/class/src/model/ScenarioDetails.ts~ScenarioDetails.html ",
+        "start": 7991,
+        "end": 8123,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 62,
+            "column": 132
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ScenarioParameters} /modules/core/class/src/model/ScenarioParameters.ts~ScenarioParameters.html ",
+        "start": 8124,
+        "end": 8265,
+        "loc": {
+          "start": {
+            "line": 63,
+            "column": 0
+          },
+          "end": {
+            "line": 63,
+            "column": 141
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~TestSuiteDetails} /modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html ",
+        "start": 8266,
+        "end": 8401,
+        "loc": {
+          "start": {
+            "line": 64,
+            "column": 0
+          },
+          "end": {
+            "line": 64,
+            "column": 135
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Timestamp} /modules/core/class/src/model/Timestamp.ts~Timestamp.html ",
+        "start": 8402,
+        "end": 8516,
+        "loc": {
+          "start": {
+            "line": 65,
+            "column": 0
+          },
+          "end": {
+            "line": 65,
+            "column": 114
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~AssertionReport} /modules/core/class/src/model/artifacts/AssertionReport.ts~AssertionReport.html ",
+        "start": 8517,
+        "end": 8669,
+        "loc": {
+          "start": {
+            "line": 66,
+            "column": 0
+          },
+          "end": {
+            "line": 66,
+            "column": 152
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~RequestAndResponse} /modules/core/class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html ",
+        "start": 8670,
+        "end": 8832,
+        "loc": {
+          "start": {
+            "line": 67,
+            "column": 0
+          },
+          "end": {
+            "line": 67,
+            "column": 162
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~HTTPRequestResponse} /modules/core/class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html ",
+        "start": 8833,
+        "end": 8997,
+        "loc": {
+          "start": {
+            "line": 68,
+            "column": 0
+          },
+          "end": {
+            "line": 68,
+            "column": 164
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~JSONData} /modules/core/class/src/model/artifacts/JSONData.ts~JSONData.html ",
+        "start": 8998,
+        "end": 9129,
+        "loc": {
+          "start": {
+            "line": 69,
+            "column": 0
+          },
+          "end": {
+            "line": 69,
+            "column": 131
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~LogEntry} /modules/core/class/src/model/artifacts/LogEntry.ts~LogEntry.html ",
+        "start": 9130,
+        "end": 9261,
+        "loc": {
+          "start": {
+            "line": 70,
+            "column": 0
+          },
+          "end": {
+            "line": 70,
+            "column": 131
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~Photo} /modules/core/class/src/model/artifacts/Photo.ts~Photo.html ",
+        "start": 9262,
+        "end": 9384,
+        "loc": {
+          "start": {
+            "line": 71,
+            "column": 0
+          },
+          "end": {
+            "line": 71,
+            "column": 122
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~TestReport} /modules/core/class/src/model/artifacts/TestReport.ts~TestReport.html ",
+        "start": 9385,
+        "end": 9522,
+        "loc": {
+          "start": {
+            "line": 72,
+            "column": 0
+          },
+          "end": {
+            "line": 72,
+            "column": 137
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/artifacts~TextData} /modules/core/class/src/model/artifacts/TextData.ts~TextData.html ",
+        "start": 9523,
+        "end": 9654,
+        "loc": {
+          "start": {
+            "line": 73,
+            "column": 0
+          },
+          "end": {
+            "line": 73,
+            "column": 131
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~Outcome} /modules/core/class/src/model/outcomes.ts~Outcome.html ",
+        "start": 9655,
+        "end": 9764,
+        "loc": {
+          "start": {
+            "line": 74,
+            "column": 0
+          },
+          "end": {
+            "line": 74,
+            "column": 109
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ProblemIndication} /modules/core/class/src/model/outcomes.ts~ProblemIndication.html ",
+        "start": 9765,
+        "end": 9894,
+        "loc": {
+          "start": {
+            "line": 75,
+            "column": 0
+          },
+          "end": {
+            "line": 75,
+            "column": 129
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionCompromised} /modules/core/class/src/model/outcomes.ts~ExecutionCompromised.html ",
+        "start": 9895,
+        "end": 10030,
+        "loc": {
+          "start": {
+            "line": 76,
+            "column": 0
+          },
+          "end": {
+            "line": 76,
+            "column": 135
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionFailedWithError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithError.html ",
+        "start": 10031,
+        "end": 10174,
+        "loc": {
+          "start": {
+            "line": 77,
+            "column": 0
+          },
+          "end": {
+            "line": 77,
+            "column": 143
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionFailedWithAssertionError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithAssertionError.html ",
+        "start": 10175,
+        "end": 10336,
+        "loc": {
+          "start": {
+            "line": 78,
+            "column": 0
+          },
+          "end": {
+            "line": 78,
+            "column": 161
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ImplementationPending} /modules/core/class/src/model/outcomes.ts~ImplementationPending.html ",
+        "start": 10337,
+        "end": 10474,
+        "loc": {
+          "start": {
+            "line": 79,
+            "column": 0
+          },
+          "end": {
+            "line": 79,
+            "column": 137
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionSkipped} /modules/core/class/src/model/outcomes.ts~ExecutionSkipped.html ",
+        "start": 10475,
+        "end": 10602,
+        "loc": {
+          "start": {
+            "line": 80,
+            "column": 0
+          },
+          "end": {
+            "line": 80,
+            "column": 127
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionIgnored} /modules/core/class/src/model/outcomes.ts~ExecutionIgnored.html ",
+        "start": 10603,
+        "end": 10730,
+        "loc": {
+          "start": {
+            "line": 81,
+            "column": 0
+          },
+          "end": {
+            "line": 81,
+            "column": 127
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model~ExecutionSuccessful} /modules/core/class/src/model/outcomes.ts~ExecutionSuccessful.html ",
+        "start": 10731,
+        "end": 10864,
+        "loc": {
+          "start": {
+            "line": 82,
+            "column": 0
+          },
+          "end": {
+            "line": 82,
+            "column": 133
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~ArbitraryTag} /modules/core/class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html ",
+        "start": 10865,
+        "end": 10998,
+        "loc": {
+          "start": {
+            "line": 83,
+            "column": 0
+          },
+          "end": {
+            "line": 83,
+            "column": 133
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~BrowserTag} /modules/core/class/src/model/tags/BrowserTag.ts~BrowserTag.html ",
+        "start": 10999,
+        "end": 11126,
+        "loc": {
+          "start": {
+            "line": 84,
+            "column": 0
+          },
+          "end": {
+            "line": 84,
+            "column": 127
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~CapabilityTag} /modules/core/class/src/model/tags/CapabilityTag.ts~CapabilityTag.html ",
+        "start": 11127,
+        "end": 11263,
+        "loc": {
+          "start": {
+            "line": 85,
+            "column": 0
+          },
+          "end": {
+            "line": 85,
+            "column": 136
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~ContextTag} /modules/core/class/src/model/tags/ContextTag.ts~ContextTag.html ",
+        "start": 11264,
+        "end": 11391,
+        "loc": {
+          "start": {
+            "line": 86,
+            "column": 0
+          },
+          "end": {
+            "line": 86,
+            "column": 127
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~FeatureTag} /modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html ",
+        "start": 11392,
+        "end": 11519,
+        "loc": {
+          "start": {
+            "line": 87,
+            "column": 0
+          },
+          "end": {
+            "line": 87,
+            "column": 127
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~IssueTag} /modules/core/class/src/model/tags/IssueTag.ts~IssueTag.html ",
+        "start": 11520,
+        "end": 11641,
+        "loc": {
+          "start": {
+            "line": 88,
+            "column": 0
+          },
+          "end": {
+            "line": 88,
+            "column": 121
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~ManualTag} /modules/core/class/src/model/tags/ManualTag.ts~ManualTag.html ",
+        "start": 11642,
+        "end": 11766,
+        "loc": {
+          "start": {
+            "line": 89,
+            "column": 0
+          },
+          "end": {
+            "line": 89,
+            "column": 124
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~Tag} /modules/core/class/src/model/tags/Tag.ts~Tag.html ",
+        "start": 11767,
+        "end": 11873,
+        "loc": {
+          "start": {
+            "line": 90,
+            "column": 0
+          },
+          "end": {
+            "line": 90,
+            "column": 106
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/model/tags~ThemeTag} /modules/core/class/src/model/tags/ThemeTag.ts~ThemeTag.html ",
+        "start": 11874,
+        "end": 11995,
+        "loc": {
+          "start": {
+            "line": 91,
+            "column": 0
+          },
+          "end": {
+            "line": 91,
+            "column": 121
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~Ability} /modules/core/class/src/screenplay/Ability.ts~Ability.html ",
+        "start": 11996,
+        "end": 12114,
+        "loc": {
+          "start": {
+            "line": 92,
+            "column": 0
+          },
+          "end": {
+            "line": 92,
+            "column": 118
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~AbilityType} /modules/core/class/src/screenplay/AbilityType.ts~AbilityType.html ",
+        "start": 12115,
+        "end": 12245,
+        "loc": {
+          "start": {
+            "line": 93,
+            "column": 0
+          },
+          "end": {
+            "line": 93,
+            "column": 130
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~Activity} /modules/core/class/src/screenplay/Activity.ts~Activity.html ",
+        "start": 12246,
+        "end": 12367,
+        "loc": {
+          "start": {
+            "line": 94,
+            "column": 0
+          },
+          "end": {
+            "line": 94,
+            "column": 121
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html ",
+        "start": 12368,
+        "end": 12498,
+        "loc": {
+          "start": {
+            "line": 95,
+            "column": 0
+          },
+          "end": {
+            "line": 95,
+            "column": 130
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html ",
+        "start": 12499,
+        "end": 12620,
+        "loc": {
+          "start": {
+            "line": 96,
+            "column": 0
+          },
+          "end": {
+            "line": 96,
+            "column": 121
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html ",
+        "start": 12621,
+        "end": 12730,
+        "loc": {
+          "start": {
+            "line": 97,
+            "column": 0
+          },
+          "end": {
+            "line": 97,
+            "column": 109
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html ",
+        "start": 12731,
+        "end": 12875,
+        "loc": {
+          "start": {
+            "line": 98,
+            "column": 0
+          },
+          "end": {
+            "line": 98,
+            "column": 144
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html ",
+        "start": 12876,
+        "end": 13000,
+        "loc": {
+          "start": {
+            "line": 99,
+            "column": 0
+          },
+          "end": {
+            "line": 99,
+            "column": 124
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} /modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html ",
+        "start": 13001,
+        "end": 13158,
+        "loc": {
+          "start": {
+            "line": 100,
+            "column": 0
+          },
+          "end": {
+            "line": 100,
+            "column": 157
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~CanHaveAbilities} /modules/core/class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html ",
+        "start": 13159,
+        "end": 13316,
+        "loc": {
+          "start": {
+            "line": 101,
+            "column": 0
+          },
+          "end": {
+            "line": 101,
+            "column": 157
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~CollectsArtifacts} /modules/core/class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html ",
+        "start": 13317,
+        "end": 13477,
+        "loc": {
+          "start": {
+            "line": 102,
+            "column": 0
+          },
+          "end": {
+            "line": 102,
+            "column": 160
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~PerformsActivities} /modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html ",
+        "start": 13478,
+        "end": 13641,
+        "loc": {
+          "start": {
+            "line": 103,
+            "column": 0
+          },
+          "end": {
+            "line": 103,
+            "column": 163
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/actor~UsesAbilities} /modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html ",
+        "start": 13642,
+        "end": 13790,
+        "loc": {
+          "start": {
+            "line": 104,
+            "column": 0
+          },
+          "end": {
+            "line": 104,
+            "column": 148
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/interactions~Log} /modules/core/class/src/screenplay/interactions/Log.ts~Log.html ",
+        "start": 13791,
+        "end": 13923,
+        "loc": {
+          "start": {
+            "line": 105,
+            "column": 0
+          },
+          "end": {
+            "line": 105,
+            "column": 132
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/interactions~See} /modules/core/class/src/screenplay/interactions/See.ts~See.html ",
+        "start": 13924,
+        "end": 14056,
+        "loc": {
+          "start": {
+            "line": 106,
+            "column": 0
+          },
+          "end": {
+            "line": 106,
+            "column": 132
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/interactions~TakeNote} /modules/core/class/src/screenplay/interactions/TakeNote.ts~TakeNote.html ",
+        "start": 14057,
+        "end": 14204,
+        "loc": {
+          "start": {
+            "line": 107,
+            "column": 0
+          },
+          "end": {
+            "line": 107,
+            "column": 147
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/questions~Note} /modules/core/class/src/screenplay/questions/Note.ts~Note.html ",
+        "start": 14205,
+        "end": 14334,
+        "loc": {
+          "start": {
+            "line": 108,
+            "column": 0
+          },
+          "end": {
+            "line": 108,
+            "column": 129
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/screenplay/questions~Transform} /modules/core/class/src/screenplay/questions/Transform.ts~Transform.html ",
+        "start": 14335,
+        "end": 14479,
+        "loc": {
+          "start": {
+            "line": 109,
+            "column": 0
+          },
+          "end": {
+            "line": 109,
+            "column": 144
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html ",
+        "start": 14480,
+        "end": 14579,
+        "loc": {
+          "start": {
+            "line": 110,
+            "column": 0
+          },
+          "end": {
+            "line": 110,
+            "column": 99
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html ",
+        "start": 14580,
+        "end": 14682,
+        "loc": {
+          "start": {
+            "line": 111,
+            "column": 0
+          },
+          "end": {
+            "line": 111,
+            "column": 102
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~DressingRoom} /modules/core/class/src/stage/DressingRoom.ts~DressingRoom.html ",
+        "start": 14683,
+        "end": 14806,
+        "loc": {
+          "start": {
+            "line": 112,
+            "column": 0
+          },
+          "end": {
+            "line": 112,
+            "column": 123
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~Stage} /modules/core/class/src/stage/Stage.ts~Stage.html ",
+        "start": 14807,
+        "end": 14909,
+        "loc": {
+          "start": {
+            "line": 113,
+            "column": 0
+          },
+          "end": {
+            "line": 113,
+            "column": 102
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~StageCrewMember} /modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html ",
+        "start": 14910,
+        "end": 15042,
+        "loc": {
+          "start": {
+            "line": 114,
+            "column": 0
+          },
+          "end": {
+            "line": 114,
+            "column": 132
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~StageManager} /modules/core/class/src/stage/StageManager.ts~StageManager.html ",
+        "start": 15043,
+        "end": 15166,
+        "loc": {
+          "start": {
+            "line": 115,
+            "column": 0
+          },
+          "end": {
+            "line": 115,
+            "column": 123
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage~WithStage} /modules/core/class/src/stage/WithStage.ts~WithStage.html ",
+        "start": 15167,
+        "end": 15281,
+        "loc": {
+          "start": {
+            "line": 116,
+            "column": 0
+          },
+          "end": {
+            "line": 116,
+            "column": 114
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver} /modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html ",
+        "start": 15282,
+        "end": 15463,
+        "loc": {
+          "start": {
+            "line": 117,
+            "column": 0
+          },
+          "end": {
+            "line": 117,
+            "column": 181
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "* @external {@serenity-js/core/lib/stage/crew/stream-reporter~StreamReporter} /modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html ",
+        "start": 15464,
+        "end": 15635,
+        "loc": {
+          "start": {
+            "line": 118,
+            "column": 0
+          },
+          "end": {
+            "line": 118,
+            "column": 171
+          }
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~Serenity} /modules/core/class/src/Serenity.ts~Serenity.html ",
+      "start": 0,
+      "end": 95,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 95
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~SerenityConfig} /modules/core/class/src/SerenityConfig.ts~SerenityConfig.html ",
+      "start": 96,
+      "end": 209,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 113
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~AssertionError} /modules/core/class/src/errors/AssertionError.ts~AssertionError.html ",
+      "start": 210,
+      "end": 341,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 131
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~ConfigurationError} /modules/core/class/src/errors/ConfigurationError.ts~ConfigurationError.html ",
+      "start": 342,
+      "end": 485,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 143
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~ImplementationPendingError} /modules/core/class/src/errors/ImplementationPendingError.ts~ImplementationPendingError.html ",
+      "start": 486,
+      "end": 653,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 167
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~LogicError} /modules/core/class/src/errors/LogicError.ts~LogicError.html ",
+      "start": 654,
+      "end": 773,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 119
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~RuntimeError} /modules/core/class/src/errors/RuntimeError.ts~RuntimeError.html ",
+      "start": 774,
+      "end": 899,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 125
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~TestCompromisedError} /modules/core/class/src/errors/TestCompromisedError.ts~TestCompromisedError.html ",
+      "start": 900,
+      "end": 1049,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 149
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/errors~UnknownError} /modules/core/class/src/errors/UnknownError.ts~UnknownError.html ",
+      "start": 1050,
+      "end": 1175,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 125
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ActivityFinished} /modules/core/class/src/events/ActivityFinished.ts~ActivityFinished.html ",
+      "start": 1176,
+      "end": 1313,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 137
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ActivityRelatedArtifactArchived} /modules/core/class/src/events/ActivityRelatedArtifactArchived.ts~ActivityRelatedArtifactArchived.html ",
+      "start": 1314,
+      "end": 1496,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 182
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ActivityRelatedArtifactGenerated} /modules/core/class/src/events/ActivityRelatedArtifactGenerated.ts~ActivityRelatedArtifactGenerated.html ",
+      "start": 1497,
+      "end": 1682,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 185
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ActivityStarts} /modules/core/class/src/events/ActivityStarts.ts~ActivityStarts.html ",
+      "start": 1683,
+      "end": 1814,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 0
+        },
+        "end": {
+          "line": 13,
+          "column": 131
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ArtifactArchived} /modules/core/class/src/events/ArtifactArchived.ts~ArtifactArchived.html ",
+      "start": 1815,
+      "end": 1952,
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 137
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~ArtifactGenerated} /modules/core/class/src/events/ArtifactGenerated.ts~ArtifactGenerated.html ",
+      "start": 1953,
+      "end": 2093,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 140
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~AsyncOperationAttempted} /modules/core/class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html ",
+      "start": 2094,
+      "end": 2252,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 158
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~AsyncOperationCompleted} /modules/core/class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html ",
+      "start": 2253,
+      "end": 2411,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 158
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~AsyncOperationFailed} /modules/core/class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html ",
+      "start": 2412,
+      "end": 2561,
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 149
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~DomainEvent} /modules/core/class/src/events/DomainEvent.ts~DomainEvent.html ",
+      "start": 2562,
+      "end": 2684,
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 122
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~FeatureNarrativeDetected} /modules/core/class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html ",
+      "start": 2685,
+      "end": 2846,
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 161
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~InteractionFinished} /modules/core/class/src/events/InteractionFinished.ts~InteractionFinished.html ",
+      "start": 2847,
+      "end": 2993,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 146
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~InteractionStarts} /modules/core/class/src/events/InteractionStarts.ts~InteractionStarts.html ",
+      "start": 2994,
+      "end": 3134,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 140
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneBackgroundDetected} /modules/core/class/src/events/SceneBackgroundDetected.ts~SceneBackgroundDetected.html ",
+      "start": 3135,
+      "end": 3293,
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 158
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneDescriptionDetected} /modules/core/class/src/events/SceneDescriptionDetected.ts~SceneDescriptionDetected.html ",
+      "start": 3294,
+      "end": 3455,
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 161
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneFinished} /modules/core/class/src/events/SceneFinished.ts~SceneFinished.html ",
+      "start": 3456,
+      "end": 3584,
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 128
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneFinishes} /modules/core/class/src/events/SceneFinishes.ts~SceneFinishes.html ",
+      "start": 3585,
+      "end": 3713,
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 0
+        },
+        "end": {
+          "line": 26,
+          "column": 128
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneParametersDetected} /modules/core/class/src/events/SceneParametersDetected.ts~SceneParametersDetected.html ",
+      "start": 3714,
+      "end": 3872,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 27,
+          "column": 158
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneSequenceDetected} /modules/core/class/src/events/SceneSequenceDetected.ts~SceneSequenceDetected.html ",
+      "start": 3873,
+      "end": 4025,
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 152
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneStarts} /modules/core/class/src/events/SceneStarts.ts~SceneStarts.html ",
+      "start": 4026,
+      "end": 4148,
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 122
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneTagged} /modules/core/class/src/events/SceneTagged.ts~SceneTagged.html ",
+      "start": 4149,
+      "end": 4271,
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 0
+        },
+        "end": {
+          "line": 30,
+          "column": 122
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~SceneTemplateDetected} /modules/core/class/src/events/SceneTemplateDetected.ts~SceneTemplateDetected.html ",
+      "start": 4272,
+      "end": 4424,
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 152
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TaskFinished} /modules/core/class/src/events/TaskFinished.ts~TaskFinished.html ",
+      "start": 4425,
+      "end": 4550,
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 0
+        },
+        "end": {
+          "line": 32,
+          "column": 125
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TaskStarts} /modules/core/class/src/events/TaskStarts.ts~TaskStarts.html ",
+      "start": 4551,
+      "end": 4670,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 119
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TestRunFinished} /modules/core/class/src/events/TestRunFinished.ts~TestRunFinished.html ",
+      "start": 4671,
+      "end": 4805,
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 0
+        },
+        "end": {
+          "line": 34,
+          "column": 134
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TestRunFinishes} /modules/core/class/src/events/TestRunFinishes.ts~TestRunFinishes.html ",
+      "start": 4806,
+      "end": 4940,
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 134
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TestRunnerDetected} /modules/core/class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html ",
+      "start": 4941,
+      "end": 5084,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 0
+        },
+        "end": {
+          "line": 36,
+          "column": 143
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TestSuiteFinished} /modules/core/class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html ",
+      "start": 5085,
+      "end": 5225,
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 0
+        },
+        "end": {
+          "line": 37,
+          "column": 140
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/events~TestSuiteStarts} /modules/core/class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html ",
+      "start": 5226,
+      "end": 5360,
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 0
+        },
+        "end": {
+          "line": 38,
+          "column": 134
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~serenity} /modules/core/variable/src/instance.ts~serenity.html ",
+      "start": 5361,
+      "end": 5459,
+      "loc": {
+        "start": {
+          "line": 39,
+          "column": 0
+        },
+        "end": {
+          "line": 39,
+          "column": 98
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~configure} /modules/core/function/src/instance.ts~configure.html ",
+      "start": 5460,
+      "end": 5560,
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 0
+        },
+        "end": {
+          "line": 40,
+          "column": 100
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~engage} /modules/core/function/src/instance.ts~engage.html ",
+      "start": 5561,
+      "end": 5655,
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 0
+        },
+        "end": {
+          "line": 41,
+          "column": 94
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~actorCalled} /modules/core/function/src/instance.ts~actorCalled.html ",
+      "start": 5656,
+      "end": 5760,
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 0
+        },
+        "end": {
+          "line": 42,
+          "column": 104
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core~actorInTheSpotlight} /modules/core/function/src/instance.ts~actorInTheSpotlight.html ",
+      "start": 5761,
+      "end": 5881,
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 0
+        },
+        "end": {
+          "line": 43,
+          "column": 120
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~AssertionReportDiffer} /modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html ",
+      "start": 5882,
+      "end": 6026,
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 0
+        },
+        "end": {
+          "line": 44,
+          "column": 144
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~SerialisedError} /modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html ",
+      "start": 6027,
+      "end": 6153,
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 0
+        },
+        "end": {
+          "line": 45,
+          "column": 126
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~ErrorSerialiser} /modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html ",
+      "start": 6154,
+      "end": 6280,
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 0
+        },
+        "end": {
+          "line": 46,
+          "column": 126
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html ",
+      "start": 6281,
+      "end": 6392,
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 0
+        },
+        "end": {
+          "line": 47,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html ",
+      "start": 6393,
+      "end": 6528,
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 135
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html ",
+      "start": 6529,
+      "end": 6646,
+      "loc": {
+        "start": {
+          "line": 49,
+          "column": 0
+        },
+        "end": {
+          "line": 49,
+          "column": 117
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html ",
+      "start": 6647,
+      "end": 6740,
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 93
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html ",
+      "start": 6741,
+      "end": 6843,
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 0
+        },
+        "end": {
+          "line": 51,
+          "column": 102
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~formatted} /modules/core/function/src/io/formatted.ts~formatted.html ",
+      "start": 6844,
+      "end": 6955,
+      "loc": {
+        "start": {
+          "line": 52,
+          "column": 0
+        },
+        "end": {
+          "line": 52,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~inspected} /modules/core/function/src/io/inspected.ts~inspected.html ",
+      "start": 6956,
+      "end": 7067,
+      "loc": {
+        "start": {
+          "line": 53,
+          "column": 0
+        },
+        "end": {
+          "line": 53,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/io~trimmed} /modules/core/function/src/io/trimmed.ts~trimmed.html ",
+      "start": 7068,
+      "end": 7173,
+      "loc": {
+        "start": {
+          "line": 54,
+          "column": 0
+        },
+        "end": {
+          "line": 54,
+          "column": 105
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ActivityDetails} /modules/core/class/src/model/ActivityDetails.ts~ActivityDetails.html ",
+      "start": 7174,
+      "end": 7306,
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 0
+        },
+        "end": {
+          "line": 55,
+          "column": 132
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Artifact} /modules/core/class/src/model/Artifact.ts~Artifact.html ",
+      "start": 7307,
+      "end": 7418,
+      "loc": {
+        "start": {
+          "line": 56,
+          "column": 0
+        },
+        "end": {
+          "line": 56,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Category} /modules/core/class/src/model/Category.ts~Category.html ",
+      "start": 7419,
+      "end": 7530,
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 0
+        },
+        "end": {
+          "line": 57,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~CorrelationId} /modules/core/class/src/model/CorrelationId.ts~CorrelationId.html ",
+      "start": 7531,
+      "end": 7657,
+      "loc": {
+        "start": {
+          "line": 58,
+          "column": 0
+        },
+        "end": {
+          "line": 58,
+          "column": 126
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Description} /modules/core/class/src/model/Description.ts~Description.html ",
+      "start": 7658,
+      "end": 7778,
+      "loc": {
+        "start": {
+          "line": 59,
+          "column": 0
+        },
+        "end": {
+          "line": 59,
+          "column": 120
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Duration} /modules/core/class/src/model/Duration.ts~Duration.html ",
+      "start": 7779,
+      "end": 7890,
+      "loc": {
+        "start": {
+          "line": 60,
+          "column": 0
+        },
+        "end": {
+          "line": 60,
+          "column": 111
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Name} /modules/core/class/src/model/Name.ts~Name.html ",
+      "start": 7891,
+      "end": 7990,
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 0
+        },
+        "end": {
+          "line": 61,
+          "column": 99
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ScenarioDetails} /modules/core/class/src/model/ScenarioDetails.ts~ScenarioDetails.html ",
+      "start": 7991,
+      "end": 8123,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 62,
+          "column": 132
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ScenarioParameters} /modules/core/class/src/model/ScenarioParameters.ts~ScenarioParameters.html ",
+      "start": 8124,
+      "end": 8265,
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 0
+        },
+        "end": {
+          "line": 63,
+          "column": 141
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~TestSuiteDetails} /modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html ",
+      "start": 8266,
+      "end": 8401,
+      "loc": {
+        "start": {
+          "line": 64,
+          "column": 0
+        },
+        "end": {
+          "line": 64,
+          "column": 135
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Timestamp} /modules/core/class/src/model/Timestamp.ts~Timestamp.html ",
+      "start": 8402,
+      "end": 8516,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 0
+        },
+        "end": {
+          "line": 65,
+          "column": 114
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~AssertionReport} /modules/core/class/src/model/artifacts/AssertionReport.ts~AssertionReport.html ",
+      "start": 8517,
+      "end": 8669,
+      "loc": {
+        "start": {
+          "line": 66,
+          "column": 0
+        },
+        "end": {
+          "line": 66,
+          "column": 152
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~RequestAndResponse} /modules/core/class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html ",
+      "start": 8670,
+      "end": 8832,
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 0
+        },
+        "end": {
+          "line": 67,
+          "column": 162
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~HTTPRequestResponse} /modules/core/class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html ",
+      "start": 8833,
+      "end": 8997,
+      "loc": {
+        "start": {
+          "line": 68,
+          "column": 0
+        },
+        "end": {
+          "line": 68,
+          "column": 164
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~JSONData} /modules/core/class/src/model/artifacts/JSONData.ts~JSONData.html ",
+      "start": 8998,
+      "end": 9129,
+      "loc": {
+        "start": {
+          "line": 69,
+          "column": 0
+        },
+        "end": {
+          "line": 69,
+          "column": 131
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~LogEntry} /modules/core/class/src/model/artifacts/LogEntry.ts~LogEntry.html ",
+      "start": 9130,
+      "end": 9261,
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 0
+        },
+        "end": {
+          "line": 70,
+          "column": 131
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~Photo} /modules/core/class/src/model/artifacts/Photo.ts~Photo.html ",
+      "start": 9262,
+      "end": 9384,
+      "loc": {
+        "start": {
+          "line": 71,
+          "column": 0
+        },
+        "end": {
+          "line": 71,
+          "column": 122
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~TestReport} /modules/core/class/src/model/artifacts/TestReport.ts~TestReport.html ",
+      "start": 9385,
+      "end": 9522,
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 0
+        },
+        "end": {
+          "line": 72,
+          "column": 137
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/artifacts~TextData} /modules/core/class/src/model/artifacts/TextData.ts~TextData.html ",
+      "start": 9523,
+      "end": 9654,
+      "loc": {
+        "start": {
+          "line": 73,
+          "column": 0
+        },
+        "end": {
+          "line": 73,
+          "column": 131
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~Outcome} /modules/core/class/src/model/outcomes.ts~Outcome.html ",
+      "start": 9655,
+      "end": 9764,
+      "loc": {
+        "start": {
+          "line": 74,
+          "column": 0
+        },
+        "end": {
+          "line": 74,
+          "column": 109
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ProblemIndication} /modules/core/class/src/model/outcomes.ts~ProblemIndication.html ",
+      "start": 9765,
+      "end": 9894,
+      "loc": {
+        "start": {
+          "line": 75,
+          "column": 0
+        },
+        "end": {
+          "line": 75,
+          "column": 129
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionCompromised} /modules/core/class/src/model/outcomes.ts~ExecutionCompromised.html ",
+      "start": 9895,
+      "end": 10030,
+      "loc": {
+        "start": {
+          "line": 76,
+          "column": 0
+        },
+        "end": {
+          "line": 76,
+          "column": 135
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionFailedWithError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithError.html ",
+      "start": 10031,
+      "end": 10174,
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 0
+        },
+        "end": {
+          "line": 77,
+          "column": 143
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionFailedWithAssertionError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithAssertionError.html ",
+      "start": 10175,
+      "end": 10336,
+      "loc": {
+        "start": {
+          "line": 78,
+          "column": 0
+        },
+        "end": {
+          "line": 78,
+          "column": 161
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ImplementationPending} /modules/core/class/src/model/outcomes.ts~ImplementationPending.html ",
+      "start": 10337,
+      "end": 10474,
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 0
+        },
+        "end": {
+          "line": 79,
+          "column": 137
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionSkipped} /modules/core/class/src/model/outcomes.ts~ExecutionSkipped.html ",
+      "start": 10475,
+      "end": 10602,
+      "loc": {
+        "start": {
+          "line": 80,
+          "column": 0
+        },
+        "end": {
+          "line": 80,
+          "column": 127
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionIgnored} /modules/core/class/src/model/outcomes.ts~ExecutionIgnored.html ",
+      "start": 10603,
+      "end": 10730,
+      "loc": {
+        "start": {
+          "line": 81,
+          "column": 0
+        },
+        "end": {
+          "line": 81,
+          "column": 127
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model~ExecutionSuccessful} /modules/core/class/src/model/outcomes.ts~ExecutionSuccessful.html ",
+      "start": 10731,
+      "end": 10864,
+      "loc": {
+        "start": {
+          "line": 82,
+          "column": 0
+        },
+        "end": {
+          "line": 82,
+          "column": 133
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~ArbitraryTag} /modules/core/class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html ",
+      "start": 10865,
+      "end": 10998,
+      "loc": {
+        "start": {
+          "line": 83,
+          "column": 0
+        },
+        "end": {
+          "line": 83,
+          "column": 133
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~BrowserTag} /modules/core/class/src/model/tags/BrowserTag.ts~BrowserTag.html ",
+      "start": 10999,
+      "end": 11126,
+      "loc": {
+        "start": {
+          "line": 84,
+          "column": 0
+        },
+        "end": {
+          "line": 84,
+          "column": 127
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~CapabilityTag} /modules/core/class/src/model/tags/CapabilityTag.ts~CapabilityTag.html ",
+      "start": 11127,
+      "end": 11263,
+      "loc": {
+        "start": {
+          "line": 85,
+          "column": 0
+        },
+        "end": {
+          "line": 85,
+          "column": 136
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~ContextTag} /modules/core/class/src/model/tags/ContextTag.ts~ContextTag.html ",
+      "start": 11264,
+      "end": 11391,
+      "loc": {
+        "start": {
+          "line": 86,
+          "column": 0
+        },
+        "end": {
+          "line": 86,
+          "column": 127
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~FeatureTag} /modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html ",
+      "start": 11392,
+      "end": 11519,
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 0
+        },
+        "end": {
+          "line": 87,
+          "column": 127
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~IssueTag} /modules/core/class/src/model/tags/IssueTag.ts~IssueTag.html ",
+      "start": 11520,
+      "end": 11641,
+      "loc": {
+        "start": {
+          "line": 88,
+          "column": 0
+        },
+        "end": {
+          "line": 88,
+          "column": 121
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~ManualTag} /modules/core/class/src/model/tags/ManualTag.ts~ManualTag.html ",
+      "start": 11642,
+      "end": 11766,
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 0
+        },
+        "end": {
+          "line": 89,
+          "column": 124
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~Tag} /modules/core/class/src/model/tags/Tag.ts~Tag.html ",
+      "start": 11767,
+      "end": 11873,
+      "loc": {
+        "start": {
+          "line": 90,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
+          "column": 106
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/model/tags~ThemeTag} /modules/core/class/src/model/tags/ThemeTag.ts~ThemeTag.html ",
+      "start": 11874,
+      "end": 11995,
+      "loc": {
+        "start": {
+          "line": 91,
+          "column": 0
+        },
+        "end": {
+          "line": 91,
+          "column": 121
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~Ability} /modules/core/class/src/screenplay/Ability.ts~Ability.html ",
+      "start": 11996,
+      "end": 12114,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 0
+        },
+        "end": {
+          "line": 92,
+          "column": 118
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~AbilityType} /modules/core/class/src/screenplay/AbilityType.ts~AbilityType.html ",
+      "start": 12115,
+      "end": 12245,
+      "loc": {
+        "start": {
+          "line": 93,
+          "column": 0
+        },
+        "end": {
+          "line": 93,
+          "column": 130
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~Activity} /modules/core/class/src/screenplay/Activity.ts~Activity.html ",
+      "start": 12246,
+      "end": 12367,
+      "loc": {
+        "start": {
+          "line": 94,
+          "column": 0
+        },
+        "end": {
+          "line": 94,
+          "column": 121
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html ",
+      "start": 12368,
+      "end": 12498,
+      "loc": {
+        "start": {
+          "line": 95,
+          "column": 0
+        },
+        "end": {
+          "line": 95,
+          "column": 130
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html ",
+      "start": 12499,
+      "end": 12620,
+      "loc": {
+        "start": {
+          "line": 96,
+          "column": 0
+        },
+        "end": {
+          "line": 96,
+          "column": 121
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html ",
+      "start": 12621,
+      "end": 12730,
+      "loc": {
+        "start": {
+          "line": 97,
+          "column": 0
+        },
+        "end": {
+          "line": 97,
+          "column": 109
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html ",
+      "start": 12731,
+      "end": 12875,
+      "loc": {
+        "start": {
+          "line": 98,
+          "column": 0
+        },
+        "end": {
+          "line": 98,
+          "column": 144
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html ",
+      "start": 12876,
+      "end": 13000,
+      "loc": {
+        "start": {
+          "line": 99,
+          "column": 0
+        },
+        "end": {
+          "line": 99,
+          "column": 124
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} /modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html ",
+      "start": 13001,
+      "end": 13158,
+      "loc": {
+        "start": {
+          "line": 100,
+          "column": 0
+        },
+        "end": {
+          "line": 100,
+          "column": 157
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~CanHaveAbilities} /modules/core/class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html ",
+      "start": 13159,
+      "end": 13316,
+      "loc": {
+        "start": {
+          "line": 101,
+          "column": 0
+        },
+        "end": {
+          "line": 101,
+          "column": 157
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~CollectsArtifacts} /modules/core/class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html ",
+      "start": 13317,
+      "end": 13477,
+      "loc": {
+        "start": {
+          "line": 102,
+          "column": 0
+        },
+        "end": {
+          "line": 102,
+          "column": 160
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~PerformsActivities} /modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html ",
+      "start": 13478,
+      "end": 13641,
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 0
+        },
+        "end": {
+          "line": 103,
+          "column": 163
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/actor~UsesAbilities} /modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html ",
+      "start": 13642,
+      "end": 13790,
+      "loc": {
+        "start": {
+          "line": 104,
+          "column": 0
+        },
+        "end": {
+          "line": 104,
+          "column": 148
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/interactions~Log} /modules/core/class/src/screenplay/interactions/Log.ts~Log.html ",
+      "start": 13791,
+      "end": 13923,
+      "loc": {
+        "start": {
+          "line": 105,
+          "column": 0
+        },
+        "end": {
+          "line": 105,
+          "column": 132
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/interactions~See} /modules/core/class/src/screenplay/interactions/See.ts~See.html ",
+      "start": 13924,
+      "end": 14056,
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 0
+        },
+        "end": {
+          "line": 106,
+          "column": 132
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/interactions~TakeNote} /modules/core/class/src/screenplay/interactions/TakeNote.ts~TakeNote.html ",
+      "start": 14057,
+      "end": 14204,
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 0
+        },
+        "end": {
+          "line": 107,
+          "column": 147
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/questions~Note} /modules/core/class/src/screenplay/questions/Note.ts~Note.html ",
+      "start": 14205,
+      "end": 14334,
+      "loc": {
+        "start": {
+          "line": 108,
+          "column": 0
+        },
+        "end": {
+          "line": 108,
+          "column": 129
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/screenplay/questions~Transform} /modules/core/class/src/screenplay/questions/Transform.ts~Transform.html ",
+      "start": 14335,
+      "end": 14479,
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 0
+        },
+        "end": {
+          "line": 109,
+          "column": 144
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html ",
+      "start": 14480,
+      "end": 14579,
+      "loc": {
+        "start": {
+          "line": 110,
+          "column": 0
+        },
+        "end": {
+          "line": 110,
+          "column": 99
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html ",
+      "start": 14580,
+      "end": 14682,
+      "loc": {
+        "start": {
+          "line": 111,
+          "column": 0
+        },
+        "end": {
+          "line": 111,
+          "column": 102
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~DressingRoom} /modules/core/class/src/stage/DressingRoom.ts~DressingRoom.html ",
+      "start": 14683,
+      "end": 14806,
+      "loc": {
+        "start": {
+          "line": 112,
+          "column": 0
+        },
+        "end": {
+          "line": 112,
+          "column": 123
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~Stage} /modules/core/class/src/stage/Stage.ts~Stage.html ",
+      "start": 14807,
+      "end": 14909,
+      "loc": {
+        "start": {
+          "line": 113,
+          "column": 0
+        },
+        "end": {
+          "line": 113,
+          "column": 102
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~StageCrewMember} /modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html ",
+      "start": 14910,
+      "end": 15042,
+      "loc": {
+        "start": {
+          "line": 114,
+          "column": 0
+        },
+        "end": {
+          "line": 114,
+          "column": 132
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~StageManager} /modules/core/class/src/stage/StageManager.ts~StageManager.html ",
+      "start": 15043,
+      "end": 15166,
+      "loc": {
+        "start": {
+          "line": 115,
+          "column": 0
+        },
+        "end": {
+          "line": 115,
+          "column": 123
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage~WithStage} /modules/core/class/src/stage/WithStage.ts~WithStage.html ",
+      "start": 15167,
+      "end": 15281,
+      "loc": {
+        "start": {
+          "line": 116,
+          "column": 0
+        },
+        "end": {
+          "line": 116,
+          "column": 114
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver} /modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html ",
+      "start": 15282,
+      "end": 15463,
+      "loc": {
+        "start": {
+          "line": 117,
+          "column": 0
+        },
+        "end": {
+          "line": 117,
+          "column": 181
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "* @external {@serenity-js/core/lib/stage/crew/stream-reporter~StreamReporter} /modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html ",
+      "start": 15464,
+      "end": 15635,
+      "loc": {
+        "start": {
+          "line": 118,
+          "column": 0
+        },
+        "end": {
+          "line": 118,
+          "column": 171
+        }
+      }
+    }
+  ]
+}

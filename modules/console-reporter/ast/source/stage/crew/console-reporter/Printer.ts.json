@@ -1,0 +1,4063 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 2809,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 197,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 2809,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 197,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "TSImportEqualsDeclaration",
+        "start": 0,
+        "end": 46,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 46
+          }
+        },
+        "isExport": false,
+        "id": {
+          "type": "Identifier",
+          "start": 7,
+          "end": 21,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 7
+            },
+            "end": {
+              "line": 1,
+              "column": 21
+            },
+            "identifierName": "WritableStream"
+          },
+          "name": "WritableStream"
+        },
+        "moduleReference": {
+          "type": "TSQualifiedName",
+          "start": 24,
+          "end": 45,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 45
+            }
+          },
+          "left": {
+            "type": "Identifier",
+            "start": 24,
+            "end": 30,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 24
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              },
+              "identifierName": "NodeJS"
+            },
+            "name": "NodeJS"
+          },
+          "right": {
+            "type": "Identifier",
+            "start": 31,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 31
+              },
+              "end": {
+                "line": 1,
+                "column": 45
+              },
+              "identifierName": "WritableStream"
+            },
+            "name": "WritableStream"
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 47,
+            "end": 92,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A simple abstraction around the standard output stream\n *  with support for indenting the printed text.\n *\n * @public\n ",
+            "start": 95,
+            "end": 233,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 234,
+        "end": 1945,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 124,
+            "column": 1
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 241,
+          "end": 1945,
+          "loc": {
+            "start": {
+              "line": 17,
+              "column": 7
+            },
+            "end": {
+              "line": 124,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 247,
+            "end": 254,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 13
+              },
+              "end": {
+                "line": 17,
+                "column": 20
+              },
+              "identifierName": "Printer"
+            },
+            "name": "Printer"
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 255,
+            "end": 1945,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 21
+              },
+              "end": {
+                "line": 124,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassProperty",
+                "start": 331,
+                "end": 372,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 45
+                  }
+                },
+                "accessibility": "private",
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 339,
+                  "end": 350,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 23
+                    },
+                    "identifierName": "indentation"
+                  },
+                  "name": "indentation"
+                },
+                "computed": false,
+                "value": {
+                  "type": "NewExpression",
+                  "start": 353,
+                  "end": 371,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 44
+                    }
+                  },
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 357,
+                    "end": 368,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 41
+                      },
+                      "identifierName": "Indentation"
+                    },
+                    "name": "Indentation"
+                  },
+                  "arguments": [
+                    {
+                      "type": "NumericLiteral",
+                      "start": 369,
+                      "end": 370,
+                      "loc": {
+                        "start": {
+                          "line": 27,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 27,
+                          "column": 43
+                        }
+                      },
+                      "extra": {
+                        "rawValue": 2,
+                        "raw": "2"
+                      },
+                      "value": 2
+                    }
+                  ]
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @private \n * \\TRUE \n ",
+                    "start": 257,
+                    "end": 325,
+                    "loc": {
+                      "start": {
+                        "line": 18,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {WritableStream} stdout\n     ",
+                    "start": 378,
+                    "end": 427,
+                    "loc": {
+                      "start": {
+                        "line": 29,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 432,
+                "end": 509,
+                "loc": {
+                  "start": {
+                    "line": 32,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 33,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 432,
+                  "end": 443,
+                  "loc": {
+                    "start": {
+                      "line": 32,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 32,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 444,
+                    "end": 500,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 72
+                      }
+                    },
+                    "accessibility": "private",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "AssignmentPattern",
+                      "start": 461,
+                      "end": 500,
+                      "loc": {
+                        "start": {
+                          "line": 32,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 32,
+                          "column": 72
+                        }
+                      },
+                      "left": {
+                        "type": "Identifier",
+                        "start": 461,
+                        "end": 483,
+                        "loc": {
+                          "start": {
+                            "line": 32,
+                            "column": 33
+                          },
+                          "end": {
+                            "line": 32,
+                            "column": 55
+                          },
+                          "identifierName": "stdout"
+                        },
+                        "name": "stdout",
+                        "typeAnnotation": {
+                          "type": "TSTypeAnnotation",
+                          "start": 467,
+                          "end": 483,
+                          "loc": {
+                            "start": {
+                              "line": 32,
+                              "column": 39
+                            },
+                            "end": {
+                              "line": 32,
+                              "column": 55
+                            }
+                          },
+                          "typeAnnotation": {
+                            "type": "TSTypeReference",
+                            "start": 469,
+                            "end": 483,
+                            "loc": {
+                              "start": {
+                                "line": 32,
+                                "column": 41
+                              },
+                              "end": {
+                                "line": 32,
+                                "column": 55
+                              }
+                            },
+                            "typeName": {
+                              "type": "Identifier",
+                              "start": 469,
+                              "end": 483,
+                              "loc": {
+                                "start": {
+                                  "line": 32,
+                                  "column": 41
+                                },
+                                "end": {
+                                  "line": 32,
+                                  "column": 55
+                                },
+                                "identifierName": "WritableStream"
+                              },
+                              "name": "WritableStream"
+                            }
+                          }
+                        }
+                      },
+                      "right": {
+                        "type": "MemberExpression",
+                        "start": 486,
+                        "end": 500,
+                        "loc": {
+                          "start": {
+                            "line": 32,
+                            "column": 58
+                          },
+                          "end": {
+                            "line": 32,
+                            "column": 72
+                          }
+                        },
+                        "object": {
+                          "type": "Identifier",
+                          "start": 486,
+                          "end": 493,
+                          "loc": {
+                            "start": {
+                              "line": 32,
+                              "column": 58
+                            },
+                            "end": {
+                              "line": 32,
+                              "column": 65
+                            },
+                            "identifierName": "process"
+                          },
+                          "name": "process"
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 494,
+                          "end": 500,
+                          "loc": {
+                            "start": {
+                              "line": 32,
+                              "column": 66
+                            },
+                            "end": {
+                              "line": 32,
+                              "column": 72
+                            },
+                            "identifierName": "stdout"
+                          },
+                          "name": "stdout"
+                        },
+                        "computed": false
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 502,
+                  "end": 509,
+                  "loc": {
+                    "start": {
+                      "line": 32,
+                      "column": 74
+                    },
+                    "end": {
+                      "line": 33,
+                      "column": 5
+                    }
+                  },
+                  "body": [],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {WritableStream} stdout\n     ",
+                    "start": 378,
+                    "end": 427,
+                    "loc": {
+                      "start": {
+                        "line": 29,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+                    "start": 510,
+                    "end": 607,
+                    "loc": {
+                      "start": {
+                        "line": 34,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 43,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, followed by a new line character (`\\n`).\n     *\n     *  Please note that this method bypasses any indentation as it's intended\n     *  to be used to print separator lines, etc.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+                    "start": 614,
+                    "end": 925,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 56,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 930,
+                "end": 1003,
+                "loc": {
+                  "start": {
+                    "line": 57,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 59,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 930,
+                  "end": 937,
+                  "loc": {
+                    "start": {
+                      "line": 57,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 57,
+                      "column": 11
+                    },
+                    "identifierName": "println"
+                  },
+                  "name": "println"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "RestElement",
+                    "start": 938,
+                    "end": 952,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 26
+                      }
+                    },
+                    "argument": {
+                      "type": "Identifier",
+                      "start": 941,
+                      "end": 945,
+                      "loc": {
+                        "start": {
+                          "line": 57,
+                          "column": 15
+                        },
+                        "end": {
+                          "line": 57,
+                          "column": 19
+                        },
+                        "identifierName": "args"
+                      },
+                      "name": "args"
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 945,
+                      "end": 952,
+                      "loc": {
+                        "start": {
+                          "line": 57,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 57,
+                          "column": 26
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 947,
+                        "end": 952,
+                        "loc": {
+                          "start": {
+                            "line": 57,
+                            "column": 21
+                          },
+                          "end": {
+                            "line": 57,
+                            "column": 26
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSAnyKeyword",
+                          "start": 947,
+                          "end": 950,
+                          "loc": {
+                            "start": {
+                              "line": 57,
+                              "column": 21
+                            },
+                            "end": {
+                              "line": 57,
+                              "column": 24
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 954,
+                  "end": 1003,
+                  "loc": {
+                    "start": {
+                      "line": 57,
+                      "column": 28
+                    },
+                    "end": {
+                      "line": 59,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ReturnStatement",
+                      "start": 964,
+                      "end": 997,
+                      "loc": {
+                        "start": {
+                          "line": 58,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 58,
+                          "column": 41
+                        }
+                      },
+                      "argument": {
+                        "type": "CallExpression",
+                        "start": 971,
+                        "end": 996,
+                        "loc": {
+                          "start": {
+                            "line": 58,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 58,
+                            "column": 40
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 971,
+                          "end": 981,
+                          "loc": {
+                            "start": {
+                              "line": 58,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 58,
+                              "column": 25
+                            }
+                          },
+                          "object": {
+                            "type": "ThisExpression",
+                            "start": 971,
+                            "end": 975,
+                            "loc": {
+                              "start": {
+                                "line": 58,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 58,
+                                "column": 19
+                              }
+                            }
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 976,
+                            "end": 981,
+                            "loc": {
+                              "start": {
+                                "line": 58,
+                                "column": 20
+                              },
+                              "end": {
+                                "line": 58,
+                                "column": 25
+                              },
+                              "identifierName": "print"
+                            },
+                            "name": "print"
+                          },
+                          "computed": false
+                        },
+                        "arguments": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 982,
+                            "end": 989,
+                            "loc": {
+                              "start": {
+                                "line": 58,
+                                "column": 26
+                              },
+                              "end": {
+                                "line": 58,
+                                "column": 33
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 985,
+                              "end": 989,
+                              "loc": {
+                                "start": {
+                                  "line": 58,
+                                  "column": 29
+                                },
+                                "end": {
+                                  "line": 58,
+                                  "column": 33
+                                },
+                                "identifierName": "args"
+                              },
+                              "name": "args"
+                            }
+                          },
+                          {
+                            "type": "StringLiteral",
+                            "start": 991,
+                            "end": 995,
+                            "loc": {
+                              "start": {
+                                "line": 58,
+                                "column": 35
+                              },
+                              "end": {
+                                "line": 58,
+                                "column": 39
+                              }
+                            },
+                            "extra": {
+                              "rawValue": "\n",
+                              "raw": "'\\n'"
+                            },
+                            "value": "\n"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+                    "start": 510,
+                    "end": 607,
+                    "loc": {
+                      "start": {
+                        "line": 34,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 43,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, followed by a new line character (`\\n`).\n     *\n     *  Please note that this method bypasses any indentation as it's intended\n     *  to be used to print separator lines, etc.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+                    "start": 614,
+                    "end": 925,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 56,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+                    "start": 1004,
+                    "end": 1101,
+                    "loc": {
+                      "start": {
+                        "line": 60,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 69,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, indenting the output according to\n     *  the current indentation level.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+                    "start": 1108,
+                    "end": 1315,
+                    "loc": {
+                      "start": {
+                        "line": 72,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 80,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1320,
+                "end": 1460,
+                "loc": {
+                  "start": {
+                    "line": 81,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 85,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1320,
+                  "end": 1325,
+                  "loc": {
+                    "start": {
+                      "line": 81,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 81,
+                      "column": 9
+                    },
+                    "identifierName": "print"
+                  },
+                  "name": "print"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "RestElement",
+                    "start": 1326,
+                    "end": 1340,
+                    "loc": {
+                      "start": {
+                        "line": 81,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 81,
+                        "column": 24
+                      }
+                    },
+                    "argument": {
+                      "type": "Identifier",
+                      "start": 1329,
+                      "end": 1333,
+                      "loc": {
+                        "start": {
+                          "line": 81,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 81,
+                          "column": 17
+                        },
+                        "identifierName": "args"
+                      },
+                      "name": "args"
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 1333,
+                      "end": 1340,
+                      "loc": {
+                        "start": {
+                          "line": 81,
+                          "column": 17
+                        },
+                        "end": {
+                          "line": 81,
+                          "column": 24
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 1335,
+                        "end": 1340,
+                        "loc": {
+                          "start": {
+                            "line": 81,
+                            "column": 19
+                          },
+                          "end": {
+                            "line": 81,
+                            "column": 24
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSAnyKeyword",
+                          "start": 1335,
+                          "end": 1338,
+                          "loc": {
+                            "start": {
+                              "line": 81,
+                              "column": 19
+                            },
+                            "end": {
+                              "line": 81,
+                              "column": 22
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 1342,
+                  "end": 1460,
+                  "loc": {
+                    "start": {
+                      "line": 81,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 85,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 1352,
+                      "end": 1454,
+                      "loc": {
+                        "start": {
+                          "line": 82,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 84,
+                          "column": 10
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 1352,
+                        "end": 1453,
+                        "loc": {
+                          "start": {
+                            "line": 82,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 84,
+                            "column": 9
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 1352,
+                          "end": 1369,
+                          "loc": {
+                            "start": {
+                              "line": 82,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 82,
+                              "column": 25
+                            }
+                          },
+                          "object": {
+                            "type": "MemberExpression",
+                            "start": 1352,
+                            "end": 1363,
+                            "loc": {
+                              "start": {
+                                "line": 82,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 82,
+                                "column": 19
+                              }
+                            },
+                            "object": {
+                              "type": "ThisExpression",
+                              "start": 1352,
+                              "end": 1356,
+                              "loc": {
+                                "start": {
+                                  "line": 82,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 82,
+                                  "column": 12
+                                }
+                              }
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 1357,
+                              "end": 1363,
+                              "loc": {
+                                "start": {
+                                  "line": 82,
+                                  "column": 13
+                                },
+                                "end": {
+                                  "line": 82,
+                                  "column": 19
+                                },
+                                "identifierName": "stdout"
+                              },
+                              "name": "stdout"
+                            },
+                            "computed": false
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 1364,
+                            "end": 1369,
+                            "loc": {
+                              "start": {
+                                "line": 82,
+                                "column": 20
+                              },
+                              "end": {
+                                "line": 82,
+                                "column": 25
+                              },
+                              "identifierName": "write"
+                            },
+                            "name": "write"
+                          },
+                          "computed": false
+                        },
+                        "arguments": [
+                          {
+                            "type": "CallExpression",
+                            "start": 1383,
+                            "end": 1442,
+                            "loc": {
+                              "start": {
+                                "line": 83,
+                                "column": 12
+                              },
+                              "end": {
+                                "line": 83,
+                                "column": 71
+                              }
+                            },
+                            "callee": {
+                              "type": "MemberExpression",
+                              "start": 1383,
+                              "end": 1408,
+                              "loc": {
+                                "start": {
+                                  "line": 83,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 83,
+                                  "column": 37
+                                }
+                              },
+                              "object": {
+                                "type": "MemberExpression",
+                                "start": 1383,
+                                "end": 1399,
+                                "loc": {
+                                  "start": {
+                                    "line": 83,
+                                    "column": 12
+                                  },
+                                  "end": {
+                                    "line": 83,
+                                    "column": 28
+                                  }
+                                },
+                                "object": {
+                                  "type": "ThisExpression",
+                                  "start": 1383,
+                                  "end": 1387,
+                                  "loc": {
+                                    "start": {
+                                      "line": 83,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 83,
+                                      "column": 16
+                                    }
+                                  }
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": 1388,
+                                  "end": 1399,
+                                  "loc": {
+                                    "start": {
+                                      "line": 83,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "line": 83,
+                                      "column": 28
+                                    },
+                                    "identifierName": "indentation"
+                                  },
+                                  "name": "indentation"
+                                },
+                                "computed": false
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 1400,
+                                "end": 1408,
+                                "loc": {
+                                  "start": {
+                                    "line": 83,
+                                    "column": 29
+                                  },
+                                  "end": {
+                                    "line": 83,
+                                    "column": 37
+                                  },
+                                  "identifierName": "indented"
+                                },
+                                "name": "indented"
+                              },
+                              "computed": false
+                            },
+                            "arguments": [
+                              {
+                                "type": "TemplateLiteral",
+                                "start": 1409,
+                                "end": 1441,
+                                "loc": {
+                                  "start": {
+                                    "line": 83,
+                                    "column": 38
+                                  },
+                                  "end": {
+                                    "line": 83,
+                                    "column": 70
+                                  }
+                                },
+                                "expressions": [
+                                  {
+                                    "type": "CallExpression",
+                                    "start": 1413,
+                                    "end": 1438,
+                                    "loc": {
+                                      "start": {
+                                        "line": 83,
+                                        "column": 42
+                                      },
+                                      "end": {
+                                        "line": 83,
+                                        "column": 67
+                                      }
+                                    },
+                                    "callee": {
+                                      "type": "MemberExpression",
+                                      "start": 1413,
+                                      "end": 1434,
+                                      "loc": {
+                                        "start": {
+                                          "line": 83,
+                                          "column": 42
+                                        },
+                                        "end": {
+                                          "line": 83,
+                                          "column": 63
+                                        }
+                                      },
+                                      "object": {
+                                        "type": "CallExpression",
+                                        "start": 1413,
+                                        "end": 1429,
+                                        "loc": {
+                                          "start": {
+                                            "line": 83,
+                                            "column": 42
+                                          },
+                                          "end": {
+                                            "line": 83,
+                                            "column": 58
+                                          }
+                                        },
+                                        "callee": {
+                                          "type": "MemberExpression",
+                                          "start": 1413,
+                                          "end": 1421,
+                                          "loc": {
+                                            "start": {
+                                              "line": 83,
+                                              "column": 42
+                                            },
+                                            "end": {
+                                              "line": 83,
+                                              "column": 50
+                                            }
+                                          },
+                                          "object": {
+                                            "type": "Identifier",
+                                            "start": 1413,
+                                            "end": 1417,
+                                            "loc": {
+                                              "start": {
+                                                "line": 83,
+                                                "column": 42
+                                              },
+                                              "end": {
+                                                "line": 83,
+                                                "column": 46
+                                              },
+                                              "identifierName": "args"
+                                            },
+                                            "name": "args"
+                                          },
+                                          "property": {
+                                            "type": "Identifier",
+                                            "start": 1418,
+                                            "end": 1421,
+                                            "loc": {
+                                              "start": {
+                                                "line": 83,
+                                                "column": 47
+                                              },
+                                              "end": {
+                                                "line": 83,
+                                                "column": 50
+                                              },
+                                              "identifierName": "map"
+                                            },
+                                            "name": "map"
+                                          },
+                                          "computed": false
+                                        },
+                                        "arguments": [
+                                          {
+                                            "type": "Identifier",
+                                            "start": 1422,
+                                            "end": 1428,
+                                            "loc": {
+                                              "start": {
+                                                "line": 83,
+                                                "column": 51
+                                              },
+                                              "end": {
+                                                "line": 83,
+                                                "column": 57
+                                              },
+                                              "identifierName": "String"
+                                            },
+                                            "name": "String"
+                                          }
+                                        ]
+                                      },
+                                      "property": {
+                                        "type": "Identifier",
+                                        "start": 1430,
+                                        "end": 1434,
+                                        "loc": {
+                                          "start": {
+                                            "line": 83,
+                                            "column": 59
+                                          },
+                                          "end": {
+                                            "line": 83,
+                                            "column": 63
+                                          },
+                                          "identifierName": "join"
+                                        },
+                                        "name": "join"
+                                      },
+                                      "computed": false
+                                    },
+                                    "arguments": [
+                                      {
+                                        "type": "StringLiteral",
+                                        "start": 1435,
+                                        "end": 1437,
+                                        "loc": {
+                                          "start": {
+                                            "line": 83,
+                                            "column": 64
+                                          },
+                                          "end": {
+                                            "line": 83,
+                                            "column": 66
+                                          }
+                                        },
+                                        "extra": {
+                                          "rawValue": "",
+                                          "raw": "''"
+                                        },
+                                        "value": ""
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "quasis": [
+                                  {
+                                    "type": "TemplateElement",
+                                    "start": 1410,
+                                    "end": 1410,
+                                    "loc": {
+                                      "start": {
+                                        "line": 83,
+                                        "column": 39
+                                      },
+                                      "end": {
+                                        "line": 83,
+                                        "column": 39
+                                      }
+                                    },
+                                    "value": {
+                                      "raw": "",
+                                      "cooked": ""
+                                    },
+                                    "tail": false
+                                  },
+                                  {
+                                    "type": "TemplateElement",
+                                    "start": 1440,
+                                    "end": 1440,
+                                    "loc": {
+                                      "start": {
+                                        "line": 83,
+                                        "column": 69
+                                      },
+                                      "end": {
+                                        "line": 83,
+                                        "column": 69
+                                      }
+                                    },
+                                    "value": {
+                                      "raw": "",
+                                      "cooked": ""
+                                    },
+                                    "tail": true
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+                    "start": 1004,
+                    "end": 1101,
+                    "loc": {
+                      "start": {
+                        "line": 60,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 69,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, indenting the output according to\n     *  the current indentation level.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+                    "start": 1108,
+                    "end": 1315,
+                    "loc": {
+                      "start": {
+                        "line": 72,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 80,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n * @public \n * \\TRUE \n ",
+                    "start": 1461,
+                    "end": 1528,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 93,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Increases the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+                    "start": 1535,
+                    "end": 1644,
+                    "loc": {
+                      "start": {
+                        "line": 96,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 101,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1649,
+                "end": 1702,
+                "loc": {
+                  "start": {
+                    "line": 102,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 104,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1649,
+                  "end": 1655,
+                  "loc": {
+                    "start": {
+                      "line": 102,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 102,
+                      "column": 10
+                    },
+                    "identifierName": "indent"
+                  },
+                  "name": "indent"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 1658,
+                  "end": 1702,
+                  "loc": {
+                    "start": {
+                      "line": 102,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 104,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 1668,
+                      "end": 1696,
+                      "loc": {
+                        "start": {
+                          "line": 103,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 103,
+                          "column": 36
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 1668,
+                        "end": 1695,
+                        "loc": {
+                          "start": {
+                            "line": 103,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 103,
+                            "column": 35
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 1668,
+                          "end": 1693,
+                          "loc": {
+                            "start": {
+                              "line": 103,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 103,
+                              "column": 33
+                            }
+                          },
+                          "object": {
+                            "type": "MemberExpression",
+                            "start": 1668,
+                            "end": 1684,
+                            "loc": {
+                              "start": {
+                                "line": 103,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 103,
+                                "column": 24
+                              }
+                            },
+                            "object": {
+                              "type": "ThisExpression",
+                              "start": 1668,
+                              "end": 1672,
+                              "loc": {
+                                "start": {
+                                  "line": 103,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 103,
+                                  "column": 12
+                                }
+                              }
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 1673,
+                              "end": 1684,
+                              "loc": {
+                                "start": {
+                                  "line": 103,
+                                  "column": 13
+                                },
+                                "end": {
+                                  "line": 103,
+                                  "column": 24
+                                },
+                                "identifierName": "indentation"
+                              },
+                              "name": "indentation"
+                            },
+                            "computed": false
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 1685,
+                            "end": 1693,
+                            "loc": {
+                              "start": {
+                                "line": 103,
+                                "column": 25
+                              },
+                              "end": {
+                                "line": 103,
+                                "column": 33
+                              },
+                              "identifierName": "increase"
+                            },
+                            "name": "increase"
+                          },
+                          "computed": false
+                        },
+                        "arguments": []
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n * @public \n * \\TRUE \n ",
+                    "start": 1461,
+                    "end": 1528,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 93,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Increases the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+                    "start": 1535,
+                    "end": 1644,
+                    "loc": {
+                      "start": {
+                        "line": 96,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 101,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @public \n * \\TRUE \n ",
+                    "start": 1703,
+                    "end": 1770,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Reduces the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+                    "start": 1777,
+                    "end": 1884,
+                    "loc": {
+                      "start": {
+                        "line": 115,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 120,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1889,
+                "end": 1943,
+                "loc": {
+                  "start": {
+                    "line": 121,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 123,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1889,
+                  "end": 1896,
+                  "loc": {
+                    "start": {
+                      "line": 121,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 121,
+                      "column": 11
+                    },
+                    "identifierName": "outdent"
+                  },
+                  "name": "outdent"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 1899,
+                  "end": 1943,
+                  "loc": {
+                    "start": {
+                      "line": 121,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 123,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 1909,
+                      "end": 1937,
+                      "loc": {
+                        "start": {
+                          "line": 122,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 122,
+                          "column": 36
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 1909,
+                        "end": 1936,
+                        "loc": {
+                          "start": {
+                            "line": 122,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 122,
+                            "column": 35
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 1909,
+                          "end": 1934,
+                          "loc": {
+                            "start": {
+                              "line": 122,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 122,
+                              "column": 33
+                            }
+                          },
+                          "object": {
+                            "type": "MemberExpression",
+                            "start": 1909,
+                            "end": 1925,
+                            "loc": {
+                              "start": {
+                                "line": 122,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 122,
+                                "column": 24
+                              }
+                            },
+                            "object": {
+                              "type": "ThisExpression",
+                              "start": 1909,
+                              "end": 1913,
+                              "loc": {
+                                "start": {
+                                  "line": 122,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 122,
+                                  "column": 12
+                                }
+                              }
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 1914,
+                              "end": 1925,
+                              "loc": {
+                                "start": {
+                                  "line": 122,
+                                  "column": 13
+                                },
+                                "end": {
+                                  "line": 122,
+                                  "column": 24
+                                },
+                                "identifierName": "indentation"
+                              },
+                              "name": "indentation"
+                            },
+                            "computed": false
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 1926,
+                            "end": 1934,
+                            "loc": {
+                              "start": {
+                                "line": 122,
+                                "column": 25
+                              },
+                              "end": {
+                                "line": 122,
+                                "column": 33
+                              },
+                              "identifierName": "decrease"
+                            },
+                            "name": "decrease"
+                          },
+                          "computed": false
+                        },
+                        "arguments": []
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @public \n * \\TRUE \n ",
+                    "start": 1703,
+                    "end": 1770,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Reduces the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+                    "start": 1777,
+                    "end": 1884,
+                    "loc": {
+                      "start": {
+                        "line": 115,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 120,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+              "start": 47,
+              "end": 92,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  A simple abstraction around the standard output stream\n *  with support for indenting the printed text.\n *\n * @public\n ",
+              "start": 95,
+              "end": 233,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 16,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n ",
+              "start": 1946,
+              "end": 1991,
+              "loc": {
+                "start": {
+                  "line": 125,
+                  "column": 0
+                },
+                "end": {
+                  "line": 130,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @package\n ",
+              "start": 1994,
+              "end": 2013,
+              "loc": {
+                "start": {
+                  "line": 133,
+                  "column": 0
+                },
+                "end": {
+                  "line": 135,
+                  "column": 3
+                }
+              }
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 47,
+            "end": 92,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A simple abstraction around the standard output stream\n *  with support for indenting the printed text.\n *\n * @public\n ",
+            "start": 95,
+            "end": 233,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n ",
+            "start": 1946,
+            "end": 1991,
+            "loc": {
+              "start": {
+                "line": 125,
+                "column": 0
+              },
+              "end": {
+                "line": 130,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 1994,
+            "end": 2013,
+            "loc": {
+              "start": {
+                "line": 133,
+                "column": 0
+              },
+              "end": {
+                "line": 135,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 2014,
+        "end": 2808,
+        "loc": {
+          "start": {
+            "line": 136,
+            "column": 0
+          },
+          "end": {
+            "line": 196,
+            "column": 1
+          }
+        },
+        "id": {
+          "type": "Identifier",
+          "start": 2020,
+          "end": 2031,
+          "loc": {
+            "start": {
+              "line": 136,
+              "column": 6
+            },
+            "end": {
+              "line": 136,
+              "column": 17
+            },
+            "identifierName": "Indentation"
+          },
+          "name": "Indentation"
+        },
+        "superClass": null,
+        "body": {
+          "type": "ClassBody",
+          "start": 2032,
+          "end": 2808,
+          "loc": {
+            "start": {
+              "line": 136,
+              "column": 18
+            },
+            "end": {
+              "line": 196,
+              "column": 1
+            }
+          },
+          "body": [
+            {
+              "type": "ClassProperty",
+              "start": 2108,
+              "end": 2128,
+              "loc": {
+                "start": {
+                  "line": 146,
+                  "column": 4
+                },
+                "end": {
+                  "line": 146,
+                  "column": 24
+                }
+              },
+              "accessibility": "private",
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2116,
+                "end": 2123,
+                "loc": {
+                  "start": {
+                    "line": 146,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 146,
+                    "column": 19
+                  },
+                  "identifierName": "current"
+                },
+                "name": "current"
+              },
+              "computed": false,
+              "value": {
+                "type": "NumericLiteral",
+                "start": 2126,
+                "end": 2127,
+                "loc": {
+                  "start": {
+                    "line": 146,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 146,
+                    "column": 23
+                  }
+                },
+                "extra": {
+                  "rawValue": 0,
+                  "raw": "0"
+                },
+                "value": 0
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @private \n * \\TRUE \n ",
+                  "start": 2034,
+                  "end": 2102,
+                  "loc": {
+                    "start": {
+                      "line": 137,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 144,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2134,
+              "end": 2184,
+              "loc": {
+                "start": {
+                  "line": 148,
+                  "column": 4
+                },
+                "end": {
+                  "line": 149,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2134,
+                "end": 2145,
+                "loc": {
+                  "start": {
+                    "line": 148,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 148,
+                    "column": 15
+                  },
+                  "identifierName": "constructor"
+                },
+                "name": "constructor"
+              },
+              "computed": false,
+              "kind": "constructor",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "TSParameterProperty",
+                  "start": 2146,
+                  "end": 2175,
+                  "loc": {
+                    "start": {
+                      "line": 148,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 148,
+                      "column": 45
+                    }
+                  },
+                  "accessibility": "private",
+                  "readonly": true,
+                  "parameter": {
+                    "type": "Identifier",
+                    "start": 2163,
+                    "end": 2175,
+                    "loc": {
+                      "start": {
+                        "line": 148,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 148,
+                        "column": 45
+                      },
+                      "identifierName": "step"
+                    },
+                    "name": "step",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 2167,
+                      "end": 2175,
+                      "loc": {
+                        "start": {
+                          "line": 148,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 148,
+                          "column": 45
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSNumberKeyword",
+                        "start": 2169,
+                        "end": 2175,
+                        "loc": {
+                          "start": {
+                            "line": 148,
+                            "column": 39
+                          },
+                          "end": {
+                            "line": 148,
+                            "column": 45
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 2177,
+                "end": 2184,
+                "loc": {
+                  "start": {
+                    "line": 148,
+                    "column": 47
+                  },
+                  "end": {
+                    "line": 149,
+                    "column": 5
+                  }
+                },
+                "body": [],
+                "directives": []
+              },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @public \n * \\TRUE \n ",
+                  "start": 2185,
+                  "end": 2252,
+                  "loc": {
+                    "start": {
+                      "line": 150,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 157,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2259,
+              "end": 2312,
+              "loc": {
+                "start": {
+                  "line": 160,
+                  "column": 4
+                },
+                "end": {
+                  "line": 162,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2259,
+                "end": 2267,
+                "loc": {
+                  "start": {
+                    "line": 160,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 160,
+                    "column": 12
+                  },
+                  "identifierName": "increase"
+                },
+                "name": "increase"
+              },
+              "computed": false,
+              "kind": "method",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 2270,
+                "end": 2312,
+                "loc": {
+                  "start": {
+                    "line": 160,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 162,
+                    "column": 5
+                  }
+                },
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "start": 2280,
+                    "end": 2306,
+                    "loc": {
+                      "start": {
+                        "line": 161,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 161,
+                        "column": 34
+                      }
+                    },
+                    "expression": {
+                      "type": "AssignmentExpression",
+                      "start": 2280,
+                      "end": 2305,
+                      "loc": {
+                        "start": {
+                          "line": 161,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 161,
+                          "column": 33
+                        }
+                      },
+                      "operator": "+=",
+                      "left": {
+                        "type": "MemberExpression",
+                        "start": 2280,
+                        "end": 2292,
+                        "loc": {
+                          "start": {
+                            "line": 161,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 161,
+                            "column": 20
+                          }
+                        },
+                        "object": {
+                          "type": "ThisExpression",
+                          "start": 2280,
+                          "end": 2284,
+                          "loc": {
+                            "start": {
+                              "line": 161,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 161,
+                              "column": 12
+                            }
+                          }
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 2285,
+                          "end": 2292,
+                          "loc": {
+                            "start": {
+                              "line": 161,
+                              "column": 13
+                            },
+                            "end": {
+                              "line": 161,
+                              "column": 20
+                            },
+                            "identifierName": "current"
+                          },
+                          "name": "current"
+                        },
+                        "computed": false
+                      },
+                      "right": {
+                        "type": "MemberExpression",
+                        "start": 2296,
+                        "end": 2305,
+                        "loc": {
+                          "start": {
+                            "line": 161,
+                            "column": 24
+                          },
+                          "end": {
+                            "line": 161,
+                            "column": 33
+                          }
+                        },
+                        "object": {
+                          "type": "ThisExpression",
+                          "start": 2296,
+                          "end": 2300,
+                          "loc": {
+                            "start": {
+                              "line": 161,
+                              "column": 24
+                            },
+                            "end": {
+                              "line": 161,
+                              "column": 28
+                            }
+                          }
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 2301,
+                          "end": 2305,
+                          "loc": {
+                            "start": {
+                              "line": 161,
+                              "column": 29
+                            },
+                            "end": {
+                              "line": 161,
+                              "column": 33
+                            },
+                            "identifierName": "step"
+                          },
+                          "name": "step"
+                        },
+                        "computed": false
+                      }
+                    }
+                  }
+                ],
+                "directives": []
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @public \n * \\TRUE \n ",
+                  "start": 2185,
+                  "end": 2252,
+                  "loc": {
+                    "start": {
+                      "line": 150,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 157,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @public \n * \\TRUE \n ",
+                  "start": 2313,
+                  "end": 2380,
+                  "loc": {
+                    "start": {
+                      "line": 163,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 170,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2387,
+              "end": 2499,
+              "loc": {
+                "start": {
+                  "line": 173,
+                  "column": 4
+                },
+                "end": {
+                  "line": 177,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2387,
+                "end": 2395,
+                "loc": {
+                  "start": {
+                    "line": 173,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 173,
+                    "column": 12
+                  },
+                  "identifierName": "decrease"
+                },
+                "name": "decrease"
+              },
+              "computed": false,
+              "kind": "method",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 2398,
+                "end": 2499,
+                "loc": {
+                  "start": {
+                    "line": 173,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 177,
+                    "column": 5
+                  }
+                },
+                "body": [
+                  {
+                    "type": "IfStatement",
+                    "start": 2408,
+                    "end": 2493,
+                    "loc": {
+                      "start": {
+                        "line": 174,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 176,
+                        "column": 9
+                      }
+                    },
+                    "test": {
+                      "type": "BinaryExpression",
+                      "start": 2412,
+                      "end": 2441,
+                      "loc": {
+                        "start": {
+                          "line": 174,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 174,
+                          "column": 41
+                        }
+                      },
+                      "left": {
+                        "type": "BinaryExpression",
+                        "start": 2412,
+                        "end": 2436,
+                        "loc": {
+                          "start": {
+                            "line": 174,
+                            "column": 12
+                          },
+                          "end": {
+                            "line": 174,
+                            "column": 36
+                          }
+                        },
+                        "left": {
+                          "type": "MemberExpression",
+                          "start": 2412,
+                          "end": 2424,
+                          "loc": {
+                            "start": {
+                              "line": 174,
+                              "column": 12
+                            },
+                            "end": {
+                              "line": 174,
+                              "column": 24
+                            }
+                          },
+                          "object": {
+                            "type": "ThisExpression",
+                            "start": 2412,
+                            "end": 2416,
+                            "loc": {
+                              "start": {
+                                "line": 174,
+                                "column": 12
+                              },
+                              "end": {
+                                "line": 174,
+                                "column": 16
+                              }
+                            }
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 2417,
+                            "end": 2424,
+                            "loc": {
+                              "start": {
+                                "line": 174,
+                                "column": 17
+                              },
+                              "end": {
+                                "line": 174,
+                                "column": 24
+                              },
+                              "identifierName": "current"
+                            },
+                            "name": "current"
+                          },
+                          "computed": false
+                        },
+                        "operator": "-",
+                        "right": {
+                          "type": "MemberExpression",
+                          "start": 2427,
+                          "end": 2436,
+                          "loc": {
+                            "start": {
+                              "line": 174,
+                              "column": 27
+                            },
+                            "end": {
+                              "line": 174,
+                              "column": 36
+                            }
+                          },
+                          "object": {
+                            "type": "ThisExpression",
+                            "start": 2427,
+                            "end": 2431,
+                            "loc": {
+                              "start": {
+                                "line": 174,
+                                "column": 27
+                              },
+                              "end": {
+                                "line": 174,
+                                "column": 31
+                              }
+                            }
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 2432,
+                            "end": 2436,
+                            "loc": {
+                              "start": {
+                                "line": 174,
+                                "column": 32
+                              },
+                              "end": {
+                                "line": 174,
+                                "column": 36
+                              },
+                              "identifierName": "step"
+                            },
+                            "name": "step"
+                          },
+                          "computed": false
+                        }
+                      },
+                      "operator": ">=",
+                      "right": {
+                        "type": "NumericLiteral",
+                        "start": 2440,
+                        "end": 2441,
+                        "loc": {
+                          "start": {
+                            "line": 174,
+                            "column": 40
+                          },
+                          "end": {
+                            "line": 174,
+                            "column": 41
+                          }
+                        },
+                        "extra": {
+                          "rawValue": 0,
+                          "raw": "0"
+                        },
+                        "value": 0
+                      }
+                    },
+                    "consequent": {
+                      "type": "BlockStatement",
+                      "start": 2443,
+                      "end": 2493,
+                      "loc": {
+                        "start": {
+                          "line": 174,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 176,
+                          "column": 9
+                        }
+                      },
+                      "body": [
+                        {
+                          "type": "ExpressionStatement",
+                          "start": 2457,
+                          "end": 2483,
+                          "loc": {
+                            "start": {
+                              "line": 175,
+                              "column": 12
+                            },
+                            "end": {
+                              "line": 175,
+                              "column": 38
+                            }
+                          },
+                          "expression": {
+                            "type": "AssignmentExpression",
+                            "start": 2457,
+                            "end": 2482,
+                            "loc": {
+                              "start": {
+                                "line": 175,
+                                "column": 12
+                              },
+                              "end": {
+                                "line": 175,
+                                "column": 37
+                              }
+                            },
+                            "operator": "-=",
+                            "left": {
+                              "type": "MemberExpression",
+                              "start": 2457,
+                              "end": 2469,
+                              "loc": {
+                                "start": {
+                                  "line": 175,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 175,
+                                  "column": 24
+                                }
+                              },
+                              "object": {
+                                "type": "ThisExpression",
+                                "start": 2457,
+                                "end": 2461,
+                                "loc": {
+                                  "start": {
+                                    "line": 175,
+                                    "column": 12
+                                  },
+                                  "end": {
+                                    "line": 175,
+                                    "column": 16
+                                  }
+                                }
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 2462,
+                                "end": 2469,
+                                "loc": {
+                                  "start": {
+                                    "line": 175,
+                                    "column": 17
+                                  },
+                                  "end": {
+                                    "line": 175,
+                                    "column": 24
+                                  },
+                                  "identifierName": "current"
+                                },
+                                "name": "current"
+                              },
+                              "computed": false
+                            },
+                            "right": {
+                              "type": "MemberExpression",
+                              "start": 2473,
+                              "end": 2482,
+                              "loc": {
+                                "start": {
+                                  "line": 175,
+                                  "column": 28
+                                },
+                                "end": {
+                                  "line": 175,
+                                  "column": 37
+                                }
+                              },
+                              "object": {
+                                "type": "ThisExpression",
+                                "start": 2473,
+                                "end": 2477,
+                                "loc": {
+                                  "start": {
+                                    "line": 175,
+                                    "column": 28
+                                  },
+                                  "end": {
+                                    "line": 175,
+                                    "column": 32
+                                  }
+                                }
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 2478,
+                                "end": 2482,
+                                "loc": {
+                                  "start": {
+                                    "line": 175,
+                                    "column": 33
+                                  },
+                                  "end": {
+                                    "line": 175,
+                                    "column": 37
+                                  },
+                                  "identifierName": "step"
+                                },
+                                "name": "step"
+                              },
+                              "computed": false
+                            }
+                          }
+                        }
+                      ],
+                      "directives": []
+                    },
+                    "alternate": null
+                  }
+                ],
+                "directives": []
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @public \n * \\TRUE \n ",
+                  "start": 2313,
+                  "end": 2380,
+                  "loc": {
+                    "start": {
+                      "line": 163,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 170,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UNKNOWN} fragments \n * @public \n * \\TRUE \n ",
+                  "start": 2500,
+                  "end": 2602,
+                  "loc": {
+                    "start": {
+                      "line": 178,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 187,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2609,
+              "end": 2806,
+              "loc": {
+                "start": {
+                  "line": 190,
+                  "column": 4
+                },
+                "end": {
+                  "line": 195,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2609,
+                "end": 2617,
+                "loc": {
+                  "start": {
+                    "line": 190,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 190,
+                    "column": 12
+                  },
+                  "identifierName": "indented"
+                },
+                "name": "indented"
+              },
+              "computed": false,
+              "kind": "method",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "RestElement",
+                  "start": 2618,
+                  "end": 2640,
+                  "loc": {
+                    "start": {
+                      "line": 190,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 190,
+                      "column": 35
+                    }
+                  },
+                  "argument": {
+                    "type": "Identifier",
+                    "start": 2621,
+                    "end": 2630,
+                    "loc": {
+                      "start": {
+                        "line": 190,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 190,
+                        "column": 25
+                      },
+                      "identifierName": "fragments"
+                    },
+                    "name": "fragments"
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeAnnotation",
+                    "start": 2630,
+                    "end": 2640,
+                    "loc": {
+                      "start": {
+                        "line": 190,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 190,
+                        "column": 35
+                      }
+                    },
+                    "typeAnnotation": {
+                      "type": "TSArrayType",
+                      "start": 2632,
+                      "end": 2640,
+                      "loc": {
+                        "start": {
+                          "line": 190,
+                          "column": 27
+                        },
+                        "end": {
+                          "line": 190,
+                          "column": 35
+                        }
+                      },
+                      "elementType": {
+                        "type": "TSStringKeyword",
+                        "start": 2632,
+                        "end": 2638,
+                        "loc": {
+                          "start": {
+                            "line": 190,
+                            "column": 27
+                          },
+                          "end": {
+                            "line": 190,
+                            "column": 33
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 2642,
+                "end": 2806,
+                "loc": {
+                  "start": {
+                    "line": 190,
+                    "column": 37
+                  },
+                  "end": {
+                    "line": 195,
+                    "column": 5
+                  }
+                },
+                "body": [
+                  {
+                    "type": "ReturnStatement",
+                    "start": 2652,
+                    "end": 2800,
+                    "loc": {
+                      "start": {
+                        "line": 191,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 194,
+                        "column": 24
+                      }
+                    },
+                    "argument": {
+                      "type": "CallExpression",
+                      "start": 2659,
+                      "end": 2799,
+                      "loc": {
+                        "start": {
+                          "line": 191,
+                          "column": 15
+                        },
+                        "end": {
+                          "line": 194,
+                          "column": 23
+                        }
+                      },
+                      "callee": {
+                        "type": "MemberExpression",
+                        "start": 2659,
+                        "end": 2793,
+                        "loc": {
+                          "start": {
+                            "line": 191,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 194,
+                            "column": 17
+                          }
+                        },
+                        "object": {
+                          "type": "CallExpression",
+                          "start": 2659,
+                          "end": 2775,
+                          "loc": {
+                            "start": {
+                              "line": 191,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 193,
+                              "column": 72
+                            }
+                          },
+                          "callee": {
+                            "type": "MemberExpression",
+                            "start": 2659,
+                            "end": 2719,
+                            "loc": {
+                              "start": {
+                                "line": 191,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 193,
+                                "column": 16
+                              }
+                            },
+                            "object": {
+                              "type": "CallExpression",
+                              "start": 2659,
+                              "end": 2702,
+                              "loc": {
+                                "start": {
+                                  "line": 191,
+                                  "column": 15
+                                },
+                                "end": {
+                                  "line": 192,
+                                  "column": 24
+                                }
+                              },
+                              "callee": {
+                                "type": "MemberExpression",
+                                "start": 2659,
+                                "end": 2696,
+                                "loc": {
+                                  "start": {
+                                    "line": 191,
+                                    "column": 15
+                                  },
+                                  "end": {
+                                    "line": 192,
+                                    "column": 18
+                                  }
+                                },
+                                "object": {
+                                  "type": "CallExpression",
+                                  "start": 2659,
+                                  "end": 2677,
+                                  "loc": {
+                                    "start": {
+                                      "line": 191,
+                                      "column": 15
+                                    },
+                                    "end": {
+                                      "line": 191,
+                                      "column": 33
+                                    }
+                                  },
+                                  "callee": {
+                                    "type": "MemberExpression",
+                                    "start": 2659,
+                                    "end": 2673,
+                                    "loc": {
+                                      "start": {
+                                        "line": 191,
+                                        "column": 15
+                                      },
+                                      "end": {
+                                        "line": 191,
+                                        "column": 29
+                                      }
+                                    },
+                                    "object": {
+                                      "type": "Identifier",
+                                      "start": 2659,
+                                      "end": 2668,
+                                      "loc": {
+                                        "start": {
+                                          "line": 191,
+                                          "column": 15
+                                        },
+                                        "end": {
+                                          "line": 191,
+                                          "column": 24
+                                        },
+                                        "identifierName": "fragments"
+                                      },
+                                      "name": "fragments"
+                                    },
+                                    "property": {
+                                      "type": "Identifier",
+                                      "start": 2669,
+                                      "end": 2673,
+                                      "loc": {
+                                        "start": {
+                                          "line": 191,
+                                          "column": 25
+                                        },
+                                        "end": {
+                                          "line": 191,
+                                          "column": 29
+                                        },
+                                        "identifierName": "join"
+                                      },
+                                      "name": "join"
+                                    },
+                                    "computed": false
+                                  },
+                                  "arguments": [
+                                    {
+                                      "type": "StringLiteral",
+                                      "start": 2674,
+                                      "end": 2676,
+                                      "loc": {
+                                        "start": {
+                                          "line": 191,
+                                          "column": 30
+                                        },
+                                        "end": {
+                                          "line": 191,
+                                          "column": 32
+                                        }
+                                      },
+                                      "extra": {
+                                        "rawValue": "",
+                                        "raw": "''"
+                                      },
+                                      "value": ""
+                                    }
+                                  ]
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": 2691,
+                                  "end": 2696,
+                                  "loc": {
+                                    "start": {
+                                      "line": 192,
+                                      "column": 13
+                                    },
+                                    "end": {
+                                      "line": 192,
+                                      "column": 18
+                                    },
+                                    "identifierName": "split"
+                                  },
+                                  "name": "split"
+                                },
+                                "computed": false
+                              },
+                              "arguments": [
+                                {
+                                  "type": "StringLiteral",
+                                  "start": 2697,
+                                  "end": 2701,
+                                  "loc": {
+                                    "start": {
+                                      "line": 192,
+                                      "column": 19
+                                    },
+                                    "end": {
+                                      "line": 192,
+                                      "column": 23
+                                    }
+                                  },
+                                  "extra": {
+                                    "rawValue": "\n",
+                                    "raw": "'\\n'"
+                                  },
+                                  "value": "\n"
+                                }
+                              ]
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 2716,
+                              "end": 2719,
+                              "loc": {
+                                "start": {
+                                  "line": 193,
+                                  "column": 13
+                                },
+                                "end": {
+                                  "line": 193,
+                                  "column": 16
+                                },
+                                "identifierName": "map"
+                              },
+                              "name": "map"
+                            },
+                            "computed": false
+                          },
+                          "arguments": [
+                            {
+                              "type": "ArrowFunctionExpression",
+                              "start": 2720,
+                              "end": 2774,
+                              "loc": {
+                                "start": {
+                                  "line": 193,
+                                  "column": 17
+                                },
+                                "end": {
+                                  "line": 193,
+                                  "column": 71
+                                }
+                              },
+                              "id": null,
+                              "generator": false,
+                              "async": false,
+                              "params": [
+                                {
+                                  "type": "Identifier",
+                                  "start": 2720,
+                                  "end": 2724,
+                                  "loc": {
+                                    "start": {
+                                      "line": 193,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "line": 193,
+                                      "column": 21
+                                    },
+                                    "identifierName": "line"
+                                  },
+                                  "name": "line"
+                                }
+                              ],
+                              "body": {
+                                "type": "ConditionalExpression",
+                                "start": 2728,
+                                "end": 2774,
+                                "loc": {
+                                  "start": {
+                                    "line": 193,
+                                    "column": 25
+                                  },
+                                  "end": {
+                                    "line": 193,
+                                    "column": 71
+                                  }
+                                },
+                                "test": {
+                                  "type": "UnaryExpression",
+                                  "start": 2728,
+                                  "end": 2735,
+                                  "loc": {
+                                    "start": {
+                                      "line": 193,
+                                      "column": 25
+                                    },
+                                    "end": {
+                                      "line": 193,
+                                      "column": 32
+                                    }
+                                  },
+                                  "operator": "!",
+                                  "prefix": true,
+                                  "argument": {
+                                    "type": "UnaryExpression",
+                                    "start": 2729,
+                                    "end": 2735,
+                                    "loc": {
+                                      "start": {
+                                        "line": 193,
+                                        "column": 26
+                                      },
+                                      "end": {
+                                        "line": 193,
+                                        "column": 32
+                                      }
+                                    },
+                                    "operator": "!",
+                                    "prefix": true,
+                                    "argument": {
+                                      "type": "Identifier",
+                                      "start": 2731,
+                                      "end": 2735,
+                                      "loc": {
+                                        "start": {
+                                          "line": 193,
+                                          "column": 28
+                                        },
+                                        "end": {
+                                          "line": 193,
+                                          "column": 32
+                                        },
+                                        "identifierName": "line"
+                                      },
+                                      "name": "line"
+                                    }
+                                  }
+                                },
+                                "consequent": {
+                                  "type": "BinaryExpression",
+                                  "start": 2738,
+                                  "end": 2769,
+                                  "loc": {
+                                    "start": {
+                                      "line": 193,
+                                      "column": 35
+                                    },
+                                    "end": {
+                                      "line": 193,
+                                      "column": 66
+                                    }
+                                  },
+                                  "left": {
+                                    "type": "CallExpression",
+                                    "start": 2738,
+                                    "end": 2762,
+                                    "loc": {
+                                      "start": {
+                                        "line": 193,
+                                        "column": 35
+                                      },
+                                      "end": {
+                                        "line": 193,
+                                        "column": 59
+                                      }
+                                    },
+                                    "callee": {
+                                      "type": "MemberExpression",
+                                      "start": 2738,
+                                      "end": 2748,
+                                      "loc": {
+                                        "start": {
+                                          "line": 193,
+                                          "column": 35
+                                        },
+                                        "end": {
+                                          "line": 193,
+                                          "column": 45
+                                        }
+                                      },
+                                      "object": {
+                                        "type": "StringLiteral",
+                                        "start": 2738,
+                                        "end": 2741,
+                                        "loc": {
+                                          "start": {
+                                            "line": 193,
+                                            "column": 35
+                                          },
+                                          "end": {
+                                            "line": 193,
+                                            "column": 38
+                                          }
+                                        },
+                                        "extra": {
+                                          "rawValue": " ",
+                                          "raw": "' '"
+                                        },
+                                        "value": " "
+                                      },
+                                      "property": {
+                                        "type": "Identifier",
+                                        "start": 2742,
+                                        "end": 2748,
+                                        "loc": {
+                                          "start": {
+                                            "line": 193,
+                                            "column": 39
+                                          },
+                                          "end": {
+                                            "line": 193,
+                                            "column": 45
+                                          },
+                                          "identifierName": "repeat"
+                                        },
+                                        "name": "repeat"
+                                      },
+                                      "computed": false
+                                    },
+                                    "arguments": [
+                                      {
+                                        "type": "MemberExpression",
+                                        "start": 2749,
+                                        "end": 2761,
+                                        "loc": {
+                                          "start": {
+                                            "line": 193,
+                                            "column": 46
+                                          },
+                                          "end": {
+                                            "line": 193,
+                                            "column": 58
+                                          }
+                                        },
+                                        "object": {
+                                          "type": "ThisExpression",
+                                          "start": 2749,
+                                          "end": 2753,
+                                          "loc": {
+                                            "start": {
+                                              "line": 193,
+                                              "column": 46
+                                            },
+                                            "end": {
+                                              "line": 193,
+                                              "column": 50
+                                            }
+                                          }
+                                        },
+                                        "property": {
+                                          "type": "Identifier",
+                                          "start": 2754,
+                                          "end": 2761,
+                                          "loc": {
+                                            "start": {
+                                              "line": 193,
+                                              "column": 51
+                                            },
+                                            "end": {
+                                              "line": 193,
+                                              "column": 58
+                                            },
+                                            "identifierName": "current"
+                                          },
+                                          "name": "current"
+                                        },
+                                        "computed": false
+                                      }
+                                    ]
+                                  },
+                                  "operator": "+",
+                                  "right": {
+                                    "type": "Identifier",
+                                    "start": 2765,
+                                    "end": 2769,
+                                    "loc": {
+                                      "start": {
+                                        "line": 193,
+                                        "column": 62
+                                      },
+                                      "end": {
+                                        "line": 193,
+                                        "column": 66
+                                      },
+                                      "identifierName": "line"
+                                    },
+                                    "name": "line"
+                                  }
+                                },
+                                "alternate": {
+                                  "type": "StringLiteral",
+                                  "start": 2772,
+                                  "end": 2774,
+                                  "loc": {
+                                    "start": {
+                                      "line": 193,
+                                      "column": 69
+                                    },
+                                    "end": {
+                                      "line": 193,
+                                      "column": 71
+                                    }
+                                  },
+                                  "extra": {
+                                    "rawValue": "",
+                                    "raw": "''"
+                                  },
+                                  "value": ""
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 2789,
+                          "end": 2793,
+                          "loc": {
+                            "start": {
+                              "line": 194,
+                              "column": 13
+                            },
+                            "end": {
+                              "line": 194,
+                              "column": 17
+                            },
+                            "identifierName": "join"
+                          },
+                          "name": "join"
+                        },
+                        "computed": false
+                      },
+                      "arguments": [
+                        {
+                          "type": "StringLiteral",
+                          "start": 2794,
+                          "end": 2798,
+                          "loc": {
+                            "start": {
+                              "line": 194,
+                              "column": 18
+                            },
+                            "end": {
+                              "line": 194,
+                              "column": 22
+                            }
+                          },
+                          "extra": {
+                            "rawValue": "\n",
+                            "raw": "'\\n'"
+                          },
+                          "value": "\n"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "directives": []
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UNKNOWN} fragments \n * @public \n * \\TRUE \n ",
+                  "start": 2500,
+                  "end": 2602,
+                  "loc": {
+                    "start": {
+                      "line": 178,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 187,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n ",
+            "start": 1946,
+            "end": 1991,
+            "loc": {
+              "start": {
+                "line": 125,
+                "column": 0
+              },
+              "end": {
+                "line": 130,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 1994,
+            "end": 2013,
+            "loc": {
+              "start": {
+                "line": 133,
+                "column": 0
+              },
+              "end": {
+                "line": 135,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+      "start": 47,
+      "end": 92,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  A simple abstraction around the standard output stream\n *  with support for indenting the printed text.\n *\n * @public\n ",
+      "start": 95,
+      "end": 233,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @private \n * \\TRUE \n ",
+      "start": 257,
+      "end": 325,
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @param {WritableStream} stdout\n     ",
+      "start": 378,
+      "end": 427,
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 4
+        },
+        "end": {
+          "line": 31,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+      "start": 510,
+      "end": 607,
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 0
+        },
+        "end": {
+          "line": 43,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, followed by a new line character (`\\n`).\n     *\n     *  Please note that this method bypasses any indentation as it's intended\n     *  to be used to print separator lines, etc.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+      "start": 614,
+      "end": 925,
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 4
+        },
+        "end": {
+          "line": 56,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UNKNOWN} args \n * @public \n * \\TRUE \n ",
+      "start": 1004,
+      "end": 1101,
+      "loc": {
+        "start": {
+          "line": 60,
+          "column": 0
+        },
+        "end": {
+          "line": 69,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Prints the `args` to the `stdout`, indenting the output according to\n     *  the current indentation level.\n     *\n     * @param {...any[]} args\n     *\n     * @returns {void}\n     ",
+      "start": 1108,
+      "end": 1315,
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 4
+        },
+        "end": {
+          "line": 80,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n * @public \n * \\TRUE \n ",
+      "start": 1461,
+      "end": 1528,
+      "loc": {
+        "start": {
+          "line": 86,
+          "column": 0
+        },
+        "end": {
+          "line": 93,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Increases the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+      "start": 1535,
+      "end": 1644,
+      "loc": {
+        "start": {
+          "line": 96,
+          "column": 4
+        },
+        "end": {
+          "line": 101,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @public \n * \\TRUE \n ",
+      "start": 1703,
+      "end": 1770,
+      "loc": {
+        "start": {
+          "line": 105,
+          "column": 0
+        },
+        "end": {
+          "line": 112,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Reduces the current indentation by 2 spaces.\n     *\n     * @returns {void}\n     ",
+      "start": 1777,
+      "end": 1884,
+      "loc": {
+        "start": {
+          "line": 115,
+          "column": 4
+        },
+        "end": {
+          "line": 120,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n ",
+      "start": 1946,
+      "end": 1991,
+      "loc": {
+        "start": {
+          "line": 125,
+          "column": 0
+        },
+        "end": {
+          "line": 130,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @package\n ",
+      "start": 1994,
+      "end": 2013,
+      "loc": {
+        "start": {
+          "line": 133,
+          "column": 0
+        },
+        "end": {
+          "line": 135,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @private \n * \\TRUE \n ",
+      "start": 2034,
+      "end": 2102,
+      "loc": {
+        "start": {
+          "line": 137,
+          "column": 0
+        },
+        "end": {
+          "line": 144,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @public \n * \\TRUE \n ",
+      "start": 2185,
+      "end": 2252,
+      "loc": {
+        "start": {
+          "line": 150,
+          "column": 0
+        },
+        "end": {
+          "line": 157,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @public \n * \\TRUE \n ",
+      "start": 2313,
+      "end": 2380,
+      "loc": {
+        "start": {
+          "line": 163,
+          "column": 0
+        },
+        "end": {
+          "line": 170,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UNKNOWN} fragments \n * @public \n * \\TRUE \n ",
+      "start": 2500,
+      "end": 2602,
+      "loc": {
+        "start": {
+          "line": 178,
+          "column": 0
+        },
+        "end": {
+          "line": 187,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

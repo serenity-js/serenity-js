@@ -1,0 +1,681 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 269,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 16,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 269,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 38,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 17,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Question"
+              },
+              "name": "Question"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Question"
+              },
+              "name": "Question"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 25,
+          "end": 37,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            }
+          },
+          "extra": {
+            "rawValue": "./Question",
+            "raw": "'./Question'"
+          },
+          "value": "./Question"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 39,
+            "end": 83,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+            "start": 86,
+            "end": 187,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 188,
+        "end": 268,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 80
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "TSTypeAliasDeclaration",
+          "start": 195,
+          "end": 268,
+          "loc": {
+            "start": {
+              "line": 15,
+              "column": 7
+            },
+            "end": {
+              "line": 15,
+              "column": 80
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 200,
+            "end": 210,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 12
+              },
+              "end": {
+                "line": 15,
+                "column": 22
+              },
+              "identifierName": "Answerable"
+            },
+            "name": "Answerable"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 210,
+            "end": 213,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 22
+              },
+              "end": {
+                "line": 15,
+                "column": 25
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 211,
+                "end": 212,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 24
+                  }
+                },
+                "name": "T"
+              }
+            ]
+          },
+          "typeAnnotation": {
+            "type": "TSUnionType",
+            "start": 216,
+            "end": 267,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 28
+              },
+              "end": {
+                "line": 15,
+                "column": 79
+              }
+            },
+            "types": [
+              {
+                "type": "TSTypeReference",
+                "start": 216,
+                "end": 236,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 48
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 216,
+                  "end": 224,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 28
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 36
+                    },
+                    "identifierName": "Question"
+                  },
+                  "name": "Question"
+                },
+                "typeParameters": {
+                  "type": "TSTypeParameterInstantiation",
+                  "start": 224,
+                  "end": 236,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 36
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 48
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeReference",
+                      "start": 225,
+                      "end": 235,
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 47
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 225,
+                        "end": 232,
+                        "loc": {
+                          "start": {
+                            "line": 15,
+                            "column": 37
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 44
+                          },
+                          "identifierName": "Promise"
+                        },
+                        "name": "Promise"
+                      },
+                      "typeParameters": {
+                        "type": "TSTypeParameterInstantiation",
+                        "start": 232,
+                        "end": 235,
+                        "loc": {
+                          "start": {
+                            "line": 15,
+                            "column": 44
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 47
+                          }
+                        },
+                        "params": [
+                          {
+                            "type": "TSTypeReference",
+                            "start": 233,
+                            "end": 234,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 45
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 46
+                              }
+                            },
+                            "typeName": {
+                              "type": "Identifier",
+                              "start": 233,
+                              "end": 234,
+                              "loc": {
+                                "start": {
+                                  "line": 15,
+                                  "column": 45
+                                },
+                                "end": {
+                                  "line": 15,
+                                  "column": 46
+                                },
+                                "identifierName": "T"
+                              },
+                              "name": "T"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "TSTypeReference",
+                "start": 239,
+                "end": 250,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 51
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 62
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 239,
+                  "end": 247,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 51
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 59
+                    },
+                    "identifierName": "Question"
+                  },
+                  "name": "Question"
+                },
+                "typeParameters": {
+                  "type": "TSTypeParameterInstantiation",
+                  "start": 247,
+                  "end": 250,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 59
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 62
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeReference",
+                      "start": 248,
+                      "end": 249,
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 60
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 61
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 248,
+                        "end": 249,
+                        "loc": {
+                          "start": {
+                            "line": 15,
+                            "column": 60
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 61
+                          },
+                          "identifierName": "T"
+                        },
+                        "name": "T"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "TSTypeReference",
+                "start": 253,
+                "end": 263,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 65
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 75
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 253,
+                  "end": 260,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 65
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 72
+                    },
+                    "identifierName": "Promise"
+                  },
+                  "name": "Promise"
+                },
+                "typeParameters": {
+                  "type": "TSTypeParameterInstantiation",
+                  "start": 260,
+                  "end": 263,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 72
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 75
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeReference",
+                      "start": 261,
+                      "end": 262,
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 73
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 74
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 261,
+                        "end": 262,
+                        "loc": {
+                          "start": {
+                            "line": 15,
+                            "column": 73
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 74
+                          },
+                          "identifierName": "T"
+                        },
+                        "name": "T"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "TSTypeReference",
+                "start": 266,
+                "end": 267,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 78
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 79
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 266,
+                  "end": 267,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 78
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 79
+                    },
+                    "identifierName": "T"
+                  },
+                  "name": "T"
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+              "start": 39,
+              "end": 83,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+              "start": 86,
+              "end": 187,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 14,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 39,
+            "end": 83,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+            "start": 86,
+            "end": 187,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+      "start": 39,
+      "end": 83,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+      "start": 86,
+      "end": 187,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

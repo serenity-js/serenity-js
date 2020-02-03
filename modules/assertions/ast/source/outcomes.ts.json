@@ -1,0 +1,1256 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 584,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 37,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 584,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 37,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 38,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 17,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "TinyType"
+              },
+              "name": "TinyType"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "TinyType"
+              },
+              "name": "TinyType"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 25,
+          "end": 37,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            }
+          },
+          "extra": {
+            "rawValue": "tiny-types",
+            "raw": "'tiny-types'"
+          },
+          "value": "tiny-types"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+            "start": 39,
+            "end": 83,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 86,
+        "end": 318,
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 0
+          },
+          "end": {
+            "line": 18,
+            "column": 1
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 93,
+          "end": 318,
+          "loc": {
+            "start": {
+              "line": 10,
+              "column": 7
+            },
+            "end": {
+              "line": 18,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 99,
+            "end": 106,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 13
+              },
+              "end": {
+                "line": 10,
+                "column": 20
+              },
+              "identifierName": "Outcome"
+            },
+            "name": "Outcome"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 106,
+            "end": 124,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 20
+              },
+              "end": {
+                "line": 10,
+                "column": 38
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 107,
+                "end": 115,
+                "loc": {
+                  "start": {
+                    "line": 10,
+                    "column": 21
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 29
+                  }
+                },
+                "name": "Expected"
+              },
+              {
+                "type": "TSTypeParameter",
+                "start": 117,
+                "end": 123,
+                "loc": {
+                  "start": {
+                    "line": 10,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 37
+                  }
+                },
+                "name": "Actual"
+              }
+            ]
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 133,
+            "end": 141,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 47
+              },
+              "end": {
+                "line": 10,
+                "column": 55
+              },
+              "identifierName": "TinyType"
+            },
+            "name": "TinyType"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 142,
+            "end": 318,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 56
+              },
+              "end": {
+                "line": 18,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 148,
+                "end": 316,
+                "loc": {
+                  "start": {
+                    "line": 11,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 17,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 148,
+                  "end": 159,
+                  "loc": {
+                    "start": {
+                      "line": 11,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 169,
+                    "end": 200,
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 39
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 185,
+                      "end": 200,
+                      "loc": {
+                        "start": {
+                          "line": 12,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 39
+                        },
+                        "identifierName": "message"
+                      },
+                      "name": "message",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 192,
+                        "end": 200,
+                        "loc": {
+                          "start": {
+                            "line": 12,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 39
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSStringKeyword",
+                          "start": 194,
+                          "end": 200,
+                          "loc": {
+                            "start": {
+                              "line": 12,
+                              "column": 33
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 39
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 210,
+                    "end": 244,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 42
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 226,
+                      "end": 244,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 42
+                        },
+                        "identifierName": "expected"
+                      },
+                      "name": "expected",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 234,
+                        "end": 244,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 32
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 42
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 236,
+                          "end": 244,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 42
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 236,
+                            "end": 244,
+                            "loc": {
+                              "start": {
+                                "line": 13,
+                                "column": 34
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 42
+                              },
+                              "identifierName": "Expected"
+                            },
+                            "name": "Expected"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 254,
+                    "end": 284,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 14,
+                        "column": 38
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 270,
+                      "end": 284,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 38
+                        },
+                        "identifierName": "actual"
+                      },
+                      "name": "actual",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 276,
+                        "end": 284,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 30
+                          },
+                          "end": {
+                            "line": 14,
+                            "column": 38
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 278,
+                          "end": 284,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 32
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 38
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 278,
+                            "end": 284,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 32
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 38
+                              },
+                              "identifierName": "Actual"
+                            },
+                            "name": "Actual"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 292,
+                  "end": 316,
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 17,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 302,
+                      "end": 310,
+                      "loc": {
+                        "start": {
+                          "line": 16,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 16,
+                          "column": 16
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 302,
+                        "end": 309,
+                        "loc": {
+                          "start": {
+                            "line": 16,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 16,
+                            "column": 15
+                          }
+                        },
+                        "callee": {
+                          "type": "Super",
+                          "start": 302,
+                          "end": 307,
+                          "loc": {
+                            "start": {
+                              "line": 16,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 16,
+                              "column": 13
+                            }
+                          }
+                        },
+                        "arguments": []
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+              "start": 39,
+              "end": 83,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+              "start": 319,
+              "end": 364,
+              "loc": {
+                "start": {
+                  "line": 19,
+                  "column": 0
+                },
+                "end": {
+                  "line": 24,
+                  "column": 3
+                }
+              }
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+            "start": 39,
+            "end": 83,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 319,
+            "end": 364,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 367,
+        "end": 449,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 82
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 374,
+          "end": 449,
+          "loc": {
+            "start": {
+              "line": 27,
+              "column": 7
+            },
+            "end": {
+              "line": 27,
+              "column": 82
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 380,
+            "end": 394,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 13
+              },
+              "end": {
+                "line": 27,
+                "column": 27
+              },
+              "identifierName": "ExpectationMet"
+            },
+            "name": "ExpectationMet"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 394,
+            "end": 412,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 27
+              },
+              "end": {
+                "line": 27,
+                "column": 45
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 395,
+                "end": 403,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 36
+                  }
+                },
+                "name": "Expected"
+              },
+              {
+                "type": "TSTypeParameter",
+                "start": 405,
+                "end": 411,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 38
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 44
+                  }
+                },
+                "name": "Actual"
+              }
+            ]
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 421,
+            "end": 428,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 54
+              },
+              "end": {
+                "line": 27,
+                "column": 61
+              },
+              "identifierName": "Outcome"
+            },
+            "name": "Outcome"
+          },
+          "superTypeParameters": {
+            "type": "TSTypeParameterInstantiation",
+            "start": 428,
+            "end": 446,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 61
+              },
+              "end": {
+                "line": 27,
+                "column": 79
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeReference",
+                "start": 429,
+                "end": 437,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 62
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 70
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 429,
+                  "end": 437,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 62
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 70
+                    },
+                    "identifierName": "Expected"
+                  },
+                  "name": "Expected"
+                }
+              },
+              {
+                "type": "TSTypeReference",
+                "start": 439,
+                "end": 445,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 72
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 78
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 439,
+                  "end": 445,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 72
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 78
+                    },
+                    "identifierName": "Actual"
+                  },
+                  "name": "Actual"
+                }
+              }
+            ]
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 447,
+            "end": 449,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 80
+              },
+              "end": {
+                "line": 27,
+                "column": 82
+              }
+            },
+            "body": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+              "start": 319,
+              "end": 364,
+              "loc": {
+                "start": {
+                  "line": 19,
+                  "column": 0
+                },
+                "end": {
+                  "line": 24,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+              "start": 450,
+              "end": 495,
+              "loc": {
+                "start": {
+                  "line": 28,
+                  "column": 0
+                },
+                "end": {
+                  "line": 33,
+                  "column": 3
+                }
+              }
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 319,
+            "end": 364,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 450,
+            "end": 495,
+            "loc": {
+              "start": {
+                "line": 28,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 498,
+        "end": 583,
+        "loc": {
+          "start": {
+            "line": 36,
+            "column": 0
+          },
+          "end": {
+            "line": 36,
+            "column": 85
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 505,
+          "end": 583,
+          "loc": {
+            "start": {
+              "line": 36,
+              "column": 7
+            },
+            "end": {
+              "line": 36,
+              "column": 85
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 511,
+            "end": 528,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 13
+              },
+              "end": {
+                "line": 36,
+                "column": 30
+              },
+              "identifierName": "ExpectationNotMet"
+            },
+            "name": "ExpectationNotMet"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 528,
+            "end": 546,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 30
+              },
+              "end": {
+                "line": 36,
+                "column": 48
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 529,
+                "end": 537,
+                "loc": {
+                  "start": {
+                    "line": 36,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 36,
+                    "column": 39
+                  }
+                },
+                "name": "Expected"
+              },
+              {
+                "type": "TSTypeParameter",
+                "start": 539,
+                "end": 545,
+                "loc": {
+                  "start": {
+                    "line": 36,
+                    "column": 41
+                  },
+                  "end": {
+                    "line": 36,
+                    "column": 47
+                  }
+                },
+                "name": "Actual"
+              }
+            ]
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 555,
+            "end": 562,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 57
+              },
+              "end": {
+                "line": 36,
+                "column": 64
+              },
+              "identifierName": "Outcome"
+            },
+            "name": "Outcome"
+          },
+          "superTypeParameters": {
+            "type": "TSTypeParameterInstantiation",
+            "start": 562,
+            "end": 580,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 64
+              },
+              "end": {
+                "line": 36,
+                "column": 82
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeReference",
+                "start": 563,
+                "end": 571,
+                "loc": {
+                  "start": {
+                    "line": 36,
+                    "column": 65
+                  },
+                  "end": {
+                    "line": 36,
+                    "column": 73
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 563,
+                  "end": 571,
+                  "loc": {
+                    "start": {
+                      "line": 36,
+                      "column": 65
+                    },
+                    "end": {
+                      "line": 36,
+                      "column": 73
+                    },
+                    "identifierName": "Expected"
+                  },
+                  "name": "Expected"
+                }
+              },
+              {
+                "type": "TSTypeReference",
+                "start": 573,
+                "end": 579,
+                "loc": {
+                  "start": {
+                    "line": 36,
+                    "column": 75
+                  },
+                  "end": {
+                    "line": 36,
+                    "column": 81
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 573,
+                  "end": 579,
+                  "loc": {
+                    "start": {
+                      "line": 36,
+                      "column": 75
+                    },
+                    "end": {
+                      "line": 36,
+                      "column": 81
+                    },
+                    "identifierName": "Actual"
+                  },
+                  "name": "Actual"
+                }
+              }
+            ]
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 581,
+            "end": 583,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 83
+              },
+              "end": {
+                "line": 36,
+                "column": 85
+              }
+            },
+            "body": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+              "start": 450,
+              "end": 495,
+              "loc": {
+                "start": {
+                  "line": 28,
+                  "column": 0
+                },
+                "end": {
+                  "line": 33,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 450,
+            "end": 495,
+            "loc": {
+              "start": {
+                "line": 28,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+      "start": 39,
+      "end": 83,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+      "start": 319,
+      "end": 364,
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+      "start": 450,
+      "end": 495,
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1646 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 2918,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 139,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 2918,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 139,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 47,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 47
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 16,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 16,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 16
+                },
+                "identifierName": "Ability"
+              },
+              "name": "Ability"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 16,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 16
+                },
+                "identifierName": "Ability"
+              },
+              "name": "Ability"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 18,
+            "end": 23,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 18
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 18,
+              "end": 23,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 18
+                },
+                "end": {
+                  "line": 1,
+                  "column": 23
+                },
+                "identifierName": "Actor"
+              },
+              "name": "Actor"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 18,
+              "end": 23,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 18
+                },
+                "end": {
+                  "line": 1,
+                  "column": 23
+                },
+                "identifierName": "Actor"
+              },
+              "name": "Actor"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 31,
+          "end": 46,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 31
+            },
+            "end": {
+              "line": 1,
+              "column": 46
+            }
+          },
+          "extra": {
+            "rawValue": "../screenplay",
+            "raw": "'../screenplay'"
+          },
+          "value": "../screenplay"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
+            "start": 48,
+            "end": 93,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
+            "start": 96,
+            "end": 1822,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 61,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1823,
+        "end": 2536,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 106,
+            "column": 1
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 1830,
+          "end": 2536,
+          "loc": {
+            "start": {
+              "line": 62,
+              "column": 7
+            },
+            "end": {
+              "line": 106,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 1845,
+            "end": 1849,
+            "loc": {
+              "start": {
+                "line": 62,
+                "column": 22
+              },
+              "end": {
+                "line": 62,
+                "column": 26
+              },
+              "identifierName": "Cast"
+            },
+            "name": "Cast"
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 1850,
+            "end": 2536,
+            "loc": {
+              "start": {
+                "line": 62,
+                "column": 27
+              },
+              "end": {
+                "line": 106,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 2239,
+                "end": 2344,
+                "loc": {
+                  "start": {
+                    "line": 86,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 88,
+                    "column": 5
+                  }
+                },
+                "static": true,
+                "key": {
+                  "type": "Identifier",
+                  "start": 2246,
+                  "end": 2262,
+                  "loc": {
+                    "start": {
+                      "line": 86,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 86,
+                      "column": 27
+                    },
+                    "identifierName": "whereEveryoneCan"
+                  },
+                  "name": "whereEveryoneCan"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "RestElement",
+                    "start": 2263,
+                    "end": 2286,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 28
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 51
+                      }
+                    },
+                    "argument": {
+                      "type": "Identifier",
+                      "start": 2266,
+                      "end": 2275,
+                      "loc": {
+                        "start": {
+                          "line": 86,
+                          "column": 31
+                        },
+                        "end": {
+                          "line": 86,
+                          "column": 40
+                        },
+                        "identifierName": "abilities"
+                      },
+                      "name": "abilities"
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 2275,
+                      "end": 2286,
+                      "loc": {
+                        "start": {
+                          "line": 86,
+                          "column": 40
+                        },
+                        "end": {
+                          "line": 86,
+                          "column": 51
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 2277,
+                        "end": 2286,
+                        "loc": {
+                          "start": {
+                            "line": 86,
+                            "column": 42
+                          },
+                          "end": {
+                            "line": 86,
+                            "column": 51
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSTypeReference",
+                          "start": 2277,
+                          "end": 2284,
+                          "loc": {
+                            "start": {
+                              "line": 86,
+                              "column": 42
+                            },
+                            "end": {
+                              "line": 86,
+                              "column": 49
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 2277,
+                            "end": 2284,
+                            "loc": {
+                              "start": {
+                                "line": 86,
+                                "column": 42
+                              },
+                              "end": {
+                                "line": 86,
+                                "column": 49
+                              },
+                              "identifierName": "Ability"
+                            },
+                            "name": "Ability"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 2287,
+                  "end": 2293,
+                  "loc": {
+                    "start": {
+                      "line": 86,
+                      "column": 52
+                    },
+                    "end": {
+                      "line": 86,
+                      "column": 58
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 2289,
+                    "end": 2293,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 58
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 2289,
+                      "end": 2293,
+                      "loc": {
+                        "start": {
+                          "line": 86,
+                          "column": 54
+                        },
+                        "end": {
+                          "line": 86,
+                          "column": 58
+                        },
+                        "identifierName": "Cast"
+                      },
+                      "name": "Cast"
+                    }
+                  }
+                },
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 2294,
+                  "end": 2344,
+                  "loc": {
+                    "start": {
+                      "line": 86,
+                      "column": 59
+                    },
+                    "end": {
+                      "line": 88,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ReturnStatement",
+                      "start": 2304,
+                      "end": 2338,
+                      "loc": {
+                        "start": {
+                          "line": 87,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 87,
+                          "column": 42
+                        }
+                      },
+                      "argument": {
+                        "type": "NewExpression",
+                        "start": 2311,
+                        "end": 2337,
+                        "loc": {
+                          "start": {
+                            "line": 87,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 87,
+                            "column": 41
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 2315,
+                          "end": 2326,
+                          "loc": {
+                            "start": {
+                              "line": 87,
+                              "column": 19
+                            },
+                            "end": {
+                              "line": 87,
+                              "column": 30
+                            },
+                            "identifierName": "GenericCast"
+                          },
+                          "name": "GenericCast"
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 2327,
+                            "end": 2336,
+                            "loc": {
+                              "start": {
+                                "line": 87,
+                                "column": 31
+                              },
+                              "end": {
+                                "line": 87,
+                                "column": 40
+                              },
+                              "identifierName": "abilities"
+                            },
+                            "name": "abilities"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 64 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Cast} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1852,
+                    "end": 1999,
+                    "loc": {
+                      "start": {
+                        "line": 63,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 76,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a generic `Cast` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {Cast}\n     ",
+                    "start": 2005,
+                    "end": 2234,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 85,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2345,
+                    "end": 2489,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 102,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 2496,
+                "end": 2534,
+                "loc": {
+                  "start": {
+                    "line": 105,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 105,
+                    "column": 42
+                  }
+                },
+                "abstract": true,
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 2505,
+                  "end": 2512,
+                  "loc": {
+                    "start": {
+                      "line": 105,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 105,
+                      "column": 20
+                    },
+                    "identifierName": "prepare"
+                  },
+                  "name": "prepare"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 2513,
+                    "end": 2525,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 21
+                      },
+                      "end": {
+                        "line": 105,
+                        "column": 33
+                      },
+                      "identifierName": "actor"
+                    },
+                    "name": "actor",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 2518,
+                      "end": 2525,
+                      "loc": {
+                        "start": {
+                          "line": 105,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 105,
+                          "column": 33
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 2520,
+                        "end": 2525,
+                        "loc": {
+                          "start": {
+                            "line": 105,
+                            "column": 28
+                          },
+                          "end": {
+                            "line": 105,
+                            "column": 33
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 2520,
+                          "end": 2525,
+                          "loc": {
+                            "start": {
+                              "line": 105,
+                              "column": 28
+                            },
+                            "end": {
+                              "line": 105,
+                              "column": 33
+                            },
+                            "identifierName": "Actor"
+                          },
+                          "name": "Actor"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 2526,
+                  "end": 2533,
+                  "loc": {
+                    "start": {
+                      "line": 105,
+                      "column": 34
+                    },
+                    "end": {
+                      "line": 105,
+                      "column": 41
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 2528,
+                    "end": 2533,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 36
+                      },
+                      "end": {
+                        "line": 105,
+                        "column": 41
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 2528,
+                      "end": 2533,
+                      "loc": {
+                        "start": {
+                          "line": 105,
+                          "column": 36
+                        },
+                        "end": {
+                          "line": 105,
+                          "column": 41
+                        },
+                        "identifierName": "Actor"
+                      },
+                      "name": "Actor"
+                    }
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2345,
+                    "end": 2489,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 102,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
+              "start": 48,
+              "end": 93,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
+              "start": 96,
+              "end": 1822,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 61,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
+              "start": 2537,
+              "end": 2582,
+              "loc": {
+                "start": {
+                  "line": 107,
+                  "column": 0
+                },
+                "end": {
+                  "line": 112,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @package\n ",
+              "start": 2585,
+              "end": 2604,
+              "loc": {
+                "start": {
+                  "line": 115,
+                  "column": 0
+                },
+                "end": {
+                  "line": 117,
+                  "column": 3
+                }
+              }
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
+            "start": 48,
+            "end": 93,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
+            "start": 96,
+            "end": 1822,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 61,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
+            "start": 2537,
+            "end": 2582,
+            "loc": {
+              "start": {
+                "line": 107,
+                "column": 0
+              },
+              "end": {
+                "line": 112,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 2585,
+            "end": 2604,
+            "loc": {
+              "start": {
+                "line": 115,
+                "column": 0
+              },
+              "end": {
+                "line": 117,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 2605,
+        "end": 2917,
+        "loc": {
+          "start": {
+            "line": 118,
+            "column": 0
+          },
+          "end": {
+            "line": 138,
+            "column": 1
+          }
+        },
+        "id": {
+          "type": "Identifier",
+          "start": 2611,
+          "end": 2622,
+          "loc": {
+            "start": {
+              "line": 118,
+              "column": 6
+            },
+            "end": {
+              "line": 118,
+              "column": 17
+            },
+            "identifierName": "GenericCast"
+          },
+          "name": "GenericCast"
+        },
+        "superClass": null,
+        "implements": [
+          {
+            "type": "TSExpressionWithTypeArguments",
+            "start": 2634,
+            "end": 2638,
+            "loc": {
+              "start": {
+                "line": 118,
+                "column": 29
+              },
+              "end": {
+                "line": 118,
+                "column": 33
+              }
+            },
+            "expression": {
+              "type": "Identifier",
+              "start": 2634,
+              "end": 2638,
+              "loc": {
+                "start": {
+                  "line": 118,
+                  "column": 29
+                },
+                "end": {
+                  "line": 118,
+                  "column": 33
+                },
+                "identifierName": "Cast"
+              },
+              "name": "Cast"
+            }
+          }
+        ],
+        "body": {
+          "type": "ClassBody",
+          "start": 2639,
+          "end": 2917,
+          "loc": {
+            "start": {
+              "line": 118,
+              "column": 34
+            },
+            "end": {
+              "line": 138,
+              "column": 1
+            }
+          },
+          "body": [
+            {
+              "type": "ClassMethod",
+              "start": 2645,
+              "end": 2703,
+              "loc": {
+                "start": {
+                  "line": 119,
+                  "column": 4
+                },
+                "end": {
+                  "line": 120,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2645,
+                "end": 2656,
+                "loc": {
+                  "start": {
+                    "line": 119,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 119,
+                    "column": 15
+                  },
+                  "identifierName": "constructor"
+                },
+                "name": "constructor"
+              },
+              "computed": false,
+              "kind": "constructor",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "TSParameterProperty",
+                  "start": 2657,
+                  "end": 2694,
+                  "loc": {
+                    "start": {
+                      "line": 119,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 119,
+                      "column": 53
+                    }
+                  },
+                  "accessibility": "private",
+                  "readonly": true,
+                  "parameter": {
+                    "type": "Identifier",
+                    "start": 2674,
+                    "end": 2694,
+                    "loc": {
+                      "start": {
+                        "line": 119,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 119,
+                        "column": 53
+                      },
+                      "identifierName": "abilities"
+                    },
+                    "name": "abilities",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 2683,
+                      "end": 2694,
+                      "loc": {
+                        "start": {
+                          "line": 119,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 119,
+                          "column": 53
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 2685,
+                        "end": 2694,
+                        "loc": {
+                          "start": {
+                            "line": 119,
+                            "column": 44
+                          },
+                          "end": {
+                            "line": 119,
+                            "column": 53
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSTypeReference",
+                          "start": 2685,
+                          "end": 2692,
+                          "loc": {
+                            "start": {
+                              "line": 119,
+                              "column": 44
+                            },
+                            "end": {
+                              "line": 119,
+                              "column": 51
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 2685,
+                            "end": 2692,
+                            "loc": {
+                              "start": {
+                                "line": 119,
+                                "column": 44
+                              },
+                              "end": {
+                                "line": 119,
+                                "column": 51
+                              },
+                              "identifierName": "Ability"
+                            },
+                            "name": "Ability"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 2696,
+                "end": 2703,
+                "loc": {
+                  "start": {
+                    "line": 119,
+                    "column": 55
+                  },
+                  "end": {
+                    "line": 120,
+                    "column": 5
+                  }
+                },
+                "body": [],
+                "directives": []
+              },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 2704,
+                  "end": 2824,
+                  "loc": {
+                    "start": {
+                      "line": 121,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 132,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2831,
+              "end": 2915,
+              "loc": {
+                "start": {
+                  "line": 135,
+                  "column": 4
+                },
+                "end": {
+                  "line": 137,
+                  "column": 5
+                }
+              },
+              "static": false,
+              "key": {
+                "type": "Identifier",
+                "start": 2831,
+                "end": 2838,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 135,
+                    "column": 11
+                  },
+                  "identifierName": "prepare"
+                },
+                "name": "prepare"
+              },
+              "computed": false,
+              "kind": "method",
+              "id": null,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 2839,
+                  "end": 2851,
+                  "loc": {
+                    "start": {
+                      "line": 135,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 135,
+                      "column": 24
+                    },
+                    "identifierName": "actor"
+                  },
+                  "name": "actor",
+                  "typeAnnotation": {
+                    "type": "TSTypeAnnotation",
+                    "start": 2844,
+                    "end": 2851,
+                    "loc": {
+                      "start": {
+                        "line": 135,
+                        "column": 17
+                      },
+                      "end": {
+                        "line": 135,
+                        "column": 24
+                      }
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypeReference",
+                      "start": 2846,
+                      "end": 2851,
+                      "loc": {
+                        "start": {
+                          "line": 135,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 135,
+                          "column": 24
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 2846,
+                        "end": 2851,
+                        "loc": {
+                          "start": {
+                            "line": 135,
+                            "column": 19
+                          },
+                          "end": {
+                            "line": 135,
+                            "column": 24
+                          },
+                          "identifierName": "Actor"
+                        },
+                        "name": "Actor"
+                      }
+                    }
+                  }
+                }
+              ],
+              "returnType": {
+                "type": "TSTypeAnnotation",
+                "start": 2852,
+                "end": 2859,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 135,
+                    "column": 32
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSTypeReference",
+                  "start": 2854,
+                  "end": 2859,
+                  "loc": {
+                    "start": {
+                      "line": 135,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 135,
+                      "column": 32
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 2854,
+                    "end": 2859,
+                    "loc": {
+                      "start": {
+                        "line": 135,
+                        "column": 27
+                      },
+                      "end": {
+                        "line": 135,
+                        "column": 32
+                      },
+                      "identifierName": "Actor"
+                    },
+                    "name": "Actor"
+                  }
+                }
+              },
+              "body": {
+                "type": "BlockStatement",
+                "start": 2860,
+                "end": 2915,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 137,
+                    "column": 5
+                  }
+                },
+                "body": [
+                  {
+                    "type": "ReturnStatement",
+                    "start": 2870,
+                    "end": 2909,
+                    "loc": {
+                      "start": {
+                        "line": 136,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 136,
+                        "column": 47
+                      }
+                    },
+                    "argument": {
+                      "type": "CallExpression",
+                      "start": 2877,
+                      "end": 2908,
+                      "loc": {
+                        "start": {
+                          "line": 136,
+                          "column": 15
+                        },
+                        "end": {
+                          "line": 136,
+                          "column": 46
+                        }
+                      },
+                      "callee": {
+                        "type": "MemberExpression",
+                        "start": 2877,
+                        "end": 2889,
+                        "loc": {
+                          "start": {
+                            "line": 136,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 136,
+                            "column": 27
+                          }
+                        },
+                        "object": {
+                          "type": "Identifier",
+                          "start": 2877,
+                          "end": 2882,
+                          "loc": {
+                            "start": {
+                              "line": 136,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 136,
+                              "column": 20
+                            },
+                            "identifierName": "actor"
+                          },
+                          "name": "actor"
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 2883,
+                          "end": 2889,
+                          "loc": {
+                            "start": {
+                              "line": 136,
+                              "column": 21
+                            },
+                            "end": {
+                              "line": 136,
+                              "column": 27
+                            },
+                            "identifierName": "whoCan"
+                          },
+                          "name": "whoCan"
+                        },
+                        "computed": false
+                      },
+                      "arguments": [
+                        {
+                          "type": "SpreadElement",
+                          "start": 2890,
+                          "end": 2907,
+                          "loc": {
+                            "start": {
+                              "line": 136,
+                              "column": 28
+                            },
+                            "end": {
+                              "line": 136,
+                              "column": 45
+                            }
+                          },
+                          "argument": {
+                            "type": "MemberExpression",
+                            "start": 2893,
+                            "end": 2907,
+                            "loc": {
+                              "start": {
+                                "line": 136,
+                                "column": 31
+                              },
+                              "end": {
+                                "line": 136,
+                                "column": 45
+                              }
+                            },
+                            "object": {
+                              "type": "ThisExpression",
+                              "start": 2893,
+                              "end": 2897,
+                              "loc": {
+                                "start": {
+                                  "line": 136,
+                                  "column": 31
+                                },
+                                "end": {
+                                  "line": 136,
+                                  "column": 35
+                                }
+                              }
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 2898,
+                              "end": 2907,
+                              "loc": {
+                                "start": {
+                                  "line": 136,
+                                  "column": 36
+                                },
+                                "end": {
+                                  "line": 136,
+                                  "column": 45
+                                },
+                                "identifierName": "abilities"
+                              },
+                              "name": "abilities"
+                            },
+                            "computed": false
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "directives": []
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 2704,
+                  "end": 2824,
+                  "loc": {
+                    "start": {
+                      "line": 121,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 132,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
+            "start": 2537,
+            "end": 2582,
+            "loc": {
+              "start": {
+                "line": 107,
+                "column": 0
+              },
+              "end": {
+                "line": 112,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 2585,
+            "end": 2604,
+            "loc": {
+              "start": {
+                "line": 115,
+                "column": 0
+              },
+              "end": {
+                "line": 117,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
+      "start": 48,
+      "end": 93,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
+      "start": 96,
+      "end": 1822,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 61,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 64 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Cast} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 1852,
+      "end": 1999,
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 0
+        },
+        "end": {
+          "line": 76,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Creates a generic `Cast` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {Cast}\n     ",
+      "start": 2005,
+      "end": 2234,
+      "loc": {
+        "start": {
+          "line": 78,
+          "column": 4
+        },
+        "end": {
+          "line": 85,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 2345,
+      "end": 2489,
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 0
+        },
+        "end": {
+          "line": 102,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
+      "start": 2537,
+      "end": 2582,
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 0
+        },
+        "end": {
+          "line": 112,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @package\n ",
+      "start": 2585,
+      "end": 2604,
+      "loc": {
+        "start": {
+          "line": 115,
+          "column": 0
+        },
+        "end": {
+          "line": 117,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+      "start": 2704,
+      "end": 2824,
+      "loc": {
+        "start": {
+          "line": 121,
+          "column": 0
+        },
+        "end": {
+          "line": 132,
+          "column": 3
+        }
+      }
+    }
+  ]
+}
