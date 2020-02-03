@@ -15,7 +15,7 @@ fi
 
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
   echo "Releasing 2.0 alpha"
-  npx lerna publish prerelease --dist-tag next --yes
+  npx lerna publish --yes
   npm run site:publish
   exit 0;
 fi
