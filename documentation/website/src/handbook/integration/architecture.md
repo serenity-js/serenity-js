@@ -79,7 +79,7 @@ The [`@serenity-js/serenity-bdd`](/modules/serenity-bdd) module is a wrapper aro
 
 The [`@serenity-js/local-server`](/modules/local-server) provides adapters for popular HTTP and HTTPs Node.js servers you can use to manage their lifecycle in your tests.
 
-## What modules should I choose?
+### What modules should I choose?
 
 That depends on the type of tests you want to write and the lower-level tools you want to integrate.
 
@@ -97,3 +97,14 @@ If you wanted to create a test suite that exercised a web interface:
 
 On the other hand, if you were interested in basic reporting capabilities and were not ready to adopt the Screenplay Pattern-style testing yet, you could limit your Serenity/JS toolset to a test runner adapter and a reporting module. This is often a quick win in scenarios where you need to modernise your test code base but need time to refactor the legacy tests and want to benefit from improved reporting on day one.
 
+### Serenity/JS Module structure
+
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-tools"></i></div>
+    <div class="text">
+        <p>
+            This section is coming soon. Stay tuned or learn how you can [support the project](/support.html)!
+        </p>
+        <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
+    </div>
+</div>
