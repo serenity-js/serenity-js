@@ -27,9 +27,9 @@ export class SummaryFormatter {
             this.theme.heading('Execution Summary'),
             '',
             ...categoryNames.map(categoryName => {
-                const displayName = categoryName.length > maxCategoryNameLengthAllowed
+                const displayName = (categoryName.length > maxCategoryNameLengthAllowed
                     ? categoryName.substring(0, maxCategoryNameLengthAllowed - 4) + `...:`
-                    : `${ categoryName }:`.padEnd(maxCategoryNameLengthAllowed + 1);
+                    : `${ categoryName }:`).padEnd(maxCategoryNameLengthAllowed + 1);
 
                 return `${ this.theme.heading(displayName) } ${ this.formatTotalsFor(aggregatedCategories.categories[categoryName]) }`;
             }),
