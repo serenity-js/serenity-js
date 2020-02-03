@@ -29,7 +29,7 @@ import {
     Timestamp,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk';
-import { match } from 'tiny-types';
+import { ensure, isDefined, isInstanceOf, match } from 'tiny-types';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
@@ -156,6 +156,9 @@ export class ConsoleReporter implements StageCrewMember {
         private readonly theme: TerminalTheme,
         private readonly stage: Stage = null,
     ) {
+        ensure('printer', printer, isDefined());
+        ensure('theme', theme, isDefined());
+
         this.summaryFormatter = new SummaryFormatter(this.theme);
     }
 

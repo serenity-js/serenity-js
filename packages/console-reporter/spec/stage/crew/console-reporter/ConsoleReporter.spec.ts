@@ -29,6 +29,19 @@ describe('ConsoleReporter', () => {
         stage.assign(reporter);
     });
 
+    describe('when instantiated', () => {
+
+        it(`complains when not given a printer`, () => {
+            expect(() => new ConsoleReporter(null, new ThemeForMonochromaticTerminals()))
+                .to.throw(Error, 'printer should be defined');
+        });
+
+        it(`complains when not given a theme`, () => {
+            expect(() => new ConsoleReporter(new Printer(), null))
+                .to.throw(Error, 'theme should be defined');
+        });
+    });
+
     describe('when the scenario passes', () => {
 
         /** @test {ConsoleReporter} */
