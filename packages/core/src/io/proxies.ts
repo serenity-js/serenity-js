@@ -2,6 +2,9 @@ export interface Dictionary {
     [key: string]: any;
 }
 
+/**
+ * @private
+ */
 export function caseInsensitive<T extends Dictionary>(dictionary: T): T & Dictionary {
     return new Proxy(dictionary, {
         get: <K extends keyof T & string>(obj: T & Dictionary, key: K) => {

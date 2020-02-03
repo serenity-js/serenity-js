@@ -3,6 +3,8 @@ import { Cast, StageCrewMember } from './stage';
 
 /**
  * @interface
+ *
+ * @see {@link configure}
  */
 export abstract class SerenityConfig {
     /**
