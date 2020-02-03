@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.129](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.128...v2.0.1-alpha.129) (2020-02-02)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
+## [2.0.1-alpha.127](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.126...v2.0.1-alpha.127) (2020-02-02)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
 ## [2.0.1-alpha.126](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.125...v2.0.1-alpha.126) (2020-02-02)
 
 
