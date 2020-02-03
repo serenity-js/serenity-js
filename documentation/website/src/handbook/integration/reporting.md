@@ -14,3 +14,12 @@ layout: handbook.hbs
     </div>
 </div>
 
+## Reporting modules
+
+Serenity/JS provides following reporting modules:
+- [@serenity-js/console-reporter](/modules/console-reporter)
+- [@serenity-js/serenity-bdd](/modules/serenity-bdd)
+
+## Examples
+
+To see examples, please have a look at the [Serenity/JS Github](https://github.com/serenity-js/serenity-js/tree/master/examples)

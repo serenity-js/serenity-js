@@ -13,3 +13,5 @@ layout: handbook.hbs
         <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
     </div>
 </div>
+
+Please have a look at the [`@serenity-js/assertions`](/modules/assertions) module.

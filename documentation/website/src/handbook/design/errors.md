@@ -15,7 +15,7 @@ layout: handbook.hbs
 </div>
 
 Todo:
-- Compromised scenarios
+- compromised scenarios
 - runtime errors
 - logic errors
-- reporting
+- errors and reporting
