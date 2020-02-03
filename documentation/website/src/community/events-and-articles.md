@@ -6,7 +6,7 @@ layout: handbook.hbs
 
 If you've written an article, tutorial or a blog post, recorded a video, 
 or are planning to talk about Serenity/JS at a meetup or a conference, please 
-[add it to the list below](https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/community/events-and-articles.md)
+[add it to the list below](https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/community/events-and-articles.md)
 to share the news with the community!
 
 ## Events
