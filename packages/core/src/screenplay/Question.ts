@@ -57,7 +57,10 @@ export abstract class Question<T> {
     }
 
     /**
-     * Checks if the value is a {@link Question}
+     * @desc
+     *  Checks if the value is a {@link Question}
+     *
+     * @param {any} maybeQuestion
      * @returns {boolean}
      */
     static isAQuestion<T>(maybeQuestion: any): maybeQuestion is Question<T> {

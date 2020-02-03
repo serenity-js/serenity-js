@@ -3,8 +3,17 @@ update_configs:
   - package_manager: "javascript"
     directory: "/"
     update_schedule: "daily"
-    target_branch: "2.0"
+    target_branch: "master"
     version_requirement_updates: "auto"
     ignored_updates:
       - match:
           dependency_name: "cucumber"
+      - match:
+          dependency_name: "@types/cucumber"
+      - match:
+          dependency_name: "selenium-webdriver"
+      - match:
+          dependency_name: "@types/selenium-webdriver"
+      - match:
+          dependency_name: "@types/node"
+          version_requirement: "13.x"
