@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.130](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.129...v2.0.1-alpha.130) (2020-02-03)
+
+
+### Bug Fixes
+
+* **protractor:** updated dev dependency on Protractor ([736bf54](https://github.com/serenity-js/serenity-js/commit/736bf54aea5d79eaec5dd1e8e9a70d2fbaa035ce))
+
+
+
+
+
 ## [2.0.1-alpha.129](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.128...v2.0.1-alpha.129) (2020-02-02)
 
 **Note:** Version bump only for package @serenity-js/protractor
