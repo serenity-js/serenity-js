@@ -13,3 +13,5 @@ layout: handbook.hbs
         <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
     </div>
 </div>
+
+Please have a look at the API docs of the [`Task`](/modules/core/class/src/screenplay/Task.ts~Task.html) class.

@@ -16,7 +16,7 @@ export abstract class Task implements Activity {
     /**
      * @desc
      *  A factory method to make defining the Tasks more convenient.
-     *  Please note that colling this method without providing the list of {@link Activity} objects
+     *  Please note that calling this method without providing the list of {@link Activity} objects
      *  will result in producing a Task that's marked as "pending" in the test report.
      *
      *  This feature is useful when you want to quickly write down a task that will be needed in the scenario,

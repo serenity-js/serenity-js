@@ -8,7 +8,7 @@
     "email": "jan.molak@smartcodeltd.co.uk",
     "url": "https://janmolak.com"
   },
-  "homepage": "http://serenity-js.org",
+  "homepage": "https://serenity-js.org",
   "license": "Apache-2.0",
   "keywords": [
     "protractor",
@@ -31,7 +31,7 @@
     "compile": "lerna run compile --stream",
     "verify": "npm run lint && npm run compile && npm test && npm run integration-tests",
     "site": "lerna run site --stream",
-    "site:publish": "gh-pages -t -d documentation/website/target/site -b gh-pages-2.0 -r \"https://${GH_TOKEN}@github.com/jan-molak/serenity-js.git\"",
+    "site:publish": "gh-pages -t -d documentation/website/target/site -r \"https://${GH_TOKEN}@github.com/serenity-js/serenity-js.git\"",
     "report": "npm run coverage:merge && npm run coverage:report",
     "coverage:merge": "istanbul-merge --out=./target/coverage/coverage-final.json ./target/coverage/**/coverage-final.json",
     "coverage:report": "nyc report --reporter=html --reporter=lcov --temp-directory=./target/coverage --report-dir=./target/coverage",
@@ -51,7 +51,7 @@
     "chai-as-promised": "^7.1.1",
     "commitizen": "^4.0.3",
     "coveralls": "^3.0.9",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.0",
     "cz-conventional-changelog": "^3.0.2",
     "esdoc": "1.1.0",
     "esdoc-accessor-plugin": "1.0.0",
@@ -84,10 +84,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jan-molak/serenity-js.git"
+    "url": "https://github.com/serenity-js/serenity-js.git"
   },
   "bugs": {
-    "url": "https://github.com/jan-molak/serenity-js/issues"
+    "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
     "node": ">= 8",

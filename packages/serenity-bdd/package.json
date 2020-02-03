@@ -1,13 +1,13 @@
 {
   "name": "@serenity-js/serenity-bdd",
-  "version": "2.0.1-alpha.119",
+  "version": "2.0.1",
   "description": "Serenity BDD reporter for Serenity/JS",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
     "url": "https://janmolak.com"
   },
-  "homepage": "http://serenity-js.org",
+  "homepage": "https://serenity-js.org",
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
@@ -33,10 +33,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jan-molak/serenity-js.git"
+    "url": "https://github.com/serenity-js/serenity-js.git"
   },
   "bugs": {
-    "url": "https://github.com/jan-molak/serenity-js/issues"
+    "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
     "node": ">= 8",
@@ -57,14 +57,14 @@
     "@serenity-js/rest": "2.x"
   },
   "devDependencies": {
-    "@documentation/esdoc-template": "2.0.1-alpha.119",
-    "@integration/testing-tools": "2.0.1-alpha.119",
-    "@serenity-js/assertions": "2.0.1-alpha.119",
-    "@serenity-js/core": "2.0.1-alpha.119",
-    "@serenity-js/rest": "2.0.1-alpha.119",
+    "@documentation/esdoc-template": "2.0.1-alpha.126",
+    "@integration/testing-tools": "2.0.1",
+    "@serenity-js/assertions": "2.0.1",
+    "@serenity-js/core": "2.0.1",
+    "@serenity-js/rest": "2.0.1",
     "@types/mocha": "^5.2.6",
     "@types/progress": "^2.0.3",
-    "memfs": "3.0.3"
+    "memfs": "3.0.4"
   },
   "nyc": {
     "include": [
@@ -72,6 +72,7 @@
     ],
     "exclude": [
       "src/**/*.d.ts",
+      "src/cli",
       "lib",
       "node_modules",
       "spec"
