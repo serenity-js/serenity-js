@@ -86,10 +86,25 @@ describe('SummaryFormatter', () => {
         expect(formatter.format(summary.aggregated())).to.equal(trimmed `
             | Execution Summary
             |
-            | Know-Your-Customer and Ant...: 1 successful, 1 total (5ms)
+            | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
             |
             | Total time: 5ms
             | Scenarios:  1
+        `);
+    });
+
+    it('keeps the padding consistent between longer and shorter category names', () => {
+        summary.record(addingProductToBasket, new ExecutionSuccessful(), Duration.ofMilliseconds(10));
+        summary.record(longCategoryName, new ExecutionSuccessful(), Duration.ofMilliseconds(5));
+
+        expect(formatter.format(summary.aggregated())).to.equal(trimmed `
+            | Execution Summary
+            |
+            | Basket:                         1 successful, 1 total (10ms)
+            | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
+            |
+            | Total time: 15ms
+            | Scenarios:  2
         `);
     });
 });
