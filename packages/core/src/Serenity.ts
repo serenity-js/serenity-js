@@ -24,10 +24,11 @@ export class Serenity {
     }
 
     /**
-     * Configures Serenity/JS.
-     *
-     * This method should be called only once in your entire project
-     * and before any tests are executed.
+     * @desc
+     *  Configures Serenity/JS. Every call to this function
+     *  replaces the previous configuration provided,
+     *  so this function should called be exactly once
+     *  in your test suite.
      *
      * @param {SerenityConfig} config
      * @return {void}
@@ -55,14 +56,42 @@ export class Serenity {
     }
 
     /**
-     * Re-configures Serenity/JS to use a new {@link Cast}
-     * to prepare the {@link Actor}s for the performance.
+     * @desc
+     *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s
+     *  you'd like to use in any subsequent call to {@link actorCalled}.
      *
-     * Typically, you'd call this method in a "before each"
-     * hook of your test runner of choice.
+     *  This method provides an alternative to calling {@link Actor#whoCan}
+     *  directly in your tests and you'd typically us it in a "before each"
+     *  hook of your test runner of choice.
+     *
+     * @example <caption>Engaging a cast of actors</caption>
+     *  import { Actor, Cast } from '@serenity-js/core';
+     *
+     *  class Actors implements Cast {
+     *      prepare(actor: Actor) {
+     *          return actor.whoCan(
+     *              // ... abilities you'd like the Actor to have
+     *          );
+     *      }
+     *  }
+     *
+     * engage(new Actors();
+     *
+     * @example <caption>Usage with Jasmine</caption>
+     *  import 'jasmine';
+     *
+     *  beforeEach(() => engage(new Actors()));
+     *
+     * @example <caption>Usage with Cucumber</caption>
+     *  import { Before } from 'cucumber';
+     *
+     *  Before(() => engage(new Actors());
      *
      * @param {Cast} actors
-     * @return {void}
+     * @returns {void}
+     *
+     * @see {@link Actor}
+     * @see {@link Cast}
      */
     engage(actors: Cast): void {
         this.stage.engage(
@@ -70,10 +99,73 @@ export class Serenity {
         );
     }
 
+    /**
+     * @desc
+     *  Instantiates or retrieves an actor {@link Actor}
+     *  called `name` if one has already been instantiated.
+     *
+     * @example <caption>Usage with Jasmine</caption>
+     *   import 'jasmine';
+     *   import { actorCalled } from '@serenity-js/core';
+     *
+     *   describe('Feature', () => {
+     *
+     *      it('should have some behaviour', () =>
+     *          actorCalled('James').attemptsTo(
+     *              // ... activities
+     *          ));
+     *   });
+     *
+     * @example <caption>Usage with Cucumber</caption>
+     *   import { actorCalled } from '@serenity-js/core';
+     *   import { Given } from 'cucumber';
+     *
+     *   Given(/(.*?) is a registered user/, (name: string) =>
+     *      actorCalled(name).attemptsTo(
+     *              // ... activities
+     *          ));
+     *
+     * @param {string} name
+     *  The name of the actor to instantiate or retrieve
+     *
+     * @returns {Actor}
+     *
+     * @see {@link engage}
+     * @see {@link Actor}
+     * @see {@link Cast}
+     */
     theActorCalled(name: string): Actor {
         return this.stage.theActorCalled(name);
     }
 
+    /**
+     * @desc
+     *  Retrieves an actor who was last instantiated or retrieved
+     *  using {@link actorCalled}.
+     *
+     *  This function is particularly useful when automating Cucumber scenarios.
+     *
+     * @example <captiongit>Usage with Cucumber</caption>
+     *   import { actorCalled } from '@serenity-js/core';
+     *   import { Given, When } from 'cucumber';
+     *
+     *   Given(/(.*?) is a registered user/, (name: string) =>
+     *      actorCalled(name).attemptsTo(
+     *              // ... activities
+     *          ));
+     *
+     *   When(/(?:he|she|they) browse their recent orders/, () =>
+     *      actorInTheSpotlight().attemptsTo(
+     *              // ... activities
+     *          ));
+     *
+     * @returns {Actor}
+     *
+     * @see {@link engage}
+     * @see {@link actorCalled}
+     * @see {@link Actor}
+     * @see {@link Cast}
+     */
     theActorInTheSpotlight(): Actor {
         return this.stage.theActorInTheSpotlight();
     }
@@ -87,7 +179,7 @@ export class Serenity {
     }
 
     /**
-     * @internal
+     * @package
      */
     waitForNextCue(): Promise<void> {
         return this.stage.waitForNextCue();
