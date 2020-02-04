@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/serenity-js/serenity-js/compare/v2.0.1...v2.0.2) (2020-02-04)
+
+
+### Bug Fixes
+
+* **console-reporter:** advises the developer if they've instantiated the reporter incorrectly ([5709e76](https://github.com/serenity-js/serenity-js/commit/5709e76c7a97273f21b122f90c21fd8e8d3e1389)), closes [#413](https://github.com/serenity-js/serenity-js/issues/413)
+* **console-reporter:** corrected the padding on longer category names ([d193b7d](https://github.com/serenity-js/serenity-js/commit/d193b7d7d611cfc81b10a491554e1fa12e8d6418)), closes [#375](https://github.com/serenity-js/serenity-js/issues/375)
+
+
+
+
+
 ## [2.0.1](https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.132...v2.0.1) (2020-02-03)
 
 **Note:** Version bump only for package serenity-js-monorepo
