@@ -37,7 +37,7 @@ The key elements of the pattern are: actors, abilities, interactions, questions,
 
 ## Screenplay by example
 
-The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](http://localhost:3000/modules/cucumber/), which we'll look into later on in the book), we'll use [Jasmine](http://localhost:3000/modules/jasmine/) for now to keep things simple.
+The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Jasmine](http://localhost:3000/modules/jasmine/) for now to keep things simple.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
@@ -51,7 +51,7 @@ The best way to illustrate the Screenplay Pattern is through a practical example
 The Screenplay Pattern is a user-centric model with users and external systems interacting with the system under test represented as _actors_. 
 Actors are a key element of the pattern as they are the ones performing the test scenarios.
 
-In Serenity/JS, an [`Actor`](http://localhost:3000/modules/core/function/index.html#static-function-actorCalled) is defined using an [`actorCalled`](/modules/core/function/index.html#static-function-actorCalled) convenience method:
+In Serenity/JS, an [`Actor`](/modules/core/function/index.html#static-function-actorCalled) is defined using an [`actorCalled`](/modules/core/function/index.html#static-function-actorCalled) convenience method:
 
 ```typescript
 // spec/todo.spec.ts
@@ -116,7 +116,7 @@ the [TodoMVC app]('http://todomvc.com/examples/angularjs/').
 </div>
 
 There are two interesting points about the scenario above that I'd like to draw your attention to:
-1. The [`actor.attemptsTo(..)`](http://localhost:3000/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo) method returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which allows Jasmine to [synchronise](https://jasmine.github.io/tutorials/async#promises) the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.
+1. The [`actor.attemptsTo(..)`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo) method returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which allows Jasmine to [synchronise](https://jasmine.github.io/tutorials/async#promises) the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.
 2. The interaction to [`Navigate`](/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html), just like many other common interactions you'll need to write your Web tests, ships as part of the [`@serenity-js/protractor`](/modules/protractor/) module. Serenity/JS [modules](/modules) provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can [easily create them yourself](/handbook/design/interactions.html) and [contribute back](/contributing.html) to the community &#x1F60A;
 
 Check out the [Design Guide](/handbook/design) to [learn more about interactions](/handbook/design/interactions.html). 
