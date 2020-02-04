@@ -1771,7 +1771,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber12",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber11",
     "Photographer",
     "test"
   ],
@@ -1783,13 +1783,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber11",
     "Photographer",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber12",
     "Photographer",
     "test"
   ],
@@ -1855,13 +1855,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber79",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber47",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber47",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber79",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
@@ -2706,14 +2706,14 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber14",
+    "text#of text#of,text#of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber30",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
   [
-    "text#of text#of,text#of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber30",
+    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber14",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
@@ -2778,9 +2778,9 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "attribute src/screenplay/questions/attribute.ts~attribute,attribute",
+    "website src/screenplay/questions/website.ts~website,website",
     "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber11",
-    "Website title allows the actor to read an attribute of a DOM element",
+    "Website title allows the actor to read the title of the website",
     "test"
   ],
   [
@@ -2790,9 +2790,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "attribute src/screenplay/questions/attribute.ts~attribute,attribute",
+    "website src/screenplay/questions/website.ts~website,website",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber37",
+    "Website url ",
+    "test"
+  ],
+  [
+    "website src/screenplay/questions/website.ts~website,website",
     "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber27",
-    "Website url allows the actor to read an attribute of a DOM element",
+    "Website url allows the actor to read the URL of the website",
     "test"
   ],
   [

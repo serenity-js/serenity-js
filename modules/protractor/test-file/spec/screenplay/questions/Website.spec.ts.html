@@ -170,8 +170,8 @@
 describe(<span class="hljs-string">&apos;Website&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
     describe(<span class="hljs-string">&apos;title&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-comment">/** @test {Attribute} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to read an attribute of a DOM element&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        <span class="hljs-comment">/** @test {Website} */</span>
+        it(<span class="hljs-string">&apos;allows the actor to read the title of the website&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
                     &lt;head&gt;
@@ -186,11 +186,21 @@ describe(<span class="hljs-string">&apos;Website&apos;</span>, <span class="hljs
 
     describe(<span class="hljs-string">&apos;url&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Attribute} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to read an attribute of a DOM element&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        <span class="hljs-comment">/** @test {Website} */</span>
+        it(<span class="hljs-string">&apos;allows the actor to read the URL of the website&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">`chrome://accessibility/`</span>),
 
             Ensure.that(Website.url(), equals(<span class="hljs-string">`chrome://accessibility/`</span>)),
+        ));
+
+        <span class="hljs-comment">/**
+         *  @test {Website}
+         *  @see https://github.com/serenity-js/serenity-js/issues/273
+         */</span>
+        it(<span class="hljs-string">`correctly represents the URL containing special characters`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Navigate.to(<span class="hljs-string">`chrome://accessibility/fr/noworries/#`</span>),
+
+            Ensure.that(Website.url(), equals(<span class="hljs-string">`chrome://accessibility/fr/noworries/#`</span>)),
         ));
     });
 });
