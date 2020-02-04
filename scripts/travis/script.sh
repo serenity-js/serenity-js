@@ -6,5 +6,5 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "- see https://docs.travis-ci.com/user/pull-requests#Pull-Requests-and-Security-Restrictions";
 fi
 
-make clean verify report site
+make clean verify report
 exit 0;
