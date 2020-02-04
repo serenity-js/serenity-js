@@ -212,10 +212,25 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
             | Execution Summary
             |
-            | Know-Your-Customer and Ant...: 1 successful, 1 total (5ms)
+            | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
             |
             | Total time: 5ms
             | Scenarios:  1
+        `</span>);
+    });
+
+    it(<span class="hljs-string">&apos;keeps the padding consistent between longer and shorter category names&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
+        summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
+
+        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+            | Execution Summary
+            |
+            | Basket:                         1 successful, 1 total (10ms)
+            | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
+            |
+            | Total time: 15ms
+            | Scenarios:  2
         `</span>);
     });
 });

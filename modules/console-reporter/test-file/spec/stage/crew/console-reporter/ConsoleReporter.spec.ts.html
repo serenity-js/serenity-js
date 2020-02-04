@@ -155,6 +155,19 @@ describe(<span class="hljs-string">&apos;ConsoleReporter&apos;</span>, () =&gt; 
         stage.assign(reporter);
     });
 
+    describe(<span class="hljs-string">&apos;when instantiated&apos;</span>, () =&gt; {
+
+        it(`complains when not given a printer`, () =&gt; {
+            expect(() =&gt; new ConsoleReporter(null, new ThemeForMonochromaticTerminals()))
+                .to.throw(Error, <span class="hljs-string">&apos;printer should be defined&apos;</span>);
+        });
+
+        it(`complains when not given a theme`, () =&gt; {
+            expect(() =&gt; new ConsoleReporter(new Printer(), null))
+                .to.throw(Error, <span class="hljs-string">&apos;theme should be defined&apos;</span>);
+        });
+    });
+
     describe(<span class="hljs-string">&apos;when the scenario passes&apos;</span>, () =&gt; {
 
         /** @<span class="hljs-built_in">test</span> {ConsoleReporter} */

@@ -155,7 +155,7 @@
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Instance <span class="hljs-keyword">as</span> ChalkInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chalk&apos;</span>;
-<span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, isInstanceOf, match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Printer&apos;</span>;
 <span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Summary&apos;</span>;
 <span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SummaryFormatter&apos;</span>;
@@ -282,6 +282,9 @@
         <span class="hljs-keyword">private</span> readonly theme: TerminalTheme,
         <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
+        ensure(<span class="hljs-string">&apos;printer&apos;</span>, printer, isDefined());
+        ensure(<span class="hljs-string">&apos;theme&apos;</span>, theme, isDefined());
+
         <span class="hljs-keyword">this</span>.summaryFormatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-keyword">this</span>.theme);
     }
 
