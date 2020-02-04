@@ -49,7 +49,7 @@ _by [Jan Molak](https://janmolak.com) and [John Ferguson Smart](https://johnferg
  
 ## Articles
 
-- **["Create an Acceptance Test Framework from Scratch - Cucumber, Protractor, Serenity/JS and the Screenplay Pattern"](https://testifyqa.com/javascript-frameworks/#serenity-js-header)**   
+- **["Create an Acceptance Test Framework from Scratch - Cucumber, Protractor, Serenity/JS and the Screenplay Pattern"](https://testifyqa.com/javascript-frameworks/#serenity-js)**   
 _by [Thomas Knee](https://testifyqa.com)_
 
 - **["Smooth out the Sharp Angles of Protractor Testing - Helping failed assertions make a little bit more sense"](https://janmolak.com/expected-false-to-be-true-e920c512030d#.fhiow37y5)**   
