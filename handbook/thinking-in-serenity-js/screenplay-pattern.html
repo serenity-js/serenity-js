@@ -158,7 +158,7 @@
 </figure>
 
 <h2 id="screenplay-by-example">Screenplay by example</h2>
-<p>The best way to illustrate the Screenplay Pattern is through a practical example, so let&apos;s continue experimenting with the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC application</a> we&apos;ve introduced in the <a href="handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">previous chapter</a>. And while Serenity/JS supports <a href="http://todomvc.com/examples/angularjs/#/">several test runners</a> (including <a href="http://localhost:3000/modules/cucumber/">Cucumber.js</a>, which we&apos;ll look into later on in the book), we&apos;ll use <a href="http://localhost:3000/modules/jasmine/">Jasmine</a> for now to keep things simple.</p>
+<p>The best way to illustrate the Screenplay Pattern is through a practical example, so let&apos;s continue experimenting with the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC application</a> we&apos;ve introduced in the <a href="handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">previous chapter</a>. And while Serenity/JS supports <a href="http://todomvc.com/examples/angularjs/#/">several test runners</a> (including <a href="/modules/cucumber/">Cucumber.js</a>, which we&apos;ll look into later on in the book), we&apos;ll use <a href="http://localhost:3000/modules/jasmine/">Jasmine</a> for now to keep things simple.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
@@ -169,7 +169,7 @@
 <h2 id="actors">Actors</h2>
 <p>The Screenplay Pattern is a user-centric model with users and external systems interacting with the system under test represented as <em>actors</em>. 
 Actors are a key element of the pattern as they are the ones performing the test scenarios.</p>
-<p>In Serenity/JS, an <a href="http://localhost:3000/modules/core/function/index.html#static-function-actorCalled"><code>Actor</code></a> is defined using an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> convenience method:</p>
+<p>In Serenity/JS, an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>Actor</code></a> is defined using an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> convenience method:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
 <span class="hljs-keyword">import</span> { Actor, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -223,7 +223,7 @@ the <a href="&apos;http://todomvc.com/examples/angularjs/&apos;">TodoMVC app</a>
 
 <p>There are two interesting points about the scenario above that I&apos;d like to draw your attention to:</p>
 <ol>
-<li>The <a href="http://localhost:3000/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method returns a standard JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>, which allows Jasmine to <a href="https://jasmine.github.io/tutorials/async#promises">synchronise</a> the chain of actor&apos;s interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.</li>
+<li>The <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method returns a standard JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>, which allows Jasmine to <a href="https://jasmine.github.io/tutorials/async#promises">synchronise</a> the chain of actor&apos;s interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.</li>
 <li>The interaction to <a href="/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html"><code>Navigate</code></a>, just like many other common interactions you&apos;ll need to write your Web tests, ships as part of the <a href="/modules/protractor/"><code>@serenity-js/protractor</code></a> module. Serenity/JS <a href="/modules">modules</a> provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can <a href="/handbook/design/interactions.html">easily create them yourself</a> and <a href="/contributing.html">contribute back</a> to the community &#x1F60A;</li>
 </ol>
 <p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/interactions.html">learn more about interactions</a>. </p>
