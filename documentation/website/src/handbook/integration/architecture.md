@@ -8,7 +8,7 @@ Serenity/JS is a full-stack acceptance testing framework that helps you write hi
 
 In order to do that, Serenity/JS:
 - Relies on popular and battle-tested tools to take care of the low-level interactions with your system - i.e. Serenity/JS uses [Protractor](https://github.com/angular/protractor) to [interact with Web Applications](/modules/protractor) and [Axios](https://github.com/axios/axios) to [communicate with REST APIs](/modules/rest). 
-- Provides adapters (a.k.a. [Abilities](http://localhost:3000/handbook/design/abilities.html)) and an asynchronous communication mechanism to enable you to use those various (often incompatible) tools together in perfect harmony and a single test suite, or even a single test.
+- Provides adapters (a.k.a. [Abilities](/handbook/design/abilities.html)) and an asynchronous communication mechanism to enable you to use those various (often incompatible) tools together in perfect harmony and a single test suite, or even a single test.
 - Gives you a powerful and elegant model to create business-focused [DSLs](https://en.wikipedia.org/wiki/Domain-specific_language) - the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html), which also takes care of intricacies of the asynchronous nature of the underlying tools leaving your tests free of noise. 
 - Uses its deep insight into the activities performed by your test actors, as well as information sourced from the low-level integration tools and test runners to provide you with comprehensive test execution reports and living documentation.
 
