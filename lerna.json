@@ -19,15 +19,15 @@
       "exact": true,
       "message": "chore(release): %s\n[ci skip]"
     },
-    "ignoreChanges": [
-      "**/documentation/**",
-      "**/examples/**",
-      "**/integration/**",
-      "**/*.md",
-      "**/spec/**"
-    ],
     "publish": {
       "dist-tag": "latest"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/documentation/**",
+    "**/examples/**",
+    "**/integration/**",
+    "**/*.md",
+    "**/spec/**"
+  ]
 }
