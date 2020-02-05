@@ -17,10 +17,15 @@
       "allowBranch": "master",
       "conventionalCommits": true,
       "exact": true,
-      "message": "chore(release): %s\n[ci skip]"
+      "message": "chore(release): %s\n[ci skip]",
+      "ignore-changes": [
+        "documentation/**",
+        "examples/**",
+        "integration/**"
+      ]
     },
     "publish": {
-      "dist-tag": "next"
+      "dist-tag": "latest"
     }
   }
 }
