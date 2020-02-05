@@ -7,7 +7,7 @@ import { protractor } from '../src/protractor';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(10000);
+    this.timeout(30000);
 
     it('correctly reports on Screenplay scenarios', () =>
         protractor(

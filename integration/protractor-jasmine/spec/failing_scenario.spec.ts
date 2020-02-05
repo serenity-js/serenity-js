@@ -8,7 +8,7 @@ import { protractor } from '../src/protractor';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(10000);
+    this.timeout(30000);
 
     it('recognises a failing scenario', () =>
         protractor(
