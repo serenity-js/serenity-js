@@ -1771,13 +1771,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber23",
     "Photographer",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber23",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber12",
     "Photographer",
     "test"
   ],
@@ -1789,7 +1789,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber12",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber11",
     "Photographer",
     "test"
   ],
@@ -2706,14 +2706,14 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "text#of text#of,text#of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber30",
+    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber14",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
   [
-    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber14",
+    "text#of text#of,text#of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber30",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],

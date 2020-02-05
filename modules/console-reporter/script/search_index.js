@@ -763,13 +763,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber39",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber34",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber34",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber39",
     "ConsoleReporter when instantiated ",
     "test"
   ],
