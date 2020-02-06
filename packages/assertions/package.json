@@ -25,7 +25,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "nyc --report-dir ../../target/coverage/assertions mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "test": "nyc --report-dir ../../target/coverage/assertions mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -40,16 +40,17 @@
     "node": ">= 8",
     "npm": ">= 5"
   },
+  "dependencies": {
+    "tiny-types": "^1.12.2"
+  },
   "peerDependencies": {
-    "@serenity-js/core": "2.x",
-    "tiny-types": "^1.12.1"
+    "@serenity-js/core": "2.x"
   },
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.7",
     "@integration/testing-tools": "2.0.7",
     "@serenity-js/core": "2.0.7",
-    "@types/mocha": "^5.2.6",
-    "tiny-types": "1.12.2"
+    "@types/mocha": "^7.0.1"
   },
   "nyc": {
     "include": [
