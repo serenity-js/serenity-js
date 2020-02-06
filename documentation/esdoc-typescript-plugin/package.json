@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "exit 0",
     "lint": "exit 0",
-    "test": "rimraf ./target && node ./spec/init.js && mocha --opts ../../mocha.opts 'spec/**/*.spec.*' -R spec",
+    "test": "rimraf ./target && node ./spec/init.js && mocha --config ../../.mocharc.yml 'spec/**/*.spec.*' -R spec",
     "compile": "exit 0"
   },
   "repository": {

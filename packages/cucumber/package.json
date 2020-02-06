@@ -25,7 +25,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "nyc --report-dir ../../target/coverage/cucumber mocha --opts ../../mocha.opts 'spec/**/*.spec.*'",
+    "test": "nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -41,21 +41,20 @@
     "npm": ">= 5"
   },
   "dependencies": {
-    "gherkin": "5.1.0"
+    "gherkin": "5.1.0",
+    "tiny-types": "^1.12.2"
   },
   "peerDependencies": {
     "@serenity-js/core": "2.x",
-    "cucumber": "^1.3.3 || ^2.3.1 || ^3.2.2 || ^4.2.1 || ^5.0.0 || ^6.0.0",
-    "tiny-types": "^1.12.1"
+    "cucumber": "^1.3.3 || ^2.3.1 || ^3.2.2 || ^4.2.1 || ^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.7",
     "@integration/testing-tools": "2.0.7",
     "@serenity-js/core": "2.0.7",
-    "@types/cucumber": "1.3.3",
-    "@types/mocha": "^5.2.6",
-    "cucumber": "1.3.3",
-    "tiny-types": "1.12.2"
+    "@types/cucumber": "1.3.4",
+    "@types/mocha": "^7.0.1",
+    "cucumber": "1.3.3"
   },
   "nyc": {
     "include": [
