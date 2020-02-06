@@ -1,9 +1,10 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
+import { endsWith, Ensure, equals, not, startsWith } from '@serenity-js/assertions';
+import { Actor, actorCalled, Cast, ConfigurationError, configure, Log } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
+import { Photo } from '@serenity-js/core/lib/model';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 
@@ -42,7 +43,7 @@ describe('@serenity-js/local-server', () => {
          * @test {StartLocalServer}
          * @test {StopLocalServer}
          */
-        it('correctly reports actor\'s activities', () => expect(actorCalled('Nadia').attemptsTo(
+        it(`correctly reports actor's activities`, () => expect(actorCalled('Nadia').attemptsTo(
             StartLocalServer.onRandomPort(),
             Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
@@ -62,6 +63,32 @@ describe('@serenity-js/local-server', () => {
                 .next(ActivityFinished, hasName(`Nadia stops the local server`))
             ;
         }));
+    });
+
+    describe('when managing a local server', () => {
+
+        let Nadia: Actor, Phillip: Actor;
+
+        const port = 5000;
+
+        beforeEach(() =>  {
+            Nadia = actorCalled('Nadia');
+            Phillip = actorCalled('Phillip');
+        });
+
+        it(`it falls back to a random port if the preferred one is taken`, () =>
+            expect(Nadia.attemptsTo(
+                StartLocalServer.onOneOfThePreferredPorts([port]),
+                Ensure.that(LocalServer.url(), endsWith(`${ port }`)),
+            ).then(() => Phillip.attemptsTo(
+                StartLocalServer.onOneOfThePreferredPorts([port]),
+                Ensure.that(LocalServer.url(), not(endsWith(`${ port }`))),
+            ))).to.be.fulfilled);
+
+        afterEach(() => Promise.all([
+            Nadia.attemptsTo(StopLocalServer.ifRunning()),
+            Phillip.attemptsTo(StopLocalServer.ifRunning()),
+        ]));
     });
 
     function hasName(expectedName: string) {
