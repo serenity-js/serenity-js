@@ -1,4 +1,4 @@
-import { Ability, UsesAbilities } from '@serenity-js/core';
+import { Ability, ConfigurationError, UsesAbilities } from '@serenity-js/core';
 import getPort = require('get-port');
 import * as http from 'http';
 import withShutdownSupport = require('http-shutdown');
@@ -112,12 +112,16 @@ export class ManageALocalServer implements Ability {
      */
     listen(preferredPorts: number[]): Promise<void> {
         return getPort({ port: preferredPorts }).then(port => new Promise<void>((resolve, reject) => {
-            this.server.listen(port, '127.0.0.1', (error: Error) => {
-                if (!! error) {
-                    return reject(error);
+            this.server.on('error', (error: Error & {code: string}) => {
+                if (error.code === 'EADDRINUSE') {
+                    return reject(new ConfigurationError(`Server address is in use. Is there another server running on port ${ port }?`, error));
                 }
 
-                return resolve();
+                return reject(error);
+            });
+
+            this.server.listen(port, '127.0.0.1', () => {
+                resolve();
             });
         }));
     }
