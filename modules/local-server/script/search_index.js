@@ -528,6 +528,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~platformtag",
+    "/modules/core/class/src/model/tags/PlatformTag.ts~PlatformTag.html",
+    "@serenity-js/core/lib/model/tags~PlatformTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~tag",
     "/modules/core/class/src/model/tags/Tag.ts~Tag.html",
     "@serenity-js/core/lib/model/tags~Tag",
@@ -865,20 +871,32 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber12",
+    "test-file/spec/reporting.spec.ts.html#lineNumber13",
     "@serenity-js/local-server",
     "test"
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber58",
+    "test-file/spec/reporting.spec.ts.html#lineNumber59",
+    "@serenity-js/local-server when managing a local server",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/reporting.spec.ts.html#lineNumber88",
     "@serenity-js/local-server when managing a local server",
     "test"
   ],
   [
     "managealocalserver startlocalserver stoplocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver src/screenplay/interactions/startlocalserver.ts~startlocalserver,startlocalserver src/screenplay/interactions/stoplocalserver.ts~stoplocalserver,stoplocalserver",
-    "test-file/spec/reporting.spec.ts.html#lineNumber65",
-    "@serenity-js/local-server when managing a local server correctly reports actor's activities",
+    "test-file/spec/reporting.spec.ts.html#lineNumber66",
+    "@serenity-js/local-server when managing a local server ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/reporting.spec.ts.html#lineNumber99",
+    "@serenity-js/local-server when managing a local server ",
     "test"
   ],
   [

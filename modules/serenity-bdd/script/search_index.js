@@ -510,6 +510,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~platformtag",
+    "/modules/core/class/src/model/tags/PlatformTag.ts~PlatformTag.html",
+    "@serenity-js/core/lib/model/tags~PlatformTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~tag",
     "/modules/core/class/src/model/tags/Tag.ts~Tag.html",
     "@serenity-js/core/lib/model/tags~Tag",
@@ -1243,13 +1249,13 @@ window.esdocSearchIndex = [
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful browsertag contexttag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~browsertag,browsertag @serenity-js/core/lib/model/tags~contexttag,contexttag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber316",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber318",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and ensures that the user-specified context takes precedence over browser context",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful contexttag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~contexttag,contexttag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber289",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber291",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the operating system where the test was executed",
     "test"
   ],

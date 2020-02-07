@@ -255,7 +255,7 @@ describe(<span class="hljs-string">&apos;ProtractorFrameworkAdapter&apos;</span>
                         failedCount: <span class="hljs-number">0</span>,
                         specResults: [{
                             description: sample(<span class="hljs-string">&apos;passing.spec.ts&apos;</span>).description,
-                            duration: <span class="hljs-number">1000</span>,
+                            duration: <span class="hljs-number">2000</span>,
                             assertions: [{
                                 passed:     <span class="hljs-literal">true</span>,
                             }],
@@ -268,7 +268,7 @@ describe(<span class="hljs-string">&apos;ProtractorFrameworkAdapter&apos;</span>
                         failedCount: <span class="hljs-number">1</span>,
                         specResults: [{
                             description: sample(<span class="hljs-string">&apos;failing.spec.ts&apos;</span>).description,
-                            duration:    <span class="hljs-number">1000</span>,
+                            duration:    <span class="hljs-number">2000</span>,
                             assertions: [{
                                 passed:     <span class="hljs-literal">false</span>,
                                 errorMsg:   (sample(<span class="hljs-string">&apos;failing.spec.ts&apos;</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message,
@@ -283,13 +283,13 @@ describe(<span class="hljs-string">&apos;ProtractorFrameworkAdapter&apos;</span>
                         failedCount: <span class="hljs-number">1</span>,
                         specResults: [{
                             description: sample(<span class="hljs-string">&apos;passing.spec.ts&apos;</span>).description,
-                            duration: <span class="hljs-number">1000</span>,
+                            duration: <span class="hljs-number">2000</span>,
                             assertions: [{
                                 passed:     <span class="hljs-literal">true</span>,
                             }],
                         }, {
                             description: sample(<span class="hljs-string">&apos;failing.spec.ts&apos;</span>).description,
-                            duration: <span class="hljs-number">1000</span>,
+                            duration: <span class="hljs-number">2000</span>,
                             assertions: [{
                                 passed:     <span class="hljs-literal">false</span>,
                                 errorMsg:   (sample(<span class="hljs-string">&apos;failing.spec.ts&apos;</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message,
@@ -297,7 +297,7 @@ describe(<span class="hljs-string">&apos;ProtractorFrameworkAdapter&apos;</span>
                             }],
                         }, {
                             description: sample(<span class="hljs-string">&apos;passing.spec.ts&apos;</span>).description,
-                            duration: <span class="hljs-number">1000</span>,
+                            duration: <span class="hljs-number">2000</span>,
                             assertions: [{
                                 passed:     <span class="hljs-literal">true</span>,
                             }],

@@ -87,6 +87,7 @@
 /** @external {@serenity-js/core/lib/model/tags~FeatureTag} /modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html */
 /** @external {@serenity-js/core/lib/model/tags~IssueTag} /modules/core/class/src/model/tags/IssueTag.ts~IssueTag.html */
 /** @external {@serenity-js/core/lib/model/tags~ManualTag} /modules/core/class/src/model/tags/ManualTag.ts~ManualTag.html */
+/** @external {@serenity-js/core/lib/model/tags~PlatformTag} /modules/core/class/src/model/tags/PlatformTag.ts~PlatformTag.html */
 /** @external {@serenity-js/core/lib/model/tags~Tag} /modules/core/class/src/model/tags/Tag.ts~Tag.html */
 /** @external {@serenity-js/core/lib/model/tags~ThemeTag} /modules/core/class/src/model/tags/ThemeTag.ts~ThemeTag.html */
 /** @external {@serenity-js/core/lib/screenplay~Ability} /modules/core/class/src/screenplay/Ability.ts~Ability.html */

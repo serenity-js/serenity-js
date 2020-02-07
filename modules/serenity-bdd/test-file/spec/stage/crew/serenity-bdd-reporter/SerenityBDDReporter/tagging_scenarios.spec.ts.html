@@ -383,7 +383,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                      */</span>
                     it(<span class="hljs-string">&apos;indicates the web browser where the test was executed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;80.0.3987.87&apos;</span>)),
                             <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
@@ -393,7 +393,9 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                         expect(report.context).to.equal(<span class="hljs-string">&apos;chrome&apos;</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            name: <span class="hljs-string">&apos;chrome&apos;</span>,
+                            browserName: <span class="hljs-string">&apos;chrome&apos;</span>,
+                            browserVersion: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>,
+                            name: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
                         }]);
                     });
@@ -436,7 +438,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                      */</span>
                     it(<span class="hljs-string">&apos;ensures that the user-specified context takes precedence over browser context&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;safari&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;safari&apos;</span>, <span class="hljs-string">&apos;13.0.5&apos;</span>)),
                             <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
                             <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
@@ -447,8 +449,10 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                         expect(report.context).to.equal(<span class="hljs-string">&apos;iphone&apos;</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            name: <span class="hljs-string">&apos;safari&apos;</span>,
+                            name: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
+                            browserName: <span class="hljs-string">&apos;safari&apos;</span>,
+                            browserVersion: <span class="hljs-string">&apos;13.0.5&apos;</span>,
                         }, {
                             name: <span class="hljs-string">&apos;iphone&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;context&apos;</span>,

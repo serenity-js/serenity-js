@@ -199,6 +199,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/FeatureTag.ts~FeatureTag.html">FeatureTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/IssueTag.ts~IssueTag.html">IssueTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ManualTag.ts~ManualTag.html">ManualTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/PlatformTag.ts~PlatformTag.html">PlatformTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/Tag.ts~Tag.html">Tag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ThemeTag.ts~ThemeTag.html">ThemeTag</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay">screenplay</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span></li>
@@ -247,6 +248,10 @@
         <span class="hljs-keyword">const</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> = ensure(<span class="hljs-string">&apos;serialised tag type&apos;</span>, o.type, isDefined(), isString()) <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
 
         <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">Object</span>.keys(TagTypes).find(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> TagTypes[t].Type === <span class="hljs-keyword">type</span>) || TagTypes.ArbitraryTag.name;
+
+        <span class="hljs-keyword">if</span> (TagTypes[found].hasOwnProperty(<span class="hljs-string">&apos;fromJSON&apos;</span>)) {
+            <span class="hljs-keyword">return</span> TagTypes[found].fromJSON(o);
+        }
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TagTypes[found](o.name);
     }

@@ -132,7 +132,7 @@
     IssueTag,
     ManualTag,
     Name,
-    Outcome,
+    Outcome, PlatformTag,
     RequestAndResponse,
     ScenarioDetails,
     ScenarioParameters,
@@ -140,6 +140,7 @@
     ThemeTag,
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { platform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;os&apos;</span>;
 <span class="hljs-keyword">import</span> { JSONObject, match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types/lib/objects&apos;</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
 <span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;util&apos;</span>;
@@ -232,7 +233,14 @@
                     report.featureTag = tag.toJSON();
                 })
                 .when(IssueTag,      _ =&gt; (report.issues    = report.issues   || []).push(tag.name))
-                .when(BrowserTag,    _ =&gt; (report.context   = report.context  || tag.name))
+                .when(BrowserTag,    <span class="hljs-function">(<span class="hljs-params">browserTag: BrowserTag</span>) =&gt;</span> {
+                    report.context   = [report.context, browserTag.browserName].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
+                    report.driver    = browserTag.browserName;
+                })
+                .when(PlatformTag,   <span class="hljs-function">(<span class="hljs-params">platformTag: PlatformTag</span>) =&gt;</span> {
+                    <span class="hljs-comment">// todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files</span>
+                    <span class="hljs-comment">// report.context   = [report.context, platformTag.name].filter(part =&gt; !! part).join(&apos;,&apos;);</span>
+                })
                 .when(ContextTag,    _ =&gt; (report.context   = tag.name))
                 .else(_ =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
 

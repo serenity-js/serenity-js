@@ -768,6 +768,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~platformtag",
+    "/modules/core/class/src/model/tags/PlatformTag.ts~PlatformTag.html",
+    "@serenity-js/core/lib/model/tags~PlatformTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~tag",
     "/modules/core/class/src/model/tags/Tag.ts~Tag.html",
     "@serenity-js/core/lib/model/tags~Tag",
@@ -3213,6 +3219,18 @@ window.esdocSearchIndex = [
     "src/adapter/testrunnerdetector.ts",
     "file/src/adapter/TestRunnerDetector.ts.html",
     "src/adapter/TestRunnerDetector.ts",
+    "file"
+  ],
+  [
+    "src/adapter/browser-detector/browserdetector.ts",
+    "file/src/adapter/browser-detector/BrowserDetector.ts.html",
+    "src/adapter/browser-detector/BrowserDetector.ts",
+    "file"
+  ],
+  [
+    "src/adapter/browser-detector/index.ts",
+    "file/src/adapter/browser-detector/index.ts.html",
+    "src/adapter/browser-detector/index.ts",
     "file"
   ],
   [

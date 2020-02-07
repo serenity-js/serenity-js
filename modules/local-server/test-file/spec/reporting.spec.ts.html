@@ -127,9 +127,10 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { endsWith, Ensure, equals, not, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, ConfigurationError, configure, Log } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+<span class="hljs-keyword">import</span> { Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 
@@ -168,7 +169,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
          * @test {StartLocalServer}
          * @test {StopLocalServer}
          */</span>
-        it(<span class="hljs-string">&apos;correctly reports actor\&apos;s activities&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">`correctly reports actor&apos;s activities`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
             StartLocalServer.onRandomPort(),
             Ensure.that(LocalServer.url(), startsWith(<span class="hljs-string">&apos;http://127.0.0.1&apos;</span>)),
             Send.a(GetRequest.to(LocalServer.url())),
@@ -188,6 +189,32 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
                 .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia stops the local server`</span>))
             ;
         }));
+    });
+
+    describe(<span class="hljs-string">&apos;when managing a local server&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+        <span class="hljs-keyword">let</span> Nadia: Actor, Phillip: Actor;
+
+        <span class="hljs-keyword">const</span> port = <span class="hljs-number">5000</span>;
+
+        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>  {
+            Nadia = actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>);
+            Phillip = actorCalled(<span class="hljs-string">&apos;Phillip&apos;</span>);
+        });
+
+        it(<span class="hljs-string">`it falls back to a random port if the preferred one is taken`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            expect(Nadia.attemptsTo(
+                StartLocalServer.onOneOfThePreferredPorts([port]),
+                Ensure.that(LocalServer.url(), endsWith(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>)),
+            ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Phillip.attemptsTo(
+                StartLocalServer.onOneOfThePreferredPorts([port]),
+                Ensure.that(LocalServer.url(), not(endsWith(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>))),
+            ))).to.be.fulfilled);
+
+        afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.all([
+            Nadia.attemptsTo(StopLocalServer.ifRunning()),
+            Phillip.attemptsTo(StopLocalServer.ifRunning()),
+        ]));
     });
 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasName</span>(<span class="hljs-params">expectedName: <span class="hljs-built_in">string</span></span>) </span>{

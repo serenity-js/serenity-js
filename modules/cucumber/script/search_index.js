@@ -390,6 +390,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~platformtag",
+    "/modules/core/class/src/model/tags/PlatformTag.ts~PlatformTag.html",
+    "@serenity-js/core/lib/model/tags~PlatformTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~tag",
     "/modules/core/class/src/model/tags/Tag.ts~Tag.html",
     "@serenity-js/core/lib/model/tags~Tag",

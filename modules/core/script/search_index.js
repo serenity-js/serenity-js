@@ -390,6 +390,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/model/tags~platformtag",
+    "class/src/model/tags/PlatformTag.ts~PlatformTag.html",
+    "<span>PlatformTag</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model/tags</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/model~problemindication",
     "class/src/model/outcomes.ts~ProblemIndication.html",
     "<span>ProblemIndication</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
@@ -3546,10 +3552,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/model/tags/browsertag.ts~browsertag#tojson",
+    "class/src/model/tags/BrowserTag.ts~BrowserTag.html#instance-method-toJSON",
+    "src/model/tags/BrowserTag.ts~BrowserTag#toJSON",
+    "method"
+  ],
+  [
     "src/model/tags/browsertag.ts~browsertag.type",
     "class/src/model/tags/BrowserTag.ts~BrowserTag.html#static-member-Type",
     "src/model/tags/BrowserTag.ts~BrowserTag.Type",
     "member"
+  ],
+  [
+    "src/model/tags/browsertag.ts~browsertag.fromjson",
+    "class/src/model/tags/BrowserTag.ts~BrowserTag.html#static-method-fromJSON",
+    "src/model/tags/BrowserTag.ts~BrowserTag.fromJSON",
+    "method"
   ],
   [
     "src/model/tags/capabilitytag.ts",
@@ -3639,6 +3657,24 @@ window.esdocSearchIndex = [
     "src/model/tags/manualtag.ts~manualtag.type",
     "class/src/model/tags/ManualTag.ts~ManualTag.html#static-member-Type",
     "src/model/tags/ManualTag.ts~ManualTag.Type",
+    "member"
+  ],
+  [
+    "src/model/tags/platformtag.ts",
+    "file/src/model/tags/PlatformTag.ts.html",
+    "src/model/tags/PlatformTag.ts",
+    "file"
+  ],
+  [
+    "src/model/tags/platformtag.ts~platformtag#constructor",
+    "class/src/model/tags/PlatformTag.ts~PlatformTag.html#instance-constructor-constructor",
+    "src/model/tags/PlatformTag.ts~PlatformTag#constructor",
+    "method"
+  ],
+  [
+    "src/model/tags/platformtag.ts~platformtag.type",
+    "class/src/model/tags/PlatformTag.ts~PlatformTag.html#static-member-Type",
+    "src/model/tags/PlatformTag.ts~PlatformTag.Type",
     "member"
   ],
   [
