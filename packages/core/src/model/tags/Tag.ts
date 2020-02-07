@@ -10,6 +10,10 @@ export abstract class Tag extends TinyType {
 
         const found = Object.keys(TagTypes).find(t => TagTypes[t].Type === type) || TagTypes.ArbitraryTag.name;
 
+        if (TagTypes[found].hasOwnProperty('fromJSON')) {
+            return TagTypes[found].fromJSON(o);
+        }
+
         return new TagTypes[found](o.name);
     }
 

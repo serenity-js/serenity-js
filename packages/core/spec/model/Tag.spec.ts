@@ -34,7 +34,7 @@ describe('Tag', () => {
 
     given([
         new ArbitraryTag('wip'),
-        new BrowserTag('chrome'),
+        new BrowserTag('chrome', '80.0.3987.87'),
         new CapabilityTag('checkout'),
         new ContextTag('mac osx'),
         new FeatureTag('testability'),

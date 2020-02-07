@@ -262,7 +262,7 @@ describe('SerenityBDDReporter', () => {
                      */
                     it('indicates the web browser where the test was executed', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            new SceneTagged(defaultCardScenario, new BrowserTag('chrome')),
+                            new SceneTagged(defaultCardScenario, new BrowserTag('chrome', '80.0.3987.87')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
@@ -272,7 +272,9 @@ describe('SerenityBDDReporter', () => {
                         expect(report.context).to.equal('chrome');
 
                         expect(report.tags).to.deep.include.members([{
-                            name: 'chrome',
+                            browserName: 'chrome',
+                            browserVersion: '80.0.3987.87',
+                            name: 'chrome 80.0.3987.87',
                             type: 'browser',
                         }]);
                     });
@@ -315,7 +317,7 @@ describe('SerenityBDDReporter', () => {
                      */
                     it('ensures that the user-specified context takes precedence over browser context', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            new SceneTagged(defaultCardScenario, new BrowserTag('safari')),
+                            new SceneTagged(defaultCardScenario, new BrowserTag('safari', '13.0.5')),
                             new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
                             new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
@@ -326,8 +328,10 @@ describe('SerenityBDDReporter', () => {
                         expect(report.context).to.equal('iphone');
 
                         expect(report.tags).to.deep.include.members([{
-                            name: 'safari',
+                            name: 'safari 13.0.5',
                             type: 'browser',
+                            browserName: 'safari',
+                            browserVersion: '13.0.5',
                         }, {
                             name: 'iphone',
                             type: 'context',

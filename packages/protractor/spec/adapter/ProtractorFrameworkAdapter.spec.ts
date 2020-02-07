@@ -92,7 +92,7 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 0,
                         specResults: [{
                             description: sample('passing.spec.ts').description,
-                            duration: 1000,
+                            duration: 2000,
                             assertions: [{
                                 passed:     true,
                             }],
@@ -105,7 +105,7 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 1,
                         specResults: [{
                             description: sample('failing.spec.ts').description,
-                            duration:    1000,
+                            duration:    2000,
                             assertions: [{
                                 passed:     false,
                                 errorMsg:   (sample('failing.spec.ts').outcome as ProblemIndication).error.message,
@@ -120,13 +120,13 @@ describe('ProtractorFrameworkAdapter', () => {
                         failedCount: 1,
                         specResults: [{
                             description: sample('passing.spec.ts').description,
-                            duration: 1000,
+                            duration: 2000,
                             assertions: [{
                                 passed:     true,
                             }],
                         }, {
                             description: sample('failing.spec.ts').description,
-                            duration: 1000,
+                            duration: 2000,
                             assertions: [{
                                 passed:     false,
                                 errorMsg:   (sample('failing.spec.ts').outcome as ProblemIndication).error.message,
@@ -134,7 +134,7 @@ describe('ProtractorFrameworkAdapter', () => {
                             }],
                         }, {
                             description: sample('passing.spec.ts').description,
-                            duration: 1000,
+                            duration: 2000,
                             assertions: [{
                                 passed:     true,
                             }],
