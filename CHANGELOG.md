@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/serenity-js/serenity-js/compare/v2.0.9...v2.1.0) (2020-02-07)
+
+
+### Bug Fixes
+
+* **local-server:** startLocalServer will throw a ConfigurationError if the server was not started ([c71f0a1](https://github.com/serenity-js/serenity-js/commit/c71f0a16db235c23a41be2186356cdb21dc80221))
+
+
+### Features
+
+* **protractor:** browser tags include browser version and platform name ([bc4a038](https://github.com/serenity-js/serenity-js/commit/bc4a038484f75e90e44c5399c43213b472e71f38)), closes [#132](https://github.com/serenity-js/serenity-js/issues/132)
+
+
+
+
+
 ## [2.0.9](https://github.com/serenity-js/serenity-js/compare/v2.0.8...v2.0.9) (2020-02-05)
 
 **Note:** Version bump only for package serenity-js-monorepo

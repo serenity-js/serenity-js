@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/serenity-js/serenity-js/compare/v2.0.9...v2.1.0) (2020-02-07)
+
+
+### Bug Fixes
+
+* **local-server:** startLocalServer will throw a ConfigurationError if the server was not started ([c71f0a1](https://github.com/serenity-js/serenity-js/commit/c71f0a16db235c23a41be2186356cdb21dc80221))
+
+
+
+
+
 ## [2.0.7](https://github.com/serenity-js/serenity-js/compare/v2.0.6...v2.0.7) (2020-02-05)
 
 **Note:** Version bump only for package @serenity-js/local-server
