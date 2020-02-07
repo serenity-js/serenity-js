@@ -10,6 +10,7 @@ import { Tag } from './Tag';
  * it will appear in text form in the test results lists, so it is better to keep context names relatively short.
  *
  * @access public
+ * @deprecated
  */
 export class ContextTag extends Tag {
     static readonly Type = 'context';

@@ -11,7 +11,7 @@ import {
     IssueTag,
     ManualTag,
     Name,
-    Outcome,
+    Outcome, PlatformTag,
     RequestAndResponse,
     ScenarioDetails,
     ScenarioParameters,
@@ -19,6 +19,7 @@ import {
     ThemeTag,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import { platform } from 'os';
 import { JSONObject, match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 import { inspect } from 'util';
@@ -111,7 +112,14 @@ export class SceneReport {
                     report.featureTag = tag.toJSON();
                 })
                 .when(IssueTag,      _ => (report.issues    = report.issues   || []).push(tag.name))
-                .when(BrowserTag,    _ => (report.context   = report.context  || tag.name))
+                .when(BrowserTag,    (browserTag: BrowserTag) => {
+                    report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');
+                    report.driver    = browserTag.browserName;
+                })
+                .when(PlatformTag,   (platformTag: PlatformTag) => {
+                    // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files
+                    // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
+                })
                 .when(ContextTag,    _ => (report.context   = tag.name))
                 .else(_ => void 0);
 
