@@ -1,4 +1,4 @@
-import { ensure, isDefined, isString, JSONObject, TinyType } from 'tiny-types';
+import { ensure, isDefined, isGreaterThan, isString, JSONObject, property, TinyType } from 'tiny-types';
 import * as TagTypes from './index';
 
 /**
@@ -19,6 +19,9 @@ export abstract class Tag extends TinyType {
 
     protected constructor(public readonly name: string, public readonly type: string) {
         super();
+
+        ensure('Tag name', name, isDefined(), property('length', isGreaterThan(0)));
+        ensure('Tag type', type, isDefined(), property('length', isGreaterThan(0)));
     }
 
     toJSON(): { name: string, type: string } {

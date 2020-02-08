@@ -13,9 +13,14 @@ export class BrowserTag extends Tag {
 
     constructor(
         public readonly browserName: string,
-        public readonly browserVersion: string,
+        public readonly browserVersion: string = '',
     ) {
-        super([ browserName, browserVersion ].join(' '), BrowserTag.Type);
+        super(
+            [ browserName, browserVersion ]
+                .filter(_ => !! _)
+                .join(' '),
+            BrowserTag.Type,
+        );
     }
 
     toJSON() {
