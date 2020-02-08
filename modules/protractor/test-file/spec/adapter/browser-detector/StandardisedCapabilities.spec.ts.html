@@ -160,73 +160,98 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/ProtractorFrameworkAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/browser-detector/StandardisedCapabilities.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
-<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
-<span class="hljs-keyword">const</span> isPlainObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;is-plain-object&apos;</span>);   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
+<span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
-<span class="hljs-keyword">import</span> { protractor, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowserDetector, StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./browser-detector&apos;</span>;
+<span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/adapter/browser-detector&apos;</span>;
 
-<span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Config&apos;</span>;
-<span class="hljs-keyword">import</span> { ProtractorReport, ProtractorReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reporter&apos;</span>;
-<span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunnerDetector&apos;</span>;
+describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
-<span class="hljs-comment">/**
- * @private
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorFrameworkAdapter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly serenity: Serenity,
-        <span class="hljs-keyword">private</span> readonly protractorRunner: Runner,
-        <span class="hljs-keyword">private</span> readonly detector: TestRunnerDetector,
-    </span>) {
-    }
-
-    <span class="hljs-comment">/**
-     * @param {string[]} specs
-     *  Paths to spec files
-     *
-     * @return {Promise&lt;ProtractorReport&gt;}
-     */</span>
-    run(specs: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;ProtractorReport&gt; {
-
-        <span class="hljs-keyword">const</span> noop      = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-keyword">this</span>.defaultConfig(), <span class="hljs-keyword">this</span>.protractorRunner.getConfig(), {
-            isMergeableObject: isPlainObject,
-        });
-
-        <span class="hljs-keyword">const</span> runner    = <span class="hljs-keyword">this</span>.detector.runnerFor(config);
-        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-keyword">this</span>.protractorRunner);
-
-        <span class="hljs-keyword">this</span>.serenity.configure({
-            cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors,
-            crew:           [
-                BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> protractor.browser)),
-                ...config.serenity.crew,
-                reporter,
-            ],
-        });
-
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> runner.run(specs))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve((config.onComplete || noop)()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> reporter.report());
-    }
-
-    <span class="hljs-keyword">private</span> defaultConfig(): Config {
-        <span class="hljs-keyword">return</span> {
-            serenity: {
-                crew: [
-                    ArtifactArchiver.storingArtifactsAt(process.cwd(), <span class="hljs-string">&apos;target/site/serenity&apos;</span>),
-                ],
+    given([
+        {
+            actual: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;42.17134.1.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span>, platformVersion: <span class="hljs-string">&apos;10&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;42.17134.1.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;10&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, version: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, version: <span class="hljs-string">&apos;79.0.309.18&apos;</span>, platform: <span class="hljs-string">&apos;Mac OS X&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.309.18&apos;</span>, platformName: <span class="hljs-string">&apos;Mac OS X&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.1&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.1&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, version: <span class="hljs-string">&apos;10&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, browserVersion: <span class="hljs-string">&apos;10&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, version: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, deviceManufacturer: <span class="hljs-string">&apos;samsung&apos;</span>, deviceModel: <span class="hljs-string">&apos;SM-G950F&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platform: <span class="hljs-string">&apos;LINUX&apos;</span>, platformVersion: <span class="hljs-string">&apos;7.0&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;samsung SM-G950F&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platformVersion: <span class="hljs-string">&apos;7.0&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, version: <span class="hljs-string">&apos;12.16&apos;</span>, platformName: <span class="hljs-string">&apos;ANY&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, browserVersion: <span class="hljs-string">&apos;12.16&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;mac&apos;</span>, platformVersion: <span class="hljs-string">&apos;13.4.0&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;mac&apos;</span>, platformVersion: <span class="hljs-string">&apos;13.4.0&apos;</span> },
+        }, {
+            actual: {
+                browserName: <span class="hljs-string">&apos;safari&apos;</span>,
+                version: <span class="hljs-string">&apos;&apos;</span>,
+                mobile: { browser: <span class="hljs-string">&apos;mobile&apos;</span>, version: <span class="hljs-string">&apos;iPhone 7-10.3&apos;</span> },
+                platformName: <span class="hljs-string">&apos;iOS&apos;</span>,
+                platform: <span class="hljs-string">&apos;MAC&apos;</span>,
+                platformVersion: <span class="hljs-string">&apos;11.0&apos;</span>,
             },
+            expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;iPhone 7-10.3&apos;</span>, platformName: <span class="hljs-string">&apos;iOS&apos;</span>, platformVersion: <span class="hljs-string">&apos;11.0&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, version: <span class="hljs-string">&apos;6.0.5&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;6.0.5&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, version: <span class="hljs-string">&apos;12.15&apos;</span>, platformName: <span class="hljs-string">&apos;ANY&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, browserVersion: <span class="hljs-string">&apos;12.15&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, deviceManufacturer: <span class="hljs-string">&apos;motorola&apos;</span>, deviceModel: <span class="hljs-string">&apos;XT1092&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platform: <span class="hljs-string">&apos;LINUX&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.0&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;motorola XT1092&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.0&apos;</span> },
+        }, {
+            actual: {
+                browserName: <span class="hljs-string">&apos;safari&apos;</span>,
+                version: <span class="hljs-string">&apos;&apos;</span>,
+                mobile: { browser: <span class="hljs-string">&apos;mobile&apos;</span>, version: <span class="hljs-string">&apos;iPhone 8 Plus-11.0&apos;</span> },
+                platformName: <span class="hljs-string">&apos;iOS&apos;</span>,
+                platform: <span class="hljs-string">&apos;MAC&apos;</span>,
+                platformVersion: <span class="hljs-string">&apos;11.0&apos;</span>,
+            },
+            expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;iPhone 8 Plus-11.0&apos;</span>, platformName: <span class="hljs-string">&apos;iOS&apos;</span>, platformVersion: <span class="hljs-string">&apos;11.0&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, version: <span class="hljs-string">&apos;7.1.8&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;7.1.8&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
+        }, {
+            actual: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, version: <span class="hljs-string">&apos;6&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+            expected: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, browserVersion: <span class="hljs-string">&apos;6&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+        },
+    ]).
+    it(<span class="hljs-string">`works`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> fakeBrowser = {
+            getCapabilities: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> Capabilities(actual)),
         };
-    }
-}
+
+        <span class="hljs-keyword">const</span> capabilities = StandardisedCapabilities.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> fakeBrowser <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> ProtractorBrowser);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
+            expect(capabilities.browserName()).to.eventually.equal(expected.browserName),
+            expect(capabilities.browserVersion()).to.eventually.equal(expected.browserVersion),
+            expect(capabilities.platformName()).to.eventually.equal(expected.platformName),
+            expect(capabilities.platformVersion()).to.eventually.equal(expected.platformVersion),
+        ]);
+    });
+});
 </code></pre>
 
 </article>

@@ -252,9 +252,14 @@
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> readonly browserName: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly browserVersion: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> readonly browserVersion: <span class="hljs-built_in">string</span> = &apos;&apos;,
     </span>) {
-        <span class="hljs-keyword">super</span>([ browserName, browserVersion ].join(<span class="hljs-string">&apos; &apos;</span>), BrowserTag.Type);
+        <span class="hljs-keyword">super</span>(
+            [ browserName, browserVersion ]
+                .filter(_ =&gt; !! _)
+                .join(<span class="hljs-string">&apos; &apos;</span>),
+            BrowserTag.Type,
+        );
     }
 
     toJSON() {

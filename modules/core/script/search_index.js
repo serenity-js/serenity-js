@@ -3672,10 +3672,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/model/tags/platformtag.ts~platformtag#tojson",
+    "class/src/model/tags/PlatformTag.ts~PlatformTag.html#instance-method-toJSON",
+    "src/model/tags/PlatformTag.ts~PlatformTag#toJSON",
+    "method"
+  ],
+  [
     "src/model/tags/platformtag.ts~platformtag.type",
     "class/src/model/tags/PlatformTag.ts~PlatformTag.html#static-member-Type",
     "src/model/tags/PlatformTag.ts~PlatformTag.Type",
     "member"
+  ],
+  [
+    "src/model/tags/platformtag.ts~platformtag.fromjson",
+    "class/src/model/tags/PlatformTag.ts~PlatformTag.html#static-method-fromJSON",
+    "src/model/tags/PlatformTag.ts~PlatformTag.fromJSON",
+    "method"
   ],
   [
     "src/model/tags/tag.ts",

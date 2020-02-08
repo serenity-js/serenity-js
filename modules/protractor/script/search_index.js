@@ -2377,6 +2377,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/adapter/browser-detector/StandardisedCapabilities.spec.ts.html#lineNumber10",
+    "StandardisedCapabilities",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber9",
     "TakeScreenshot",
     "test"
@@ -2982,6 +2988,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/adapter/browser-detector/standardisedcapabilities.spec.ts",
+    "test-file/spec/adapter/browser-detector/StandardisedCapabilities.spec.ts.html",
+    "spec/adapter/browser-detector/StandardisedCapabilities.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/adapter/reporter/protractorreporter.spec.ts",
     "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html",
     "spec/adapter/reporter/ProtractorReporter.spec.ts",
@@ -3225,6 +3237,12 @@ window.esdocSearchIndex = [
     "src/adapter/browser-detector/browserdetector.ts",
     "file/src/adapter/browser-detector/BrowserDetector.ts.html",
     "src/adapter/browser-detector/BrowserDetector.ts",
+    "file"
+  ],
+  [
+    "src/adapter/browser-detector/standardisedcapabilities.ts",
+    "file/src/adapter/browser-detector/StandardisedCapabilities.ts.html",
+    "src/adapter/browser-detector/StandardisedCapabilities.ts",
     "file"
   ],
   [

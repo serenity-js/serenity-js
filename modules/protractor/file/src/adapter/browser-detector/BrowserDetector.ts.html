@@ -165,7 +165,9 @@
 <span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowserTag, CorrelationId, Description, PlatformTag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage&apos;</span>;
+<span class="hljs-keyword">import</span> { platform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;os&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StandardisedCapabilities&apos;</span>;
 
 <span class="hljs-comment">/**
  * @private
@@ -176,13 +178,18 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BrowserDetector <span class="hljs-keyword">implements</span> StageCrewMember {
 
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">with</span>(capabilities: StandardisedCapabilities) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(capabilities);
+    }
+
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> readonly capabilities: StandardisedCapabilities,
         <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(<span class="hljs-keyword">this</span>.capabilities, stage);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
@@ -195,11 +202,13 @@
                 <span class="hljs-keyword">this</span>.stage.currentTime(),
             ));
 
-            protractor.browser.getCapabilities().then(<span class="hljs-function"><span class="hljs-params">capabilities</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span>
-                    platform = capabilities.get(<span class="hljs-string">&apos;platform&apos;</span>),
-                    browserName = capabilities.get(<span class="hljs-string">&apos;browserName&apos;</span>),
-                    browserVersion = capabilities.get(<span class="hljs-string">&apos;version&apos;</span>);
+            <span class="hljs-built_in">Promise</span>.all([
+                <span class="hljs-keyword">this</span>.capabilities.browserName(),
+                <span class="hljs-keyword">this</span>.capabilities.browserVersion(),
+                <span class="hljs-keyword">this</span>.capabilities.platformName(),
+                <span class="hljs-keyword">this</span>.capabilities.platformVersion(),
+            ]).
+            then(<span class="hljs-function">(<span class="hljs-params">[browserName, browserVersion, platformName, platformVersion]</span>) =&gt;</span> {
 
                 <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
                     event.value,
@@ -209,7 +218,7 @@
 
                 <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
                     event.value,
-                    <span class="hljs-keyword">new</span> PlatformTag(platform),
+                    <span class="hljs-keyword">new</span> PlatformTag(platformName, platformVersion),
                     <span class="hljs-keyword">this</span>.stage.currentTime(),
                 ));
 

@@ -160,71 +160,61 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/ProtractorFrameworkAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-
-<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
-<span class="hljs-keyword">const</span> isPlainObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;is-plain-object&apos;</span>);   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
-
-<span class="hljs-keyword">import</span> { protractor, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowserDetector, StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./browser-detector&apos;</span>;
-
-<span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Config&apos;</span>;
-<span class="hljs-keyword">import</span> { ProtractorReport, ProtractorReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reporter&apos;</span>;
-<span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunnerDetector&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/browser-detector/StandardisedCapabilities.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-comment">/**
  * @private
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorFrameworkAdapter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly serenity: Serenity,
-        <span class="hljs-keyword">private</span> readonly protractorRunner: Runner,
-        <span class="hljs-keyword">private</span> readonly detector: TestRunnerDetector,
-    </span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StandardisedCapabilities {
+    <span class="hljs-keyword">static</span> of(currentBrowser: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ProtractorBrowser) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StandardisedCapabilities(currentBrowser);
     }
 
-    <span class="hljs-comment">/**
-     * @param {string[]} specs
-     *  Paths to spec files
-     *
-     * @return {Promise&lt;ProtractorReport&gt;}
-     */</span>
-    run(specs: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;ProtractorReport&gt; {
-
-        <span class="hljs-keyword">const</span> noop      = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-keyword">this</span>.defaultConfig(), <span class="hljs-keyword">this</span>.protractorRunner.getConfig(), {
-            isMergeableObject: isPlainObject,
-        });
-
-        <span class="hljs-keyword">const</span> runner    = <span class="hljs-keyword">this</span>.detector.runnerFor(config);
-        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-keyword">this</span>.protractorRunner);
-
-        <span class="hljs-keyword">this</span>.serenity.configure({
-            cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors,
-            crew:           [
-                BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> protractor.browser)),
-                ...config.serenity.crew,
-                reporter,
-            ],
-        });
-
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> runner.run(specs))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve((config.onComplete || noop)()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> reporter.report());
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentBrowser: () =&gt; ProtractorBrowser</span>) {
     }
 
-    <span class="hljs-keyword">private</span> defaultConfig(): Config {
-        <span class="hljs-keyword">return</span> {
-            serenity: {
-                crew: [
-                    ArtifactArchiver.storingArtifactsAt(process.cwd(), <span class="hljs-string">&apos;target/site/serenity&apos;</span>),
-                ],
-            },
-        };
+    browserName(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;browserName&apos;</span>),
+        );
+    }
+
+    browserVersion(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;version&apos;</span>),
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;browserVersion&apos;</span>),
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.has(<span class="hljs-string">&apos;deviceManufacturer&apos;</span>) &amp;&amp; caps.has(<span class="hljs-string">&apos;deviceModel&apos;</span>)
+                ? <span class="hljs-string">`<span class="hljs-subst">${ caps.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;deviceManufacturer&apos;</span>) }</span> <span class="hljs-subst">${ caps.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;deviceModel&apos;</span>) }</span>`</span>
+                : <span class="hljs-literal">undefined</span>,
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.has(<span class="hljs-string">&apos;mobile&apos;</span>) &amp;&amp; caps.get(<span class="hljs-string">&apos;mobile&apos;</span>).version,
+        );
+    }
+
+    platformName(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> (caps.has(<span class="hljs-string">&apos;platformName&apos;</span>) &amp;&amp; ! <span class="hljs-regexp">/any/i</span>.test(caps.get(<span class="hljs-string">&apos;platformName&apos;</span>)))
+                ? caps.get(<span class="hljs-string">&apos;platformName&apos;</span>)
+                : caps.get(<span class="hljs-string">&apos;platform&apos;</span>),
+        );
+    }
+
+    platformVersion(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+            <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;platformVersion&apos;</span>),
+        );
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">get</span>(...fetchers: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-function">(<span class="hljs-params">capabilities: Capabilities</span>) =&gt;</span> <span class="hljs-built_in">string</span>&gt;): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.currentBrowser().getCapabilities().then(<span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fetcher of fetchers) {
+                <span class="hljs-keyword">const</span> result = fetcher(caps);
+                <span class="hljs-keyword">if</span> (!! result) {
+                    <span class="hljs-keyword">return</span> result;
+                }
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+        });
     }
 }
 </code></pre>

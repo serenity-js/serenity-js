@@ -237,7 +237,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/tags/Tag.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isString, JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isGreaterThan, isString, JSONObject, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> TagTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./index&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -258,6 +258,9 @@
 
     <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> readonly <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) {
         <span class="hljs-keyword">super</span>();
+
+        ensure(<span class="hljs-string">&apos;Tag name&apos;</span>, name, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
+        ensure(<span class="hljs-string">&apos;Tag type&apos;</span>, <span class="hljs-keyword">type</span>, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
     }
 
     toJSON(): { name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> } {
