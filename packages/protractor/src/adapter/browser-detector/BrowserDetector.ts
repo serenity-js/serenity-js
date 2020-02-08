@@ -2,7 +2,9 @@ import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, CorrelationId, Description, PlatformTag } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
+import { platform } from 'os';
 import { protractor } from 'protractor';
+import { StandardisedCapabilities } from './StandardisedCapabilities';
 
 /**
  * @private
@@ -13,13 +15,18 @@ import { protractor } from 'protractor';
  */
 export class BrowserDetector implements StageCrewMember {
 
+    static with(capabilities: StandardisedCapabilities) {
+        return new BrowserDetector(capabilities);
+    }
+
     constructor(
+        private readonly capabilities: StandardisedCapabilities,
         private readonly stage: Stage = null,
     ) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        return new BrowserDetector(stage);
+        return new BrowserDetector(this.capabilities, stage);
     }
 
     notifyOf(event: DomainEvent): void {
@@ -32,11 +39,13 @@ export class BrowserDetector implements StageCrewMember {
                 this.stage.currentTime(),
             ));
 
-            protractor.browser.getCapabilities().then(capabilities => {
-                const
-                    platform = capabilities.get('platform'),
-                    browserName = capabilities.get('browserName'),
-                    browserVersion = capabilities.get('version');
+            Promise.all([
+                this.capabilities.browserName(),
+                this.capabilities.browserVersion(),
+                this.capabilities.platformName(),
+                this.capabilities.platformVersion(),
+            ]).
+            then(([browserName, browserVersion, platformName, platformVersion]) => {
 
                 this.stage.announce(new SceneTagged(
                     event.value,
@@ -46,7 +55,7 @@ export class BrowserDetector implements StageCrewMember {
 
                 this.stage.announce(new SceneTagged(
                     event.value,
-                    new PlatformTag(platform),
+                    new PlatformTag(platformName, platformVersion),
                     this.stage.currentTime(),
                 ));
 

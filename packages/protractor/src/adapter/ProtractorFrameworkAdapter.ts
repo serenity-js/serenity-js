@@ -3,8 +3,8 @@ import { ArtifactArchiver, Serenity } from '@serenity-js/core';
 import deepmerge = require('deepmerge');
 const isPlainObject = require('is-plain-object');   // tslint:disable-line:no-var-requires fails when using default import
 
-import { Runner } from 'protractor';
-import { BrowserDetector } from './browser-detector';
+import { protractor, Runner } from 'protractor';
+import { BrowserDetector, StandardisedCapabilities } from './browser-detector';
 
 import { Config } from './Config';
 import { ProtractorReport, ProtractorReporter } from './reporter';
@@ -41,7 +41,7 @@ export class ProtractorFrameworkAdapter {
             cueTimeout:     config.serenity.cueTimeout,
             actors:         config.serenity.actors,
             crew:           [
-                new BrowserDetector(),
+                BrowserDetector.with(StandardisedCapabilities.of(() => protractor.browser)),
                 ...config.serenity.crew,
                 reporter,
             ],
