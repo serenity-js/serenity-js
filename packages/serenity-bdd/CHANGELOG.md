@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/serenity-js/serenity-js/compare/v2.1.1...v2.1.2) (2020-02-08)
+
+
+### Bug Fixes
+
+* **protractor:** distinguish between regular and 'mobile emulation' test runs ([fcd7101](https://github.com/serenity-js/serenity-js/commit/fcd7101939fddd855f45aa99b75e309b382b6b73)), closes [#323](https://github.com/serenity-js/serenity-js/issues/323)
+
+
+
+
+
 ## [2.1.1](https://github.com/serenity-js/serenity-js/compare/v2.1.0...v2.1.1) (2020-02-08)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
