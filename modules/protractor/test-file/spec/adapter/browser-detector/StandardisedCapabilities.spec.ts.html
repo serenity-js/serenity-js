@@ -174,33 +174,43 @@ describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, 
 
     given([
         {
+            description: <span class="hljs-string">&apos;Edge on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;42.17134.1.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span>, platformVersion: <span class="hljs-string">&apos;10&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;42.17134.1.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;10&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Chrome on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, version: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Edge on Mac&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, version: <span class="hljs-string">&apos;79.0.309.18&apos;</span>, platform: <span class="hljs-string">&apos;Mac OS X&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;MicrosoftEdge&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.309.18&apos;</span>, platformName: <span class="hljs-string">&apos;Mac OS X&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Firefox on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.1&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;windows&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.1&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;IE 10 on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, version: <span class="hljs-string">&apos;10&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, browserVersion: <span class="hljs-string">&apos;10&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Chrome on Mac&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, version: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;79.0.3945.79&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Chrome (mobile) on Android (Samsung SM-G950F)&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, deviceManufacturer: <span class="hljs-string">&apos;samsung&apos;</span>, deviceModel: <span class="hljs-string">&apos;SM-G950F&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platform: <span class="hljs-string">&apos;LINUX&apos;</span>, platformVersion: <span class="hljs-string">&apos;7.0&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;samsung SM-G950F&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platformVersion: <span class="hljs-string">&apos;7.0&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Opera on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, version: <span class="hljs-string">&apos;12.16&apos;</span>, platformName: <span class="hljs-string">&apos;ANY&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, browserVersion: <span class="hljs-string">&apos;12.16&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Firefox on Mac&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;mac&apos;</span>, platformVersion: <span class="hljs-string">&apos;13.4.0&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;firefox&apos;</span>, browserVersion: <span class="hljs-string">&apos;72.0&apos;</span>, platformName: <span class="hljs-string">&apos;mac&apos;</span>, platformVersion: <span class="hljs-string">&apos;13.4.0&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Safari (mobile) on iPhone 7&apos;</span>,
             actual: {
                 browserName: <span class="hljs-string">&apos;safari&apos;</span>,
                 version: <span class="hljs-string">&apos;&apos;</span>,
@@ -211,15 +221,15 @@ describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, 
             },
             expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;iPhone 7-10.3&apos;</span>, platformName: <span class="hljs-string">&apos;iOS&apos;</span>, platformVersion: <span class="hljs-string">&apos;11.0&apos;</span> },
         }, {
-            actual: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, version: <span class="hljs-string">&apos;6.0.5&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
-            expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;6.0.5&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
-        }, {
+            description: <span class="hljs-string">&apos;Opera on Mac&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, version: <span class="hljs-string">&apos;12.15&apos;</span>, platformName: <span class="hljs-string">&apos;ANY&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;opera&apos;</span>, browserVersion: <span class="hljs-string">&apos;12.15&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Chrome (mobile) on Android (Motorola XT1092)&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, deviceManufacturer: <span class="hljs-string">&apos;motorola&apos;</span>, deviceModel: <span class="hljs-string">&apos;XT1092&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platform: <span class="hljs-string">&apos;LINUX&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.0&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;motorola XT1092&apos;</span>, platformName: <span class="hljs-string">&apos;Android&apos;</span>, platformVersion: <span class="hljs-string">&apos;6.0&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Safari (mobile) on iPhone 8 Plus&apos;</span>,
             actual: {
                 browserName: <span class="hljs-string">&apos;safari&apos;</span>,
                 version: <span class="hljs-string">&apos;&apos;</span>,
@@ -230,14 +240,26 @@ describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, 
             },
             expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;iPhone 8 Plus-11.0&apos;</span>, platformName: <span class="hljs-string">&apos;iOS&apos;</span>, platformVersion: <span class="hljs-string">&apos;11.0&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;Safari on Mac&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, version: <span class="hljs-string">&apos;7.1.8&apos;</span>, platform: <span class="hljs-string">&apos;MAC&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;safari&apos;</span>, browserVersion: <span class="hljs-string">&apos;7.1.8&apos;</span>, platformName: <span class="hljs-string">&apos;MAC&apos;</span> },
         }, {
+            description: <span class="hljs-string">&apos;IE 6 on Windows&apos;</span>,
             actual: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, version: <span class="hljs-string">&apos;6&apos;</span>, platform: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
             expected: { browserName: <span class="hljs-string">&apos;internet explorer&apos;</span>, browserVersion: <span class="hljs-string">&apos;6&apos;</span>, platformName: <span class="hljs-string">&apos;WINDOWS&apos;</span> },
+        }, {
+            description: <span class="hljs-string">&apos;Chrome (mobile emulation) on Mac OS X&apos;</span>,
+            actual: {
+                browserName: <span class="hljs-string">&apos;chrome&apos;</span>, version: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>, browserVersion: <span class="hljs-literal">undefined</span>,
+                deviceManufacturer: <span class="hljs-literal">undefined</span>, deviceModel: <span class="hljs-literal">undefined</span>, mobile: <span class="hljs-literal">undefined</span>, mobileEmulationEnabled: <span class="hljs-literal">true</span>,
+                platformName: <span class="hljs-literal">undefined</span>, platform: <span class="hljs-string">&apos;Mac OS X&apos;</span>, platformVersion: <span class="hljs-literal">undefined</span>,
+            },
+            expected: {
+                browserName: <span class="hljs-string">&apos;chrome&apos;</span>, browserVersion: <span class="hljs-string">&apos;80.0.3987.87 (mobile emulation)&apos;</span>, platformName: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
+            },
         },
     ]).
-    it(<span class="hljs-string">`works`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
+    it(<span class="hljs-string">`standardises the WebDriver capabilities across browsers and platforms`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> fakeBrowser = {
             getCapabilities: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> Capabilities(actual)),
         };

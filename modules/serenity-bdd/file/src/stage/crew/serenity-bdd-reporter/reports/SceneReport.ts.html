@@ -112,6 +112,7 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -145,8 +146,8 @@
 <span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types/lib/objects&apos;</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
 <span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;util&apos;</span>;
 <span class="hljs-keyword">import</span> { DataTable, DataTableDataSetDescriptor, ErrorDetails, SerenityBDDReport, TestStep } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../SerenityBDDJsonSchema&apos;</span>;
-<span class="hljs-keyword">import</span> { IDGenerator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./IDGenerator&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeMapper&apos;</span>;
+<span class="hljs-keyword">import</span> { SceneReportId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SceneReportId&apos;</span>;
 
 <span class="hljs-comment">/** @access private */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extractValues</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">dictionary: {[key: <span class="hljs-built_in">string</span>]: T}</span>) </span>{
@@ -164,7 +165,6 @@
 <span class="hljs-comment">/** @package */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneReport {
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> outcomeMapper = <span class="hljs-keyword">new</span> OutcomeMapper();
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> idGenerator = <span class="hljs-keyword">new</span> IDGenerator();
 
     <span class="hljs-keyword">private</span> readonly report: Partial&lt;SerenityBDDReport&gt; &amp; { children?: <span class="hljs-built_in">Array</span>&lt;Partial&lt;TestStep&gt;&gt; };
     <span class="hljs-keyword">private</span> readonly activities = <span class="hljs-keyword">new</span> ActivityStack();
@@ -176,7 +176,7 @@
         <span class="hljs-keyword">this</span>.report = {
             name:   <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
             title:  <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
-            id:     SceneReport.idGenerator.generateFrom(<span class="hljs-keyword">this</span>.scenarioDetails.category, <span class="hljs-keyword">this</span>.scenarioDetails.name),
+            id:     <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-keyword">this</span>.scenarioDetails.category.value).append(<span class="hljs-keyword">this</span>.scenarioDetails.name.value).value,
             manual: <span class="hljs-literal">false</span>,
             testSteps: [],
             <span class="hljs-keyword">get</span> children() {
@@ -185,7 +185,7 @@
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.testSteps;
             },
             userStory: {
-                id:         SceneReport.idGenerator.generateFrom(<span class="hljs-keyword">this</span>.scenarioDetails.category),
+                id:         <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-keyword">this</span>.scenarioDetails.category.value).value,
                 storyName:  <span class="hljs-keyword">this</span>.scenarioDetails.category.value,
                 path:       <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value,
                 <span class="hljs-keyword">type</span>:       <span class="hljs-string">&apos;feature&apos;</span>,
@@ -236,10 +236,12 @@
                 .when(BrowserTag,    <span class="hljs-function">(<span class="hljs-params">browserTag: BrowserTag</span>) =&gt;</span> {
                     report.context   = [report.context, browserTag.browserName].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
                     report.driver    = browserTag.browserName;
+                    report.id        = <span class="hljs-keyword">new</span> SceneReportId(browserTag.name, report.id).value;
                 })
                 .when(PlatformTag,   <span class="hljs-function">(<span class="hljs-params">platformTag: PlatformTag</span>) =&gt;</span> {
                     <span class="hljs-comment">// todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files</span>
                     <span class="hljs-comment">// report.context   = [report.context, platformTag.name].filter(part =&gt; !! part).join(&apos;,&apos;);</span>
+                    report.id        = <span class="hljs-keyword">new</span> SceneReportId(platformTag.name, report.id).value;
                 })
                 .when(ContextTag,    _ =&gt; (report.context   = tag.name))
                 .else(_ =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);

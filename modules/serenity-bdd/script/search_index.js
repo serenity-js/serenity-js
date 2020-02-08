@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports~scenereportid",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html",
+    "<span>SceneReportId</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports</span>",
+    "class"
+  ],
+  [
     "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~serenitybddreporter",
     "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html",
     "<span>SerenityBDDReporter</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter</span>",
@@ -1710,12 +1716,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/stage/crew/serenity-bdd-reporter/reports/idgenerator.ts",
-    "file/src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts.html",
-    "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts",
-    "file"
-  ],
-  [
     "src/stage/crew/serenity-bdd-reporter/reports/outcomemapper.ts",
     "file/src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts.html",
     "src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts",
@@ -1726,6 +1726,30 @@ window.esdocSearchIndex = [
     "file/src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts.html",
     "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
     "file"
+  ],
+  [
+    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts",
+    "file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html",
+    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts",
+    "file"
+  ],
+  [
+    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#append",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-append",
+    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#append",
+    "method"
+  ],
+  [
+    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#constructor",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-constructor-constructor",
+    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#constructor",
+    "method"
+  ],
+  [
+    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#value",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-member-value",
+    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#value",
+    "member"
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/reports/scenereports.ts",

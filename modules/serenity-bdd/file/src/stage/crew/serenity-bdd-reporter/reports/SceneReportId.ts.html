@@ -119,27 +119,34 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/FileExists.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isGreaterThan, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-comment">/**
- * @package
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FileExists = {
-    at: <span class="hljs-function">(<span class="hljs-params">path: Path</span>) =&gt;</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt;(<span class="hljs-string">`<span class="hljs-subst">${ path.value }</span> exists`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-        UseFileSystem.as(actor).attributesOf(path)
-            .then(_ =&gt; <span class="hljs-literal">true</span>)
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (error.code !== <span class="hljs-string">&apos;ENOENT&apos;</span>) {
-                    <span class="hljs-keyword">throw</span> error;
-                }
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneReportId <span class="hljs-keyword">extends</span> TinyType {
 
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-            }),
-    ),
-};
+    <span class="hljs-keyword">public</span> readonly value: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">segment: <span class="hljs-built_in">string</span>, base?: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">super</span>();
+        ensure(<span class="hljs-string">&apos;ID segment&apos;</span>, segment, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
+
+        <span class="hljs-keyword">this</span>.value = [
+            base,
+            <span class="hljs-keyword">this</span>.dashify(segment),
+        ].filter(_ =&gt; !! _).join(<span class="hljs-string">&apos;;&apos;</span>);
+    }
+
+    append(segment: <span class="hljs-built_in">string</span>): SceneReportId {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneReportId(segment, <span class="hljs-keyword">this</span>.value);
+    }
+
+    <span class="hljs-keyword">private</span> dashify(text: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> text
+            .replace(<span class="hljs-regexp">/[ \t\W]/g</span>, <span class="hljs-string">&apos;-&apos;</span>)
+            .replace(<span class="hljs-regexp">/^-+|-+$/g</span>, <span class="hljs-string">&apos;&apos;</span>)
+            .toLowerCase();
+    }
+}
 </code></pre>
 
 </article>

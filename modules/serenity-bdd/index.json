@@ -5288,80 +5288,6 @@
   {
     "__docId__": 321,
     "kind": "file",
-    "name": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts",
-    "content": "import { TinyType } from 'tiny-types';\n\n/** @package */\nexport class IDGenerator {\n    generateFrom(...args: Array<TinyType & { value: string }>) {\n        return args.map(arg => this.dashify(arg.value)).join(';');\n    }\n\n    private dashify = (text: string) => text\n        .replace(/[ \\t\\W]/g, '-')\n        .replace(/^-+|-+$/g, '')\n        .toLowerCase()\n}\n",
-    "static": true,
-    "longname": "/home/travis/build/serenity-js/serenity-js/packages/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 322,
-    "kind": "class",
-    "name": "IDGenerator",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts",
-    "static": true,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts~IDGenerator",
-    "access": "package",
-    "export": true,
-    "importPath": "@serenity-js/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts",
-    "importStyle": "{IDGenerator}",
-    "description": null,
-    "lineNumber": 11,
-    "interface": false,
-    "ignore": true
-  },
-  {
-    "__docId__": 323,
-    "kind": "method",
-    "name": "generateFrom",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts~IDGenerator",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts~IDGenerator#generateFrom",
-    "access": "public",
-    "description": " ",
-    "lineNumber": 5,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Array"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "args",
-        "description": ""
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 324,
-    "kind": "member",
-    "name": "dashify",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts~IDGenerator",
-    "static": false,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/IDGenerator.ts~IDGenerator#dashify",
-    "access": "private",
-    "description": " ",
-    "lineNumber": 9,
-    "ignore": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 325,
-    "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts",
     "content": "import {\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionIgnored,\n    ExecutionSkipped,\n    ImplementationPending,\n    Outcome,\n} from '@serenity-js/core/lib/model';\nimport { match } from 'tiny-types';\nimport { ErrorDetails } from '../SerenityBDDJsonSchema';\nimport { ErrorRenderer } from './ErrorRenderer';\n\n/** @package */\nexport class OutcomeMapper {\n    private static errorRenderer = new ErrorRenderer();\n\n    public mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {\n        const render = OutcomeMapper.errorRenderer;\n\n        return match<Outcome, void>(outcome).\n            when(ExecutionCompromised,              ({ error }: ExecutionCompromised)               => mapAs('COMPROMISED', render.render(error))).\n            when(ExecutionFailedWithError,          ({ error }: ExecutionFailedWithError)           => mapAs('ERROR', render.render(error))).\n            when(ExecutionFailedWithAssertionError, ({ error }: ExecutionFailedWithAssertionError)  => mapAs('FAILURE', render.render(error))).\n            when(ExecutionSkipped,      _ => mapAs('SKIPPED')).\n            when(ExecutionIgnored,      _ => mapAs('IGNORED')).\n            when(ImplementationPending, _ => mapAs('PENDING')).\n            else(/* ExecutionSuccessful */ _ => /* ignore */ mapAs('SUCCESS'));\n    }\n}\n",
     "static": true,
@@ -5371,7 +5297,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 326,
+    "__docId__": 322,
     "kind": "class",
     "name": "OutcomeMapper",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts",
@@ -5387,7 +5313,7 @@
     "ignore": true
   },
   {
-    "__docId__": 327,
+    "__docId__": 323,
     "kind": "member",
     "name": "errorRenderer",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts~OutcomeMapper",
@@ -5404,7 +5330,7 @@
     }
   },
   {
-    "__docId__": 328,
+    "__docId__": 324,
     "kind": "method",
     "name": "mapOutcome",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts~OutcomeMapper",
@@ -5444,10 +5370,10 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 325,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
-    "content": "import { Path } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    BrowserTag,\n    CapabilityTag,\n    ContextTag,\n    CorrelationId,\n    Description,\n    ExecutionSuccessful,\n    FeatureTag,\n    IssueTag,\n    ManualTag,\n    Name,\n    Outcome, PlatformTag,\n    RequestAndResponse,\n    ScenarioDetails,\n    ScenarioParameters,\n    Tag,\n    ThemeTag,\n    Timestamp,\n} from '@serenity-js/core/lib/model';\nimport { platform } from 'os';\nimport { JSONObject, match } from 'tiny-types';\nimport { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports\nimport { inspect } from 'util';\nimport { DataTable, DataTableDataSetDescriptor, ErrorDetails, SerenityBDDReport, TestStep } from '../SerenityBDDJsonSchema';\nimport { IDGenerator } from './IDGenerator';\nimport { OutcomeMapper } from './OutcomeMapper';\n\n/** @access private */\nfunction extractValues<T>(dictionary: {[key: string]: T}) {\n    return Object.keys(dictionary).map(key => dictionary[key]);\n}\n\n/** @access private */\ninterface ScenarioParametersResultLocation {\n    parameters: ScenarioParameters;\n    line: number;\n    index: number;\n    outcome?: Outcome;\n}\n\n/** @package */\nexport class SceneReport {\n    private static outcomeMapper = new OutcomeMapper();\n    private static idGenerator = new IDGenerator();\n\n    private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };\n    private readonly activities = new ActivityStack();\n    private readonly parameters: ScenarioParametersResultLocation[] = [];\n    private stepNumber = 0;\n\n    constructor(public readonly scenarioDetails: ScenarioDetails) {\n\n        this.report = {\n            name:   this.scenarioDetails.name.value,\n            title:  this.scenarioDetails.name.value,\n            id:     SceneReport.idGenerator.generateFrom(this.scenarioDetails.category, this.scenarioDetails.name),\n            manual: false,\n            testSteps: [],\n            get children() {\n                // fake reference to make the report and the test step interfaces compatible\n                // removed in 'toJSON'\n                return this.testSteps;\n            },\n            userStory: {\n                id:         SceneReport.idGenerator.generateFrom(this.scenarioDetails.category),\n                storyName:  this.scenarioDetails.category.value,\n                path:       this.scenarioDetails.location.path.value,\n                type:       'feature',\n            },\n        };\n\n        this.activities.push(this.report);\n    }\n\n    executionStartedAt(time: Timestamp): SceneReport {\n        return this.withMutated(report => {\n            report.startTime = report.startTime || time.toMillisecondTimestamp();\n        });\n    }\n\n    executedBy(testRunner: Name): SceneReport {\n        return this.withMutated(report => {\n            report.testSource = testRunner.value;\n        });\n    }\n\n    taggedWith(tag: Tag) {\n        return this.withMutated(report => {\n            function nameOfRecorded(typeOfTag: { Type: string }) {\n                const serenityBDDCompatible = (text: string) => text[0].toUpperCase() + text.slice(1);\n\n                const found = report.tags.find(t => t.type === typeOfTag.Type);\n\n                return found && serenityBDDCompatible(found.name);\n            }\n\n            const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');\n\n            const serialisedTag = tag.toJSON();\n\n            if (! report.tags) {\n                report.tags = [];\n            }\n\n            match<Tag, void>(tag)\n                .when(ManualTag,     _ => report.manual = true)\n                .when(CapabilityTag, _ => serialisedTag.name = concatenated(nameOfRecorded(ThemeTag), tag.name))\n                .when(FeatureTag,    _ => {\n                    serialisedTag.name = concatenated(nameOfRecorded(CapabilityTag), tag.name);\n                    report.featureTag = tag.toJSON();\n                })\n                .when(IssueTag,      _ => (report.issues    = report.issues   || []).push(tag.name))\n                .when(BrowserTag,    (browserTag: BrowserTag) => {\n                    report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');\n                    report.driver    = browserTag.browserName;\n                })\n                .when(PlatformTag,   (platformTag: PlatformTag) => {\n                    // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files\n                    // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');\n                })\n                .when(ContextTag,    _ => (report.context   = tag.name))\n                .else(_ => void 0);\n\n            if (! report.tags.find(current => equal(current, serialisedTag))) {\n                report.tags.push(serialisedTag);\n            }\n        });\n    }\n\n    executionFinishedAt(time: Timestamp): SceneReport {\n        return this.withMutated(report => {\n            report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).inMilliseconds();\n        });\n    }\n\n    activityStarted(activity: ActivityDetails, time: Timestamp) {\n        return this.withMutated(report => {\n            const activityReport: Partial<TestStep> = {\n                number:      ++this.stepNumber,\n                description: activity.name.value,\n                startTime:   time.toMillisecondTimestamp(),\n                children:    [],\n                reportData:  [],\n                screenshots: [],\n            };\n\n            this.activities.last().children.push(activityReport as any);\n            this.activities.push(activityReport, activity.correlationId);\n        });\n    }\n\n    activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {\n        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error?: ErrorDetails) => {\n\n            const activityReport = this.activities.pop();\n\n            activityReport.result    = result;\n            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).inMilliseconds();\n\n            if (!! error && ! this.activities.haveFailed) {\n                activityReport.exception = error;\n                this.activities.haveFailed = true;\n            }\n        }));\n    }\n\n    withBackgroundOf(name: Name, description: Description) {\n        return this.withMutated(report => {\n            report.backgroundTitle       = name.value;\n            report.backgroundDescription = description.value;\n        });\n    }\n\n    withDescriptionOf(description: Description) {\n        return this.withMutated(report => {\n            report.description = description.value;\n        });\n    }\n\n    withScenarioOutline(outline: Description) {\n        return this.withMutated(report => {\n            report.dataTable = this.dataTableFrom(report);\n\n            report.dataTable.scenarioOutline = outline.value;\n        });\n    }\n\n    withScenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters) {\n\n        const\n            parameterSetName = parameters.name && parameters.name.value,\n            parameterSetDescription = parameters.description && parameters.description.value;\n\n        const matches = (params: ScenarioParameters) => (descriptor: DataTableDataSetDescriptor) => {\n            return descriptor.name === parameterSetName\n                && descriptor.description === parameterSetDescription;\n        };\n\n        return this.withMutated(report => {\n            report.dataTable = this.dataTableFrom(report);\n            report.dataTable.headers = Object.keys(parameters.values);\n\n            let descriptor: DataTableDataSetDescriptor = report.dataTable.dataSetDescriptors.find(matches(parameters));\n\n            if (! descriptor) {\n                descriptor = {\n                    name:           parameterSetName,\n                    description:    parameterSetDescription,\n                    startRow:       report.dataTable.dataSetDescriptors.reduce((acc, current) => acc + current.rowCount, 0),\n                    rowCount:       0,\n                };\n\n                report.dataTable.dataSetDescriptors.push(descriptor);\n            }\n\n            descriptor.rowCount++;\n\n            const length = report.dataTable.rows.push(({\n                values: extractValues(parameters.values),\n            }));\n\n            this.parameters.push({ parameters, index: length - 1, line: scenario.location.line });\n        });\n    }\n\n    withFeatureNarrativeOf(description: Description) {\n        return this.withMutated(report => {\n            report.userStory.narrative = description.value;\n        });\n    }\n\n    photoTaken(details: ActivityDetails, path: Path) {\n        return this.withMutated(report => {\n            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({ screenshot: path.basename() });\n        });\n    }\n\n    arbitraryDataCaptured(name: Name, contents: string) {\n        return this.withMutated(report => {\n            this.activities.mostRecentlyAccessedItem().reportData.push({\n                id: `report-data-${ CorrelationId.create().value }`,\n                isEvidence: false,\n                path: '',\n                title: name.value,\n                contents,\n            });\n        });\n    }\n\n    httpRequestCaptured(requestResponse: RequestAndResponse) {\n        function mapToString(dictionary: {[key: string]: string}) {\n            return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\\n');\n        }\n\n        return this.withMutated(report => {\n            this.activities.mostRecentlyAccessedItem().restQuery = {\n                method:          requestResponse.request.method.toUpperCase(),\n                path:            requestResponse.request.url,\n                content:         inspect(requestResponse.request.data),\n                contentType:     requestResponse.request.headers['Content-Type'] || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                requestHeaders:  mapToString(requestResponse.request.headers)  || '',\n                requestCookies:  requestResponse.request.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                statusCode:      requestResponse.response.status,\n                responseHeaders: mapToString(requestResponse.response.headers) || '',\n                responseCookies: requestResponse.response.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                responseBody:    inspect(requestResponse.response.data) || '',\n            };\n        });\n    }\n\n    executionFinishedWith(scenario: ScenarioDetails, outcome: Outcome): SceneReport {\n        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error: ErrorDetails = undefined) => {\n\n            report.result           = result;\n            report.testFailureCause = error;\n\n            if (this.parameters.length > 0) {\n                const entry = this.parameters.find(p => p.line === scenario.location.line);\n                if (!! entry) {\n                    entry.outcome = outcome;\n\n                    report.dataTable.rows[ entry.index ].result = result;\n\n                    const worstOutcomeOverall = this.parameters\n                        .filter(p => !! p.outcome)\n                        .map(p => p.outcome)\n                        .reduce((worstSoFar, current) => {\n                            return current.isWorseThan(worstSoFar)\n                                ? current\n                                : worstSoFar;\n                        }, new ExecutionSuccessful());\n\n                    this.mapOutcome(worstOutcomeOverall, (r: string, e: ErrorDetails = undefined) => {\n                        report.result           = r;\n                        report.testFailureCause = e;\n                    });\n                }\n            }\n        }));\n    }\n\n    toJSON(): Partial<SerenityBDDReport> {\n        const report = this.copyOf(this.report);\n\n        delete report.children; // remove the fake reference\n\n        this.parameters.forEach(entry => {\n\n            const parameters = entry.parameters.values;\n            const stringified = Object.keys(parameters).map(key => `${ key }: ${ parameters[key] }`).join(', ').trim();\n\n            report.testSteps[entry.index].description += ` #${ entry.index + 1 } - ${ stringified }`;\n        });\n\n        // todo: optimise the report, remove empty arrays\n        return report;\n    }\n\n    private dataTableFrom(report: Partial<SerenityBDDReport>): DataTable {\n        return report.dataTable || {\n            scenarioOutline: '',\n            dataSetDescriptors: [],\n            headers: [],\n            rows: [],\n            predefinedRows: true,\n        };\n    }\n\n    private mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {\n        return SceneReport.outcomeMapper.mapOutcome(outcome, mapAs);\n    }\n\n    private withMutated(mutate: (copied: Partial<SerenityBDDReport>) => void): SceneReport {\n        mutate(this.report);\n\n        return this;\n    }\n\n    private copyOf<T extends JSONObject>(json: T): T {\n        return JSON.parse(JSON.stringify(json));\n    }\n}\n\n/**\n * @package\n */\nclass ActivityStack {\n    public haveFailed: boolean = false;\n    private readonly items: Array<Partial<TestStep>> = [];\n    private mostRecent: Partial<TestStep> = undefined;\n    private correlations: { [key: string]: Partial<TestStep> } = {};\n\n    push(item: Partial<TestStep>, correlationId?: CorrelationId): Partial<TestStep> {\n        this.items.push(item);\n        this.mostRecent = item;\n        this.haveFailed = false;\n        if (!! correlationId) {\n            this.correlations[correlationId.value] = item;\n        }\n\n        return this.mostRecent;\n    }\n\n    pop() {\n        const item = this.items.pop();\n        if (this.items.length === 0) {\n            this.haveFailed = false;\n        }\n\n        this.mostRecent = item;\n\n        return this.mostRecent;\n    }\n\n    last() {\n        return this.items[this.items.length - 1];\n    }\n\n    mostRecentlyAccessedItem() {\n        return this.mostRecent;\n    }\n\n    itemByCorrelationId(correlationId: CorrelationId) {\n        return this.correlations[correlationId.value];\n    }\n}\n",
+    "content": "import { Path } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    BrowserTag,\n    CapabilityTag,\n    ContextTag,\n    CorrelationId,\n    Description,\n    ExecutionSuccessful,\n    FeatureTag,\n    IssueTag,\n    ManualTag,\n    Name,\n    Outcome, PlatformTag,\n    RequestAndResponse,\n    ScenarioDetails,\n    ScenarioParameters,\n    Tag,\n    ThemeTag,\n    Timestamp,\n} from '@serenity-js/core/lib/model';\nimport { platform } from 'os';\nimport { JSONObject, match } from 'tiny-types';\nimport { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports\nimport { inspect } from 'util';\nimport { DataTable, DataTableDataSetDescriptor, ErrorDetails, SerenityBDDReport, TestStep } from '../SerenityBDDJsonSchema';\nimport { OutcomeMapper } from './OutcomeMapper';\nimport { SceneReportId } from './SceneReportId';\n\n/** @access private */\nfunction extractValues<T>(dictionary: {[key: string]: T}) {\n    return Object.keys(dictionary).map(key => dictionary[key]);\n}\n\n/** @access private */\ninterface ScenarioParametersResultLocation {\n    parameters: ScenarioParameters;\n    line: number;\n    index: number;\n    outcome?: Outcome;\n}\n\n/** @package */\nexport class SceneReport {\n    private static outcomeMapper = new OutcomeMapper();\n\n    private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };\n    private readonly activities = new ActivityStack();\n    private readonly parameters: ScenarioParametersResultLocation[] = [];\n    private stepNumber = 0;\n\n    constructor(public readonly scenarioDetails: ScenarioDetails) {\n\n        this.report = {\n            name:   this.scenarioDetails.name.value,\n            title:  this.scenarioDetails.name.value,\n            id:     new SceneReportId(this.scenarioDetails.category.value).append(this.scenarioDetails.name.value).value,\n            manual: false,\n            testSteps: [],\n            get children() {\n                // fake reference to make the report and the test step interfaces compatible\n                // removed in 'toJSON'\n                return this.testSteps;\n            },\n            userStory: {\n                id:         new SceneReportId(this.scenarioDetails.category.value).value,\n                storyName:  this.scenarioDetails.category.value,\n                path:       this.scenarioDetails.location.path.value,\n                type:       'feature',\n            },\n        };\n\n        this.activities.push(this.report);\n    }\n\n    executionStartedAt(time: Timestamp): SceneReport {\n        return this.withMutated(report => {\n            report.startTime = report.startTime || time.toMillisecondTimestamp();\n        });\n    }\n\n    executedBy(testRunner: Name): SceneReport {\n        return this.withMutated(report => {\n            report.testSource = testRunner.value;\n        });\n    }\n\n    taggedWith(tag: Tag) {\n        return this.withMutated(report => {\n            function nameOfRecorded(typeOfTag: { Type: string }) {\n                const serenityBDDCompatible = (text: string) => text[0].toUpperCase() + text.slice(1);\n\n                const found = report.tags.find(t => t.type === typeOfTag.Type);\n\n                return found && serenityBDDCompatible(found.name);\n            }\n\n            const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');\n\n            const serialisedTag = tag.toJSON();\n\n            if (! report.tags) {\n                report.tags = [];\n            }\n\n            match<Tag, void>(tag)\n                .when(ManualTag,     _ => report.manual = true)\n                .when(CapabilityTag, _ => serialisedTag.name = concatenated(nameOfRecorded(ThemeTag), tag.name))\n                .when(FeatureTag,    _ => {\n                    serialisedTag.name = concatenated(nameOfRecorded(CapabilityTag), tag.name);\n                    report.featureTag = tag.toJSON();\n                })\n                .when(IssueTag,      _ => (report.issues    = report.issues   || []).push(tag.name))\n                .when(BrowserTag,    (browserTag: BrowserTag) => {\n                    report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');\n                    report.driver    = browserTag.browserName;\n                    report.id        = new SceneReportId(browserTag.name, report.id).value;\n                })\n                .when(PlatformTag,   (platformTag: PlatformTag) => {\n                    // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files\n                    // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');\n                    report.id        = new SceneReportId(platformTag.name, report.id).value;\n                })\n                .when(ContextTag,    _ => (report.context   = tag.name))\n                .else(_ => void 0);\n\n            if (! report.tags.find(current => equal(current, serialisedTag))) {\n                report.tags.push(serialisedTag);\n            }\n        });\n    }\n\n    executionFinishedAt(time: Timestamp): SceneReport {\n        return this.withMutated(report => {\n            report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).inMilliseconds();\n        });\n    }\n\n    activityStarted(activity: ActivityDetails, time: Timestamp) {\n        return this.withMutated(report => {\n            const activityReport: Partial<TestStep> = {\n                number:      ++this.stepNumber,\n                description: activity.name.value,\n                startTime:   time.toMillisecondTimestamp(),\n                children:    [],\n                reportData:  [],\n                screenshots: [],\n            };\n\n            this.activities.last().children.push(activityReport as any);\n            this.activities.push(activityReport, activity.correlationId);\n        });\n    }\n\n    activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {\n        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error?: ErrorDetails) => {\n\n            const activityReport = this.activities.pop();\n\n            activityReport.result    = result;\n            activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).inMilliseconds();\n\n            if (!! error && ! this.activities.haveFailed) {\n                activityReport.exception = error;\n                this.activities.haveFailed = true;\n            }\n        }));\n    }\n\n    withBackgroundOf(name: Name, description: Description) {\n        return this.withMutated(report => {\n            report.backgroundTitle       = name.value;\n            report.backgroundDescription = description.value;\n        });\n    }\n\n    withDescriptionOf(description: Description) {\n        return this.withMutated(report => {\n            report.description = description.value;\n        });\n    }\n\n    withScenarioOutline(outline: Description) {\n        return this.withMutated(report => {\n            report.dataTable = this.dataTableFrom(report);\n\n            report.dataTable.scenarioOutline = outline.value;\n        });\n    }\n\n    withScenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters) {\n\n        const\n            parameterSetName = parameters.name && parameters.name.value,\n            parameterSetDescription = parameters.description && parameters.description.value;\n\n        const matches = (params: ScenarioParameters) => (descriptor: DataTableDataSetDescriptor) => {\n            return descriptor.name === parameterSetName\n                && descriptor.description === parameterSetDescription;\n        };\n\n        return this.withMutated(report => {\n            report.dataTable = this.dataTableFrom(report);\n            report.dataTable.headers = Object.keys(parameters.values);\n\n            let descriptor: DataTableDataSetDescriptor = report.dataTable.dataSetDescriptors.find(matches(parameters));\n\n            if (! descriptor) {\n                descriptor = {\n                    name:           parameterSetName,\n                    description:    parameterSetDescription,\n                    startRow:       report.dataTable.dataSetDescriptors.reduce((acc, current) => acc + current.rowCount, 0),\n                    rowCount:       0,\n                };\n\n                report.dataTable.dataSetDescriptors.push(descriptor);\n            }\n\n            descriptor.rowCount++;\n\n            const length = report.dataTable.rows.push(({\n                values: extractValues(parameters.values),\n            }));\n\n            this.parameters.push({ parameters, index: length - 1, line: scenario.location.line });\n        });\n    }\n\n    withFeatureNarrativeOf(description: Description) {\n        return this.withMutated(report => {\n            report.userStory.narrative = description.value;\n        });\n    }\n\n    photoTaken(details: ActivityDetails, path: Path) {\n        return this.withMutated(report => {\n            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({ screenshot: path.basename() });\n        });\n    }\n\n    arbitraryDataCaptured(name: Name, contents: string) {\n        return this.withMutated(report => {\n            this.activities.mostRecentlyAccessedItem().reportData.push({\n                id: `report-data-${ CorrelationId.create().value }`,\n                isEvidence: false,\n                path: '',\n                title: name.value,\n                contents,\n            });\n        });\n    }\n\n    httpRequestCaptured(requestResponse: RequestAndResponse) {\n        function mapToString(dictionary: {[key: string]: string}) {\n            return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\\n');\n        }\n\n        return this.withMutated(report => {\n            this.activities.mostRecentlyAccessedItem().restQuery = {\n                method:          requestResponse.request.method.toUpperCase(),\n                path:            requestResponse.request.url,\n                content:         inspect(requestResponse.request.data),\n                contentType:     requestResponse.request.headers['Content-Type'] || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                requestHeaders:  mapToString(requestResponse.request.headers)  || '',\n                requestCookies:  requestResponse.request.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                statusCode:      requestResponse.response.status,\n                responseHeaders: mapToString(requestResponse.response.headers) || '',\n                responseCookies: requestResponse.response.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2\n                responseBody:    inspect(requestResponse.response.data) || '',\n            };\n        });\n    }\n\n    executionFinishedWith(scenario: ScenarioDetails, outcome: Outcome): SceneReport {\n        return this.withMutated(report => this.mapOutcome(outcome, (result: string, error: ErrorDetails = undefined) => {\n\n            report.result           = result;\n            report.testFailureCause = error;\n\n            if (this.parameters.length > 0) {\n                const entry = this.parameters.find(p => p.line === scenario.location.line);\n                if (!! entry) {\n                    entry.outcome = outcome;\n\n                    report.dataTable.rows[ entry.index ].result = result;\n\n                    const worstOutcomeOverall = this.parameters\n                        .filter(p => !! p.outcome)\n                        .map(p => p.outcome)\n                        .reduce((worstSoFar, current) => {\n                            return current.isWorseThan(worstSoFar)\n                                ? current\n                                : worstSoFar;\n                        }, new ExecutionSuccessful());\n\n                    this.mapOutcome(worstOutcomeOverall, (r: string, e: ErrorDetails = undefined) => {\n                        report.result           = r;\n                        report.testFailureCause = e;\n                    });\n                }\n            }\n        }));\n    }\n\n    toJSON(): Partial<SerenityBDDReport> {\n        const report = this.copyOf(this.report);\n\n        delete report.children; // remove the fake reference\n\n        this.parameters.forEach(entry => {\n\n            const parameters = entry.parameters.values;\n            const stringified = Object.keys(parameters).map(key => `${ key }: ${ parameters[key] }`).join(', ').trim();\n\n            report.testSteps[entry.index].description += ` #${ entry.index + 1 } - ${ stringified }`;\n        });\n\n        // todo: optimise the report, remove empty arrays\n        return report;\n    }\n\n    private dataTableFrom(report: Partial<SerenityBDDReport>): DataTable {\n        return report.dataTable || {\n            scenarioOutline: '',\n            dataSetDescriptors: [],\n            headers: [],\n            rows: [],\n            predefinedRows: true,\n        };\n    }\n\n    private mapOutcome(outcome: Outcome, mapAs: (result: string, error?: ErrorDetails) => void) {\n        return SceneReport.outcomeMapper.mapOutcome(outcome, mapAs);\n    }\n\n    private withMutated(mutate: (copied: Partial<SerenityBDDReport>) => void): SceneReport {\n        mutate(this.report);\n\n        return this;\n    }\n\n    private copyOf<T extends JSONObject>(json: T): T {\n        return JSON.parse(JSON.stringify(json));\n    }\n}\n\n/**\n * @package\n */\nclass ActivityStack {\n    public haveFailed: boolean = false;\n    private readonly items: Array<Partial<TestStep>> = [];\n    private mostRecent: Partial<TestStep> = undefined;\n    private correlations: { [key: string]: Partial<TestStep> } = {};\n\n    push(item: Partial<TestStep>, correlationId?: CorrelationId): Partial<TestStep> {\n        this.items.push(item);\n        this.mostRecent = item;\n        this.haveFailed = false;\n        if (!! correlationId) {\n            this.correlations[correlationId.value] = item;\n        }\n\n        return this.mostRecent;\n    }\n\n    pop() {\n        const item = this.items.pop();\n        if (this.items.length === 0) {\n            this.haveFailed = false;\n        }\n\n        this.mostRecent = item;\n\n        return this.mostRecent;\n    }\n\n    last() {\n        return this.items[this.items.length - 1];\n    }\n\n    mostRecentlyAccessedItem() {\n        return this.mostRecent;\n    }\n\n    itemByCorrelationId(correlationId: CorrelationId) {\n        return this.correlations[correlationId.value];\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
     "access": "public",
@@ -5455,7 +5381,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 330,
+    "__docId__": 326,
     "kind": "function",
     "name": "extractValues",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
@@ -5485,7 +5411,7 @@
     }
   },
   {
-    "__docId__": 331,
+    "__docId__": 327,
     "kind": "class",
     "name": "SceneReport",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
@@ -5501,7 +5427,7 @@
     "ignore": true
   },
   {
-    "__docId__": 332,
+    "__docId__": 328,
     "kind": "member",
     "name": "outcomeMapper",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5518,24 +5444,7 @@
     }
   },
   {
-    "__docId__": 333,
-    "kind": "member",
-    "name": "idGenerator",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
-    "static": true,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport.idGenerator",
-    "access": "private",
-    "description": " ",
-    "lineNumber": 46,
-    "ignore": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 334,
+    "__docId__": 329,
     "kind": "member",
     "name": "report",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5543,7 +5452,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#report",
     "access": "private",
     "description": " ",
-    "lineNumber": 48,
+    "lineNumber": 47,
     "type": {
       "nullable": null,
       "types": [
@@ -5555,7 +5464,7 @@
     "ignore": true
   },
   {
-    "__docId__": 335,
+    "__docId__": 330,
     "kind": "member",
     "name": "activities",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5563,7 +5472,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#activities",
     "access": "private",
     "description": " ",
-    "lineNumber": 49,
+    "lineNumber": 48,
     "ignore": true,
     "type": {
       "types": [
@@ -5572,7 +5481,7 @@
     }
   },
   {
-    "__docId__": 336,
+    "__docId__": 331,
     "kind": "member",
     "name": "parameters",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5580,7 +5489,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#parameters",
     "access": "private",
     "description": " ",
-    "lineNumber": 50,
+    "lineNumber": 49,
     "type": {
       "nullable": null,
       "types": [
@@ -5592,7 +5501,7 @@
     "ignore": true
   },
   {
-    "__docId__": 337,
+    "__docId__": 332,
     "kind": "member",
     "name": "stepNumber",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5600,7 +5509,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#stepNumber",
     "access": "private",
     "description": " ",
-    "lineNumber": 51,
+    "lineNumber": 50,
     "ignore": true,
     "type": {
       "types": [
@@ -5609,7 +5518,7 @@
     }
   },
   {
-    "__docId__": 338,
+    "__docId__": 333,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5619,11 +5528,11 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 193,
+    "lineNumber": 181,
     "undocument": true
   },
   {
-    "__docId__": 340,
+    "__docId__": 335,
     "kind": "method",
     "name": "executionStartedAt",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5633,7 +5542,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#executionStartedAt",
     "access": "public",
     "description": " ",
-    "lineNumber": 77,
+    "lineNumber": 76,
     "params": [
       {
         "nullable": null,
@@ -5656,7 +5565,7 @@
     }
   },
   {
-    "__docId__": 341,
+    "__docId__": 336,
     "kind": "method",
     "name": "executedBy",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5666,7 +5575,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#executedBy",
     "access": "public",
     "description": " ",
-    "lineNumber": 83,
+    "lineNumber": 82,
     "params": [
       {
         "nullable": null,
@@ -5689,7 +5598,7 @@
     }
   },
   {
-    "__docId__": 342,
+    "__docId__": 337,
     "kind": "method",
     "name": "taggedWith",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5699,7 +5608,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#taggedWith",
     "access": "public",
     "description": " ",
-    "lineNumber": 89,
+    "lineNumber": 88,
     "params": [
       {
         "nullable": null,
@@ -5719,7 +5628,7 @@
     }
   },
   {
-    "__docId__": 343,
+    "__docId__": 338,
     "kind": "method",
     "name": "executionFinishedAt",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5729,7 +5638,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#executionFinishedAt",
     "access": "public",
     "description": " ",
-    "lineNumber": 132,
+    "lineNumber": 133,
     "params": [
       {
         "nullable": null,
@@ -5752,7 +5661,7 @@
     }
   },
   {
-    "__docId__": 344,
+    "__docId__": 339,
     "kind": "method",
     "name": "activityStarted",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5762,7 +5671,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#activityStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 138,
+    "lineNumber": 139,
     "params": [
       {
         "nullable": null,
@@ -5792,7 +5701,7 @@
     }
   },
   {
-    "__docId__": 345,
+    "__docId__": 340,
     "kind": "method",
     "name": "activityFinished",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5802,7 +5711,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#activityFinished",
     "access": "public",
     "description": " ",
-    "lineNumber": 154,
+    "lineNumber": 155,
     "params": [
       {
         "nullable": null,
@@ -5842,7 +5751,7 @@
     }
   },
   {
-    "__docId__": 346,
+    "__docId__": 341,
     "kind": "method",
     "name": "withBackgroundOf",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5852,7 +5761,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withBackgroundOf",
     "access": "public",
     "description": " ",
-    "lineNumber": 169,
+    "lineNumber": 170,
     "params": [
       {
         "nullable": null,
@@ -5882,7 +5791,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 342,
     "kind": "method",
     "name": "withDescriptionOf",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5892,7 +5801,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withDescriptionOf",
     "access": "public",
     "description": " ",
-    "lineNumber": 176,
+    "lineNumber": 177,
     "params": [
       {
         "nullable": null,
@@ -5912,7 +5821,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 343,
     "kind": "method",
     "name": "withScenarioOutline",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5922,7 +5831,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withScenarioOutline",
     "access": "public",
     "description": " ",
-    "lineNumber": 182,
+    "lineNumber": 183,
     "params": [
       {
         "nullable": null,
@@ -5942,7 +5851,7 @@
     }
   },
   {
-    "__docId__": 349,
+    "__docId__": 344,
     "kind": "method",
     "name": "withScenarioParametersOf",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5952,7 +5861,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withScenarioParametersOf",
     "access": "public",
     "description": " ",
-    "lineNumber": 190,
+    "lineNumber": 191,
     "params": [
       {
         "nullable": null,
@@ -5982,7 +5891,7 @@
     }
   },
   {
-    "__docId__": 350,
+    "__docId__": 345,
     "kind": "method",
     "name": "withFeatureNarrativeOf",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -5992,7 +5901,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withFeatureNarrativeOf",
     "access": "public",
     "description": " ",
-    "lineNumber": 228,
+    "lineNumber": 229,
     "params": [
       {
         "nullable": null,
@@ -6012,7 +5921,7 @@
     }
   },
   {
-    "__docId__": 351,
+    "__docId__": 346,
     "kind": "method",
     "name": "photoTaken",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6022,7 +5931,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#photoTaken",
     "access": "public",
     "description": " ",
-    "lineNumber": 234,
+    "lineNumber": 235,
     "params": [
       {
         "nullable": null,
@@ -6052,7 +5961,7 @@
     }
   },
   {
-    "__docId__": 352,
+    "__docId__": 347,
     "kind": "method",
     "name": "arbitraryDataCaptured",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6062,7 +5971,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#arbitraryDataCaptured",
     "access": "public",
     "description": " ",
-    "lineNumber": 240,
+    "lineNumber": 241,
     "params": [
       {
         "nullable": null,
@@ -6092,7 +6001,7 @@
     }
   },
   {
-    "__docId__": 353,
+    "__docId__": 348,
     "kind": "method",
     "name": "httpRequestCaptured",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6102,7 +6011,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#httpRequestCaptured",
     "access": "public",
     "description": " ",
-    "lineNumber": 252,
+    "lineNumber": 253,
     "params": [
       {
         "nullable": null,
@@ -6122,7 +6031,7 @@
     }
   },
   {
-    "__docId__": 354,
+    "__docId__": 349,
     "kind": "method",
     "name": "executionFinishedWith",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6132,7 +6041,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#executionFinishedWith",
     "access": "public",
     "description": " ",
-    "lineNumber": 273,
+    "lineNumber": 274,
     "params": [
       {
         "nullable": null,
@@ -6165,7 +6074,7 @@
     }
   },
   {
-    "__docId__": 355,
+    "__docId__": 350,
     "kind": "method",
     "name": "toJSON",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6175,7 +6084,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#toJSON",
     "access": "public",
     "description": " ",
-    "lineNumber": 304,
+    "lineNumber": 305,
     "return": {
       "nullable": null,
       "types": [
@@ -6187,7 +6096,7 @@
     "params": []
   },
   {
-    "__docId__": 356,
+    "__docId__": 351,
     "kind": "method",
     "name": "dataTableFrom",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6197,7 +6106,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#dataTableFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 321,
+    "lineNumber": 322,
     "params": [
       {
         "nullable": null,
@@ -6221,7 +6130,7 @@
     "ignore": true
   },
   {
-    "__docId__": 357,
+    "__docId__": 352,
     "kind": "method",
     "name": "mapOutcome",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6231,7 +6140,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#mapOutcome",
     "access": "private",
     "description": " ",
-    "lineNumber": 331,
+    "lineNumber": 332,
     "params": [
       {
         "nullable": null,
@@ -6262,7 +6171,7 @@
     }
   },
   {
-    "__docId__": 358,
+    "__docId__": 353,
     "kind": "method",
     "name": "withMutated",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6272,7 +6181,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#withMutated",
     "access": "private",
     "description": " ",
-    "lineNumber": 335,
+    "lineNumber": 336,
     "params": [
       {
         "nullable": null,
@@ -6296,7 +6205,7 @@
     "ignore": true
   },
   {
-    "__docId__": 359,
+    "__docId__": 354,
     "kind": "method",
     "name": "copyOf",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport",
@@ -6306,7 +6215,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~SceneReport#copyOf",
     "access": "private",
     "description": " ",
-    "lineNumber": 341,
+    "lineNumber": 342,
     "params": [
       {
         "nullable": null,
@@ -6330,7 +6239,7 @@
     "ignore": true
   },
   {
-    "__docId__": 360,
+    "__docId__": 355,
     "kind": "class",
     "name": "ActivityStack",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
@@ -6341,12 +6250,12 @@
     "importPath": "@serenity-js/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 784,
+    "lineNumber": 774,
     "interface": false,
     "ignore": true
   },
   {
-    "__docId__": 361,
+    "__docId__": 356,
     "kind": "member",
     "name": "haveFailed",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6354,7 +6263,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#haveFailed",
     "access": "public",
     "description": " ",
-    "lineNumber": 350,
+    "lineNumber": 351,
     "type": {
       "nullable": null,
       "types": [
@@ -6365,7 +6274,7 @@
     }
   },
   {
-    "__docId__": 362,
+    "__docId__": 357,
     "kind": "member",
     "name": "items",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6373,7 +6282,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#items",
     "access": "private",
     "description": " ",
-    "lineNumber": 351,
+    "lineNumber": 352,
     "type": {
       "nullable": null,
       "types": [
@@ -6385,7 +6294,7 @@
     "ignore": true
   },
   {
-    "__docId__": 363,
+    "__docId__": 358,
     "kind": "member",
     "name": "mostRecent",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6393,7 +6302,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#mostRecent",
     "access": "private",
     "description": " ",
-    "lineNumber": 352,
+    "lineNumber": 353,
     "type": {
       "nullable": null,
       "types": [
@@ -6405,7 +6314,7 @@
     "ignore": true
   },
   {
-    "__docId__": 364,
+    "__docId__": 359,
     "kind": "member",
     "name": "correlations",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6413,7 +6322,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#correlations",
     "access": "private",
     "description": " ",
-    "lineNumber": 353,
+    "lineNumber": 354,
     "type": {
       "nullable": null,
       "types": [
@@ -6425,7 +6334,7 @@
     "ignore": true
   },
   {
-    "__docId__": 365,
+    "__docId__": 360,
     "kind": "method",
     "name": "push",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6435,7 +6344,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#push",
     "access": "public",
     "description": " ",
-    "lineNumber": 355,
+    "lineNumber": 356,
     "params": [
       {
         "nullable": null,
@@ -6468,7 +6377,7 @@
     }
   },
   {
-    "__docId__": 368,
+    "__docId__": 363,
     "kind": "method",
     "name": "pop",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6478,7 +6387,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#pop",
     "access": "public",
     "description": " ",
-    "lineNumber": 366,
+    "lineNumber": 367,
     "params": [],
     "return": {
       "types": [
@@ -6487,7 +6396,7 @@
     }
   },
   {
-    "__docId__": 371,
+    "__docId__": 366,
     "kind": "method",
     "name": "last",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6497,7 +6406,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#last",
     "access": "public",
     "description": " ",
-    "lineNumber": 377,
+    "lineNumber": 378,
     "params": [],
     "return": {
       "types": [
@@ -6506,7 +6415,7 @@
     }
   },
   {
-    "__docId__": 372,
+    "__docId__": 367,
     "kind": "method",
     "name": "mostRecentlyAccessedItem",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6516,7 +6425,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#mostRecentlyAccessedItem",
     "access": "public",
     "description": " ",
-    "lineNumber": 381,
+    "lineNumber": 382,
     "params": [],
     "return": {
       "types": [
@@ -6525,7 +6434,7 @@
     }
   },
   {
-    "__docId__": 373,
+    "__docId__": 368,
     "kind": "method",
     "name": "itemByCorrelationId",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack",
@@ -6535,7 +6444,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts~ActivityStack#itemByCorrelationId",
     "access": "public",
     "description": " ",
-    "lineNumber": 385,
+    "lineNumber": 386,
     "params": [
       {
         "nullable": null,
@@ -6555,10 +6464,136 @@
     }
   },
   {
+    "__docId__": 369,
+    "kind": "file",
+    "name": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts",
+    "content": "import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';\n\nexport class SceneReportId extends TinyType {\n\n    public readonly value: string;\n\n    constructor(segment: string, base?: string) {\n        super();\n        ensure('ID segment', segment, isDefined(), property('length', isGreaterThan(0)));\n\n        this.value = [\n            base,\n            this.dashify(segment),\n        ].filter(_ => !! _).join(';');\n    }\n\n    append(segment: string): SceneReportId {\n        return new SceneReportId(segment, this.value);\n    }\n\n    private dashify(text: string) {\n        return text\n            .replace(/[ \\t\\W]/g, '-')\n            .replace(/^-+|-+$/g, '')\n            .toLowerCase();\n    }\n}\n",
+    "static": true,
+    "longname": "/home/travis/build/serenity-js/serenity-js/packages/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 370,
+    "kind": "class",
+    "name": "SceneReportId",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts",
+    "static": true,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId",
+    "access": "public",
+    "export": true,
+    "importPath": "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports",
+    "importStyle": "{SceneReportId}",
+    "description": " ",
+    "lineNumber": 3,
+    "interface": false,
+    "extends": [
+      "tiny-types~TinyType"
+    ]
+  },
+  {
+    "__docId__": 371,
+    "kind": "member",
+    "name": "value",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId",
+    "static": false,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#value",
+    "access": "public",
+    "description": " ",
+    "lineNumber": 5,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 372,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true
+  },
+  {
     "__docId__": 374,
+    "kind": "method",
+    "name": "append",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#append",
+    "access": "public",
+    "description": " ",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "segment",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "SceneReportId"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 375,
+    "kind": "method",
+    "name": "dashify",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#dashify",
+    "access": "private",
+    "description": " ",
+    "lineNumber": 21,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "text",
+        "description": ""
+      }
+    ],
+    "ignore": true,
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 376,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts",
-    "content": "import { ScenarioDetails } from '@serenity-js/core/lib/model';\nimport { IDGenerator } from './IDGenerator';\nimport { SceneReport } from './SceneReport';\n\n/** @package */\nexport class SceneReports {\n    private static idGenerator = new IDGenerator();\n    private readonly reports: { [entryId: string]: SceneReport } = {};\n\n    for(scenarioDetails: ScenarioDetails): SceneReport {\n        if (! this.alreadyHasAReportFor(scenarioDetails)) {\n            return this.createReportFor(scenarioDetails);\n        }\n\n        return this.reportFor(scenarioDetails);\n    }\n\n    save(scenarioReport: SceneReport) {\n        this.reports[this.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;\n    }\n\n    map<T>(fn: (report: SceneReport) => T): T[] {\n        return Object.keys(this.reports).map(correlationId => this.reports[correlationId]).map(fn);\n    }\n\n    private alreadyHasAReportFor(scenarioDetails: ScenarioDetails): boolean {\n        return !! this.reports[this.correlationIdFor(scenarioDetails)];\n    }\n\n    private reportFor(scenarioDetails: ScenarioDetails): SceneReport {\n        return this.reports[this.correlationIdFor(scenarioDetails)];\n    }\n\n    private createReportFor(scenarioDetails: ScenarioDetails): SceneReport {\n        return new SceneReport(scenarioDetails);\n    }\n\n    private correlationIdFor(scenarioDetails: ScenarioDetails): string {\n        return SceneReports.idGenerator.generateFrom(\n            scenarioDetails.category,\n            scenarioDetails.name,\n            scenarioDetails.location.path,      // todo: should this include the line?\n        );\n    }\n}\n",
+    "content": "import { ScenarioDetails } from '@serenity-js/core/lib/model';\nimport { SceneReport } from './SceneReport';\nimport { SceneReportId } from './SceneReportId';\n\n/** @package */\nexport class SceneReports {\n    private readonly reports: { [entryId: string]: SceneReport } = {};\n\n    for(scenarioDetails: ScenarioDetails): SceneReport {\n        if (! this.alreadyHasAReportFor(scenarioDetails)) {\n            return this.createReportFor(scenarioDetails);\n        }\n\n        return this.reportFor(scenarioDetails);\n    }\n\n    save(scenarioReport: SceneReport) {\n        this.reports[this.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;\n    }\n\n    map<T>(fn: (report: SceneReport) => T): T[] {\n        return Object.keys(this.reports).map(correlationId => this.reports[correlationId]).map(fn);\n    }\n\n    private alreadyHasAReportFor(scenarioDetails: ScenarioDetails): boolean {\n        return !! this.reports[this.correlationIdFor(scenarioDetails)];\n    }\n\n    private reportFor(scenarioDetails: ScenarioDetails): SceneReport {\n        return this.reports[this.correlationIdFor(scenarioDetails)];\n    }\n\n    private createReportFor(scenarioDetails: ScenarioDetails): SceneReport {\n        return new SceneReport(scenarioDetails);\n    }\n\n    private correlationIdFor(scenarioDetails: ScenarioDetails): string {\n        return new SceneReportId(scenarioDetails.category.value)\n            .append(scenarioDetails.name.value)\n            .append(scenarioDetails.location.path.value)    // todo: should this include the line?\n            .value;\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/serenity-bdd/src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts",
     "access": "public",
@@ -6566,7 +6601,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 375,
+    "__docId__": 377,
     "kind": "class",
     "name": "SceneReports",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts",
@@ -6582,24 +6617,7 @@
     "ignore": true
   },
   {
-    "__docId__": 376,
-    "kind": "member",
-    "name": "idGenerator",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
-    "static": true,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports.idGenerator",
-    "access": "private",
-    "description": " ",
-    "lineNumber": 7,
-    "ignore": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 377,
+    "__docId__": 378,
     "kind": "member",
     "name": "reports",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6607,7 +6625,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#reports",
     "access": "private",
     "description": " ",
-    "lineNumber": 8,
+    "lineNumber": 7,
     "type": {
       "nullable": null,
       "types": [
@@ -6619,7 +6637,7 @@
     "ignore": true
   },
   {
-    "__docId__": 378,
+    "__docId__": 379,
     "kind": "method",
     "name": "for",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6629,7 +6647,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#for",
     "access": "public",
     "description": " ",
-    "lineNumber": 10,
+    "lineNumber": 9,
     "params": [
       {
         "nullable": null,
@@ -6652,7 +6670,7 @@
     }
   },
   {
-    "__docId__": 379,
+    "__docId__": 380,
     "kind": "method",
     "name": "save",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6662,7 +6680,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#save",
     "access": "public",
     "description": " ",
-    "lineNumber": 18,
+    "lineNumber": 17,
     "params": [
       {
         "nullable": null,
@@ -6678,7 +6696,7 @@
     "return": null
   },
   {
-    "__docId__": 380,
+    "__docId__": 381,
     "kind": "method",
     "name": "map",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6688,7 +6706,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#map",
     "access": "public",
     "description": " ",
-    "lineNumber": 22,
+    "lineNumber": 21,
     "params": [
       {
         "nullable": null,
@@ -6711,7 +6729,7 @@
     }
   },
   {
-    "__docId__": 381,
+    "__docId__": 382,
     "kind": "method",
     "name": "alreadyHasAReportFor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6721,7 +6739,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#alreadyHasAReportFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 26,
+    "lineNumber": 25,
     "params": [
       {
         "nullable": null,
@@ -6745,7 +6763,7 @@
     "ignore": true
   },
   {
-    "__docId__": 382,
+    "__docId__": 383,
     "kind": "method",
     "name": "reportFor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
@@ -6755,41 +6773,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#reportFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 30,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "ScenarioDetails"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "scenarioDetails",
-        "description": ""
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "SceneReport"
-      ],
-      "spread": false,
-      "description": ""
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 383,
-    "kind": "method",
-    "name": "createReportFor",
-    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#createReportFor",
-    "access": "private",
-    "description": " ",
-    "lineNumber": 34,
+    "lineNumber": 29,
     "params": [
       {
         "nullable": null,
@@ -6815,6 +6799,40 @@
   {
     "__docId__": 384,
     "kind": "method",
+    "name": "createReportFor",
+    "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#createReportFor",
+    "access": "private",
+    "description": " ",
+    "lineNumber": 33,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ScenarioDetails"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "scenarioDetails",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "SceneReport"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 385,
+    "kind": "method",
     "name": "correlationIdFor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports",
     "generator": false,
@@ -6823,7 +6841,7 @@
     "longname": "src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts~SceneReports#correlationIdFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 38,
+    "lineNumber": 37,
     "params": [
       {
         "nullable": null,
@@ -6847,7 +6865,7 @@
     "ignore": true
   },
   {
-    "__docId__": 385,
+    "__docId__": 386,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/reports/index.ts",
     "content": "export * from './SceneReport';\nexport * from './SceneReports';\n",
@@ -6858,7 +6876,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 386,
+    "__docId__": 387,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/strategies/SceneReportingStrategy.ts",
     "content": "import {\n    ActivityRelatedArtifactArchived,\n    ArtifactGenerated,\n    DomainEvent,\n    FeatureNarrativeDetected,\n    SceneBackgroundDetected,\n    SceneDescriptionDetected,\n    SceneTagged,\n    TestRunnerDetected,\n} from '@serenity-js/core/lib/events';\nimport { AssertionReportDiffer } from '@serenity-js/core/lib/io';\nimport { Artifact, ArtifactType, AssertionReport, HTTPRequestResponse, JSONData, LogEntry, Photo, ScenarioDetails, TextData } from '@serenity-js/core/lib/model';\nimport { match } from 'tiny-types';\nimport { SceneReport } from '../reports';\n\n/**\n * @package\n */\nexport abstract class SceneReportingStrategy {\n\n    private static readonly differ = new AssertionReportDiffer({\n        expected: line => `+ ${ line }`,\n        actual:   line => `- ${ line }`,\n        matching: line => `  ${ line }`,\n    });\n\n    constructor(protected readonly scenario: ScenarioDetails) {\n    }\n\n    abstract worksFor(anotherScenario: ScenarioDetails): boolean;\n\n    handle(event: DomainEvent, report: SceneReport): SceneReport {\n        return match<DomainEvent, SceneReport>(event)\n            .when(FeatureNarrativeDetected, (e: FeatureNarrativeDetected)   => report.withFeatureNarrativeOf(e.description))\n            .when(SceneBackgroundDetected,  (e: SceneBackgroundDetected)    => report.withBackgroundOf(e.name, e.description))\n            .when(SceneDescriptionDetected, (e: SceneDescriptionDetected)   => report.withDescriptionOf(e.description))\n            .when(SceneTagged,              (e: SceneTagged)                => report.taggedWith(e.tag))\n            .when(TestRunnerDetected,       (e: TestRunnerDetected)         => report.executedBy(e.value))\n            .when(ArtifactGenerated,        (e: ArtifactGenerated)          => match<Artifact, SceneReport>(e.artifact)\n                .when(HTTPRequestResponse,  _ => report.httpRequestCaptured(e.artifact.map(data => data)))\n                .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))\n                .when(LogEntry,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))\n                .when(AssertionReport,      _ =>\n                    report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents =>\n                        SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),\n                    )),\n                )\n                .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))\n                .else(_ => report))\n            .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)\n                .when(Photo,                _ => report.photoTaken(e.details, e.path))\n                .else(_ => report))\n            .else(_ => report);\n    }\n}\n",
@@ -6869,7 +6887,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 387,
+    "__docId__": 388,
     "kind": "class",
     "name": "SceneReportingStrategy",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneReportingStrategy.ts",
@@ -6885,7 +6903,7 @@
     "ignore": true
   },
   {
-    "__docId__": 388,
+    "__docId__": 389,
     "kind": "member",
     "name": "differ",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneReportingStrategy.ts~SceneReportingStrategy",
@@ -6902,7 +6920,7 @@
     }
   },
   {
-    "__docId__": 389,
+    "__docId__": 390,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneReportingStrategy.ts~SceneReportingStrategy",
@@ -6916,7 +6934,7 @@
     "undocument": true
   },
   {
-    "__docId__": 390,
+    "__docId__": 391,
     "kind": "method",
     "name": "handle",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneReportingStrategy.ts~SceneReportingStrategy",
@@ -6959,7 +6977,7 @@
     }
   },
   {
-    "__docId__": 391,
+    "__docId__": 392,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts",
     "content": "import { ActivityFinished, ActivityStarts, DomainEvent, SceneFinished, SceneParametersDetected, SceneStarts, SceneTemplateDetected } from '@serenity-js/core/lib/events';\nimport { ActivityDetails, ScenarioDetails } from '@serenity-js/core/lib/model';\nimport { match } from 'tiny-types';\n\nimport { SceneReport } from '../reports';\nimport { SceneReportingStrategy } from './SceneReportingStrategy';\n\n/**\n * @package\n */\nexport class SceneSequenceReportingStrategy extends SceneReportingStrategy {\n\n    worksFor(anotherScenario: ScenarioDetails): boolean {\n        return !! anotherScenario\n            && this.scenario.name.equals(anotherScenario.name)             // todo: what about templated scenario names?\n            && this.scenario.category.equals(anotherScenario.category)\n            && this.scenario.location.path.equals(anotherScenario.location.path);\n    }\n\n    handle(event: DomainEvent, report: SceneReport): SceneReport {\n        return match<DomainEvent, SceneReport>(event)\n            .when(SceneStarts,                      (e: SceneStarts) => {\n                return report\n                    .activityStarted(this.asActivity(e.value), e.timestamp)\n                    .executionStartedAt(e.timestamp);\n            })\n            .when(SceneTemplateDetected,    (e: SceneTemplateDetected) => {\n                return report.withScenarioOutline(e.template);\n            })\n            .when(SceneParametersDetected,  (e: SceneParametersDetected) => {\n                return report.withScenarioParametersOf(e.scenario, e.value);\n            })\n            .when(ActivityStarts,                   (e: ActivityStarts) => {\n                return report.activityStarted(e.value, e.timestamp);\n            })\n            .when(ActivityFinished,                 (e: ActivityFinished) => {\n                return report.activityFinished(e.value, e.outcome, e.timestamp);\n            })\n            .when(SceneFinished,                    (e: SceneFinished) => {\n                return report\n                    .activityFinished(this.asActivity(e.value), e.outcome, e.timestamp)\n                    .executionFinishedWith(e.value, e.outcome)\n                    .executionFinishedAt(e.timestamp);\n            })\n            .else(e => super.handle(e, report));\n    }\n\n    private asActivity(scenario: ScenarioDetails): ActivityDetails {\n        return new ActivityDetails(scenario.name);\n    }\n}\n",
@@ -6970,7 +6988,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 392,
+    "__docId__": 393,
     "kind": "class",
     "name": "SceneSequenceReportingStrategy",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts",
@@ -6989,7 +7007,7 @@
     "ignore": true
   },
   {
-    "__docId__": 393,
+    "__docId__": 394,
     "kind": "method",
     "name": "worksFor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts~SceneSequenceReportingStrategy",
@@ -7022,7 +7040,7 @@
     }
   },
   {
-    "__docId__": 394,
+    "__docId__": 395,
     "kind": "method",
     "name": "handle",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts~SceneSequenceReportingStrategy",
@@ -7065,7 +7083,7 @@
     }
   },
   {
-    "__docId__": 395,
+    "__docId__": 396,
     "kind": "method",
     "name": "asActivity",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts~SceneSequenceReportingStrategy",
@@ -7099,7 +7117,7 @@
     "ignore": true
   },
   {
-    "__docId__": 396,
+    "__docId__": 397,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/strategies/SingleSceneReportingStrategy.ts",
     "content": "import { ActivityFinished, ActivityStarts, DomainEvent, SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';\nimport { ScenarioDetails } from '@serenity-js/core/lib/model';\nimport { match } from 'tiny-types';\n\nimport { SceneReport } from '../reports';\nimport { SceneReportingStrategy } from './SceneReportingStrategy';\n\n/**\n * @package\n */\nexport class SingleSceneReportingStrategy extends SceneReportingStrategy {\n    worksFor(anotherScenario: ScenarioDetails): boolean {\n        return this.scenario.equals(anotherScenario);\n    }\n\n    handle(event: DomainEvent, report: SceneReport): SceneReport {\n        return match<DomainEvent, SceneReport>(event)\n            .when(SceneStarts,      (e: SceneStarts)      => report.executionStartedAt(e.timestamp))\n            .when(ActivityStarts,   (e: ActivityStarts)   => report.activityStarted(e.value, e.timestamp))\n            .when(ActivityFinished, (e: ActivityFinished) => report.activityFinished(e.value, e.outcome, e.timestamp))\n            .when(SceneFinished,    (e: SceneFinished)    => {\n                return report\n                    .executionFinishedAt(e.timestamp)\n                    .executionFinishedWith(e.value, e.outcome);\n            })\n            .else(e => super.handle(e, report));\n    }\n}\n",
@@ -7110,7 +7128,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 397,
+    "__docId__": 398,
     "kind": "class",
     "name": "SingleSceneReportingStrategy",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SingleSceneReportingStrategy.ts",
@@ -7129,7 +7147,7 @@
     "ignore": true
   },
   {
-    "__docId__": 398,
+    "__docId__": 399,
     "kind": "method",
     "name": "worksFor",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SingleSceneReportingStrategy.ts~SingleSceneReportingStrategy",
@@ -7162,7 +7180,7 @@
     }
   },
   {
-    "__docId__": 399,
+    "__docId__": 400,
     "kind": "method",
     "name": "handle",
     "memberof": "src/stage/crew/serenity-bdd-reporter/strategies/SingleSceneReportingStrategy.ts~SingleSceneReportingStrategy",
@@ -7205,7 +7223,7 @@
     }
   },
   {
-    "__docId__": 400,
+    "__docId__": 401,
     "kind": "file",
     "name": "src/stage/crew/serenity-bdd-reporter/strategies/index.ts",
     "content": "export * from './SceneReportingStrategy';\nexport * from './SceneSequenceReportingStrategy';\nexport * from './SingleSceneReportingStrategy';\n",
@@ -7216,7 +7234,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 401,
+    "__docId__": 402,
     "kind": "file",
     "name": "src/stage/index.ts",
     "content": "export * from './crew';\n",
@@ -7236,14 +7254,14 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/serenity-bdd\",\n  \"version\": \"2.1.1\",\n  \"description\": \"Serenity BDD reporter for Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"bin\": {\n    \"serenity-bdd\": \"bin/serenity-bdd\"\n  },\n  \"keywords\": [\n    \"serenity-js\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/serenity-bdd mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 8\",\n    \"npm\": \">= 5\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.19.2\",\n    \"chalk\": \"^3.0.0\",\n    \"find-java-home\": \"^1.1.0\",\n    \"progress\": \"^2.0.3\",\n    \"tiny-types\": \"^1.12.2\",\n    \"which\": \"^2.0.2\",\n    \"yargs\": \"^15.1.0\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/assertions\": \"2.x\",\n    \"@serenity-js/core\": \"2.x\",\n    \"@serenity-js/rest\": \"2.x\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.1.1\",\n    \"@serenity-js/assertions\": \"2.1.1\",\n    \"@serenity-js/core\": \"2.1.1\",\n    \"@serenity-js/rest\": \"2.1.1\",\n    \"@types/mocha\": \"^7.0.1\",\n    \"@types/progress\": \"^2.0.3\",\n    \"memfs\": \"^3.0.4\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/cli\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/serenity-bdd\",\n  \"version\": \"2.1.2\",\n  \"description\": \"Serenity BDD reporter for Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"bin\": {\n    \"serenity-bdd\": \"bin/serenity-bdd\"\n  },\n  \"keywords\": [\n    \"serenity-js\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/serenity-bdd mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 8\",\n    \"npm\": \">= 5\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.19.2\",\n    \"chalk\": \"^3.0.0\",\n    \"find-java-home\": \"^1.1.0\",\n    \"progress\": \"^2.0.3\",\n    \"tiny-types\": \"^1.12.2\",\n    \"which\": \"^2.0.2\",\n    \"yargs\": \"^15.1.0\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/assertions\": \"2.x\",\n    \"@serenity-js/core\": \"2.x\",\n    \"@serenity-js/rest\": \"2.x\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.1.2\",\n    \"@serenity-js/assertions\": \"2.1.2\",\n    \"@serenity-js/core\": \"2.1.2\",\n    \"@serenity-js/rest\": \"2.1.2\",\n    \"@types/mocha\": \"^7.0.1\",\n    \"@types/progress\": \"^2.0.3\",\n    \"memfs\": \"^3.0.4\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/cli\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/serenity-bdd/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 402,
+    "__docId__": 403,
     "kind": "testFile",
     "name": "spec/cli/bootstrap.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { bootstrap } from '../../src/cli/bootstrap';\n\ndescribe('Serenity BDD CLI', () => {\n\n    it('should tell its version', () => {\n        const pkg = require('../../package.json');\n\n        bootstrap(['--version'], (error, parsed, output) => {\n            expect(output).to.equal(pkg.version);\n        });\n    });\n});\n",
@@ -7254,7 +7272,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 403,
+    "__docId__": 404,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -7267,7 +7285,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 404,
+    "__docId__": 405,
     "kind": "test",
     "name": "it1",
     "testId": 1,
@@ -7280,7 +7298,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 405,
+    "__docId__": 406,
     "kind": "testFile",
     "name": "spec/cli/model/GAV.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { Path } from '@serenity-js/core/lib/io';\n\nimport { GAV } from '../../../src/cli/model';\n\ndescribe('GAV', () => {\n\n    describe('can be described using a string which format', () => {\n\n        it('follows group:artifact:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity-cli:2.1.9');\n\n            expect(gav.groupId).to.equal('net.serenity-bdd');\n            expect(gav.artifactId).to.equal('serenity-cli');\n            expect(gav.extension).to.equal('jar');\n            expect(gav.version).to.equal('2.1.9');\n            expect(gav.classifier).to.equal(undefined);\n        });\n\n        it('follows group:artifact:extension:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity:war:2.1.9');\n\n            expect(gav.groupId).to.equal('net.serenity-bdd');\n            expect(gav.artifactId).to.equal('serenity');\n            expect(gav.extension).to.equal('war');\n            expect(gav.version).to.equal('2.1.9');\n            expect(gav.classifier).to.equal(undefined);\n        });\n\n        it('follows group:artifact:extension:classifier:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity-cli:jar:all:2.1.9');\n\n            expect(gav.groupId).to.equal('net.serenity-bdd');\n            expect(gav.artifactId).to.equal('serenity-cli');\n            expect(gav.extension).to.equal('jar');\n            expect(gav.version).to.equal('2.1.9');\n            expect(gav.classifier).to.equal('all');\n        });\n    });\n\n    describe('can be converted to a file name when the identifier', () => {\n        it('follows group:artifact:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity-cli:2.1.9');\n\n            expect(gav.toPath()).to.equal(new Path('serenity-cli-2.1.9.jar'));\n        });\n\n        it('follows group:artifact:extension:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity:war:2.1.9');\n\n            expect(gav.toPath()).to.equal(new Path('serenity-2.1.9.war'));\n        });\n\n        it('follows group:artifact:extension:classifier:version', () => {\n            const gav = GAV.fromString('net.serenity-bdd:serenity-cli:jar:all:2.1.9');\n\n            expect(gav.toPath()).to.equal(new Path('serenity-cli-2.1.9-all.jar'));\n        });\n    });\n});\n",
@@ -7291,7 +7309,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 406,
+    "__docId__": 407,
     "kind": "test",
     "name": "describe2",
     "testId": 2,
@@ -7304,7 +7322,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 407,
+    "__docId__": 408,
     "kind": "test",
     "name": "describe3",
     "testId": 3,
@@ -7317,7 +7335,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 408,
+    "__docId__": 409,
     "kind": "test",
     "name": "it4",
     "testId": 4,
@@ -7330,7 +7348,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 409,
+    "__docId__": 410,
     "kind": "test",
     "name": "it5",
     "testId": 5,
@@ -7343,7 +7361,7 @@
     "lineNumber": 22
   },
   {
-    "__docId__": 410,
+    "__docId__": 411,
     "kind": "test",
     "name": "it6",
     "testId": 6,
@@ -7356,7 +7374,7 @@
     "lineNumber": 32
   },
   {
-    "__docId__": 411,
+    "__docId__": 412,
     "kind": "test",
     "name": "describe7",
     "testId": 7,
@@ -7369,7 +7387,7 @@
     "lineNumber": 43
   },
   {
-    "__docId__": 412,
+    "__docId__": 413,
     "kind": "test",
     "name": "it8",
     "testId": 8,
@@ -7382,7 +7400,7 @@
     "lineNumber": 44
   },
   {
-    "__docId__": 413,
+    "__docId__": 414,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -7395,7 +7413,7 @@
     "lineNumber": 50
   },
   {
-    "__docId__": 414,
+    "__docId__": 415,
     "kind": "test",
     "name": "it10",
     "testId": 10,
@@ -7408,7 +7426,7 @@
     "lineNumber": 56
   },
   {
-    "__docId__": 415,
+    "__docId__": 416,
     "kind": "testFile",
     "name": "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { StageManager } from '@serenity-js/core';\nimport { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';\nimport { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';\nimport * as sinon from 'sinon';\n\nimport { SerenityBDDReporter } from '../../../../../src';\nimport { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';\nimport { given } from '../../given';\nimport { defaultCardScenario } from '../../samples';\nimport { create } from '../create';\n\ndescribe('SerenityBDDReporter', () => {\n\n    let stageManager: sinon.SinonStubbedInstance<StageManager>,\n        reporter: SerenityBDDReporter;\n\n    beforeEach(() => {\n        const env = create();\n\n        stageManager    = env.stageManager;\n        reporter        = env.reporter;\n    });\n\n    /**\n     * @test {SerenityBDDReporter}\n     * @test {SceneStarts}\n     * @test {SceneBackgroundDetected}\n     * @test {SceneFinished}\n     * @test {ExecutionSuccessful}\n     * @test {TestRunFinishes}\n     */\n    it('captures information about scenario background', () => {\n        given(reporter).isNotifiedOfFollowingEvents(\n            new SceneStarts(defaultCardScenario),\n                new SceneBackgroundDetected(new Name('Background title'), new Description('Background description')),\n            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n            new TestRunFinishes(),\n        );\n\n        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n        expect(report.backgroundTitle).to.equal('Background title');\n        expect(report.backgroundDescription).to.equal('Background description');\n    });\n\n    /**\n     * @test {SerenityBDDReporter}\n     * @test {SceneStarts}\n     * @test {SceneDescriptionDetected}\n     * @test {SceneFinished}\n     * @test {ExecutionSuccessful}\n     * @test {TestRunFinishes}\n     */\n    it('captures the description of the scenario', () => {\n        given(reporter).isNotifiedOfFollowingEvents(\n            new SceneStarts(defaultCardScenario),\n            new SceneDescriptionDetected(new Description('Scenario description')),\n            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n            new TestRunFinishes(),\n        );\n\n        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n        expect(report.description).to.equal('Scenario description');\n    });\n\n    /**\n     * @test {SerenityBDDReporter}\n     * @test {SceneStarts}\n     * @test {FeatureNarrativeDetected}\n     * @test {SceneFinished}\n     * @test {ExecutionSuccessful}\n     * @test {TestRunFinishes}\n     */\n    it('captures the narrative behind the scenario', () => {\n        given(reporter).isNotifiedOfFollowingEvents(\n            new SceneStarts(defaultCardScenario),\n            new FeatureNarrativeDetected(new Description('Feature narrative')),\n            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n            new TestRunFinishes(),\n        );\n\n        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n        expect(report.userStory.narrative).to.equal('Feature narrative');\n    });\n});\n",
@@ -7419,7 +7437,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 416,
+    "__docId__": 417,
     "kind": "test",
     "name": "describe11",
     "testId": 11,
@@ -7432,7 +7450,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 417,
+    "__docId__": 418,
     "kind": "test",
     "name": "it12",
     "testId": 12,
@@ -7453,7 +7471,7 @@
     ]
   },
   {
-    "__docId__": 418,
+    "__docId__": 419,
     "kind": "test",
     "name": "it13",
     "testId": 13,
@@ -7474,7 +7492,7 @@
     ]
   },
   {
-    "__docId__": 419,
+    "__docId__": 420,
     "kind": "test",
     "name": "it14",
     "testId": 14,
@@ -7495,7 +7513,7 @@
     ]
   },
   {
-    "__docId__": 420,
+    "__docId__": 421,
     "kind": "testFile",
     "name": "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { StageManager } from '@serenity-js/core';\nimport {\n    ActivityRelatedArtifactArchived,\n    ActivityRelatedArtifactGenerated,\n    ArtifactArchived,\n    ArtifactGenerated,\n    SceneFinished,\n    SceneStarts,\n    TaskFinished,\n    TaskStarts,\n    TestRunFinishes,\n} from '@serenity-js/core/lib/events';\nimport { Path } from '@serenity-js/core/lib/io';\nimport { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/lib/model';\nimport * as sinon from 'sinon';\n\nimport { SerenityBDDReporter } from '../../../../../src/stage';\nimport { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';\nimport { given } from '../../given';\nimport { defaultCardScenario, photo } from '../../samples';\nimport { create } from '../create';\n\ndescribe('SerenityBDDReporter', () => {\n\n    let stageManager: sinon.SinonStubbedInstance<StageManager>,\n        reporter: SerenityBDDReporter;\n\n    beforeEach(() => {\n        const env = create();\n\n        stageManager    = env.stageManager;\n        reporter        = env.reporter;\n    });\n\n    describe('reports the activities that took place during scenario execution:', () => {\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('reports the outcome of a single activity', () => {\n            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                    new TaskStarts(pickACard),\n                    new TaskFinished(pickACard, new ExecutionSuccessful()),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(1);\n            expect(report.testSteps[0].description).to.equal(pickACard.name.value);\n            expect(report.testSteps[0].result).to.equal('SUCCESS');\n        });\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('reports the outcome of a sequence of several activities', () => {\n            const pickACard   = new ActivityDetails(new Name('Pick the default credit card'));\n            const makePayment = new ActivityDetails(new Name('Make the payment'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                    new TaskStarts(pickACard),\n                    new TaskFinished(pickACard, new ExecutionSuccessful()),\n                    new TaskStarts(makePayment),\n                    new TaskFinished(makePayment, new ExecutionSuccessful()),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(2);\n            expect(report.testSteps[0].description).to.equal(pickACard.name.value);\n            expect(report.testSteps[0].result).to.equal('SUCCESS');\n            expect(report.testSteps[1].description).to.equal(makePayment.name.value);\n            expect(report.testSteps[1].result).to.equal('SUCCESS');\n        });\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('reports the outcome of nested activities', () => {\n            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));\n            const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                    new TaskStarts(pickACard),\n                        new TaskStarts(viewListOfCards),\n                        new TaskFinished(viewListOfCards, new ExecutionSuccessful()),\n                    new TaskFinished(pickACard, new ExecutionSuccessful()),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(1);\n            expect(report.testSteps[0].children).to.have.lengthOf(1);\n            expect(report.testSteps[0].children[0].description).to.equal(viewListOfCards.name.value);\n            expect(report.testSteps[0].children[0].result).to.equal('SUCCESS');\n        });\n    });\n\n    describe('order of events', () => {\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {ArtifactGenerated}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('records the events in a correct order', () => {\n            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                    new TaskStarts(pickACard),\n                        new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),\n                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),\n                    new TaskFinished(pickACard, new ExecutionSuccessful()),\n                        new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),\n                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(1);\n            expect(report.testSteps[0].screenshots).to.deep.equal([\n                { screenshot: 'photo1.png'},\n                { screenshot: 'photo2.png'},\n            ]);\n        });\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {\n            const\n                pickACard   = new ActivityDetails(new Name('Pick a credit card')),\n                makePayment = new ActivityDetails(new Name('Make a payment'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                    new TaskStarts(pickACard),\n                        new ArtifactGenerated(new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),\n                        new ArtifactArchived(new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),\n                    new TaskFinished(pickACard, new ExecutionSuccessful()),\n                    new TaskStarts(makePayment),\n                        new ArtifactGenerated(new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),\n                        new ArtifactArchived(new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),\n                        new ArtifactGenerated(new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),\n                    new TaskFinished(makePayment, new ExecutionSuccessful()),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(2);\n            expect(report.testSteps[0].number).to.equal(1);\n            expect(report.testSteps[0].reportData[0].title).to.equal('pick a card message');\n            expect(report.testSteps[0].reportData[0].contents).to.equal('{\\n    \"card\": \"default\"\\n}');\n\n            expect(report.testSteps[1].number).to.equal(2);\n\n            expect(report.testSteps[1].reportData[0].title).to.equal('make a payment message');\n            expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\\n    \\\"amount\\\": \\\"£42\\\"\\n}');\n\n            expect(report.testSteps[1].reportData[1].title).to.equal('server log');\n            expect(report.testSteps[1].reportData[1].contents).to.deep.equal('received payment request');\n        });\n    });\n\n    describe('artifacts', () => {\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {TaskStarts}\n         * @test {ArtifactGenerated}\n         * @test {TaskFinished}\n         * @test {ExecutionSuccessful}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         */\n        it('records the arbitrary JSON data emitted during the interaction', () => {\n            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));\n\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                new TaskStarts(pickACard),\n                new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),\n                new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),\n                new TaskFinished(pickACard, new ExecutionSuccessful()),\n                new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),\n                new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n            expect(report.testSteps).to.have.lengthOf(1);\n            expect(report.testSteps[0].screenshots).to.deep.equal([\n                { screenshot: 'photo1.png'},\n                { screenshot: 'photo2.png'},\n            ]);\n        });\n    });\n});\n",
@@ -7506,7 +7524,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 421,
+    "__docId__": 422,
     "kind": "test",
     "name": "describe15",
     "testId": 15,
@@ -7519,7 +7537,7 @@
     "lineNumber": 26
   },
   {
-    "__docId__": 422,
+    "__docId__": 423,
     "kind": "test",
     "name": "describe16",
     "testId": 16,
@@ -7532,7 +7550,7 @@
     "lineNumber": 38
   },
   {
-    "__docId__": 423,
+    "__docId__": 424,
     "kind": "test",
     "name": "it17",
     "testId": 17,
@@ -7554,7 +7572,7 @@
     ]
   },
   {
-    "__docId__": 424,
+    "__docId__": 425,
     "kind": "test",
     "name": "it18",
     "testId": 18,
@@ -7576,7 +7594,7 @@
     ]
   },
   {
-    "__docId__": 425,
+    "__docId__": 426,
     "kind": "test",
     "name": "it19",
     "testId": 19,
@@ -7598,7 +7616,7 @@
     ]
   },
   {
-    "__docId__": 426,
+    "__docId__": 427,
     "kind": "test",
     "name": "describe20",
     "testId": 20,
@@ -7611,7 +7629,7 @@
     "lineNumber": 131
   },
   {
-    "__docId__": 427,
+    "__docId__": 428,
     "kind": "test",
     "name": "it21",
     "testId": 21,
@@ -7634,7 +7652,7 @@
     ]
   },
   {
-    "__docId__": 428,
+    "__docId__": 429,
     "kind": "test",
     "name": "it22",
     "testId": 22,
@@ -7656,7 +7674,7 @@
     ]
   },
   {
-    "__docId__": 429,
+    "__docId__": 430,
     "kind": "test",
     "name": "describe23",
     "testId": 23,
@@ -7669,7 +7687,7 @@
     "lineNumber": 213
   },
   {
-    "__docId__": 430,
+    "__docId__": 431,
     "kind": "test",
     "name": "it24",
     "testId": 24,
@@ -7692,7 +7710,7 @@
     ]
   },
   {
-    "__docId__": 431,
+    "__docId__": 432,
     "kind": "testFile",
     "name": "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { StageManager } from '@serenity-js/core';\nimport { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';\nimport { FileSystemLocation, Path } from '@serenity-js/core/lib/io';\nimport { Category, Description, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';\nimport * as sinon from 'sinon';\n\nimport { SerenityBDDReporter } from '../../../../../src/stage';\nimport { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';\nimport { given } from '../../given';\nimport { create } from '../create';\n\ndescribe('SerenityBDDReporter', () => {\n\n    let stageManager: sinon.SinonStubbedInstance<StageManager>,\n        reporter: SerenityBDDReporter;\n\n    beforeEach(() => {\n        const env = create();\n\n        stageManager    = env.stageManager;\n        reporter        = env.reporter;\n    });\n\n    // see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context\n    const\n        category = new Category('Reporting results'),\n        name     = new Name('Reports scenario outlines'),\n        path     = new Path(`reporting_results/reports_scenario_outlines.feature`),\n        template = new Description(`\n            When <Developer> makes a contribution of:\n              | value      |\n              | time       |\n              | talent     |\n              | great code |\n            Then they help bring serenity to fellow devs\n        `),\n        sequence = new ScenarioDetails(name, category, new FileSystemLocation(\n            path,\n            7,\n        )),\n        scenario1 = new ScenarioDetails(name, category, new FileSystemLocation(\n            path,\n            25,\n        )),\n        scenario2 = new ScenarioDetails(name, category, new FileSystemLocation(\n            path,\n            26,\n        ))\n    ;\n\n    /**\n     * @test {SerenityBDDReporter}\n     * @test {SceneSequenceDetected}\n     * @test {SceneTemplateDetected}\n     * @test {SceneParametersDetected}\n     * @test {ScenarioParameters}\n     * @test {SceneStarts}\n     * @test {SceneFinished}\n     * @test {ExecutionSuccessful}\n     * @test {TestRunFinishes}\n     */\n    it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {\n        given(reporter).isNotifiedOfFollowingEvents(\n            new SceneSequenceDetected(sequence),\n                new SceneTemplateDetected(template),\n                new SceneParametersDetected(\n                    scenario1,\n                    new ScenarioParameters(\n                        new Name('Serenity/JS contributors'),\n                        new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),\n                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },\n                    ),\n                ),\n                new SceneStarts(scenario1),\n                new SceneFinished(scenario1, new ExecutionSuccessful()),\n            new SceneSequenceDetected(sequence),\n                new SceneTemplateDetected(template),\n                new SceneParametersDetected(\n                    scenario2,\n                    new ScenarioParameters(\n                        new Name('Serenity/JS contributors'),\n                        new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),\n                        { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },\n                    ),\n                ),\n                new SceneStarts(scenario2),\n                new SceneFinished(scenario2, new ExecutionSuccessful()),\n            new TestRunFinishes(),\n        );\n\n        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n        expect(report.name).to.equal(name.value);\n        expect(report.dataTable).to.exist;  // tslint:disable-line:no-unused-expression\n        expect(report.dataTable.scenarioOutline).to.equal(template.value);\n        expect(report.dataTable.headers).to.deep.equal([\n            'Developer',\n            'Twitter_Handle',\n        ]);\n\n        expect(report.dataTable.dataSetDescriptors).to.deep.equal([{\n            startRow: 0,\n            rowCount: 2,\n            name: 'Serenity/JS contributors',\n            description: 'Some of the people who have contributed their time and talent to the Serenity/JS project',\n        }]);\n\n        expect(report.dataTable.rows).to.deep.equal([\n            { values: [ 'jan-molak', '@JanMolak' ], result: 'SUCCESS' },\n            { values: [ 'wakaleo', '@wakaleo' ], result: 'SUCCESS' },\n        ]);\n\n        expect(report.testSteps).to.have.lengthOf(2);\n        expect(report.testSteps[0].description)\n            .to.equal(`${name.value} #1 - Developer: jan-molak, Twitter_Handle: @JanMolak`);\n\n        expect(report.testSteps[1].description)\n            .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);\n    });\n\n    /**\n     * @test {SerenityBDDReporter}\n     * @test {SceneSequenceDetected}\n     * @test {SceneTemplateDetected}\n     * @test {SceneParametersDetected}\n     * @test {ScenarioParameters}\n     * @test {SceneStarts}\n     * @test {SceneFinished}\n     * @test {ExecutionFailedWithError}\n     * @test {ExecutionSuccessful}\n     * @test {TestRunFinishes}\n     */\n    it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {\n        given(reporter).isNotifiedOfFollowingEvents(\n            new SceneSequenceDetected(sequence),\n                new SceneTemplateDetected(template),\n                new SceneParametersDetected(\n                    scenario1,\n                    new ScenarioParameters(\n                        new Name('Serenity/JS contributors'),\n                        new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),\n                        { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },\n                    ),\n                ),\n                new SceneStarts(scenario1),\n                new SceneFinished(scenario1, new ExecutionFailedWithError(new Error('Something happened'))),\n\n            new SceneSequenceDetected(sequence),\n                new SceneTemplateDetected(template),\n                new SceneParametersDetected(\n                    scenario2,\n                    new ScenarioParameters(\n                        new Name('Serenity/JS contributors'),\n                        new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),\n                        { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },\n                    ),\n                ),\n                new SceneStarts(scenario2),\n                new SceneFinished(scenario2, new ExecutionSuccessful()),\n            new TestRunFinishes(),\n        );\n\n        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n        expect(report.dataTable.rows).to.deep.equal([\n            { values: [ 'jan-molak', '@JanMolak' ], result: 'ERROR' },\n            { values: [ 'wakaleo', '@wakaleo' ], result: 'SUCCESS' },\n        ]);\n\n        expect(report.testSteps).to.have.lengthOf(2);\n        expect(report.testSteps[0].description)\n            .to.equal(`${name.value} #1 - Developer: jan-molak, Twitter_Handle: @JanMolak`);\n        // todo: check for error somewhere here\n        // todo: map well map the main report\n\n        expect(report.testSteps[1].description)\n            .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);\n    });\n});\n",
@@ -7703,7 +7721,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 432,
+    "__docId__": 433,
     "kind": "test",
     "name": "describe25",
     "testId": 25,
@@ -7716,7 +7734,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 433,
+    "__docId__": 434,
     "kind": "test",
     "name": "it26",
     "testId": 26,
@@ -7740,7 +7758,7 @@
     ]
   },
   {
-    "__docId__": 434,
+    "__docId__": 435,
     "kind": "test",
     "name": "it27",
     "testId": 27,
@@ -7765,7 +7783,7 @@
     ]
   },
   {
-    "__docId__": 435,
+    "__docId__": 436,
     "kind": "testFile",
     "name": "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { StageManager } from '@serenity-js/core';\nimport { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';\nimport { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';\nimport * as sinon from 'sinon';\n\nimport { SerenityBDDReporter } from '../../../../../src/stage';\nimport { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';\nimport { given } from '../../given';\nimport { defaultCardScenario } from '../../samples';\nimport { create } from '../create';\n\ndescribe('SerenityBDDReporter', () => {\n\n    let stageManager: sinon.SinonStubbedInstance<StageManager>,\n        reporter: SerenityBDDReporter;\n\n    beforeEach(() => {\n        const env = create();\n\n        stageManager    = env.stageManager;\n        reporter        = env.reporter;\n    });\n\n    describe('produces a SerenityBDDReport that', () => {\n\n        let report: SerenityBDDReport;\n\n        describe('can be tagged', () => {\n\n            beforeEach(() => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneStarts(defaultCardScenario),\n                );\n            });\n\n            describe('@manual', () => {\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 */\n                it('is marked map automated (non-manual) by default', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.manual).to.equal(false);\n                });\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {ManualTag}\n                 */\n                it('can be optionally tagged map manual', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new ManualTag()),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.manual).to.equal(true);\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'Manual',\n                        type: 'External Tests',\n                    }]);\n                });\n            });\n\n            describe('@issue', () => {\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {IssueTag}\n                 */\n                it('can be tagged with an issue number', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new IssueTag('ABC-1234')),\n                        new SceneTagged(defaultCardScenario, new IssueTag('DEF-5678')),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'ABC-1234',\n                        type: 'issue',\n                    }, {\n                        name: 'DEF-5678',\n                        type: 'issue',\n                    }]);\n\n                    expect(report.issues).to.deep.equal([\n                        'ABC-1234',\n                        'DEF-5678',\n                    ]);\n                });\n            });\n\n            describe('@arbitrary-tag', () => {\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {ArbitraryTag}\n                 */\n                it('can be tagged with an arbitrary tag', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new ArbitraryTag('regression')),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'regression',\n                        type: 'tag',\n                    }]);\n                });\n            });\n\n            describe('to indicate that a scenario', () => {\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {FeatureTag}\n                 */\n                it('belongs to a feature', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'Checkout',\n                        type: 'feature',\n                    }]);\n\n                    expect(report.featureTag).to.deep.equal({\n                        name: 'Checkout',\n                        type: 'feature',\n                    });\n                });\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {FeatureTag}\n                 * @test {CapabilityTag}\n                 */\n                it('belongs to a capability', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),\n                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'E-Commerce',\n                        type: 'capability',\n                    }, {\n                        name: 'E-Commerce/Checkout',\n                        type: 'feature',\n                    }]);\n\n                    expect(report.featureTag).to.deep.equal({\n                        name: 'Checkout',\n                        type: 'feature',\n                    });\n                });\n\n                /**\n                 * @test {SerenityBDDReporter}\n                 * @test {SceneStarts}\n                 * @test {SceneFinished}\n                 * @test {SceneTagged}\n                 * @test {TestRunFinishes}\n                 * @test {ExecutionSuccessful}\n                 * @test {FeatureTag}\n                 * @test {CapabilityTag}\n                 * @test {ThemeTag}\n                 */\n                it('belongs to a theme', () => {\n                    given(reporter).isNotifiedOfFollowingEvents(\n                        new SceneTagged(defaultCardScenario, new ThemeTag('Digital')),\n                        new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),\n                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),\n                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                        new TestRunFinishes(),\n                    );\n\n                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                    expect(report.tags).to.deep.include.members([{\n                        name: 'Digital',\n                        type: 'theme',\n                    }, {\n                        name: 'Digital/E-Commerce',\n                        type: 'capability',\n                    }, {\n                        name: 'Digital/E-Commerce/Checkout',\n                        type: 'feature',\n                    }]);\n\n                    expect(report.featureTag).to.deep.equal({\n                        name: 'Checkout',\n                        type: 'feature',\n                    });\n                });\n\n                describe('is executed in the context and', () => {\n\n                    /**\n                     * @test {SerenityBDDReporter}\n                     * @test {SceneStarts}\n                     * @test {SceneFinished}\n                     * @test {SceneTagged}\n                     * @test {TestRunFinishes}\n                     * @test {ExecutionSuccessful}\n                     * @test {BrowserTag}\n                     */\n                    it('indicates the web browser where the test was executed', () => {\n                        given(reporter).isNotifiedOfFollowingEvents(\n                            new SceneTagged(defaultCardScenario, new BrowserTag('chrome', '80.0.3987.87')),\n                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                            new TestRunFinishes(),\n                        );\n\n                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                        expect(report.context).to.equal('chrome');\n\n                        expect(report.tags).to.deep.include.members([{\n                            browserName: 'chrome',\n                            browserVersion: '80.0.3987.87',\n                            name: 'chrome 80.0.3987.87',\n                            type: 'browser',\n                        }]);\n                    });\n\n                    /**\n                     * @test {SerenityBDDReporter}\n                     * @test {SceneStarts}\n                     * @test {SceneFinished}\n                     * @test {SceneTagged}\n                     * @test {TestRunFinishes}\n                     * @test {ExecutionSuccessful}\n                     * @test {ContextTag}\n                     */\n                    it('indicates the operating system where the test was executed', () => {\n                        given(reporter).isNotifiedOfFollowingEvents(\n                            new SceneTagged(defaultCardScenario, new ContextTag('iphone')),\n                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                            new TestRunFinishes(),\n                        );\n\n                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                        expect(report.context).to.equal('iphone');\n\n                        expect(report.tags).to.deep.include.members([{\n                            name: 'iphone',\n                            type: 'context',\n                        }]);\n                    });\n\n                    /**\n                     * @test {SerenityBDDReporter}\n                     * @test {SceneStarts}\n                     * @test {SceneFinished}\n                     * @test {SceneTagged}\n                     * @test {TestRunFinishes}\n                     * @test {ExecutionSuccessful}\n                     * @test {BrowserTag}\n                     * @test {ContextTag}\n                     */\n                    it('ensures that the user-specified context takes precedence over browser context', () => {\n                        given(reporter).isNotifiedOfFollowingEvents(\n                            new SceneTagged(defaultCardScenario, new BrowserTag('safari', '13.0.5')),\n                            new SceneTagged(defaultCardScenario, new ContextTag('iphone')),\n                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                            new TestRunFinishes(),\n                        );\n\n                        report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                        expect(report.context).to.equal('iphone');\n\n                        expect(report.tags).to.deep.include.members([{\n                            name: 'safari 13.0.5',\n                            type: 'browser',\n                            browserName: 'safari',\n                            browserVersion: '13.0.5',\n                        }, {\n                            name: 'iphone',\n                            type: 'context',\n                        }]);\n                    });\n                });\n            });\n        });\n    });\n});\n",
@@ -7776,7 +7794,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 436,
+    "__docId__": 437,
     "kind": "test",
     "name": "describe28",
     "testId": 28,
@@ -7789,7 +7807,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 437,
+    "__docId__": 438,
     "kind": "test",
     "name": "describe29",
     "testId": 29,
@@ -7802,7 +7820,7 @@
     "lineNumber": 27
   },
   {
-    "__docId__": 438,
+    "__docId__": 439,
     "kind": "test",
     "name": "describe30",
     "testId": 30,
@@ -7815,7 +7833,7 @@
     "lineNumber": 31
   },
   {
-    "__docId__": 439,
+    "__docId__": 440,
     "kind": "test",
     "name": "describe31",
     "testId": 31,
@@ -7828,7 +7846,7 @@
     "lineNumber": 39
   },
   {
-    "__docId__": 440,
+    "__docId__": 441,
     "kind": "test",
     "name": "it32",
     "testId": 32,
@@ -7848,7 +7866,7 @@
     ]
   },
   {
-    "__docId__": 441,
+    "__docId__": 442,
     "kind": "test",
     "name": "it33",
     "testId": 33,
@@ -7870,7 +7888,7 @@
     ]
   },
   {
-    "__docId__": 442,
+    "__docId__": 443,
     "kind": "test",
     "name": "describe34",
     "testId": 34,
@@ -7883,7 +7901,7 @@
     "lineNumber": 85
   },
   {
-    "__docId__": 443,
+    "__docId__": 444,
     "kind": "test",
     "name": "it35",
     "testId": 35,
@@ -7905,7 +7923,7 @@
     ]
   },
   {
-    "__docId__": 444,
+    "__docId__": 445,
     "kind": "test",
     "name": "describe36",
     "testId": 36,
@@ -7918,7 +7936,7 @@
     "lineNumber": 121
   },
   {
-    "__docId__": 445,
+    "__docId__": 446,
     "kind": "test",
     "name": "it37",
     "testId": 37,
@@ -7940,7 +7958,7 @@
     ]
   },
   {
-    "__docId__": 446,
+    "__docId__": 447,
     "kind": "test",
     "name": "describe38",
     "testId": 38,
@@ -7953,7 +7971,7 @@
     "lineNumber": 148
   },
   {
-    "__docId__": 447,
+    "__docId__": 448,
     "kind": "test",
     "name": "it39",
     "testId": 39,
@@ -7975,7 +7993,7 @@
     ]
   },
   {
-    "__docId__": 448,
+    "__docId__": 449,
     "kind": "test",
     "name": "it40",
     "testId": 40,
@@ -7998,7 +8016,7 @@
     ]
   },
   {
-    "__docId__": 449,
+    "__docId__": 450,
     "kind": "test",
     "name": "it41",
     "testId": 41,
@@ -8022,7 +8040,7 @@
     ]
   },
   {
-    "__docId__": 450,
+    "__docId__": 451,
     "kind": "test",
     "name": "describe42",
     "testId": 42,
@@ -8035,7 +8053,7 @@
     "lineNumber": 252
   },
   {
-    "__docId__": 451,
+    "__docId__": 452,
     "kind": "test",
     "name": "it43",
     "testId": 43,
@@ -8057,7 +8075,7 @@
     ]
   },
   {
-    "__docId__": 452,
+    "__docId__": 453,
     "kind": "test",
     "name": "it44",
     "testId": 44,
@@ -8079,7 +8097,7 @@
     ]
   },
   {
-    "__docId__": 453,
+    "__docId__": 454,
     "kind": "test",
     "name": "it45",
     "testId": 45,
@@ -8102,7 +8120,7 @@
     ]
   },
   {
-    "__docId__": 454,
+    "__docId__": 455,
     "kind": "testFile",
     "name": "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts",
     "content": "import { expect } from '@integration/testing-tools';\nimport { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } from '@serenity-js/core';\nimport { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { FileSystemLocation, Path } from '@serenity-js/core/lib/io';\nimport {\n    Category,\n    Duration,\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionIgnored,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    ImplementationPending,\n    JSONData,\n    Name,\n    ScenarioDetails,\n    TestReport,\n    Timestamp,\n} from '@serenity-js/core/lib/model';\nimport 'mocha';\n\nimport * as sinon from 'sinon';\nimport { SerenityBDDReporter } from '../../../../src/stage';\nimport { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';\nimport { given } from '../given';\nimport { create } from './create';\n\ndescribe('SerenityBDDReporter', () => {\n\n    const\n        startTime = Timestamp.fromJSON('2018-05-25T00:00:00.123Z'),\n        scenarioDuration = Duration.ofMilliseconds(142);\n\n    const defaultCardScenario = new ScenarioDetails(\n        new Name('Paying with a default card'),\n        new Category('Online Checkout'),\n        new FileSystemLocation(\n            new Path(`payments/checkout.feature`),\n        ),\n    );\n\n    const voucherScenario = new ScenarioDetails(\n        new Name('Paying with a voucher'),\n        new Category('Online Checkout'),\n        new FileSystemLocation(\n            new Path(`payments/checkout.feature`),\n        ),\n    );\n\n    let stage: Stage,\n        stageManager: sinon.SinonStubbedInstance<StageManager>,\n        reporter: SerenityBDDReporter;\n\n    beforeEach(() => {\n        const env = create();\n\n        stageManager    = env.stageManager;\n        stage           = env.stage;\n        reporter        = env.reporter;\n    });\n\n    describe('generates a SerenityBDDReport Artifact that', () => {\n\n        let artifact: JSONData;\n\n        beforeEach(() => {\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new TestRunFinishes(),\n            );\n\n            expect(stageManager.notifyOf.callCount).to.equal(1);\n\n            artifact = stageManager.notifyOf.firstCall.lastArg.artifact;\n        });\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {SceneFinished}\n         * @test {ExecutionSuccessful}\n         * @test {TestRunFinishes}\n         */\n        it('is a valid artifact', () => {\n            expect(artifact).to.be.instanceOf(TestReport);\n        });\n    });\n\n    describe('emits an ArtifactGenerated event that', () => {\n\n        /**\n         * @test {SerenityBDDReporter}\n         * @test {SceneStarts}\n         * @test {SceneFinished}\n         * @test {TestRunFinishes}\n         * @test {ExecutionSuccessful}\n         * @test {ExecutionIgnored}\n         */\n        it('is separate for each scenario', () => {\n            given(reporter).isNotifiedOfFollowingEvents(\n                new SceneStarts(defaultCardScenario),\n                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                new SceneStarts(voucherScenario),\n                new SceneFinished(voucherScenario, new ExecutionIgnored()),\n                new TestRunFinishes(),\n            );\n\n            expect(stageManager.notifyOf.callCount).to.equal(2);\n\n            const\n                event1: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,\n                event2: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;\n\n            expect(event1.artifact.map(_ => _).name).to.equal(defaultCardScenario.name.value);\n\n            expect(event2.artifact.map(_ => _).name).to.equal(voucherScenario.name.value);\n        });\n    });\n\n    describe('produces a SerenityBDDReport that', () => {\n\n        let report: SerenityBDDReport;\n\n        describe('at the scenario level', () => {\n\n            beforeEach(() => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneStarts(defaultCardScenario, startTime),\n                    new SceneFinished(defaultCardScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('contains the id of the scenario', () => {\n                expect(report.id).to.equal('online-checkout;paying-with-a-default-card');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('contains the name of the scenario', () => {\n                expect(report.name).to.equal(defaultCardScenario.name.value);\n                expect(report.title).to.equal(defaultCardScenario.name.value);\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('contains the start time of the scenario', () => {\n                expect(report.startTime).to.equal(startTime.toMillisecondTimestamp());\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('contains the duration of the scenario', () => {\n                expect(report.duration).to.equal(scenarioDuration.inMilliseconds());\n            });\n        });\n\n        describe('describes the result of scenario execution that', () => {\n\n            beforeEach(() => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneStarts(defaultCardScenario),\n                );\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('has finished with success', () => {\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('SUCCESS');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ImplementationPending}\n             */\n            it('hasn\\'t been implemented yet', () => {\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('PENDING');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionIgnored}\n             */\n            it('has been ignored', () => {\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionIgnored()),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('IGNORED');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSkipped}\n             */\n            it('has been skipped', () => {\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionSkipped()),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('SKIPPED');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionFailedWithAssertionError}\n             */\n            it('has failed with an assertion error', () => {\n\n                const assertionError = new AssertionError('expected true to equal false', false, true);\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('FAILURE');\n                expect(report.testFailureCause.errorType).to.equal('AssertionError');\n                expect(report.testFailureCause.message).to.equal('expected true to equal false');\n                expect(report.testFailureCause.stackTrace).to.be.an('array');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {TestCompromisedError}\n             * @test {ExecutionCompromised}\n             */\n            it('has been compromised', () => {\n\n                // const assertionError = new AssertionError('expected true to equal false', false, true);\n                const assertionError = new TestCompromisedError('expected true to equal false');\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionCompromised(assertionError)),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('COMPROMISED');\n                expect(report.testFailureCause.errorType).to.equal('TestCompromisedError');\n                expect(report.testFailureCause.message).to.equal('expected true to equal false');\n                expect(report.testFailureCause.stackTrace).to.be.an('array');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionFailedWithError}\n             */\n            it('has failed with a non-assertion error', () => {\n                const error = new Error(\"We're sorry, something happened\");\n\n                error.stack = [\n                    \"Error: We're sorry, something happened\",\n                    '    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)',\n                    '    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)',\n                    // and so on\n                ].join('\\n');\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionFailedWithError(error)),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('ERROR');\n                expect(report.testFailureCause).to.deep.equal({\n                    errorType: 'Error',\n                    message: `We're sorry, something happened`,\n                    stackTrace: [ {\n                        declaringClass: '',\n                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',\n                        lineNumber: 326,\n                        methodName: 'callFn()',\n                    }, {\n                        declaringClass: '',\n                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',\n                        lineNumber: 319,\n                        methodName: 'Test.Runnable.run()',\n                    } ],\n                });\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionCompromised}\n             */\n            it('has been compromised', () => {\n                const dbError = new Error(`Could not connect to the database`);\n                dbError.stack = [\n                    'Error: Could not connect to the database',\n                    '    at callFn (/fake/path/node_modules/db-module/index.js:56:78)',\n                    // and so on\n                ].join('\\n');\n\n                const error = new TestCompromisedError(`Test database not deployed, no point running the test`, dbError);\n                error.stack = [\n                    'TestCompromisedError: Test database not deployed, no point running the test',\n                    '    at callFn (/fake/path/my-test/index.js:12:34)',\n                    // and so on\n                ].join('\\n');\n\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionCompromised(error)),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.result).to.equal('COMPROMISED');\n                expect(report.testFailureCause).to.deep.equal({\n                    errorType: 'TestCompromisedError',\n                    message: `Test database not deployed, no point running the test`,\n                    stackTrace: [\n                        {\n                            declaringClass: '',\n                            fileName: '/fake/path/my-test/index.js',\n                            lineNumber: 12,\n                            methodName: 'callFn()',\n                        },\n                    ],\n                    rootCause: {\n                        errorType: `Error`,\n                        message: `Could not connect to the database`,\n                        stackTrace: [\n                            {\n                                declaringClass: '',\n                                fileName: '/fake/path/node_modules/db-module/index.js',\n                                lineNumber: 56,\n                                methodName: 'callFn()',\n                            },\n                        ],\n                    },\n                });\n            });\n        });\n\n        describe('indicates its execution context', () => {\n\n            beforeEach(() => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneStarts(defaultCardScenario),\n                );\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {TestRunnerDetected}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('specifies the test runner', () => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new TestRunnerDetected(new Name('Cucumber')),\n                    new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.testSource).to.equal('Cucumber');\n            });\n\n            /**\n             * @test {SerenityBDDReporter}\n             * @test {SceneStarts}\n             * @test {SceneFinished}\n             * @test {TestRunFinishes}\n             * @test {ExecutionSuccessful}\n             */\n            it('specifies the user story covered', () => {\n                given(reporter).isNotifiedOfFollowingEvents(\n                    new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),\n                    new TestRunFinishes(),\n                );\n\n                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);\n\n                expect(report.userStory).to.deep.equal({\n                    id: 'online-checkout',\n                    storyName: 'Online Checkout',           // category name, a.k.a. feature name\n                    path: 'payments/checkout.feature',\n                    type: 'feature',\n                });\n            });\n\n            describe('reports information from the cucumber feature file', () => {\n\n                /** @test {SerenityBDDReporter} */\n                it('reports the scenario-level narrative');\n\n                /** @test {SerenityBDDReporter} */\n                it('reports the scenario-level background title');\n\n                /** @test {SerenityBDDReporter} */\n                it('reports the scenario-level background description');\n            });\n        });\n    });\n\n    describe('attachements', () => {\n        it('todo');\n        // todo:\n        // - screenshots\n        // - html source\n        // - http request/responses\n        // - arbitrary text data\n    });\n\n    describe('Error handling', () => {\n\n        // todo: node-cleanup\n        it('generates the report even when the test runner has crashed');\n    });\n});\n\n// todo: Does the scene need a correlation ID?\n// todo: 'ParametrisedSceneStarts'(scenedetails, parameters)\n",
@@ -8113,7 +8131,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 455,
+    "__docId__": 456,
     "kind": "test",
     "name": "describe46",
     "testId": 46,
@@ -8126,7 +8144,7 @@
     "lineNumber": 29
   },
   {
-    "__docId__": 456,
+    "__docId__": 457,
     "kind": "test",
     "name": "describe47",
     "testId": 47,
@@ -8139,7 +8157,7 @@
     "lineNumber": 63
   },
   {
-    "__docId__": 457,
+    "__docId__": 458,
     "kind": "test",
     "name": "it48",
     "testId": 48,
@@ -8159,7 +8177,7 @@
     ]
   },
   {
-    "__docId__": 458,
+    "__docId__": 459,
     "kind": "test",
     "name": "describe49",
     "testId": 49,
@@ -8172,7 +8190,7 @@
     "lineNumber": 91
   },
   {
-    "__docId__": 459,
+    "__docId__": 460,
     "kind": "test",
     "name": "it50",
     "testId": 50,
@@ -8193,7 +8211,7 @@
     ]
   },
   {
-    "__docId__": 460,
+    "__docId__": 461,
     "kind": "test",
     "name": "describe51",
     "testId": 51,
@@ -8206,7 +8224,7 @@
     "lineNumber": 122
   },
   {
-    "__docId__": 461,
+    "__docId__": 462,
     "kind": "test",
     "name": "describe52",
     "testId": 52,
@@ -8219,7 +8237,7 @@
     "lineNumber": 126
   },
   {
-    "__docId__": 462,
+    "__docId__": 463,
     "kind": "test",
     "name": "it53",
     "testId": 53,
@@ -8239,7 +8257,7 @@
     ]
   },
   {
-    "__docId__": 463,
+    "__docId__": 464,
     "kind": "test",
     "name": "it54",
     "testId": 54,
@@ -8259,7 +8277,7 @@
     ]
   },
   {
-    "__docId__": 464,
+    "__docId__": 465,
     "kind": "test",
     "name": "it55",
     "testId": 55,
@@ -8279,7 +8297,7 @@
     ]
   },
   {
-    "__docId__": 465,
+    "__docId__": 466,
     "kind": "test",
     "name": "it56",
     "testId": 56,
@@ -8299,7 +8317,7 @@
     ]
   },
   {
-    "__docId__": 466,
+    "__docId__": 467,
     "kind": "test",
     "name": "describe57",
     "testId": 57,
@@ -8312,7 +8330,7 @@
     "lineNumber": 184
   },
   {
-    "__docId__": 467,
+    "__docId__": 468,
     "kind": "test",
     "name": "it58",
     "testId": 58,
@@ -8332,7 +8350,7 @@
     ]
   },
   {
-    "__docId__": 468,
+    "__docId__": 469,
     "kind": "test",
     "name": "it59",
     "testId": 59,
@@ -8352,7 +8370,7 @@
     ]
   },
   {
-    "__docId__": 469,
+    "__docId__": 470,
     "kind": "test",
     "name": "it60",
     "testId": 60,
@@ -8372,7 +8390,7 @@
     ]
   },
   {
-    "__docId__": 470,
+    "__docId__": 471,
     "kind": "test",
     "name": "it61",
     "testId": 61,
@@ -8392,7 +8410,7 @@
     ]
   },
   {
-    "__docId__": 471,
+    "__docId__": 472,
     "kind": "test",
     "name": "it62",
     "testId": 62,
@@ -8412,7 +8430,7 @@
     ]
   },
   {
-    "__docId__": 472,
+    "__docId__": 473,
     "kind": "test",
     "name": "it63",
     "testId": 63,
@@ -8433,7 +8451,7 @@
     ]
   },
   {
-    "__docId__": 473,
+    "__docId__": 474,
     "kind": "test",
     "name": "it64",
     "testId": 64,
@@ -8453,7 +8471,7 @@
     ]
   },
   {
-    "__docId__": 474,
+    "__docId__": 475,
     "kind": "test",
     "name": "it65",
     "testId": 65,
@@ -8473,7 +8491,7 @@
     ]
   },
   {
-    "__docId__": 475,
+    "__docId__": 476,
     "kind": "test",
     "name": "describe66",
     "testId": 66,
@@ -8486,7 +8504,7 @@
     "lineNumber": 417
   },
   {
-    "__docId__": 476,
+    "__docId__": 477,
     "kind": "test",
     "name": "it67",
     "testId": 67,
@@ -8507,7 +8525,7 @@
     ]
   },
   {
-    "__docId__": 477,
+    "__docId__": 478,
     "kind": "test",
     "name": "it68",
     "testId": 68,
@@ -8527,7 +8545,7 @@
     ]
   },
   {
-    "__docId__": 478,
+    "__docId__": 479,
     "kind": "test",
     "name": "describe69",
     "testId": 69,
@@ -8540,7 +8558,7 @@
     "lineNumber": 468
   },
   {
-    "__docId__": 479,
+    "__docId__": 480,
     "kind": "test",
     "name": "it70",
     "testId": 70,
@@ -8556,7 +8574,7 @@
     ]
   },
   {
-    "__docId__": 480,
+    "__docId__": 481,
     "kind": "test",
     "name": "it71",
     "testId": 71,
@@ -8572,7 +8590,7 @@
     ]
   },
   {
-    "__docId__": 481,
+    "__docId__": 482,
     "kind": "test",
     "name": "it72",
     "testId": 72,
@@ -8588,7 +8606,7 @@
     ]
   },
   {
-    "__docId__": 482,
+    "__docId__": 483,
     "kind": "test",
     "name": "describe73",
     "testId": 73,
@@ -8601,7 +8619,7 @@
     "lineNumber": 482
   },
   {
-    "__docId__": 483,
+    "__docId__": 484,
     "kind": "test",
     "name": "it74",
     "testId": 74,
@@ -8614,7 +8632,7 @@
     "lineNumber": 483
   },
   {
-    "__docId__": 484,
+    "__docId__": 485,
     "kind": "test",
     "name": "describe75",
     "testId": 75,
@@ -8627,7 +8645,7 @@
     "lineNumber": 491
   },
   {
-    "__docId__": 485,
+    "__docId__": 486,
     "kind": "test",
     "name": "it76",
     "testId": 76,
