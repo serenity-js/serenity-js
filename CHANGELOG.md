@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/serenity-js/serenity-js/compare/v2.1.0...v2.1.1) (2020-02-08)
+
+
+### Bug Fixes
+
+* **protractor:** detect the browser name and version, as well as the platform name and version ([9965918](https://github.com/serenity-js/serenity-js/commit/99659187b99bb2d97f8cc51910a4f12f2685875c)), closes [#455](https://github.com/serenity-js/serenity-js/issues/455)
+
+
+
+
+
 # [2.1.0](https://github.com/serenity-js/serenity-js/compare/v2.0.9...v2.1.0) (2020-02-07)
 
 
