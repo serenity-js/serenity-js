@@ -25,12 +25,22 @@ export class StandardisedCapabilities {
                 ? `${ caps.get('deviceManufacturer') } ${ caps.get('deviceModel') }`
                 : undefined,
             caps => caps.has('mobile') && caps.get('mobile').version,
+        ).
+        then(version =>
+            this.get(
+                caps => !! caps.get('mobileEmulationEnabled') && '(mobile emulation)',
+            ).then(suffix =>
+                [
+                    version,
+                    suffix,
+                ].filter(_ => !!_).join(' '),
+            ),
         );
     }
 
     platformName(): PromiseLike<string> {
         return this.get(
-            caps => (caps.has('platformName') && ! /any/i.test(caps.get('platformName')))
+            caps => (!! caps.get('platformName') && ! /any/i.test(caps.get('platformName')))
                 ? caps.get('platformName')
                 : caps.get('platform'),
         );
