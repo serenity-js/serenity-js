@@ -1,10 +1,9 @@
 import { ScenarioDetails } from '@serenity-js/core/lib/model';
-import { IDGenerator } from './IDGenerator';
 import { SceneReport } from './SceneReport';
+import { SceneReportId } from './SceneReportId';
 
 /** @package */
 export class SceneReports {
-    private static idGenerator = new IDGenerator();
     private readonly reports: { [entryId: string]: SceneReport } = {};
 
     for(scenarioDetails: ScenarioDetails): SceneReport {
@@ -36,10 +35,9 @@ export class SceneReports {
     }
 
     private correlationIdFor(scenarioDetails: ScenarioDetails): string {
-        return SceneReports.idGenerator.generateFrom(
-            scenarioDetails.category,
-            scenarioDetails.name,
-            scenarioDetails.location.path,      // todo: should this include the line?
-        );
+        return new SceneReportId(scenarioDetails.category.value)
+            .append(scenarioDetails.name.value)
+            .append(scenarioDetails.location.path.value)    // todo: should this include the line?
+            .value;
     }
 }

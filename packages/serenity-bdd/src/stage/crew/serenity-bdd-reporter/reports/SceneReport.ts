@@ -24,8 +24,8 @@ import { JSONObject, match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 import { inspect } from 'util';
 import { DataTable, DataTableDataSetDescriptor, ErrorDetails, SerenityBDDReport, TestStep } from '../SerenityBDDJsonSchema';
-import { IDGenerator } from './IDGenerator';
 import { OutcomeMapper } from './OutcomeMapper';
+import { SceneReportId } from './SceneReportId';
 
 /** @access private */
 function extractValues<T>(dictionary: {[key: string]: T}) {
@@ -43,7 +43,6 @@ interface ScenarioParametersResultLocation {
 /** @package */
 export class SceneReport {
     private static outcomeMapper = new OutcomeMapper();
-    private static idGenerator = new IDGenerator();
 
     private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };
     private readonly activities = new ActivityStack();
@@ -55,7 +54,7 @@ export class SceneReport {
         this.report = {
             name:   this.scenarioDetails.name.value,
             title:  this.scenarioDetails.name.value,
-            id:     SceneReport.idGenerator.generateFrom(this.scenarioDetails.category, this.scenarioDetails.name),
+            id:     new SceneReportId(this.scenarioDetails.category.value).append(this.scenarioDetails.name.value).value,
             manual: false,
             testSteps: [],
             get children() {
@@ -64,7 +63,7 @@ export class SceneReport {
                 return this.testSteps;
             },
             userStory: {
-                id:         SceneReport.idGenerator.generateFrom(this.scenarioDetails.category),
+                id:         new SceneReportId(this.scenarioDetails.category.value).value,
                 storyName:  this.scenarioDetails.category.value,
                 path:       this.scenarioDetails.location.path.value,
                 type:       'feature',
@@ -115,10 +114,12 @@ export class SceneReport {
                 .when(BrowserTag,    (browserTag: BrowserTag) => {
                     report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');
                     report.driver    = browserTag.browserName;
+                    report.id        = new SceneReportId(browserTag.name, report.id).value;
                 })
                 .when(PlatformTag,   (platformTag: PlatformTag) => {
                     // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files
                     // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
+                    report.id        = new SceneReportId(platformTag.name, report.id).value;
                 })
                 .when(ContextTag,    _ => (report.context   = tag.name))
                 .else(_ => void 0);
