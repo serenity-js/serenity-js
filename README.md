@@ -17,9 +17,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 
 **Find out more at [serenity-js.org](https://serenity-js.org)!**
 
-<!-- 
 [![Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern](https://img.youtube.com/vi/djPMf-n93Rw/0.jpg)](https://www.youtube.com/watch?v=djPMf-n93Rw)
--->
 
 ## Help and Support
 
