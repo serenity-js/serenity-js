@@ -161,46 +161,63 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/Target.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElements&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElements&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/isActive.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
-<span class="hljs-comment">/**
- * @public
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Target  {
-    <span class="hljs-keyword">static</span> the(name: <span class="hljs-built_in">string</span>) {
-        <span class="hljs-keyword">return</span> {
-            located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElement</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElement(name, byLocator),
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, not } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-            of: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
-                <span class="hljs-keyword">return</span> {
-                    located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElement</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">new</span> TargetElement(name, byLocator)),
-                };
-            },
-        };
-    }
+<span class="hljs-keyword">import</span> { Click, isActive, Navigate, Target, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../fixtures&apos;</span>;
 
-    <span class="hljs-keyword">static</span> all(name: <span class="hljs-built_in">string</span>) {
-        <span class="hljs-keyword">return</span> {
-            located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElements</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElements(name, byLocator),
+describe(<span class="hljs-string">&apos;isActive&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-            of: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
-                <span class="hljs-keyword">return</span> {
-                    located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElements</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">new</span> TargetElements(name, byLocator)),
-                };
-            },
-        };
-    }
-}
+    <span class="hljs-keyword">const</span> Page = {
+        Active_Input:       Target.the(<span class="hljs-string">&apos;active input&apos;</span>).located(by.id(<span class="hljs-string">&apos;active&apos;</span>)),
+        Inactive_Input:     Target.the(<span class="hljs-string">&apos;inactive input&apos;</span>).located(by.id(<span class="hljs-string">&apos;inactive&apos;</span>)),
+    };
+
+    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        Navigate.to(pageFromTemplate(<span class="hljs-string">`
+            &lt;html&gt;
+                &lt;body&gt;
+                    &lt;input type=&quot;text&quot; id=&quot;active&quot; /&gt;
+                    &lt;input type=&quot;text&quot; id=&quot;inactive&quot; /&gt;
+                &lt;/body&gt;
+            &lt;/html&gt;
+        `</span>)),
+    ));
+
+    <span class="hljs-comment">/** @test {isActive} */</span>
+    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is active&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        Wait.until(Page.Active_Input, not(isActive())),
+        Ensure.that(Page.Active_Input, not(isActive())),
+        Click.on(Page.Active_Input),
+        Wait.until(Page.Active_Input, isActive()),
+        Ensure.that(Page.Active_Input, isActive()),
+    )).to.be.fulfilled);
+
+    <span class="hljs-comment">/** @test {isActive} */</span>
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is inactive&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(Page.Inactive_Input, isActive()),
+        )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the inactive input to become active`</span>);
+    });
+
+    <span class="hljs-comment">/** @test {isActive} */</span>
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        expect(Ensure.that(Page.Active_Input, isActive()).toString())
+            .to.equal(<span class="hljs-string">`#actor ensures that the active input does become active`</span>);
+    });
+
+    <span class="hljs-comment">/** @test {isActive} */</span>
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        expect(Wait.until(Page.Active_Input, isActive()).toString())
+            .to.equal(<span class="hljs-string">`#actor waits up to 5s until the active input does become active`</span>);
+    });
+});
 </code></pre>
 
 </article>

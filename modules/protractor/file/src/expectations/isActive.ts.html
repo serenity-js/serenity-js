@@ -161,45 +161,29 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/Target.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElements&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElements&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/isActive.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { ElementFinder, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { ElementFinderExpectation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ElementFinderExpectation&apos;</span>;
 
 <span class="hljs-comment">/**
- * @public
+ * @desc
+ *  Expectation that the element is active.
+ *
+ * @returns {Expectation&lt;boolean, ElementFinder&gt;}
+ *
+ * @see {@link @serenity-js/assertions~Ensure}
+ * @see {@link @serenity-js/assertions~Check}
+ * @see {@link Wait}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Target  {
-    <span class="hljs-keyword">static</span> the(name: <span class="hljs-built_in">string</span>) {
-        <span class="hljs-keyword">return</span> {
-            located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElement</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElement(name, byLocator),
-
-            of: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
-                <span class="hljs-keyword">return</span> {
-                    located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElement</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">new</span> TargetElement(name, byLocator)),
-                };
-            },
-        };
-    }
-
-    <span class="hljs-keyword">static</span> all(name: <span class="hljs-built_in">string</span>) {
-        <span class="hljs-keyword">return</span> {
-            located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElements</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElements(name, byLocator),
-
-            of: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
-                <span class="hljs-keyword">return</span> {
-                    located: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElements</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">new</span> TargetElements(name, byLocator)),
-                };
-            },
-        };
-    }
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isActive</span>(<span class="hljs-params"></span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">boolean</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
+    <span class="hljs-keyword">return</span> ElementFinderExpectation.forElementTo(<span class="hljs-string">&apos;become active&apos;</span>, <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span>
+        actual.getWebElement().then(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span>
+            element.getDriver().switchTo().activeElement().then(<span class="hljs-function">(<span class="hljs-params">active: WebElement</span>) =&gt;</span>
+                actual.equals(active),
+            ),
+        ),
+    );
 }
 </code></pre>
 

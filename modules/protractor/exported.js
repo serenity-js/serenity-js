@@ -1,5 +1,6 @@
 /** @external {@serenity-js/protractor/lib/adapter~Config} /modules/protractor/class/src/adapter/Config.ts~Config.html */
 /** @external {@serenity-js/protractor/lib/adapter~run} /modules/protractor/function/src/adapter/run.ts~run.html */
+/** @external {@serenity-js/protractor/lib/expectations~isActive} /modules/protractor/function/src/expectations/isActive.ts~isActive.html */
 /** @external {@serenity-js/protractor/lib/expectations~isClickable} /modules/protractor/function/src/expectations/isClickable.ts~isClickable.html */
 /** @external {@serenity-js/protractor/lib/expectations~isEnabled} /modules/protractor/function/src/expectations/isEnabled.ts~isEnabled.html */
 /** @external {@serenity-js/protractor/lib/expectations~isPresent} /modules/protractor/function/src/expectations/isPresent.ts~isPresent.html */

@@ -112,7 +112,8 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isPresent">isPresent</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSelected">isSelected</a></span></span></li>
@@ -166,6 +167,35 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/assertions/class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>boolean</span>, <span>ElementFinder</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Expectation that the element is active.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -344,6 +374,73 @@
 <div data-ice="details"><h2 data-ice="title">Static Public </h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-isActive">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">isActive</span><span class="code" data-ice="signature">(): <span><a href="/modules/assertions/class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>boolean</span>, <span>ElementFinder</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/expectations/isActive.ts.html#lineNumber24">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {isActive} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/expectations&apos;</span></code></pre></div>
+  
+  
+  <div data-ice="description"><p> Expectation that the element is active.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/assertions/class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>boolean</span>, <span>ElementFinder</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isActive.spec.ts.html#lineNumber30">isActive allows the actor flow to continue when the element is active</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isActive.spec.ts.html#lineNumber39">isActive breaks the actor flow when element is inactive</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isActive.spec.ts.html#lineNumber46">isActive contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isActive.spec.ts.html#lineNumber52">isActive contributes to a human-readable description of a wait</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li>
+<li><span><span><a href="/modules/assertions/class/src/Check.ts~Check.html">Check</a></span></span></li>
+<li><span><span><a href="class/src/screenplay/interactions/Wait.ts~Wait.html">Wait</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-function-isClickable">
     <span class="access" data-ice="access">public</span>
     
@@ -398,11 +495,11 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber30">isClickable allows the actor flow to continue when the element is clickable</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber36">isClickable breaks the actor flow when element is disabled</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber43">isClickable breaks the actor flow when element is not visible</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber50">isClickable contributes to a human-readable description of an assertion</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber56">isClickable contributes to a human-readable description of a wait</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber32">isClickable allows the actor flow to continue when the element is clickable</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber38">isClickable breaks the actor flow when element is disabled</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber45">isClickable breaks the actor flow when element is not visible</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber52">isClickable contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isClickable.spec.ts.html#lineNumber58">isClickable contributes to a human-readable description of a wait</a></span></li>
 </ul>
   </div>
 
@@ -466,10 +563,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber28">isEnabled allows the actor flow to continue when the element is enabled</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber34">isEnabled breaks the actor flow when element is disabled</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber41">isEnabled contributes to a human-readable description of an assertion</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber47">isEnabled contributes to a human-readable description of a wait</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber30">isEnabled allows the actor flow to continue when the element is enabled</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber36">isEnabled breaks the actor flow when element is disabled</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber43">isEnabled contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber49">isEnabled contributes to a human-readable description of a wait</a></span></li>
 </ul>
   </div>
 
@@ -534,10 +631,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber27">isPresent allows the actor flow to continue when the element is present in the DOM</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber33">isPresent breaks the actor flow when element is not present in the DOM</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber40">isPresent contributes to a human-readable description of an assertion</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber46">isPresent contributes to a human-readable description of a wait</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber29">isPresent allows the actor flow to continue when the element is present in the DOM</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber35">isPresent breaks the actor flow when element is not present in the DOM</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber42">isPresent contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isPresent.spec.ts.html#lineNumber48">isPresent contributes to a human-readable description of a wait</a></span></li>
 </ul>
   </div>
 
@@ -601,11 +698,11 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber31">isSelected allows the actor flow to continue when the element is selected</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber37">isSelected breaks the actor flow when element is not selected</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber44">isSelected breaks the actor flow when element is not present</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber51">isSelected contributes to a human-readable description of an assertion</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber57">isSelected contributes to a human-readable description of a wait</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber33">isSelected allows the actor flow to continue when the element is selected</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber39">isSelected breaks the actor flow when element is not selected</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber46">isSelected breaks the actor flow when element is not present</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber53">isSelected contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isSelected.spec.ts.html#lineNumber59">isSelected contributes to a human-readable description of a wait</a></span></li>
 </ul>
   </div>
 
@@ -669,10 +766,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber29">isVisible allows the actor flow to continue when the element is visible</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber35">isVisible breaks the actor flow when element is not visible</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber42">isVisible contributes to a human-readable description of an assertion</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber48">isVisible contributes to a human-readable description of a wait</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber31">isVisible allows the actor flow to continue when the element is visible</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber37">isVisible breaks the actor flow when element is not visible</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber44">isVisible contributes to a human-readable description of an assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/expectations/isVisible.spec.ts.html#lineNumber50">isVisible contributes to a human-readable description of a wait</a></span></li>
 </ul>
   </div>
 

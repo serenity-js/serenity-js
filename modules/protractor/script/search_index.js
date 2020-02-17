@@ -228,6 +228,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/expectations~isactive",
+    "function/index.html#static-function-isActive",
+    "<span>isActive</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/expectations</span>",
+    "function"
+  ],
+  [
     "@serenity-js/protractor/lib/expectations~isclickable",
     "function/index.html#static-function-isClickable",
     "<span>isClickable</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/expectations</span>",
@@ -2815,163 +2821,193 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber11",
+    "isActive",
+    "test"
+  ],
+  [
+    "isactive src/expectations/isactive.ts~isactive,isactive",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber30",
+    "isActive allows the actor flow to continue when the element is active",
+    "test"
+  ],
+  [
+    "isactive src/expectations/isactive.ts~isactive,isactive",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber39",
+    "isActive breaks the actor flow when element is inactive",
+    "test"
+  ],
+  [
+    "isactive src/expectations/isactive.ts~isactive,isactive",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber52",
+    "isActive contributes to a human-readable description of a wait",
+    "test"
+  ],
+  [
+    "isactive src/expectations/isactive.ts~isactive,isactive",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber46",
+    "isActive contributes to a human-readable description of an assertion",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber11",
     "isClickable",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber30",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber32",
     "isClickable allows the actor flow to continue when the element is clickable",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber36",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber38",
     "isClickable breaks the actor flow when element is disabled",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber43",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber45",
     "isClickable breaks the actor flow when element is not visible",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber56",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber58",
     "isClickable contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber50",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber52",
     "isClickable contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber11",
     "isEnabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber30",
     "isEnabled allows the actor flow to continue when the element is enabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber34",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber36",
     "isEnabled breaks the actor flow when element is disabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber47",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber49",
     "isEnabled contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber41",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber43",
     "isEnabled contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber11",
     "isPresent",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber27",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber29",
     "isPresent allows the actor flow to continue when the element is present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber33",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber35",
     "isPresent breaks the actor flow when element is not present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber46",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber48",
     "isPresent contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber40",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber42",
     "isPresent contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber11",
     "isSelected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber31",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber33",
     "isSelected allows the actor flow to continue when the element is selected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber44",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber46",
     "isSelected breaks the actor flow when element is not present",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber37",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber39",
     "isSelected breaks the actor flow when element is not selected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber57",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber59",
     "isSelected contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber51",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber53",
     "isSelected contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber11",
     "isVisible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber29",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber31",
     "isVisible allows the actor flow to continue when the element is visible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber35",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber37",
     "isVisible breaks the actor flow when element is not visible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber50",
     "isVisible contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber42",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber44",
     "isVisible contributes to a human-readable description of an assertion",
     "test"
   ],
@@ -2997,6 +3033,12 @@ window.esdocSearchIndex = [
     "spec/adapter/reporter/protractorreporter.spec.ts",
     "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html",
     "spec/adapter/reporter/ProtractorReporter.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/expectations/isactive.spec.ts",
+    "test-file/spec/expectations/isActive.spec.ts.html",
+    "spec/expectations/isActive.spec.ts",
     "testFile"
   ],
   [
@@ -3309,6 +3351,12 @@ window.esdocSearchIndex = [
     "src/expectations/index.ts",
     "file/src/expectations/index.ts.html",
     "src/expectations/index.ts",
+    "file"
+  ],
+  [
+    "src/expectations/isactive.ts",
+    "file/src/expectations/isActive.ts.html",
+    "src/expectations/isActive.ts",
     "file"
   ],
   [
