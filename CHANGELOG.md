@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/serenity-js/serenity-js/compare/v2.1.5...v2.2.0) (2020-02-17)
+
+
+### Features
+
+* **protractor:** expectation to check if an element isActive() ([bb7f6c5](https://github.com/serenity-js/serenity-js/commit/bb7f6c58e481b37793123ce0ba2ff1177240ba8b))
+
+
+
+
+
 ## [2.1.5](https://github.com/serenity-js/serenity-js/compare/v2.1.4...v2.1.5) (2020-02-10)
 
 **Note:** Version bump only for package serenity-js-monorepo
