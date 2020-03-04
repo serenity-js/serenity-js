@@ -34,7 +34,7 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 If you'd like to chat with fellow users of Serenity/JS, join us on [Gitter Chat](https://gitter.im/serenity-js/Lobby).
 
-And if Serenity/JS has made your life a little bit easier, please consider [sponsoring its ongoing development](https://github.com/sponsors/jan-molak) 🙇
+And if Serenity/JS has made your life a little bit easier, please consider [sponsoring its ongoing development](https://github.com/sponsors/serenity-js) 🙇
 
 ## Friends of Serenity/JS
 
