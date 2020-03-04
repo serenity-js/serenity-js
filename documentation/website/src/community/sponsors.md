@@ -11,9 +11,9 @@ layout: handbook.hbs
             Serenity/JS is a free and open-source project downloaded [thousands of times](https://npm-stat.com/charts.html?package=%40serenity-js%2Fcore) each month.
         </p>
         <p>
-            If it made your life easier, please consider joining [those amazing people](https://github.com/sponsors/jan-molak) in [supporting the ongoing development](/support.html) of Serenity/JS! 😊
+            If it made your life easier, please consider joining [those amazing people](https://github.com/sponsors/serenity-js) in [supporting the ongoing development](/support.html) of Serenity/JS! 😊
         </p>
-        <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
+        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
     </div>
 </div>
     

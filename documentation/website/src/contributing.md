@@ -15,9 +15,9 @@ The Serenity/JS Handbook is an evolving project and there are parts of the book 
 You can contribute to the evolution of the Serenity/JS Handbook by:
 - correcting any errors you find - via <i class="far fa-edit"></i> Edit on Github
 - sharing your ideas for topics you'd like to see covered - via [Github issues](https://github.com/serenity-js/serenity-js/issues/new)
-- sponsoring the Serenity/JS project - via [Github Sponsors](https://github.com/sponsors/jan-molak)
+- sponsoring the Serenity/JS project - via [Github Sponsors](https://github.com/sponsors/serenity-js)
 
-<a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a>
+<a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
 
 ## The Serenity/JS Framework
 
