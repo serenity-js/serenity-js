@@ -5,17 +5,33 @@ import { RelativeQuestion } from '../RelativeQuestion';
 import { override } from './override';
 
 /**
+ * @desc
+ *  Locates a single web element located within another web element.
+ *  Instead of using this class directly, please use {@link Target.the} instead.
+ *
  * @public
+ * @see {@link Target}
  */
 export class TargetNestedElement
     implements Question<ElementFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder>
 {
+
+    /**
+     * @desc
+     *
+     * @param {Question<ElementFinder> | ElementFinder} parent
+     * @param {Question<ElementFinder> | ElementFinder} child
+     */
     constructor(
         private readonly parent: Question<ElementFinder> | ElementFinder,
         private readonly child: Question<ElementFinder> | ElementFinder,
     ) {
     }
 
+    /**
+     * @param {Question<ElementFinder> | ElementFinder} parent
+     * @returns {TargetNestedElement}
+     */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElement(parent, this);
     }
