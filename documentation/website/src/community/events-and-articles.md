@@ -48,6 +48,9 @@ _by [Antony Marcano](https://ideas.riverglide.com)_
 _by [Jan Molak](https://janmolak.com) and [John Ferguson Smart](https://johnfergusonsmart.com)_
  
 ## Articles
+- **["Acting Out: Serenity-JS & The Screenplay Pattern"]
+(https://suresoftlimited.com/2020/03/08/acting-out-serenity-js-the-screenplay-pattern)**
+_by [Steven Williams](https://suresoftlimited.com)_
 
 - **["Create an Acceptance Test Framework from Scratch - Cucumber, Protractor, Serenity/JS and the Screenplay Pattern"](https://testifyqa.com/javascript-frameworks/#serenity-js)**   
 _by [Thomas Knee](https://testifyqa.com)_
