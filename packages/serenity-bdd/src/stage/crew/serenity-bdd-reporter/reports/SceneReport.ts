@@ -132,8 +132,7 @@ export class SceneReport {
                     report.id        = new SceneReportId(browserTag.name, report.id).value;
                 })
                 .when(PlatformTag,   (platformTag: PlatformTag) => {
-                    // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files
-                    // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
+                    report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
                     report.id        = new SceneReportId(platformTag.name, report.id).value;
                 })
                 .when(ContextTag,    _ => (report.context   = tag.name))
