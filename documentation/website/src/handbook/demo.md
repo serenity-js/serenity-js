@@ -8,7 +8,7 @@ Learn how Serenity/JS and the Screenplay Pattern can help you break the chains o
 
 
 <figure>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/djPMf-n93Rw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/cf55N2IXPTU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <figcaption><span>Full-stack acceptance testing with Serenity/JS 2.0</span></figcaption>
 </figure>
 
