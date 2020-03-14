@@ -45,7 +45,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  */
-                it('is marked map automated (non-manual) by default', () => {
+                it('is marked as automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
@@ -65,7 +65,7 @@ describe('SerenityBDDReporter', () => {
                  * @test {ExecutionSuccessful}
                  * @test {ManualTag}
                  */
-                it('can be optionally tagged map manual', () => {
+                it('can be optionally tagged as manual', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(defaultCardScenario, new ManualTag()),
                         new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
@@ -77,6 +77,7 @@ describe('SerenityBDDReporter', () => {
                     expect(report.manual).to.equal(true);
                     expect(report.tags).to.deep.include.members([{
                         name: 'Manual',
+                        displayName: 'Manual',
                         type: 'External Tests',
                     }]);
                 });
@@ -104,14 +105,21 @@ describe('SerenityBDDReporter', () => {
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: 'ABC-1234',
-                        type: 'issue',
+                        name:        'ABC-1234',
+                        displayName: 'ABC-1234',
+                        type:        'issue',
                     }, {
-                        name: 'DEF-5678',
-                        type: 'issue',
+                        name:        'DEF-5678',
+                        displayName: 'DEF-5678',
+                        type:        'issue',
                     }]);
 
                     expect(report.issues).to.deep.equal([
+                        'ABC-1234',
+                        'DEF-5678',
+                    ]);
+
+                    expect(report.additionalIssues).to.deep.equal([
                         'ABC-1234',
                         'DEF-5678',
                     ]);
@@ -139,8 +147,9 @@ describe('SerenityBDDReporter', () => {
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: 'regression',
-                        type: 'tag',
+                        name:        'regression',
+                        displayName: 'regression',
+                        type:        'tag',
                     }]);
                 });
             });
@@ -168,11 +177,13 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
                         name: 'Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     });
                 });
 
@@ -199,14 +210,17 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'E-Commerce',
                         type: 'capability',
+                        displayName: 'E-Commerce',
                     }, {
                         name: 'E-Commerce/Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: 'Checkout',
+                        name: 'E-Commerce/Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     });
                 });
 
@@ -235,17 +249,21 @@ describe('SerenityBDDReporter', () => {
                     expect(report.tags).to.deep.include.members([{
                         name: 'Digital',
                         type: 'theme',
+                        displayName: 'Digital',
                     }, {
                         name: 'Digital/E-Commerce',
                         type: 'capability',
+                        displayName: 'E-Commerce',
                     }, {
-                        name: 'Digital/E-Commerce/Checkout',
+                        name: 'E-Commerce/Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: 'Checkout',
+                        name: 'E-Commerce/Checkout',
                         type: 'feature',
+                        displayName: 'Checkout',
                     });
                 });
 
@@ -275,6 +293,7 @@ describe('SerenityBDDReporter', () => {
                             browserName: 'chrome',
                             browserVersion: '80.0.3987.87',
                             name: 'chrome 80.0.3987.87',
+                            displayName: 'chrome 80.0.3987.87',
                             type: 'browser',
                         }]);
                     });
@@ -301,6 +320,7 @@ describe('SerenityBDDReporter', () => {
 
                         expect(report.tags).to.deep.include.members([{
                             name: 'iphone',
+                            displayName: 'iphone',
                             type: 'context',
                         }]);
                     });
@@ -329,11 +349,13 @@ describe('SerenityBDDReporter', () => {
 
                         expect(report.tags).to.deep.include.members([{
                             name: 'safari 13.0.5',
+                            displayName: 'safari 13.0.5',
                             type: 'browser',
                             browserName: 'safari',
                             browserVersion: '13.0.5',
                         }, {
                             name: 'iphone',
+                            displayName: 'iphone',
                             type: 'context',
                         }]);
                     });
