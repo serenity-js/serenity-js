@@ -167,7 +167,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * @test {TestRunFinishes}
                  * @test {ExecutionSuccessful}
                  */</span>
-                it(<span class="hljs-string">&apos;is marked map automated (non-manual) by default&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                it(<span class="hljs-string">&apos;is marked as automated (non-manual) by default&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
                         <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
@@ -187,7 +187,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * @test {ExecutionSuccessful}
                  * @test {ManualTag}
                  */</span>
-                it(<span class="hljs-string">&apos;can be optionally tagged map manual&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                it(<span class="hljs-string">&apos;can be optionally tagged as manual&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
                         <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ManualTag()),
                         <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
@@ -199,6 +199,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     expect(report.manual).to.equal(<span class="hljs-literal">true</span>);
                     expect(report.tags).to.deep.include.members([{
                         name: <span class="hljs-string">&apos;Manual&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Manual&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;External Tests&apos;</span>,
                     }]);
                 });
@@ -226,14 +227,21 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;issue&apos;</span>,
+                        name:        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;ABC-1234&apos;</span>,
+                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
                     }, {
-                        name: <span class="hljs-string">&apos;DEF-5678&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;issue&apos;</span>,
+                        name:        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
                     }]);
 
                     expect(report.issues).to.deep.equal([
+                        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
+                        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                    ]);
+
+                    expect(report.additionalIssues).to.deep.equal([
                         <span class="hljs-string">&apos;ABC-1234&apos;</span>,
                         <span class="hljs-string">&apos;DEF-5678&apos;</span>,
                     ]);
@@ -261,8 +269,9 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;regression&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;tag&apos;</span>,
+                        name:        <span class="hljs-string">&apos;regression&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;regression&apos;</span>,
+                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;tag&apos;</span>,
                     }]);
                 });
             });
@@ -290,11 +299,13 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     expect(report.tags).to.deep.include.members([{
                         name: <span class="hljs-string">&apos;Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
                         name: <span class="hljs-string">&apos;Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
@@ -321,14 +332,17 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     expect(report.tags).to.deep.include.members([{
                         name: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
                     }, {
                         name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
@@ -357,17 +371,21 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     expect(report.tags).to.deep.include.members([{
                         name: <span class="hljs-string">&apos;Digital&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;theme&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Digital&apos;</span>,
                     }, {
                         name: <span class="hljs-string">&apos;Digital/E-Commerce&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
                     }, {
-                        name: <span class="hljs-string">&apos;Digital/E-Commerce/Checkout&apos;</span>,
+                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
                         <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
@@ -397,6 +415,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                             browserName: <span class="hljs-string">&apos;chrome&apos;</span>,
                             browserVersion: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>,
                             name: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
+                            displayName: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
                         }]);
                     });
@@ -423,6 +442,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                         expect(report.tags).to.deep.include.members([{
                             name: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            displayName: <span class="hljs-string">&apos;iphone&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
                         }]);
                     });
@@ -451,11 +471,13 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                         expect(report.tags).to.deep.include.members([{
                             name: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
+                            displayName: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
                             browserName: <span class="hljs-string">&apos;safari&apos;</span>,
                             browserVersion: <span class="hljs-string">&apos;13.0.5&apos;</span>,
                         }, {
                             name: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            displayName: <span class="hljs-string">&apos;iphone&apos;</span>,
                             <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
                         }]);
                     });

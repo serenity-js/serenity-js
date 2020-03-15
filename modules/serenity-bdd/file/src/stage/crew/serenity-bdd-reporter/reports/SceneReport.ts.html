@@ -209,17 +209,22 @@
 
     taggedWith(tag: Tag) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nameOfRecorded</span>(<span class="hljs-params">typeOfTag: { Type: <span class="hljs-built_in">string</span> }</span>) </span>{
-                <span class="hljs-keyword">const</span> serenityBDDCompatible = <span class="hljs-function">(<span class="hljs-params">text: <span class="hljs-built_in">string</span></span>) =&gt;</span> text[<span class="hljs-number">0</span>].toUpperCase() + text.slice(<span class="hljs-number">1</span>);
-
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayNameOfRecorded</span>(<span class="hljs-params">typeOfTag: { Type: <span class="hljs-built_in">string</span> }</span>) </span>{
                 <span class="hljs-keyword">const</span> found = report.tags.find(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> t.type === typeOfTag.Type);
 
-                <span class="hljs-keyword">return</span> found &amp;&amp; serenityBDDCompatible(found.name);
+                <span class="hljs-keyword">return</span> found &amp;&amp; found.displayName;
+            }
+
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serenityBDDTagFrom</span>(<span class="hljs-params">serenityJSTag: Tag</span>): </span>{ name: <span class="hljs-built_in">string</span>, displayName: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> } {
+                <span class="hljs-keyword">return</span> {
+                    ...serenityJSTag.toJSON(),
+                    displayName: serenityJSTag.name.replace(<span class="hljs-regexp">/_+/</span>, <span class="hljs-string">&apos; &apos;</span>),
+                };
             }
 
             <span class="hljs-keyword">const</span> concatenated = (...names: <span class="hljs-built_in">string</span>[]): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> names.filter(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> !! name).join(<span class="hljs-string">&apos;/&apos;</span>);
 
-            <span class="hljs-keyword">const</span> serialisedTag = tag.toJSON();
+            <span class="hljs-keyword">const</span> serenityBDDTag = serenityBDDTagFrom(tag);
 
             <span class="hljs-keyword">if</span> (! report.tags) {
                 report.tags = [];
@@ -227,27 +232,36 @@
 
             match&lt;Tag, <span class="hljs-built_in">void</span>&gt;(tag)
                 .when(ManualTag,     _ =&gt; report.manual = <span class="hljs-literal">true</span>)
-                .when(CapabilityTag, _ =&gt; serialisedTag.name = concatenated(nameOfRecorded(ThemeTag), tag.name))
-                .when(FeatureTag,    _ =&gt; {
-                    serialisedTag.name = concatenated(nameOfRecorded(CapabilityTag), tag.name);
-                    report.featureTag = tag.toJSON();
+                .when(ThemeTag,      _ =&gt; {
+                    serenityBDDTag.displayName = tag.name;
                 })
-                .when(IssueTag,      _ =&gt; (report.issues    = report.issues   || []).push(tag.name))
+                .when(CapabilityTag, _ =&gt; {
+                    serenityBDDTag.name = concatenated(displayNameOfRecorded(ThemeTag), tag.name);
+                    serenityBDDTag.displayName = tag.name;
+                })
+                .when(FeatureTag,    _ =&gt; {
+                    serenityBDDTag.name = concatenated(displayNameOfRecorded(CapabilityTag), tag.name);
+                    serenityBDDTag.displayName = tag.name;
+                    report.featureTag = serenityBDDTag;
+                })
+                .when(IssueTag,      _ =&gt; {
+                    report.issues            = (report.issues           || []).concat(tag.name);
+                    report.additionalIssues  = (report.additionalIssues || []).concat(tag.name);
+                })
                 .when(BrowserTag,    <span class="hljs-function">(<span class="hljs-params">browserTag: BrowserTag</span>) =&gt;</span> {
                     report.context   = [report.context, browserTag.browserName].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
                     report.driver    = browserTag.browserName;
                     report.id        = <span class="hljs-keyword">new</span> SceneReportId(browserTag.name, report.id).value;
                 })
                 .when(PlatformTag,   <span class="hljs-function">(<span class="hljs-params">platformTag: PlatformTag</span>) =&gt;</span> {
-                    <span class="hljs-comment">// todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files</span>
-                    <span class="hljs-comment">// report.context   = [report.context, platformTag.name].filter(part =&gt; !! part).join(&apos;,&apos;);</span>
+                    report.context   = [report.context, platformTag.name].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
                     report.id        = <span class="hljs-keyword">new</span> SceneReportId(platformTag.name, report.id).value;
                 })
                 .when(ContextTag,    _ =&gt; (report.context   = tag.name))
                 .else(_ =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
 
-            <span class="hljs-keyword">if</span> (! report.tags.find(<span class="hljs-function"><span class="hljs-params">current</span> =&gt;</span> equal(current, serialisedTag))) {
-                report.tags.push(serialisedTag);
+            <span class="hljs-keyword">if</span> (! report.tags.find(<span class="hljs-function"><span class="hljs-params">current</span> =&gt;</span> equal(current, serenityBDDTag))) {
+                report.tags.push(serenityBDDTag);
             }
         });
     }

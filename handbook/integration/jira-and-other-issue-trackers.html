@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
-    <title>Contributing | Serenity/JS</title>
+    <title>Jira and other issue trackers | Serenity/JS</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -130,80 +130,114 @@
                 <div class="col-lg-9 col-md-12">
                     <article class="content">
                         <nav class="article-tools">
-                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/contributing.md">
+                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/jira-and-other-issue-trackers.md">
                                 <i class="far fa-edit"></i> Edit on Github</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="contributing">Contributing</h1>
-<p>Thanks for considering contributing your time and talent to help Serenity/JS move forward!</p>
-<p>You&apos;re awesome &#x1F60A;</p>
-<h2 id="the-serenity-js-handbook">The Serenity/JS Handbook</h2>
-<p>The Serenity/JS Handbook is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.</p>
-<p>You can contribute to the evolution of the Serenity/JS Handbook by:</p>
-<ul>
-<li>correcting any errors you find - via <i class="far fa-edit"></i> Edit on Github</li>
-<li>sharing your ideas for topics you&apos;d like to see covered - via <a href="https://github.com/serenity-js/serenity-js/issues/new">Github issues</a></li>
-<li>sponsoring the Serenity/JS project - via <a href="https://github.com/sponsors/serenity-js">Github Sponsors</a></li>
-</ul>
-<p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
-<h2 id="the-serenity-js-framework">The Serenity/JS Framework</h2>
-<p>If you have a question about the framework or its features, please check out the <a href="/support.html">support documentation</a>.</p>
-<h3 id="reporting-defects">Reporting defects</h3>
-<p>If you believe you have found a bug in Serenity/JS please raise a ticket on <a href="https://github.com/serenity-js/serenity-js">Serenity/JS Github</a>.</p>
-<p>When reporting a bug, please kindly remember to:</p>
-<ul>
-<li>Give the ticket a succinct yet descriptive <strong>title</strong> (i.e. Feature X is broken vs, Feature X is not triggered upon event Y)</li>
-<li>Mention the <strong>environment</strong> where you <a href="https://cartoontester.blogspot.com/2012/02/art-of-bug-reporting.html">spotted the bug</a>. What was the browser and operating system? What versions of <a href="/handbook/integration/runtime-dependencies.html">runtime dependencies</a> did you use?</li>
-<li>Provide a <strong>detailed description</strong> of what happened and don&#x2019;t leave any important facts out. That said, try not to include any extraneous details that could derail or distract the people trying to help reproduce the issue you found.</li>
-<li>Explain how the behaviour you observed is different from what you believe should have happened instead</li>
-<li>Provide supplementary information:<ul>
-<li>If you can reproduce and isolate the issue, use one of the Serenity/JS template repositories to create a minimalistic example that demonstrates the problem and attach a link to it to your ticket. While this requires a bit more work on your side, it will help us sort out the problem much quicker.</li>
-<li>If you can reproduce the issue, but can&apos;t isolate it, add the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a> to your Serenity/JS stage crew, run the test again to trigger the bug, and attach the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code>&apos;s</a>  log to your ticket</li>
-<li>If you can&apos;t reproduce the issue, please attach any additional information that might help us figure out what happened - screenshots and test execution logs are particularly useful. </li>
-</ul>
-</li>
-</ul>
-<h3 id="proposing-enhancements">Proposing enhancements</h3>
-<p>Serenity/JS is an open source project that&apos;s open to your contributions and <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a>.</p>
-<p>Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on <a href="https://github.com/serenity-js/serenity-js/issues/new">Serenity/JS Github</a> or <a href="https://gitter.im/serenity-js/Lobby">chatting with the development</a> team on Gitter.</p>
-<h4 id="working-with-the-serenity-js-code-base">Working with the Serenity/JS code base</h4>
-<p>If you have decided to raise a pull request, you&apos;ll need to:</p>
-<ul>
-<li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS mono-repo</a> to your Github account</li>
-<li><a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository">Clone</a> your fork to your machine</li>
-<li>Make sure you have the <a href="/handbook/integration/runtime-dependencies.html">runtime dependencies</a> installed</li>
-<li>Install the Node.js dependencies by running <code>npm ci</code> in the project root. Serenity/JS uses <a href="https://github.com/lerna/lerna">Lerna.js</a> to manage the <code>@serenity-js/*</code> modules you&apos;ll find in the mono-repo, so it will take care of propagating the <code>npm ci</code> and other commands to the modules.</li>
-<li>Make sure you can build the Serenity/JS project on your machine and all the unit- and integration tests are passing before introducing any changes</li>
-<li>Introduce the changes you wish to propose and update or introduce any unit- and integration tests that might be affected.</li>
-<li>Run the <strong>full local build</strong> before committing</li>
-<li>Commit your changes using <code>npm run commit</code> and describe them using the <a href="https://github.com/commitizen">Commitizen wizard</a>. Serenity/JS uses an automated release process so it&apos;s important that your commit messages follow the required format, which Commitizen can generate for you.</li>
-</ul>
-<h4 id="project-structure">Project structure</h4>
-<p>In the project root directory, you&apos;ll find the following sub-directories</p>
-<ul>
-<li><code>packages</code> - this is where all the <a href="/modules">Serenity/JS modules</a> and their associated unit tests live</li>
-<li><code>integration</code> - this is the home of integration tests that exercise the Serenity/JS modules once they&apos;re transpiled from TypeScript to JavaScript</li>
-<li><code>examples</code> - when the changes you want to introduce pass their unit tests and integration tests, you can use the mini-projects located here for exploratory testing and experimentation. Those example projects simulate the framework&apos;s target execution environment, so you can use them to look at your changes from the perspective of people who&apos;ll be using them soon!  </li>
-</ul>
-<h4 id="building-serenity-js">Building Serenity/JS</h4>
-<p>Serenity/JS <a href="https://github.com/serenity-js/serenity-js/blob/master/Makefile">Makefile</a> drives the entire build process. </p>
-<p>Here&apos;s a list of commands you&apos;ll need to build and test Serenity/JS locally:</p>
-<ul>
-<li><code>make clean</code> - removes any build and test artifacts.</li>
-<li><code>make clean test</code> - removes build artifacts and executes the unit tests located under <code>packages/*/spec</code> in memory using <a href="https://github.com/TypeStrong/ts-node">ts-node</a>. This is so that you don&apos;t have to transpile TypeScript to JavaScript before running the tests</li>
-<li><code>make clean verify</code> - removes build artifacts, runs the linter, transpiles TypeScript to JavaScript, runs the unit tests, runs the integration tests located under <code>integration/*/</code> </li>
-<li><code>make clean verify report site</code> - same as verify, but additionally generates test reports and produces the serenity-js.org website. This is the <strong>full local build</strong> you should run at least once before committing your changes and submitting the pull request.</li>
-</ul>
-<p>If you encounter any issues, <a href="https://gitter.im/serenity-js/Lobby">let us know on Gitter</a>.</p>
+                            <html><head></head><body><h1 id="jira-and-other-issue-trackers">Jira and other issue trackers</h1>
+<p>Test reports and living documentation produced by <a href="/modules/serenity-bdd">Serenity BDD</a> can link to tickets in your issue tracker, such as <a href="https://www.atlassian.com/software/jira">Jira</a>, <a href="https://trello.com/">Trello</a>, etc.</p>
+<p>Linking from your Serenity BDD report to a ticket in an issue tracker does not affect the status of the ticket
+and is meant to make it easier for you and your team to understand and document the context that led to the feature being implemented.</p>
+<p>In this chapter, I&apos;ll show you how to create those links automatically in three easy steps.</p>
+<h2 id="step-1-create-a-serenity-js-project">Step 1 - Create a Serenity/JS project</h2>
+<p>First, you&apos;ll need a Node.js project with Serenity/JS and Cucumber. </p>
+<p>The easiest way to create such project is to use one of the <a href="https://github.com/serenity-js/">Serenity/JS template projects</a>, for example <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template"><code>serenity-js-cucumber-protractor-template</code></a>.</p>
+<h2 id="step-2-tag-your-scenarios-and-features">Step 2 - Tag your scenarios and features</h2>
+<p>The next step is to tag your Cucumber scenarios and features with appropriate ticket IDs.</p>
+<p>Let&apos;s say you have created a &quot;My Serenity/JS Project&quot; in Jira, Trello, or a similar issue tracker.
+If your issue tracker of choice identifies tickets using unique ticket IDs (i.e. <code>MSP-1</code>, <code>MSP-2</code>, etc.), and allows you to access them at unique URLs (i.e. <code>https://jira.my-company.com/browse/MSP-1</code>), you can link to the issue tickets from your Serenity BDD reports.</p>
+<p>To do that, tag either <code>Feature</code> or <code>Scenario</code> nodes of your Cucumber <code>.feature</code> files with <code>@issue:&lt;issueId&gt;</code> or <code>@issues:&lt;issueIds&gt;</code> tags to create the links automatically when the report is generated.</p>
+<p>The below <code>.feature</code> file demonstrates usage of both <code>@issue</code> and <code>@issues</code> tags:</p>
+<pre><code class="lang-gherkin hljs gherkin"><span class="hljs-meta">@issue:MSP-1</span>
+<span class="hljs-keyword">Feature</span>: Basic arithmetic operations
+
+  The feature itself, as well as all the scenarios in this file will be linked
+  to the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> ticket in your issue tracker. 
+  Linking to a ticket <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>does not<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> affect the status of ticket.
+
+  Please note that you can use the feature&apos;s description section to capture the acceptance criteria
+  and use the [Markdown syntax](https://daringfireball.net/projects/markdown/syntax)
+  to link to any <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>external documents<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>, wikis, etc.
+
+  <span class="hljs-keyword">Background</span>:
+    <span class="hljs-keyword">Given</span> Dominique has requested a new calculation
+
+  <span class="hljs-meta">@issue:MSP-2</span>
+  <span class="hljs-keyword">Scenario</span>: Addition
+
+    This scenario will be linked to both the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issue, inherited from the `<span class="hljs-keyword">Feature</span>`,
+    and the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-2<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issue, because of the `<span class="hljs-meta">@issue`</span> tag used at the `<span class="hljs-keyword">Scenario</span>` level
+
+    <span class="hljs-keyword">When</span> Dominique enters 2
+     <span class="hljs-keyword">And</span> she uses the + operator
+     <span class="hljs-keyword">And</span> she enters 3
+    <span class="hljs-keyword">Then</span> she should get a result of 5
+
+  <span class="hljs-meta">@issue:MSP-2</span>
+  <span class="hljs-meta">@issue:MSP-3</span>
+  <span class="hljs-keyword">Scenario</span>: Subtraction
+
+    This scenario will be linked to <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>, as well as <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-2<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> and <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-3<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issues.
+
+    <span class="hljs-keyword">When</span> Dominique enters 4
+     <span class="hljs-keyword">And</span> she uses the - operator
+     <span class="hljs-keyword">And</span> she enters 3
+    <span class="hljs-keyword">Then</span> she should get a result of 1
+
+  <span class="hljs-meta">@issues:MSP-2,MSP-4</span>
+  <span class="hljs-keyword">Scenario</span>: Multiplication
+
+    Instead of using multiple `<span class="hljs-meta">@issue`</span> tags we use a single `<span class="hljs-meta">@issues`</span> tag to link the scenario to several tickets.
+
+    <span class="hljs-keyword">When</span> Dominique enters 2
+     <span class="hljs-keyword">And</span> she uses the <span class="hljs-symbol">*</span> operator
+     <span class="hljs-keyword">And</span> she enters 8
+    <span class="hljs-keyword">Then</span> she should get a result of 16
+</code></pre>
+<h2 id="step-3-tell-serenity-bdd-where-your-issue-tracker-is">Step 3 - Tell Serenity BDD where your issue tracker is</h2>
+<p>To make Serenity BDD generate links to tickets in your issue tracker, you need to tell it where your issue tracker is.</p>
+<p>Serenity BDD works with issue trackers that provide a Web UI and support <a href="https://en.wikipedia.org/wiki/Deep_linking">deep linking</a>.
+You can configure the location of your issue tracker using a command line parameter passed to the <code>serenity-bdd run</code> command.</p>
+<p>Since all the <a href="https://github.com/serenity-js">Serenity/JS template projects</a> have a <code>test:report</code> script invoking <code>serenity-bdd run</code> <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template/blob/518285a5578a9cb3600a44eb3d10f4413bde8428/package.json#L12">defined in their <code>package.json</code> file</a>, this is what you need to configure. </p>
+<h3 id="jira">Jira</h3>
+<p>If your Jira server can be accessed at <code>https://jira.my-company.com</code>, you can configure its location using the <code>--jiraUrl</code> parameter:</p>
+<pre><code class="lang-json hljs gherkin"><span class="hljs-string">&quot;test:report&quot;</span>: <span class="hljs-string">&quot;serenity-bdd run --jiraUrl &apos;https://jira.my-company.com&apos;&quot;</span>,
+</code></pre>
+<h3 id="other-issue-trackers">Other issue trackers</h3>
+<p>If you&apos;re using a different issue tracker, you can configure its location using the <code>--issueTrackerUrl</code> parameter, where the <code>{0}</code> token
+will be replaced with the <code>issueId</code>:</p>
+<pre><code class="lang-json hljs gherkin"><span class="hljs-string">&quot;test:report&quot;</span>: <span class="hljs-string">&quot;serenity-bdd run --issueTrackerUrl &apos;https://trello.com/c/MyBoardId/{0}&apos;&quot;</span>,
+</code></pre>
+<p>The above configuration will produce links such as <code>https://trello.com/c/MyBoardId/MSP-1</code></p>
+<h2 id="summary">Summary</h2>
+<p>Tagging <code>Feature</code> and <code>Scenario</code> nodes of your Cucumber <code>.feature</code> files with <code>@issues</code> and <code>@issue</code> and providing either a <code>--jiraUrl</code> or an <code>--issueTrackerUrl</code> when invoking the <code>serenity-bdd run</code> command instructs the Serenity BDD reporter to augment the scenario reports with
+links to your issue tracker: </p>
+<figure>
+<img src="/handbook/integration/images/jira-and-other-issue-trackers/scenario-report.png" alt="Serenity BDD Scenario Report">
+    <figcaption><span>Scenario report</span></figcaption>
+</figure>
+
+<p>However, this is just one of the benefits. Another one is that once Serenity understands what scenarios and features concern what tickets,
+it can provide you with another way to slice your reports:</p>
+<figure>
+<img src="/handbook/integration/images/jira-and-other-issue-trackers/summary-report.png" alt="Serenity BDD Summary Report">
+    <figcaption><span>Summary report with an additional section describing the &quot;Issues&quot;</span></figcaption>
+</figure>
+
+<p>This is particularly useful if you need a way to see all the scenarios that cover a given ticket:</p>
+<figure>
+<img src="/handbook/integration/images/jira-and-other-issue-trackers/issue-report.png" alt="Serenity BDD Issue Report">
+    <figcaption><span>Report showing test scenarios concerning a given ticket</span></figcaption>
+</figure>
 </body></html>
                         </section>
                         <footer class="d-print-none">
-                                <a class="previous" href="/support.html">
+                                <a class="previous" href="/handbook/integration/reporting.html">
                                     <i class="fa fa-chevron-left"></i>
-                                    <span>Support</span>
+                                    <span>Reporting</span>
                                 </a>
-                                <a class="next" href="/license.html">
-                                    <span>License</span>
+                                <a class="next" href="/community/index.html">
+                                    <span>Community</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>

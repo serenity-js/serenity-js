@@ -148,6 +148,7 @@
     dataTable?: DataTable;              <span class="hljs-comment">// done [x]     cucumber                                                    &lt;- can I use this with mocha?</span>
     manual: <span class="hljs-built_in">boolean</span>;                    <span class="hljs-comment">// done [x]</span>
     issues?: <span class="hljs-built_in">string</span>[];                  <span class="hljs-comment">// done [x]</span>
+    additionalIssues?: <span class="hljs-built_in">string</span>[];        <span class="hljs-comment">// done [x]</span>
     testSource: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// done [x]</span>
     result: <span class="hljs-built_in">string</span>;                     <span class="hljs-comment">// done [x]</span>
     testFailureCause?: ErrorDetails;    <span class="hljs-comment">// done [x]</span>
@@ -196,6 +197,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Tag <span class="hljs-keyword">extends</span> JSONObject {
     name: <span class="hljs-built_in">string</span>;
+    displayName: <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
 }
 

@@ -1183,25 +1183,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber121",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber129",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @arbitrary-tag",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful arbitrarytag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~arbitrarytag,arbitrarytag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber132",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber140",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @arbitrary-tag can be tagged with an arbitrary tag",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber85",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber86",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @issue",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful issuetag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~issuetag,issuetag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber96",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber97",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @issue can be tagged with an issue number",
     "test"
   ],
@@ -1214,60 +1214,60 @@ window.esdocSearchIndex = [
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful manualtag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~manualtag,manualtag",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber68",
-    "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual can be optionally tagged map manual",
+    "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual can be optionally tagged as manual",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber48",
-    "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual is marked map automated (non-manual) by default",
+    "SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual is marked as automated (non-manual) by default",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber148",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber157",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful featuretag capabilitytag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~featuretag,featuretag @serenity-js/core/lib/model/tags~capabilitytag,capabilitytag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber189",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber200",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a capability",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful featuretag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~featuretag,featuretag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber159",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber168",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a feature",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful featuretag capabilitytag themetag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~featuretag,featuretag @serenity-js/core/lib/model/tags~capabilitytag,capabilitytag @serenity-js/core/lib/model/tags~themetag,themetag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber224",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber238",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a theme",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber252",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber270",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful browsertag contexttag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~browsertag,browsertag @serenity-js/core/lib/model/tags~contexttag,contexttag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber318",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber338",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and ensures that the user-specified context takes precedence over browser context",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful contexttag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~contexttag,contexttag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber291",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber310",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the operating system where the test was executed",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished scenetagged testrunfinishes executionsuccessful browsertag src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~scenetagged,scenetagged @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model/tags~browsertag,browsertag",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber263",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber281",
     "SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the web browser where the test was executed",
     "test"
   ],
