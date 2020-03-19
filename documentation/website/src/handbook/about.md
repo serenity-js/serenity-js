@@ -27,6 +27,6 @@ If you'd like to dive straight into the code, visit [Serenity/JS Github](https:/
             However, just like the Serenity/JS framework itself, this book is open-source too. If there are topics you'd like to see explained in more detail, please [consider contributing](/contributing.html) by raising a ticket, correcting any errors or typos, or [sponsoring the evolution](/support.html) of the Serenity/JS project. 
         </p>
         
-        <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
+        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
     </div>
 </div>

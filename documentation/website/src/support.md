@@ -22,21 +22,21 @@ If you'd like to chat with fellow Serenity/JS users, [join us on Gitter](https:/
 If you feel like Serenity/JS has made your life a little bit easier, please consider joining [these amazing people](/community/sponsors.html) in sponsoring this project on Github.
 Even a small donation goes a long way and helps secure development time to bring new features, bug fixes, and tutorials to the Serenity/JS community!
 
-<a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a>
+<a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
 
 ## Corporate Sponsorship and Support
 
 If your company relies on Serenity/JS to generate revenue, please consider opting for the corporate sponsorship option,
 which on top of getting your logo displayed on this website, can help your Github tickets get prioritised much quicker!
 
-<a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a>
+<a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
 
 ## Serenity/JS Mentoring
 
 If you'd like to fast-track your test automation efforts and get the befits of reliable, high-quality, easy-to-maintain automated test suites sooner,
 consider opting for individual or team mentoring with the Serenity/JS core team.
 
-The mentoring packages you can purchase via [Github Sponsors](https://github.com/sponsors/jan-molak) or [directly](mailto:jan.molak@serenity.io?subject=Serenity/JS Mentoring) will help you:
+The mentoring packages you can purchase via [Github Sponsors](https://github.com/sponsors/serenity-js) or [directly](mailto:jan.molak@serenity.io?subject=Serenity/JS Mentoring) will help you:
 - get your engineers and traditional (possibly manual) testers up to speed with modern test automation practices and Serenity/JS
 - adapt the tests to work in your environment and with our infrastructure
 - make your tests more robust and easier to maintain.
@@ -45,7 +45,7 @@ The Serenity/JS mentoring packages provide a cost-effective answer to these prob
 
 Training is delivered by core contributors, including the author of the framework.
 
-<a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a>
+<a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
 
 
 ## Serenity/JS Training
