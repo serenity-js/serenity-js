@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/serenity-js/serenity-js/compare/v2.2.2...v2.3.0) (2020-03-15)
+
+
+### Features
+
+* **serenity-bdd:** context icons for browsers and platforms ([65ccab0](https://github.com/serenity-js/serenity-js/commit/65ccab070d12c1d6d3f9067e3737e4c246bdbff0)), closes [#455](https://github.com/serenity-js/serenity-js/issues/455)
+* **serenity-bdd:** one-way integration with jira and other issue trackers ([318abbb](https://github.com/serenity-js/serenity-js/commit/318abbbec5f6a99be3c9b8d3aa960ae05de9f8f4)), closes [#189](https://github.com/serenity-js/serenity-js/issues/189)
+
+
+
+
+
+## [2.2.2](https://github.com/serenity-js/serenity-js/compare/v2.2.1...v2.2.2) (2020-03-08)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.2.1](https://github.com/serenity-js/serenity-js/compare/v2.2.0...v2.2.1) (2020-03-04)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
 ## [2.1.5](https://github.com/serenity-js/serenity-js/compare/v2.1.4...v2.1.5) (2020-02-10)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

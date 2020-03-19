@@ -87,17 +87,22 @@ export class SceneReport {
 
     taggedWith(tag: Tag) {
         return this.withMutated(report => {
-            function nameOfRecorded(typeOfTag: { Type: string }) {
-                const serenityBDDCompatible = (text: string) => text[0].toUpperCase() + text.slice(1);
-
+            function displayNameOfRecorded(typeOfTag: { Type: string }) {
                 const found = report.tags.find(t => t.type === typeOfTag.Type);
 
-                return found && serenityBDDCompatible(found.name);
+                return found && found.displayName;
+            }
+
+            function serenityBDDTagFrom(serenityJSTag: Tag): { name: string, displayName: string, type: string } {
+                return {
+                    ...serenityJSTag.toJSON(),
+                    displayName: serenityJSTag.name.replace(/_+/, ' '),
+                };
             }
 
             const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');
 
-            const serialisedTag = tag.toJSON();
+            const serenityBDDTag = serenityBDDTagFrom(tag);
 
             if (! report.tags) {
                 report.tags = [];
@@ -105,27 +110,36 @@ export class SceneReport {
 
             match<Tag, void>(tag)
                 .when(ManualTag,     _ => report.manual = true)
-                .when(CapabilityTag, _ => serialisedTag.name = concatenated(nameOfRecorded(ThemeTag), tag.name))
-                .when(FeatureTag,    _ => {
-                    serialisedTag.name = concatenated(nameOfRecorded(CapabilityTag), tag.name);
-                    report.featureTag = tag.toJSON();
+                .when(ThemeTag,      _ => {
+                    serenityBDDTag.displayName = tag.name;
                 })
-                .when(IssueTag,      _ => (report.issues    = report.issues   || []).push(tag.name))
+                .when(CapabilityTag, _ => {
+                    serenityBDDTag.name = concatenated(displayNameOfRecorded(ThemeTag), tag.name);
+                    serenityBDDTag.displayName = tag.name;
+                })
+                .when(FeatureTag,    _ => {
+                    serenityBDDTag.name = concatenated(displayNameOfRecorded(CapabilityTag), tag.name);
+                    serenityBDDTag.displayName = tag.name;
+                    report.featureTag = serenityBDDTag;
+                })
+                .when(IssueTag,      _ => {
+                    report.issues            = (report.issues           || []).concat(tag.name);
+                    report.additionalIssues  = (report.additionalIssues || []).concat(tag.name);
+                })
                 .when(BrowserTag,    (browserTag: BrowserTag) => {
                     report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');
                     report.driver    = browserTag.browserName;
                     report.id        = new SceneReportId(browserTag.name, report.id).value;
                 })
                 .when(PlatformTag,   (platformTag: PlatformTag) => {
-                    // todo: this is not supported yet, waiting for https://github.com/serenity-bdd/serenity-core/pull/1860/files
-                    // report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
+                    report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
                     report.id        = new SceneReportId(platformTag.name, report.id).value;
                 })
                 .when(ContextTag,    _ => (report.context   = tag.name))
                 .else(_ => void 0);
 
-            if (! report.tags.find(current => equal(current, serialisedTag))) {
-                report.tags.push(serialisedTag);
+            if (! report.tags.find(current => equal(current, serenityBDDTag))) {
+                report.tags.push(serenityBDDTag);
             }
         });
     }

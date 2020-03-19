@@ -26,6 +26,7 @@ export interface SerenityBDDReport extends JSONObject {
     dataTable?: DataTable;              // done [x]     cucumber                                                    <- can I use this with mocha?
     manual: boolean;                    // done [x]
     issues?: string[];                  // done [x]
+    additionalIssues?: string[];        // done [x]
     testSource: string;                 // done [x]
     result: string;                     // done [x]
     testFailureCause?: ErrorDetails;    // done [x]
@@ -74,6 +75,7 @@ export interface UserStory extends JSONObject {
 
 export interface Tag extends JSONObject {
     name: string;
+    displayName: string;
     type: string;
 }
 

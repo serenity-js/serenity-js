@@ -10,6 +10,6 @@ layout: handbook.hbs
         <p>
             This section is coming soon. Stay tuned or learn how you can [support the project](/support.html)!
         </p>
-        <p><a class="github-button" href="https://github.com/sponsors/jan-molak" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @jan-molak on GitHub">Sponsor</a></p>
+        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
     </div>
 </div>

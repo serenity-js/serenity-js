@@ -7,6 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=master)](https://coveralls.io/github/serenity-js/serenity-js?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
 [![Dependencies](https://flat.badgen.net/dependabot/serenity-js/serenity-js?icon=dependabot)](https://github.com/serenity-js/serenity-js)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
 
 [![Serenity/JS on Github](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
@@ -17,7 +18,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 
 **Find out more at [serenity-js.org](https://serenity-js.org)!**
 
-[![Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern](https://img.youtube.com/vi/djPMf-n93Rw/0.jpg)](https://www.youtube.com/watch?v=djPMf-n93Rw)
+[![Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern](https://img.youtube.com/vi/cf55N2IXPTU/0.jpg)](https://www.youtube.com/watch?v=cf55N2IXPTU)
 
 ## Help and Support
 
@@ -34,7 +35,7 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 If you'd like to chat with fellow users of Serenity/JS, join us on [Gitter Chat](https://gitter.im/serenity-js/Lobby).
 
-And if Serenity/JS has made your life a little bit easier, please consider [sponsoring its ongoing development](https://github.com/sponsors/jan-molak) 🙇
+And if Serenity/JS has made your life a little bit easier, please consider [sponsoring its ongoing development](https://github.com/sponsors/serenity-js) 🙇
 
 ## Friends of Serenity/JS
 
@@ -48,6 +49,8 @@ The Serenity/JS code base is licensed under the [Apache-2.0](LICENSE.md) license
 while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/). [Learn more](https://serenity-js.org/license.html).
 
 For corporate sponsorship or commercial support, please check out the [Support Guide](https://serenity-js.org/support.html).
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2F2Fserenity-js%2Fserenity-js?ref=badge_large)
 
 ----
 
