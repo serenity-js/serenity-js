@@ -95,9 +95,9 @@ As Selenium WebDriver became more popular in the late 2000s, and test suites beg
 the [Page Object Pattern](http://docs.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern). This simple pattern models the user interface in terms of pages, where each page is represented by a distinct class encapsulating both the definition of the page structure and the interactions that a user can perform on that page.
 
 _It is worth noting that the original Page Object Pattern was later
-[refined by Martin Fowler](http://martinfowler.com/bliki/Page Object.html), who proposed that instead of thinking of
+[refined by Martin Fowler](http://martinfowler.com/bliki/PageObject.html), who proposed that instead of thinking of
 the entire application as a set of pages, each page should be considered in terms of smaller page objects or "widgets"
-that the page contained. The implementation below uses that refined version, as it makes it slighted slightly simpler._
+that the page contained. The implementation below uses that refined version, as it makes it slightly simpler._
 
 Let's refactor the code from the previous example using the Page Objects pattern:
 
