@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/serenity-js/serenity-js/compare/v2.3.0...v2.3.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([67401a7](https://github.com/serenity-js/serenity-js/commit/67401a774582386be02178e077b918a481630950))
+* **node:** dropping support for Node.js 8 since it has reached end of life (EOL) ([c61c3d2](https://github.com/serenity-js/serenity-js/commit/c61c3d2c50fa212d460f31a29c20145f111ab731))
+
+
+
+
+
 # [2.3.0](https://github.com/serenity-js/serenity-js/compare/v2.2.2...v2.3.0) (2020-03-15)
 
 
