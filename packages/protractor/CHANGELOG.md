@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/serenity-js/serenity-js/compare/v2.3.1...v2.3.2) (2020-04-08)
+
+
+### Bug Fixes
+
+* **deps:** updated TSLint and fixed some minor code style issues ([f43fd14](https://github.com/serenity-js/serenity-js/commit/f43fd14e11e2582aaa0d7cb3c186e0a58874a7fc))
+
+
+
+
+
 ## [2.3.1](https://github.com/serenity-js/serenity-js/compare/v2.3.0...v2.3.1) (2020-04-07)
 
 
