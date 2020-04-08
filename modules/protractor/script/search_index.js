@@ -1303,163 +1303,163 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber13",
     "Cookie",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber42",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber55",
     "Cookie over HTTP",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber145",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber158",
     "Cookie over HTTP when working with an expiry date",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber168",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber181",
     "Cookie over HTTP when working with an expiry date allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber181",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber194",
     "Cookie over HTTP when working with an expiry date provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber175",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber188",
     "Cookie over HTTP when working with an expiry date returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber120",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber133",
     "Cookie over HTTP when working with http-only cookies",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber124",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber137",
     "Cookie over HTTP when working with http-only cookies allows the actor to confirm that a cookie is http-only",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber140",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber153",
     "Cookie over HTTP when working with http-only cookies provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber134",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber147",
     "Cookie over HTTP when working with http-only cookies returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber98",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber111",
     "Cookie over HTTP when working with the domain",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber115",
     "Cookie over HTTP when working with the domain allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber115",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber128",
     "Cookie over HTTP when working with the domain provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#domainof cookie#domainof,cookie#domainof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber122",
     "Cookie over HTTP when working with the domain returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber76",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber89",
     "Cookie over HTTP when working with the path",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber80",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber93",
     "Cookie over HTTP when working with the path allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber93",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber106",
     "Cookie over HTTP when working with the path provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#pathof cookie#pathof,cookie#pathof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber87",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber100",
     "Cookie over HTTP when working with the path returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber54",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber67",
     "Cookie over HTTP when working with the value",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber58",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber71",
     "Cookie over HTTP when working with the value allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber84",
     "Cookie over HTTP when working with the value provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber65",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber78",
     "Cookie over HTTP when working with the value returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber188",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber201",
     "Cookie when working with secure cookies",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber220",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber233",
     "Cookie when working with secure cookies ",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber206",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber219",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is not secure",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber213",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber226",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is secure",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber226",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber239",
     "Cookie when working with secure cookies provides a sensible description of the question being asked",
     "test"
   ],

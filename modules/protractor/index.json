@@ -7247,7 +7247,7 @@
     "__docId__": 383,
     "kind": "file",
     "name": "src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts",
-    "content": "import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\n\nimport { BrowseTheWeb } from '../../abilities';\nimport { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';\n\n/**\n * @package\n */\nexport class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {\n    withArguments(...args: Array<Answerable<any>>): Interaction {\n        return new ExecuteAsynchronousScript(this.script, args);\n    }\n\n    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {\n        return BrowseTheWeb.as(actor).executeAsyncScript(this.script, ...args);\n    }\n\n    toString(): string {\n        return this.args.length > 0\n            ? formatted `#actor executes an asynchronous script with arguments: ${ this.args }`\n            : `#actor executes an asynchronous script`;\n    }\n}\n",
+    "content": "import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\n\nimport { BrowseTheWeb } from '../../abilities';\nimport { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';\n\n/**\n * @package\n */\nexport class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {\n    withArguments(...args: Array<Answerable<any>>): Interaction {\n        return new ExecuteAsynchronousScript(this.script, args);\n    }\n\n    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {\n        return BrowseTheWeb.as(actor).executeAsyncScript(this.script, ...args);\n    }\n\n    // tslint:disable-next-line:member-ordering\n    toString(): string {\n        return this.args.length > 0\n            ? formatted `#actor executes an asynchronous script with arguments: ${ this.args }`\n            : `#actor executes an asynchronous script`;\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/protractor/src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts",
     "access": "public",
@@ -7360,7 +7360,7 @@
     "longname": "src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts~ExecuteAsynchronousScript#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 19,
+    "lineNumber": 20,
     "return": {
       "nullable": null,
       "types": [
@@ -7629,7 +7629,7 @@
     "__docId__": 398,
     "kind": "file",
     "name": "src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts",
-    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Question, UsesAbilities } from '@serenity-js/core';\nimport { Name, TextData } from '@serenity-js/core/lib/model';\n\n/**\n * @public\n * @abstract\n */\nexport abstract class ExecuteScriptWithArguments extends Interaction {\n\n    constructor(\n        protected readonly script: string | Function,                                   // tslint:disable-line:ban-types\n        protected readonly args: Array<Answerable<any>> = [],\n    ) {\n        super();\n    }\n\n    public abstract withArguments(...args: Array<Answerable<any>>): Interaction;\n\n    protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;\n\n    /**\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     */\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): PromiseLike<void> {\n        return this.answerAll(this.args).as(actor)\n            .then(args => this.executeAs(actor, args))\n            .then(() => actor.collect(\n                TextData.fromJSON({\n                    contentType:    'text/javascript;charset=UTF-8',\n                    data:           this.script.toString(),\n                }),\n                new Name('Script source'),\n            ));\n    }\n\n    /**\n     * @private\n     *\n     * @param {Array<Answerable<any>>} args\n     */\n    private answerAll(args: Array<Answerable<any>>) {\n        return {\n            as: (actor: AnswersQuestions & UsesAbilities): Promise<any[]> => Promise.all(args.map(arg => {\n                const maybeElementFinder = Question.isAQuestion(arg)\n                    ? arg.answeredBy(actor)\n                    : arg;\n\n                const maybePromise = !! maybeElementFinder.getWebElement\n                    ? maybeElementFinder.getWebElement()\n                    : maybeElementFinder;\n\n                return actor.answer(maybePromise);\n            })),\n        };\n    }\n}\n",
+    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Question, UsesAbilities } from '@serenity-js/core';\nimport { Name, TextData } from '@serenity-js/core/lib/model';\n\n/**\n * @public\n * @abstract\n */\nexport abstract class ExecuteScriptWithArguments extends Interaction {\n\n    constructor(\n        protected readonly script: string | Function,                                   // tslint:disable-line:ban-types\n        protected readonly args: Array<Answerable<any>> = [],\n    ) {\n        super();\n    }\n\n    public abstract withArguments(...args: Array<Answerable<any>>): Interaction;\n\n    /**\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     */\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): PromiseLike<void> {\n        return this.answerAll(this.args).as(actor)\n            .then(args => this.executeAs(actor, args))\n            .then(() => actor.collect(\n                TextData.fromJSON({\n                    contentType:    'text/javascript;charset=UTF-8',\n                    data:           this.script.toString(),\n                }),\n                new Name('Script source'),\n            ));\n    }\n\n    protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;\n\n    /**\n     * @private\n     *\n     * @param {Array<Answerable<any>>} args\n     */\n    private answerAll(args: Array<Answerable<any>>) {\n        return {\n            as: (actor: AnswersQuestions & UsesAbilities): Promise<any[]> => Promise.all(args.map(arg => {\n                const maybeElementFinder = Question.isAQuestion(arg)\n                    ? arg.answeredBy(actor)\n                    : arg;\n\n                const maybePromise = !! maybeElementFinder.getWebElement\n                    ? maybeElementFinder.getWebElement()\n                    : maybeElementFinder;\n\n                return actor.answer(maybePromise);\n            })),\n        };\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/protractor/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts",
     "access": "public",
@@ -7686,7 +7686,7 @@
       "{@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}",
       "{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}"
     ],
-    "lineNumber": 86,
+    "lineNumber": 67,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7749,7 +7749,7 @@
     "__docId__": 403,
     "kind": "file",
     "name": "src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts",
-    "content": "import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\nimport { BrowseTheWeb } from '../../abilities';\nimport { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';\n\n/**\n * @package\n */\nexport class ExecuteSynchronousScript extends ExecuteScriptWithArguments {\n\n    withArguments(...args: Array<Answerable<any>>): Interaction {\n        return new ExecuteSynchronousScript(this.script, args);\n    }\n\n    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {\n        return BrowseTheWeb.as(actor).executeScript(this.toString(), this.script, ...args);\n    }\n\n    toString(): string {\n        return this.args.length > 0\n            ? formatted `#actor executes a synchronous script with arguments: ${ this.args }`\n            : `#actor executes a synchronous script`;\n    }\n}\n",
+    "content": "import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\nimport { BrowseTheWeb } from '../../abilities';\nimport { ExecuteScriptWithArguments } from './ExecuteScriptWithArguments';\n\n/**\n * @package\n */\nexport class ExecuteSynchronousScript extends ExecuteScriptWithArguments {\n\n    withArguments(...args: Array<Answerable<any>>): Interaction {\n        return new ExecuteSynchronousScript(this.script, args);\n    }\n\n    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {\n        return BrowseTheWeb.as(actor).executeScript(this.toString(), this.script, ...args);\n    }\n\n    // tslint:disable-next-line:member-ordering\n    toString(): string {\n        return this.args.length > 0\n            ? formatted `#actor executes a synchronous script with arguments: ${ this.args }`\n            : `#actor executes a synchronous script`;\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/protractor/src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts",
     "access": "public",
@@ -7862,7 +7862,7 @@
     "longname": "src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts~ExecuteSynchronousScript#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 19,
+    "lineNumber": 20,
     "return": {
       "nullable": null,
       "types": [
@@ -11753,7 +11753,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/protractor\",\n  \"version\": \"2.3.1\",\n  \"description\": \"Test your web apps with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"ui\",\n    \"frontend\",\n    \"angular\",\n    \"react\",\n    \"vue\",\n    \"bdd\",\n    \"tdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"debug\": \"node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js\",\n    \"test\": \"nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 8\",\n    \"npm\": \">= 5\"\n  },\n  \"dependencies\": {\n    \"deepmerge\": \"^4.2.2\",\n    \"is-plain-object\": \"^3.0.0\",\n    \"tiny-types\": \"^1.12.4\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/core\": \"2.x\",\n    \"@serenity-js/cucumber\": \"2.x\",\n    \"@serenity-js/jasmine\": \"2.x\",\n    \"@serenity-js/mocha\": \"2.x\",\n    \"protractor\": \"^5.0.0\",\n    \"selenium-webdriver\": \"^3.6.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.3.1\",\n    \"@serenity-js/assertions\": \"2.3.1\",\n    \"@serenity-js/core\": \"2.3.1\",\n    \"@serenity-js/cucumber\": \"2.3.1\",\n    \"@serenity-js/jasmine\": \"2.3.1\",\n    \"@serenity-js/local-server\": \"2.3.1\",\n    \"@types/express\": \"^4.17.4\",\n    \"@types/html-minifier\": \"^3.5.3\",\n    \"@types/mocha\": \"^7.0.2\",\n    \"@types/selenium-webdriver\": \"^3.0.17\",\n    \"chromedriver\": \"^80.0.2\",\n    \"express\": \"^4.17.1\",\n    \"html-minifier\": \"^4.0.0\",\n    \"protractor\": \"^5.4.3\",\n    \"selenium-webdriver\": \"^3.6.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/protractor\",\n  \"version\": \"2.3.2\",\n  \"description\": \"Test your web apps with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"ui\",\n    \"frontend\",\n    \"angular\",\n    \"react\",\n    \"vue\",\n    \"bdd\",\n    \"tdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"debug\": \"node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js\",\n    \"test\": \"nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 8\",\n    \"npm\": \">= 5\"\n  },\n  \"dependencies\": {\n    \"deepmerge\": \"^4.2.2\",\n    \"is-plain-object\": \"^3.0.0\",\n    \"tiny-types\": \"^1.12.4\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/core\": \"2.x\",\n    \"@serenity-js/cucumber\": \"2.x\",\n    \"@serenity-js/jasmine\": \"2.x\",\n    \"protractor\": \"^5.0.0\",\n    \"selenium-webdriver\": \"^3.6.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.3.1\",\n    \"@serenity-js/assertions\": \"2.3.1\",\n    \"@serenity-js/core\": \"2.3.1\",\n    \"@serenity-js/cucumber\": \"2.3.1\",\n    \"@serenity-js/jasmine\": \"2.3.1\",\n    \"@serenity-js/local-server\": \"2.3.1\",\n    \"@types/express\": \"^4.17.4\",\n    \"@types/html-minifier\": \"^3.5.3\",\n    \"@types/mocha\": \"^7.0.2\",\n    \"@types/selenium-webdriver\": \"^3.0.17\",\n    \"chromedriver\": \"^80.0.2\",\n    \"express\": \"^4.17.1\",\n    \"html-minifier\": \"^4.0.0\",\n    \"protractor\": \"^5.4.3\",\n    \"selenium-webdriver\": \"^3.6.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/protractor/package.json",
     "name": "package.json",
     "static": true,
@@ -14514,7 +14514,7 @@
     "__docId__": 769,
     "kind": "testFile",
     "name": "spec/screenplay/questions/Cookie.spec.ts",
-    "content": "import { certificates, expect } from '@integration/testing-tools';\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { Actor, actorCalled, Question, Transform } from '@serenity-js/core';\nimport { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';\nimport express = require('express');\n\nimport { protractor } from 'protractor';\nimport { BrowseTheWeb, DeleteCookies, Navigate } from '../../../src';\nimport { Cookie } from '../../../src/screenplay';\n\ndescribe('Cookie', () => {\n\n    // a tiny express server, setting response cookies\n    const cookieCutterApp = express().\n        get('/cookie', (req: express.Request, res: express.Response) => {\n            res.cookie(req.query.name, req.query.value, {\n                path:       '/cookie',\n                domain:     req.query.domain,\n                httpOnly:   !! req.query.httpOnly,\n                secure:     !! req.query.secure,\n                expires:    req.query.expires && new Date(req.query.expires),\n                // https://www.chromestatus.com/feature/5633521622188032\n                // sameSite:   !! req.query.secure ? 'None' : undefined,\n            }).status(200).send();\n        });\n\n    function cookieCutterURLFor(path: string): Question<Promise<string>> {\n        return Transform.the(LocalServer.url(), url => `${ url }${ path }`);\n    }\n\n    describe('over HTTP', () => {\n\n        // Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You're welcome.\n        const Sid = actorCalled('Sid').whoCan(\n            BrowseTheWeb.using(protractor.browser),\n            ManageALocalServer.runningAHttpListener(cookieCutterApp),\n        );\n\n        beforeEach(() => Sid.attemptsTo(StartLocalServer.onRandomPort()));\n        afterEach(() => Sid.attemptsTo(StopLocalServer.ifRunning()));\n        afterEach(() => Sid.attemptsTo(DeleteCookies.all()));\n\n        describe('when working with the value', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.valueOf('favourite'), equals('chocolate-chip')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.valueOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.valueOf('favourite').toString()).to.equal('the value of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with the path', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.pathOf('favourite'), equals('/cookie')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#pathOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.pathOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.pathOf('favourite').toString()).to.equal('the path of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with the domain', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.domainOf('favourite'), equals('127.0.0.1')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#domainOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.domainOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.domainOf('favourite').toString()).to.equal('the domain of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with http-only cookies', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#isHTTPOnly} */\n            it('allows the actor to confirm that a cookie is http-only', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.isHTTPOnly('favourite'), equals(false)),\n\n                Navigate.to(cookieCutterURLFor('/cookie?name=second_choice&value=shortbread&httpOnly=true')),\n                Ensure.that(Cookie.isHTTPOnly('second_choice'), equals(true)),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#isHTTPOnly} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.isHTTPOnly('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.isHTTPOnly('favourite').toString()).to.equal('the HTTP-only status of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with an expiry date', () => {\n\n            function tomorrow(): Date {\n                const now = new Date();\n                const nextDay = new Date(now);\n                nextDay.setDate(nextDay.getDate() + 1);\n\n                return nextDay;\n            }\n\n            const expectedExpiryDate = tomorrow();\n\n            /** @test {Cookie} */\n            /** @test {Cookie#expiryDateOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor(`/cookie?name=expiring&value=chocolate-chip&expires=${ expectedExpiryDate.toISOString() }`)),\n                Ensure.that(Transform.the(Cookie.expiryDateOf('expiring'), date => date.getDay()), equals(expectedExpiryDate.getDay())),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#expiryDateOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.expiryDateOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.expiryDateOf('favourite').toString()).to.equal('the expiry date of the \"favourite\" cookie');\n            });\n        });\n\n    });\n\n    describe('when working with secure cookies', () => {\n\n        const Sid = actorCalled('Secure Sid').whoCan(\n            BrowseTheWeb.using(protractor.browser),\n            ManageALocalServer.runningAHttpsListener(cookieCutterApp, {\n                cert:               certificates.cert,\n                key:                certificates.key,\n                requestCert:        true,\n                rejectUnauthorized: false,\n            }),\n        );\n\n        beforeEach(() => Sid.attemptsTo(StartLocalServer.onRandomPort()));\n        afterEach(() => Sid.attemptsTo(StopLocalServer.ifRunning()));\n        afterEach(() => Sid.attemptsTo(DeleteCookies.all()));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it('allows the actor to confirm that a cookie is not secure', () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n            Ensure.that(Cookie.isSecure('favourite'), equals(false)),\n        ));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it('allows the actor to confirm that a cookie is secure', () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip&secure=1')),\n            Ensure.that(Cookie.isSecure('favourite'), equals(true)),\n        ));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n            Ensure.that(Cookie.isSecure('not-so-favourite'), equals(undefined)),\n        ));\n\n        /** @test {Cookie} */\n        it('provides a sensible description of the question being asked', () => {\n            expect(Cookie.isSecure('favourite').toString()).to.equal('the \"secure\" status of the \"favourite\" cookie');\n        });\n    });\n});\n",
+    "content": "import 'mocha';\n\nimport { certificates, expect } from '@integration/testing-tools';\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { actorCalled, Question, Transform } from '@serenity-js/core';\nimport { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';\nimport express = require('express');\n\nimport { protractor } from 'protractor';\nimport { BrowseTheWeb, DeleteCookies, Navigate } from '../../../src';\nimport { Cookie } from '../../../src/screenplay';\n\ndescribe('Cookie', () => {\n\n    // a tiny express server, setting response cookies\n    const cookieCutterApp = express().\n        get('/cookie', (req: express.Request & { query: { [key: string]: string }}, res: express.Response) => {\n            res.cookie(req.query.name, req.query.value, {\n                path:       '/cookie',\n                domain:     req.query.domain,\n                httpOnly:   !! req.query.httpOnly,\n                secure:     !! req.query.secure,\n                expires:    req.query.expires && new Date(req.query.expires),\n                // https://www.chromestatus.com/feature/5633521622188032\n                // sameSite:   !! req.query.secure ? 'None' : undefined,\n            }).status(200).send();\n        });\n\n    function cookieCutterURLFor(path: string): Question<Promise<string>> {\n        return Transform.the(LocalServer.url(), url => `${ url }${ path }`);\n    }\n\n    describe('over HTTP', () => {\n\n        // Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You're welcome.\n        const Sid = actorCalled('Sid').whoCan(\n            BrowseTheWeb.using(protractor.browser),\n            ManageALocalServer.runningAHttpListener(cookieCutterApp),\n        );\n\n        beforeEach(() => Sid.attemptsTo(StartLocalServer.onRandomPort()));\n        afterEach(() => Sid.attemptsTo(StopLocalServer.ifRunning()));\n        afterEach(() => Sid.attemptsTo(DeleteCookies.all()));\n\n        describe('when working with the value', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.valueOf('favourite'), equals('chocolate-chip')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.valueOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.valueOf('favourite').toString()).to.equal('the value of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with the path', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.pathOf('favourite'), equals('/cookie')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#pathOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.pathOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.pathOf('favourite').toString()).to.equal('the path of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with the domain', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#valueOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.domainOf('favourite'), equals('127.0.0.1')),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#domainOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.domainOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.domainOf('favourite').toString()).to.equal('the domain of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with http-only cookies', () => {\n\n            /** @test {Cookie} */\n            /** @test {Cookie#isHTTPOnly} */\n            it('allows the actor to confirm that a cookie is http-only', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.isHTTPOnly('favourite'), equals(false)),\n\n                Navigate.to(cookieCutterURLFor('/cookie?name=second_choice&value=shortbread&httpOnly=true')),\n                Ensure.that(Cookie.isHTTPOnly('second_choice'), equals(true)),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#isHTTPOnly} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.isHTTPOnly('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.isHTTPOnly('favourite').toString()).to.equal('the HTTP-only status of the \"favourite\" cookie');\n            });\n        });\n\n        describe('when working with an expiry date', () => {\n\n            function tomorrow(): Date {\n                const now = new Date();\n                const nextDay = new Date(now);\n                nextDay.setDate(nextDay.getDate() + 1);\n\n                return nextDay;\n            }\n\n            const expectedExpiryDate = tomorrow();\n\n            /** @test {Cookie} */\n            /** @test {Cookie#expiryDateOf} */\n            it('allows the actor to retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor(`/cookie?name=expiring&value=chocolate-chip&expires=${ expectedExpiryDate.toISOString() }`)),\n                Ensure.that(Transform.the(Cookie.expiryDateOf('expiring'), date => date.getDay()), equals(expectedExpiryDate.getDay())),\n            ));\n\n            /** @test {Cookie} */\n            /** @test {Cookie#expiryDateOf} */\n            it('returns an undefined when it can\\'t retrieve it', () => Sid.attemptsTo(\n                Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n                Ensure.that(Cookie.expiryDateOf('not-so-favourite'), equals(undefined)),\n            ));\n\n            /** @test {Cookie} */\n            it('provides a sensible description of the question being asked', () => {\n                expect(Cookie.expiryDateOf('favourite').toString()).to.equal('the expiry date of the \"favourite\" cookie');\n            });\n        });\n\n    });\n\n    describe('when working with secure cookies', () => {\n\n        const Sid = actorCalled('Secure Sid').whoCan(\n            BrowseTheWeb.using(protractor.browser),\n            ManageALocalServer.runningAHttpsListener(cookieCutterApp, {\n                cert:               certificates.cert,\n                key:                certificates.key,\n                requestCert:        true,\n                rejectUnauthorized: false,\n            }),\n        );\n\n        beforeEach(() => Sid.attemptsTo(StartLocalServer.onRandomPort()));\n        afterEach(() => Sid.attemptsTo(StopLocalServer.ifRunning()));\n        afterEach(() => Sid.attemptsTo(DeleteCookies.all()));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it('allows the actor to confirm that a cookie is not secure', () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n            Ensure.that(Cookie.isSecure('favourite'), equals(false)),\n        ));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it('allows the actor to confirm that a cookie is secure', () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip&secure=1')),\n            Ensure.that(Cookie.isSecure('favourite'), equals(true)),\n        ));\n\n        /** @test {Cookie} */\n        /** @test {Cookie#isSecure} */\n        it(`returns an undefined when it can't retrieve it`, () => Sid.attemptsTo(\n            Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),\n            Ensure.that(Cookie.isSecure('not-so-favourite'), equals(undefined)),\n        ));\n\n        /** @test {Cookie} */\n        it('provides a sensible description of the question being asked', () => {\n            expect(Cookie.isSecure('favourite').toString()).to.equal('the \"secure\" status of the \"favourite\" cookie');\n        });\n    });\n});\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/protractor/spec/screenplay/questions/Cookie.spec.ts",
     "access": null,
@@ -14532,7 +14532,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166",
     "access": null,
     "description": "Cookie",
-    "lineNumber": 11
+    "lineNumber": 13
   },
   {
     "__docId__": 771,
@@ -14545,7 +14545,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167",
     "access": null,
     "description": "over HTTP",
-    "lineNumber": 42
+    "lineNumber": 55
   },
   {
     "__docId__": 772,
@@ -14558,7 +14558,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe168",
     "access": null,
     "description": "when working with the value",
-    "lineNumber": 54
+    "lineNumber": 67
   },
   {
     "__docId__": 773,
@@ -14571,7 +14571,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe168.it169",
     "access": null,
     "description": "allows the actor to retrieve it",
-    "lineNumber": 58,
+    "lineNumber": 71,
     "testTargets": [
       "Cookie#valueOf"
     ]
@@ -14587,7 +14587,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe168.it170",
     "access": null,
     "description": "returns an undefined when it can't retrieve it",
-    "lineNumber": 65,
+    "lineNumber": 78,
     "testTargets": [
       "Cookie#valueOf"
     ]
@@ -14603,7 +14603,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe168.it171",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 71,
+    "lineNumber": 84,
     "testTargets": [
       "Cookie"
     ]
@@ -14619,7 +14619,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe172",
     "access": null,
     "description": "when working with the path",
-    "lineNumber": 76
+    "lineNumber": 89
   },
   {
     "__docId__": 777,
@@ -14632,7 +14632,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe172.it173",
     "access": null,
     "description": "allows the actor to retrieve it",
-    "lineNumber": 80,
+    "lineNumber": 93,
     "testTargets": [
       "Cookie#valueOf"
     ]
@@ -14648,7 +14648,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe172.it174",
     "access": null,
     "description": "returns an undefined when it can't retrieve it",
-    "lineNumber": 87,
+    "lineNumber": 100,
     "testTargets": [
       "Cookie#pathOf"
     ]
@@ -14664,7 +14664,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe172.it175",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 93,
+    "lineNumber": 106,
     "testTargets": [
       "Cookie"
     ]
@@ -14680,7 +14680,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe176",
     "access": null,
     "description": "when working with the domain",
-    "lineNumber": 98
+    "lineNumber": 111
   },
   {
     "__docId__": 781,
@@ -14693,7 +14693,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe176.it177",
     "access": null,
     "description": "allows the actor to retrieve it",
-    "lineNumber": 102,
+    "lineNumber": 115,
     "testTargets": [
       "Cookie#valueOf"
     ]
@@ -14709,7 +14709,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe176.it178",
     "access": null,
     "description": "returns an undefined when it can't retrieve it",
-    "lineNumber": 109,
+    "lineNumber": 122,
     "testTargets": [
       "Cookie#domainOf"
     ]
@@ -14725,7 +14725,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe176.it179",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 115,
+    "lineNumber": 128,
     "testTargets": [
       "Cookie"
     ]
@@ -14741,7 +14741,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe180",
     "access": null,
     "description": "when working with http-only cookies",
-    "lineNumber": 120
+    "lineNumber": 133
   },
   {
     "__docId__": 785,
@@ -14754,7 +14754,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe180.it181",
     "access": null,
     "description": "allows the actor to confirm that a cookie is http-only",
-    "lineNumber": 124,
+    "lineNumber": 137,
     "testTargets": [
       "Cookie#isHTTPOnly"
     ]
@@ -14770,7 +14770,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe180.it182",
     "access": null,
     "description": "returns an undefined when it can't retrieve it",
-    "lineNumber": 134,
+    "lineNumber": 147,
     "testTargets": [
       "Cookie#isHTTPOnly"
     ]
@@ -14786,7 +14786,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe180.it183",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 140,
+    "lineNumber": 153,
     "testTargets": [
       "Cookie"
     ]
@@ -14802,7 +14802,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe184",
     "access": null,
     "description": "when working with an expiry date",
-    "lineNumber": 145
+    "lineNumber": 158
   },
   {
     "__docId__": 789,
@@ -14815,7 +14815,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe184.it185",
     "access": null,
     "description": "allows the actor to retrieve it",
-    "lineNumber": 168,
+    "lineNumber": 181,
     "testTargets": [
       "Cookie#expiryDateOf"
     ]
@@ -14831,7 +14831,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe184.it186",
     "access": null,
     "description": "returns an undefined when it can't retrieve it",
-    "lineNumber": 175,
+    "lineNumber": 188,
     "testTargets": [
       "Cookie#expiryDateOf"
     ]
@@ -14847,7 +14847,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe167.describe184.it187",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 181,
+    "lineNumber": 194,
     "testTargets": [
       "Cookie"
     ]
@@ -14863,7 +14863,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe188",
     "access": null,
     "description": "when working with secure cookies",
-    "lineNumber": 188
+    "lineNumber": 201
   },
   {
     "__docId__": 793,
@@ -14876,7 +14876,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe188.it189",
     "access": null,
     "description": "allows the actor to confirm that a cookie is not secure",
-    "lineNumber": 206,
+    "lineNumber": 219,
     "testTargets": [
       "Cookie#isSecure"
     ]
@@ -14892,7 +14892,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe188.it190",
     "access": null,
     "description": "allows the actor to confirm that a cookie is secure",
-    "lineNumber": 213,
+    "lineNumber": 226,
     "testTargets": [
       "Cookie#isSecure"
     ]
@@ -14907,7 +14907,7 @@
     "static": true,
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe188.it191",
     "access": null,
-    "lineNumber": 220,
+    "lineNumber": 233,
     "testTargets": [
       "Cookie#isSecure"
     ]
@@ -14923,7 +14923,7 @@
     "longname": "spec/screenplay/questions/Cookie.spec.ts~describe166.describe188.it192",
     "access": null,
     "description": "provides a sensible description of the question being asked",
-    "lineNumber": 226,
+    "lineNumber": 239,
     "testTargets": [
       "Cookie"
     ]

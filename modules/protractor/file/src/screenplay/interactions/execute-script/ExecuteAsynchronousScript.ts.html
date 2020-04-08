@@ -180,6 +180,7 @@
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-keyword">this</span>.script, ...args);
     }
 
+    <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.args.length &gt; <span class="hljs-number">0</span>
             ? formatted <span class="hljs-string">`#actor executes an asynchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.args }</span>`</span>

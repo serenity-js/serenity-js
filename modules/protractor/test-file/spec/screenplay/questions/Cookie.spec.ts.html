@@ -162,9 +162,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Cookie.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>;
 <span class="hljs-keyword">import</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>);
 
@@ -176,7 +178,7 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
 
     <span class="hljs-comment">// a tiny express server, setting response cookies</span>
     <span class="hljs-keyword">const</span> cookieCutterApp = express().
-        <span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;/cookie&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
+        <span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;/cookie&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request &amp; { query: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }}, res: express.Response</span>) =&gt;</span> {
             res.cookie(req.query.name, req.query.value, {
                 path:       <span class="hljs-string">&apos;/cookie&apos;</span>,
                 domain:     req.query.domain,

@@ -143,6 +143,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-keyword">this</span>.pathToArtifact, <span class="hljs-keyword">this</span>.args, properties);
     }
 
+    <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     <span class="hljs-keyword">constructor</span>(
         private readonly pathToArtifact: Path,
         private readonly args: Question&lt;string[]&gt;  = Question.about(`no arguments`, actor =&gt; []),

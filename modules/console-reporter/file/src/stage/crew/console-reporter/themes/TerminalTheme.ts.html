@@ -136,17 +136,17 @@
  * @abstract
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> TerminalTheme {
-    <span class="hljs-keyword">abstract</span> heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> diff(expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> log(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-
     <span class="hljs-comment">/**
      * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
      */</span>
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> readonly differ: AssertionReportDiffer</span>) {
     }
+
+    <span class="hljs-keyword">abstract</span> heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> diff(expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> log(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
      * @desc
