@@ -1,6 +1,8 @@
+import 'mocha';
+
 import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, actorCalled, Question, Transform } from '@serenity-js/core';
+import { actorCalled, Question, Transform } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import express = require('express');
 
@@ -12,7 +14,7 @@ describe('Cookie', () => {
 
     // a tiny express server, setting response cookies
     const cookieCutterApp = express().
-        get('/cookie', (req: express.Request, res: express.Response) => {
+        get('/cookie', (req: express.Request & { query: { [key: string]: string }}, res: express.Response) => {
             res.cookie(req.query.name, req.query.value, {
                 path:       '/cookie',
                 domain:     req.query.domain,

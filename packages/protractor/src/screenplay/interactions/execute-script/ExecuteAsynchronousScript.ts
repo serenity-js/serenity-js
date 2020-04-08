@@ -16,6 +16,7 @@ export class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
         return BrowseTheWeb.as(actor).executeAsyncScript(this.script, ...args);
     }
 
+    // tslint:disable-next-line:member-ordering
     toString(): string {
         return this.args.length > 0
             ? formatted `#actor executes an asynchronous script with arguments: ${ this.args }`

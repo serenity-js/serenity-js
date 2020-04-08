@@ -30,11 +30,21 @@
     "variable-name": [true, "ban-keywords"],
     "interface-name": [true, "never-prefix"],
     "max-line-length": [true, 200],
-    "member-ordering": [true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
+    "member-ordering": [true, {
+      "order": [
+        "public-static-field",
+        "private-static-field",
+        "public-instance-field",
+        "private-instance-field",
+        "public-constructor",
+        "public-instance-method",
+        "private-constructor",
+        "protected-instance-method",
+        "private-instance-method"
+      ],
+      "alphabetize": false
+    }],
+    "array-type": [true, "array-simple"],
     "only-arrow-functions": false,
     "arrow-parens": [true, "ban-single-arg-parens" ],
     "max-classes-per-file": false,
