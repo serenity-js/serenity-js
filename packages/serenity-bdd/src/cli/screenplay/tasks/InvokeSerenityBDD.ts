@@ -21,6 +21,7 @@ export class InvokeSerenityBDD extends Task {
         return new InvokeSerenityBDD(this.pathToArtifact, this.args, properties);
     }
 
+    // tslint:disable-next-line:member-ordering
     constructor(
         private readonly pathToArtifact: Path,
         private readonly args: Question<string[]>  = Question.about(`no arguments`, actor => []),

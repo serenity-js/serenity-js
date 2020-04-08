@@ -16,6 +16,7 @@ export class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
         return BrowseTheWeb.as(actor).executeScript(this.toString(), this.script, ...args);
     }
 
+    // tslint:disable-next-line:member-ordering
     toString(): string {
         return this.args.length > 0
             ? formatted `#actor executes a synchronous script with arguments: ${ this.args }`

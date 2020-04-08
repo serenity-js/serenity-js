@@ -16,8 +16,6 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
 
     public abstract withArguments(...args: Array<Answerable<any>>): Interaction;
 
-    protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;
-
     /**
      * @desc
      *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
@@ -42,6 +40,8 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
                 new Name('Script source'),
             ));
     }
+
+    protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;
 
     /**
      * @private

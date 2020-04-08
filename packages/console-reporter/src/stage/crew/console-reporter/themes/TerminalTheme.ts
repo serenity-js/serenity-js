@@ -10,17 +10,17 @@ import { Outcome } from '@serenity-js/core/lib/model';
  * @abstract
  */
 export abstract class TerminalTheme {
-    abstract heading(...parts: any[]): string;
-    abstract outcome(outcome: Outcome | string, ...parts: any[]): string;
-    abstract separator(pattern: string): string;
-    abstract diff(expected: string, actual: string): string;
-    abstract log(...parts: any[]): string;
-
     /**
      * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
      */
     constructor(protected readonly differ: AssertionReportDiffer) {
     }
+
+    abstract heading(...parts: any[]): string;
+    abstract outcome(outcome: Outcome | string, ...parts: any[]): string;
+    abstract separator(pattern: string): string;
+    abstract diff(expected: string, actual: string): string;
+    abstract log(...parts: any[]): string;
 
     /**
      * @desc
