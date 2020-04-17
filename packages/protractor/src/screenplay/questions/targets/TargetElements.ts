@@ -6,17 +6,33 @@ import { override } from './override';
 import { TargetNestedElements } from './TargetNestedElements';
 
 /**
+ * @desc
+ *  Locates a group of web element.
+ *  Instead of using this class directly, please use {@link Target.all} instead.
+ *
  * @public
+ * @see {@link Target}
  */
 export class TargetElements
     implements Question<ElementArrayFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
 {
+
+    /**
+     * @desc
+     *
+     * @param {string} description - A human-readable description to be used in the report
+     * @param {protractor~Locator} locator - A locator to be used when locating the element
+     */
     constructor(
         private readonly description: string,
         private readonly locator: Locator,
     ) {
     }
 
+    /**
+     * @param {Question<ElementFinder> | ElementFinder} parent
+     * @returns {TargetNestedElements}
+     */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElements(parent, this);
     }
