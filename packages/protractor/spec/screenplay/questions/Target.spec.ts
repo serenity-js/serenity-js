@@ -5,7 +5,7 @@ import { by } from 'protractor';
 import { Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
-/** @target {Target} */
+/** @test {Target} */
 describe('Target', () => {
 
     const shoppingListPage = pageFromTemplate(`
@@ -37,24 +37,40 @@ describe('Target', () => {
 
     describe('allows the actor to locate', () => {
 
+        /**
+         * @test {Target}
+         * @test {TargetElement}
+         */
         it('a single web element matching the selector', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.of(ShoppingList.Header), equals('Shopping list')),
         ));
 
+        /**
+         * @test {Target}
+         * @test {TargetElements}
+         */
         it('all web elements matching the selector', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.ofAll(ShoppingList.Items), contain('oats')),
         ));
 
+        /**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */
         it('an element relative to another target', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals('2')),
         ));
 
+        /**
+         * @test {Target}
+         * @test {TargetNestedElements}
+         */
         it('all elements relative to another target', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(shoppingListPage),
 
@@ -66,16 +82,28 @@ describe('Target', () => {
 
         describe('an element that', () => {
 
+            /**
+             * @test {Target}
+             * @test {TargetElement}
+             */
             it('is being targeted', () => {
                 expect(ShoppingList.Header.toString())
                     .to.equal('the header');
             });
 
+            /**
+             * @test {Target}
+             * @test {TargetElement}
+             */
             it('has been located', () => {
                 expect(ShoppingList.Header.answeredBy(actorCalled('Bernie')).toString())
                     .to.equal('the header');
             });
 
+            /**
+             * @test {Target}
+             * @test {TargetNestedElement}
+             */
             it('is nested', () =>
                 expect(ShoppingList.Number_Of_Items_Left.answeredBy(actorCalled('Bernie')).toString())
                     .to.equal('the number of items left of the progress bar of the shopping list app'));
@@ -83,15 +111,27 @@ describe('Target', () => {
 
         describe('elements that', () => {
 
+            /**
+             * @test {Target}
+             * @test {TargetElements}
+             */
             it('are being targeted', () => {
                 expect(ShoppingList.Items.toString())
                     .to.equal('the items of the shopping list app');
             });
 
+            /**
+             * @test {Target}
+             * @test {TargetElements}
+             */
             it('have been located', () =>
                 expect(ShoppingList.Items.answeredBy(actorCalled('Bernie')).toString())
                     .to.equal('the items of the shopping list app'));
 
+            /**
+             * @test {Target}
+             * @test {TargetNestedElements}
+             */
             it('are nested', () =>
                 expect(ShoppingList.Bought_Items.answeredBy(actorCalled('Bernie')).toString())
                     .to.equal('the bought items of the shopping list'));
@@ -124,6 +164,10 @@ describe('Target', () => {
             static Topics  = Target.all('topics').located(by.css('li'));
         }
 
+        /**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */
         it('allows for Target<ElementFinder> to be nested within another Target<ElementFinder>', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageWithNestedTargets),
 
@@ -131,6 +175,10 @@ describe('Target', () => {
             Ensure.that(Page.Header.of(Page.Article).toString(), equals('the header of the article')),
         ));
 
+        /**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */
         it('allows for Target<ElementFinder> to form a chain with other Target<ElementFinder>s', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageWithNestedTargets),
 
@@ -138,6 +186,10 @@ describe('Target', () => {
             Ensure.that(Page.Title.of(Page.Header.of(Page.Article)).toString(), equals('the title of the header of the article')),
         ));
 
+        /**
+         * @test {Target}
+         * @test {TargetNestedElements}
+         */
         it('allows for Target<ElementArrayFinder> to be nested within another Target<ElementFinder>', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageWithNestedTargets),
 
