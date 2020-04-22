@@ -1,9 +1,10 @@
 # Serenity/JS
 [![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fcore.svg)](https://badge.fury.io/js/%40serenity-js%2Fcore)
 [![Downloads](https://img.shields.io/npm/dm/@serenity-js/core.svg)](https://npm-stat.com/charts.html?package=@serenity-js/core)
-[![Build Status](https://travis-ci.org/serenity-js/serenity-js.svg?branch=master)](https://travis-ci.org/serenity-js/serenity-js)
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
 
+[![Build Status](https://travis-ci.org/serenity-js/serenity-js.svg?branch=master)](https://travis-ci.org/serenity-js/serenity-js)
 [![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=master)](https://coveralls.io/github/serenity-js/serenity-js?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
 [![Dependencies](https://flat.badgen.net/dependabot/serenity-js/serenity-js?icon=dependabot)](https://github.com/serenity-js/serenity-js)
@@ -11,7 +12,9 @@
 
 [![Serenity/JS on Github](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
 
 [Serenity/JS](https://serenity-js.org) is a Node.js framework designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.
