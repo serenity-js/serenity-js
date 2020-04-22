@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-85788349-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-85788349-2');
+    </script>
+    <meta charset="utf-8"/>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
+    <title>Upgrading to Serenity/JS 2.0 | Serenity/JS</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
+          integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
+</head>
+<body>
+
+<div id="top"
+        class="block block-dark block-bb bg-gradient-accent-2 p-0 d-print-none">
+    <div class="container">
+        <nav id="web-nav" class="web-nav web-nav-light">
+            <header>
+                <a href="/" class="serenity-js-logo">
+                    <svg width="190px" height="42px" viewBox="0 0 1077 243" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+                        <path class="logo-accent" d="M295.133,157.626l22.342,0c1.571,12.567 6.633,23.04 27.753,23.04c13.789,0 23.563,-7.68 23.563,-19.2c0,-11.52 -5.76,-15.884 -26.007,-19.2c-29.847,-4.015 -43.985,-13.091 -43.985,-36.48c0,-20.422 17.454,-35.782 43.461,-35.782c26.881,0 42.938,12.219 45.382,36.131l-21.294,0c-2.27,-13.091 -9.775,-18.676 -24.088,-18.676c-14.138,0 -21.469,6.807 -21.469,16.407c0,10.123 4.19,15.186 25.833,18.327c29.323,4.015 44.509,12.393 44.509,37.353c0,21.643 -18.327,38.574 -45.905,38.574c-34.036,0 -48.35,-16.931 -50.095,-40.494" style="fill-rule:nonzero;"/>
+                        <path class="logo-accent" d="M472.468,141.219c-1.048,-15.709 -9.077,-22.691 -22.168,-22.691c-12.741,0 -21.294,8.552 -23.389,22.691l45.557,0Zm-67.55,10.473l0,-1.397c0,-28.276 19.375,-47.127 45.382,-47.127c22.691,0 43.113,13.44 43.113,46.08l0,6.109l-66.851,0c0.698,17.28 9.426,27.054 25.135,27.054c12.742,0 19.375,-5.061 20.945,-13.963l20.422,0c-2.967,19.2 -18.502,29.672 -41.891,29.672c-26.88,0 -46.255,-17.629 -46.255,-46.428" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M513.481,105.088l14.487,0l0,16.407c5.761,-10.298 13.616,-17.454 30.023,-17.978l0,13.615c-18.327,0.872 -30.023,6.633 -30.023,29.148l0,50.095l-14.487,0l0,-91.287Z" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M637.754,141.917c-1.396,-18.851 -11.171,-26.356 -26.182,-26.356c-14.836,0 -24.785,10.124 -27.229,26.356l53.411,0Zm-68.945,9.774l0,-1.396c0,-27.578 17.629,-46.778 42.763,-46.778c21.12,0 41.019,12.742 41.019,45.381l0,4.713l-68.772,0c0.699,20.771 10.648,32.291 29.325,32.291c14.137,0 22.341,-5.236 24.261,-15.883l14.488,0c-3.143,18.327 -18.328,27.927 -38.924,27.927c-25.833,0 -44.16,-18.153 -44.16,-46.255" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M673.882,105.088l14.487,0l0,14.487c4.189,-8.552 14.313,-16.058 29.324,-16.058c18.85,0 32.116,10.299 32.116,36.829l0,56.029l-14.488,0l0,-57.076c0,-16.059 -6.806,-23.215 -21.468,-23.215c-13.441,0 -25.484,8.553 -25.484,24.96l0,55.331l-14.487,0l0,-91.287Z" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M772.733,105.088l14.486,0l0,91.287l-14.487,0l0,-91.287Zm-2.618,-28.626c0,-5.237 4.365,-9.6 9.601,-9.6c5.236,0 9.599,4.363 9.599,9.6c0,5.237 -4.363,9.6 -9.599,9.6c-5.236,0 -9.601,-4.363 -9.601,-9.6" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M819.16,173.51l0,-56.204l-13.091,0l0,-12.218l13.091,0l0,-20.77l14.487,0l0,20.77l21.294,0l0,12.218l-21.294,0l0,54.808c0,8.901 4.015,13.265 11.346,13.265c4.538,0 8.028,-0.698 11.171,-1.92l0,12.218c-2.968,1.047 -6.459,1.92 -12.394,1.92c-16.581,0 -24.61,-9.774 -24.61,-24.087" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M902.589,186.949l-35.782,-81.861l15.535,0l27.927,65.454l25.309,-65.454l14.836,0l-50.443,123.054l-14.662,0l17.28,-41.193Z" style="fill-rule:nonzero;"/>
+                        <path class="logo-accent" d="M996.26,100.15l7.752,0l-22.728,69.537l-7.675,0l22.651,-69.537Z" style="fill-rule:nonzero;"/>
+                        <path class="logo-accent" d="M1002.35,157.646l0,-7.826c1.882,0.752 3.763,1.353 6.924,1.353c4.891,0 8.053,-2.558 8.053,-9.181l0,-37.252l10.084,0l0,37.478c0,11.664 -6.698,17.008 -16.632,17.008c-4.44,0 -6.698,-0.678 -8.429,-1.58" style="fill-rule:nonzero;"/>
+                        <path class="logo-accent" d="M1035.46,141.841l9.633,0c0.678,5.42 2.86,9.934 11.966,9.934c5.945,0 10.16,-3.311 10.16,-8.278c0,-4.967 -2.484,-6.847 -11.214,-8.277c-12.868,-1.733 -18.964,-5.645 -18.964,-15.729c0,-8.806 7.525,-15.427 18.738,-15.427c11.59,0 18.514,5.267 19.567,15.578l-9.181,0c-0.978,-5.645 -4.215,-8.053 -10.386,-8.053c-6.095,0 -9.256,2.934 -9.256,7.074c0,4.366 1.806,6.547 11.138,7.901c12.643,1.732 19.191,5.343 19.191,16.105c0,9.332 -7.903,16.633 -19.793,16.633c-14.675,0 -20.846,-7.301 -21.599,-17.461" style="fill-rule:nonzero;"/>
+                        <path class="logo-accent" d="M152.636,121.232c0,17.344 -14.06,31.404 -31.404,31.404c-17.344,0 -31.405,-14.06 -31.405,-31.404c0,-17.344 14.061,-31.404 31.405,-31.404c17.344,0 31.404,14.06 31.404,31.404" style="fill-rule:nonzero;"/>
+                        <path class="logo-base"   d="M230.534,68.726l-67.217,67.217l46.941,0c-7.045,42.781 -44.281,75.521 -89.026,75.521c-31.396,0 -59.086,-16.127 -75.255,-40.523l-22.286,22.287c22.081,29.866 57.547,49.236 97.541,49.236c66.955,0 121.232,-54.277 121.232,-121.232c0,-18.81 -4.284,-36.619 -11.93,-52.506m-198.328,37.796c7.045,-42.782 44.281,-75.522 89.026,-75.522c31.396,0 59.086,16.127 75.255,40.523l22.286,-22.286c-22.081,-29.867 -57.547,-49.237 -97.541,-49.237c-66.955,0 -121.232,54.278 -121.232,121.232c0,18.811 4.284,36.62 11.93,52.506l67.217,-67.216l-46.941,0Z" style="fill-rule:nonzero;"/>
+                    </svg>
+                </a>
+        
+                <a href="#!" class="web-nav-toggler">
+                    <span class="fa fa-close"></span>
+                    <span class="fa fa-bars"></span>
+                </a>
+            </header>
+        
+            <div class="web-nav-list">
+                <a href="/handbook" class="web-nav-item">Handbook</a>
+                <a href="/modules" class="web-nav-item">Modules</a>
+                <a href="/changelog.html" class="web-nav-item">Changelog</a>
+                <a href="/support.html" class="web-nav-item">Support</a>
+                <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://github.com/serenity-js" class="web-nav-item">
+                    <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
+                </a>
+            </div>
+        
+            <div id="web-nav-mobile-indicator"><!-- this signals to the javascript if the navigation is mobile or not --></div>
+        </nav>
+    </div>
+</div>
+
+<section id="handbook">
+    <section>
+        <div class="container">
+            <div class="row">
+                <aside id="sidebar" class="col-lg-3 col-md-12 d-print-none">
+                    <nav class="toc navigation text-truncate" data-ice="nav">
+                        <ul class="summary">
+                                <li class="header"><a href="/handbook/index.html">Overview</a></li>
+                                <li class="chapter"><a href="/handbook/why-serenityjs.html">Why Serenity/JS?</a></li>
+                                <li class="chapter"><a href="/handbook/demo.html">Demo</a></li>
+                                <li class="chapter"><a href="/handbook/about.html">About this book</a></li>
+                                <li class="chapter"><a href="/support.html">Support</a></li>
+                                <li class="chapter"><a href="/contributing.html">Contributing</a></li>
+                                <li class="chapter"><a href="/license.html">License</a></li>
+                                <li class="header"><a href="/handbook/thinking-in-serenity-js/index.html">Thinking in Serenity/JS</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">The Screenplay Pattern</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/full-stack-acceptance-testing.html">Full-stack acceptance testing</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/bridging-the-communication-gap.html">Bridging the communication gap</a></li>
+                                <li class="header"><a href="/handbook/design/index.html">Design Guide</a></li>
+                                <li class="chapter"><a href="/handbook/design/actors.html">Actors</a></li>
+                                <li class="chapter"><a href="/handbook/design/abilities.html">Abilities</a></li>
+                                <li class="chapter"><a href="/handbook/design/interactions.html">Interactions</a></li>
+                                <li class="chapter"><a href="/handbook/design/tasks.html">Tasks</a></li>
+                                <li class="chapter"><a href="/handbook/design/questions.html">Questions</a></li>
+                                <li class="chapter"><a href="/handbook/design/assertions.html">Assertions</a></li>
+                                <li class="chapter"><a href="/handbook/design/errors.html">Errors</a></li>
+                                <li class="header"><a href="/handbook/integration/index.html">Integration Guide</a></li>
+                                <li class="chapter"><a href="/handbook/integration/architecture.html">Architecture</a></li>
+                                <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
+                                <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
+                                <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
+                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
+                                <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/community/index.html">Community</a></li>
+                                <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
+                                <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <div class="col-lg-9 col-md-12">
+                    <article class="content">
+                        <nav class="article-tools">
+                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/upgrading-to-serenity-js-2.md">
+                                <i class="far fa-edit"></i> Edit on Github</a>
+                        </nav>
+                        <section class="github-markdown">
+                            <html><head></head><body><h1 id="upgrading-to-serenity-js-2-0">Upgrading to Serenity/JS 2.0</h1>
+<p>If you wish to upgrade your existing Serenity/JS 1.x project to use version 2.0 of the framework - this guide is for you!</p>
+<p>The upgrade path is relatively straightforward as the main Screenplay classes, such as <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html"><code>Actor</code></a>, 
+<a href="/modules/core/class/src/screenplay/Task.ts~Task.html"><code>Task</code></a>, <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a> and <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> 
+are backwards compatible. However, the latest version of Serenity/JS introduces a number of significant new features, which will give you an opportunity to simplify your existing code.</p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-hands-helping"></i></div>
+    <div class="text">
+        <h4>Need a hand?</h4>
+        <p>
+            If you&apos;d like some help with the upgrade or a review of your code base - check out the <a href="/support.html">support options</a>.
+        </p>
+    </div>
+</div>
+
+<h2 id="project-templates-and-examples">Project templates and examples</h2>
+<p>If you&apos;d like to see Serenity/JS 2.0 in action, watch my talk on <a href="/handbook/demo.html">&quot;Full-stack acceptance testing with Serenity/JS 2.0&quot;</a>.</p>
+<p>If you prefer to dive straight into the code, there are several <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">example mini-projects</a> within the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS main repo</a> that demonstrate some of the major features, as well as integrations and test runners the framework supports. </p>
+<p>In particular, you might be interested to check out:</p>
+<ul>
+<li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc"><code>protractor-jasmine-todomvc</code></a> - an example of a test suite interacting with the popular TodoMVC web app, and using Serenity/JS 2.0, Jasmine and Protractor,</li>
+<li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples/cucumber-rest-api-level-testing"><code>cucumber-rest-api-level-testing</code></a> - an example of a REST API-only test suite using Serenity/JS 2.0 and the latest version of Cucumber.js</li>
+<li>there are also <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">other projects</a>, so feel free to explore! </li>
+</ul>
+<p>If you&apos;re starting a new project, the easiest way to do it is to use one of the <a href="https://github.com/serenity-js/">Serenity/JS project templates</a> as the foundation.</p>
+<p>The most popular templates include:</p>
+<ul>
+<li><a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template"><code>serenity-js-cucumber-protractor-template</code></a> - a boilerplate project with Serenity/JS 2.x, latest version of Cucumber.js and Protractor,</li>
+<li><a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template"><code>serenity-js-jasmine-protractor-template</code></a> - a boilerplate project with Serenity/JS 2.x, Jasmine and Protractor.</li>
+</ul>
+<h2 id="a-modular-framework">A modular framework</h2>
+<p>The two main <a href="https://github.com/serenity-js/serenity-js/tree/1.x">Serenity/JS 1.x</a> modules you have probably interacted with the most were <a href="https://www.npmjs.com/package/serenity-js"><code>serenity-js</code></a>, which contained the bulk of the framework, and <a href="https://www.npmjs.com/package/serenity-cli"><code>serenity-cli</code></a> - a wrapper around the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD CLI</a>, responsible for generating the <a href="https://serenity-bdd.github.io/theserenitybook/latest/living-documentation.html">HTML reports and living documentation</a>.</p>
+<p> This design of the framework made it easier for you to add it as a dependency to your project. However, it also meant that as the framework grew over time and became more sophisticated, you might have had to depend on parts of it that you did not necessarily need. For example, why should you need a dependency on Protractor and WebDriver if you were only writing API tests? And why would you need an adapter for Mocha if you were only ever going to use Cucumber? The answers to those questions seem obvious now, but when I originally designed the framework back in 2016, I never expected how popular it would become and how many use cases you&apos;d find for it, dear fellow engineers! :-)</p>
+<p>But, several years and thousands of Serenity/JS installations later, the internal structure of Serenity/JS 2.0 is in stark contrast with what you would&apos;ve found here before.</p>
+<p>While <strong>almost all the public APIs</strong> you&apos;d use in your tests <strong>remained intact</strong> to help you make the upgrade as easy as possible, internally Serenity/JS 2.x has been re-architected to become a full-stack acceptance testing framework. Most importantly, it now offers a <a href="/handbook/integration/architecture.html">modular, pluggable architecture</a> that you can extend to your needs to make your tests interact with <strong>any interface of your system</strong>, not just the Web and HTTP/REST APIs.</p>
+<h3 id="new-dependencies">New dependencies</h3>
+<p>The main consequence of those internal design changes is that the Serenity/JS framework is now distributed 
+as a <strong>collection of NPM modules</strong> under the <a href="https://www.npmjs.com/search?q=%40serenity-js"><code>@serenity-js/*</code> namespace</a>.</p>
+<p>While this distribution model requires you to think a little bit more about what parts of the framework you&apos;ll actually need for your project, it also makes the overall design much easier for you to extend and the framework itself more lightweight. Check out <a href="/modules/">the modules page</a> to see what official Serenity/JS modules are currently available. </p>
+<p>So, assuming that your Serenity/JS 1.x-based project interacted with the Web interface of your system (after all, that was the most common use case), the first thing you&apos;ll need to do is to add the following Serenity/JS 2.x modules to the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> or <a href="https://docs.npmjs.com/files/package.json#devdependencies"><code>devDependencies</code></a> section of your <code>packages.json</code>:</p>
+<pre><code class="lang-javascript hljs gherkin"><span class="hljs-string">&quot;@serenity-js/assertions&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;@serenity-js/console-reporter&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;@serenity-js/core&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;@serenity-js/protractor&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;@serenity-js/rest&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;@serenity-js/serenity-bdd&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>
+</code></pre>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <h4>Semantic versioning</h4>
+        <p>
+            Serenity/JS uses <a href="https://semver.org/">semantic versioning</a> and we take semantic versioning, as well as backwards compatibility and deprecations <a href="/handbook/integration/versioning.html">very seriously</a>. This means that the best way for you to stay up-to-date with all the latest features and patches is to set the version of <code>@serenity-js/*</code> modules you depend on to <code>&quot;^2.0.0&quot;</code>.
+        </p>
+        <p>
+            However, if you&apos;d prefer to stay on a fixed version instead, you can find out the latest available version by visiting the <a href="https://github.com/serenity-js/serenity-js/releases">releases page</a>.
+        </p>
+    </div>
+</div>
+
+<p>Since test runner adaptors are no longer part of the core framework but instead live in their own independent modules,
+the next thing you&apos;ll need to do is to pick such adaptor for your test runner of choice.</p>
+<p>For example, if you were using Serenity/JS with Cucumber, you&apos;ll need the <a href="/modules/cucumber">Serenity/JS Cucumber adaptor</a>:</p>
+<pre><code class="hljs gherkin"><span class="hljs-string">&quot;@serenity-js/cucumber&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+</code></pre><p>If you were using <code>mocha</code>, you&apos;ll need to switch to <a href="/modules/jasmine"><code>jasmine</code></a> for now and add the below dependencies:</p>
+<pre><code class="hljs gherkin"><span class="hljs-string">&quot;@serenity-js/jasmine&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;jasmine&quot;</span>: <span class="hljs-string">&quot;^3.5.0&quot;</span>,
+</code></pre><p>Both Mocha and Jasmine offer nearly identical <code>describe</code> and <code>it</code> APIs, and since Serenity/JS 2.0 offers its own <a href="/modules/assertions">assertions
+library</a>, you&apos;re unlikely to see much difference between the two test runners.</p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <h4>Where&apos;s support for Mocha?</h4>
+        <p>
+            While Serenity/JS 2.0 was in development, Mocha was undergoing a number of API changes, which made it easier for Serenity/JS to integrate with a more stable Jasmine instead.
+        </p>
+        <p>However, there&apos;s nothing preventing Serenity/JS from supporting Mocha, or Jest, or any other test runner in the future. So if that&apos;s something you&apos;d like to see, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or consider <a href="/support.html">sponsoring this feature</a>.
+        </p>
+    </div>
+</div>
+
+<h3 id="obsolete-dependencies">Obsolete dependencies</h3>
+<p>There&apos;s a number of libraries that Serenity/JS used to depend on that you won&apos;t need anymore with version 2.0 of the framework. </p>
+<p>In particular:</p>
+<ul>
+<li><a href="https://www.chaijs.com/"><code>chai</code></a> is no longer needed as it&apos;s been superseded by <a href="/modules/assertions/"><code>@serenity-js/assertions</code></a>, </li>
+<li><a href="https://mochajs.org/"><code>mocha</code></a> test runner is not yet supported, but you can use <a href="https://jasmine.github.io/"><code>jasmine</code></a> test runner instead as their main APIs (<code>describe</code> and <code>it</code>) are nearly identical,</li>
+<li><code>serenity-cli</code> has been merged with other code that enables integration of Serenity/JS and Serenity BDD and is available as <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>. </li>
+</ul>
+<p>All the above means that you can remove the following entries from the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> or <a href="https://docs.npmjs.com/files/package.json#devdependencies"><code>devDependencies</code></a> section of your <code>packages.json</code>: </p>
+<pre><code class="lang-javascript hljs gherkin"><span class="hljs-string">&quot;@types/chai&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;@types/chai-as-promised&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;@types/mocha&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;chai&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;chai-as-promised&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;chai-smoothie&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;mocha&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;serenity-cli&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+<span class="hljs-string">&quot;serenity-js&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
+</code></pre>
+<h3 id="updated-scripts">Updated scripts</h3>
+<p>In Serenity/JS 2.0, the old <code>serenity-cli</code> module that used to provide a wrapper around Serenity BDD CLI, has been merged with other code integrating Serenity/JS with Serenity BDD and is now available as <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>.</p>
+<p>This new module ships with a new command you can use to download the Serenity BDD CLI <code>jar</code>. This means that any of the <code>pretest</code> or <code>postinstall</code> scripts defined in your <code>package.json</code> that used to call <code>serenity update</code> should be changed to call <code>serenity-bdd update</code> instead.</p>
+<h5 id="before">Before</h5>
+<pre><code class="lang-json hljs gherkin"><span class="hljs-string">&quot;postinstall&quot;</span>: <span class="hljs-string">&quot;serenity update --ignoreSSL&quot;</span>,
+</code></pre>
+<h5 id="after">After</h5>
+<pre><code class="lang-json hljs gherkin"><span class="hljs-string">&quot;postinstall&quot;</span>: <span class="hljs-string">&quot;serenity-bdd update --ignoreSSL&quot;</span>, 
+</code></pre>
+<p>Learn more about <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>.</p>
+<h3 id="updated-imports">Updated imports</h3>
+<p>In Serenity/JS 1.x, all the core and Protractor-specific APIs you&apos;d use in your tests were made available via the <code>serenity-js</code> module. It was also common to import them either from <code>serenity-js/lib/serenity-protractor</code>, or its alias <code>serenity-js/protractor</code>, for example:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Task, Click, Enter, <span class="hljs-comment">/** etc. **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { Task, Click, Enter, <span class="hljs-comment">/** etc.  **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/serenity-protractor&apos;</span>;
+</code></pre>
+<p>Another approach some engineers chose to use in their custom <code>Task</code> and <code>Interaction</code> classes was to import the Serenity/JS Screenplay Pattern APIs directly from <code>@serenity-js/core/lib/screenplay</code> or its alias <code>serenity-js/lib/screenplay</code>, for example:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Task, Interaction, Actor, <span class="hljs-comment">/** etc **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span>;
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { Task, Interaction, Actor, <span class="hljs-comment">/** etc **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay&apos;</span>;
+</code></pre>
+<p>Because of its <a href="/handbook/integration/architecture.html">modular architecture</a>, the nature of Serenity/JS 2.x imports has changed as well.</p>
+<p>If your source files import <strong>core Screenplay types</strong> such as <code>Task</code>, <code>Actor</code>, <code>Interaction</code>, <code>Question</code> or <code>Ability</code> from <code>serenity-js/lib/screenplay-protractor</code>, they should now do so from <a href="/modules/core"><code>@serenity-js/core</code></a>.</p>
+<p>All the other <strong>Protractor-specific types</strong>, such as <code>Click</code>, <code>Enter</code>, etc. can be imported from the <a href="@serenity-js/protractor"><code>@serenity-js/protractor</code></a> module:</p>
+<h5 id="before">Before</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { 
+    Actor, Task, Interaction, Click, Enter, BrowseTheWeb, <span class="hljs-comment">/** etc. **/</span> 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> {
+    Actor, Task, Interaction, Click, Enter, BrowseTheWeb, <span class="hljs-comment">/** etc.  **/</span>
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/serenity-protractor&apos;</span>;
+</code></pre>
+<h5 id="after">After</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// core Screenplay APIs:</span>
+<span class="hljs-keyword">import</span> { Task, Interaction, Actor, <span class="hljs-comment">/** etc **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+
+<span class="hljs-comment">// Protractor-specific APIs:</span>
+<span class="hljs-keyword">import</span> { Click, Enter, BrowseTheWeb, <span class="hljs-comment">/** etc **/</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+</code></pre>
+<h4 id="find-and-replace">Find and replace</h4>
+<p>You&apos;ll most likely have to change many of the imports used in your code base by manually editing the code as per the above instructions. However, if you used one of the more specific imports, such as the ones in the <code>before</code> column in the table below, you might simplify the process by using the &quot;replace all&quot; / &quot;replace in path&quot; function in your IDE to quickly make those changes across all your source files.</p>
+<table>
+<thead>
+<tr>
+<th>before (1.x)</th>
+<th>after (2.x) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>serenity-js/lib/serenity-protractor</code></td>
+<td><code>@serenity-js/protractor</code> </td>
+</tr>
+<tr>
+<td><code>serenity-js/lib/screenplay</code></td>
+<td><code>@serenity-js/core</code></td>
+</tr>
+<tr>
+<td><code>@serenity-js/core/lib/screenplay</code></td>
+<td><code>@serenity-js/core</code></td>
+</tr>
+</tbody>
+</table>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <h4>Project-level &quot;find and replace&quot;</h4>
+        <p>
+            To find out more about replacing multiple occurrences of a given string in your project, consult your IDE&apos;s manual.
+        </p>
+        <p>
+            For example, here&apos;s how you&apos;d do it in <a href="https://www.jetbrains.com/help/webstorm/finding-and-replacing-text-in-project.html">WebStorm</a>, <a href="https://www.jetbrains.com/help/go/finding-and-replacing-text-in-project.html">IntelliJ</a>, and <a href="https://code.visualstudio.com/Docs/editor/codebasics">Visual Studio Code</a>.
+        </p>
+    </div>
+</div>
+
+<h2 id="configuration">Configuration</h2>
+<p>Serenity/JS 2.x is a full-stack acceptance testing framework and can be used with or without a web browser. However, since the most common use case for Serenity/JS 1.x was to <strong>run Web-based tests via Protractor</strong>, in this guide I&apos;ll focus on upgrading this particular setup.</p>
+<p>To learn more about configuring a test runner that <strong>doesn&apos;t use</strong> Protractor, check out the documentation for the <a href="/modules">Serenity/JS module</a> you&apos;re interested in, for example the <a href="/modules/cucumber">Cucumber</a> and <a href="/modules/jasmine">Jasmine</a> adaptors. </p>
+<h3 id="protractor">Protractor</h3>
+<p>Serenity/JS 1.x bundled the various reporting services, a.k.a. the <a href="modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMember</code>s</a>, in the <code>serenity-js</code> module, which made it easier to import them in your <code>protractor.conf.js</code> file.</p>
+<p>In Serenity/JS 2.x, the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMember</code>s</a> are bundled together with other code supporting given integration, i.e. <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> or <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>, or have their own standalone modules, i.e. <a href="/modules/console-reporter"><code>@serenity-js/console-reporter</code></a>.</p>
+<p>The new <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMember</code>s</a> also no longer rely on the file system, as they used to in Serenity/JS 1.x. Instead, they delegate the responsibility of storing the artifacts they generate (such as screenshots, test reports, and so on) on disk to the <a href="/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"><code>ArtifactArchiver</code></a>.</p>
+<p>The above changes mean that the imports in a typical <code>protractor.conf.js</code> file will need to change as follows: </p>
+<h5 id="before">Before</h5>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-keyword">const</span> {
+  consoleReporter,
+  serenityBDDReporter,
+  photographer,
+} = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;serenity-js/lib/stage_crew&apos;</span>);
+</code></pre>
+<h5 id="after">After</h5>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-keyword">const</span> 
+  { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>),
+  { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@serenity-js/core&quot;</span>),
+  { Photographer, TakePhotosOfInteractions } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>),
+  { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@serenity-js/serenity-bdd&quot;</span>);
+</code></pre>
+<p>Once you have imported the new <code>StageCrewMember</code>s, you can tell the framework to use them
+using syntax similar to version 1.x, as per the code sample below.</p>
+<p>The main difference, though, is that since the core framework no longer depends on Protractor, instead of configuring the <code>frameworkPath</code> parameter to point at <code>require.resolve(&apos;serenity-js&apos;)</code>, you&apos;ll now point it at <code>require.resolve(&apos;@serenity-js/protractor/adapter&apos;)</code>:</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-comment">// Serenity/JS imports</span>
+<span class="hljs-keyword">const</span> 
+  { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>),
+  { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@serenity-js/core&quot;</span>),
+  { Photographer, TakePhotosOfFailures } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>),
+  { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@serenity-js/serenity-bdd&quot;</span>);
+
+exports.config = {
+
+    <span class="hljs-comment">// Serenity/JS config</span>
+    framework:      <span class="hljs-string">&apos;custom&apos;</span>,
+    frameworkPath:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+
+    serenity: {
+        crew: [
+            ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&quot;./target/site/serenity&quot;</span>),
+            Photographer.whoWill(TakePhotosOfFailures),
+            <span class="hljs-keyword">new</span> SerenityBDDReporter(),
+            ConsoleReporter.withDefaultColourSupport(),
+        ],
+    },
+
+    <span class="hljs-comment">// Test runner config [...]</span>
+
+    <span class="hljs-comment">// Other Protractor config [...]</span>
+};
+</code></pre>
+<p>Learn more about the stage crew:</p>
+<ul>
+<li><a href="/modules/console-reporter/"><code>ConsoleReporter</code></a></li>
+<li><a href="/modules/protractor/class/src/stage/crew/photographer/Photographer.ts~Photographer.html"><code>Photographer</code></a></li>
+<li><a href="/modules/serenity-bdd/"><code>SerenityBDDReporter</code></a></li>
+<li><a href="/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"><code>ArtifactArchiver</code></a></li>
+</ul>
+<h4 id="migrating-from-mocha-to-jasmine">Migrating from Mocha to Jasmine</h4>
+<p>Serenity/JS 2.x does not support Mocha (<a href="https://github.com/orgs/serenity-js/projects">yet!</a>). </p>
+<p>If you were using Mocha with your Serenity/JS 1.x test suite, you can easily switch to Jasmine since there are very few differences between the two runners, given that the responsibility for performing the assertions is now with <a href="/modules/assertions"><code>@serenity-js/assertions</code></a> rather than with the test runner itself.</p>
+<p>Provided you have added a recent version of <a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a> to you <code>package.json</code>, you can configure Protractor to use it as follows:</p>
+<h5 id="before">Before</h5>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-comment">// Serenity/JS imports [...]</span>
+
+exports.config = {
+
+    <span class="hljs-comment">// Serenity/JS config [...] </span>
+
+    <span class="hljs-comment">// Test runner config</span>
+    specs: [ <span class="hljs-string">&apos;spec/*.spec.ts&apos;</span>, ],
+
+    mochaOpts: {
+        ui: <span class="hljs-string">&apos;bdd&apos;</span>,
+        compiler: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span>,
+    },
+
+    <span class="hljs-comment">// Other Protractor config [...]</span>
+}
+</code></pre>
+<h5 id="after">After</h5>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-comment">// Serenity/JS imports [...]</span>
+
+exports.config = {
+
+    <span class="hljs-comment">// Serenity/JS config [...] </span>
+
+    <span class="hljs-comment">// Test runner config</span>
+    specs: [ <span class="hljs-string">&apos;spec/*.spec.ts&apos;</span>, ],
+
+    jasmineNodeOpts: {
+        requires: [ <span class="hljs-string">&apos;ts-node/register&apos;</span> ],
+        helpers: [ <span class="hljs-string">&apos;spec/setup.ts&apos;</span> ] 
+    },
+
+    <span class="hljs-comment">// Other Protractor config [...]</span>
+};
+</code></pre>
+<p><strong>Please note</strong> that the above config instructs Jasmine to load a <code>setup.ts</code> file located at <code>spec/setup.ts</code>.
+While this is not mandatory, you can use a setup file like that to further configure Jasmine and Serenity/JS to your needs.
+I&apos;ll explain it in more depth in the next section.</p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <h4>I&apos;d still rather use Mocha (or Jest, or Ava, or Karma...)</h4>
+        <p>
+            Sure thing, and we&apos;d love to support it! However, with limited time and virtually unlimited possibilities for extending Serenity/JS, we have to be very strict about our priorities.
+        </p>
+        <p>
+            If you&apos;d like to see Serenity/JS support Mocha, or any other test runner for this matter, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
+        </p>
+        <p>
+            Also, please consider <a href="/support.html">becoming our Github Sponsor</a> to help the Serenity/JS team secure more time on the project to support more integrations.
+        </p>
+    </div>
+</div>
+
+<h4 id="cucumber">Cucumber</h4>
+<p>While Serenity/JS supported Cucumber.js version 1.3.3, Serenity/JS 2.x supports all the versions of Cucumber.js from 0.x to 6.x. </p>
+<p>Provided you have added <a href="https://www.npmjs.com/package/cucumber"><code>cucumber</code></a> to you <code>package.json</code>, you can configure Protractor to use it as follows:</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+
+<span class="hljs-comment">// Serenity/JS imports [...]</span>
+
+exports.config = {
+
+    <span class="hljs-comment">// Serenity/JS config [...] </span>
+
+    <span class="hljs-comment">// Test runner config</span>
+    specs: [ <span class="hljs-string">&apos;features/*.feature&apos;</span>, ],
+
+    cucumberOpts: {
+        <span class="hljs-built_in">require</span>: [
+            <span class="hljs-string">&apos;features/step_definitions/**/*.ts&apos;</span>,
+            <span class="hljs-string">&apos;features/support/setup.ts&apos;</span>,
+        ],
+        <span class="hljs-string">&apos;require-module&apos;</span>: [<span class="hljs-string">&apos;ts-node/register&apos;</span>],
+        tags: [],
+    },
+
+    <span class="hljs-comment">// Other Protractor config [...]</span>
+};
+</code></pre>
+<p><strong>Please note</strong> that the above config instructs Cucumber.js to load a <code>setup.ts</code> file located at <code>features/support/setup.ts</code>.
+While this is not mandatory, you can use a setup file like that to further configure Cucumber.js and Serenity/JS to your needs. I&apos;ll explain it in more depth in the next section.</p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <h4>Cucumber without Protractor</h4>
+        <p>
+            If you&apos;d like to use Serenity/JS with Cucumber but without Protractor, i.e. for non-Web testing, have a look
+            at the documentation of the <a href="/modules/cucumber/"><code>@serenity-js/cucumber</code></a> module. 
+        </p>
+    </div>
+</div>
+
+<h2 id="actors-and-the-stage">Actors and the Stage</h2>
+<p>Now that you know how to configure the Serenity/JS 2.x framework, it&apos;s time to look at how to upgrade your existing tests to
+take advantage of the new features.</p>
+<p>One of the important changes that Serenity/JS 2.x brings to the table is in how it simplifies the way you create, manage and access the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html"><code>Actor</code>s</a>, the cornerstone of the <a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">Screenplay Pattern</a>.</p>
+<p>In Serenity/JS 1.x you had to instantiate the <code>Stage</code> where whe <code>Actor</code>s would perform, and make sure that it&apos;s accessible in your tests.</p>
+<p>For example, if you were using Cucumber, you&apos;d first define a <code>Cast</code> of <code>Actors</code>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/Actors.ts</span>
+
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    actor(name: <span class="hljs-built_in">string</span>): Actor {
+        <span class="hljs-keyword">return</span> Actor.named(name)
+            .whoCan(BrowseTheWeb.using(protractor.browser));
+    }
+}
+</code></pre>
+<p>You&apos;d then use a mechanism like Cucumber <a href="https://github.com/cucumber/cucumber-js/blob/1.x/docs/support_files/world.md"><code>World</code></a> to  tell Serenity/JS to instantiate the <code>Stage</code> and make it available in your test steps:</p>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/world.ts</span>
+
+<span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Actors.ts&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.World = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.stage = serenity.callToStageFor(<span class="hljs-keyword">new</span> Actors());
+    };
+};
+</code></pre>
+<p>Next, you&apos;d access the <code>Actor</code> by invoking the <code>theActorCalled(name)</code> and <code>theActorInTheSpotlight()</code> APIs provided by the <code>Stage</code>:</p>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: string</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stage.theActorCalled(actorName).attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: string</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stage.theActorInTheSpotlight().attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+};
+</code></pre>
+<p>While the same general principle applies in version 2.x as well, the way you interact with the framework has
+been simplified, so let me walk you through it step by step.</p>
+<h3 id="changes-to-the-cast">Changes to the Cast</h3>
+<p>Both Serenity/JS 1.x and 2.x provide a <a href="/modules/core/class/src/stage/Cast.ts~Cast.html"><code>Cast</code></a> interface
+that needs to be implemented by the class responsible for providing the <code>Actor</code>s for your tests.</p>
+<p>However, while Serenity/JS 1.x expected the <code>Cast</code> to instantiate the <code>Actor</code>s, version 2.x instantiates them for you.</p>
+<p>All you need to do is to <code>prepare</code> the actors for the performance by giving them the <a href="/handbook/design/abilities.html"><code>Abilities</code></a>
+they need:</p>
+<h5 id="before">Before</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/Actors.ts</span>
+
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    actor(name: <span class="hljs-built_in">string</span>): Actor {
+        <span class="hljs-keyword">return</span> Actor.named(name)
+            .whoCan(BrowseTheWeb.using(protractor.browser));
+    }
+}
+</code></pre>
+<h5 id="after">After</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/Actors.ts</span>
+
+<span class="hljs-keyword">import</span> { Actor, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    prepare(actor: Actor): Actor {              <span class="hljs-comment">// `prepare(actor: Actor)` instead of `actor(name: string)`</span>
+        <span class="hljs-keyword">return</span> actor.whoCan(                    <span class="hljs-comment">// add the abilities instead of instantiating the actor</span>
+            BrowseTheWeb.using(protractor.browser),
+        );
+    }
+}
+</code></pre>
+<h3 id="you-don-t-need-the-world">You don&apos;t need the World</h3>
+<p>The second important difference is in how you tell Serenity/JS what actors to use.</p>
+<p>In Serenity/JS 1.x you had to rely on Cucumber <a href="https://github.com/cucumber/cucumber-js/blob/1.x/docs/support_files/world.md"><code>World</code></a>
+to set up the <code>Stage</code> and assign it to Cucumber context (<code>this</code>). </p>
+<p>In version 2.x, Serenity/JS takes on the responsibility of managing the execution context, so all you need to do
+is simply tell the framework what actors you want to <a href="/modules/core/function/index.html#static-function-engage"><code>engage</code></a>
+before each scenario.</p>
+<h5 id="before-cucumber-1-3-3-serenity-js-1-x-">Before (Cucumber 1.3.3, Serenity/JS 1.x)</h5>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/world.ts</span>
+
+<span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Actors.ts&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.World = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.stage = serenity.callToStageFor(<span class="hljs-keyword">new</span> Actors());
+    };
+};
+</code></pre>
+<h5 id="after-cucumber-1-3-3-serenity-js-2-x-">After (Cucumber 1.3.3, Serenity/JS 2.x)</h5>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/setup.ts</span>
+
+<span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Actors&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.Before(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors());
+}
+</code></pre>
+<h5 id="after-cucumber-6-x-serenity-js-2-x-">After (Cucumber 6.x, Serenity/JS 2.x)</h5>
+<p>If you decided to upgrade Cucumber to recent version at the same time you upgrade Serenity/JS, you could simplify the above setup code even further:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/setup.ts</span>
+
+<span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Before } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cucumber&apos;</span>;
+<span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Actors&apos;</span>;
+
+Before(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors());
+</code></pre>
+<h3 id="accessing-the-actors">Accessing the actors</h3>
+<p>When using Cucumber without Serenity/JS, you use Cucumber <code>this</code> to manage state across multiple step definitions.
+While this mechanism is quite convenient, it also requires you to use the full-blown <code>function</code> syntax since the simpler
+arrow functions <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#No_separate_this">don&apos;t have a separate <code>this</code></a>. For this reason, Cucumber documentation encourages you to <a href="https://cucumber.io/docs/cucumber/api/#steps">avoid the arrow functions</a> altogether.</p>
+<p>In version 2.0, Serenity/JS takes on the responsibility of managing state in your test scenarios, makes accessing the actors easier via <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> and <a href="/modules/core/function/index.html#static-function-actorInTheSpotlight"><code>actorInTheSpotlight</code></a>, and since it doesn&apos;t rely on Cucumber <code>this</code> - it allows you to use the convenient and compact arrow functions to help you simplify your code further.</p>
+<h5 id="before-cucumber-1-3-3-serenity-js-1-x-">Before (Cucumber 1.3.3, Serenity/JS 1.x)</h5>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: string</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stage.theActorCalled(actorName).attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: string</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stage.theActorInTheSpotlight().attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+};
+</code></pre>
+<h5 id="after-cucumber-1-3-3-serenity-js-2-x-">After (Cucumber 1.3.3, Serenity/JS 2.x)</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+
+<span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">actorName: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> actorCalled(actorName).attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+
+    <span class="hljs-keyword">this</span>.When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">itemName: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> actorInTheSpotlight().attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        );
+    });
+};
+</code></pre>
+<h5 id="after-cucumber-6-x-serenity-js-2-x-">After (Cucumber 6.x, Serenity/JS 2.x)</h5>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+
+<span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Given, When } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cucumber&apos;</span>;
+
+Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">actorName: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> actorCalled(actorName).attemptsTo(
+        <span class="hljs-comment">// some tasks to perform...</span>
+    );
+});
+
+When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">itemName: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> actorInTheSpotlight().attemptsTo(
+        <span class="hljs-comment">// some tasks to perform...</span>
+    );
+});
+</code></pre>
+<h5 id="after-cucumber-6-x-serenity-js-2-x-concise-body-">After (Cucumber 6.x, Serenity/JS 2.x, concise body)</h5>
+<p>If you want to take refactoring your step definitions even further, you could use arrow functions with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Function_body">&quot;concise body&quot;</a> and drop the <code>return</code> statements altogether: </p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+
+<span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Given, When } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cucumber&apos;</span>;
+
+Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">actorName: <span class="hljs-built_in">string</span></span>) =&gt;</span> 
+    actorCalled(actorName).attemptsTo(
+        <span class="hljs-comment">// some tasks to perform...</span>
+    ));
+
+When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</span>, <span class="hljs-function">(<span class="hljs-params">itemName: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+    actorInTheSpotlight().attemptsTo(
+        <span class="hljs-comment">// some tasks to perform...</span>
+    ));
+</code></pre>
+<h3 id="actors-in-jasmine-tests">Actors in Jasmine tests</h3>
+<p>The above-described mechanism for accessing the actors works regardless of the test runner you&apos;re using.</p>
+<p>For example, this is how you could use the same strategy to implement a Jasmine <code>setup.ts</code> file:  </p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/setup.ts</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+
+<span class="hljs-keyword">import</span> { Actor, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    prepare(actor: Actor): Actor {              <span class="hljs-comment">// `prepare(actor: Actor)` instead of `actor(name: string)`</span>
+        <span class="hljs-keyword">return</span> actor.whoCan(                    <span class="hljs-comment">// add the abilities instead of instantiating the actor</span>
+            BrowseTheWeb.using(protractor.browser),
+        );
+    }
+}
+
+beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));         <span class="hljs-comment">// the `beforeEach` can be defined either in spec/setup.ts</span>
+                                                <span class="hljs-comment">// or in each spec file. </span>
+</code></pre>
+<p>And a test using the Jasmine test runner:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/example.spec.ts</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+
+describe(<span class="hljs-string">&apos;some feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+    it(<span class="hljs-string">&apos;has some behaviour&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> 
+        actorCalled(<span class="hljs-string">&apos;Jannice&apos;</span>).attemptsTo(
+            <span class="hljs-comment">// some tasks to perform...</span>
+        ));   
+});
+</code></pre>
+<h2 id="implementing-the-screenplay-pattern">Implementing the Screenplay Pattern</h2>
+<h3 id="tasks">Tasks</h3>
+<p>The best way to illustrate how the <code>Task</code> has evolved is by using a concrete example.</p>
+<p>Consider a task to <code>AddAnItem</code> to an imaginary to-do list that we&apos;d invoke as follows:</p>
+<pre><code class="lang-typescript hljs typescript">actorCalled(<span class="hljs-string">&apos;Tasha&apos;</span>).attemptsTo(
+    AddAnItem.called(<span class="hljs-string">&apos;Learn Serenity/JS&apos;</span>),
+);
+</code></pre>
+<p>In Serenity/JS 1.x, the task to <code>AddAnItem</code> could be implemented like this:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Enter, step, PerformsTasks, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+
+<span class="hljs-comment">/**
+ * Any custom task had to implement the `Task` interface
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddAnItem <span class="hljs-keyword">implements</span> Task {
+
+    <span class="hljs-keyword">static</span> called(name: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddAnItem(name);
+    }
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly name: <span class="hljs-built_in">string</span></span>) {
+    }
+
+    <span class="hljs-comment">/**
+     * The `performAs` method received an `actor` who `PerformsTasks`
+     * and returned a `PromiseLike&lt;void&gt;`
+     *
+     * The `@step` decorator was responsible for generating 
+     * a human-friendly description to be used in the report
+     */</span>
+    <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} adds an item called #name&apos;</span>)
+    performAs(actor: PerformsTasks): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            <span class="hljs-comment">// The `attemptsTo` method invoked lower-level</span>
+            <span class="hljs-comment">// tasks and interactions, such as `Click`, `Enter`, etc.</span>
+            Enter.theValue(<span class="hljs-keyword">this</span>.name).into(<span class="hljs-comment">/* some element */</span>),
+            <span class="hljs-comment">// ...</span>
+        );
+    }    
+}
+</code></pre>
+<p>The same task implemented using the 2.x version would look as follows:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Task, PerformsActivities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Enter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddAnItem <span class="hljs-keyword">extends</span> Task {
+    <span class="hljs-keyword">static</span> called(name: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddAnItem(name);
+    }    
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly name: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">super</span>();
+    }
+
+    performAs(actor: PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.attemptsTo(
+            <span class="hljs-comment">// ... list lower-level tasks and interactions:</span>
+            Enter.theValue(<span class="hljs-keyword">this</span>.name).into(<span class="hljs-comment">/* some element */</span>),
+        )   
+    }
+
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor adds an item called <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.name }</span>`</span>;
+    }
+}
+</code></pre>
+<p>As you might have noticed, the above two code samples have several subtle differences:</p>
+<ul>
+<li>the imports are now more explicit, with all the Screenplay-specific types coming from <code>@serenity-js/core</code> and Protractor-specific ones from <code>@serenity-js/protractor</code>,</li>
+<li>instead of implementing a <code>Task</code> interface, the custom task now <code>extend</code>s a base <code>Task</code> class; extending a base class helps Serenity/JS distinguish the different types of activities performed by the actor at runtime and, for example, to capture screenshots upon <code>Interaction</code>s, but not upon <code>Task</code>s,</li>
+<li>the <code>@step</code> decorator is now superseded by a much more obvious <code>toString</code> method.</li>
+</ul>
+<p>Please note that you also have an opportunity here to take your refactoring further as Serenity/JS 2.x still provides you with a convenient 
+<a href="/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where"><code>Task.where</code></a> factory method that can
+generate the task from the above example with much less code:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Enter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+
+exports <span class="hljs-keyword">const</span> AddAnItem = {
+    called: <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+        Task.where(<span class="hljs-string">`#actor adds an item called <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.name }</span>`</span>,
+            <span class="hljs-comment">// ... list lower-level tasks and interactions:</span>
+            Enter.theValue(<span class="hljs-keyword">this</span>.name).into(<span class="hljs-comment">/* some element */</span>),
+        ),       
+}
+</code></pre>
+<h3 id="interactions">Interactions</h3>
+<p>Interaction have undergone an overhaul similar to tasks.</p>
+<p>Consider an example Serenity/JS 1.x interaction that enables a disabled input element by injecting some JavaScript
+into the browser using Protractor&apos;s <a href="https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript"><code>executeScript</code> API</a>, available via the ability to <code>BrowseTheWeb</code>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { BrowseTheWeb, Interaction, step, Target, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">implements</span> Interaction {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> the(target: Target): Enable {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
+    }
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly target: Target</span>) {
+    }
+
+    <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} enables #target&apos;</span>)
+    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).
+            executeScript(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>, <span class="hljs-keyword">this</span>.target);
+    }
+}
+</code></pre>
+<p>Now, compare it with this 2.x implementation:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">extends</span> Interaction {
+    <span class="hljs-keyword">static</span> the(target: Question&lt;ElementFinder&gt;) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
+    }
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly target: Question&lt;ElementFinder&gt;</span>) {
+        <span class="hljs-keyword">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.target.answeredBy(actor).then(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
+                .executeScript(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>, element);
+        });
+    }
+
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor enables <span class="hljs-subst">${<span class="hljs-keyword">this</span>.target}</span>`</span>;
+    }
+}
+</code></pre>
+<p>In Serenity/JS 2.x, a custom interaction:</p>
+<ul>
+<li>extends the base <code>Interaction</code> class,</li>
+<li>is responsible for resolving any <code>Question</code>s (more on this and the difference between <code>Target</code> and <code>Question</code> later)</li>
+<li>uses <code>toString</code> method rather than a <code>@step</code> decorator</li>
+</ul>
+<p>Similarly to the <code>Task</code>, the <code>Interaction</code> class provides a convenient factory method <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html#static-method-where"><code>Interaction.where</code></a> to make defining custom interactions
+easier. For instance, the above code sample could be implemented as follows:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Enable = {
+    the: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
+        Interaction.where(<span class="hljs-string">`#actor enables <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function">(<span class="hljs-params">actor: UsesAbilities &amp; AnswersQuestions</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> target.answeredBy(actor)
+                .then(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> {
+                    <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
+                        .executeScript(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>, element);
+                });
+        }),
+    },
+}
+</code></pre>
+<p><strong>PRO TIP</strong>: If you ever have the need to inject JavaScript into the UI of your system under test, please use the built-in
+<a href="/modules/protractor/class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html"><code>ExecuteScript</code></a>
+interaction instead:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ExecuteScript } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Enable = {
+    the: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
+        Task.where(<span class="hljs-string">`#actor enables <span class="hljs-subst">${ target }</span>`</span>,
+            ExecuteScript.sync(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>).
+                withArguments(target), 
+        ),
+}
+</code></pre>
+<h3 id="questions">Questions</h3>
+<p>Apart from the main Screenplay Pattern interfaces, one of the most important and most commonly used classes in Serenity/JS 1.x was the <code>Target</code>.</p>
+<p>The 1.x <code>Target</code> was a special class responsible for abstracting the way Protractor locates <code>WebElements</code>, or <a href="https://www.protractortest.org/#/api?view=ElementFinder"><code>ElementFinder</code>s</a> and <a href="https://www.protractortest.org/#/api?view=ElementArrayFinder"><code>ElementArrayFinder</code>s</a> in Protractor-speak.</p>
+<p>However, unlike all the other classes responsible for retrieving information about the system under test, the <code>Target</code> <a href="https://github.com/serenity-js/serenity-js/blob/1.x/packages/serenity-js/src/serenity-protractor/screenplay/ui/target.ts#L5">was not considered a <code>Question</code></a>, as it could only be used with Protractor-specific interactions. </p>
+<p>In Serenity/JS 2.x, the information retrieval mechanism is consistent across the board. This means that no matter whether you&apos;re retrieving a JSON body of the <a href="/modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html#static-method-body">last REST response</a>, a <a href="modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of">text of a web element</a>, or <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">the web element itself</a>, they all implement the <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> interface.</p>
+<p>This means that Serenity/JS 2.x <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html"><code>Target</code>s</a> can be injected into Protractor-specific <a href="/modules/protractor/identifiers.html#screenplay-interactions">interactions</a>, but also <a href="/modules/assertions">assertions</a> and <a href="/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html">test synchronisation methods</a>. You can also <a href="modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">nest <code>Target</code>s</a>, therefore limiting the need for the problematic <code>XPath</code> selectors in your code base.</p>
+<p>As you have probably already guessed, introducing this level of sophistication and flexibility required changing how the <code>Target</code> class works.</p>
+<p>The original <code>Target</code> is now modelled by <a href="/modules/protractor/identifiers.html#screenplay-questions-targets">four specialised <code>Question</code> classes</a> and the <code>Target</code> class itself was turned into a factory that takes care of instantiating them correctly.</p>
+<p>However, the way you use it has remained intact:</p>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-comment">// simple lean page object</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ToDoListApp</span> </span>{
+
+    <span class="hljs-comment">// Target.the captures a single element</span>
+    <span class="hljs-comment">// and produces Question&lt;ElementFinder&gt; </span>
+    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
+
+    <span class="hljs-comment">// Target.all captures multiple elements</span>
+    <span class="hljs-comment">// and produces Question&lt;ElementArrayFinder&gt;</span>
+    <span class="hljs-keyword">static</span> items  = Target.all(<span class="hljs-string">&apos;the items&apos;</span>).located(by.css(<span class="hljs-string">&apos;#todolist li&apos;</span>));
+}
+</code></pre>
+<p>To learn more, check out the examples in the <a href="modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">API docs of the <code>Target</code> class</a>.</p>
+<h4 id="targets-as-arguments">Targets as arguments</h4>
+<p>Since the responsibilities of the 2.x <code>Target</code> differ from its predecessor, if you have written any custom <a href="/modules/core/class/src/screenplay/Activity.ts~Activity.html"><code>Activity</code></a> classes in your project where a <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html"><code>Target</code></a> is passed as an argument (for example in a constructor or a method call), you&apos;ll need to change the signatures to receive a <code>Question&lt;ElementFinder&gt;</code> for single-element activities or <code>Question&lt;ElementArrayFinder&gt;</code> for multi-element activities.</p>
+<p>Consider a hypothetical Serenity/JS 1.x interaction we discussed earlier, the one that enabled a disabled element:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { BrowseTheWeb, Interaction, step, Target, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">implements</span> Interaction {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> the(target: Target): Enable {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
+    }
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly target: Target</span>) {
+    }
+
+    <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} enables #target&apos;</span>)
+    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).
+            executeScript(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>, <span class="hljs-keyword">this</span>.target);
+    }
+}
+</code></pre>
+<p>Since the above interaction accepts a single-element <code>Target</code>, it will need to change to accept
+<code>Question&lt;ElementFinder&gt;</code> instead. </p>
+<p>Additionally, its <code>performAs</code> method will now need to resolve (a.k.a. &quot;answer&quot;) the question 
+before passing the underlying <code>ElementFinder</code> to lower-level abilities and Protractor-specific 
+method calls: </p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">extends</span> Interaction {
+
+    <span class="hljs-comment">// Target -&gt; Question&lt;ElementFinder&gt;</span>
+    <span class="hljs-keyword">static</span> the(target: Question&lt;ElementFinder&gt;) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
+    }
+
+    <span class="hljs-comment">// Target -&gt; Question&lt;ElementFinder&gt;</span>
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly target: Question&lt;ElementFinder&gt;</span>) {
+        <span class="hljs-keyword">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-comment">// the actor needs to answer the question</span>
+        <span class="hljs-comment">// so that it can pass a Protractor-specific</span>
+        <span class="hljs-comment">// ElementFinder object to BrowseTheWeb</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.target.answeredBy(actor).then(<span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
+                .executeScript(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>, element);
+        });
+    }
+
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor enables <span class="hljs-subst">${<span class="hljs-keyword">this</span>.target}</span>`</span>;
+    }
+}
+</code></pre>
+<p>Similarly, if your custom <code>Activity</code> used to receive a product of the <code>Target.all(...)</code> call, so a multi-element <code>Target</code>, it will now need to change to receive <code>Question&lt;ElementArrayFinder&gt;</code>.</p>
+<h2 id="assertions">Assertions</h2>
+<p>Serenity/JS 1.x did not have its own assertions library. Instead, it provided an interaction to <code>See.if</code>
+which you&apos;d use to delegate the act of performing the actual assertion to a library like <a href="https://www.chaijs.com/">chai.js</a>, typically combined with plugins like <a href="https://www.npmjs.com/package/chai-as-promised"><code>chai-as-promised</code></a> and <a href="https://www.npmjs.com/package/chai-smoothie"><code>chai-smoothie</code></a>.</p>
+<p>For example:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { See, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/serenity-protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-comment">// import chai and chai-as-promised to assert on promises</span>
+<span class="hljs-keyword">import</span> chai = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;chai&apos;</span>);
+<span class="hljs-keyword">import</span> chaiAsPromised = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;chai-as-promised&apos;</span>);
+chai.use(chaiAsPromised);
+
+<span class="hljs-keyword">const</span> TodoListItems = Target.the(<span class="hljs-string">&apos;items on the list&apos;</span>).located(by.css(<span class="hljs-string">&apos;ul.todo-list li&apos;</span>));
+
+actor.attemptsTo(
+    See.if(Text.ofAll(TodoListItems), <span class="hljs-function">(<span class="hljs-params">textOfItems: PromiseLike&lt;<span class="hljs-built_in">string</span>[]&gt;</span>) =&gt;</span>
+        <span class="hljs-comment">// delegate the assertion to chai</span>
+        chai.expect(textOfItems).to.eventually.contain(<span class="hljs-string">&apos;Buy some milk&apos;</span>)
+    ),
+)  
+</code></pre>
+<p>If you&apos;re happy with this model, Serenity/JS 2.x still ships with an interaction to <a href="/modules/core/class/src/screenplay/interactions/See.ts~See.html"><code>See.if</code></a>, which you can import from the <a href="/modules/core"><code>@serenity-js/core</code></a> module
+and your old assertions will work exactly the same way they used to.</p>
+<p>However, 2.x gives you a brand new <a href="/modules/assertions"><code>@serenity-js/assertions</code></a> library that enables you to implement the above code sample as follows:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { contain, Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">const</span> TodoListItems = Target.the(<span class="hljs-string">&apos;items on the list&apos;</span>).located(by.css(<span class="hljs-string">&apos;ul.todo-list li&apos;</span>));
+
+actor.attemptsTo(
+    Ensure.that(Text.ofAll(TodoListItems), contain(<span class="hljs-string">&apos;Buy some milk&apos;</span>)),
+)  
+</code></pre>
+<p>In the above example, the expectation for a list to <a href="/modules/assertions/function/index.html#static-function-contain"><code>contain</code></a> an item is one of the many <a href="/modules/assertions/identifiers.html#expectations"><code>expectations</code></a> that ship with the <a href="/modules/assertions"><code>@serenity-js/assertions</code></a> module.</p>
+<p>There&apos;s a number of <strong>great things</strong> about this new design, that I&apos;m particularly proud of. </p>
+<p>For example, expectations can be composed:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { contain, Ensure, not } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+actor.attemptsTo(
+    Ensure.that(Text.ofAll(TodoListItems), not(contain(<span class="hljs-string">&apos;Buy some milk&apos;</span>))),
+)  
+</code></pre>
+<p>Which is useful if you need to cater for the much more sophisticated use cases:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { 
+    and,
+    contain,
+    containAtLeastOneItemThat,
+    Ensure,
+    equals,
+    not
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+actor.attemptsTo(
+    Ensure.that(Text.ofAll(TodoListItems), and(
+        containAtLeastOneItemThat(equals(<span class="hljs-string">&apos;Buy some milk&apos;</span>)),
+        not(contain(<span class="hljs-string">&apos;Buy chocolate&apos;</span>))
+    )),
+);
+</code></pre>
+<p>Another great thing about the new <a href="/modules/assertions/identifiers.html#expectations"><code>expectations</code></a>
+is that they&apos;re now <strong>compatible with other interactions</strong>, not just the one to <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a>!</p>
+<p>For example, you can use them to synchronise your tests with the UI thanks to the interaction to <a href="/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html"><code>Wait</code></a>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { includes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+actor.attemptsTo(
+    Wait.until(Text.of(StatusBar), includes(<span class="hljs-string">&apos;Finished loading!&apos;</span>))
+);
+</code></pre>
+<p>You can also use them to control the flow of your test scenario using the interaction to <a href="/modules/assertions/class/src/Check.ts~Check.html"><code>Check</code></a>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Click, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Check } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+actor.attemptsTo(
+    Check.whether(CookieConsent.Dialog, isVisible())
+        .andIfSo(Click.on(CookieConsent.AcceptButton))
+);
+</code></pre>
+<p>Did you notice that the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module ships with UI-specific expectations, such as <a href="/modules/protractor/function/index.html#static-function-isVisible"><code>isVisible</code></a>?
+They are as powerful as all the other expectations I showed you so far, which means that you can use them with <code>Wait</code>, <code>Check</code> and <code>Ensure</code>.</p>
+<p>Those new <a href="/modules/protractor/identifiers.html#expectations">UI-specific expectations</a> replace the ones that used to ship with Serenity/JS 1.x:</p>
+<table>
+<thead>
+<tr>
+<th>before</th>
+<th>after  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is.clickable()</td>
+<td>isClickable()  </td>
+</tr>
+<tr>
+<td>Is.enabled()</td>
+<td>isEnabled()</td>
+</tr>
+<tr>
+<td>Is.present()</td>
+<td>isPresent()</td>
+</tr>
+<tr>
+<td>Is.selected()</td>
+<td>isSelected()</td>
+</tr>
+<tr>
+<td>Is.visible()</td>
+<td>isVisible()</td>
+</tr>
+</tbody>
+</table>
+<h2 id="before-you-go">Before you go</h2>
+<p>Hopefully this guide gave you a good understanding of how version 2.0 improves upon the original design
+and can help you to write even better acceptance tests.</p>
+<p>If Serenity/JS has made your life easier, please <a href="https://github.com/serenity-js/serenity-js">give us a star &#x2605;</a> on Github and consider <a href="https://github.com/sponsors/serenity-js">getting us a coffee</a> every now and then by becoming a <a href="https://github.com/sponsors/serenity-js">Github Sponsor</a> of the project from as little as $5. </p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-hands-helping"></i></div>
+    <div class="text">
+        <h4>Need a hand?</h4>
+        <p>
+            If you&apos;d like some help with the upgrade or a member of the Serenity/JS core team to review your code base - <a href="/support.html">get in touch</a>.
+        </p>
+    </div>
+</div>
+
+
+
+
+</body></html>
+                        </section>
+                        <footer class="d-print-none">
+                                <a class="previous" href="/handbook/integration/jira-and-other-issue-trackers.html">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span>Jira and other issue trackers</span>
+                                </a>
+                                <a class="next" href="/community/index.html">
+                                    <span>Community</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                        </footer>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+<footer id="footer" class="ftr ftr-accent-2 text-center">
+    <div class="container ftr-columns d-print-none">
+        <div class="row">
+            <div class="col-md-2 ml-auto col-sm-4">
+                <h5 class="ftr-column-title ">Get started</h5>
+                <ul class="ftr-column-list">
+                    <li><a href="/handbook/">Serenity/JS Handbook</a></li>
+                    <li><a href="/modules/">API docs</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Examples</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-4">
+                <h5 class="ftr-column-title ">Support</h5>
+                <ul class="ftr-column-list">
+                    <li><a href="/support.html">Free Support</a></li>
+                    <li><a href="/support.html#corporate-sponsorship-and-support">Commercial Support</a></li>
+                    <li><a href="/support.html#serenity-js-mentoring">Mentoring</a></li>
+                    <li><a href="/support.html#serenity-js-training">Training</a></li>
+                    <li><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
+                    <li><a href="https://gitter.im/serenity-js/Lobby">Chat on Gitter</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 mr-auto col-sm-4">
+                <h5 class="ftr-column-title">Developers</h5>
+                <ul class="ftr-column-list">
+                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
+                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="/changelog.html">Changelog</a></li>
+                    <li><a href="/contributing.html">Contributing</a></li>
+                    <li><a href="/license.html">License</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 mx-auto">
+            <div class="ftr-column-list">
+                <a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
+                <a class="github-button" href="https://github.com/serenity-js/serenity-js" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star jan-molak/serenity-js on GitHub">Star</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
+                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"
+        integrity="sha256-m1eTvwEHwmsw4+XKF7BshClVJEPwTVycveNl0CS0Mkk="
+        crossorigin="anonymous"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<script src="/js/charming-pro.js"></script>
+
+<script src="/js/search_index_initialiser.js"></script>
+<script src="/js/inherited-summary.js"></script>
+<script src="/js/test-summary.js"></script>
+<script src="/js/patch-for-local.js"></script>
+
+<script>
+    anchors.add('article h1, article h2, article h3, article h4');
+</script>
+
+<script type="text/javascript" id="cookieinfo"
+        src="//cookieinfoscript.com/js/cookieinfo.min.js"
+        data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
+        data-close-text="Got it!"
+>
+</script>
+</body>
+</html>

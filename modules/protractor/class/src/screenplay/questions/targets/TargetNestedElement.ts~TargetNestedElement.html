@@ -168,7 +168,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber17">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber22">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -176,7 +176,9 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> Locates a single web element located within another web element.
+ Instead of using this class directly, please use <span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span> instead.</p>
+</div>
 
   
   
@@ -194,11 +196,20 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber148">Target allows the actor to locate an element relative to another target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber191">Target provides a sensible description of an element that is nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber317">Target when nesting targets allows for Target<elementfinder> to be nested within another Target<elementfinder></elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber328">Target when nesting targets allows for Target<elementfinder> to form a chain with other Target<elementfinder>s</elementfinder></elementfinder></a></span></li>
+</ul>
+  </div>
 
   
 
-  
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li></ul></div>
 </div>
 
 
@@ -221,7 +232,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(parent: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>, child: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>)</span>
         </p>
       </div>
       <div>
@@ -287,7 +298,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-method-of">of</a></span></span><span class="code" data-ice="signature">(parent: <span>Question </span> | <span> ElementFinder</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-method-of">of</a></span></span><span class="code" data-ice="signature">(parent: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></span>
         </p>
       </div>
       <div>
@@ -348,11 +359,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(parent: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>, child: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber32">source</a></span></span>
     </span>
   </h3>
 
@@ -363,7 +374,29 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">parent</td>
+      <td data-ice="type" class="code"><span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">child</td>
+      <td data-ice="type" class="code"><span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -399,7 +432,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -470,11 +503,11 @@
     
     
     
-    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(parent: <span>Question </span> | <span> ElementFinder</span>): <span>*</span></span>
+    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(parent: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber53">source</a></span></span>
     </span>
   </h3>
 
@@ -495,7 +528,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">parent</td>
-      <td data-ice="type" class="code"><span>Question </span> | <span> ElementFinder</span></td>
+      <td data-ice="type" class="code"><span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -509,7 +542,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></td>
           
         </tr>
       </tbody>
@@ -545,7 +578,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber47">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetNestedElement.ts.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 

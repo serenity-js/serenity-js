@@ -169,18 +169,33 @@
 <span class="hljs-keyword">import</span> { override } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./override&apos;</span>;
 
 <span class="hljs-comment">/**
+ * @desc
+ *  Locates a group of web element located within another web element.
+ *  Instead of using this class directly, please use {@link Target.all} instead.
+ *
  * @public
+ * @see {@link Target}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TargetNestedElements</span>
     <span class="hljs-title">implements</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementArrayFinder</span>&gt;, <span class="hljs-title">RelativeQuestion</span>&lt;<span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt; | <span class="hljs-title">ElementFinder</span>, <span class="hljs-title">ElementArrayFinder</span>&gt;
 </span>{
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementArrayFinder&gt; | ElementArrayFinder}</span> <span class="hljs-variable">children</span></span>
+     */</span>
     <span class="hljs-keyword">constructor</span>(
         private readonly parent: Question&lt;ElementFinder&gt; | ElementFinder,
         private readonly children: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder,
     ) {
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetNestedElements}</span></span>
+     */</span>
     <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">this</span>);
     }

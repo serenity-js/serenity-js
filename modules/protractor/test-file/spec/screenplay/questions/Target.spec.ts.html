@@ -169,7 +169,7 @@
 <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @target {Target} */</span>
+<span class="hljs-comment">/** @test {Target} */</span>
 describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
     <span class="hljs-keyword">const</span> shoppingListPage = pageFromTemplate(<span class="hljs-string">`
@@ -201,24 +201,40 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
 
     describe(<span class="hljs-string">&apos;allows the actor to locate&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetElement}
+         */</span>
         it(<span class="hljs-string">&apos;a single web element matching the selector&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.of(ShoppingList.Header), equals(<span class="hljs-string">&apos;Shopping list&apos;</span>)),
         ));
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetElements}
+         */</span>
         it(<span class="hljs-string">&apos;all web elements matching the selector&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.ofAll(ShoppingList.Items), contain(<span class="hljs-string">&apos;oats&apos;</span>)),
         ));
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */</span>
         it(<span class="hljs-string">&apos;an element relative to another target&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
 
             Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals(<span class="hljs-string">&apos;2&apos;</span>)),
         ));
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetNestedElements}
+         */</span>
         it(<span class="hljs-string">&apos;all elements relative to another target&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
 
@@ -230,16 +246,28 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
 
         describe(<span class="hljs-string">&apos;an element that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetElement}
+             */</span>
             it(<span class="hljs-string">&apos;is being targeted&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 expect(ShoppingList.Header.toString())
                     .to.equal(<span class="hljs-string">&apos;the header&apos;</span>);
             });
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetElement}
+             */</span>
             it(<span class="hljs-string">&apos;has been located&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 expect(ShoppingList.Header.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
                     .to.equal(<span class="hljs-string">&apos;the header&apos;</span>);
             });
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetNestedElement}
+             */</span>
             it(<span class="hljs-string">&apos;is nested&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
                 expect(ShoppingList.Number_Of_Items_Left.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
                     .to.equal(<span class="hljs-string">&apos;the number of items left of the progress bar of the shopping list app&apos;</span>));
@@ -247,15 +275,27 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
 
         describe(<span class="hljs-string">&apos;elements that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetElements}
+             */</span>
             it(<span class="hljs-string">&apos;are being targeted&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 expect(ShoppingList.Items.toString())
                     .to.equal(<span class="hljs-string">&apos;the items of the shopping list app&apos;</span>);
             });
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetElements}
+             */</span>
             it(<span class="hljs-string">&apos;have been located&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
                 expect(ShoppingList.Items.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
                     .to.equal(<span class="hljs-string">&apos;the items of the shopping list app&apos;</span>));
 
+            <span class="hljs-comment">/**
+             * @test {Target}
+             * @test {TargetNestedElements}
+             */</span>
             it(<span class="hljs-string">&apos;are nested&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
                 expect(ShoppingList.Bought_Items.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
                     .to.equal(<span class="hljs-string">&apos;the bought items of the shopping list&apos;</span>));
@@ -288,6 +328,10 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             <span class="hljs-keyword">static</span> Topics  = Target.all(<span class="hljs-string">&apos;topics&apos;</span>).located(by.css(<span class="hljs-string">&apos;li&apos;</span>));
         }
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),
 
@@ -295,6 +339,10 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             Ensure.that(Page.Header.of(Page.Article).toString(), equals(<span class="hljs-string">&apos;the header of the article&apos;</span>)),
         ));
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetNestedElement}
+         */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),
 
@@ -302,6 +350,10 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             Ensure.that(Page.Title.of(Page.Header.of(Page.Article)).toString(), equals(<span class="hljs-string">&apos;the title of the header of the article&apos;</span>)),
         ));
 
+        <span class="hljs-comment">/**
+         * @test {Target}
+         * @test {TargetNestedElements}
+         */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),
 

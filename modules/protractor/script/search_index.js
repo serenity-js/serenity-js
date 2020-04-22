@@ -2406,7 +2406,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
+    "target src/screenplay/questions/targets/target.ts~target,target",
     "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber9",
     "Target",
     "test"
@@ -2418,104 +2418,104 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber124",
+    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber128",
     "Target allows the actor to locate a single web element matching the selector",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber142",
+    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber158",
     "Target allows the actor to locate all elements relative to another target",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber130",
+    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber138",
     "Target allows the actor to locate all web elements matching the selector",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber136",
+    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber148",
     "Target allows the actor to locate an element relative to another target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber149",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber165",
     "Target provides a sensible description of",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber151",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber167",
     "Target provides a sensible description of an element that",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber158",
+    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber182",
     "Target provides a sensible description of an element that has been located",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber153",
+    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173",
     "Target provides a sensible description of an element that is being targeted",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber163",
+    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber191",
     "Target provides a sensible description of an element that is nested",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber168",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber196",
     "Target provides a sensible description of elements that",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber170",
+    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber202",
     "Target provides a sensible description of elements that are being targeted",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber179",
+    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber219",
     "Target provides a sensible description of elements that are nested",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber175",
+    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211",
     "Target provides a sensible description of elements that have been located",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber185",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber225",
     "Target when nesting targets",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber287",
+    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber339",
     "Target when nesting targets allows for Target<ElementArrayFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber273",
+    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber317",
     "Target when nesting targets allows for Target<ElementFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber280",
+    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber328",
     "Target when nesting targets allows for Target<ElementFinder> to form a chain with other Target<ElementFinder>s",
     "test"
   ],
@@ -4366,6 +4366,12 @@ window.esdocSearchIndex = [
     "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-toString",
     "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#toString",
     "method"
+  ],
+  [
+    "src/screenplay/questions/targets/builders.ts",
+    "file/src/screenplay/questions/targets/builders.ts.html",
+    "src/screenplay/questions/targets/builders.ts",
+    "file"
   ],
   [
     "src/screenplay/questions/targets/index.ts",
