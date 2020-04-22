@@ -27,6 +27,12 @@ of modern full-stack applications faster, more collaborative and easier to scale
 
 [https://serenity-js.org/support.html](https://serenity-js.org/support.html)
 
+## For Enterprise
+
+<a href="https://tidelift.com/subscription/pkg/npm-.serenity-js-core?utm_source=npm-.serenity-js-core&utm_medium=referral&utm_campaign=enterprise&utm_term=repo" target="_blank"><img width="163" height="24" src="https://cdn2.hubspot.net/hubfs/4008838/website/logos/logos_for_download/Tidelift_primary-logo.png" class="tidelift-logo" /></a>
+
+Serenity/JS is available as part of the [Tidelift Subscription](https://tidelift.com/subscription/pkg/npm-.serenity-js-core?utm_source=npm-.serenity-js-core&utm_medium=referral&utm_campaign=enterprise&utm_term=repo). The maintainers of Serenity/JS and thousands of other packages are working with Tidelift to deliver one enterprise subscription that covers all of the open source you use. If you want the flexibility of open source and the confidence of commercial-grade software, this is for you. [Learn more](https://tidelift.com/subscription/pkg/npm-.serenity-js-core?utm_source=npm-.serenity-js-core&utm_medium=referral&utm_campaign=enterprise&utm_term=repo) or [request a demo](https://tidelift.com/subscription/request-a-demo?utm_source=npm-.serenity-js-core&utm_medium=referral&utm_campaign=enterprise).
+
 ## Your feedback matters!
 
 Do you find Serenity/JS useful? Give it a star! &#9733;
@@ -38,7 +44,7 @@ Have feedback? Let me know on twitter: [@JanMolak](https://twitter.com/JanMolak)
 
 If you'd like to chat with fellow users of Serenity/JS, join us on [Gitter Chat](https://gitter.im/serenity-js/Lobby).
 
-And if Serenity/JS has made your life a little bit easier, please consider [sponsoring its ongoing development](https://github.com/sponsors/serenity-js) 🙇
+And if Serenity/JS has made your life a little bit easier, please consider [supporting its ongoing development](https://github.com/sponsors/serenity-js) 🙇
 
 ## Friends of Serenity/JS
 
