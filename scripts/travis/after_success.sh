@@ -20,7 +20,7 @@ if [[ $TRAVIS_BRANCH != 'master' ]]; then
 fi
 
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
-  echo "Releasing 2.0"
+  echo "Releasing Serenity/JS"
   npx lerna publish --yes
 
   make site
