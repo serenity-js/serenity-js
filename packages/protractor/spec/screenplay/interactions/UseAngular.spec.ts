@@ -1,5 +1,5 @@
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 
 import { protractor } from 'protractor';
