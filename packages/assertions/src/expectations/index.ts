@@ -6,6 +6,7 @@ export * from './endsWith';
 export * from './equals';
 export * from './includes';
 export * from './isAfter';
+export * from './isTrue';
 export * from './isBefore';
 export * from './isGreaterThan';
 export * from './isLessThan';

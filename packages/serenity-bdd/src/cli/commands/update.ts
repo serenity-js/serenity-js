@@ -49,7 +49,7 @@ export = {
         });
 
         return actorCalled('Serenity/JS').attemptsTo(
-            Check.whether(FileExists.at(pathToArtifact), equals(true))
+            Check.whether(FileExists.at(pathToArtifact), isTrue())
                 .andIfSo(
                     Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
                 )
