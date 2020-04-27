@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { certificates, expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Question, Transform } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import express = require('express');

@@ -1,4 +1,4 @@
-import { Check, equals } from '@serenity-js/assertions';
+import { Check, isTrue } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as https from 'https';
