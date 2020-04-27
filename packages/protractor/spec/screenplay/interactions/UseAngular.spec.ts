@@ -32,7 +32,7 @@ describe('UseAngular', function () {
             /** @test {UseAngular} */
             it('can be enabled', () => actorCalled('Bernie').attemptsTo(
                 UseAngular.enableSynchronisation(),
-                Ensure.that(IsSynchronisationEnabled(), equals(true)),
+                Ensure.that(IsSynchronisationEnabled(), isTrue()),
             ));
         });
 

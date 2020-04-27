@@ -40,7 +40,7 @@ import { AnswersQuestions, UsesAbilities } from './actor';
  *
  * actor.attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
- *     Ensure.that(RequestWasSuccessful(), equals(true)),
+ *     Ensure.that(RequestWasSuccessful(), isTrue()),
  * );
  *
  * @see {@link Actor}

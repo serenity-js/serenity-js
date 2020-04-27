@@ -117,7 +117,7 @@ describe('Cookie', () => {
                 Ensure.that(Cookie.isHTTPOnly('favourite'), equals(false)),
 
                 Navigate.to(cookieCutterURLFor('/cookie?name=second_choice&value=shortbread&httpOnly=true')),
-                Ensure.that(Cookie.isHTTPOnly('second_choice'), equals(true)),
+                Ensure.that(Cookie.isHTTPOnly('second_choice'), isTrue()),
             ));
 
             /** @test {Cookie} */
@@ -194,7 +194,7 @@ describe('Cookie', () => {
         /** @test {Cookie#isSecure} */
         it('allows the actor to confirm that a cookie is secure', () => Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip&secure=1')),
-            Ensure.that(Cookie.isSecure('favourite'), equals(true)),
+            Ensure.that(Cookie.isSecure('favourite'), isTrue()),
         ));
 
         /** @test {Cookie} */
