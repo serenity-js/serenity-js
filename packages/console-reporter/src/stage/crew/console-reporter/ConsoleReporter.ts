@@ -317,6 +317,7 @@ export class ConsoleReporter implements StageCrewMember {
                     this.printer.outdent();
                 }
 
+                this.artifacts.clear();
             })
             .when(TestRunFinished, (e: TestRunFinished) => {
                 this.printer.println(this.theme.separator('='));
@@ -403,7 +404,7 @@ class FirstError {
 
 class ActivityRelatedArtifacts {
 
-    private readonly events: ActivityRelatedArtifactGenerated[] = [];
+    private events: ActivityRelatedArtifactGenerated[] = [];
 
     record(event: ActivityRelatedArtifactGenerated) {
         this.events.push(event);
@@ -412,5 +413,9 @@ class ActivityRelatedArtifacts {
     recordedFor(details: ActivityDetails): ActivityRelatedArtifactGenerated[] {
         return this.events
             .filter(event => event.details.equals(details));
+    }
+
+    clear() {
+        this.events = [];
     }
 }
