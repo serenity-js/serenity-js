@@ -162,7 +162,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/TargetNestedElement.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../withAnswerOf&apos;</span>;
 <span class="hljs-keyword">import</span> { RelativeQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../RelativeQuestion&apos;</span>;
@@ -176,45 +176,45 @@
  * @public
  * @see {@link Target}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TargetNestedElement</span>
-    <span class="hljs-title">implements</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt;, <span class="hljs-title">RelativeQuestion</span>&lt;<span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt; | <span class="hljs-title">ElementFinder</span>, <span class="hljs-title">ElementFinder</span>&gt;
-</span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TargetNestedElement
+    <span class="hljs-keyword">implements</span> Question&lt;ElementFinder&gt;, RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, ElementFinder&gt;
+{
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">child</span></span>
+     * @param {Question&lt;ElementFinder&gt; | ElementFinder} parent
+     * @param {Question&lt;ElementFinder&gt; | ElementFinder} child
      */</span>
-    <span class="hljs-keyword">constructor</span>(
-        private readonly parent: Question&lt;ElementFinder&gt; | ElementFinder,
-        private readonly child: Question&lt;ElementFinder&gt; | ElementFinder,
-    ) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> readonly parent: Question&lt;ElementFinder&gt; | ElementFinder,
+        <span class="hljs-keyword">private</span> readonly child: Question&lt;ElementFinder&gt; | ElementFinder,
+    </span>) {
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetNestedElement}</span></span>
+     * @param {Question&lt;ElementFinder&gt; | ElementFinder} parent
+     * @returns {TargetNestedElement}
      */</span>
-    <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder) {
+    of(parent: Question&lt;ElementFinder&gt; | ElementFinder) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">this</span>);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  answer this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): ElementFinder {
-        <span class="hljs-keyword">return</span> withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-keyword">this</span>.parent, parent =&gt;
-            withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-keyword">this</span>.child, child =&gt; override(
+        <span class="hljs-keyword">return</span> withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-keyword">this</span>.parent, <span class="hljs-function"><span class="hljs-params">parent</span> =&gt;</span>
+            withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-keyword">this</span>.child, <span class="hljs-function"><span class="hljs-params">child</span> =&gt;</span> override(
                 parent.element(child.locator()),
                 <span class="hljs-string">&apos;toString&apos;</span>,
                 <span class="hljs-keyword">this</span>.toString.bind(<span class="hljs-keyword">this</span>),
@@ -222,7 +222,7 @@
     }
 
     <span class="hljs-comment">/**
-     * Description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString() {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.child.toString() }</span> of <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.parent }</span>`</span>;

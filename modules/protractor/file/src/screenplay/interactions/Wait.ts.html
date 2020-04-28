@@ -183,7 +183,7 @@
         };
     }
 
-    <span class="hljs-keyword">static</span> until&lt;Actual&gt;(actual: Answerable&lt;Actual&gt;, <span class="hljs-attr">expectation</span>: Expectation&lt;any, Actual&gt;): Interaction {
+    <span class="hljs-keyword">static</span> until&lt;Actual&gt;(actual: Answerable&lt;Actual&gt;, expectation: Expectation&lt;any, Actual&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WaitUntil(actual, expectation, Wait.Default_Timeout);
     }
 }

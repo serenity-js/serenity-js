@@ -171,8 +171,8 @@
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.test(<span class="hljs-keyword">this</span>.error.message):
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`Are you behind a proxy or a firewall that needs to be configured?`</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed ceritificate in certificate chain/</span>.test(<span class="hljs-keyword">this</span>.error.message):
-                <span class="hljs-keyword">return</span> <span class="hljs-string">`If you\&apos;re using a self-signed certificate you might want to check if it&apos;s configured correctly, `</span> +
+            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.test(<span class="hljs-keyword">this</span>.error.message):
+                <span class="hljs-keyword">return</span> <span class="hljs-string">`If you&apos;re using a self-signed certificate you might want to check if it&apos;s configured correctly, `</span> +
                     <span class="hljs-string">`or use the --ignoreSSL option.`</span>;
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`I&apos;m terribly sorry, but something didn&apos;t go according to plan.`</span>;

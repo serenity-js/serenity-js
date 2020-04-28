@@ -198,21 +198,21 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetNestedElements}</span></span>
      */</span>
     <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Tar<span class="hljs-keyword">get</span><span class="hljs-title">NestedElements</span>(<span class="hljs-params">parent, this</span>);
     }
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  answer this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+    /**
+     * @<span class="hljs-title">desc</span>
+     *  <span class="hljs-title">Makes</span> <span class="hljs-title">the</span> <span class="hljs-title">provided</span> {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer <span class="hljs-keyword">this</span> {@link @serenity-js/core/lib/screenplay~Question}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-keyword">void</span>&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     */</span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): ElementArrayFinder {
         <span class="hljs-keyword">return</span> override(
             BrowseTheWeb.as(actor).locateAll(<span class="hljs-keyword">this</span>.locator),

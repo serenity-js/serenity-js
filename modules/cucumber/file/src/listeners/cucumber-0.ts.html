@@ -335,7 +335,7 @@
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldIgnore</span>(<span class="hljs-params">step</span>): <span class="hljs-title">boolean</span> </span>{
     <span class="hljs-keyword">return</span> is(step, <span class="hljs-string">&apos;hidden&apos;</span>)                                       <span class="hljs-comment">// cucumber 0-1</span>
-        || (step.<span class="hljs-keyword">constructor</span> &amp;&amp; step.<span class="hljs-keyword">constructor</span>.name === &apos;Hook&apos;);  // cucumber 2
+        || (step.constructor &amp;&amp; step.constructor.name === <span class="hljs-string">&apos;Hook&apos;</span>);  <span class="hljs-comment">// cucumber 2</span>
 }
 </code></pre>
 

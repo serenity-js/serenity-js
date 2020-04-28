@@ -246,7 +246,7 @@
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly value: <span class="hljs-built_in">string</span></span>) {
         <span class="hljs-keyword">super</span>();
-        ensure(<span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.name, value, isDefined(<span class="hljs-params"></span>));
+        ensure(<span class="hljs-keyword">this</span>.constructor.name, value, isDefined());
     }
 }
 </code></pre>

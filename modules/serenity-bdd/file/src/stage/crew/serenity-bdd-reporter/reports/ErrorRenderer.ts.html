@@ -138,14 +138,14 @@
 
     <span class="hljs-keyword">private</span> renderError(error: <span class="hljs-built_in">Error</span>) {
         <span class="hljs-keyword">return</span> {
-            errorType:    error.<span class="hljs-keyword">constructor</span>.name,
+            errorType:    error.constructor.name,
             message:      error.message,
-            stackTrace:   ErrorRenderer.parser.parse(<span class="hljs-params">error</span>).map(<span class="hljs-params">frame =&gt; ({
+            stackTrace:   ErrorRenderer.parser.parse(error).map(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ({
                 declaringClass: <span class="hljs-string">&apos;&apos;</span>,
-                methodName:     `${ frame.functionName }(${ (frame.args || []).join(<span class="hljs-string">&apos;, &apos;</span>) })`,
+                methodName:     <span class="hljs-string">`<span class="hljs-subst">${ frame.functionName }</span>(<span class="hljs-subst">${ (frame.args || []).join(<span class="hljs-string">&apos;, &apos;</span>) }</span>)`</span>,
                 fileName:       frame.fileName,
                 lineNumber:     frame.lineNumber,
-            })</span>),
+            })),
         };
     }
 }

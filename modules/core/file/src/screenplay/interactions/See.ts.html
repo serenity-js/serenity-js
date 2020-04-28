@@ -245,7 +245,7 @@
  * @deprecated
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">See</span>&lt;<span class="hljs-title">S</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">if</span>&lt;T&gt;(question: Question&lt;T&gt;, <span class="hljs-attr">assertion</span>: Assertion&lt;T&gt;): Interaction {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">if</span>&lt;T&gt;(question: Question&lt;T&gt;, assertion: Assertion&lt;T&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> See&lt;T&gt;(question, assertion);
     }
 

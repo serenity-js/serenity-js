@@ -349,13 +349,13 @@
                 <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(
                     evt.details,
                     evt.name,
-                    evt.artifact.<span class="hljs-keyword">constructor</span> as ArtifactType,
+                    evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ArtifactGenerated) {
                 <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactArchived(
                     evt.name,
-                    evt.artifact.<span class="hljs-keyword">constructor</span> as ArtifactType,
+                    evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
             }

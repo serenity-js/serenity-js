@@ -300,7 +300,7 @@
 
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(<span class="hljs-function"><span class="hljs-params">ability</span> =&gt;</span> {
-            <span class="hljs-keyword">this</span>.abilities.set(ability.<span class="hljs-keyword">constructor</span> as AbilityType&lt;Ability&gt;, ability);
+            <span class="hljs-keyword">this</span>.abilities.set(ability.constructor <span class="hljs-keyword">as</span> AbilityType&lt;Ability&gt;, ability);
         });
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
@@ -340,9 +340,9 @@
     collect(artifact: Artifact, name?: <span class="hljs-built_in">string</span> | Name) {
         <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(
             <span class="hljs-keyword">this</span>.stage.currentActivityDetails(),
-            <span class="hljs-keyword">this</span>.nameFrom(name || <span class="hljs-keyword">new</span> Name(artifact.<span class="hljs-keyword">constructor</span>.name)),
+            <span class="hljs-keyword">this</span>.nameFrom(name || <span class="hljs-keyword">new</span> Name(artifact.constructor.name)),
             artifact,
-            this.stage.currentTime(<span class="hljs-params"></span>),
+            <span class="hljs-keyword">this</span>.stage.currentTime(),
         ));
     }
 

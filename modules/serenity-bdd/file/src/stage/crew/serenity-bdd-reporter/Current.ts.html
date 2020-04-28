@@ -120,22 +120,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/Current.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-comment">/**
- * @package
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Current&lt;T&gt; {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> val: T = <span class="hljs-literal">null</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Current</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-keyword">constructor</span>(private val: T = null) {
     }
 
-    <span class="hljs-keyword">set</span> value(value: T) {
+    <span class="hljs-keyword">set</span> <span class="hljs-title">value</span>(<span class="hljs-params">value: T</span>) {
         <span class="hljs-keyword">this</span>.val = value;
     }
 
-    <span class="hljs-keyword">get</span> value() {
+    <span class="hljs-keyword">get</span> <span class="hljs-title">value</span>() {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.val;
     }
 
-    isSet(): <span class="hljs-built_in">boolean</span> {
+    isSet(): boolean {
         <span class="hljs-keyword">return</span> !! <span class="hljs-keyword">this</span>.val;
     }
 

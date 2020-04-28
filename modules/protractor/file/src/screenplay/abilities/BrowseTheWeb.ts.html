@@ -243,7 +243,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">get</span>(destination: string, timeoutInMillis?: number): Promise&lt;void&gt; {
+    get(destination: string, timeoutInMillis?: number): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-keyword">void</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.get(destination, timeoutInMillis));
     }
 
@@ -466,7 +466,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
      */</span>
-    getTitle(): <span class="hljs-built_in">Promise</span>&lt;string&gt; {
+    <span class="hljs-keyword">get</span><span class="hljs-title">Title</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getTitle());
     }
 
@@ -476,7 +476,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
      */</span>
-    getCurrentUrl(): <span class="hljs-built_in">Promise</span>&lt;string&gt; {
+    <span class="hljs-keyword">get</span><span class="hljs-title">CurrentUrl</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getCurrentUrl());
     }
 
@@ -490,7 +490,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;Capabilities&gt;}</span> </span>The actual capabilities of this browser.
      */</span>
-    getCapabilities(): <span class="hljs-built_in">Promise</span>&lt;Capabilities&gt; {
+    <span class="hljs-keyword">get</span><span class="hljs-title">Capabilities</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">Capabilities</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getCapabilities());
     }
 
@@ -510,11 +510,11 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;boolean&gt;}</span></span>
      */</span>
-    wait(condition: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;boolean&gt;, <span class="hljs-attr">timeout</span>: number): <span class="hljs-built_in">Promise</span>&lt;boolean&gt; {
+    wait(condition: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;boolean&gt;, timeout: number): <span class="hljs-built_in">Promise</span>&lt;boolean&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.wait(condition, timeout));
     }
 
-    getLastScriptExecutionResult(): any {
+    <span class="hljs-keyword">get</span><span class="hljs-title">LastScriptExecutionResult</span>(): <span class="hljs-title">any</span> {
         <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.lastScriptExecutionSummary) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Make sure to execute a script before checking on the result`</span>);
         }

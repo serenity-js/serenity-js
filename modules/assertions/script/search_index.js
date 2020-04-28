@@ -1032,19 +1032,19 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "contains contains,contains",
+    "contain src/expectations/contain.ts~contain,contain",
     "test-file/spec/expectations/contain.spec.ts.html#lineNumber9",
     "contain allows for the actor flow to continue when the \"actual\" contains the \"expected\" text",
     "test"
   ],
   [
-    "contains contains,contains",
+    "contain src/expectations/contain.ts~contain,contain",
     "test-file/spec/expectations/contain.spec.ts.html#lineNumber16",
     "contain breaks the actor flow when \"actual\" does not contain the \"expected\" text",
     "test"
   ],
   [
-    "contains contains,contains",
+    "contain src/expectations/contain.ts~contain,contain",
     "test-file/spec/expectations/contain.spec.ts.html#lineNumber27",
     "contain contributes to a human-readable description",
     "test"

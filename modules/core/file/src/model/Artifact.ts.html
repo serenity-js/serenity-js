@@ -278,7 +278,7 @@
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly base64EncodedValue: <span class="hljs-built_in">string</span></span>) {
         <span class="hljs-keyword">super</span>();
-        ensure(<span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.name, base64EncodedValue, isDefined(<span class="hljs-params"></span>), isString(<span class="hljs-params"></span>), looksLikeBase64Encoded(<span class="hljs-params"></span>));
+        ensure(<span class="hljs-keyword">this</span>.constructor.name, base64EncodedValue, isDefined(), isString(), looksLikeBase64Encoded());
     }
 
     <span class="hljs-keyword">abstract</span> map&lt;T&gt;<span class="hljs-function">(<span class="hljs-params">fn: (<span class="hljs-params">decodedValue: <span class="hljs-built_in">any</span></span>) =&gt; T</span>): <span class="hljs-params">T</span>;

@@ -273,7 +273,7 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
         it(<span class="hljs-string">&apos;can be serialised and deserialised&apos;</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> deserialised: <span class="hljs-built_in">any</span> = Outcome.fromJSON(outcome.toJSON());
 
-            expect(deserialised).to.be.instanceOf(outcome.<span class="hljs-keyword">constructor</span>);
+            expect(deserialised).to.be.instanceOf(outcome.constructor);
         });
     });
 
@@ -293,9 +293,9 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
         it(<span class="hljs-string">&apos;can be serialised and deserialised&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }: { outcome: ProblemIndication }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> deserialised: <span class="hljs-built_in">any</span> = Outcome.fromJSON(outcome.toJSON());
 
-            expect(deserialised).to.be.instanceOf(outcome.<span class="hljs-keyword">constructor</span>);
+            expect(deserialised).to.be.instanceOf(outcome.constructor);
 
-            expect(deserialised.error.name).to.equal(outcome.error.<span class="hljs-keyword">constructor</span>.name);
+            expect(deserialised.error.name).to.equal(outcome.error.constructor.name);
             expect(deserialised.error.message).to.equal(outcome.error.message);
             expect(deserialised.error.stack).to.equal(outcome.error.stack);
         });

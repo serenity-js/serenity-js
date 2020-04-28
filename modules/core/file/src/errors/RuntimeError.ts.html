@@ -280,7 +280,7 @@
     </span>) {
         <span class="hljs-keyword">super</span>(message);
         <span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">type</span>.prototype);
-        <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.name;
+        <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">this</span>.constructor.name;
 
         <span class="hljs-built_in">Error</span>.captureStackTrace(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">type</span>);
 

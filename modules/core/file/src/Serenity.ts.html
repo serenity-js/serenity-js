@@ -429,7 +429,7 @@
      * <span class="hljs-doctag">@experimental</span>
      * <span class="hljs-doctag">@param <span class="hljs-variable">stageCrewMembers</span></span>
      */</span>
-    setTheStage(...stageCrewMembers: StageCrewMember[]): <span class="hljs-keyword">void</span> {
+    <span class="hljs-keyword">set</span><span class="hljs-title">TheStage</span>(<span class="hljs-params">...stageCrewMembers: StageCrewMember[]</span>): <span class="hljs-title">void</span> {
         deprecated(<span class="hljs-string">&apos;serenity.setTheStage&apos;</span>, <span class="hljs-string">&apos;Please use the new `configure({ crew: stageCrewMembers }) from @serenity-js/core instead.&apos;</span>);
 
         <span class="hljs-keyword">this</span>.stage.assign(...stageCrewMembers);

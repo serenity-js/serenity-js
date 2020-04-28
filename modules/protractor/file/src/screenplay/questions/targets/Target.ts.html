@@ -260,33 +260,33 @@
     <span class="hljs-keyword">static</span> the(name: string): TargetBuilder&lt;TargetElement&gt; &amp; NestedTargetBuilder&lt;TargetNestedElement&gt; {
         <span class="hljs-keyword">return</span> {
             <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElement</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElement(name, byLocator),
+                <span class="hljs-keyword">new</span> Tar<span class="hljs-keyword">get</span><span class="hljs-title">Element</span>(<span class="hljs-params">name, byLocator</span>),
 
-            <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
+            <span class="hljs-title">of</span>: (<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt; {
                 <span class="hljs-keyword">return</span> {
                     <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElement</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">new</span> TargetElement(name, byLocator)),
+                        <span class="hljs-keyword">new</span> Tar<span class="hljs-keyword">get</span><span class="hljs-title">NestedElement</span>(<span class="hljs-params">parent, new TargetElement(name, byLocator</span>)),
                 };
             },
         };
     }
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Locates a group of web elements
+    /**
+     * @<span class="hljs-title">desc</span>
+     *  <span class="hljs-title">Locates</span> <span class="hljs-title">a</span> <span class="hljs-title">group</span> <span class="hljs-title">of</span> <span class="hljs-title">web</span> <span class="hljs-title">elements</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span> - A human-readable name of the elements to be used in the report
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt;}</span></span>
-     */</span>
+     * @<span class="hljs-title">param</span> {string} name - A human-readable name <span class="hljs-keyword">of</span> the elements to be used <span class="hljs-keyword">in</span> the report
+     * @returns {TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt;}
+     */
     <span class="hljs-keyword">static</span> all(name: string): TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt; {
         <span class="hljs-keyword">return</span> {
             <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElements</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElements(name, byLocator),
+                <span class="hljs-keyword">new</span> Tar<span class="hljs-keyword">get</span><span class="hljs-title">Elements</span>(<span class="hljs-params">name, byLocator</span>),
 
-            <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
+            <span class="hljs-title">of</span>: (<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt; {
                 <span class="hljs-keyword">return</span> {
                     <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElements</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">new</span> TargetElements(name, byLocator)),
+                        <span class="hljs-keyword">new</span> Tar<span class="hljs-keyword">get</span><span class="hljs-title">NestedElements</span>(<span class="hljs-params">parent, new TargetElements(name, byLocator</span>)),
                 };
             },
         };

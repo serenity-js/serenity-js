@@ -431,7 +431,7 @@
                 <span class="hljs-keyword">this</span>.summary.record(e.value, e.outcome, <span class="hljs-keyword">this</span>.startTimes.eventDurationOf(e));
 
                 <span class="hljs-keyword">this</span>.printer.println();
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.outcome(e.outcome, <span class="hljs-keyword">this</span>.formattedOutcome(e, <span class="hljs-keyword">this</span>.deCamelCased(e.outcome.<span class="hljs-keyword">constructor</span>.name))));
+                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.outcome(e.outcome, <span class="hljs-keyword">this</span>.formattedOutcome(e, <span class="hljs-keyword">this</span>.deCamelCased(e.outcome.constructor.name))));
 
                 <span class="hljs-keyword">if</span> (e.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
 
@@ -443,6 +443,7 @@
                     <span class="hljs-keyword">this</span>.printer.outdent();
                 }
 
+                <span class="hljs-keyword">this</span>.artifacts.clear();
             })
             .when(TestRunFinished, <span class="hljs-function">(<span class="hljs-params">e: TestRunFinished</span>) =&gt;</span> {
                 <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
@@ -473,7 +474,7 @@
     }
 
     <span class="hljs-keyword">private</span> iconFrom(outcome: Outcome): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">switch</span> (outcome.<span class="hljs-keyword">constructor</span>) {
+        <span class="hljs-keyword">switch</span> (outcome.constructor) {
             <span class="hljs-keyword">case</span> ExecutionCompromised:
             <span class="hljs-keyword">case</span> ExecutionFailedWithError:
             <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError:
@@ -529,7 +530,7 @@
 
 <span class="hljs-keyword">class</span> ActivityRelatedArtifacts {
 
-    <span class="hljs-keyword">private</span> readonly events: ActivityRelatedArtifactGenerated[] = [];
+    <span class="hljs-keyword">private</span> events: ActivityRelatedArtifactGenerated[] = [];
 
     record(event: ActivityRelatedArtifactGenerated) {
         <span class="hljs-keyword">this</span>.events.push(event);
@@ -538,6 +539,10 @@
     recordedFor(details: ActivityDetails): ActivityRelatedArtifactGenerated[] {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.events
             .filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.details.equals(details));
+    }
+
+    clear() {
+        <span class="hljs-keyword">this</span>.events = [];
     }
 }
 </code></pre>

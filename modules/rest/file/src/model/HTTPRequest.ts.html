@@ -205,7 +205,7 @@
      * For example: GetRequest =&gt; GET, PostRequest =&gt; POST, etc.
      */</span>
     <span class="hljs-keyword">private</span> httpMethodName(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.name.replace(<span class="hljs-params">/Request/, &apos;&apos;</span>).toUpperCase(<span class="hljs-params"></span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.constructor.name.replace(<span class="hljs-regexp">/Request/</span>, <span class="hljs-string">&apos;&apos;</span>).toUpperCase();
     }
 
     <span class="hljs-comment">/**

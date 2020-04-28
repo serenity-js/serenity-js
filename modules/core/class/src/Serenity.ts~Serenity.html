@@ -1208,19 +1208,19 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs gherkin"><span class="hljs-variable">&lt;captiongit&gt;</span>Usage with Cucumber<span class="hljs-variable">&lt;/caption&gt;</span>
-  import { actorCalled } from &apos;<span class="hljs-meta">@serenity-js/core&apos;;</span>
-  import { <span class="hljs-keyword">Given</span>, <span class="hljs-keyword">When</span> } from &apos;cucumber&apos;;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">&lt;captiongit&gt;Usage <span class="hljs-keyword">with</span> Cucumber&lt;/caption&gt;
+  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+  <span class="hljs-keyword">import</span> { Given, When } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cucumber&apos;</span>;
 
-  <span class="hljs-keyword">Given</span>(/(.<span class="hljs-symbol">*</span>?) is a registered user/, (name: string) =&gt;
+  Given(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
      actorCalled(name).attemptsTo(
-             // ... activities
+             <span class="hljs-comment">// ... activities</span>
          ));
 
-  <span class="hljs-keyword">When</span>(/(?:he|<span class="hljs-string">she</span>|<span class="hljs-string">they) browse their recent orders/, () =&gt;
+  When(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
      actorInTheSpotlight().attemptsTo(
-             // ... activities
-         ));</span></code></pre>
+             <span class="hljs-comment">// ... activities</span>
+         ));</code></pre>
     </div>
 </div>
 
