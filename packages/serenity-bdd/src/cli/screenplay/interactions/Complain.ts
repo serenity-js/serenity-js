@@ -50,7 +50,7 @@ export class Complain extends Interaction {
             case /ETIMEDOUT/.test(this.error.message):
                 return `Are you behind a proxy or a firewall that needs to be configured?`;
             case /self signed certificate in certificate chain/.test(this.error.message):
-                return `If you\'re using a self-signed certificate you might want to check if it's configured correctly, ` +
+                return `If you're using a self-signed certificate you might want to check if it's configured correctly, ` +
                     `or use the --ignoreSSL option.`;
             default:
                 return `I'm terribly sorry, but something didn't go according to plan.`;
