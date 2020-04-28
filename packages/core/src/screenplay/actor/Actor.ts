@@ -1,5 +1,5 @@
 import { ActivityRelatedArtifactGenerated } from '../../events';
-import { Ability, AbilityType, Answerable, Cast, ConfigurationError, serenity } from '../../index';
+import { Ability, AbilityType, Answerable, Cast, ConfigurationError, LogicError, serenity } from '../../index';
 import { Artifact, Name } from '../../model';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
@@ -61,6 +61,11 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
 
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(ability => {
+            const abilityType = ability.constructor as AbilityType<Ability>;
+            if (this.abilities.has(abilityType)) {
+                throw new ConfigurationError(`${ this.name } already has an ability to ${ abilityType.name }, so you don't need to give it to them again.`);
+            }
+
             this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
         });
 
