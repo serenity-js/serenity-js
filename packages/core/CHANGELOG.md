@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.5](https://github.com/serenity-js/serenity-js/compare/v2.3.4...v2.3.5) (2020-04-28)
+
+
+### Bug Fixes
+
+* **console-reporter:** corrected an issue that might be causing an OOM error ([0b60511](https://github.com/serenity-js/serenity-js/commit/0b60511a274d58155361cbc636c03dda857b57d0)), closes [#550](https://github.com/serenity-js/serenity-js/issues/550)
+
+
+
+
+
 ## [2.3.4](https://github.com/serenity-js/serenity-js/compare/v2.3.3...v2.3.4) (2020-04-22)
 
 **Note:** Version bump only for package @serenity-js/core
