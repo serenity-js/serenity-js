@@ -19,8 +19,8 @@ describe('isTrue', () => {
       Ensure.that(false, isTrue()),
     )).to.be.rejectedWith(AssertionError, `Expected false to have value that is true`)
       .then((error: AssertionError) => {
-        expect(error.expected).to.equal(2);
-        expect(error.actual).to.equal(0);
+        expect(error.expected).to.equal(true);
+        expect(error.actual).to.equal(false);
       });
   });
 
