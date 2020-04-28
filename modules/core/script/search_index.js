@@ -721,19 +721,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber134",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber142",
     "Actor DomainEvent handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber148",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber156",
     "Actor DomainEvent handling announces the events that activities it performs",
     "test"
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber151",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber159",
     "Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends",
     "test"
   ],
@@ -769,8 +769,14 @@ window.esdocSearchIndex = [
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber135",
     "Actor can be instantiated without explicitly specifying the Stage",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber127",
+    "Actor complains if given the same ability twice",
     "test"
   ],
   [

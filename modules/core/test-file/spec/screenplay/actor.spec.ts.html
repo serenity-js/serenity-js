@@ -347,6 +347,14 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
         )).to.be.eventually.rejectedWith(ConfigurationError, <span class="hljs-string">`Ben can&apos;t PlayAGuitar yet. Did you give them the ability to do so?`</span>));
 
     <span class="hljs-comment">/** @test {Actor} */</span>
+    it(<span class="hljs-string">&apos;complains if given the same ability twice&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actor(<span class="hljs-string">&apos;Ben&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
+        ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don&apos;t need to give it to them again.`</span>);
+    });
+
+    <span class="hljs-comment">/** @test {Actor} */</span>
     it(<span class="hljs-string">&apos;can be instantiated without explicitly specifying the Stage&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
         <span class="hljs-keyword">const</span> anActor: Actor = Actor.named(<span class="hljs-string">&apos;Bob&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar));

@@ -238,7 +238,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/Actor.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../events&apos;</span>;
-<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Cast, ConfigurationError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../index&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Cast, ConfigurationError, LogicError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../index&apos;</span>;
 <span class="hljs-keyword">import</span> { Artifact, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../stage&apos;</span>;
 <span class="hljs-keyword">import</span> { TrackedActivity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../activities&apos;</span>;
@@ -300,6 +300,11 @@
 
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(<span class="hljs-function"><span class="hljs-params">ability</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> abilityType = ability.constructor <span class="hljs-keyword">as</span> AbilityType&lt;Ability&gt;;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.abilities.has(abilityType)) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.name }</span> already has an ability to <span class="hljs-subst">${ abilityType.name }</span>, so you don&apos;t need to give it to them again.`</span>);
+            }
+
             <span class="hljs-keyword">this</span>.abilities.set(ability.constructor <span class="hljs-keyword">as</span> AbilityType&lt;Ability&gt;, ability);
         });
 
