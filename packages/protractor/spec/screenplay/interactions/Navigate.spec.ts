@@ -1,6 +1,8 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, Duration } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text, Website } from '../../../src';
@@ -8,7 +10,7 @@ import { pageFromTemplate } from '../../fixtures';
 
 describe('Navigate', () => {
 
-    describe('to', () => {
+    describe('to(url)', () => {
 
         /** @test {Navigate.to} */
         it('allows the actor to navigate to a desired destination', () => actorCalled('Bernie').attemptsTo(
@@ -27,6 +29,15 @@ describe('Navigate', () => {
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).toString())
                 .to.equal(`#actor navigates to 'https://serenity-js.org'`);
+        });
+    });
+
+    describe('to(url).withTimeout(duration)', function () {
+
+        /** @test {Navigate#toString} */
+        it('provides a sensible description of the interaction being performed', () => {
+            expect(Navigate.to(`https://serenity-js.org`).withTimeout(Duration.ofSeconds(5)).toString())
+                .to.equal(`#actor navigates to 'https://serenity-js.org' waiting up to 5s for Angular to load`);
         });
     });
 
