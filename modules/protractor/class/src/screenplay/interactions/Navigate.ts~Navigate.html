@@ -176,14 +176,14 @@
 
   
 
-  <div class="description" data-ice="description"><p> Allows the {Actor} to navigate to a specific destination,
+  <div class="description" data-ice="description"><p> Allows the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to navigate to a specific destination,
  as well as back and forth in the browser history.</p>
 </div>
 
   
   
   <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> &#x2192; Navigate</div></div>
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclasses:</h4><div><span>src/screenplay/interactions/Navigate.ts~NavigateBack</span>, <span>src/screenplay/interactions/Navigate.ts~NavigateForward</span>, <span>src/screenplay/interactions/Navigate.ts~NavigateToUrl</span>, <span>src/screenplay/interactions/Navigate.ts~ReloadPage</span></div></div>
+  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclasses:</h4><div><span>src/screenplay/interactions/Navigate.ts~NavigateBack</span>, <span>src/screenplay/interactions/Navigate.ts~NavigateForward</span>, <span>src/screenplay/interactions/Navigate.ts~NavigateToUrl</span>, <span>src/screenplay/interactions/Navigate.ts~NavigateToUrlWithTimeout</span>, <span>src/screenplay/interactions/Navigate.ts~ReloadPage</span></div></div>
   
   
   
@@ -222,7 +222,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-back">back</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-back">back</a></span></span><span class="code" data-ice="signature">(): <span>NavigateBack</span></span>
         </p>
       </div>
       <div>
@@ -250,7 +250,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-forward">forward</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-forward">forward</a></span></span><span class="code" data-ice="signature">(): <span>NavigateForward</span></span>
         </p>
       </div>
       <div>
@@ -278,7 +278,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-reloadPage">reloadPage</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-reloadPage">reloadPage</a></span></span><span class="code" data-ice="signature">(): <span>ReloadPage</span></span>
         </p>
       </div>
       <div>
@@ -306,7 +306,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-to">to</a></span></span><span class="code" data-ice="signature">(url: <span>Answerable</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-to">to</a></span></span><span class="code" data-ice="signature">(url: <span>Answerable</span>): <span>NavigateToUrl</span></span>
         </p>
       </div>
       <div>
@@ -340,7 +340,7 @@
     
     
     
-    <span class="code" data-ice="name">back</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">back</span><span class="code" data-ice="signature">(): <span>NavigateBack</span></span>
     <span class="right-info">
       
       
@@ -363,7 +363,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>NavigateBack</span></td>
           
         </tr>
       </tbody>
@@ -386,7 +386,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber36">Navigate back allows the actor to navigate back in the browser history</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber47">Navigate back allows the actor to navigate back in the browser history</a></span></li>
 </ul>
   </div>
 
@@ -401,7 +401,7 @@
     
     
     
-    <span class="code" data-ice="name">forward</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">forward</span><span class="code" data-ice="signature">(): <span>NavigateForward</span></span>
     <span class="right-info">
       
       
@@ -424,7 +424,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>NavigateForward</span></td>
           
         </tr>
       </tbody>
@@ -447,7 +447,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber55">Navigate forward allows the actor to navigate forward in the browser history</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber66">Navigate forward allows the actor to navigate forward in the browser history</a></span></li>
 </ul>
   </div>
 
@@ -462,7 +462,7 @@
     
     
     
-    <span class="code" data-ice="name">reloadPage</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">reloadPage</span><span class="code" data-ice="signature">(): <span>ReloadPage</span></span>
     <span class="right-info">
       
       
@@ -485,7 +485,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>ReloadPage</span></td>
           
         </tr>
       </tbody>
@@ -517,7 +517,7 @@
     
     
     
-    <span class="code" data-ice="name">to</span><span class="code" data-ice="signature">(url: <span>Answerable</span>): <span>*</span></span>
+    <span class="code" data-ice="name">to</span><span class="code" data-ice="signature">(url: <span>Answerable</span>): <span>NavigateToUrl</span></span>
     <span class="right-info">
       
       
@@ -556,7 +556,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>NavigateToUrl</span></td>
           
         </tr>
       </tbody>
@@ -579,8 +579,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber74">Navigate reloadPage allows the actor to navigate to a desired destination</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber14">Navigate to allows the actor to navigate to a desired destination</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber85">Navigate reloadPage allows the actor to navigate to a desired destination</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber16">Navigate to(url) allows the actor to navigate to a desired destination</a></span></li>
 </ul>
   </div>
 

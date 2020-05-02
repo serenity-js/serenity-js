@@ -178,7 +178,7 @@ describe(<span class="hljs-string">&apos;Ensure&apos;</span>, <span class="hljs-
             person: {
                 name: <span class="hljs-string">&apos;Jan&apos;</span>,
             },
-        })).toString()).to.equal(<span class="hljs-string">`#actor ensures that { person: { name: &apos;Jan&apos; } } does equal { person: { name: &apos;Jan&apos; } }`</span>);
+        })).toString()).to.equal(<span class="hljs-string">`#actor ensures that { &quot;person&quot;: { &quot;name&quot;: &quot;Jan&quot; } } does equal { &quot;person&quot;: { &quot;name&quot;: &quot;Jan&quot; } }`</span>);
     });
 
     given&lt;Answerable&lt;<span class="hljs-built_in">number</span>&gt;&gt;(
@@ -241,7 +241,7 @@ describe(<span class="hljs-string">&apos;Ensure&apos;</span>, <span class="hljs-
             description: <span class="hljs-string">&apos;list&apos;</span>,
             expected: [{ name: <span class="hljs-string">&apos;Bob&apos;</span> }, { name: <span class="hljs-string">&apos;Alice&apos;</span> }],
             actual: [{ name: <span class="hljs-string">&apos;Alice&apos;</span> }],
-            artifact: { expected: <span class="hljs-string">`[\n  { name: &apos;Bob&apos; },\n  { name: &apos;Alice&apos; }\n]`</span>, actual: <span class="hljs-string">`[\n  { name: &apos;Alice&apos; }\n]`</span> },
+            artifact: { expected: <span class="hljs-string">&apos;[\n  {\n    &quot;name&quot;: &quot;Bob&quot;\n},\n  {\n    &quot;name&quot;: &quot;Alice&quot;\n}\n]&apos;</span>, actual: <span class="hljs-string">`[\n  {\n    &quot;name&quot;: &quot;Alice&quot;\n}\n]`</span> },
         }, {
             description: <span class="hljs-string">&apos;promise&apos;</span>,
             expected: <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-literal">true</span>),

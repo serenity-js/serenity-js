@@ -162,14 +162,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Navigate.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
  * @desc
- *  Allows the {Actor} to navigate to a specific destination,
+ *  Allows the {@link @serenity-js/core/lib/screenplay/actor~Actor} to navigate to a specific destination,
  *  as well as back and forth in the browser history.
  *
  * @abstract
@@ -177,19 +177,19 @@
  */</span>
 <span class="hljs-keyword">export</span> abstract <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Navigate</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
-    <span class="hljs-keyword">static</span> to(url: Answerable&lt;string&gt;) {
+    <span class="hljs-keyword">static</span> to(url: Answerable&lt;string&gt;): NavigateToUrl {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateToUrl(url);
     }
 
-    <span class="hljs-keyword">static</span> back() {
+    <span class="hljs-keyword">static</span> back(): NavigateBack {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateBack();
     }
 
-    <span class="hljs-keyword">static</span> forward() {
+    <span class="hljs-keyword">static</span> forward(): NavigateForward {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateForward();
     }
 
-    <span class="hljs-keyword">static</span> reloadPage() {
+    <span class="hljs-keyword">static</span> reloadPage(): ReloadPage {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ReloadPage();
     }
 
@@ -217,13 +217,23 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
- *
  * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
  */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateToUrl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
     <span class="hljs-keyword">constructor</span>(private readonly url: Answerable&lt;string&gt;) {
         <span class="hljs-keyword">super</span>();
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Specifies timeout to wait for an Angular app to load.
+     *  Please note that the timeout is ignored if you disable
+     *  synchronisation with Angular.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;Duration&gt;}</span> <span class="hljs-variable">duration</span></span>
+     */</span>
+    withTimeout(duration: Answerable&lt;Duration&gt;): Interaction {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateToUrlWithTimeout(<span class="hljs-keyword">this</span>.url, duration);
     }
 
     <span class="hljs-comment">/**
@@ -256,8 +266,46 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
- *
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateToUrlWithTimeout</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
+    <span class="hljs-keyword">constructor</span>(private readonly url: Answerable&lt;string&gt;, private readonly timeout: Answerable&lt;Duration&gt;) {
+        <span class="hljs-keyword">super</span>();
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     */</span>
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
+            actor.answer(<span class="hljs-keyword">this</span>.url),
+            actor.answer(<span class="hljs-keyword">this</span>.timeout),
+        ]).then(<span class="hljs-function">(<span class="hljs-params">[url, timeout]</span>) =&gt;</span>
+            BrowseTheWeb.as(actor).get(url, timeout.inMilliseconds()),
+        );
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     */</span>
+    toString(): string {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates to <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.url }</span> waiting up to <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.timeout }</span> for Angular to load`</span>;
+    }
+}
+
+<span class="hljs-comment">/**
  * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
  */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateBack</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
@@ -290,8 +338,6 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
- *
  * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
  */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateForward</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
@@ -324,7 +370,7 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
  */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReloadPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
 

@@ -1705,80 +1705,92 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber11",
     "Navigate",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber33",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber44",
     "Navigate back",
     "test"
   ],
   [
     "navigate.back src/screenplay/interactions/navigate.ts~navigate.back,navigate.back",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber47",
     "Navigate back allows the actor to navigate back in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber46",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber57",
     "Navigate back provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber63",
     "Navigate forward",
     "test"
   ],
   [
     "navigate.forward src/screenplay/interactions/navigate.ts~navigate.forward,navigate.forward",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber55",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber66",
     "Navigate forward allows the actor to navigate forward in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber66",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber77",
     "Navigate forward provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber72",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber83",
     "Navigate reloadPage",
     "test"
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber74",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber85",
     "Navigate reloadPage allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber94",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber105",
     "Navigate reloadPage provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber11",
-    "Navigate to",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber13",
+    "Navigate to(url)",
     "test"
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber14",
-    "Navigate to allows the actor to navigate to a desired destination",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber16",
+    "Navigate to(url) allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber27",
-    "Navigate to provides a sensible description of the interaction being performed",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber29",
+    "Navigate to(url) provides a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber35",
+    "Navigate to(url).withTimeout(duration)",
+    "test"
+  ],
+  [
+    "navigate#tostring navigate#tostring,navigate#tostring",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber38",
+    "Navigate to(url).withTimeout(duration) provides a sensible description of the interaction being performed",
     "test"
   ],
   [

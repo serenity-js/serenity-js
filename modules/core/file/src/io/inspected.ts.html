@@ -287,6 +287,10 @@
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ value.name }</span> property`</span>;
     }
 
+    <span class="hljs-keyword">if</span> (! hasCustomInspectionFunction(value) &amp;&amp; isPlainObject(value) &amp;&amp; isSerialisableAsJSON(value)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>);
+    }
+
     <span class="hljs-keyword">return</span> inspect(value, { <span class="hljs-attr">breakLength</span>: <span class="hljs-literal">Infinity</span>, <span class="hljs-attr">compact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">sorted</span>: <span class="hljs-literal">false</span>  });
 }
 
@@ -357,6 +361,62 @@
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isANamedFunction</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">v: any</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> </span>{ name: string } {
     <span class="hljs-keyword">return</span> {}.toString.call(v) === <span class="hljs-string">&apos;[object Function]&apos;</span> &amp;&amp; (v <span class="hljs-keyword">as</span> any).name !== <span class="hljs-string">&apos;&apos;</span>;
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value defines its own `inspect` method
+ * See: https://nodejs.org/api/util.html#util_util_inspect_custom
+ *
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasCustomInspectionFunction</span>(<span class="hljs-params">v: Answerable&lt;any&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
+    <span class="hljs-keyword">return</span> v &amp;&amp; v[<span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">&apos;nodejs.util.inspect.custom&apos;</span>)];
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value has a good chance of being a plain JavaScript object
+ *
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPlainObject</span>(<span class="hljs-params">v: Answerable&lt;any&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
+
+    <span class="hljs-comment">// Basic check for Type object that&apos;s not null</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> v === <span class="hljs-string">&apos;object&apos;</span> &amp;&amp; v !== <span class="hljs-literal">null</span>) {
+
+        <span class="hljs-comment">// If Object.getPrototypeOf supported, use it</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.getPrototypeOf === <span class="hljs-string">&apos;function&apos;</span>) {
+            <span class="hljs-keyword">const</span> proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(v);
+            <span class="hljs-keyword">return</span> proto === <span class="hljs-built_in">Object</span>.prototype || proto === <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-comment">// Otherwise, use internal class</span>
+        <span class="hljs-comment">// This should be reliable as if getPrototypeOf not supported, is pre-ES5</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(v) === <span class="hljs-string">&apos;[object Object]&apos;</span>;
+    }
+
+    <span class="hljs-comment">// Not an object</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value is a JSON object that can be stringified
+ *
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSerialisableAsJSON</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">v: any</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-built_in">JSON</span>.stringify(v);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    } <span class="hljs-keyword">catch</span> (e) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
 }
 
 <span class="hljs-comment">/**
