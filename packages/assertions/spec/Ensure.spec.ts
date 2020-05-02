@@ -36,7 +36,7 @@ describe('Ensure', () => {
             person: {
                 name: 'Jan',
             },
-        })).toString()).to.equal(`#actor ensures that { person: { name: 'Jan' } } does equal { person: { name: 'Jan' } }`);
+        })).toString()).to.equal(`#actor ensures that { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`);
     });
 
     given<Answerable<number>>(
@@ -99,7 +99,7 @@ describe('Ensure', () => {
             description: 'list',
             expected: [{ name: 'Bob' }, { name: 'Alice' }],
             actual: [{ name: 'Alice' }],
-            artifact: { expected: `[\n  { name: 'Bob' },\n  { name: 'Alice' }\n]`, actual: `[\n  { name: 'Alice' }\n]` },
+            artifact: { expected: '[\n  {\n    "name": "Bob"\n},\n  {\n    "name": "Alice"\n}\n]', actual: `[\n  {\n    "name": "Alice"\n}\n]` },
         }, {
             description: 'promise',
             expected: Promise.resolve(true),
