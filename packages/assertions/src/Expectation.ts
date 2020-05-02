@@ -7,7 +7,7 @@ import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
  *
  * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>
  */
-export type Predicate<A, E> = (actual: A, expected: E) => boolean;
+export type Predicate<A, E> = (actual: A, expected: E) => boolean | Promise<boolean>;
 
 /**
  * @desc
@@ -112,9 +112,11 @@ class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<E
 
         return (actual: Actual) => actor.answer(this.expectedValue)
             .then(expected => {
-                return this.predicate(actual, expected)
-                    ? new ExpectationMet(this.toString(), expected, actual)
-                    : new ExpectationNotMet(this.toString(), expected, actual);
+                return Promise.resolve(this.predicate(actual, expected)).then(
+                    result => result
+                        ? new ExpectationMet(this.toString(), expected, actual)
+                        : new ExpectationNotMet(this.toString(), expected, actual)
+                )
             });
     }
 

@@ -68,4 +68,36 @@ describe('Expectation', () => {
             )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
         });
     });
+
+    describe('allows to define an assertion as async function, which ', () => {
+
+        // tslint:disable-next-line: no-shadowed-variable
+        function isIdenticalTo<T>(expected: T) {
+            return Expectation.thatActualShould<T, T>('have value identical to', expected)
+            .soThat((actualValue: T, expectedValue: T) => isEqual(actualValue, expectedValue));
+        }
+        function isEqual<T>(actualValue: T, expectedValue: T) {
+            return new Promise<boolean>(resolve => setTimeout(() => resolve(actualValue === expectedValue), 300));
+        }
+
+        /**
+         * @test {Expectation.that}
+         * @test {Ensure.that}
+         */
+        it('allows the actor flow to continue when the assertion passes', () => {
+            return expect(actorCalled('Astrid').attemptsTo(
+                Ensure.that(4, isIdenticalTo(4)),
+            )).to.be.fulfilled;
+        });
+
+        /**
+         * @test {Expectation.that}
+         * @test {Ensure.that}
+         */
+        it('stops the actor flow when the assertion fails', () => {
+            return expect(actorCalled('Astrid').attemptsTo(
+                Ensure.that(4, isIdenticalTo('4' as any)),
+            )).to.be.rejectedWith(AssertionError, "Expected 4 to have value identical to '4'");
+        });
+    });
 });
