@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/serenity-js/serenity-js/compare/v2.3.6...v2.4.0) (2020-05-02)
+
+
+### Bug Fixes
+
+* **core:** plain JavaScript/JSON object are now pretty-printed to make them easier to read ([c63d64d](https://github.com/serenity-js/serenity-js/commit/c63d64de689ed7194b8fce9c65aa1a896d1728de)), closes [#509](https://github.com/serenity-js/serenity-js/issues/509)
+
+
+
+
+
 ## [2.3.6](https://github.com/serenity-js/serenity-js/compare/v2.3.5...v2.3.6) (2020-04-28)
 
 
