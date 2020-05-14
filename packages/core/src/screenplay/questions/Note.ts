@@ -8,7 +8,7 @@ import { Question } from '../Question';
  *  recorded using {@link TakeNote}.
  *
  * @example
- *  import { Note, TakeNote, TakeNotes } from '@serenity-js/core'
+ *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'
  *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
  *
@@ -17,7 +17,7 @@ import { Question } from '../Question';
  *      static appliedVoucher   = Target.the('voucher code').located(by.id('applied-voucher'));
  *  }
  *
- *  const actor = Actor.named('Noah').whoCan(
+ *  const actor = actorCalled('Noah').whoCan(
  *      TakeNotes.usingAnEmptyNotepad(),
  *      BrowseTheWeb.using(protractor.browser),
  *  );
@@ -36,10 +36,14 @@ import { Question } from '../Question';
 export class Note<Answer> extends Question<Promise<Answer>> {
 
     /**
+     * @desc
+     *  Retrieves the previously recorded answer to a given {@link Question}
+     *
      * @param {Question<Promise<A>> | Question<A>} question
+     *
      * @returns {Note<A>}
      */
-    static of<A>(question: Question<Promise<A>> | Question<A>) {
+    static of<A>(question: Question<Promise<A>> | Question<A>): Note<A> {
         return new Note<A>(question);
     }
 
@@ -51,10 +55,25 @@ export class Note<Answer> extends Question<Promise<Answer>> {
     }
 
     /**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  answer this {Question}.
+     *
      * @param {AnswersQuestions & UsesAbilities} actor
      * @returns {Promise<Answer>}
+     *
+     * @see {@link Actor}
+     * @see {@link AnswersQuestions}
+     * @see {@link UsesAbilities}
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer> {
         return TakeNotes.as(actor).answerTo(this.question);
+    }
+
+    /**
+     * Description to be used when reporting this {@link Question}.
+     */
+    toString() {
+        return `a note of ${ this.question }`;
     }
 }
