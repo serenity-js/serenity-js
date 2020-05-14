@@ -1,6 +1,6 @@
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
-import { StageCrewMember } from './StageCrewMember';
+import { ListensToDomainEvents } from '../screenplay';
 
 interface AsyncOperationDetails {
     taskDescription:    Description;
@@ -15,7 +15,7 @@ interface FailedAsyncOperationDetails {
 }
 
 export class StageManager {
-    private readonly subscribers: StageCrewMember[] = [];
+    private readonly subscribers: ListensToDomainEvents[] = [];
     private readonly wip: Map<CorrelationId, AsyncOperationDetails> = new Map();
     private readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
@@ -23,8 +23,12 @@ export class StageManager {
                 private readonly clock) {
     }
 
-    register(...stageCrewMembers: StageCrewMember[]) {
-        this.subscribers.push(...stageCrewMembers);
+    register(...subscribers: ListensToDomainEvents[]) {
+        this.subscribers.push(...subscribers);
+    }
+
+    deregister(subscriber: ListensToDomainEvents) {
+        this.subscribers.splice(this.subscribers.indexOf(subscriber), 1);
     }
 
     notifyOf(event: DomainEvent): void {

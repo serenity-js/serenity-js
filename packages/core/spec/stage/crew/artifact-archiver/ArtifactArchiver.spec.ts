@@ -133,7 +133,7 @@ describe('ArtifactArchiver', () => {
             fs           = sinon.createStubInstance(FileSystem);
             stage        = new Stage(new Extras(), stageManager as unknown as StageManager);
 
-            archiver     = new ArtifactArchiver(fs as any);
+            archiver     = new ArtifactArchiver(fs as any, stage);
             stage.assign(archiver);
 
             archiver.notifyOf(
@@ -156,7 +156,7 @@ describe('ArtifactArchiver', () => {
 
         stage = new Stage(new Extras(), stageManager);
 
-        archiver = new ArtifactArchiver(fs as any);
+        archiver = new ArtifactArchiver(fs as any, stage);
         stage.assign(archiver);
 
         const notifyOf = sinon.spy(stageManager, 'notifyOf');
