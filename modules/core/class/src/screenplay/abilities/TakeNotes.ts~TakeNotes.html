@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -243,7 +245,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber44">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber25">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -251,8 +253,8 @@
 
   
 
-  <div class="description" data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to remember an answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>,
- and recall it later.</p>
+  <div class="description" data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span> of an answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>
+ and to retrieve their <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span> later.</p>
 </div>
 
   
@@ -260,7 +262,7 @@
   
   
   
-  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></li></ul></div>
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></li>, <li><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></li></ul></div>
   
   
   
@@ -269,40 +271,15 @@
   
   
 
-  <div data-ice="exampleDocs">
-    <h4 id="examples">Examples:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs javascript"> <span class="hljs-keyword">import</span> { Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
- <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vouchers</span> </span>{
-     <span class="hljs-keyword">static</span> code             = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;voucher&apos;</span>));
-     <span class="hljs-keyword">static</span> appliedVoucher   = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;applied-voucher&apos;</span>));
- }
-
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Noah&apos;</span>).whoCan(
-     TakeNotes.usingAnEmptyNotepad(),
-     BrowseTheWeb.using(protractor.browser),
- );
-
- actor.attemptsTo(
-     TakeNote.of(Text.of(Vouchers.code)),
-     <span class="hljs-comment">// ... add the product to a basket, go to checkout, etc.</span>
-     Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
- );</code></pre>
-    </div>
-</div>
+  
 
   <div data-ice="tests">
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/TakeNote.spec.ts.html#lineNumber28">TakeNote enables the Actor to remember an answer to a Question</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber30">Note enables the actor to recall the answer to a given question</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber39">Note complains if no answer to a given question has ever been remembered</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber13">TakeNotes</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber32">Note enables the actor to recall the answer to a given question</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43">Note complains if no answer to a given question has ever been remembered</a></span></li>
 </ul>
   </div>
 
@@ -337,7 +314,38 @@
       <div>
         
         
+        <div data-ice="description"><p> Retrieves the <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span>
+ for a given <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to be used in custom <span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>s.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad">usingASharedNotepad</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p> Instantiates an ability to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span> that uses a notepad that can be shared amongst <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s.</p>
+</div>
       </div>
     </td>
     <td>
@@ -365,7 +373,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p> Instantiates an ability to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span> that uses an empty notepad.</p>
+</div>
       </div>
     </td>
     <td>
@@ -394,13 +403,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(notepad: <span>object</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(notepad: <span>Map</span>&lt;<span>string</span>, <span>any</span>&gt;)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Instantiates the <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></p>
+</div>
       </div>
     </td>
     <td>
@@ -430,13 +440,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-answerTo">answerTo</a></span></span><span class="code" data-ice="signature">(question: <span>Question </span> | <span> Question</span>): <span>Promise</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-answerTo">answerTo</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Recalls the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span> </p>
+        <div data-ice="description"><p> Recalls the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span></p>
 </div>
       </div>
     </td>
@@ -459,13 +469,42 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record">record</a></span></span><span class="code" data-ice="signature">(question: <span>Question </span> | <span> Question</span>, value: <span>Promise </span> | <span> Answer</span>): <span>void</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-discard">discard</a></span></span><span class="code" data-ice="signature">(): <span>Promise&lt;void&gt; </span> | <span> void</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Records the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span> </p>
+        <div data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to clear the notepad when the <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record">record</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Records the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span></p>
 </div>
       </div>
     </td>
@@ -495,14 +534,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber188">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves the <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span>
+ for a given <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to be used in custom <span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>s.</p>
+</div>
 
   
 
@@ -551,29 +592,34 @@
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
+<li><span><span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-method-usingAnEmptyNotepad">
+  <h3 data-ice="anchor" id="static-method-usingASharedNotepad">
     <span class="access" data-ice="access">public</span>
     <span data-ice="static">static</span>
     
     
     
     
-    <span class="code" data-ice="name">usingAnEmptyNotepad</span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
+    <span class="code" data-ice="name">usingASharedNotepad</span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber157">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Instantiates an ability to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span> that uses a notepad that can be shared amongst <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s.</p>
+<p> This method should be used when you need the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s to <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>s
+ of answers to some <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>s, share those notes amongst themselves,
+ and retrieve such shared <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>s later on in the same scenario.</p>
+</div>
 
   
 
@@ -602,9 +648,163 @@
 
   
 
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs javascript"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+ <span class="hljs-keyword">import</span> { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>
+ <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
+
+ <span class="hljs-keyword">const</span> server = http.createServer(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) </span>{
+     response.setHeader(<span class="hljs-string">&apos;Connection&apos;</span>, <span class="hljs-string">&apos;close&apos;</span>);
+     response.end(<span class="hljs-string">&apos;Hello!&apos;</span>);
+ });
+
+ <span class="hljs-keyword">const</span> Adam = actorCalled(<span class="hljs-string">&apos;Adam&apos;</span>).whoCan(
+     ManageALocalServer.using(server),
+     TakeNotes.usingASharedNotepad(),
+ );
+
+ <span class="hljs-keyword">const</span> Becky = actorCalled(<span class="hljs-string">&apos;Becky&apos;</span>).whoCan(
+     TakeNotes.usingASharedNotepad(),
+     BrowseTheWeb.using(protractor.browser),
+ );
+
+ Adam.attemptsTo(
+     StartLocalTestServer.onRandomPort(),
+     TakeNote.of(LocalServer.url()),
+ );
+
+ Becky.attemptsTo(
+     Navigate.to(Note.of(LocalServer.url())),
+     <span class="hljs-comment">// perform some UI interactions</span>
+ );</code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber120">TakeNotes usingASharedNotepad</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152">TakeNotes usingASharedNotepad </a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-usingAnEmptyNotepad">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">usingAnEmptyNotepad</span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber100">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instantiates an ability to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span> that uses an empty notepad.</p>
+<p> This method should be used when you need the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>
+ of an answer to some <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span> and retrieve such <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span> later on in the same scenario,
+ but you don&apos;t need the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s to share their notes.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
   
 
   
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { actorCalled, Log, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+ <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
+ <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Apisitt&apos;</span>).whoCan(
+     TakeNotes.usingAnEmptyNotepad(),
+     CallAnApi.at(<span class="hljs-string">&apos;https://api.example.org&apos;</span>),
+ );
+
+ actor.attemptsTo(
+     Send.a(GetRequest.to(<span class="hljs-string">&apos;/customers&apos;</span>)),
+     TakeNote.of(LastResponse.status()),     <span class="hljs-comment">// remember the LastResponse.status()</span>
+     <span class="hljs-comment">// ... perform some other activities</span>
+     Log.the(Note.of(LastResponse.body())),  <span class="hljs-comment">// log it later, or pass to any other interaction</span>
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs javascript"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+ <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
+ <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vouchers</span> </span>{
+     <span class="hljs-keyword">static</span> code             = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;voucher&apos;</span>));
+     <span class="hljs-keyword">static</span> appliedVoucher   = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;applied-voucher&apos;</span>));
+ }
+
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Noah&apos;</span>).whoCan(
+     TakeNotes.usingAnEmptyNotepad(),
+     BrowseTheWeb.using(protractor.browser),
+ );
+
+ actor.attemptsTo(
+     TakeNote.of(Text.of(Vouchers.code)),
+     <span class="hljs-comment">// ... add the product to a basket, go to checkout, etc.</span>
+     Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
+ );</code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66">TakeNotes usingAnEmptyNotepad</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103">TakeNotes usingAnEmptyNotepad </a></span></li>
+</ul>
+  </div>
 
   
   
@@ -620,18 +820,19 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(notepad: <span>object</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(notepad: <span>Map</span>&lt;<span>string</span>, <span>any</span>&gt;)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber91">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber198">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Instantiates the <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></p>
+</div>
 
   
 
@@ -645,7 +846,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">notepad</td>
-      <td data-ice="type" class="code"><span>object</span></td>
+      <td data-ice="type" class="code"><span>Map</span>&lt;<span>string</span>, <span>any</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -683,18 +884,18 @@
     
     
     
-    <span class="code" data-ice="name">answerTo</span><span class="code" data-ice="signature">(question: <span>Question </span> | <span> Question</span>): <span>Promise</span></span>
+    <span class="code" data-ice="name">answerTo</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber74">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Recalls the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span> </p>
+  <div data-ice="description"><p> Recalls the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span></p>
 </div>
 
   
@@ -709,7 +910,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span>Question </span> | <span> Question</span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -723,7 +924,63 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>Answer</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-discard">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">discard</span><span class="code" data-ice="signature">(): <span>Promise&lt;void&gt; </span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber275">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to clear the notepad when the <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise&lt;void&gt; </span> | <span> void</span></td>
           
         </tr>
       </tbody>
@@ -755,18 +1012,18 @@
     
     
     
-    <span class="code" data-ice="name">record</span><span class="code" data-ice="signature">(question: <span>Question </span> | <span> Question</span>, value: <span>Promise </span> | <span> Answer</span>): <span>void</span></span>
+    <span class="code" data-ice="name">record</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber225">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Records the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span> </p>
+  <div data-ice="description"><p> Records the answer to a given <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span></p>
 </div>
 
   
@@ -781,13 +1038,13 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span>Question </span> | <span> Question</span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>Promise </span> | <span> Answer</span></td>
+      <td data-ice="type" class="code"><span>Promise&lt;Answer&gt; </span> | <span> Answer</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>

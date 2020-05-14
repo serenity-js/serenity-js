@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -243,7 +245,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/Stage.ts.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/Stage.ts.html#lineNumber11">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -452,7 +454,7 @@ by their name if they&apos;ve already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assign">assign</a></span></span><span class="code" data-ice="signature">(stageCrewMembers: <span>UNKNOWN</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assign">assign</a></span></span><span class="code" data-ice="signature">(listeners: <span>UNKNOWN</span>)</span>
         </p>
       </div>
       <div>
@@ -564,7 +566,7 @@ by their name if they&apos;ve already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-drawTheCurtain">drawTheCurtain</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
       <div>
@@ -592,7 +594,7 @@ by their name if they&apos;ve already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-resetActors">resetActors</a></span></span><span class="code" data-ice="signature">(): <span>void</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>)</span>
         </p>
       </div>
       <div>
@@ -743,7 +745,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
@@ -789,7 +791,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber248">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber251">source</a></span></span>
     </span>
   </h3>
 
@@ -835,7 +837,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber131">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -912,7 +914,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber122">source</a></span></span>
     </span>
   </h3>
 
@@ -999,7 +1001,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -1066,11 +1068,11 @@ by their name if they&apos;ve already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">assign</span><span class="code" data-ice="signature">(stageCrewMembers: <span>UNKNOWN</span>)</span>
+    <span class="code" data-ice="name">assign</span><span class="code" data-ice="signature">(listeners: <span>UNKNOWN</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber122">source</a></span></span>
     </span>
   </h3>
 
@@ -1090,7 +1092,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">stageCrewMembers</td>
+      <td data-ice="name" class="code" data-depth="0">listeners</td>
       <td data-ice="type" class="code"><span>UNKNOWN</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
@@ -1129,7 +1131,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber211">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber213">source</a></span></span>
     </span>
   </h3>
 
@@ -1200,7 +1202,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber140">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -1255,7 +1257,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber130">source</a></span></span>
     </span>
   </h3>
 
@@ -1299,6 +1301,49 @@ by their name if they&apos;ve already been instantiated.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-drawTheCurtain">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">drawTheCurtain</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber108">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-engage">
     <span class="access" data-ice="access">public</span>
     
@@ -1310,7 +1355,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -1358,61 +1403,6 @@ by their name if they&apos;ve already been instantiated.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-resetActors">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">resetActors</span><span class="code" data-ice="signature">(): <span>void</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber106">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>void</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-theActorCalled">
     <span class="access" data-ice="access">public</span>
     
@@ -1424,7 +1414,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber98">source</a></span></span>
     </span>
   </h3>
 
@@ -1502,7 +1492,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber164">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber166">source</a></span></span>
     </span>
   </h3>
 
@@ -1580,7 +1570,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber189">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber191">source</a></span></span>
     </span>
   </h3>
 
@@ -1636,7 +1626,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber148">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber151">source</a></span></span>
     </span>
   </h3>
 

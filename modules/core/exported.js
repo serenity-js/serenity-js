@@ -93,6 +93,7 @@
 /** @external {@serenity-js/core/lib/screenplay~Ability} /modules/core/class/src/screenplay/Ability.ts~Ability.html */
 /** @external {@serenity-js/core/lib/screenplay~AbilityType} /modules/core/class/src/screenplay/AbilityType.ts~AbilityType.html */
 /** @external {@serenity-js/core/lib/screenplay~Activity} /modules/core/class/src/screenplay/Activity.ts~Activity.html */
+/** @external {@serenity-js/core/lib/screenplay~Discardable} /modules/core/class/src/screenplay/Discardable.ts~Discardable.html */
 /** @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html */
 /** @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html */
 /** @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html */
@@ -101,6 +102,7 @@
 /** @external {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} /modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~CanHaveAbilities} /modules/core/class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~CollectsArtifacts} /modules/core/class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html */
+/** @external {@serenity-js/core/lib/screenplay/actor~ListensToDomainEvents} /modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~PerformsActivities} /modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~UsesAbilities} /modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html */
 /** @external {@serenity-js/core/lib/screenplay/interactions~Log} /modules/core/class/src/screenplay/interactions/Log.ts~Log.html */

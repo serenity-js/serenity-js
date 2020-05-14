@@ -672,6 +672,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
+    "/modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
+    "@serenity-js/core/lib/screenplay/actor~ListensToDomainEvents",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/actor~performsactivities",
     "/modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html",
     "@serenity-js/core/lib/screenplay/actor~PerformsActivities",
@@ -729,6 +735,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~activity",
     "/modules/core/class/src/screenplay/Activity.ts~Activity.html",
     "@serenity-js/core/lib/screenplay~Activity",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay~discardable",
+    "/modules/core/class/src/screenplay/Discardable.ts~Discardable.html",
+    "@serenity-js/core/lib/screenplay~Discardable",
     "external"
   ],
   [

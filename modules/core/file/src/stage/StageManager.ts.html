@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -239,7 +241,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/StageManager.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Description, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StageCrewMember&apos;</span>;
+<span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 
 <span class="hljs-keyword">interface</span> AsyncOperationDetails {
     taskDescription:    Description;
@@ -254,7 +256,7 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StageManager {
-    <span class="hljs-keyword">private</span> readonly subscribers: StageCrewMember[] = [];
+    <span class="hljs-keyword">private</span> readonly subscribers: ListensToDomainEvents[] = [];
     <span class="hljs-keyword">private</span> readonly wip: Map&lt;CorrelationId, AsyncOperationDetails&gt; = <span class="hljs-keyword">new</span> Map();
     <span class="hljs-keyword">private</span> readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
@@ -262,8 +264,12 @@
                 <span class="hljs-keyword">private</span> readonly clock</span>) {
     }
 
-    register(...stageCrewMembers: StageCrewMember[]) {
-        <span class="hljs-keyword">this</span>.subscribers.push(...stageCrewMembers);
+    register(...subscribers: ListensToDomainEvents[]) {
+        <span class="hljs-keyword">this</span>.subscribers.push(...subscribers);
+    }
+
+    deregister(subscriber: ListensToDomainEvents) {
+        <span class="hljs-keyword">this</span>.subscribers.splice(<span class="hljs-keyword">this</span>.subscribers.indexOf(subscriber), <span class="hljs-number">1</span>);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {

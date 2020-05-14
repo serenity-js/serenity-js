@@ -466,7 +466,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">get</span><span class="hljs-title">Title</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt; {
+    getTitle(): <span class="hljs-built_in">Promise</span>&lt;string&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getTitle());
     }
 
@@ -476,7 +476,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">get</span><span class="hljs-title">CurrentUrl</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt; {
+    getCurrentUrl(): <span class="hljs-built_in">Promise</span>&lt;string&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getCurrentUrl());
     }
 
@@ -490,7 +490,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;Capabilities&gt;}</span> </span>The actual capabilities of this browser.
      */</span>
-    <span class="hljs-keyword">get</span><span class="hljs-title">Capabilities</span>(): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">Capabilities</span>&gt; {
+    getCapabilities(): <span class="hljs-built_in">Promise</span>&lt;Capabilities&gt; {
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.getCapabilities());
     }
 
@@ -514,7 +514,7 @@
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-keyword">this</span>.browser.wait(condition, timeout));
     }
 
-    <span class="hljs-keyword">get</span><span class="hljs-title">LastScriptExecutionResult</span>(): <span class="hljs-title">any</span> {
+    getLastScriptExecutionResult(): any {
         <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.lastScriptExecutionSummary) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Make sure to execute a script before checking on the result`</span>);
         }

@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -888,6 +890,68 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber13"><p>TakeNotes</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66"><p>usingAnEmptyNotepad</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">TakeNotes.usingAnEmptyNotepad</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73"><p>enables the actor to take note of an answer to a given question and recall it later</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">TakeNotes.usingAnEmptyNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">spec/screenplay/abilities/TakeNotes.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">TakeNotes.usingAnEmptyNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103">spec/screenplay/abilities/TakeNotes.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">TakeNotes.usingAnEmptyNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber120"><p>usingASharedNotepad</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad">TakeNotes.usingASharedNotepad</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127"><p>enables the actor to take note of an answer to a given question and recall it later</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad">TakeNotes.usingASharedNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">spec/screenplay/abilities/TakeNotes.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad">TakeNotes.usingASharedNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152">spec/screenplay/abilities/TakeNotes.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad">TakeNotes.usingASharedNotepad</a></span>
+<span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>
+<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
   <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber24"><p>Actor</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
@@ -1020,33 +1084,20 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/interactions/TakeNote.spec.ts.html#lineNumber7"><p>TakeNote</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber11"><p>Note</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/interactions/TakeNote.spec.ts.html#lineNumber28"><p>enables the Actor to remember an answer to a Question</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span>
-<span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber9"><p>Note</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber30"><p>enables the actor to recall the answer to a given question</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber32"><p>enables the actor to recall the answer to a given question</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span>
 <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber39"><p>complains if no answer to a given question has ever been remembered</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43"><p>complains if no answer to a given question has ever been remembered</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span>
 <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span></td>

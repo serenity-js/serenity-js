@@ -192,6 +192,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay~discardable",
+    "class/src/screenplay/Discardable.ts~Discardable.html",
+    "<span>Discardable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/events~domainevent",
     "class/src/events/DomainEvent.ts~DomainEvent.html",
     "<span>DomainEvent</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
@@ -321,6 +327,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model/artifacts~jsondata",
     "class/src/model/artifacts/JSONData.ts~JSONData.html",
     "<span>JSONData</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model/artifacts</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
+    "class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
+    "<span>ListensToDomainEvents</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/actor</span>",
     "class"
   ],
   [
@@ -1201,19 +1213,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber11",
     "Note",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43",
     "Note complains if no answer to a given question has ever been remembered",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber30",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber32",
     "Note enables the actor to recall the answer to a given question",
     "test"
   ],
@@ -1554,15 +1566,57 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/TakeNote.spec.ts.html#lineNumber7",
-    "TakeNote",
+    "takenotes src/screenplay/abilities/takenotes.ts~takenotes,takenotes",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber13",
+    "TakeNotes",
     "test"
   ],
   [
-    "takenotes takenote src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/interactions/TakeNote.spec.ts.html#lineNumber28",
-    "TakeNote enables the Actor to remember an answer to a Question",
+    "takenotes.usingasharednotepad src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber120",
+    "TakeNotes usingASharedNotepad",
+    "test"
+  ],
+  [
+    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138",
+    "TakeNotes usingASharedNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152",
+    "TakeNotes usingASharedNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127",
+    "TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66",
+    "TakeNotes usingAnEmptyNotepad",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84",
+    "TakeNotes usingAnEmptyNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103",
+    "TakeNotes usingAnEmptyNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73",
+    "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later",
     "test"
   ],
   [
@@ -1866,6 +1920,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/abilities/takenotes.spec.ts",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html",
+    "spec/screenplay/abilities/TakeNotes.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/actor.spec.ts",
     "test-file/spec/screenplay/actor.spec.ts.html",
     "spec/screenplay/actor.spec.ts",
@@ -1875,12 +1935,6 @@ window.esdocSearchIndex = [
     "spec/screenplay/interactions/see.spec.ts",
     "test-file/spec/screenplay/interactions/See.spec.ts.html",
     "spec/screenplay/interactions/See.spec.ts",
-    "testFile"
-  ],
-  [
-    "spec/screenplay/interactions/takenote.spec.ts",
-    "test-file/spec/screenplay/interactions/TakeNote.spec.ts.html",
-    "spec/screenplay/interactions/TakeNote.spec.ts",
     "testFile"
   ],
   [
@@ -3780,6 +3834,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/screenplay/discardable.ts",
+    "file/src/screenplay/Discardable.ts.html",
+    "src/screenplay/Discardable.ts",
+    "file"
+  ],
+  [
     "src/screenplay/interaction.ts",
     "file/src/screenplay/Interaction.ts.html",
     "src/screenplay/Interaction.ts",
@@ -3840,6 +3900,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/takenotes.ts~takenotes#discard",
+    "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-discard",
+    "src/screenplay/abilities/TakeNotes.ts~TakeNotes#discard",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/takenotes.ts~takenotes#record",
     "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record",
     "src/screenplay/abilities/TakeNotes.ts~TakeNotes#record",
@@ -3849,6 +3915,12 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/takenotes.ts~takenotes.as",
     "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-as",
     "src/screenplay/abilities/TakeNotes.ts~TakeNotes.as",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad",
+    "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingASharedNotepad",
+    "src/screenplay/abilities/TakeNotes.ts~TakeNotes.usingASharedNotepad",
     "method"
   ],
   [
@@ -3930,6 +4002,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/actor/actor.ts~actor#notifyof",
+    "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-notifyOf",
+    "src/screenplay/actor/Actor.ts~Actor#notifyOf",
+    "method"
+  ],
+  [
     "src/screenplay/actor/actor.ts~actor#tostring",
     "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-toString",
     "src/screenplay/actor/Actor.ts~Actor#toString",
@@ -3963,6 +4041,12 @@ window.esdocSearchIndex = [
     "src/screenplay/actor/collectsartifacts.ts",
     "file/src/screenplay/actor/CollectsArtifacts.ts.html",
     "src/screenplay/actor/CollectsArtifacts.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/actor/listenstodomainevents.ts",
+    "file/src/screenplay/actor/ListensToDomainEvents.ts.html",
+    "src/screenplay/actor/ListensToDomainEvents.ts",
     "file"
   ],
   [
@@ -4101,6 +4185,12 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/note.ts~note#constructor",
     "class/src/screenplay/questions/Note.ts~Note.html#instance-constructor-constructor",
     "src/screenplay/questions/Note.ts~Note#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/note.ts~note#tostring",
+    "class/src/screenplay/questions/Note.ts~Note.html#instance-method-toString",
+    "src/screenplay/questions/Note.ts~Note#toString",
     "method"
   ],
   [
@@ -4260,15 +4350,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/stage/stage.ts~stage#engage",
-    "class/src/stage/Stage.ts~Stage.html#instance-method-engage",
-    "src/stage/Stage.ts~Stage#engage",
+    "src/stage/stage.ts~stage#drawthecurtain",
+    "class/src/stage/Stage.ts~Stage.html#instance-method-drawTheCurtain",
+    "src/stage/Stage.ts~Stage#drawTheCurtain",
     "method"
   ],
   [
-    "src/stage/stage.ts~stage#resetactors",
-    "class/src/stage/Stage.ts~Stage.html#instance-method-resetActors",
-    "src/stage/Stage.ts~Stage#resetActors",
+    "src/stage/stage.ts~stage#engage",
+    "class/src/stage/Stage.ts~Stage.html#instance-method-engage",
+    "src/stage/Stage.ts~Stage#engage",
     "method"
   ],
   [
@@ -4317,6 +4407,12 @@ window.esdocSearchIndex = [
     "src/stage/stagemanager.ts~stagemanager#currenttime",
     "class/src/stage/StageManager.ts~StageManager.html#instance-method-currentTime",
     "src/stage/StageManager.ts~StageManager#currentTime",
+    "method"
+  ],
+  [
+    "src/stage/stagemanager.ts~stagemanager#deregister",
+    "class/src/stage/StageManager.ts~StageManager.html#instance-method-deregister",
+    "src/stage/StageManager.ts~StageManager#deregister",
     "method"
   ],
   [

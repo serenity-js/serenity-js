@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -237,7 +239,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Note.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityDetails, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Ability, Activity, Actor, Log, Note, Question, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
@@ -266,10 +270,12 @@ describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-fu
      * @test {TakeNotes}
      * @test {Note}
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
-        expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes({ [NameOfAHobby().toString()]: <span class="hljs-string">&apos;DYI&apos;</span> })).attemptsTo(
+    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> Map([ [NameOfAHobby().toString(), <span class="hljs-string">&apos;DYI&apos;</span>] ]);
+        expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes(notepad)).attemptsTo(
             EnsureSame(Note.of(NameOfAHobby()), <span class="hljs-string">&apos;DYI&apos;</span>),
-        )));
+        ));
+    });
 
     <span class="hljs-comment">/**
      * @test {TakeNotes}

@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -241,17 +243,16 @@
 <span class="hljs-keyword">import</span> { ConfigurationError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../errors&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../events&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
-<span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Activity, ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityDescriber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/activities/ActivityDescriber&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/actor&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Cast&apos;</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StageCrewMember&apos;</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StageManager&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stage</span> </span>{
     private <span class="hljs-keyword">static</span> readonly describer = <span class="hljs-keyword">new</span> ActivityDescriber();
 
-    private actorsOnStage: { [name: string]: Actor } = {};
+    private actorsOnStage: <span class="hljs-built_in">Map</span>&lt;string, Actor&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;string, Actor&gt;();
     private actorInTheSpotlight: Actor = <span class="hljs-literal">null</span>;
 
     private detailsOfCurrentActivity: ActivityDetails = <span class="hljs-literal">null</span>;
@@ -283,10 +284,13 @@
      * <span class="hljs-doctag">@return <span class="hljs-type">{Actor}</span></span>
      */</span>
     actor(name: string): Actor {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.actorsOnStage[name]) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.actorsOnStage.has(name)) {
             <span class="hljs-keyword">let</span> actor;
             <span class="hljs-keyword">try</span> {
-                actor = <span class="hljs-keyword">this</span>.cast.prepare(<span class="hljs-keyword">new</span> Actor(name, <span class="hljs-keyword">this</span>));
+                <span class="hljs-keyword">const</span> newActor = <span class="hljs-keyword">new</span> Actor(name, <span class="hljs-keyword">this</span>);
+                <span class="hljs-keyword">this</span>.assign(newActor);
+
+                actor = <span class="hljs-keyword">this</span>.cast.prepare(newActor);
             }
             <span class="hljs-keyword">catch</span> (error) {
                 <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.typeOf(<span class="hljs-keyword">this</span>.cast) }</span> encountered a problem when preparing actor &quot;<span class="hljs-subst">${ name }</span>&quot; for stage`</span>, error);
@@ -296,10 +300,10 @@
                 <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Instead of a new instance of actor &quot;<span class="hljs-subst">${ name }</span>&quot;, <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.typeOf(<span class="hljs-keyword">this</span>.cast) }</span> returned <span class="hljs-subst">${ actor }</span>`</span>);
             }
 
-            <span class="hljs-keyword">this</span>.actorsOnStage[name] = actor;
+            <span class="hljs-keyword">this</span>.actorsOnStage.set(name, actor)
         }
 
-        <span class="hljs-keyword">this</span>.actorInTheSpotlight = <span class="hljs-keyword">this</span>.actorsOnStage[name];
+        <span class="hljs-keyword">this</span>.actorInTheSpotlight = <span class="hljs-keyword">this</span>.actorsOnStage.get(name);
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.actorInTheSpotlight;
     }
@@ -336,14 +340,17 @@
      * <span class="hljs-doctag">@return <span class="hljs-type">{Stage}</span></span>
      */</span>
     callFor(actors: Cast): Stage {
-        <span class="hljs-keyword">this</span>.resetActors();
+        <span class="hljs-keyword">this</span>.drawTheCurtain();
         <span class="hljs-keyword">this</span>.engage(actors);
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
     }
 
-    re<span class="hljs-keyword">set</span><span class="hljs-title">Actors</span>(): <span class="hljs-title">void</span> {
-        <span class="hljs-keyword">this</span>.actorsOnStage       = {};
+    drawTheCurtain() {
+        <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">this</span>.actorsOnStage.values())
+            .forEach(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-keyword">this</span>.manager.deregister(actor));
+
+        <span class="hljs-keyword">this</span>.actorsOnStage.clear();
         <span class="hljs-keyword">this</span>.actorInTheSpotlight = <span class="hljs-literal">null</span>;
     }
 
@@ -353,10 +360,8 @@
         <span class="hljs-keyword">this</span>.cast        = actors;
     }
 
-    assign(...stageCrewMembers: StageCrewMember[]) {
-        stageCrewMembers.forEach(<span class="hljs-function"><span class="hljs-params">stageCrewMember</span> =&gt;</span> {
-            <span class="hljs-keyword">this</span>.manager.register(stageCrewMember.assignedTo(<span class="hljs-keyword">this</span>));
-        });
+    assign(...listeners: ListensToDomainEvents[]) {
+        <span class="hljs-keyword">this</span>.manager.register(...listeners);
     }
 
     announce(event: DomainEvent): <span class="hljs-keyword">void</span> {
@@ -397,12 +402,6 @@
             ? <span class="hljs-keyword">this</span>.cast.constructor.name
             : <span class="hljs-string">&apos;Cast&apos;</span>;
     }
-
-    <span class="hljs-comment">// todo: might be useful to ensure that the actors release any resources they&apos;re holding.</span>
-    <span class="hljs-comment">// drawTheCurtain() {</span>
-        <span class="hljs-comment">// dismiss all the actors</span>
-        <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-screenplay/src/main/java/net/serenitybdd/screenplay/actors/Stage.java</span>
-    <span class="hljs-comment">// }</span>
 }
 </code></pre>
 

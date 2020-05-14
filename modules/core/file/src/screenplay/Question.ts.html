@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -289,7 +291,19 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Question&lt;T&gt; {
 
     <span class="hljs-comment">/**
+     * @desc
      *  Factory method that simplifies the process of defining custom questions.
+     *
+     * @example
+     *  const EnvVariable = (name: string) =&gt;
+     *      Question.about(`the ${ name } env variable`, actor =&gt; process.env[name])
+     *
+     * @static
+     *
+     * @param {string} description
+     * @param {function(actor: AnswersQuestions &amp; UsesAbilities): R} body
+     *
+     * @returns {Question&lt;R&gt;}
      */</span>
     <span class="hljs-keyword">static</span> about&lt;R&gt;<span class="hljs-function">(<span class="hljs-params">description: <span class="hljs-built_in">string</span>, body: (<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt; R</span>): <span class="hljs-params">Question</span>&lt;<span class="hljs-params">R</span>&gt; {
         <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">AnonymousQuestion</span>&lt;<span class="hljs-params">R</span>&gt;(<span class="hljs-params">description, body</span>);
@@ -297,7 +311,9 @@
 
     /**
      * @<span class="hljs-params">desc</span>
-     *  <span class="hljs-params">Checks</span> <span class="hljs-params">if</span> <span class="hljs-params">the</span> <span class="hljs-params">value</span> <span class="hljs-params">is</span> <span class="hljs-params">a</span> {@<span class="hljs-params">link</span> <span class="hljs-params">Question</span>}
+     *  <span class="hljs-params">Checks</span> <span class="hljs-params">if</span> <span class="hljs-params">the</span> <span class="hljs-params">value</span> <span class="hljs-params">is</span> <span class="hljs-params">a</span> {@<span class="hljs-params">link</span> <span class="hljs-params">Question</span>}.
+     *
+     * @<span class="hljs-params">static</span>
      *
      * @<span class="hljs-params">param</span> {<span class="hljs-params">any</span>} <span class="hljs-params">maybeQuestion</span>
      * @<span class="hljs-params">returns</span> {<span class="hljs-params">boolean</span>}

@@ -208,12 +208,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -236,38 +238,159 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/TakeNote.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Activity, Actor, Note, Question, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/abilities/TakeNotes.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { actorCalled, engage, LogicError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
+<span class="hljs-keyword">import</span> { SceneFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/events&apos;</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/io&apos;</span>;
+<span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, Note, Question, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { EnsureSame } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../EnsureSame&apos;</span>;
 
-describe(<span class="hljs-string">&apos;TakeNote&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-comment">/** @test {TakeNotes} */</span>
+describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
-    <span class="hljs-keyword">const</span>
-        expectedHobby = <span class="hljs-string">&apos;DYI&apos;</span>,
-        NameOfAHobby = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Question.about(<span class="hljs-string">`the name of a hobby`</span>, <span class="hljs-function"><span class="hljs-params">someActor</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(expectedHobby));
+    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+        prepare(actor: Actor): Actor {
+            <span class="hljs-keyword">switch</span> (actor.name) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Alice&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Bob&apos;</span>:
+                    <span class="hljs-keyword">return</span> actor.whoCan(
+                        TakeNotes.usingASharedNotepad(),
+                    );
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Emma&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Wendy&apos;</span>:
+                <span class="hljs-keyword">default</span>:
+                    <span class="hljs-keyword">return</span> actor.whoCan(
+                        TakeNotes.usingAnEmptyNotepad()
+                    );
+            }
+        }
+    }
 
-    <span class="hljs-keyword">let</span> stage: sinon.SinonStubbedInstance&lt;Stage&gt;,
-        Noah: Actor;
+    <span class="hljs-keyword">const</span> drinks = {
+        <span class="hljs-string">&apos;Alice&apos;</span>: <span class="hljs-string">&apos;Apple Juice&apos;</span>,
+        <span class="hljs-string">&apos;Bob&apos;</span>: <span class="hljs-string">&apos;Beer&apos;</span>,
+        <span class="hljs-string">&apos;Emma&apos;</span>: <span class="hljs-string">&apos;Earl Grey tea&apos;</span>,
+        <span class="hljs-string">&apos;Wendy&apos;</span>: <span class="hljs-string">&apos;Water&apos;</span>,
+    }
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        stage = sinon.createStubInstance(Stage);
-        <span class="hljs-comment">// activityDetailsFor is a bit more involved than that, but this is a good approximation</span>
-        stage.activityDetailsFor.callsFake(<span class="hljs-function">(<span class="hljs-params">activity: Activity</span>) =&gt;</span> <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(activity.toString())));
+    <span class="hljs-keyword">const</span> AFavouriteDrink = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        Question.about(<span class="hljs-string">`a favourite drink`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> drinks[actor.name]);
 
-        Noah = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Noah&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage).whoCan(TakeNotes.usingAnEmptyNotepad());
+    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+
+    <span class="hljs-comment">/** @test {TakeNotes.usingAnEmptyNotepad} */</span>
+    describe(<span class="hljs-string">&apos;usingAnEmptyNotepad&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingAnEmptyNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink()),
+                EnsureSame(Note.of(AFavouriteDrink()), drinks.Emma),
+            ));
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingAnEmptyNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">`ensures that actors have their own notepads and don&apos;t share notes`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink())
+            ).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink()),
+            )).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+                EnsureSame(Note.of(AFavouriteDrink()), drinks.Emma),
+            )).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
+                EnsureSame(Note.of(AFavouriteDrink()), drinks.Wendy),
+            )));
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingAnEmptyNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink())
+            ).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
+            }).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> serenity.waitForNextCue()).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+                    EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
+                )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The answer to &quot;a favourite drink&quot; has never been recorded`</span>),
+            ),
+        );
     });
 
-    <span class="hljs-comment">/**
-     * @test {TakeNotes}
-     * @test {TakeNote}
-     */</span>
-    it(<span class="hljs-string">&apos;enables the Actor to remember an answer to a Question&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Noah.attemptsTo(
-        TakeNote.of(NameOfAHobby()),
-        EnsureSame(Note.of(NameOfAHobby()), expectedHobby),
-    ));
+    <span class="hljs-comment">/** @test {TakeNotes.usingASharedNotepad} */</span>
+    describe(<span class="hljs-string">&apos;usingASharedNotepad&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingASharedNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink()),
+                EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
+            ));
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingASharedNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">`ensures that actors can share their notes`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink()),
+            ).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bob&apos;</span>).attemptsTo(
+                EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
+            ))
+        );
+
+        <span class="hljs-comment">/**
+         * @test {TakeNotes.usingASharedNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */</span>
+        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+                TakeNote.of(AFavouriteDrink()),
+            ).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
+            }).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> serenity.waitForNextCue()).
+            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+                    EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
+                )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The answer to &quot;a favourite drink&quot; has never been recorded`</span>),
+            ),
+        );
+    });
+
+    <span class="hljs-keyword">const</span> scenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
+        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;ensures the notepad is cleared between test scenarios&apos;</span>),
+        <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;TakeNotes&apos;</span>),
+        <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;TakeNotes.spec.ts&apos;</span>))
+    );
 });
 </code></pre>
 
