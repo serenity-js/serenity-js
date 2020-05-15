@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/serenity-js/serenity-js/compare/v2.4.1...v2.5.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* **npm:** esport ES2018 instead of ES5 since we're supporting Node >= 10 ([a77091a](https://github.com/serenity-js/serenity-js/commit/a77091aa779736172a60b6ac99ec1b869aaea816))
+
+
+
+
+
 ## [2.4.1](https://github.com/serenity-js/serenity-js/compare/v2.4.0...v2.4.1) (2020-05-03)
 
 **Note:** Version bump only for package @serenity-js/local-server
