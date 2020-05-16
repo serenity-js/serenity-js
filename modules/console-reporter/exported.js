@@ -1,7 +1,0 @@
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter~ConsoleReporter} /modules/console/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter~Printer} /modules/console/class/src/stage/crew/console-reporter/Printer.ts~Printer.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter/themes~TerminalTheme} /modules/console/class/src/stage/crew/console-reporter/themes/TerminalTheme.ts~TerminalTheme.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter/themes~ThemeForColourTerminals} /modules/console/class/src/stage/crew/console-reporter/themes/ThemeForColourTerminals.ts~ThemeForColourTerminals.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter/themes~ThemeForDarkTerminals} /modules/console/class/src/stage/crew/console-reporter/themes/ThemeForDarkTerminals.ts~ThemeForDarkTerminals.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter/themes~ThemeForLightTerminals} /modules/console/class/src/stage/crew/console-reporter/themes/ThemeForLightTerminals.ts~ThemeForLightTerminals.html */
-/** @external {@serenity-js/console-reporter/lib/stage/crew/console-reporter/themes~ThemeForMonochromaticTerminals} /modules/console/class/src/stage/crew/console-reporter/themes/ThemeForMonochromaticTerminals.ts~ThemeForMonochromaticTerminals.html */

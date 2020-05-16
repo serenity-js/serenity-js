@@ -1,4 +1,0 @@
-/** @external {@serenity-js/local-server/lib/screenplay/abilities~ManageALocalServer} /modules/local/class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html */
-/** @external {@serenity-js/local-server/lib/screenplay/interactions~StartLocalServer} /modules/local/class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html */
-/** @external {@serenity-js/local-server/lib/screenplay/interactions~StopLocalServer} /modules/local/class/src/screenplay/interactions/StopLocalServer.ts~StopLocalServer.html */
-/** @external {@serenity-js/local-server/lib/screenplay/questions~LocalServer} /modules/local/class/src/screenplay/questions/LocalServer.ts~LocalServer.html */
