@@ -1,0 +1,895 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 1193,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 98,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 1193,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 98,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 146,
+        "end": 1192,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 97,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 153,
+          "end": 1192,
+          "loc": {
+            "start": {
+              "line": 12,
+              "column": 7
+            },
+            "end": {
+              "line": 97,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 168,
+            "end": 179,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 22
+              },
+              "end": {
+                "line": 12,
+                "column": 33
+              },
+              "identifierName": "Expectation"
+            },
+            "name": "Expectation"
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 180,
+            "end": 1192,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 34
+              },
+              "end": {
+                "line": 97,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassProperty",
+                "start": 346,
+                "end": 366,
+                "loc": {
+                  "start": {
+                    "line": 26,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 26,
+                    "column": 24
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 346,
+                  "end": 357,
+                  "loc": {
+                    "start": {
+                      "line": 26,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 15
+                    },
+                    "identifierName": "matcherName"
+                  },
+                  "name": "matcherName"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 357,
+                  "end": 365,
+                  "loc": {
+                    "start": {
+                      "line": 26,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 23
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 359,
+                    "end": 365,
+                    "loc": {
+                      "start": {
+                        "line": 26,
+                        "column": 17
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 23
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The name of the matcher that was executed for this expectation. \n * @lineNumber \n * 8 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 182,
+                    "end": 334,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 22,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The failure message for the expectation. \n * @lineNumber \n * 11 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 367,
+                    "end": 497,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 509,
+                "end": 525,
+                "loc": {
+                  "start": {
+                    "line": 40,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 40,
+                    "column": 20
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 509,
+                  "end": 516,
+                  "loc": {
+                    "start": {
+                      "line": 40,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 40,
+                      "column": 11
+                    },
+                    "identifierName": "message"
+                  },
+                  "name": "message"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 516,
+                  "end": 524,
+                  "loc": {
+                    "start": {
+                      "line": 40,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 40,
+                      "column": 19
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 518,
+                    "end": 524,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 19
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The failure message for the expectation. \n * @lineNumber \n * 11 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 367,
+                    "end": 497,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The stack trace for the failure if available. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 526,
+                    "end": 661,
+                    "loc": {
+                      "start": {
+                        "line": 41,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 50,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 673,
+                "end": 688,
+                "loc": {
+                  "start": {
+                    "line": 54,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 54,
+                    "column": 19
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 673,
+                  "end": 678,
+                  "loc": {
+                    "start": {
+                      "line": 54,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 54,
+                      "column": 9
+                    },
+                    "identifierName": "stack"
+                  },
+                  "name": "stack"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 679,
+                  "end": 687,
+                  "loc": {
+                    "start": {
+                      "line": 54,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 54,
+                      "column": 18
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 681,
+                    "end": 687,
+                    "loc": {
+                      "start": {
+                        "line": 54,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 54,
+                        "column": 18
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The stack trace for the failure if available. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 526,
+                    "end": 661,
+                    "loc": {
+                      "start": {
+                        "line": 41,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 50,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Whether the expectation passed or failed. \n * @lineNumber \n * 17 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 689,
+                    "end": 821,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 64,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 833,
+                "end": 849,
+                "loc": {
+                  "start": {
+                    "line": 68,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 68,
+                    "column": 20
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 833,
+                  "end": 839,
+                  "loc": {
+                    "start": {
+                      "line": 68,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 68,
+                      "column": 10
+                    },
+                    "identifierName": "passed"
+                  },
+                  "name": "passed"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 839,
+                  "end": 848,
+                  "loc": {
+                    "start": {
+                      "line": 68,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 68,
+                      "column": 19
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSBooleanKeyword",
+                    "start": 841,
+                    "end": 848,
+                    "loc": {
+                      "start": {
+                        "line": 68,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 68,
+                        "column": 19
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Whether the expectation passed or failed. \n * @lineNumber \n * 17 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 689,
+                    "end": 821,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 64,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * If the expectation failed, what was the expected value. \n * @lineNumber \n * 20 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 850,
+                    "end": 992,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 78,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1004,
+                "end": 1019,
+                "loc": {
+                  "start": {
+                    "line": 82,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 82,
+                    "column": 19
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1004,
+                  "end": 1012,
+                  "loc": {
+                    "start": {
+                      "line": 82,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 82,
+                      "column": 12
+                    },
+                    "identifierName": "expected"
+                  },
+                  "name": "expected"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1013,
+                  "end": 1018,
+                  "loc": {
+                    "start": {
+                      "line": 82,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 82,
+                      "column": 18
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSAnyKeyword",
+                    "start": 1015,
+                    "end": 1018,
+                    "loc": {
+                      "start": {
+                        "line": 82,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 82,
+                        "column": 18
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * If the expectation failed, what was the expected value. \n * @lineNumber \n * 20 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 850,
+                    "end": 992,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 78,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * If the expectation failed, what actual value was produced. \n * @lineNumber \n * 23 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 1020,
+                    "end": 1165,
+                    "loc": {
+                      "start": {
+                        "line": 83,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1177,
+                "end": 1190,
+                "loc": {
+                  "start": {
+                    "line": 96,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 96,
+                    "column": 17
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1177,
+                  "end": 1183,
+                  "loc": {
+                    "start": {
+                      "line": 96,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 96,
+                      "column": 10
+                    },
+                    "identifierName": "actual"
+                  },
+                  "name": "actual"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1184,
+                  "end": 1189,
+                  "loc": {
+                    "start": {
+                      "line": 96,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 96,
+                      "column": 16
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSAnyKeyword",
+                    "start": 1186,
+                    "end": 1189,
+                    "loc": {
+                      "start": {
+                        "line": 96,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 96,
+                        "column": 16
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * If the expectation failed, what actual value was produced. \n * @lineNumber \n * 23 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 1020,
+                    "end": 1165,
+                    "loc": {
+                      "start": {
+                        "line": 83,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
+              "start": 1,
+              "end": 45,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#Expectation\n * @interface ",
+              "start": 46,
+              "end": 145,
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 0
+                },
+                "end": {
+                  "line": 11,
+                  "column": 16
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#Expectation\n * @interface ",
+            "start": 46,
+            "end": 145,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 16
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
+      "start": 1,
+      "end": 45,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#Expectation\n * @interface ",
+      "start": 46,
+      "end": 145,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * The name of the matcher that was executed for this expectation. \n * @lineNumber \n * 8 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 182,
+      "end": 334,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * The failure message for the expectation. \n * @lineNumber \n * 11 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 367,
+      "end": 497,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 36,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * The stack trace for the failure if available. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 526,
+      "end": 661,
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * Whether the expectation passed or failed. \n * @lineNumber \n * 17 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+      "start": 689,
+      "end": 821,
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 0
+        },
+        "end": {
+          "line": 64,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * If the expectation failed, what was the expected value. \n * @lineNumber \n * 20 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+      "start": 850,
+      "end": 992,
+      "loc": {
+        "start": {
+          "line": 69,
+          "column": 0
+        },
+        "end": {
+          "line": 78,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n * If the expectation failed, what actual value was produced. \n * @lineNumber \n * 23 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+      "start": 1020,
+      "end": 1165,
+      "loc": {
+        "start": {
+          "line": 83,
+          "column": 0
+        },
+        "end": {
+          "line": 92,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

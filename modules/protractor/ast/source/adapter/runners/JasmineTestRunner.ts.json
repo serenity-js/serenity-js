@@ -1,0 +1,1319 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 760,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 39,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 760,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 39,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 56,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 56
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 21,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "ModuleLoader"
+              },
+              "name": "ModuleLoader"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "ModuleLoader"
+              },
+              "name": "ModuleLoader"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 29,
+          "end": 55,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 55
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core/lib/io",
+            "raw": "'@serenity-js/core/lib/io'"
+          },
+          "value": "@serenity-js/core/lib/io"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 57,
+        "end": 138,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 81
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 66,
+            "end": 80,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 23
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 66,
+              "end": 80,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 23
+                },
+                "identifierName": "JasmineAdapter"
+              },
+              "name": "JasmineAdapter"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 66,
+              "end": 80,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 23
+                },
+                "identifierName": "JasmineAdapter"
+              },
+              "name": "JasmineAdapter"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 82,
+            "end": 95,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 25
+              },
+              "end": {
+                "line": 2,
+                "column": 38
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 82,
+              "end": 95,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 25
+                },
+                "end": {
+                  "line": 2,
+                  "column": 38
+                },
+                "identifierName": "JasmineConfig"
+              },
+              "name": "JasmineConfig"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 82,
+              "end": 95,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 25
+                },
+                "end": {
+                  "line": 2,
+                  "column": 38
+                },
+                "identifierName": "JasmineConfig"
+              },
+              "name": "JasmineConfig"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 103,
+          "end": 137,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 46
+            },
+            "end": {
+              "line": 2,
+              "column": 80
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/jasmine/lib/adapter",
+            "raw": "'@serenity-js/jasmine/lib/adapter'"
+          },
+          "value": "@serenity-js/jasmine/lib/adapter"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-submodule-imports",
+            "start": 143,
+            "end": 186,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 86
+              },
+              "end": {
+                "line": 2,
+                "column": 129
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 187,
+        "end": 229,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 42
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 196,
+            "end": 206,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 19
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 196,
+              "end": 206,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19
+                },
+                "identifierName": "TestRunner"
+              },
+              "name": "TestRunner"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 196,
+              "end": 206,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19
+                },
+                "identifierName": "TestRunner"
+              },
+              "name": "TestRunner"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 214,
+          "end": 228,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 27
+            },
+            "end": {
+              "line": 3,
+              "column": 41
+            }
+          },
+          "extra": {
+            "rawValue": "./TestRunner",
+            "raw": "'./TestRunner'"
+          },
+          "value": "./TestRunner"
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-submodule-imports",
+            "start": 143,
+            "end": 186,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 86
+              },
+              "end": {
+                "line": 2,
+                "column": 129
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 230,
+            "end": 274,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 277,
+            "end": 296,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 297,
+        "end": 759,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 38,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 304,
+          "end": 759,
+          "loc": {
+            "start": {
+              "line": 15,
+              "column": 7
+            },
+            "end": {
+              "line": 38,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 310,
+            "end": 327,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 13
+              },
+              "end": {
+                "line": 15,
+                "column": 30
+              },
+              "identifierName": "JasmineTestRunner"
+            },
+            "name": "JasmineTestRunner"
+          },
+          "superClass": null,
+          "implements": [
+            {
+              "type": "TSExpressionWithTypeArguments",
+              "start": 339,
+              "end": 349,
+              "loc": {
+                "start": {
+                  "line": 15,
+                  "column": 42
+                },
+                "end": {
+                  "line": 15,
+                  "column": 52
+                }
+              },
+              "expression": {
+                "type": "Identifier",
+                "start": 339,
+                "end": 349,
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 42
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 52
+                  },
+                  "identifierName": "TestRunner"
+                },
+                "name": "TestRunner"
+              }
+            }
+          ],
+          "body": {
+            "type": "ClassBody",
+            "start": 350,
+            "end": 759,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 53
+              },
+              "end": {
+                "line": 38,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 356,
+                "end": 477,
+                "loc": {
+                  "start": {
+                    "line": 16,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 356,
+                  "end": 367,
+                  "loc": {
+                    "start": {
+                      "line": 16,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 16,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 377,
+                    "end": 415,
+                    "loc": {
+                      "start": {
+                        "line": 17,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 17,
+                        "column": 46
+                      }
+                    },
+                    "accessibility": "private",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 394,
+                      "end": 415,
+                      "loc": {
+                        "start": {
+                          "line": 17,
+                          "column": 25
+                        },
+                        "end": {
+                          "line": 17,
+                          "column": 46
+                        },
+                        "identifierName": "config"
+                      },
+                      "name": "config",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 400,
+                        "end": 415,
+                        "loc": {
+                          "start": {
+                            "line": 17,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 17,
+                            "column": 46
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 402,
+                          "end": 415,
+                          "loc": {
+                            "start": {
+                              "line": 17,
+                              "column": 33
+                            },
+                            "end": {
+                              "line": 17,
+                              "column": 46
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 402,
+                            "end": 415,
+                            "loc": {
+                              "start": {
+                                "line": 17,
+                                "column": 33
+                              },
+                              "end": {
+                                "line": 17,
+                                "column": 46
+                              },
+                              "identifierName": "JasmineConfig"
+                            },
+                            "name": "JasmineConfig"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 425,
+                    "end": 462,
+                    "loc": {
+                      "start": {
+                        "line": 18,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 18,
+                        "column": 45
+                      }
+                    },
+                    "accessibility": "private",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 442,
+                      "end": 462,
+                      "loc": {
+                        "start": {
+                          "line": 18,
+                          "column": 25
+                        },
+                        "end": {
+                          "line": 18,
+                          "column": 45
+                        },
+                        "identifierName": "loader"
+                      },
+                      "name": "loader",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 448,
+                        "end": 462,
+                        "loc": {
+                          "start": {
+                            "line": 18,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 45
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 450,
+                          "end": 462,
+                          "loc": {
+                            "start": {
+                              "line": 18,
+                              "column": 33
+                            },
+                            "end": {
+                              "line": 18,
+                              "column": 45
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 450,
+                            "end": 462,
+                            "loc": {
+                              "start": {
+                                "line": 18,
+                                "column": 33
+                              },
+                              "end": {
+                                "line": 18,
+                                "column": 45
+                              },
+                              "identifierName": "ModuleLoader"
+                            },
+                            "name": "ModuleLoader"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 470,
+                  "end": 477,
+                  "loc": {
+                    "start": {
+                      "line": 19,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 5
+                    }
+                  },
+                  "body": [],
+                  "directives": []
+                },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 478,
+                    "end": 613,
+                    "loc": {
+                      "start": {
+                        "line": 21,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 620,
+                "end": 757,
+                "loc": {
+                  "start": {
+                    "line": 35,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 37,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 620,
+                  "end": 623,
+                  "loc": {
+                    "start": {
+                      "line": 35,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 35,
+                      "column": 7
+                    },
+                    "identifierName": "run"
+                  },
+                  "name": "run"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 624,
+                    "end": 650,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 34
+                      },
+                      "identifierName": "pathsToScenarios"
+                    },
+                    "name": "pathsToScenarios",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 640,
+                      "end": 650,
+                      "loc": {
+                        "start": {
+                          "line": 35,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 35,
+                          "column": 34
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 642,
+                        "end": 650,
+                        "loc": {
+                          "start": {
+                            "line": 35,
+                            "column": 26
+                          },
+                          "end": {
+                            "line": 35,
+                            "column": 34
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSStringKeyword",
+                          "start": 642,
+                          "end": 648,
+                          "loc": {
+                            "start": {
+                              "line": 35,
+                              "column": 26
+                            },
+                            "end": {
+                              "line": 35,
+                              "column": 32
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 651,
+                  "end": 666,
+                  "loc": {
+                    "start": {
+                      "line": 35,
+                      "column": 35
+                    },
+                    "end": {
+                      "line": 35,
+                      "column": 50
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 653,
+                    "end": 666,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 37
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 50
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 653,
+                      "end": 660,
+                      "loc": {
+                        "start": {
+                          "line": 35,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 35,
+                          "column": 44
+                        },
+                        "identifierName": "Promise"
+                      },
+                      "name": "Promise"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 660,
+                      "end": 666,
+                      "loc": {
+                        "start": {
+                          "line": 35,
+                          "column": 44
+                        },
+                        "end": {
+                          "line": 35,
+                          "column": 50
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSVoidKeyword",
+                          "start": 661,
+                          "end": 665,
+                          "loc": {
+                            "start": {
+                              "line": 35,
+                              "column": 45
+                            },
+                            "end": {
+                              "line": 35,
+                              "column": 49
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 667,
+                  "end": 757,
+                  "loc": {
+                    "start": {
+                      "line": 35,
+                      "column": 51
+                    },
+                    "end": {
+                      "line": 37,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ReturnStatement",
+                      "start": 677,
+                      "end": 751,
+                      "loc": {
+                        "start": {
+                          "line": 36,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 36,
+                          "column": 82
+                        }
+                      },
+                      "argument": {
+                        "type": "CallExpression",
+                        "start": 684,
+                        "end": 750,
+                        "loc": {
+                          "start": {
+                            "line": 36,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 36,
+                            "column": 81
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 684,
+                          "end": 732,
+                          "loc": {
+                            "start": {
+                              "line": 36,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 36,
+                              "column": 63
+                            }
+                          },
+                          "object": {
+                            "type": "NewExpression",
+                            "start": 684,
+                            "end": 728,
+                            "loc": {
+                              "start": {
+                                "line": 36,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 36,
+                                "column": 59
+                              }
+                            },
+                            "callee": {
+                              "type": "Identifier",
+                              "start": 688,
+                              "end": 702,
+                              "loc": {
+                                "start": {
+                                  "line": 36,
+                                  "column": 19
+                                },
+                                "end": {
+                                  "line": 36,
+                                  "column": 33
+                                },
+                                "identifierName": "JasmineAdapter"
+                              },
+                              "name": "JasmineAdapter"
+                            },
+                            "arguments": [
+                              {
+                                "type": "MemberExpression",
+                                "start": 703,
+                                "end": 714,
+                                "loc": {
+                                  "start": {
+                                    "line": 36,
+                                    "column": 34
+                                  },
+                                  "end": {
+                                    "line": 36,
+                                    "column": 45
+                                  }
+                                },
+                                "object": {
+                                  "type": "ThisExpression",
+                                  "start": 703,
+                                  "end": 707,
+                                  "loc": {
+                                    "start": {
+                                      "line": 36,
+                                      "column": 34
+                                    },
+                                    "end": {
+                                      "line": 36,
+                                      "column": 38
+                                    }
+                                  }
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": 708,
+                                  "end": 714,
+                                  "loc": {
+                                    "start": {
+                                      "line": 36,
+                                      "column": 39
+                                    },
+                                    "end": {
+                                      "line": 36,
+                                      "column": 45
+                                    },
+                                    "identifierName": "config"
+                                  },
+                                  "name": "config"
+                                },
+                                "computed": false
+                              },
+                              {
+                                "type": "MemberExpression",
+                                "start": 716,
+                                "end": 727,
+                                "loc": {
+                                  "start": {
+                                    "line": 36,
+                                    "column": 47
+                                  },
+                                  "end": {
+                                    "line": 36,
+                                    "column": 58
+                                  }
+                                },
+                                "object": {
+                                  "type": "ThisExpression",
+                                  "start": 716,
+                                  "end": 720,
+                                  "loc": {
+                                    "start": {
+                                      "line": 36,
+                                      "column": 47
+                                    },
+                                    "end": {
+                                      "line": 36,
+                                      "column": 51
+                                    }
+                                  }
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": 721,
+                                  "end": 727,
+                                  "loc": {
+                                    "start": {
+                                      "line": 36,
+                                      "column": 52
+                                    },
+                                    "end": {
+                                      "line": 36,
+                                      "column": 58
+                                    },
+                                    "identifierName": "loader"
+                                  },
+                                  "name": "loader"
+                                },
+                                "computed": false
+                              }
+                            ]
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 729,
+                            "end": 732,
+                            "loc": {
+                              "start": {
+                                "line": 36,
+                                "column": 60
+                              },
+                              "end": {
+                                "line": 36,
+                                "column": 63
+                              },
+                              "identifierName": "run"
+                            },
+                            "name": "run"
+                          },
+                          "computed": false
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 733,
+                            "end": 749,
+                            "loc": {
+                              "start": {
+                                "line": 36,
+                                "column": 64
+                              },
+                              "end": {
+                                "line": 36,
+                                "column": 80
+                              },
+                              "identifierName": "pathsToScenarios"
+                            },
+                            "name": "pathsToScenarios"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 478,
+                    "end": 613,
+                    "loc": {
+                      "start": {
+                        "line": 21,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+              "start": 230,
+              "end": 274,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 0
+                },
+                "end": {
+                  "line": 9,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @private\n ",
+              "start": 277,
+              "end": 296,
+              "loc": {
+                "start": {
+                  "line": 12,
+                  "column": 0
+                },
+                "end": {
+                  "line": 14,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 230,
+            "end": 274,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 277,
+            "end": 296,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentLine",
+      "value": " tslint:disable-line:no-submodule-imports",
+      "start": 143,
+      "end": 186,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 86
+        },
+        "end": {
+          "line": 2,
+          "column": 129
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+      "start": 230,
+      "end": 274,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @private\n ",
+      "start": 277,
+      "end": 296,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+      "start": 478,
+      "end": 613,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 32,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

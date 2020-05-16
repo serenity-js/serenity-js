@@ -1,0 +1,819 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 358,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 17,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 358,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 57,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 57
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 15,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 15,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                },
+                "identifierName": "ensure"
+              },
+              "name": "ensure"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 15,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                },
+                "identifierName": "ensure"
+              },
+              "name": "ensure"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 17,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 17
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 17,
+              "end": 26,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 17
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26
+                },
+                "identifierName": "isDefined"
+              },
+              "name": "isDefined"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 17,
+              "end": 26,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 17
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26
+                },
+                "identifierName": "isDefined"
+              },
+              "name": "isDefined"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 28,
+            "end": 36,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 28
+              },
+              "end": {
+                "line": 1,
+                "column": 36
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 28,
+              "end": 36,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 28
+                },
+                "end": {
+                  "line": 1,
+                  "column": 36
+                },
+                "identifierName": "TinyType"
+              },
+              "name": "TinyType"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 28,
+              "end": 36,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 28
+                },
+                "end": {
+                  "line": 1,
+                  "column": 36
+                },
+                "identifierName": "TinyType"
+              },
+              "name": "TinyType"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 44,
+          "end": 56,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 44
+            },
+            "end": {
+              "line": 1,
+              "column": 56
+            }
+          },
+          "extra": {
+            "rawValue": "tiny-types",
+            "raw": "'tiny-types'"
+          },
+          "value": "tiny-types"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 58,
+        "end": 95,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 37
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 67,
+            "end": 76,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 18
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 67,
+              "end": 76,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                },
+                "identifierName": "Timestamp"
+              },
+              "name": "Timestamp"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 67,
+              "end": 76,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                },
+                "identifierName": "Timestamp"
+              },
+              "name": "Timestamp"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 84,
+          "end": 94,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 26
+            },
+            "end": {
+              "line": 2,
+              "column": 36
+            }
+          },
+          "extra": {
+            "rawValue": "../model",
+            "raw": "'../model'"
+          },
+          "value": "../model"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 96,
+            "end": 140,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 143,
+        "end": 357,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 16,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 150,
+          "end": 357,
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 7
+            },
+            "end": {
+              "line": 16,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 165,
+            "end": 176,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 22
+              },
+              "end": {
+                "line": 11,
+                "column": 33
+              },
+              "identifierName": "DomainEvent"
+            },
+            "name": "DomainEvent"
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 185,
+            "end": 193,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 42
+              },
+              "end": {
+                "line": 11,
+                "column": 50
+              },
+              "identifierName": "TinyType"
+            },
+            "name": "TinyType"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 194,
+            "end": 357,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 51
+              },
+              "end": {
+                "line": 16,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 200,
+                "end": 355,
+                "loc": {
+                  "start": {
+                    "line": 12,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 5
+                  }
+                },
+                "accessibility": "protected",
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 210,
+                  "end": 221,
+                  "loc": {
+                    "start": {
+                      "line": 12,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 25
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 222,
+                    "end": 276,
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 80
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "AssignmentPattern",
+                      "start": 238,
+                      "end": 276,
+                      "loc": {
+                        "start": {
+                          "line": 12,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 80
+                        }
+                      },
+                      "left": {
+                        "type": "Identifier",
+                        "start": 238,
+                        "end": 258,
+                        "loc": {
+                          "start": {
+                            "line": 12,
+                            "column": 42
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 62
+                          },
+                          "identifierName": "timestamp"
+                        },
+                        "name": "timestamp",
+                        "typeAnnotation": {
+                          "type": "TSTypeAnnotation",
+                          "start": 247,
+                          "end": 258,
+                          "loc": {
+                            "start": {
+                              "line": 12,
+                              "column": 51
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 62
+                            }
+                          },
+                          "typeAnnotation": {
+                            "type": "TSTypeReference",
+                            "start": 249,
+                            "end": 258,
+                            "loc": {
+                              "start": {
+                                "line": 12,
+                                "column": 53
+                              },
+                              "end": {
+                                "line": 12,
+                                "column": 62
+                              }
+                            },
+                            "typeName": {
+                              "type": "Identifier",
+                              "start": 249,
+                              "end": 258,
+                              "loc": {
+                                "start": {
+                                  "line": 12,
+                                  "column": 53
+                                },
+                                "end": {
+                                  "line": 12,
+                                  "column": 62
+                                },
+                                "identifierName": "Timestamp"
+                              },
+                              "name": "Timestamp"
+                            }
+                          }
+                        }
+                      },
+                      "right": {
+                        "type": "NewExpression",
+                        "start": 261,
+                        "end": 276,
+                        "loc": {
+                          "start": {
+                            "line": 12,
+                            "column": 65
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 80
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 265,
+                          "end": 274,
+                          "loc": {
+                            "start": {
+                              "line": 12,
+                              "column": 69
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 78
+                            },
+                            "identifierName": "Timestamp"
+                          },
+                          "name": "Timestamp"
+                        },
+                        "arguments": []
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 278,
+                  "end": 355,
+                  "loc": {
+                    "start": {
+                      "line": 12,
+                      "column": 82
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 288,
+                      "end": 296,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 16
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 288,
+                        "end": 295,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 15
+                          }
+                        },
+                        "callee": {
+                          "type": "Super",
+                          "start": 288,
+                          "end": 293,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 13
+                            }
+                          }
+                        },
+                        "arguments": []
+                      }
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 305,
+                      "end": 349,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 52
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 305,
+                        "end": 348,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 14,
+                            "column": 51
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 305,
+                          "end": 311,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 14
+                            },
+                            "identifierName": "ensure"
+                          },
+                          "name": "ensure"
+                        },
+                        "arguments": [
+                          {
+                            "type": "StringLiteral",
+                            "start": 312,
+                            "end": 323,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 26
+                              }
+                            },
+                            "extra": {
+                              "rawValue": "timestamp",
+                              "raw": "'timestamp'"
+                            },
+                            "value": "timestamp"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 325,
+                            "end": 334,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 28
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 37
+                              },
+                              "identifierName": "timestamp"
+                            },
+                            "name": "timestamp"
+                          },
+                          {
+                            "type": "CallExpression",
+                            "start": 336,
+                            "end": 347,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 39
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 50
+                              }
+                            },
+                            "callee": {
+                              "type": "Identifier",
+                              "start": 336,
+                              "end": 345,
+                              "loc": {
+                                "start": {
+                                  "line": 14,
+                                  "column": 39
+                                },
+                                "end": {
+                                  "line": 14,
+                                  "column": 48
+                                },
+                                "identifierName": "isDefined"
+                              },
+                              "name": "isDefined"
+                            },
+                            "arguments": []
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+              "start": 96,
+              "end": 140,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 96,
+            "end": 140,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+      "start": 96,
+      "end": 140,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

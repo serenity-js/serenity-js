@@ -1,0 +1,774 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 728,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 28,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 728,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 28,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 46,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 46
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 21,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "RuntimeError"
+              },
+              "name": "RuntimeError"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "RuntimeError"
+              },
+              "name": "RuntimeError"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 29,
+          "end": 45,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 45
+            }
+          },
+          "extra": {
+            "rawValue": "./RuntimeError",
+            "raw": "'./RuntimeError'"
+          },
+          "value": "./RuntimeError"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 47,
+            "end": 91,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown to indicate that an assertion has failed.\n *\n * @extends {RuntimeError}\n ",
+            "start": 94,
+            "end": 193,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 194,
+        "end": 727,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 201,
+          "end": 727,
+          "loc": {
+            "start": {
+              "line": 16,
+              "column": 7
+            },
+            "end": {
+              "line": 27,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 207,
+            "end": 221,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 13
+              },
+              "end": {
+                "line": 16,
+                "column": 27
+              },
+              "identifierName": "AssertionError"
+            },
+            "name": "AssertionError"
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 230,
+            "end": 242,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 36
+              },
+              "end": {
+                "line": 16,
+                "column": 48
+              },
+              "identifierName": "RuntimeError"
+            },
+            "name": "RuntimeError"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 243,
+            "end": 727,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 49
+              },
+              "end": {
+                "line": 27,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 567,
+                "end": 725,
+                "loc": {
+                  "start": {
+                    "line": 24,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 26,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 567,
+                  "end": 578,
+                  "loc": {
+                    "start": {
+                      "line": 24,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 24,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 579,
+                    "end": 594,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 31
+                      },
+                      "identifierName": "message"
+                    },
+                    "name": "message",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 586,
+                      "end": 594,
+                      "loc": {
+                        "start": {
+                          "line": 24,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 31
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSStringKeyword",
+                        "start": 588,
+                        "end": 594,
+                        "loc": {
+                          "start": {
+                            "line": 24,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 31
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 596,
+                    "end": 625,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 62
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 612,
+                      "end": 625,
+                      "loc": {
+                        "start": {
+                          "line": 24,
+                          "column": 49
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 62
+                        },
+                        "identifierName": "expected"
+                      },
+                      "name": "expected",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 620,
+                        "end": 625,
+                        "loc": {
+                          "start": {
+                            "line": 24,
+                            "column": 57
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 62
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSAnyKeyword",
+                          "start": 622,
+                          "end": 625,
+                          "loc": {
+                            "start": {
+                              "line": 24,
+                              "column": 59
+                            },
+                            "end": {
+                              "line": 24,
+                              "column": 62
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSParameterProperty",
+                    "start": 627,
+                    "end": 654,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 64
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 91
+                      }
+                    },
+                    "accessibility": "public",
+                    "readonly": true,
+                    "parameter": {
+                      "type": "Identifier",
+                      "start": 643,
+                      "end": 654,
+                      "loc": {
+                        "start": {
+                          "line": 24,
+                          "column": 80
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 91
+                        },
+                        "identifierName": "actual"
+                      },
+                      "name": "actual",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 649,
+                        "end": 654,
+                        "loc": {
+                          "start": {
+                            "line": 24,
+                            "column": 86
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 91
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSAnyKeyword",
+                          "start": 651,
+                          "end": 654,
+                          "loc": {
+                            "start": {
+                              "line": 24,
+                              "column": 88
+                            },
+                            "end": {
+                              "line": 24,
+                              "column": 91
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "Identifier",
+                    "start": 656,
+                    "end": 669,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 93
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 106
+                      },
+                      "identifierName": "cause"
+                    },
+                    "name": "cause",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 662,
+                      "end": 669,
+                      "loc": {
+                        "start": {
+                          "line": 24,
+                          "column": 99
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 106
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 664,
+                        "end": 669,
+                        "loc": {
+                          "start": {
+                            "line": 24,
+                            "column": 101
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 106
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 664,
+                          "end": 669,
+                          "loc": {
+                            "start": {
+                              "line": 24,
+                              "column": 101
+                            },
+                            "end": {
+                              "line": 24,
+                              "column": 106
+                            },
+                            "identifierName": "Error"
+                          },
+                          "name": "Error"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 671,
+                  "end": 725,
+                  "loc": {
+                    "start": {
+                      "line": 24,
+                      "column": 108
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 681,
+                      "end": 719,
+                      "loc": {
+                        "start": {
+                          "line": 25,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 25,
+                          "column": 46
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 681,
+                        "end": 718,
+                        "loc": {
+                          "start": {
+                            "line": 25,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 25,
+                            "column": 45
+                          }
+                        },
+                        "callee": {
+                          "type": "Super",
+                          "start": 681,
+                          "end": 686,
+                          "loc": {
+                            "start": {
+                              "line": 25,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 25,
+                              "column": 13
+                            }
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 687,
+                            "end": 701,
+                            "loc": {
+                              "start": {
+                                "line": 25,
+                                "column": 14
+                              },
+                              "end": {
+                                "line": 25,
+                                "column": 28
+                              },
+                              "identifierName": "AssertionError"
+                            },
+                            "name": "AssertionError"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 703,
+                            "end": 710,
+                            "loc": {
+                              "start": {
+                                "line": 25,
+                                "column": 30
+                              },
+                              "end": {
+                                "line": 25,
+                                "column": 37
+                              },
+                              "identifierName": "message"
+                            },
+                            "name": "message"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 712,
+                            "end": 717,
+                            "loc": {
+                              "start": {
+                                "line": 25,
+                                "column": 39
+                              },
+                              "end": {
+                                "line": 25,
+                                "column": 44
+                              },
+                              "identifierName": "cause"
+                            },
+                            "name": "cause"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {any} expected - The value that was expected\n     * @param {any} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "start": 250,
+                    "end": 562,
+                    "loc": {
+                      "start": {
+                        "line": 18,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+              "start": 47,
+              "end": 91,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Thrown to indicate that an assertion has failed.\n *\n * @extends {RuntimeError}\n ",
+              "start": 94,
+              "end": 193,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 15,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 47,
+            "end": 91,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown to indicate that an assertion has failed.\n *\n * @extends {RuntimeError}\n ",
+            "start": 94,
+            "end": 193,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+      "start": 47,
+      "end": 91,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Thrown to indicate that an assertion has failed.\n *\n * @extends {RuntimeError}\n ",
+      "start": 94,
+      "end": 193,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {any} expected - The value that was expected\n     * @param {any} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+      "start": 250,
+      "end": 562,
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 4
+        },
+        "end": {
+          "line": 23,
+          "column": 7
+        }
+      }
+    }
+  ]
+}

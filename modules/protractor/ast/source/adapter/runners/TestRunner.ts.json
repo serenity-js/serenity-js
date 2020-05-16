@@ -1,0 +1,334 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 130,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 11,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 130,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 11,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 46,
+        "end": 129,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 1
+          }
+        },
+        "exportKind": "type",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "TSInterfaceDeclaration",
+          "start": 53,
+          "end": 129,
+          "loc": {
+            "start": {
+              "line": 8,
+              "column": 7
+            },
+            "end": {
+              "line": 10,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 63,
+            "end": 73,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 17
+              },
+              "end": {
+                "line": 8,
+                "column": 27
+              },
+              "identifierName": "TestRunner"
+            },
+            "name": "TestRunner"
+          },
+          "body": {
+            "type": "TSInterfaceBody",
+            "start": 74,
+            "end": 129,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 28
+              },
+              "end": {
+                "line": 10,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "TSMethodSignature",
+                "start": 80,
+                "end": 127,
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 51
+                  }
+                },
+                "key": {
+                  "type": "Identifier",
+                  "start": 80,
+                  "end": 83,
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 7
+                    },
+                    "identifierName": "run"
+                  },
+                  "name": "run"
+                },
+                "computed": false,
+                "parameters": [
+                  {
+                    "type": "Identifier",
+                    "start": 84,
+                    "end": 110,
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 34
+                      },
+                      "identifierName": "pathsToScenarios"
+                    },
+                    "name": "pathsToScenarios",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 100,
+                      "end": 110,
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 34
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSArrayType",
+                        "start": 102,
+                        "end": 110,
+                        "loc": {
+                          "start": {
+                            "line": 9,
+                            "column": 26
+                          },
+                          "end": {
+                            "line": 9,
+                            "column": 34
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSStringKeyword",
+                          "start": 102,
+                          "end": 108,
+                          "loc": {
+                            "start": {
+                              "line": 9,
+                              "column": 26
+                            },
+                            "end": {
+                              "line": 9,
+                              "column": 32
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 111,
+                  "end": 126,
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 35
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 50
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 113,
+                    "end": 126,
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 37
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 50
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 113,
+                      "end": 120,
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 44
+                        },
+                        "identifierName": "Promise"
+                      },
+                      "name": "Promise"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 120,
+                      "end": 126,
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 44
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 50
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSVoidKeyword",
+                          "start": 121,
+                          "end": 125,
+                          "loc": {
+                            "start": {
+                              "line": 9,
+                              "column": 45
+                            },
+                            "end": {
+                              "line": 9,
+                              "column": 49
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 1 \n ",
+              "start": 1,
+              "end": 45,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 1 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 1 \n ",
+      "start": 1,
+      "end": 45,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+/** @external {@serenity-js/cucumber/lib/cli~CucumberConfig} /modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html */
+/** @external {@serenity-js/cucumber/lib/errors~AmbiguousStepDefinitionError} /modules/cucumber/class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html */
+/** @external {@serenity-js/cucumber/lib/listeners~listenerForCucumber} /modules/cucumber/function/src/listeners/index.ts~listenerForCucumber.html */

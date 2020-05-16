@@ -1,0 +1,652 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 994,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 40,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 994,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 40,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 28,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 28
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 12,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 12,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12
+                },
+                "identifierName": "Tag"
+              },
+              "name": "Tag"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 12,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12
+                },
+                "identifierName": "Tag"
+              },
+              "name": "Tag"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 20,
+          "end": 27,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          "extra": {
+            "rawValue": "./Tag",
+            "raw": "'./Tag'"
+          },
+          "value": "./Tag"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 29,
+            "end": 74,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
+            "start": 77,
+            "end": 741,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 742,
+        "end": 993,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 749,
+          "end": 993,
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 7
+            },
+            "end": {
+              "line": 39,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 755,
+            "end": 765,
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 13
+              },
+              "end": {
+                "line": 22,
+                "column": 23
+              },
+              "identifierName": "ContextTag"
+            },
+            "name": "ContextTag"
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 774,
+            "end": 777,
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 32
+              },
+              "end": {
+                "line": 22,
+                "column": 35
+              },
+              "identifierName": "Tag"
+            },
+            "name": "Tag"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 778,
+            "end": 993,
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 36
+              },
+              "end": {
+                "line": 39,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassProperty",
+                "start": 875,
+                "end": 908,
+                "loc": {
+                  "start": {
+                    "line": 34,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 34,
+                    "column": 37
+                  }
+                },
+                "readonly": true,
+                "static": true,
+                "key": {
+                  "type": "Identifier",
+                  "start": 891,
+                  "end": 895,
+                  "loc": {
+                    "start": {
+                      "line": 34,
+                      "column": 20
+                    },
+                    "end": {
+                      "line": 34,
+                      "column": 24
+                    },
+                    "identifierName": "Type"
+                  },
+                  "name": "Type"
+                },
+                "computed": false,
+                "value": {
+                  "type": "StringLiteral",
+                  "start": 898,
+                  "end": 907,
+                  "loc": {
+                    "start": {
+                      "line": 34,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 34,
+                      "column": 36
+                    }
+                  },
+                  "extra": {
+                    "rawValue": "context",
+                    "raw": "'context'"
+                  },
+                  "value": "context"
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 780,
+                    "end": 869,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 914,
+                "end": 991,
+                "loc": {
+                  "start": {
+                    "line": 36,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 38,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 914,
+                  "end": 925,
+                  "loc": {
+                    "start": {
+                      "line": 36,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 36,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 926,
+                    "end": 941,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 31
+                      },
+                      "identifierName": "context"
+                    },
+                    "name": "context",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 933,
+                      "end": 941,
+                      "loc": {
+                        "start": {
+                          "line": 36,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 36,
+                          "column": 31
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSStringKeyword",
+                        "start": 935,
+                        "end": 941,
+                        "loc": {
+                          "start": {
+                            "line": 36,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 36,
+                            "column": 31
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 943,
+                  "end": 991,
+                  "loc": {
+                    "start": {
+                      "line": 36,
+                      "column": 33
+                    },
+                    "end": {
+                      "line": 38,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 953,
+                      "end": 985,
+                      "loc": {
+                        "start": {
+                          "line": 37,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 37,
+                          "column": 40
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 953,
+                        "end": 984,
+                        "loc": {
+                          "start": {
+                            "line": 37,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 37,
+                            "column": 39
+                          }
+                        },
+                        "callee": {
+                          "type": "Super",
+                          "start": 953,
+                          "end": 958,
+                          "loc": {
+                            "start": {
+                              "line": 37,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 37,
+                              "column": 13
+                            }
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 959,
+                            "end": 966,
+                            "loc": {
+                              "start": {
+                                "line": 37,
+                                "column": 14
+                              },
+                              "end": {
+                                "line": 37,
+                                "column": 21
+                              },
+                              "identifierName": "context"
+                            },
+                            "name": "context"
+                          },
+                          {
+                            "type": "MemberExpression",
+                            "start": 968,
+                            "end": 983,
+                            "loc": {
+                              "start": {
+                                "line": 37,
+                                "column": 23
+                              },
+                              "end": {
+                                "line": 37,
+                                "column": 38
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 968,
+                              "end": 978,
+                              "loc": {
+                                "start": {
+                                  "line": 37,
+                                  "column": 23
+                                },
+                                "end": {
+                                  "line": 37,
+                                  "column": 33
+                                },
+                                "identifierName": "ContextTag"
+                              },
+                              "name": "ContextTag"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 979,
+                              "end": 983,
+                              "loc": {
+                                "start": {
+                                  "line": 37,
+                                  "column": 34
+                                },
+                                "end": {
+                                  "line": 37,
+                                  "column": 38
+                                },
+                                "identifierName": "Type"
+                              },
+                              "name": "Type"
+                            },
+                            "computed": false
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+              "start": 29,
+              "end": 74,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
+              "start": 77,
+              "end": 741,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 21,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 29,
+            "end": 74,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
+            "start": 77,
+            "end": 741,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+      "start": 29,
+      "end": 74,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
+      "start": 77,
+      "end": 741,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 780,
+      "end": 869,
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 32,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

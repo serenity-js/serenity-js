@@ -1,0 +1,392 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 413,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 29,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 413,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 29,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 232,
+        "end": 412,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 28,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 239,
+          "end": 412,
+          "loc": {
+            "start": {
+              "line": 15,
+              "column": 7
+            },
+            "end": {
+              "line": 28,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 254,
+            "end": 265,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 22
+              },
+              "end": {
+                "line": 15,
+                "column": 33
+              },
+              "identifierName": "Discardable"
+            },
+            "name": "Discardable"
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 266,
+            "end": 412,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 34
+              },
+              "end": {
+                "line": 28,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "TSDeclareMethod",
+                "start": 378,
+                "end": 410,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 36
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 378,
+                  "end": 385,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 11
+                    },
+                    "identifierName": "discard"
+                  },
+                  "name": "discard"
+                },
+                "computed": false,
+                "kind": "method",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 387,
+                  "end": 409,
+                  "loc": {
+                    "start": {
+                      "line": 27,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 35
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSUnionType",
+                    "start": 389,
+                    "end": 409,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 35
+                      }
+                    },
+                    "types": [
+                      {
+                        "type": "TSTypeReference",
+                        "start": 389,
+                        "end": 402,
+                        "loc": {
+                          "start": {
+                            "line": 27,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 27,
+                            "column": 28
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 389,
+                          "end": 396,
+                          "loc": {
+                            "start": {
+                              "line": 27,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 27,
+                              "column": 22
+                            },
+                            "identifierName": "Promise"
+                          },
+                          "name": "Promise"
+                        },
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 396,
+                          "end": 402,
+                          "loc": {
+                            "start": {
+                              "line": 27,
+                              "column": 22
+                            },
+                            "end": {
+                              "line": 27,
+                              "column": 28
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSVoidKeyword",
+                              "start": 397,
+                              "end": 401,
+                              "loc": {
+                                "start": {
+                                  "line": 27,
+                                  "column": 23
+                                },
+                                "end": {
+                                  "line": 27,
+                                  "column": 27
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "TSVoidKeyword",
+                        "start": 405,
+                        "end": 409,
+                        "loc": {
+                          "start": {
+                            "line": 27,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 27,
+                            "column": 35
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 268,
+                    "end": 372,
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+              "start": 1,
+              "end": 45,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
+              "start": 46,
+              "end": 231,
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 0
+                },
+                "end": {
+                  "line": 14,
+                  "column": 16
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
+            "start": 46,
+            "end": 231,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 16
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+      "start": 1,
+      "end": 45,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
+      "start": 46,
+      "end": 231,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 268,
+      "end": 372,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

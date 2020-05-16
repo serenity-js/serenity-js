@@ -1,0 +1,612 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 427,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 23,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 427,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 49,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 49
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 21,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "RuntimeError"
+              },
+              "name": "RuntimeError"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 21,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "identifierName": "RuntimeError"
+              },
+              "name": "RuntimeError"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 29,
+          "end": 48,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 48
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 50,
+            "end": 95,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An error that has occurred during the execution of the Serenity BDD jar.\n *\n * @extends {@serenity-js/core/lib/core/errors~RuntimeError}\n *\n * @package\n ",
+            "start": 98,
+            "end": 270,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 271,
+        "end": 426,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 22,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 278,
+          "end": 426,
+          "loc": {
+            "start": {
+              "line": 18,
+              "column": 7
+            },
+            "end": {
+              "line": 22,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 284,
+            "end": 298,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 13
+              },
+              "end": {
+                "line": 18,
+                "column": 27
+              },
+              "identifierName": "ExecutionError"
+            },
+            "name": "ExecutionError"
+          },
+          "superClass": {
+            "type": "Identifier",
+            "start": 307,
+            "end": 319,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 36
+              },
+              "end": {
+                "line": 18,
+                "column": 48
+              },
+              "identifierName": "RuntimeError"
+            },
+            "name": "RuntimeError"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 320,
+            "end": 426,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 49
+              },
+              "end": {
+                "line": 22,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 326,
+                "end": 424,
+                "loc": {
+                  "start": {
+                    "line": 19,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 21,
+                    "column": 5
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 326,
+                  "end": 337,
+                  "loc": {
+                    "start": {
+                      "line": 19,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 19,
+                      "column": 15
+                    },
+                    "identifierName": "constructor"
+                  },
+                  "name": "constructor"
+                },
+                "computed": false,
+                "kind": "constructor",
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 338,
+                    "end": 353,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 31
+                      },
+                      "identifierName": "message"
+                    },
+                    "name": "message",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 345,
+                      "end": 353,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 31
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSStringKeyword",
+                        "start": 347,
+                        "end": 353,
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 31
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "Identifier",
+                    "start": 355,
+                    "end": 368,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 46
+                      },
+                      "identifierName": "cause"
+                    },
+                    "name": "cause",
+                    "optional": true,
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 361,
+                      "end": 368,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 39
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 46
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 363,
+                        "end": 368,
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 41
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 46
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 363,
+                          "end": 368,
+                          "loc": {
+                            "start": {
+                              "line": 19,
+                              "column": 41
+                            },
+                            "end": {
+                              "line": 19,
+                              "column": 46
+                            },
+                            "identifierName": "Error"
+                          },
+                          "name": "Error"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 370,
+                  "end": 424,
+                  "loc": {
+                    "start": {
+                      "line": 19,
+                      "column": 48
+                    },
+                    "end": {
+                      "line": 21,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 380,
+                      "end": 418,
+                      "loc": {
+                        "start": {
+                          "line": 20,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 46
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 380,
+                        "end": 417,
+                        "loc": {
+                          "start": {
+                            "line": 20,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 20,
+                            "column": 45
+                          }
+                        },
+                        "callee": {
+                          "type": "Super",
+                          "start": 380,
+                          "end": 385,
+                          "loc": {
+                            "start": {
+                              "line": 20,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 20,
+                              "column": 13
+                            }
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 386,
+                            "end": 400,
+                            "loc": {
+                              "start": {
+                                "line": 20,
+                                "column": 14
+                              },
+                              "end": {
+                                "line": 20,
+                                "column": 28
+                              },
+                              "identifierName": "ExecutionError"
+                            },
+                            "name": "ExecutionError"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 402,
+                            "end": 409,
+                            "loc": {
+                              "start": {
+                                "line": 20,
+                                "column": 30
+                              },
+                              "end": {
+                                "line": 20,
+                                "column": 37
+                              },
+                              "identifierName": "message"
+                            },
+                            "name": "message"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 411,
+                            "end": 416,
+                            "loc": {
+                              "start": {
+                                "line": 20,
+                                "column": 39
+                              },
+                              "end": {
+                                "line": 20,
+                                "column": 44
+                              },
+                              "identifierName": "cause"
+                            },
+                            "name": "cause"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+              "start": 50,
+              "end": 95,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  An error that has occurred during the execution of the Serenity BDD jar.\n *\n * @extends {@serenity-js/core/lib/core/errors~RuntimeError}\n *\n * @package\n ",
+              "start": 98,
+              "end": 270,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 17,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 50,
+            "end": 95,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An error that has occurred during the execution of the Serenity BDD jar.\n *\n * @extends {@serenity-js/core/lib/core/errors~RuntimeError}\n *\n * @package\n ",
+            "start": 98,
+            "end": 270,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+      "start": 50,
+      "end": 95,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  An error that has occurred during the execution of the Serenity BDD jar.\n *\n * @extends {@serenity-js/core/lib/core/errors~RuntimeError}\n *\n * @package\n ",
+      "start": 98,
+      "end": 270,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 3
+        }
+      }
+    }
+  ]
+}
