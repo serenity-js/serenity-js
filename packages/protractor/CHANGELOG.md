@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/serenity-js/serenity-js/compare/v2.5.0...v2.5.1) (2020-05-16)
+
+
+### Bug Fixes
+
+* **protractor:** support for Protractor 7.0.0 ([cf7518a](https://github.com/serenity-js/serenity-js/commit/cf7518a848e0204b67c1ebeb3b8e2200cd0a6ad8))
+
+
+
+
+
 # [2.5.0](https://github.com/serenity-js/serenity-js/compare/v2.4.1...v2.5.0) (2020-05-14)
 
 
