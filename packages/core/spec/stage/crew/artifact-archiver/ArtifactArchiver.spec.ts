@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import { Actor } from '../../../../src';
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
-import { Duration, JSONData, Name, TestReport } from '../../../../src/model';
+import { Duration, JSONData, Name, TestReport, XMLData } from '../../../../src/model';
 import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../src/stage';
 
 import { expect } from '../../../expect';
@@ -16,6 +16,8 @@ describe('ArtifactArchiver', () => {
     const
         json = { key: 'value' },
         jsonValueShortHash = '64cdd772d3',
+        xml = '<root><a id="1">Test 1</a><a id="2">Test 2</a></root>',
+        xmlShortHash = '5093c23375',
         photoShortHash = '6808b2e9fe';
 
     let stage:          Stage,
@@ -46,7 +48,9 @@ describe('ArtifactArchiver', () => {
             jsonArtifactName = new Name('Scenario Name'),
             expectedJsonFileName = 'scenario-name',
             pngArtifactName  = new Name('PNG Artifact name'),
-            expectedPngFileName = 'png-artifact-name';
+            expectedPngFileName = 'png-artifact-name',
+            xmlArtifactName = new Name('Scenario Name'),
+            expectedXmlFileName = 'scenario-name';
 
         /**
          * @test {ArtifactArchiver}
@@ -108,6 +112,25 @@ describe('ArtifactArchiver', () => {
                 expect(fs.store).to.have.been.calledWith(
                     new Path(`photo-${ expectedPngFileName }-${ photoShortHash }.png`),
                     photo.base64EncodedValue,
+                    'base64',
+                );
+            });
+        });
+
+        /**
+         * @test {ArtifactArchiver}
+         * @test {ArtifactGenerated}
+         */
+        it('correctly saves XML content to a file', () => {
+            stage.announce(new ArtifactGenerated(
+                xmlArtifactName,
+                XMLData.fromString(xml),
+            ));
+
+            return stage.waitForNextCue().then(() => {
+                expect(fs.store).to.have.been.calledWith(
+                    new Path(`scenario-${ expectedXmlFileName }-${ xmlShortHash }.xml`),
+                    Buffer.from(xml).toString('base64'),
                     'base64',
                 );
             });

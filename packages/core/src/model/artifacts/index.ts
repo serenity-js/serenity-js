@@ -5,3 +5,4 @@ export * from './LogEntry';
 export * from './Photo';
 export * from './TestReport';
 export * from './TextData';
+export * from './XMLData';

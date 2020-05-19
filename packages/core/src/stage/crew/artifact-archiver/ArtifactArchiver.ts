@@ -10,7 +10,7 @@ import {
     DomainEvent,
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
+import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport, XMLData } from '../../../model';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
@@ -65,6 +65,17 @@ export class ArtifactArchiver implements StageCrewMember {
                 filename,
                 event.artifact.map(JSON.stringify),
                 'utf8',
+                this.archivisationAnnouncement(event, filename),
+            );
+        }
+
+        if (event.artifact instanceof XMLData) {
+            const filename = this.fileNameFor('scenario', event.name, event.artifact, 'xml');
+
+            this.archive(
+                filename,
+                event.artifact.base64EncodedValue,
+                'base64',
                 this.archivisationAnnouncement(event, filename),
             );
         }
