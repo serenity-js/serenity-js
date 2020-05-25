@@ -211,15 +211,17 @@
             });
         }
 
+        <span class="hljs-keyword">const</span> scenarioDetails = <span class="hljs-keyword">this</span>.scenarioDetailsOf(result);
+
         <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinishes(
-            <span class="hljs-keyword">this</span>.scenarioDetailsOf(result),
+            scenarioDetails,
             <span class="hljs-keyword">this</span>.serenity.currentTime(),
         ));
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.serenity.waitForNextCue()
             .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
-                    <span class="hljs-keyword">this</span>.scenarioDetailsOf(result),
+                    scenarioDetails,
                     <span class="hljs-keyword">this</span>.outcomeFrom(result),
                     <span class="hljs-keyword">this</span>.serenity.currentTime(),
                 ));
