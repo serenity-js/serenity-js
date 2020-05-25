@@ -87,15 +87,17 @@ export class SerenityReporterForJasmine {
             });
         }
 
+        const scenarioDetails = this.scenarioDetailsOf(result);
+
         this.emit(new SceneFinishes(
-            this.scenarioDetailsOf(result),
+            scenarioDetails,
             this.serenity.currentTime(),
         ));
 
         return this.serenity.waitForNextCue()
             .then(() => {
                 this.emit(new SceneFinished(
-                    this.scenarioDetailsOf(result),
+                    scenarioDetails,
                     this.outcomeFrom(result),
                     this.serenity.currentTime(),
                 ));
