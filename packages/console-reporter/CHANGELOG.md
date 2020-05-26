@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.2](https://github.com/serenity-js/serenity-js/compare/v2.5.1...v2.5.2) (2020-05-16)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+## [2.5.1](https://github.com/serenity-js/serenity-js/compare/v2.5.0...v2.5.1) (2020-05-16)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+# [2.5.0](https://github.com/serenity-js/serenity-js/compare/v2.4.1...v2.5.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* **npm:** esport ES2018 instead of ES5 since we're supporting Node >= 10 ([a77091a](https://github.com/serenity-js/serenity-js/commit/a77091aa779736172a60b6ac99ec1b869aaea816))
+
+
+
+
+
+## [2.4.1](https://github.com/serenity-js/serenity-js/compare/v2.4.0...v2.4.1) (2020-05-03)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+# [2.4.0](https://github.com/serenity-js/serenity-js/compare/v2.3.6...v2.4.0) (2020-05-02)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+## [2.3.6](https://github.com/serenity-js/serenity-js/compare/v2.3.5...v2.3.6) (2020-04-28)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+## [2.3.5](https://github.com/serenity-js/serenity-js/compare/v2.3.4...v2.3.5) (2020-04-28)
+
+
+### Bug Fixes
+
+* **console-reporter:** corrected an issue that might be causing an OOM error ([0b60511](https://github.com/serenity-js/serenity-js/commit/0b60511a274d58155361cbc636c03dda857b57d0)), closes [#550](https://github.com/serenity-js/serenity-js/issues/550)
+
+
+
+
+
 ## [2.3.4](https://github.com/serenity-js/serenity-js/compare/v2.3.3...v2.3.4) (2020-04-22)
 
 **Note:** Version bump only for package @serenity-js/console-reporter

@@ -3,6 +3,114 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.5](https://github.com/serenity-js/serenity-js/compare/v2.5.4...v2.5.5) (2020-05-25)
+
+
+### Bug Fixes
+
+* **jasmine:** fixed a potential synchronisation issue ([3c1b6e6](https://github.com/serenity-js/serenity-js/commit/3c1b6e6dee5dfe0fd053e385ba9b59426e9ba8ed))
+
+
+
+
+
+## [2.5.4](https://github.com/serenity-js/serenity-js/compare/v2.5.3...v2.5.4) (2020-05-22)
+
+**Note:** Version bump only for package serenity-js-monorepo
+
+
+
+
+
+## [2.5.3](https://github.com/serenity-js/serenity-js/compare/v2.5.2...v2.5.3) (2020-05-21)
+
+**Note:** Version bump only for package serenity-js-monorepo
+
+
+
+
+
+## [2.5.2](https://github.com/serenity-js/serenity-js/compare/v2.5.1...v2.5.2) (2020-05-16)
+
+**Note:** Version bump only for package serenity-js-monorepo
+
+
+
+
+
+## [2.5.1](https://github.com/serenity-js/serenity-js/compare/v2.5.0...v2.5.1) (2020-05-16)
+
+
+### Bug Fixes
+
+* **protractor:** support for Protractor 7.0.0 ([cf7518a](https://github.com/serenity-js/serenity-js/commit/cf7518a848e0204b67c1ebeb3b8e2200cd0a6ad8))
+
+
+
+
+
+# [2.5.0](https://github.com/serenity-js/serenity-js/compare/v2.4.1...v2.5.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* **npm:** esport ES2018 instead of ES5 since we're supporting Node >= 10 ([a77091a](https://github.com/serenity-js/serenity-js/commit/a77091aa779736172a60b6ac99ec1b869aaea816))
+
+
+### Features
+
+* **core:** discardable Abilities and shared notes ([6cc2e2c](https://github.com/serenity-js/serenity-js/commit/6cc2e2c936e20004f3e542e51f9fec602eba9093))
+
+
+
+
+
+## [2.4.1](https://github.com/serenity-js/serenity-js/compare/v2.4.0...v2.4.1) (2020-05-03)
+
+**Note:** Version bump only for package serenity-js-monorepo
+
+
+
+
+
+# [2.4.0](https://github.com/serenity-js/serenity-js/compare/v2.3.6...v2.4.0) (2020-05-02)
+
+
+### Bug Fixes
+
+* **core:** plain JavaScript/JSON object are now pretty-printed to make them easier to read ([c63d64d](https://github.com/serenity-js/serenity-js/commit/c63d64de689ed7194b8fce9c65aa1a896d1728de)), closes [#509](https://github.com/serenity-js/serenity-js/issues/509)
+
+
+### Features
+
+* **protractor:** navigate.to(url).withTimeout(duration) ([be23c6e](https://github.com/serenity-js/serenity-js/commit/be23c6e4f2a00edad01a9c9ecc1734ec2eda4f4a)), closes [#517](https://github.com/serenity-js/serenity-js/issues/517)
+
+
+
+
+
+## [2.3.6](https://github.com/serenity-js/serenity-js/compare/v2.3.5...v2.3.6) (2020-04-28)
+
+
+### Bug Fixes
+
+* **core:** an Actor will now complain if given the same ability more than once ([d34f4d5](https://github.com/serenity-js/serenity-js/commit/d34f4d58ed44c764fd9b516a007330c01cb7cbf5))
+
+
+
+
+
+## [2.3.5](https://github.com/serenity-js/serenity-js/compare/v2.3.4...v2.3.5) (2020-04-28)
+
+
+### Bug Fixes
+
+* **console-reporter:** corrected an issue that might be causing an OOM error ([0b60511](https://github.com/serenity-js/serenity-js/commit/0b60511a274d58155361cbc636c03dda857b57d0)), closes [#550](https://github.com/serenity-js/serenity-js/issues/550)
+
+
+
+
+
 ## [2.3.4](https://github.com/serenity-js/serenity-js/compare/v2.3.3...v2.3.4) (2020-04-22)
 
 **Note:** Version bump only for package serenity-js-monorepo

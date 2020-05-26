@@ -64,5 +64,3 @@ For corporate sponsorship or commercial support, please check out the [Support G
 ----
 
 _- Copyright &copy; 2016- [Jan Molak](https://janmolak.com) and the Serenity Team_
-
-[![Analytics](https://ga-beacon.appspot.com/UA-85788349-2/serenity-js/readme.md?pixel)](https://github.com/igrigorik/ga-beacon)

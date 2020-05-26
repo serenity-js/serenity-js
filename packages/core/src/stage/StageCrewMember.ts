@@ -1,4 +1,5 @@
 import { DomainEvent } from '../events';
+import { ListensToDomainEvents } from '../screenplay';
 import { Stage } from './Stage';
 import { StageManager } from './StageManager';
 
@@ -9,8 +10,10 @@ import { StageManager } from './StageManager';
  *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.
  *
  *  Useful when you're interested in implementing custom reporters.
+ *
+ * @extends {ListensToDomainEvents}
  */
-export interface StageCrewMember {
+export interface StageCrewMember extends ListensToDomainEvents {
 
     /**
      * @desc
@@ -20,14 +23,4 @@ export interface StageCrewMember {
      * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember;
-
-    /**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     *  this {@link StageCrewMember} is assigned to.
-     *
-     * @param {DomainEvent} event
-     * @returns void
-     */
-    notifyOf(event: DomainEvent): void;
 }

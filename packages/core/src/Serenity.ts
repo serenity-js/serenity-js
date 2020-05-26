@@ -1,6 +1,6 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
-import { DomainEvent, SceneStarts } from './events';
+import { DomainEvent, SceneFinished, SceneStarts } from './events';
 import { ErrorStackParser } from './io';
 import { Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor';
@@ -20,7 +20,7 @@ export class Serenity {
             new StageManager(Serenity.defaultCueTimeout, clock),
         );
 
-        this.stage.assign(new StageHand());
+        this.stage.assign(new StageHand(this.stage));
     }
 
     /**
@@ -48,10 +48,12 @@ export class Serenity {
             this.engage(config.actors);
         }
 
-        this.stage.assign(new StageHand());
+        this.stage.assign(new StageHand(this.stage));
 
         if (Array.isArray(config.crew)) {
-            this.stage.assign(...config.crew);
+            this.stage.assign(
+                ...config.crew.map(stageCrewMember => stageCrewMember.assignedTo(this.stage)),
+            );
         }
     }
 
@@ -193,7 +195,9 @@ export class Serenity {
     setTheStage(...stageCrewMembers: StageCrewMember[]): void {
         deprecated('serenity.setTheStage', 'Please use the new `configure({ crew: stageCrewMembers }) from @serenity-js/core instead.');
 
-        this.stage.assign(...stageCrewMembers);
+        this.stage.assign(
+            ...stageCrewMembers.map(stageCrewMember => stageCrewMember.assignedTo(this.stage)),
+        );
     }
 
     /**
@@ -232,8 +236,8 @@ class StageHand implements StageCrewMember {
     }
 
     notifyOf(event: DomainEvent): void {
-        if (event instanceof SceneStarts) {
-            this.stage.resetActors();
+        if (event instanceof SceneFinished) {
+            this.stage.drawTheCurtain();
         }
     }
 }

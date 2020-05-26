@@ -1,3 +1,5 @@
+import 'mocha';
+
 import * as sinon from 'sinon';
 import { LogicError } from '../../../src/errors';
 import { ActivityDetails, Name } from '../../../src/model';
@@ -27,10 +29,12 @@ describe('Note', () => {
      * @test {TakeNotes}
      * @test {Note}
      */
-    it('enables the actor to recall the answer to a given question', () =>
-        expect(actorWhoCan(new TakeNotes({ [NameOfAHobby().toString()]: 'DYI' })).attemptsTo(
+    it('enables the actor to recall the answer to a given question', () => {
+        const notepad = new Map([ [NameOfAHobby().toString(), 'DYI'] ]);
+        expect(actorWhoCan(new TakeNotes(notepad)).attemptsTo(
             EnsureSame(Note.of(NameOfAHobby()), 'DYI'),
-        )));
+        ));
+    });
 
     /**
      * @test {TakeNotes}

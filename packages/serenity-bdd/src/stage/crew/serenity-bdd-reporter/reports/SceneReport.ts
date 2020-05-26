@@ -19,7 +19,6 @@ import {
     ThemeTag,
     Timestamp,
 } from '@serenity-js/core/lib/model';
-import { platform } from 'os';
 import { JSONObject, match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 import { inspect } from 'util';
@@ -70,7 +69,7 @@ export class SceneReport {
             },
         };
 
-        this.activities.push(this.report);
+        this.activities.push(this.report as Partial<TestStep>);
     }
 
     executionStartedAt(time: Timestamp): SceneReport {

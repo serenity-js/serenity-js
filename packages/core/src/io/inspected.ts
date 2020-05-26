@@ -48,6 +48,10 @@ export function inspected(value: Answerable<any>): string {
         return `${ value.name } property`;
     }
 
+    if (! hasCustomInspectionFunction(value) && isPlainObject(value) && isSerialisableAsJSON(value)) {
+        return JSON.stringify(value, null, 4);
+    }
+
     return inspect(value, { breakLength: Infinity, compact: true, sorted: false  });
 }
 
@@ -118,6 +122,62 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  */
 function isANamedFunction<T>(v: any): v is { name: string } {
     return {}.toString.call(v) === '[object Function]' && (v as any).name !== '';
+}
+
+/**
+ * @desc
+ * Checks if the value defines its own `inspect` method
+ * See: https://nodejs.org/api/util.html#util_util_inspect_custom
+ *
+ * @private
+ * @param {Answerable<any>} v
+ */
+function hasCustomInspectionFunction(v: Answerable<any>): v is object {
+    return v && v[Symbol.for('nodejs.util.inspect.custom')];
+}
+
+/**
+ * @desc
+ * Checks if the value has a good chance of being a plain JavaScript object
+ *
+ * @private
+ * @param {Answerable<any>} v
+ */
+function isPlainObject(v: Answerable<any>): v is object {
+
+    // Basic check for Type object that's not null
+    if (typeof v === 'object' && v !== null) {
+
+        // If Object.getPrototypeOf supported, use it
+        if (typeof Object.getPrototypeOf === 'function') {
+            const proto = Object.getPrototypeOf(v);
+            return proto === Object.prototype || proto === null;
+        }
+
+        // Otherwise, use internal class
+        // This should be reliable as if getPrototypeOf not supported, is pre-ES5
+        return Object.prototype.toString.call(v) === '[object Object]';
+    }
+
+    // Not an object
+    return false;
+}
+
+/**
+ * @desc
+ * Checks if the value is a JSON object that can be stringified
+ *
+ * @private
+ * @param {Answerable<any>} v
+ */
+function isSerialisableAsJSON<T>(v: any): v is object {
+    try {
+        JSON.stringify(v);
+
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
 /**

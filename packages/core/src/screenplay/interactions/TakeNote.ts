@@ -10,7 +10,7 @@ import { Question } from '../Question';
  *  and recall it later.
  *
  * @example
- *  import { Note, TakeNote, TakeNotes } from '@serenity-js/core'
+ *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'
  *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
  *
@@ -19,7 +19,7 @@ import { Question } from '../Question';
  *      static appliedVoucher   = Target.the('voucher code').located(by.id('applied-voucher'));
  *  }
  *
- *  const actor = Actor.named('Noah').whoCan(
+ *  const actor = actorCalled('Noah').whoCan(
  *      TakeNotes.usingAnEmptyNotepad(),
  *      BrowseTheWeb.using(protractor.browser),
  *  );

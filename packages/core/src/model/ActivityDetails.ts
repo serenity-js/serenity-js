@@ -11,7 +11,6 @@ export class ActivityDetails extends TinyType {
         );
     }
 
-    // todo: might need to add a correlation id
     constructor(
         public readonly name: Name,
         public readonly correlationId: CorrelationId = CorrelationId.create(),

@@ -50,7 +50,19 @@ import { AnswersQuestions, UsesAbilities } from './actor';
 export abstract class Question<T> {
 
     /**
+     * @desc
      *  Factory method that simplifies the process of defining custom questions.
+     *
+     * @example
+     *  const EnvVariable = (name: string) =>
+     *      Question.about(`the ${ name } env variable`, actor => process.env[name])
+     *
+     * @static
+     *
+     * @param {string} description
+     * @param {function(actor: AnswersQuestions & UsesAbilities): R} body
+     *
+     * @returns {Question<R>}
      */
     static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> {
         return new AnonymousQuestion<R>(description, body);
@@ -58,7 +70,9 @@ export abstract class Question<T> {
 
     /**
      * @desc
-     *  Checks if the value is a {@link Question}
+     *  Checks if the value is a {@link Question}.
+     *
+     * @static
      *
      * @param {any} maybeQuestion
      * @returns {boolean}
