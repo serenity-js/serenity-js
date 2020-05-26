@@ -2,17 +2,16 @@ import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, LogicError } from '../errors';
 import { DomainEvent } from '../events';
 import { ActivityDetails, CorrelationId, Timestamp } from '../model';
-import { Activity } from '../screenplay';
+import { Activity, ListensToDomainEvents } from '../screenplay';
 import { ActivityDescriber } from '../screenplay/activities/ActivityDescriber';
 import { Actor } from '../screenplay/actor';
 import { Cast } from './Cast';
-import { StageCrewMember } from './StageCrewMember';
 import { StageManager } from './StageManager';
 
 export class Stage {
     private static readonly describer = new ActivityDescriber();
 
-    private actorsOnStage: { [name: string]: Actor } = {};
+    private actorsOnStage: Map<string, Actor> = new Map<string, Actor>();
     private actorInTheSpotlight: Actor = null;
 
     private detailsOfCurrentActivity: ActivityDetails = null;
@@ -44,10 +43,13 @@ export class Stage {
      * @return {Actor}
      */
     actor(name: string): Actor {
-        if (! this.actorsOnStage[name]) {
+        if (! this.actorsOnStage.has(name)) {
             let actor;
             try {
-                actor = this.cast.prepare(new Actor(name, this));
+                const newActor = new Actor(name, this);
+                this.assign(newActor);
+
+                actor = this.cast.prepare(newActor);
             }
             catch (error) {
                 throw new ConfigurationError(`${ this.typeOf(this.cast) } encountered a problem when preparing actor "${ name }" for stage`, error);
@@ -57,10 +59,10 @@ export class Stage {
                 throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.cast) } returned ${ actor }`);
             }
 
-            this.actorsOnStage[name] = actor;
+            this.actorsOnStage.set(name, actor)
         }
 
-        this.actorInTheSpotlight = this.actorsOnStage[name];
+        this.actorInTheSpotlight = this.actorsOnStage.get(name);
 
         return this.actorInTheSpotlight;
     }
@@ -97,14 +99,17 @@ export class Stage {
      * @return {Stage}
      */
     callFor(actors: Cast): Stage {
-        this.resetActors();
+        this.drawTheCurtain();
         this.engage(actors);
 
         return this;
     }
 
-    resetActors(): void {
-        this.actorsOnStage       = {};
+    drawTheCurtain() {
+        Array.from(this.actorsOnStage.values())
+            .forEach(actor => this.manager.deregister(actor));
+
+        this.actorsOnStage.clear();
         this.actorInTheSpotlight = null;
     }
 
@@ -114,10 +119,8 @@ export class Stage {
         this.cast        = actors;
     }
 
-    assign(...stageCrewMembers: StageCrewMember[]) {
-        stageCrewMembers.forEach(stageCrewMember => {
-            this.manager.register(stageCrewMember.assignedTo(this));
-        });
+    assign(...listeners: ListensToDomainEvents[]) {
+        this.manager.register(...listeners);
     }
 
     announce(event: DomainEvent): void {
@@ -158,10 +161,4 @@ export class Stage {
             ? this.cast.constructor.name
             : 'Cast';
     }
-
-    // todo: might be useful to ensure that the actors release any resources they're holding.
-    // drawTheCurtain() {
-        // dismiss all the actors
-        // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-screenplay/src/main/java/net/serenitybdd/screenplay/actors/Stage.java
-    // }
 }

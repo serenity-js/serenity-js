@@ -108,6 +108,14 @@ describe('Actor', () => {
         )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
     /** @test {Actor} */
+    it('complains if given the same ability twice', () => {
+
+        expect(() =>
+            actor('Ben').whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
+        ).to.throw(ConfigurationError, `Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`);
+    });
+
+    /** @test {Actor} */
     it('can be instantiated without explicitly specifying the Stage', () => {
 
         const anActor: Actor = Actor.named('Bob').whoCan(PlayAGuitar.suchAs(guitar));

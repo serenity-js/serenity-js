@@ -1,6 +1,7 @@
-import { ActivityRelatedArtifactGenerated } from '../../events';
-import { Ability, AbilityType, Answerable, Cast, ConfigurationError, serenity } from '../../index';
-import { Artifact, Name } from '../../model';
+import { ActivityRelatedArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes } from '../../events';
+import { Ability, AbilityType, Answerable, Cast, ConfigurationError, Discardable, serenity } from '../../index';
+import { Artifact, CorrelationId, Description, Name } from '../../model';
+import { ListensToDomainEvents } from '../../screenplay';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
@@ -11,7 +12,14 @@ import { CollectsArtifacts } from './CollectsArtifacts';
 import { PerformsActivities } from './PerformsActivities';
 import { UsesAbilities } from './UsesAbilities';
 
-export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilities<Actor>, AnswersQuestions, CollectsArtifacts {
+export class Actor implements
+    PerformsActivities,
+    UsesAbilities,
+    CanHaveAbilities<Actor>,
+    AnswersQuestions,
+    CollectsArtifacts,
+    ListensToDomainEvents
+{
     // todo: Actor should have execution strategies
     // todo: the default one executes every activity
     // todo: there could be a dry-run mode that default to skip strategy
@@ -61,6 +69,11 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
 
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(ability => {
+            const abilityType = ability.constructor as AbilityType<Ability>;
+            if (this.abilities.has(abilityType)) {
+                throw new ConfigurationError(`${ this.name } already has an ability to ${ abilityType.name }, so you don't need to give it to them again.`);
+            }
+
             this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
         });
 
@@ -89,6 +102,27 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
         }
 
         return Promise.resolve(answerable as T);
+    }
+
+    notifyOf(event: DomainEvent): void {
+        if (event instanceof SceneFinishes) {
+            const id = CorrelationId.create();
+
+            this.stage.announce(new AsyncOperationAttempted(
+                new Description(`[${ this.constructor.name }] ${ this.name } discards abilities...`),
+                id,
+            ));
+
+            this.discardAbilities()
+                .then(() =>
+                    this.stage.announce(new AsyncOperationCompleted(
+                        new Description(`[${ this.constructor.name }] ${ this.name } discarded abilities successfully`),
+                        id,
+                )))
+                .catch(error =>
+                    this.stage.announce(new AsyncOperationFailed(error, id)),
+                );
+        }
     }
 
     /**
@@ -129,5 +163,20 @@ export class Actor implements PerformsActivities, UsesAbilities, CanHaveAbilitie
         return typeof maybeName === 'string'
             ? new Name(maybeName)
             : maybeName;
+    }
+
+    private discardAbilities(): Promise<void> {
+        const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
+            Array.from(map.values());
+
+        const discardable = (ability: Ability): boolean =>
+            'discard' in ability;
+
+        return abilitiesFrom(this.abilities)
+            .filter(discardable)
+            .reduce((previous: Promise<void>, ability: (Discardable & Ability)) =>
+                    previous.then(() => Promise.resolve(ability.discard())),
+                Promise.resolve(void 0),
+            ) as Promise<void>;
     }
 }

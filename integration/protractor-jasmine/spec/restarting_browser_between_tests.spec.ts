@@ -31,6 +31,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://version/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the first time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
@@ -39,6 +41,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://accessibility/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the second time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
@@ -47,6 +51,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://chrome-urls/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
@@ -70,6 +76,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://version/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the first time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
@@ -78,6 +86,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://accessibility/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the second time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
@@ -86,6 +96,8 @@ describe('@serenity-js/jasmine', function () {
                 .next(InteractionStarts,        event => expect(event.value.name).to.equal(new Name(`Jasmine navigates to 'chrome://chrome-urls/'`)))
                 .next(SceneFinishes,            event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discards abilities...')))
+                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Actor] Jasmine discarded abilities successfully')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
