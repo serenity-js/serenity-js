@@ -14,7 +14,7 @@ describe('isTrue', () => {
   });
 
   /** @test {isTrue} */
-  it('breaks the actor flow when "actual" is not true"', () => {
+  it('breaks the actor flow when "actual" is not true', () => {
     return expect(actorCalled('Astrid').attemptsTo(
       Ensure.that(false, isTrue()),
     )).to.be.rejectedWith(AssertionError, `Expected false to have value that is true`)
