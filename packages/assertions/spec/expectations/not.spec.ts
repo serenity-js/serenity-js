@@ -1,8 +1,23 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, Expectation, includes, isGreaterThan, isLessThan, not, or, startsWith } from '../../src';
+import 'mocha';
+import {
+    and,
+    contain,
+    containAtLeastOneItemThat,
+    endsWith,
+    Ensure,
+    equals,
+    Expectation,
+    includes,
+    isFalse,
+    isGreaterThan,
+    isLessThan,
+    isTrue,
+    not,
+    or,
+    startsWith,
+} from '../../src';
 
 describe('not', () => {
 
@@ -155,6 +170,50 @@ describe('not', () => {
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that(true, not(equals(true))).toString())
                     .to.equal(`#actor ensures that true does not equal true`);
+            });
+        });
+
+        describe('isTrue,', () => {
+
+            /** @test {not} */
+            /** @test {isTrue} */
+            it('produces a sensible error message', () => {
+                return expect(actorCalled('Astrid').attemptsTo(
+                    Ensure.that(true, not(isTrue())),
+                )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(true);
+                        expect(error.actual).to.equal(true);
+                    });
+            });
+
+            /** @test {not} */
+            /** @test {isTrue} */
+            it('contributes to a human-readable description', () => {
+                expect(Ensure.that(true, not(isTrue())).toString())
+                    .to.equal(`#actor ensures that true does not equal true`);
+            });
+        });
+
+        describe('isFalse,', () => {
+
+            /** @test {not} */
+            /** @test {isFalse} */
+            it('produces a sensible error message', () => {
+                return expect(actorCalled('Astrid').attemptsTo(
+                    Ensure.that(false, not(isFalse())),
+                )).to.be.rejectedWith(AssertionError, `Expected false to not equal false`)
+                    .then((error: AssertionError) => {
+                        expect(error.expected).to.equal(false);
+                        expect(error.actual).to.equal(false);
+                    });
+            });
+
+            /** @test {not} */
+            /** @test {isFalse} */
+            it('contributes to a human-readable description', () => {
+                expect(Ensure.that(false, not(isFalse())).toString())
+                    .to.equal(`#actor ensures that false does not equal false`);
             });
         });
 
