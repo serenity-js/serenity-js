@@ -163,7 +163,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/UseAngular.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -196,7 +196,7 @@ describe(<span class="hljs-string">&apos;UseAngular&apos;</span>, <span class="h
             <span class="hljs-comment">/** @test {UseAngular} */</span>
             it(<span class="hljs-string">&apos;can be enabled&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
                 UseAngular.enableSynchronisation(),
-                Ensure.that(IsSynchronisationEnabled(), equals(<span class="hljs-literal">true</span>)),
+                Ensure.that(IsSynchronisationEnabled(), isTrue()),
             ));
         });
 

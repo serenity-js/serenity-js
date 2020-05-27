@@ -126,6 +126,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/assertions/lib/expectations~isfalse",
+    "/modules/assertions/function/src/expectations/isFalse.ts~isFalse.html",
+    "@serenity-js/assertions/lib/expectations~isFalse",
+    "external"
+  ],
+  [
     "@serenity-js/assertions/lib/expectations~isgreaterthan",
     "/modules/assertions/function/src/expectations/isGreaterThan.ts~isGreaterThan.html",
     "@serenity-js/assertions/lib/expectations~isGreaterThan",
@@ -135,6 +141,12 @@ window.esdocSearchIndex = [
     "@serenity-js/assertions/lib/expectations~islessthan",
     "/modules/assertions/function/src/expectations/isLessThan.ts~isLessThan.html",
     "@serenity-js/assertions/lib/expectations~isLessThan",
+    "external"
+  ],
+  [
+    "@serenity-js/assertions/lib/expectations~istrue",
+    "/modules/assertions/function/src/expectations/isTrue.ts~isTrue.html",
+    "@serenity-js/assertions/lib/expectations~isTrue",
     "external"
   ],
   [

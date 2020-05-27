@@ -126,8 +126,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-includes">includes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAfter">isAfter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isBefore">isBefore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isFalse">isFalse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isGreaterThan">isGreaterThan</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isLessThan">isLessThan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isTrue">isTrue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-matches">matches</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-not">not</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-or">or</a></span></span></li>
@@ -140,11 +142,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/not.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, Expectation, includes, isGreaterThan, isLessThan, not, or, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> {
+    and,
+    contain,
+    containAtLeastOneItemThat,
+    endsWith,
+    Ensure,
+    equals,
+    Expectation,
+    includes,
+    isFalse,
+    isGreaterThan,
+    isLessThan,
+    isTrue,
+    not,
+    or,
+    startsWith,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 
 describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
@@ -297,6 +314,50 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
             it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-literal">true</span>, not(equals(<span class="hljs-literal">true</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that true does not equal true`</span>);
+            });
+        });
+
+        describe(<span class="hljs-string">&apos;isTrue,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+            <span class="hljs-comment">/** @test {not} */</span>
+            <span class="hljs-comment">/** @test {isTrue} */</span>
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+                    Ensure.that(<span class="hljs-literal">true</span>, not(isTrue())),
+                )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected true to not equal true`</span>)
+                    .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                        expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
+                        expect(error.actual).to.equal(<span class="hljs-literal">true</span>);
+                    });
+            });
+
+            <span class="hljs-comment">/** @test {not} */</span>
+            <span class="hljs-comment">/** @test {isTrue} */</span>
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                expect(Ensure.that(<span class="hljs-literal">true</span>, not(isTrue())).toString())
+                    .to.equal(<span class="hljs-string">`#actor ensures that true does not equal true`</span>);
+            });
+        });
+
+        describe(<span class="hljs-string">&apos;isFalse,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+            <span class="hljs-comment">/** @test {not} */</span>
+            <span class="hljs-comment">/** @test {isFalse} */</span>
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+                    Ensure.that(<span class="hljs-literal">false</span>, not(isFalse())),
+                )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected false to not equal false`</span>)
+                    .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                        expect(error.expected).to.equal(<span class="hljs-literal">false</span>);
+                        expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
+                    });
+            });
+
+            <span class="hljs-comment">/** @test {not} */</span>
+            <span class="hljs-comment">/** @test {isFalse} */</span>
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                expect(Ensure.that(<span class="hljs-literal">false</span>, not(isFalse())).toString())
+                    .to.equal(<span class="hljs-string">`#actor ensures that false does not equal false`</span>);
             });
         });
 

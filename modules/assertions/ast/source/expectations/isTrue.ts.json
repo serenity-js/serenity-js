@@ -1,0 +1,685 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 286,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 16,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 286,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 16,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 45,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 45
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 20,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 28,
+          "end": 44,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 28
+            },
+            "end": {
+              "line": 1,
+              "column": 44
+            }
+          },
+          "extra": {
+            "rawValue": "../Expectation",
+            "raw": "'../Expectation'"
+          },
+          "value": "../Expectation"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 46,
+        "end": 80,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 34
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 55,
+            "end": 61,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 15
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 55,
+              "end": 61,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 15
+                },
+                "identifierName": "equals"
+              },
+              "name": "equals"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 55,
+              "end": 61,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 15
+                },
+                "identifierName": "equals"
+              },
+              "name": "equals"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 69,
+          "end": 79,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 23
+            },
+            "end": {
+              "line": 2,
+              "column": 33
+            }
+          },
+          "extra": {
+            "rawValue": "./equals",
+            "raw": "'./equals'"
+          },
+          "value": "./equals"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
+            "start": 81,
+            "end": 155,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 158,
+        "end": 285,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 1
+          }
+        },
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "FunctionDeclaration",
+          "start": 165,
+          "end": 285,
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 7
+            },
+            "end": {
+              "line": 15,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 174,
+            "end": 180,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 16
+              },
+              "end": {
+                "line": 13,
+                "column": 22
+              },
+              "identifierName": "isTrue"
+            },
+            "name": "isTrue"
+          },
+          "generator": false,
+          "async": false,
+          "params": [],
+          "returnType": {
+            "type": "TSTypeAnnotation",
+            "start": 182,
+            "end": 204,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 24
+              },
+              "end": {
+                "line": 13,
+                "column": 46
+              }
+            },
+            "typeAnnotation": {
+              "type": "TSTypeReference",
+              "start": 184,
+              "end": 204,
+              "loc": {
+                "start": {
+                  "line": 13,
+                  "column": 26
+                },
+                "end": {
+                  "line": 13,
+                  "column": 46
+                }
+              },
+              "typeName": {
+                "type": "Identifier",
+                "start": 184,
+                "end": 195,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 37
+                  },
+                  "identifierName": "Expectation"
+                },
+                "name": "Expectation"
+              },
+              "typeParameters": {
+                "type": "TSTypeParameterInstantiation",
+                "start": 195,
+                "end": 204,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 37
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 46
+                  }
+                },
+                "params": [
+                  {
+                    "type": "TSBooleanKeyword",
+                    "start": 196,
+                    "end": 203,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 38
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 45
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "body": {
+            "type": "BlockStatement",
+            "start": 205,
+            "end": 285,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 47
+              },
+              "end": {
+                "line": 15,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "start": 211,
+                "end": 283,
+                "loc": {
+                  "start": {
+                    "line": 14,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 14,
+                    "column": 76
+                  }
+                },
+                "argument": {
+                  "type": "CallExpression",
+                  "start": 218,
+                  "end": 282,
+                  "loc": {
+                    "start": {
+                      "line": 14,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 14,
+                      "column": 75
+                    }
+                  },
+                  "callee": {
+                    "type": "MemberExpression",
+                    "start": 218,
+                    "end": 268,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 14,
+                        "column": 61
+                      }
+                    },
+                    "object": {
+                      "type": "CallExpression",
+                      "start": 218,
+                      "end": 255,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 48
+                        }
+                      },
+                      "callee": {
+                        "type": "MemberExpression",
+                        "start": 218,
+                        "end": 232,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 14,
+                            "column": 25
+                          }
+                        },
+                        "object": {
+                          "type": "Identifier",
+                          "start": 218,
+                          "end": 229,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 11
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 22
+                            },
+                            "identifierName": "Expectation"
+                          },
+                          "name": "Expectation"
+                        },
+                        "property": {
+                          "type": "Identifier",
+                          "start": 230,
+                          "end": 232,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 23
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 25
+                            },
+                            "identifierName": "to"
+                          },
+                          "name": "to"
+                        },
+                        "computed": false
+                      },
+                      "arguments": [
+                        {
+                          "type": "TemplateLiteral",
+                          "start": 242,
+                          "end": 254,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 35
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 47
+                            }
+                          },
+                          "expressions": [],
+                          "quasis": [
+                            {
+                              "type": "TemplateElement",
+                              "start": 243,
+                              "end": 253,
+                              "loc": {
+                                "start": {
+                                  "line": 14,
+                                  "column": 36
+                                },
+                                "end": {
+                                  "line": 14,
+                                  "column": 46
+                                }
+                              },
+                              "value": {
+                                "raw": "equal true",
+                                "cooked": "equal true"
+                              },
+                              "tail": true
+                            }
+                          ]
+                        }
+                      ],
+                      "typeParameters": {
+                        "type": "TSTypeParameterInstantiation",
+                        "start": 232,
+                        "end": 241,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 14,
+                            "column": 34
+                          }
+                        },
+                        "params": [
+                          {
+                            "type": "TSBooleanKeyword",
+                            "start": 233,
+                            "end": 240,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 26
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 33
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 256,
+                      "end": 268,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 49
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 61
+                        },
+                        "identifierName": "soThatActual"
+                      },
+                      "name": "soThatActual"
+                    },
+                    "computed": false
+                  },
+                  "arguments": [
+                    {
+                      "type": "CallExpression",
+                      "start": 269,
+                      "end": 281,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 62
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 74
+                        }
+                      },
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 269,
+                        "end": 275,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 62
+                          },
+                          "end": {
+                            "line": 14,
+                            "column": 68
+                          },
+                          "identifierName": "equals"
+                        },
+                        "name": "equals"
+                      },
+                      "arguments": [
+                        {
+                          "type": "BooleanLiteral",
+                          "start": 276,
+                          "end": 280,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 69
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 73
+                            }
+                          },
+                          "value": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "directives": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
+              "start": 81,
+              "end": 155,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 10,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
+            "start": 81,
+            "end": 155,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
+      "start": 81,
+      "end": 155,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

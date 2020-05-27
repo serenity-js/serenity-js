@@ -10,8 +10,10 @@
 /** @external {@serenity-js/assertions/lib/expectations~includes} /modules/assertions/function/src/expectations/includes.ts~includes.html */
 /** @external {@serenity-js/assertions/lib/expectations~isAfter} /modules/assertions/function/src/expectations/isAfter.ts~isAfter.html */
 /** @external {@serenity-js/assertions/lib/expectations~isBefore} /modules/assertions/function/src/expectations/isBefore.ts~isBefore.html */
+/** @external {@serenity-js/assertions/lib/expectations~isFalse} /modules/assertions/function/src/expectations/isFalse.ts~isFalse.html */
 /** @external {@serenity-js/assertions/lib/expectations~isGreaterThan} /modules/assertions/function/src/expectations/isGreaterThan.ts~isGreaterThan.html */
 /** @external {@serenity-js/assertions/lib/expectations~isLessThan} /modules/assertions/function/src/expectations/isLessThan.ts~isLessThan.html */
+/** @external {@serenity-js/assertions/lib/expectations~isTrue} /modules/assertions/function/src/expectations/isTrue.ts~isTrue.html */
 /** @external {@serenity-js/assertions/lib/expectations~matches} /modules/assertions/function/src/expectations/matches.ts~matches.html */
 /** @external {@serenity-js/assertions/lib/expectations~not} /modules/assertions/function/src/expectations/not.ts~not.html */
 /** @external {@serenity-js/assertions/lib/expectations~or} /modules/assertions/function/src/expectations/or.ts~or.html */

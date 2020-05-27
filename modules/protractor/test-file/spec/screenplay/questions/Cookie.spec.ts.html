@@ -165,7 +165,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>;
 <span class="hljs-keyword">import</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>);
@@ -281,7 +281,7 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
                 Ensure.that(Cookie.isHTTPOnly(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-literal">false</span>)),
 
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=second_choice&amp;value=shortbread&amp;httpOnly=true&apos;</span>)),
-                Ensure.that(Cookie.isHTTPOnly(<span class="hljs-string">&apos;second_choice&apos;</span>), equals(<span class="hljs-literal">true</span>)),
+                Ensure.that(Cookie.isHTTPOnly(<span class="hljs-string">&apos;second_choice&apos;</span>), isTrue()),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
@@ -358,7 +358,7 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
         <span class="hljs-comment">/** @test {Cookie#isSecure} */</span>
         it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is secure&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&amp;secure=1&apos;</span>)),
-            Ensure.that(Cookie.isSecure(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-literal">true</span>)),
+            Ensure.that(Cookie.isSecure(<span class="hljs-string">&apos;favourite&apos;</span>), isTrue()),
         ));
 
         <span class="hljs-comment">/** @test {Cookie} */</span>
