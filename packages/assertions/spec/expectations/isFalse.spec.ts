@@ -17,7 +17,7 @@ describe('isFalse', () => {
   it('breaks the actor flow when "actual" is not false', () => {
     return expect(actorCalled('Astrid').attemptsTo(
       Ensure.that(true, isFalse()),
-    )).to.be.rejectedWith(AssertionError, `Expected true to have value that is false`)
+    )).to.be.rejectedWith(AssertionError, `Expected true to equal false`)
       .then((error: AssertionError) => {
         expect(error.expected).to.equal(false);
         expect(error.actual).to.equal(true);
@@ -27,6 +27,6 @@ describe('isFalse', () => {
   /** @test {isFalse} */
   it('contributes to a human-readable description', () => {
     expect(Ensure.that(false, isFalse()).toString())
-      .to.equal(`#actor ensures that false does have value that is false`);
+      .to.equal(`#actor ensures that false does equal false`);
   });
 });

@@ -1,6 +1,6 @@
 import { Expectation } from '../Expectation';
+import { equals } from './equals';
 
-export function isFalse() {
-  return Expectation.thatActualShould<boolean, boolean>(`have value that is`, false)
-    .soThat((actualValue, expectedValueAlwaysFalse) => actualValue === expectedValueAlwaysFalse);
-};
+export function isFalse(): Expectation<boolean> {
+  return Expectation.to<boolean>(`equal false`).soThatActual(equals(false));
+}
