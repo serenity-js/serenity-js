@@ -1,4 +1,4 @@
-import { Check, equals } from '@serenity-js/assertions';
+import { Check, isTrue } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as https from 'https';
@@ -49,7 +49,7 @@ export = {
         });
 
         return actorCalled('Serenity/JS').attemptsTo(
-            Check.whether(FileExists.at(pathToArtifact), equals(true))
+            Check.whether(FileExists.at(pathToArtifact), isTrue())
                 .andIfSo(
                     Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
                 )

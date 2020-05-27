@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.5](https://github.com/serenity-js/serenity-js/compare/v2.5.4...v2.5.5) (2020-05-25)
+
+
+### Bug Fixes
+
+* **jasmine:** fixed a potential synchronisation issue ([3c1b6e6](https://github.com/serenity-js/serenity-js/commit/3c1b6e6dee5dfe0fd053e385ba9b59426e9ba8ed))
+
+
+
+
+
 ## [2.5.4](https://github.com/serenity-js/serenity-js/compare/v2.5.3...v2.5.4) (2020-05-22)
 
 **Note:** Version bump only for package serenity-js-monorepo
