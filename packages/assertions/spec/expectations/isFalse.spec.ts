@@ -29,5 +29,4 @@ describe('isFalse', () => {
     expect(Ensure.that(false, isFalse()).toString())
       .to.equal(`#actor ensures that false does have value that is false`);
   });
-
 });
