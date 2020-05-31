@@ -1,0 +1,42 @@
+{
+  "name": "@integration/mocha",
+  "version": "2.5.5",
+  "description": "Mocha integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "2.5.1",
+    "@serenity-js/assertions": "2.5.2",
+    "@serenity-js/core": "^2.5.1",
+    "@serenity-js/mocha": "2.5.5",
+    "mocha": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^7.0.2"
+  }
+}
