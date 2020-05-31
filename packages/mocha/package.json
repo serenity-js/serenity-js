@@ -1,0 +1,79 @@
+{
+  "name": "@serenity-js/mocha",
+  "version": "2.5.5",
+  "description": "Serenity/JS adapter for Mocha",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "mocha",
+    "tdd",
+    "bdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "nyc --report-dir ../../target/coverage/mocha mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "2.x",
+    "mocha": "^7.2.0"
+  },
+  "devDependencies": {
+    "@documentation/esdoc-template": "2.0.7",
+    "@integration/testing-tools": "2.5.1",
+    "@serenity-js/core": "2.5.1",
+    "@types/mocha": "^7.0.2",
+    "mocha": "^7.2.0"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": true
+  }
+}

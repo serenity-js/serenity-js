@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "rootDir": "./src"
+  },
+
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "features",
+    "spec",
+    "node_modules"
+  ]
+}
