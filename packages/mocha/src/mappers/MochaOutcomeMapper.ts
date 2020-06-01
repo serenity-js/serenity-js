@@ -42,7 +42,7 @@ export class MochaOutcomeMapper {
     }
 
     private looksLikeAnAssertionError(error: Error): error is AssertionError {
-        return /^AssertionError$/.test(error.name)
+        return /^AssertionError/.test(error.name)
             && error.hasOwnProperty('expected')
             && error.hasOwnProperty('actual')
     }
