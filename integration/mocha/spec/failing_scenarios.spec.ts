@@ -86,8 +86,6 @@ describe('@serenity-js/mocha', function () {
 
                         const error = outcome.error as AssertionError;
 
-                        expect(error).to.be.instanceof(AssertionError);
-                        expect(error.message).to.equal(`Expected values to be strictly equal:\n\nfalse !== true\n`);
                         expect(error.expected).to.equal('true');
                         expect(error.actual).to.equal('false');
                     })
