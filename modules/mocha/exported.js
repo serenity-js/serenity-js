@@ -1,0 +1,1 @@
+/** @external {@serenity-js/mocha~SerenityReporterForMocha} /modules/mocha/class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html */
