@@ -245,9 +245,12 @@ export class SceneReport {
         });
     }
 
-    photoTaken(details: ActivityDetails, path: Path) {
+    photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
         return this.withMutated(report => {
-            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({ screenshot: path.basename() });
+            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({
+                screenshot: path.basename(),
+                timeStamp:  timestamp.toMillisecondTimestamp(),
+            });
         });
     }
 

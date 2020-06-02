@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { StageManager } from '@serenity-js/core';
+import { Duration, StageManager } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -14,7 +14,7 @@ import {
     TestRunFinishes,
 } from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
-import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/lib/model';
+import { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } from '@serenity-js/core/lib/model';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -143,14 +143,17 @@ describe('SerenityBDDReporter', () => {
         it('records the events in a correct order', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
+            const t1 = new Timestamp(new Date(0));
+            const t2 = new Timestamp(new Date(10));
+
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                     new TaskStarts(pickACard),
                         new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),
-                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
+                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png'), t1),
                     new TaskFinished(pickACard, new ExecutionSuccessful()),
                         new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
-                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
+                        new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png'), t2),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
@@ -159,8 +162,8 @@ describe('SerenityBDDReporter', () => {
 
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].screenshots).to.deep.equal([
-                { screenshot: 'photo1.png'},
-                { screenshot: 'photo2.png'},
+                { screenshot: 'photo1.png', timeStamp: t1.toMillisecondTimestamp() },
+                { screenshot: 'photo2.png', timeStamp: t2.toMillisecondTimestamp() },
             ]);
         });
 
@@ -225,14 +228,17 @@ describe('SerenityBDDReporter', () => {
         it('records the arbitrary JSON data emitted during the interaction', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
+            const t1 = new Timestamp(new Date(0));
+            const t2 = new Timestamp(new Date(10));
+
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                 new TaskStarts(pickACard),
                 new ActivityRelatedArtifactGenerated(pickACard, new Name('photo1'), photo),
-                new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png')),
+                new ActivityRelatedArtifactArchived(pickACard, new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png'), t1),
                 new TaskFinished(pickACard, new ExecutionSuccessful()),
                 new ActivityRelatedArtifactGenerated(pickACard, new Name('photo2'), photo),
-                new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png')),
+                new ActivityRelatedArtifactArchived(pickACard, new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png'), t2),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
@@ -241,8 +247,8 @@ describe('SerenityBDDReporter', () => {
 
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].screenshots).to.deep.equal([
-                { screenshot: 'photo1.png'},
-                { screenshot: 'photo2.png'},
+                { screenshot: 'photo1.png', timeStamp: t1.toMillisecondTimestamp() },
+                { screenshot: 'photo2.png', timeStamp: t2.toMillisecondTimestamp() },
             ]);
         });
     });
