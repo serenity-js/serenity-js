@@ -62,6 +62,7 @@ export interface ReportData extends JSONObject {
  */
 export interface Screenshot extends JSONObject {
     screenshot: string;
+    timeStamp: number;
     htmlSource?: string;     // "htmlSource": "pagesource7953468346968205961.html.txt"
 }
 

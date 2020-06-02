@@ -48,7 +48,7 @@ export abstract class SceneReportingStrategy {
                 .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))
                 .else(_ => report))
             .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)
-                .when(Photo,                _ => report.photoTaken(e.details, e.path))
+                .when(Photo,                _ => report.photoTaken(e.details, e.path, e.timestamp))
                 .else(_ => report))
             .else(_ => report);
     }
