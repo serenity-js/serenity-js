@@ -73,16 +73,12 @@ export class DownloadArtifact extends Task {
     }
 
     private artifactURL() {
-        const path = [
+        return [
+            this.repository.toString(),
             ...this.gav.groupId.split('.'),
             this.gav.artifactId,
             this.gav.version,
             this.gav.toPath().value,
         ].join('/');
-
-        return resolve(
-            this.repository.toString(),
-            path,
-        );
     }
 }
