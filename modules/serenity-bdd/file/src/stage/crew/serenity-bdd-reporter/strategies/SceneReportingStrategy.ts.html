@@ -171,7 +171,7 @@
                 .when(JSONData,             _ =&gt; report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(artifactContents, <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>))))
                 .else(_ =&gt; report))
             .when(ActivityRelatedArtifactArchived, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactArchived</span>) =&gt;</span> match&lt;ArtifactType, SceneReport&gt;(e.type)
-                .when(Photo,                _ =&gt; report.photoTaken(e.details, e.path))
+                .when(Photo,                _ =&gt; report.photoTaken(e.details, e.path, e.timestamp))
                 .else(_ =&gt; report))
             .else(_ =&gt; report);
     }

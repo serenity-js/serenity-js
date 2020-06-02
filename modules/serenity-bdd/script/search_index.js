@@ -1063,13 +1063,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber213",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber216",
     "SerenityBDDReporter artifacts",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts artifactgenerated taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~artifactgenerated,artifactgenerated @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber225",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber228",
     "SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction",
     "test"
   ],
@@ -1153,7 +1153,7 @@ window.esdocSearchIndex = [
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber176",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber179",
     "SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context",
     "test"
   ],

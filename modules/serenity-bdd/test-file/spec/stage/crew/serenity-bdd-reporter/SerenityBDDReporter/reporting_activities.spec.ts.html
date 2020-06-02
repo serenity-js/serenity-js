@@ -124,7 +124,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Duration, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -137,7 +137,7 @@
     TestRunFinishes,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage&apos;</span>;
@@ -266,14 +266,17 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, () =&
         it(<span class="hljs-string">&apos;records the events in a correct order&apos;</span>, () =&gt; {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
 
+            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">0</span>));
+            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
+
             given(reporter).isNotifiedOfFollowingEvents(
                 <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                     <span class="hljs-keyword">new</span> TaskStarts(pickACard),
                         <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>)),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
                     <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>)),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
                 <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
@@ -282,8 +285,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, () =&
 
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>},
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>},
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
             ]);
         });
 
@@ -348,14 +351,17 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, () =&
         it(<span class="hljs-string">&apos;records the arbitrary JSON data emitted during the interaction&apos;</span>, () =&gt; {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
 
+            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">0</span>));
+            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
+
             given(reporter).isNotifiedOfFollowingEvents(
                 <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                 <span class="hljs-keyword">new</span> TaskStarts(pickACard),
                 <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>)),
+                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
                 <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>)),
+                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
                 <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
@@ -364,8 +370,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, () =&
 
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>},
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>},
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
             ]);
         });
     });
