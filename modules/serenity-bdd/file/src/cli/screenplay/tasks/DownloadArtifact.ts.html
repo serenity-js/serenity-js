@@ -196,17 +196,13 @@
     }
 
     private artifactURL() {
-        <span class="hljs-keyword">const</span> path = [
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-keyword">this</span>.repository.toString(),
             ...this.gav.groupId.split(<span class="hljs-string">&apos;.&apos;</span>),
             <span class="hljs-keyword">this</span>.gav.artifactId,
             <span class="hljs-keyword">this</span>.gav.version,
             <span class="hljs-keyword">this</span>.gav.toPath().value,
         ].join(<span class="hljs-string">&apos;/&apos;</span>);
-
-        <span class="hljs-keyword">return</span> resolve(
-            <span class="hljs-keyword">this</span>.repository.toString(),
-            path,
-        );
     }
 }
 </code></pre>
