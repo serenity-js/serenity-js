@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/serenity-js/serenity-js/compare/v2.7.0...v2.8.0) (2020-06-02)
+
+
+### Features
+
+* **serenity-bdd:** support for artifact repositories using local repository names ([523995b](https://github.com/serenity-js/serenity-js/commit/523995b82e6b7eedf635fb118336886125581f5d))
+
+
+
+
+
 # [2.7.0](https://github.com/serenity-js/serenity-js/compare/v2.6.0...v2.7.0) (2020-06-01)
 
 
