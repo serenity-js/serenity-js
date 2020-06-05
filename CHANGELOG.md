@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/serenity-js/serenity-js/compare/v2.8.1...v2.9.0) (2020-06-05)
+
+
+### Features
+
+* **serenity-bdd:** choose human-readable or short file names for your HTML reports ([1b19aee](https://github.com/serenity-js/serenity-js/commit/1b19aee87023e84fd85e65cb93f8ea65e5c95f92))
+* **serenity-bdd:** support for internal repositories that require authentication ([c14ac29](https://github.com/serenity-js/serenity-js/commit/c14ac29c3fd6257763f26201357721b1a04c72d5))
+
+
+
+
+
 ## [2.8.1](https://github.com/serenity-js/serenity-js/compare/v2.8.0...v2.8.1) (2020-06-02)
 
 
