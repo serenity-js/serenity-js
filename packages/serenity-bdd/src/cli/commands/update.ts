@@ -1,11 +1,13 @@
 import { Check, isTrue } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
+import { AxiosRequestConfig } from 'axios';
 import * as https from 'https';
 import { URL } from 'url';
+
 import { Argv } from '../Argv';
 import { defaults } from '../defaults';
-import { GAV } from '../model';
+import { Credentials, GAV } from '../model';
 import { Printer } from '../Printer';
 import { Complain, DownloadArtifact, FileExists, Notify } from '../screenplay';
 import { Actors, NotificationReporter, ProgressReporter } from '../stage';
@@ -20,11 +22,15 @@ export = {
         },
         ignoreSSL: {
             default:   false,
+            type:     'boolean',
             describe: 'Ignore SSL certificates',
         },
         repository: {
             default:   defaults.repository,
             describe: 'Maven repository url where we should look for the Serenity BDD CLI artifact',
+        },
+        auth: {
+            describe: `Credentials to authenticate with your repository - "<username>:<password>"`,
         },
         artifact: {
             default:   defaults.artifact,
@@ -38,7 +44,12 @@ export = {
             artifactGAV     = GAV.fromString(argv.artifact),
             pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath()),
             repository      = new URL(argv.repository),
-            httpsConfig     = { httpsAgent: new https.Agent({ rejectUnauthorized: ! argv.ignoreSSL }) };
+            requestConfig: AxiosRequestConfig = {
+                httpsAgent: new https.Agent({
+                    rejectUnauthorized: ! argv.ignoreSSL,
+                }),
+                auth: Credentials.fromString(argv.auth),
+            };
 
         configure({
             actors: new Actors(new Path(process.cwd())),
@@ -58,7 +69,7 @@ export = {
                         .identifiedBy(artifactGAV)
                         .availableFrom(repository)
                         .to(pathToArtifact.directory())
-                        .using(httpsConfig),
+                        .using(requestConfig),
                 ),
             )
             .catch(error => actorInTheSpotlight().attemptsTo(
