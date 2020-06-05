@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.1](https://github.com/serenity-js/serenity-js/compare/v2.8.0...v2.8.1) (2020-06-02)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** fixed issue with screenshots appearing out of order in the slideshow view ([a036605](https://github.com/serenity-js/serenity-js/commit/a036605fd226e0796821fa164da0460b697aa2e4)), closes [#582](https://github.com/serenity-js/serenity-js/issues/582)
+
+
+
+
+
 # [2.8.0](https://github.com/serenity-js/serenity-js/compare/v2.7.0...v2.8.0) (2020-06-02)
 
 
