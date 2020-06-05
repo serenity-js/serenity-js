@@ -46,6 +46,11 @@ export = {
             default: path.basename(process.cwd()),
             describe: `Project name to appear in the Serenity reports`,
         },
+        shortFilenames: {
+            default: false,
+            type: 'boolean',
+            describe: `Use unique hashes instead of human-readable names for the HTML files`,
+        },
         log: {
             default: defaults.log,
             choices: [ 'warn', 'info', 'debug' ],
@@ -71,6 +76,7 @@ export = {
         return actorCalled('Serenity/JS').attemptsTo(
             InvokeSerenityBDD.at(pathToArtifact)
                 .withProperties(SystemProperties.from({
+                    'serenity.compress.filenames': `${ argv.shortFilenames }`,
                     'LOG_LEVEL': argv.log,
                     'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
                 }))
