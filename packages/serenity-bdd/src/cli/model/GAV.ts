@@ -1,5 +1,5 @@
 import { Path } from '@serenity-js/core/lib/io';
-import { ensure, isDefined, isInRange, isInteger, Predicate, property, TinyType } from 'tiny-types';
+import { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } from 'tiny-types';
 
 /**
  * @package
@@ -25,10 +25,10 @@ export class GAV extends TinyType {
         public readonly classifier?: string,
     ) {
         super();
-        ensure('groupId', groupId, isDefined(), matchesRegex('group name', /^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/));
-        ensure('artifactId', artifactId, isDefined(), matchesRegex('artifact name', /^[a-z0-9_-]+$/));
-        ensure('version', version, isDefined(), matchesRegex('version', /^(?:\d+\.?){3}$/));
-        ensure('extension', extension, isDefined(), matchesRegex('version', /^[a-z]+$/));
+        ensure('groupId', groupId, isDefined(), matches(/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/));
+        ensure('artifactId', artifactId, isDefined(), matches(/^[a-z0-9_-]+$/));
+        ensure('version', version, isDefined(), matches(/^(?:\d+\.?){3}$/));
+        ensure('extension', extension, isDefined(), matches(/^[a-z]+$/));
     }
 
     toPath(): Path {
@@ -40,11 +40,4 @@ export class GAV extends TinyType {
 
         return new Path(`${ name }.${ this.extension}`);
     }
-}
-
-function matchesRegex(type: string, regex: RegExp): Predicate<string> {
-    return Predicate.to(`match ${type} regex ${regex}`, (value: string) =>
-        typeof value === 'string' &&
-        regex.test(value),
-    );
 }
