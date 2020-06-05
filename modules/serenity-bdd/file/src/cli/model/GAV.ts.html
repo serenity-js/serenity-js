@@ -122,7 +122,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/model/GAV.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-comment">/**
  * @package
@@ -148,10 +148,10 @@
         <span class="hljs-keyword">public</span> readonly classifier?: <span class="hljs-built_in">string</span>,
     </span>) {
         <span class="hljs-keyword">super</span>();
-        ensure(<span class="hljs-string">&apos;groupId&apos;</span>, groupId, isDefined(), matchesRegex(<span class="hljs-string">&apos;group name&apos;</span>, <span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
-        ensure(<span class="hljs-string">&apos;artifactId&apos;</span>, artifactId, isDefined(), matchesRegex(<span class="hljs-string">&apos;artifact name&apos;</span>, <span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));
-        ensure(<span class="hljs-string">&apos;version&apos;</span>, version, isDefined(), matchesRegex(<span class="hljs-string">&apos;version&apos;</span>, <span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
-        ensure(<span class="hljs-string">&apos;extension&apos;</span>, extension, isDefined(), matchesRegex(<span class="hljs-string">&apos;version&apos;</span>, <span class="hljs-regexp">/^[a-z]+$/</span>));
+        ensure(<span class="hljs-string">&apos;groupId&apos;</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
+        ensure(<span class="hljs-string">&apos;artifactId&apos;</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));
+        ensure(<span class="hljs-string">&apos;version&apos;</span>, version, isDefined(), matches(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
+        ensure(<span class="hljs-string">&apos;extension&apos;</span>, extension, isDefined(), matches(<span class="hljs-regexp">/^[a-z]+$/</span>));
     }
 
     toPath(): Path {
@@ -163,13 +163,6 @@
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.extension}</span>`</span>);
     }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matchesRegex</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, regex: <span class="hljs-built_in">RegExp</span></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`match <span class="hljs-subst">${<span class="hljs-keyword">type</span>}</span> regex <span class="hljs-subst">${regex}</span>`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-        <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&apos;string&apos;</span> &amp;&amp;
-        regex.test(value),
-    );
 }
 </code></pre>
 

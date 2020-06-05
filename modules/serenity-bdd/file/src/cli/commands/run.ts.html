@@ -169,6 +169,11 @@
             <span class="hljs-keyword">default</span>: path.basename(process.cwd()),
             describe: <span class="hljs-string">`Project name to appear in the Serenity reports`</span>,
         },
+        shortFilenames: {
+            <span class="hljs-keyword">default</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;boolean&apos;</span>,
+            describe: <span class="hljs-string">`Use unique hashes instead of human-readable names for the HTML files`</span>,
+        },
         log: {
             <span class="hljs-keyword">default</span>: defaults.log,
             choices: [ <span class="hljs-string">&apos;warn&apos;</span>, <span class="hljs-string">&apos;info&apos;</span>, <span class="hljs-string">&apos;debug&apos;</span> ],
@@ -194,6 +199,7 @@
         <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Serenity/JS&apos;</span>).attemptsTo(
             InvokeSerenityBDD.at(pathToArtifact)
                 .withProperties(SystemProperties.from({
+                    <span class="hljs-string">&apos;serenity.compress.filenames&apos;</span>: <span class="hljs-string">`<span class="hljs-subst">${ argv.shortFilenames }</span>`</span>,
                     <span class="hljs-string">&apos;LOG_LEVEL&apos;</span>: argv.log,
                     <span class="hljs-string">&apos;logback.configurationFile&apos;</span>: path.resolve(moduleRoot, <span class="hljs-string">&apos;./resources/logback.config.xml&apos;</span>),
                 }))

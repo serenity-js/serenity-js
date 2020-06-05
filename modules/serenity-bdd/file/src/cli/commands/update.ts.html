@@ -124,11 +124,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Check, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;https&apos;</span>;
 <span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
+
 <span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Argv&apos;</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../defaults&apos;</span>;
-<span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { Credentials, GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Printer&apos;</span>;
 <span class="hljs-keyword">import</span> { Complain, DownloadArtifact, FileExists, Notify } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Actors, NotificationReporter, ProgressReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
@@ -143,11 +145,15 @@
         },
         ignoreSSL: {
             <span class="hljs-keyword">default</span>:   <span class="hljs-literal">false</span>,
+            <span class="hljs-keyword">type</span>:     <span class="hljs-string">&apos;boolean&apos;</span>,
             describe: <span class="hljs-string">&apos;Ignore SSL certificates&apos;</span>,
         },
         repository: {
             <span class="hljs-keyword">default</span>:   defaults.repository,
             describe: <span class="hljs-string">&apos;Maven repository url where we should look for the Serenity BDD CLI artifact&apos;</span>,
+        },
+        auth: {
+            describe: <span class="hljs-string">`Credentials to authenticate with your repository - &quot;&lt;username&gt;:&lt;password&gt;&quot;`</span>,
         },
         artifact: {
             <span class="hljs-keyword">default</span>:   defaults.artifact,
@@ -161,7 +167,12 @@
             artifactGAV     = GAV.fromString(argv.artifact),
             pathToArtifact  = <span class="hljs-keyword">new</span> Path(argv.cacheDir).join(artifactGAV.toPath()),
             repository      = <span class="hljs-keyword">new</span> URL(argv.repository),
-            httpsConfig     = { httpsAgent: <span class="hljs-keyword">new</span> https.Agent({ rejectUnauthorized: ! argv.ignoreSSL }) };
+            requestConfig: AxiosRequestConfig = {
+                httpsAgent: <span class="hljs-keyword">new</span> https.Agent({
+                    rejectUnauthorized: ! argv.ignoreSSL,
+                }),
+                auth: Credentials.fromString(argv.auth),
+            };
 
         configure({
             actors: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
@@ -181,7 +192,7 @@
                         .identifiedBy(artifactGAV)
                         .availableFrom(repository)
                         .to(pathToArtifact.directory())
-                        .using(httpsConfig),
+                        .using(requestConfig),
                 ),
             )
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> actorInTheSpotlight().attemptsTo(

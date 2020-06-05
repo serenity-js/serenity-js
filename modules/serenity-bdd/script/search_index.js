@@ -955,6 +955,30 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/cli/model/Credentials.spec.ts.html#lineNumber8",
+    "Credentials",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/model/Credentials.spec.ts.html#lineNumber24",
+    "Credentials complains if the credentials string does not follow the <username>:<password> template",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/model/Credentials.spec.ts.html#lineNumber17",
+    "Credentials defaults to \"no credentials\" if the credentials are empty",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/model/Credentials.spec.ts.html#lineNumber10",
+    "Credentials defaults to \"no credentials\" if the credentials are not specified",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber8",
     "GAV",
     "test"
@@ -1422,6 +1446,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/cli/model/credentials.spec.ts",
+    "test-file/spec/cli/model/Credentials.spec.ts.html",
+    "spec/cli/model/Credentials.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/cli/model/gav.spec.ts",
     "test-file/spec/cli/model/GAV.spec.ts.html",
     "spec/cli/model/GAV.spec.ts",
@@ -1509,6 +1539,12 @@ window.esdocSearchIndex = [
     "src/cli/model/complaint.ts",
     "file/src/cli/model/Complaint.ts.html",
     "src/cli/model/Complaint.ts",
+    "file"
+  ],
+  [
+    "src/cli/model/credentials.ts",
+    "file/src/cli/model/Credentials.ts.html",
+    "src/cli/model/Credentials.ts",
     "file"
   ],
   [
