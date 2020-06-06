@@ -171,6 +171,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         ),
     );
 
+    <span class="hljs-keyword">const</span> jasmineScenario = <span class="hljs-keyword">new</span> ScenarioDetails(
+        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Paying with a default card&apos;</span>),
+        <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Online Checkout&apos;</span>),
+        <span class="hljs-keyword">new</span> FileSystemLocation(
+            <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`spec/checkout.spec.ts`</span>),
+        ),
+    );
+
     <span class="hljs-keyword">let</span> stage: Stage,
         stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
@@ -539,12 +547,6 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
         describe(<span class="hljs-string">&apos;indicates its execution context&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
-            beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-                given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                );
-            });
-
             <span class="hljs-comment">/**
              * @test {SerenityBDDReporter}
              * @test {TestRunnerDetected}
@@ -555,6 +557,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              */</span>
             it(<span class="hljs-string">&apos;specifies the test runner&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
+                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                     <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)),
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
@@ -574,6 +577,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              */</span>
             it(<span class="hljs-string">&apos;specifies the user story covered&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
+                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
@@ -584,6 +588,30 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
                     storyName: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
                     path: <span class="hljs-string">&apos;payments/checkout.feature&apos;</span>,
+                    <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                });
+            });
+
+            <span class="hljs-comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
+             */</span>
+            it(<span class="hljs-string">&apos;does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                given(reporter).isNotifiedOfFollowingEvents(
+                    <span class="hljs-keyword">new</span> SceneStarts(jasmineScenario),
+                    <span class="hljs-keyword">new</span> SceneFinished(jasmineScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> TestRunFinishes(),
+                );
+
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+
+                expect(report.userStory).to.deep.equal({
+                    id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
+                    storyName: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
+                    path: <span class="hljs-string">&apos;&apos;</span>,
                     <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
                 });
             });

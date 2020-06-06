@@ -173,6 +173,8 @@
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly scenarioDetails: ScenarioDetails</span>) {
 
+        <span class="hljs-keyword">const</span> isFeatureFile = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value.endsWith(<span class="hljs-string">&apos;.feature&apos;</span>);
+
         <span class="hljs-keyword">this</span>.report = {
             name:   <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
             title:  <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
@@ -187,7 +189,7 @@
             userStory: {
                 id:         <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-keyword">this</span>.scenarioDetails.category.value).value,
                 storyName:  <span class="hljs-keyword">this</span>.scenarioDetails.category.value,
-                path:       <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value,
+                path:       isFeatureFile() ? <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value : <span class="hljs-string">&apos;&apos;</span>,
                 <span class="hljs-keyword">type</span>:       <span class="hljs-string">&apos;feature&apos;</span>,
             },
         };
