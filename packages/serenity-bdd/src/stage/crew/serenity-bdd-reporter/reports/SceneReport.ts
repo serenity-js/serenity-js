@@ -50,6 +50,8 @@ export class SceneReport {
 
     constructor(public readonly scenarioDetails: ScenarioDetails) {
 
+        const isFeatureFile = () => this.scenarioDetails.location.path.value.endsWith('.feature');
+
         this.report = {
             name:   this.scenarioDetails.name.value,
             title:  this.scenarioDetails.name.value,
@@ -64,7 +66,7 @@ export class SceneReport {
             userStory: {
                 id:         new SceneReportId(this.scenarioDetails.category.value).value,
                 storyName:  this.scenarioDetails.category.value,
-                path:       this.scenarioDetails.location.path.value,
+                path:       isFeatureFile() ? this.scenarioDetails.location.path.value : '',
                 type:       'feature',
             },
         };

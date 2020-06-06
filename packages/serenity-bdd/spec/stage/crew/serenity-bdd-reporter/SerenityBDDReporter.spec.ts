@@ -48,6 +48,14 @@ describe('SerenityBDDReporter', () => {
         ),
     );
 
+    const jasmineScenario = new ScenarioDetails(
+        new Name('Paying with a default card'),
+        new Category('Online Checkout'),
+        new FileSystemLocation(
+            new Path(`spec/checkout.spec.ts`),
+        ),
+    );
+
     let stage: Stage,
         stageManager: sinon.SinonStubbedInstance<StageManager>,
         reporter: SerenityBDDReporter;
@@ -416,12 +424,6 @@ describe('SerenityBDDReporter', () => {
 
         describe('indicates its execution context', () => {
 
-            beforeEach(() => {
-                given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneStarts(defaultCardScenario),
-                );
-            });
-
             /**
              * @test {SerenityBDDReporter}
              * @test {TestRunnerDetected}
@@ -432,6 +434,7 @@ describe('SerenityBDDReporter', () => {
              */
             it('specifies the test runner', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
+                    new SceneStarts(defaultCardScenario),
                     new TestRunnerDetected(new Name('Cucumber')),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
@@ -451,6 +454,7 @@ describe('SerenityBDDReporter', () => {
              */
             it('specifies the user story covered', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
+                    new SceneStarts(defaultCardScenario),
                     new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
@@ -461,6 +465,30 @@ describe('SerenityBDDReporter', () => {
                     id: 'online-checkout',
                     storyName: 'Online Checkout',           // category name, a.k.a. feature name
                     path: 'payments/checkout.feature',
+                    type: 'feature',
+                });
+            });
+
+            /**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
+             */
+            it('does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)', () => {
+                given(reporter).isNotifiedOfFollowingEvents(
+                    new SceneStarts(jasmineScenario),
+                    new SceneFinished(jasmineScenario, new ExecutionSuccessful()),
+                    new TestRunFinishes(),
+                );
+
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+                expect(report.userStory).to.deep.equal({
+                    id: 'online-checkout',
+                    storyName: 'Online Checkout',           // category name, a.k.a. feature name
+                    path: '',
                     type: 'feature',
                 });
             });
