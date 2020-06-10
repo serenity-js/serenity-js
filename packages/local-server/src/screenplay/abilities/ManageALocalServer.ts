@@ -112,15 +112,19 @@ export class ManageALocalServer implements Ability {
      */
     listen(preferredPorts: number[]): Promise<void> {
         return getPort({ port: preferredPorts }).then(port => new Promise<void>((resolve, reject) => {
-            this.server.on('error', (error: Error & {code: string}) => {
+            function errorHandler(error: Error & {code: string}) {
                 if (error.code === 'EADDRINUSE') {
                     return reject(new ConfigurationError(`Server address is in use. Is there another server running on port ${ port }?`, error));
                 }
 
                 return reject(error);
-            });
+            }
+
+            this.server.once('error', errorHandler);
 
             this.server.listen(port, '127.0.0.1', () => {
+                this.server.removeListener('error', errorHandler);
+
                 resolve();
             });
         }));
