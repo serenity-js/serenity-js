@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/serenity-js/serenity-js/compare/v2.9.0...v2.10.0) (2020-06-06)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** corrected links to feature reports for non-Cucumber test suites ([7fce935](https://github.com/serenity-js/serenity-js/commit/7fce935cdfd64099cae9351dc98f99d0598396b0))
+
+
+### Features
+
+* **serenity-bdd:** updated Serenity BDD CLI to 2.1.11 ([c7cfd0d](https://github.com/serenity-js/serenity-js/commit/c7cfd0dfabd886b0cd66267f47282ffeb0cdcf0c))
+
+
+
+
+
 # [2.9.0](https://github.com/serenity-js/serenity-js/compare/v2.8.1...v2.9.0) (2020-06-05)
 
 
