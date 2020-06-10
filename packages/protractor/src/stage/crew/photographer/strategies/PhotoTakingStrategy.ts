@@ -46,8 +46,6 @@ export abstract class PhotoTakingStrategy {
                 id              = CorrelationId.create(),
                 nameSuffix      = this.photoNameFor(event);
 
-            // fixme: check if the actor can browse the web!
-
             stage.announce(new AsyncOperationAttempted(
                 new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
                 id,
