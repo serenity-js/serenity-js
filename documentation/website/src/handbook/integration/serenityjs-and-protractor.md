@@ -28,3 +28,5 @@ To see an example integration, have a look at [Serenity/JS Github](https://githu
 ## Configuration
 
 Serenity/JS can be configured using a [`SerenityConfig`](/modules/core/class/src/SerenityConfig.ts~SerenityConfig.html) object specified in the [Protractor configuration file](/modules/protractor). 
+
+Learn more from the `@serenity-js/protractor` module [readme](/modules/protractor/).

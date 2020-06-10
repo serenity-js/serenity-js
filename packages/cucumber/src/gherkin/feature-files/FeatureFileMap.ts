@@ -1,4 +1,4 @@
-import { Constructable, Constructor } from '../constructables';
+import { Constructor } from '../constructables';
 import { ItemNotFoundError } from './errors';
 
 /**
@@ -6,10 +6,10 @@ import { ItemNotFoundError } from './errors';
  */
 export class FeatureFileMap {
 
-    constructor(private readonly map: { [line: number]: Constructable<any> } = {}) {
+    constructor(private readonly map: { [line: number]: object } = {}) {
     }
 
-    set<T>(item: Constructable<T>) {
+    set(item: object) {
         return ({
             onLine: (line: number): FeatureFileMap => {
                 this.map[line] = item;
