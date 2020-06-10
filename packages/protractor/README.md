@@ -36,11 +36,24 @@ exports.config = {
         ]
     },
 
-    // ... other Protractor-specific configuration
+    // configure Cucumber runner
+    cucumberOpts: {
+        // see the Cucumber configuration options below
+    },
+
+    // configure Jasmine runner
+    jasmineNodeOpts: {
+        // see the Jasmine configuration options below
+    },
+
+    // ... other Protractor-specific configuration   
 };
 ```
 
-Learn more about [Protractor configuration file](https://github.com/angular/protractor/blob/master/lib/config.ts).
+Learn more about:
+- [Cucumber configuration options](https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html)
+- [Jasmine configuration options](https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html)
+- [Protractor configuration file](https://github.com/angular/protractor/blob/master/lib/config.ts).
 
 ### Interacting with websites and web apps
 
