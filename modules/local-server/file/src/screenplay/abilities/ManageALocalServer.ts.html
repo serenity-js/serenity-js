@@ -239,15 +239,19 @@
      */</span>
     listen(preferredPorts: <span class="hljs-built_in">number</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> getPort({ port: preferredPorts }).then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">resolve, reject</span>) =&gt; {
-            <span class="hljs-keyword">this</span>.server.on(<span class="hljs-params">&apos;error&apos;, (<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) =&gt; {
+            <span class="hljs-keyword">function</span> errorHandler(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) {
                 <span class="hljs-keyword">if</span> (<span class="hljs-params">error.code === &apos;EADDRINUSE&apos;</span>) {
                     <span class="hljs-keyword">return</span> reject(<span class="hljs-params"><span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-params">`Server address is <span class="hljs-keyword">in</span> use. Is there another server running on port ${ port }?`, error</span>)</span>);
                 }
 
                 <span class="hljs-keyword">return</span> reject(<span class="hljs-params">error</span>);
-            }</span>);
+            }
+
+            <span class="hljs-keyword">this</span>.server.once(<span class="hljs-params">&apos;error&apos;, errorHandler</span>);
 
             <span class="hljs-keyword">this</span>.server.listen(<span class="hljs-params">port, &apos;127.0.0.1&apos;, (<span class="hljs-params"></span>) =&gt; {
+                <span class="hljs-keyword">this</span>.server.removeListener(<span class="hljs-params">&apos;error&apos;, errorHandler</span>);
+
                 resolve(<span class="hljs-params"></span>);
             }</span>);
         }</span>));

@@ -1194,12 +1194,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/cli/cucumberconfig.ts~cucumberconfig#undefined",
-    "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-undefined",
-    "src/cli/CucumberConfig.ts~CucumberConfig#undefined",
-    "member"
-  ],
-  [
     "src/cli/cucumberconfig.ts~cucumberconfig#worldparameters",
     "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-worldParameters",
     "src/cli/CucumberConfig.ts~CucumberConfig#worldParameters",
@@ -1233,6 +1227,12 @@ window.esdocSearchIndex = [
     "src/errors/index.ts",
     "file/src/errors/index.ts.html",
     "src/errors/index.ts",
+    "file"
+  ],
+  [
+    "src/gherkin/constructables.ts",
+    "file/src/gherkin/constructables.ts.html",
+    "src/gherkin/constructables.ts",
     "file"
   ],
   [

@@ -191,10 +191,25 @@ exports.config = {
         ]
     },
 
-    <span class="hljs-comment">// ... other Protractor-specific configuration</span>
+    <span class="hljs-comment">// configure Cucumber runner</span>
+    cucumberOpts: {
+        <span class="hljs-comment">// see the Cucumber configuration options below</span>
+    },
+
+    <span class="hljs-comment">// configure Jasmine runner</span>
+    jasmineNodeOpts: {
+        <span class="hljs-comment">// see the Jasmine configuration options below</span>
+    },
+
+    <span class="hljs-comment">// ... other Protractor-specific configuration   </span>
 };
 </code></pre>
-<p>Learn more about <a href="https://github.com/angular/protractor/blob/master/lib/config.ts">Protractor configuration file</a>.</p>
+<p>Learn more about:</p>
+<ul>
+<li><a href="https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html">Cucumber configuration options</a></li>
+<li><a href="https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html">Jasmine configuration options</a></li>
+<li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">Protractor configuration file</a>.</li>
+</ul>
 <h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;

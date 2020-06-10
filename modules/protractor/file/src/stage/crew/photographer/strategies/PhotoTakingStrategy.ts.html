@@ -199,10 +199,19 @@
      */</span>
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.shouldTakeAPhotoOf(event)) {
+            <span class="hljs-keyword">let</span> browseTheWeb: BrowseTheWeb;
+
+            <span class="hljs-keyword">try</span> {
+                browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+            } <span class="hljs-keyword">catch</span> (error) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+            }
+
             <span class="hljs-keyword">const</span>
                 id              = CorrelationId.create(),
-                nameSuffix      = <span class="hljs-keyword">this</span>.photoNameFor(event),
-                browseTheWeb    = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+                nameSuffix      = <span class="hljs-keyword">this</span>.photoNameFor(event);
+
+            <span class="hljs-comment">// fixme: check if the actor can browse the web!</span>
 
             stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
                 <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[Photographer:<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Taking screenshot of &apos;<span class="hljs-subst">${ nameSuffix }</span>&apos;...`</span>),

@@ -163,8 +163,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated, ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -214,7 +216,7 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;correlates the photo with the activity it\&apos;s concerning&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`correlates the photo with the activity it&apos;s concerning`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
             )).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -276,6 +278,18 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                             <span class="hljs-string">`<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;platform&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;browserName&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;version&apos;</span>) }</span>-Betty succeeds (#1)`</span>,
                         );
                     });
+            })));
+
+        it(<span class="hljs-string">`does not attempt to take a photo if the actor in the spotlight can&apos;t BrowseTheWeb`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">&apos;Adam&apos;</span>).attemptsTo(
+                Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
+            )).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+
+                expect(recorder.events.length).to.equal(<span class="hljs-number">2</span>);
+                expect(recorder.events[<span class="hljs-number">0</span>]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[<span class="hljs-number">1</span>]).to.be.instanceOf(InteractionFinished);
+
+                <span class="hljs-comment">// no artifacts generated for an actor with no ability to BrowseTheWeb</span>
             })));
     });
 });

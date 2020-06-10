@@ -1549,7 +1549,7 @@
     "__docId__": 128,
     "kind": "file",
     "name": "src/cli/CucumberConfig.ts",
-    "content": "/**\n * @public\n */\nexport interface CucumberConfig {\n    /**\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  For Cucumber 4.x and above use the `require` option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @link https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     */\n    compiler?: string;\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     */\n    format?: string;\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     */\n    formatOptions?: string;\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     */\n    name?: string[];\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     */\n    profile?: string[];\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     */\n    require?: string[];\n\n    /**\n     * @desc\n     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.\n     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * tag: '@smoketest and not @wip'\n     *\n     * @link https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @link https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     *\n     */\n    tags?: string[] | string;\n\n    /**\n     * @link https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     */\n    strict?: boolean;\n\n    'no-colors'?: boolean;\n\n    /**\n     * @link https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     */\n    worldParameters?: string;\n}\n",
+    "content": "/**\n * @public\n */\nexport interface CucumberConfig {\n    /**\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     */\n    compiler?: string;\n\n    /**\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     */\n    format?: string;\n\n    /**\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     */\n    formatOptions?: string;\n\n    /**\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     */\n    name?: string[];\n\n    /**\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     */\n    profile?: string[];\n\n    /**\n     * @desc\n     *  Require files before executing features\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     */\n    require?: string[];\n\n    /**\n     * @desc\n     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.\n     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     */\n    tags?: string[] | string;\n\n    /**\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     */\n    strict?: boolean;\n\n    /**\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     */\n    worldParameters?: string;\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/cucumber/src/cli/CucumberConfig.ts",
     "access": "public",
@@ -1579,22 +1579,22 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#compiler",
     "access": "public",
-    "description": " Step definitions and support files can be written in languages that transpile to JavaScript.\n To do set the `compiler` option to <file_extension>:<module_name>\n\n For Cucumber 4.x and above use the `require` option instead.",
+    "description": " Step definitions and support files can be written in languages that transpile to JavaScript.\n To do set the `compiler` option to <file_extension>:<module_name>\n\n For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.",
     "examples": [
       "<caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n compiler: 'ts:ts-node/register'"
     ],
-    "lineNumber": 36,
-    "version": "1.x - 3.x",
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers"
-      }
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers"
     ],
+    "lineNumber": 37,
+    "version": "1.x - 3.x",
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1605,18 +1605,18 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#format",
     "access": "public",
-    "description": "",
-    "lineNumber": 52,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats"
-      }
+    "description": " Specify additional output formats, optionally supply PATH to redirect formatter output",
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats"
     ],
+    "lineNumber": 57,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1627,18 +1627,21 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#formatOptions",
     "access": "public",
-    "description": "",
-    "lineNumber": 68,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options"
-      }
+    "description": " Provide options for formatters",
+    "examples": [
+      "<caption>Cucumber 1.x</caption>\n formatOptions: JSON.stringify({ option: 'value' })"
     ],
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options"
+    ],
+    "lineNumber": 80,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1649,18 +1652,18 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#name",
     "access": "public",
-    "description": "",
-    "lineNumber": 84,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features"
-      }
+    "description": " Only execute the scenarios with name matching the expression.",
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features"
     ],
+    "lineNumber": 100,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1671,18 +1674,18 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#profile",
     "access": "public",
-    "description": "",
-    "lineNumber": 100,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles"
-      }
+    "description": " In order to store and reuse commonly used CLI options,\n you can add a `cucumber.js` file to your project root directory.\n The file should export an object where the key is the profile name\n and the value is a string of CLI options.\n\n The profile can be applied with -p <NAME> or --profile <NAME>.\n This will prepend the profile's CLI options to the ones provided by the command line.\n Multiple profiles can be specified at a time.\n\n If no profile is specified and a profile named default exists,\n it will be applied.",
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles"
     ],
+    "lineNumber": 130,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1693,18 +1696,18 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#require",
     "access": "public",
-    "description": "",
-    "lineNumber": 116,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files"
-      }
+    "description": " Require files before executing features",
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files"
     ],
+    "lineNumber": 150,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1720,21 +1723,19 @@
       "<caption>Cucumber 1.x</caption>\ntag: [ '@smoketest', '~@wip' ]",
       "<caption>Cucumber >= 2.x</caption>\ntag: '@smoketest and not @wip'"
     ],
-    "lineNumber": 144,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags"
-      },
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags"
-      }
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags",
+      "https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags"
     ],
+    "lineNumber": 178,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string[]",
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1745,29 +1746,11 @@
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#strict",
     "access": "public",
-    "description": "",
-    "lineNumber": 160,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber"
-      }
+    "description": " Fail if there are any undefined or pending steps",
+    "see": [
+      "https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber"
     ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 138,
-    "kind": "member",
-    "memberof": "src/cli/CucumberConfig.ts~CucumberConfig",
-    "static": false,
-    "longname": "src/cli/CucumberConfig.ts~CucumberConfig#undefined",
-    "access": "public",
-    "description": " ",
-    "lineNumber": 67,
+    "lineNumber": 198,
     "type": {
       "nullable": null,
       "types": [
@@ -1778,29 +1761,32 @@
     }
   },
   {
-    "__docId__": 139,
+    "__docId__": 138,
     "kind": "member",
     "name": "worldParameters",
     "memberof": "src/cli/CucumberConfig.ts~CucumberConfig",
     "static": false,
     "longname": "src/cli/CucumberConfig.ts~CucumberConfig#worldParameters",
     "access": "public",
-    "description": "",
-    "lineNumber": 189,
-    "unknown": [
-      {
-        "tagName": "@link",
-        "tagValue": "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters"
-      }
+    "description": " Provide parameters that will be passed to the world constructor",
+    "examples": [
+      "<caption>Cucumber 1.x</caption>\nworldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })"
     ],
+    "see": [
+      "https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters"
+    ],
+    "lineNumber": 221,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 139,
     "kind": "file",
     "name": "src/cli/CucumberOptions.ts",
     "content": "import { Version } from '@serenity-js/core/lib/io';\nimport { CucumberConfig } from './CucumberConfig';\n\n/**\n * @private\n */\nexport class CucumberOptions {\n    constructor(private readonly config: CucumberConfig) {\n    }\n\n    asArgumentsForCucumber(version: Version): string[] {\n\n        return Object.keys(this.config)\n            .reduce(\n                (acc, option: keyof CucumberConfig) =>\n                    acc.concat(this.optionToValues(option, this.config[option], version)),\n\n                // Cucumber ignores the first two arguments anyway, but let's add them for completeness\n                //  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15\n                [ 'node', 'cucumber-js' ],\n            );\n    }\n\n    private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {\n        switch (true) {\n            case typeof value === 'boolean':\n                return listOf(this.flagToArg(option, value as boolean));\n            case option === 'tags' && version.isAtLeast(new Version('2.0.0')):\n                return this.valuesToArgs(option, this.tagsToCucumberExpressions(listOf(value as string | string[])));\n            default:\n                return this.valuesToArgs(option, listOf(value as string | string[]));\n        }\n    }\n\n    private tagsToCucumberExpressions(tags: string[]): string[] {\n        return tags.filter(tag => !! tag.replace)\n                .map(tag => tag.replace(/~/g, 'not '));\n    }\n\n    private flagToArg(option: string, value: boolean): string {\n        const isNegated = (optionName: string) => optionName.startsWith('no-');\n\n        switch (true) {\n            case !! value:\n                return `--${ option }`;\n            case isNegated(option) && ! value:\n                return `--${ option.replace(/^no-/, '') }`;\n            default:\n                return `--no-${ option }`;\n        }\n    }\n\n    private valuesToArgs(option: string, values: string | string[]): string[] {\n        return listOf(values)\n            .map(value => [ `--${ option }`, value])\n            .reduce((acc, tuple) => acc.concat(tuple), []);\n    }\n}\n\nfunction listOf<T>(valueOrValues: T | T[]): T[] {\n    return [].concat(valueOrValues);\n}\n",
@@ -1811,7 +1797,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 141,
+    "__docId__": 140,
     "kind": "class",
     "name": "CucumberOptions",
     "memberof": "src/cli/CucumberOptions.ts",
@@ -1827,7 +1813,7 @@
     "ignore": true
   },
   {
-    "__docId__": 142,
+    "__docId__": 141,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -1841,7 +1827,7 @@
     "undocument": true
   },
   {
-    "__docId__": 143,
+    "__docId__": 142,
     "kind": "method",
     "name": "asArgumentsForCucumber",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -1874,7 +1860,7 @@
     }
   },
   {
-    "__docId__": 144,
+    "__docId__": 143,
     "kind": "method",
     "name": "optionToValues",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -1928,7 +1914,7 @@
     "ignore": true
   },
   {
-    "__docId__": 145,
+    "__docId__": 144,
     "kind": "method",
     "name": "tagsToCucumberExpressions",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -1962,7 +1948,7 @@
     "ignore": true
   },
   {
-    "__docId__": 146,
+    "__docId__": 145,
     "kind": "method",
     "name": "flagToArg",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -2006,7 +1992,7 @@
     "ignore": true
   },
   {
-    "__docId__": 147,
+    "__docId__": 146,
     "kind": "method",
     "name": "valuesToArgs",
     "memberof": "src/cli/CucumberOptions.ts~CucumberOptions",
@@ -2051,7 +2037,7 @@
     "ignore": true
   },
   {
-    "__docId__": 148,
+    "__docId__": 147,
     "kind": "function",
     "name": "listOf",
     "memberof": "src/cli/CucumberOptions.ts",
@@ -2089,7 +2075,7 @@
     "ignore": true
   },
   {
-    "__docId__": 149,
+    "__docId__": 148,
     "kind": "file",
     "name": "src/cli/index.ts",
     "content": "export * from './CucumberCLIAdapter';\nexport * from './CucumberConfig';\n",
@@ -2100,7 +2086,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 150,
+    "__docId__": 149,
     "kind": "file",
     "name": "src/errors/AmbiguousStepDefinitionError.ts",
     "content": "import { RuntimeError } from '@serenity-js/core/lib/errors';\n\nexport class AmbiguousStepDefinitionError extends RuntimeError {\n    constructor(message: string, cause?: Error) {\n        super(AmbiguousStepDefinitionError, message, cause);\n    }\n}\n",
@@ -2111,7 +2097,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 151,
+    "__docId__": 150,
     "kind": "class",
     "name": "AmbiguousStepDefinitionError",
     "memberof": "src/errors/AmbiguousStepDefinitionError.ts",
@@ -2129,7 +2115,7 @@
     ]
   },
   {
-    "__docId__": 152,
+    "__docId__": 151,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError",
@@ -2143,12 +2129,23 @@
     "undocument": true
   },
   {
-    "__docId__": 153,
+    "__docId__": 152,
     "kind": "file",
     "name": "src/errors/index.ts",
     "content": "export * from './AmbiguousStepDefinitionError';\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/cucumber/src/errors/index.ts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 153,
+    "kind": "file",
+    "name": "src/gherkin/constructables.ts",
+    "content": "export type Constructor<T> = new (...args: any[]) => T;\n",
+    "static": true,
+    "longname": "/home/travis/build/serenity-js/serenity-js/packages/cucumber/src/gherkin/constructables.ts",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2476,7 +2473,7 @@
     "__docId__": 168,
     "kind": "file",
     "name": "src/gherkin/feature-files/FeatureFileMap.ts",
-    "content": "import { Constructable, Constructor } from '../constructables';\nimport { ItemNotFoundError } from './errors';\n\n/**\n * @private\n */\nexport class FeatureFileMap {\n\n    constructor(private readonly map: { [line: number]: Constructable<any> } = {}) {\n    }\n\n    set<T>(item: Constructable<T>) {\n        return ({\n            onLine: (line: number): FeatureFileMap => {\n                this.map[line] = item;\n\n                return this;\n            },\n        });\n    }\n\n    get<T>(type: Constructor<T>) {\n        return ({\n            onLine: (line: number): T => {\n                const found = this.map[line];\n\n                if (! found) {\n                    throw new ItemNotFoundError(`Nothing was found on line ${ line }`);\n                }\n\n                if (! (found instanceof type))  {\n                    throw new ItemNotFoundError(`Item on line ${ line } is a ${ found.constructor.name }, not a ${ type.name }`);\n                }\n\n                return found as T;\n            },\n        });\n    }\n\n    getFirst<T>(type: Constructor<T>): T {\n        const\n            items = Object.keys(this.map).map(line => this.map[line]),\n            found = items.find(value => value instanceof type);\n\n        if (! found) {\n            const existingTypes = items.map(item => item.constructor.name).join(', ') || 'no items.';\n\n            throw new ItemNotFoundError(`Didn't find any ${ type.name } amongst ${ existingTypes }`);\n        }\n\n        return found;\n    }\n\n    size() {\n        return Object.keys(this.map).length;\n    }\n}\n",
+    "content": "import { Constructor } from '../constructables';\nimport { ItemNotFoundError } from './errors';\n\n/**\n * @private\n */\nexport class FeatureFileMap {\n\n    constructor(private readonly map: { [line: number]: object } = {}) {\n    }\n\n    set(item: object) {\n        return ({\n            onLine: (line: number): FeatureFileMap => {\n                this.map[line] = item;\n\n                return this;\n            },\n        });\n    }\n\n    get<T>(type: Constructor<T>) {\n        return ({\n            onLine: (line: number): T => {\n                const found = this.map[line];\n\n                if (! found) {\n                    throw new ItemNotFoundError(`Nothing was found on line ${ line }`);\n                }\n\n                if (! (found instanceof type))  {\n                    throw new ItemNotFoundError(`Item on line ${ line } is a ${ found.constructor.name }, not a ${ type.name }`);\n                }\n\n                return found as T;\n            },\n        });\n    }\n\n    getFirst<T>(type: Constructor<T>): T {\n        const\n            items = Object.keys(this.map).map(line => this.map[line]),\n            found = items.find(value => value instanceof type);\n\n        if (! found) {\n            const existingTypes = items.map(item => item.constructor.name).join(', ') || 'no items.';\n\n            throw new ItemNotFoundError(`Didn't find any ${ type.name } amongst ${ existingTypes }`);\n        }\n\n        return found;\n    }\n\n    size() {\n        return Object.keys(this.map).length;\n    }\n}\n",
     "static": true,
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/cucumber/src/gherkin/feature-files/FeatureFileMap.ts",
     "access": "public",
@@ -2529,7 +2526,7 @@
       {
         "nullable": null,
         "types": [
-          "Constructable"
+          "UNKNOWN"
         ],
         "spread": false,
         "optional": false,
@@ -5185,7 +5182,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.10.0\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 6.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.14.1\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/core\": \"2.x\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.2 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.10.0\",\n    \"@serenity-js/core\": \"2.10.0\",\n    \"@types/cucumber\": \"1.3.4\",\n    \"@types/mocha\": \"^7.0.2\",\n    \"cucumber\": \"1.3.3\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/cli\",\n      \"src/listeners/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.10.1\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 6.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.14.1\"\n  },\n  \"peerDependencies\": {\n    \"@serenity-js/core\": \"2.x\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.2 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.7\",\n    \"@integration/testing-tools\": \"2.10.1\",\n    \"@serenity-js/core\": \"2.10.1\",\n    \"@types/cucumber\": \"1.3.4\",\n    \"@types/mocha\": \"^7.0.2\",\n    \"cucumber\": \"1.3.3\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/cli\",\n      \"src/listeners/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/travis/build/serenity-js/serenity-js/packages/cucumber/package.json",
     "name": "package.json",
     "static": true,

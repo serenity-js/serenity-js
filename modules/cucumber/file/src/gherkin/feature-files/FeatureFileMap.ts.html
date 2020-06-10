@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/feature-files/FeatureFileMap.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Constructable, Constructor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constructables&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Constructor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constructables&apos;</span>;
 <span class="hljs-keyword">import</span> { ItemNotFoundError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./errors&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -129,10 +129,10 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FeatureFileMap {
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly map: { [line: <span class="hljs-built_in">number</span>]: Constructable&lt;<span class="hljs-built_in">any</span>&gt; } = {}</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly map: { [line: <span class="hljs-built_in">number</span>]: object } = {}</span>) {
     }
 
-    <span class="hljs-keyword">set</span>&lt;T&gt;(item: Constructable&lt;T&gt;) {
+    <span class="hljs-keyword">set</span>(item: object) {
         <span class="hljs-keyword">return</span> ({
             onLine: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
                 <span class="hljs-keyword">this</span>.map[line] = item;

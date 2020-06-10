@@ -1819,151 +1819,157 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber23",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber25",
     "Photographer",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber12",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber14",
     "Photographer",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber11",
-    "Photographer",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber11",
-    "Photographer",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber41",
-    "Photographer ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber35",
-    "Photographer complains when sent DomainEvents before getting assigned to a Stage",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber13",
-    "Photographer when instructed to take a photo of all interactions",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber52",
-    "Photographer when instructed to take a photo of all interactions correlates the photo with the activity it's concerning",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber101",
-    "Photographer when instructed to take a photo of all interactions includes the browser context in the name of the emitted artifact",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber40",
-    "Photographer when instructed to take a photo of all interactions takes a photo when a problem occurs",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber28",
-    "Photographer when instructed to take a photo of all interactions takes a photo when the interaction goes well",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber84",
-    "Photographer when instructed to take a photo of all interactions takes one photo per interaction",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber68",
-    "Photographer when instructed to take a photo of all interactions takes only one photo, even though nested tasks might all be marked as failing",
     "test"
   ],
   [
     "",
     "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber13",
+    "Photographer",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber13",
+    "Photographer",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber43",
+    "Photographer ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber37",
+    "Photographer complains when sent DomainEvents before getting assigned to a Stage",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber15",
+    "Photographer when instructed to take a photo of all interactions",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber54",
+    "Photographer when instructed to take a photo of all interactions ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber118",
+    "Photographer when instructed to take a photo of all interactions ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber103",
+    "Photographer when instructed to take a photo of all interactions includes the browser context in the name of the emitted artifact",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber42",
+    "Photographer when instructed to take a photo of all interactions takes a photo when a problem occurs",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber30",
+    "Photographer when instructed to take a photo of all interactions takes a photo when the interaction goes well",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber86",
+    "Photographer when instructed to take a photo of all interactions takes one photo per interaction",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber70",
+    "Photographer when instructed to take a photo of all interactions takes only one photo, even though nested tasks might all be marked as failing",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber15",
     "Photographer when instructed to take a photo of failed interactions,",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber47",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber49",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber79",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber81",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber28",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber30",
     "Photographer when instructed to take a photo of failed interactions, does nothing if everything goes well",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber35",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber37",
     "Photographer when instructed to take a photo of failed interactions, takes a photo when a problem occurs",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber63",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber65",
     "Photographer when instructed to take a photo of failed interactions, takes only one picture, even though nested tasks might all be marked as failing",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber16",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber18",
     "Photographer when instructed to take photos before and after all interactions",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber124",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber126",
     "Photographer when instructed to take photos before and after all interactions includes the browser context in the name of the emitted artifact",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber31",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber33",
     "Photographer when instructed to take photos before and after all interactions takes a before and after photo when the interaction goes well",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber63",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber65",
     "Photographer when instructed to take photos before and after all interactions takes a photo before and after Interaction, even though nested tasks might all be marked as failing",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber47",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber49",
     "Photographer when instructed to take photos before and after all interactions takes a photo when a problem occurs",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber83",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber85",
     "Photographer when instructed to take photos before and after all interactions takes two photos per interaction",
     "test"
   ],
