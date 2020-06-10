@@ -34,10 +34,19 @@ export abstract class PhotoTakingStrategy {
      */
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
         if (this.shouldTakeAPhotoOf(event)) {
+            let browseTheWeb: BrowseTheWeb;
+
+            try {
+                browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+            } catch (error) {
+                return void 0;
+            }
+
             const
                 id              = CorrelationId.create(),
-                nameSuffix      = this.photoNameFor(event),
-                browseTheWeb    = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+                nameSuffix      = this.photoNameFor(event);
+
+            // fixme: check if the actor can browse the web!
 
             stage.announce(new AsyncOperationAttempted(
                 new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),

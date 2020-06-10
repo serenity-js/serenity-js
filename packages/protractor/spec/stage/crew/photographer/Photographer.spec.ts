@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect, givenFollowingEvents } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, LogicError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/lib/events';
