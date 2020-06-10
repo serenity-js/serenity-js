@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/serenity-js/serenity-js/compare/v2.9.0...v2.10.0) (2020-06-06)
+
+**Note:** Version bump only for package @serenity-js-examples/cucumber-rest-api-level-testing
+
+
+
+
+
 # [2.9.0](https://github.com/serenity-js/serenity-js/compare/v2.8.1...v2.9.0) (2020-06-05)
 
 **Note:** Version bump only for package @serenity-js-examples/cucumber-rest-api-level-testing
