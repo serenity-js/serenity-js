@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';

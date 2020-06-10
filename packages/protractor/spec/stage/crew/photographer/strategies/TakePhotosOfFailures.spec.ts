@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';

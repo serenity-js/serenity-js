@@ -1,5 +1,7 @@
+import 'mocha';
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
@@ -49,7 +51,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it('correlates the photo with the activity it\'s concerning', () =>
+        it(`correlates the photo with the activity it's concerning`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
@@ -111,6 +113,18 @@ describe('Photographer', () => {
                             `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Betty succeeds (#1)`,
                         );
                     });
+            })));
+
+        it(`does not attempt to take a photo if the actor in the spotlight can't BrowseTheWeb`, () =>
+            expect(stage.theActorCalled('Adam').attemptsTo(
+                Perform.interactionThatSucceeds(1),
+            )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
+
+                expect(recorder.events.length).to.equal(2);
+                expect(recorder.events[0]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[1]).to.be.instanceOf(InteractionFinished);
+
+                // no artifacts generated for an actor with no ability to BrowseTheWeb
             })));
     });
 });

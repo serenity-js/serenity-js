@@ -6,7 +6,14 @@ import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
 
 class UIActors implements Cast {
     prepare(actor: Actor): Actor {
-        return actor.whoCan(BrowseTheWeb.using(protractor.browser));
+        switch (actor.name) {
+            case 'Adam':
+                return actor;
+
+            case 'Betty':
+            default:
+                return actor.whoCan(BrowseTheWeb.using(protractor.browser));
+        }
     }
 }
 
