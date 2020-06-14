@@ -1,5 +1,4 @@
 'use strict';
-const fs = require('fs');
 const cheerio = require('cheerio');
 
 module.exports = function highlightEsdoc(highlight, languages) {
@@ -7,12 +6,18 @@ module.exports = function highlightEsdoc(highlight, languages) {
     return function(files, ms, done) {
 
         Object.keys(files).filter(path => /\.html$/.test(path)).forEach(path => {
+            const matches = path.match(/.*\/.*\.([a-z]+)~?.*?\.html$/);
+            const originalExtension = matches && matches[1];
+
             const $ = cheerio.load(files[path].contents.toString('utf8'));
 
             $('pre code').each(function(i, node) {
                 const el = $(this);
 
-                const result = highlight.highlightAuto(el.text(), languages);
+                const result = highlight.highlightAuto(
+                    el.text(),
+                    originalExtension ? [originalExtension] : languages,
+                );
 
                 // if (! result.language) {
                 //     return done(new Error(`Could not detect the language of the following code sample: ${result.value}`));
