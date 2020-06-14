@@ -23,7 +23,7 @@ export function mocha(...params: string[]): Promise<SpawnResult> {
         ...params,
 
         // The path to the reporter needs to be relative to the Mocha module.
-        // Normally this will be simply "@serenity-js/jasmine" as the Serenity/JS adapter for Jasmine
+        // Normally this will be simply "@serenity-js/mocha" as the Serenity/JS adapter for Jasmine
         // will be installed next to it.
         `--reporter=${ path.resolve(__dirname, '../../../packages/mocha') }`,
 

@@ -7,17 +7,26 @@ import { Suite, Test } from 'mocha';
  */
 export class MochaTestMapper {
     public detailsOf(test: Test): ScenarioDetails {
+
+        function fileOf(t) {
+            return !! t.file || ! t.parent
+                ? t.file
+                : fileOf(t.parent);
+        }
+
         return new ScenarioDetails(
             new Name(this.nameOf(test)),
             new Category(this.featureNameFor(test)),
             new FileSystemLocation(
-                new Path(test.file),
+                new Path(fileOf(test)),
             ),
         );
     }
 
     public featureNameFor(scenario: Test | Suite): string {
-        return !! scenario.parent && scenario.parent.title.trim() !== ''
+        const parentTitle = scenario?.parent?.title;
+
+        return parentTitle !== undefined && parentTitle.trim() !== ''
             ? this.featureNameFor(scenario.parent)
             : scenario.title;
     }
