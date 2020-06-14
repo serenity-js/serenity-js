@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "test": "mocha --parallel --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "@serenity-js/assertions": "2.10.1",
     "@serenity-js/core": "2.10.1",
     "@serenity-js/mocha": "2.10.1",
-    "mocha": "^7.2.0"
+    "mocha": "^8.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^7.0.2"
