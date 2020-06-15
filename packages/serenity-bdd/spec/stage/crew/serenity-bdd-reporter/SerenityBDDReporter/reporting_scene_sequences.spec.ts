@@ -2,9 +2,19 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTagged, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, Description, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import {
+    BrowserTag,
+    Category,
+    Description,
+    ExecutionFailedWithError,
+    ExecutionSuccessful,
+    Name,
+    PlatformTag,
+    ScenarioDetails,
+    ScenarioParameters,
+} from '@serenity-js/core/lib/model';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -178,5 +188,84 @@ describe('SerenityBDDReporter', () => {
 
         expect(report.testSteps[1].description)
             .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);
+    });
+
+    /**
+     * @test {SerenityBDDReporter}
+     * @test {SceneSequenceDetected}
+     * @test {SceneTemplateDetected}
+     * @test {SceneParametersDetected}
+     * @test {ScenarioParameters}
+     * @test {SceneStarts}
+     * @test {SceneFinished}
+     * @test {ExecutionFailedWithError}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinishes}
+     */
+    it('ensures that context and tags are not duplicated despite having multiple scenarios in a sequence', () => {
+        given(reporter).isNotifiedOfFollowingEvents(
+            new SceneSequenceDetected(sequence),
+            new SceneTemplateDetected(template),
+            new SceneParametersDetected(
+                scenario1,
+                new ScenarioParameters(
+                    new Name('Serenity/JS contributors'),
+                    new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
+                    { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
+                ),
+            ),
+            new SceneStarts(scenario1),
+                new SceneTagged(
+                    scenario1,
+                    new BrowserTag('chrome', '83.0.4103.106'),
+                ),
+                new SceneTagged(
+                    scenario1,
+                    new PlatformTag('Mac OS X'),
+                ),
+            new SceneFinished(scenario1, new ExecutionFailedWithError(new Error('Something happened'))),
+
+            new SceneSequenceDetected(sequence),
+            new SceneTemplateDetected(template),
+            new SceneParametersDetected(
+                scenario2,
+                new ScenarioParameters(
+                    new Name('Serenity/JS contributors'),
+                    new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
+                    { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },
+                ),
+            ),
+            new SceneStarts(scenario2),
+                new SceneTagged(
+                    scenario2,
+                    new BrowserTag('chrome', '83.0.4103.106'),
+                ),
+                new SceneTagged(
+                    scenario2,
+                    new PlatformTag('Mac OS X'),
+                ),
+            new SceneFinished(scenario2, new ExecutionSuccessful()),
+            new TestRunFinishes(),
+        );
+
+        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+        expect(report.id).to.equal('reporting-results;reports-scenario-outlines;chrome-83-0-4103-106;mac-os-x');
+
+        expect(report.context).to.equal('chrome,Mac OS X');
+
+        expect(report.tags).to.deep.equal([{
+            browserName: 'chrome',
+            browserVersion: '83.0.4103.106',
+            displayName: 'chrome 83.0.4103.106',
+            name: 'chrome 83.0.4103.106',
+            type: 'browser',
+        }, {
+            displayName: 'Mac OS X',
+            name: 'Mac OS X',
+            platformName: 'Mac OS X',
+            platformVersion: '',
+            type: 'platform',
+        }]);
     });
 });

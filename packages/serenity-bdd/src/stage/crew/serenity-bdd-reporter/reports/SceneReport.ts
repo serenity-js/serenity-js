@@ -43,6 +43,7 @@ interface ScenarioParametersResultLocation {
 export class SceneReport {
     private static outcomeMapper = new OutcomeMapper();
 
+    private id: SceneReportId;
     private readonly report: Partial<SerenityBDDReport> & { children?: Array<Partial<TestStep>> };
     private readonly activities = new ActivityStack();
     private readonly parameters: ScenarioParametersResultLocation[] = [];
@@ -52,10 +53,11 @@ export class SceneReport {
 
         const isFeatureFile = () => this.scenarioDetails.location.path.value.endsWith('.feature');
 
+        this.id = new SceneReportId(this.scenarioDetails.category.value).append(this.scenarioDetails.name.value);
+
         this.report = {
             name:   this.scenarioDetails.name.value,
             title:  this.scenarioDetails.name.value,
-            id:     new SceneReportId(this.scenarioDetails.category.value).append(this.scenarioDetails.name.value).value,
             manual: false,
             testSteps: [],
             get children() {
@@ -64,7 +66,7 @@ export class SceneReport {
                 return this.testSteps;
             },
             userStory: {
-                id:         new SceneReportId(this.scenarioDetails.category.value).value,
+                id:         new SceneReportId(this.scenarioDetails.category.value).value(),
                 storyName:  this.scenarioDetails.category.value,
                 path:       isFeatureFile() ? this.scenarioDetails.location.path.value : '',
                 type:       'feature',
@@ -101,7 +103,14 @@ export class SceneReport {
                 };
             }
 
-            const concatenated = (...names: string[]): string => names.filter(name => !! name).join('/');
+            const concatenated = (...names: string[]): string =>
+                names.filter(name => !! name).join('/');
+
+            const unique = (items: string[]) =>
+                [...new Set(items)];
+
+            const appendUniqueTo = (commaSeparatedListOrEmpty: string, item: string): string =>
+                unique((commaSeparatedListOrEmpty || '').split(',').filter(_ => !! _).concat(item)).join(',');
 
             const serenityBDDTag = serenityBDDTagFrom(tag);
 
@@ -128,15 +137,21 @@ export class SceneReport {
                     report.additionalIssues  = (report.additionalIssues || []).concat(tag.name);
                 })
                 .when(BrowserTag,    (browserTag: BrowserTag) => {
-                    report.context   = [report.context, browserTag.browserName].filter(part => !! part).join(',');
-                    report.driver    = browserTag.browserName;
-                    report.id        = new SceneReportId(browserTag.name, report.id).value;
+                    report.context  = appendUniqueTo(report.context, browserTag.browserName);
+                    report.driver   = browserTag.browserName;
+
+                    this.id.append(browserTag.name);
                 })
                 .when(PlatformTag,   (platformTag: PlatformTag) => {
-                    report.context   = [report.context, platformTag.name].filter(part => !! part).join(',');
-                    report.id        = new SceneReportId(platformTag.name, report.id).value;
+                    report.context  = appendUniqueTo(report.context, platformTag.name);
+
+                    this.id.append(platformTag.name);
                 })
-                .when(ContextTag,    _ => (report.context   = tag.name))
+                .when(ContextTag,    _ => {
+                    report.context   = tag.name;
+
+                    this.id.append(tag.name);
+                })
                 .else(_ => void 0);
 
             if (! report.tags.find(current => equal(current, serenityBDDTag))) {
@@ -324,6 +339,8 @@ export class SceneReport {
         const report = this.copyOf(this.report);
 
         delete report.children; // remove the fake reference
+
+        report.id = this.id.value();
 
         this.parameters.forEach(entry => {
 
