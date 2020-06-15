@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/CSSClasses.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { Attribute } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Attribute&apos;</span>;
@@ -173,15 +173,15 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CSSClasses
     <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;, RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
 {
-    <span class="hljs-keyword">static</span> of(target: Question&lt;ElementFinder&gt; | ElementFinder) {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CSSClasses(target);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
     }
 
-    of(parent: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CSSClasses(<span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">this</span>.target));
+    <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CSSClasses(<span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-built_in">this</span>.target));
     }
 
     <span class="hljs-comment">/**
@@ -197,7 +197,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
-        <span class="hljs-keyword">return</span> Attribute.of(<span class="hljs-keyword">this</span>.target).called(<span class="hljs-string">&apos;class&apos;</span>).answeredBy(actor)
+        <span class="hljs-keyword">return</span> Attribute.of(<span class="hljs-built_in">this</span>.target).called(<span class="hljs-string">&apos;class&apos;</span>).answeredBy(actor)
             .then(<span class="hljs-function"><span class="hljs-params">attribute</span> =&gt;</span> attribute
                 .replace(<span class="hljs-regexp">/\s+/</span>, <span class="hljs-string">&apos; &apos;</span>)
                 .trim()
@@ -210,7 +210,7 @@
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`the CSS classes of <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.target}</span>`</span>;
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`the CSS classes of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.target}</span>`</span>;
     }
 }
 </code></pre>

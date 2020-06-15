@@ -240,8 +240,8 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-keyword">constructor</span>() {
             <span class="hljs-comment">// Interactive elements represented as &quot;private&quot; fields of the page object</span>
             <span class="hljs-comment">// to encourage the developers to use the &quot;public&quot; methods instead</span>
-            <span class="hljs-keyword">this</span>._whatNeedsToBeDoneInputBox = element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>));
-            <span class="hljs-keyword">this</span>._recordedItems             = element.all(by.css(<span class="hljs-string">&apos;.todo-list li&apos;</span>));
+            <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox = element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>));
+            <span class="hljs-built_in">this</span>._recordedItems             = element.all(by.css(<span class="hljs-string">&apos;.todo-list li&apos;</span>));
         }
 
         <span class="hljs-comment">// The methods of the page object represent the tasks that the user</span>
@@ -253,8 +253,8 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-comment">// Each &quot;task method&quot; encapsulates the low-level interactions</span>
         <span class="hljs-comment">// like entering a value into a form field or clicking on a button:</span>
         <span class="hljs-keyword">async</span> recordItemCalled(itemName) {
-            <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>._whatNeedsToBeDoneInputBox.sendKeys(itemName);
-            <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>._whatNeedsToBeDoneInputBox.sendKeys(protractor.Key.ENTER);
+            <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox.sendKeys(itemName);
+            <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox.sendKeys(protractor.Key.ENTER);
         }
 
         <span class="hljs-keyword">async</span> completeItemCalled(itemName) {
@@ -275,7 +275,7 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-comment">// A data retrieval method designed to make it easier to perform</span>
         <span class="hljs-comment">// an assertion in the test</span>
         <span class="hljs-keyword">async</span> textOfRecordedItems() {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._recordedItems.getText();
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._recordedItems.getText();
         },
     };
 

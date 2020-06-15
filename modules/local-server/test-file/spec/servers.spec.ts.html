@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/servers.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -140,14 +140,14 @@
 <span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./servers&apos;</span>);
 
 <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
-describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;when working with HTTP&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when working with HTTP&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(servers).
         it(<span class="hljs-string">&apos;allows the Actor to start, stop and access the location of a HTTP&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
             <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.skip();
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
             <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
@@ -175,7 +175,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
         given(servers).
         it(<span class="hljs-string">&apos;complains when the actor tries to access a URL of a server that is not running&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
             <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.skip();
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
             <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
@@ -198,7 +198,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
 
     <span class="hljs-comment">// ---</span>
 
-    describe(<span class="hljs-string">&apos;when working with HTTPS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when working with HTTPS&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> testHttpsServer = [
             StartLocalServer.onOneOfThePreferredPorts([ <span class="hljs-number">8443</span>, <span class="hljs-number">9443</span> ]),
@@ -215,7 +215,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
         ).
         it(<span class="hljs-string">&apos;allows the Actor to start, stop and access the location of a HTTPS&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
             <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.skip();
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
             <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
@@ -250,7 +250,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             <span class="hljs-keyword">const</span> hapi = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./servers/hapi&apos;</span>);
 
             <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, hapi.node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.skip();
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
             <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
@@ -287,7 +287,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             <span class="hljs-keyword">const</span> restify = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./servers/restify&apos;</span>);
 
             <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, restify.node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.skip();
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
             <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
@@ -317,7 +317,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
         });
     });
 
-    afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorInTheSpotlight().attemptsTo(
+    afterEach(<span class="hljs-function">() =&gt;</span> actorInTheSpotlight().attemptsTo(
         StopLocalServer.ifRunning(),
     ));
 });

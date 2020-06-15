@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/proxies.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Dictionary {
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Dictionary {
     [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;
 }
 
@@ -248,8 +248,8 @@
  * @private
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">caseInsensitive</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">Dictionary</span>&gt;(<span class="hljs-params">dictionary: T</span>): <span class="hljs-title">T</span> &amp; <span class="hljs-title">Dictionary</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Proxy(dictionary, {
-        <span class="hljs-keyword">get</span>: &lt;K <span class="hljs-keyword">extends</span> keyof T &amp; <span class="hljs-built_in">string</span>&gt;<span class="hljs-function">(<span class="hljs-params">obj: T &amp; Dictionary, key: K</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(dictionary, {
+        get: &lt;K <span class="hljs-keyword">extends</span> keyof T &amp; <span class="hljs-built_in">string</span>&gt;<span class="hljs-function">(<span class="hljs-params">obj: T &amp; Dictionary, key: K</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">Object</span>.keys(obj)
                 .find(<span class="hljs-function"><span class="hljs-params">k</span> =&gt;</span> k.toLocaleLowerCase() === key.toLocaleLowerCase());
 

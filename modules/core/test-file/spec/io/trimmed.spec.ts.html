@@ -240,20 +240,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/trimmed.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-describe (<span class="hljs-string">&apos;`trimmed` tag function&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe (<span class="hljs-string">&apos;`trimmed` tag function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/** @test {trimmed} */</span>
-    it(<span class="hljs-string">&apos;trims the leading and trailing whitespace&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;trims the leading and trailing whitespace&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`  Hello world!  `</span>).to.equal(<span class="hljs-string">&apos;Hello world!&apos;</span>);
     });
 
     <span class="hljs-comment">/** @test {trimmed} */</span>
-    it(<span class="hljs-string">&apos;leaves the space between the lines if required&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;leaves the space between the lines if required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`
             | --------------------------------------------------------------------------------
             | features/payments/checkout.feature
@@ -273,7 +273,7 @@ describe (<span class="hljs-string">&apos;`trimmed` tag function&apos;</span>, <
     });
 
     <span class="hljs-comment">/** @test {trimmed} */</span>
-    it(<span class="hljs-string">&apos;trims padded multi-line string&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;trims padded multi-line string&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`
             | const SomeInteraction = () =&gt;
             |     Interaction.where(\`<span class="hljs-subst">${ <span class="hljs-string">&apos;#actor interacts with the system&apos;</span> }</span>\`, (actor: Actor) =&gt; {

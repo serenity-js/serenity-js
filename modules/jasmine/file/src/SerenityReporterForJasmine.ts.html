@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityReporterForJasmine.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     DomainEvent,
     SceneFinished,
@@ -167,31 +167,31 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityReporterForJasmine {
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> readonly errorMessagePattern = <span class="hljs-regexp">/^([^\s:]*Error):\s(.*)$/</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> errorMessagePattern = <span class="hljs-regexp">/^([^\s:]*Error):\s(.*)$/</span>;
     <span class="hljs-keyword">private</span> describes: SuiteResult[] = [];
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly serenity: Serenity</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>) {
     }
 
     suiteStarted(result: SuiteResult) {
-        <span class="hljs-keyword">this</span>.describes.push(result);
+        <span class="hljs-built_in">this</span>.describes.push(result);
 
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteStarts(<span class="hljs-keyword">this</span>.testSuiteDetailsOf(result), <span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteStarts(<span class="hljs-built_in">this</span>.testSuiteDetailsOf(result), <span class="hljs-built_in">this</span>.serenity.currentTime()));
     }
 
     suiteDone(result: SuiteResult) {
-        <span class="hljs-keyword">this</span>.describes = <span class="hljs-keyword">this</span>.describes.filter(<span class="hljs-function"><span class="hljs-params">suite</span> =&gt;</span> suite.id !== result.id);
+        <span class="hljs-built_in">this</span>.describes = <span class="hljs-built_in">this</span>.describes.filter(<span class="hljs-function"><span class="hljs-params">suite</span> =&gt;</span> suite.id !== result.id);
 
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteFinished(<span class="hljs-keyword">this</span>.testSuiteDetailsOf(result), <span class="hljs-keyword">this</span>.outcomeFrom(result), <span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteFinished(<span class="hljs-built_in">this</span>.testSuiteDetailsOf(result), <span class="hljs-built_in">this</span>.outcomeFrom(result), <span class="hljs-built_in">this</span>.serenity.currentTime()));
     }
 
     specStarted(result: SpecResult) {
-        <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">this</span>.scenarioDetailsOf(result);
+        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.scenarioDetailsOf(result);
 
-        <span class="hljs-keyword">this</span>.emit(
-            <span class="hljs-keyword">new</span> SceneStarts(details, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> SceneTagged(details, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-keyword">this</span>.currentFeatureName()), <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>), <span class="hljs-keyword">this</span>.serenity.currentTime()),
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> SceneStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> SceneTagged(details, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.currentFeatureName()), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
@@ -205,26 +205,26 @@
             result.failedExpectations.forEach(<span class="hljs-function"><span class="hljs-params">failedExpectation</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>), CorrelationId.create());
 
-                <span class="hljs-keyword">this</span>.emit(
-                    <span class="hljs-keyword">new</span> TaskStarts(details, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-                    <span class="hljs-keyword">new</span> TaskFinished(details, <span class="hljs-keyword">this</span>.failureOutcomeFrom(failedExpectation), <span class="hljs-keyword">this</span>.serenity.currentTime()),
+                <span class="hljs-built_in">this</span>.emit(
+                    <span class="hljs-keyword">new</span> TaskStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+                    <span class="hljs-keyword">new</span> TaskFinished(details, <span class="hljs-built_in">this</span>.failureOutcomeFrom(failedExpectation), <span class="hljs-built_in">this</span>.serenity.currentTime()),
                 );
             });
         }
 
-        <span class="hljs-keyword">const</span> scenarioDetails = <span class="hljs-keyword">this</span>.scenarioDetailsOf(result);
+        <span class="hljs-keyword">const</span> scenarioDetails = <span class="hljs-built_in">this</span>.scenarioDetailsOf(result);
 
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinishes(
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinishes(
             scenarioDetails,
-            <span class="hljs-keyword">this</span>.serenity.currentTime(),
+            <span class="hljs-built_in">this</span>.serenity.currentTime(),
         ));
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.serenity.waitForNextCue()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-                <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
+            .then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
                     scenarioDetails,
-                    <span class="hljs-keyword">this</span>.outcomeFrom(result),
-                    <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                    <span class="hljs-built_in">this</span>.outcomeFrom(result),
+                    <span class="hljs-built_in">this</span>.serenity.currentTime(),
                 ));
             });
     }
@@ -233,11 +233,11 @@
      * @param {JasmineDoneInfo} suiteInfo
      */</span>
     jasmineDone(suiteInfo: JasmineDoneInfo) {
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()));
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.serenity.waitForNextCue()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-                <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
+            .then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()));
             });
     }
 
@@ -246,7 +246,7 @@
      * @param {DomainEvent[]} events
      */</span>
     <span class="hljs-keyword">private</span> emit(...events: DomainEvent[]): <span class="hljs-built_in">void</span> {
-        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-keyword">this</span>.serenity.announce(event));
+        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.serenity.announce(event));
     }
 
     <span class="hljs-comment">/**
@@ -256,8 +256,8 @@
      */</span>
     <span class="hljs-keyword">private</span> scenarioDetailsOf(spec: SpecResult): ScenarioDetails {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-keyword">this</span>.currentScenarioNameFor(spec.description)),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-keyword">this</span>.currentFeatureName()),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-built_in">this</span>.currentScenarioNameFor(spec.description)),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-built_in">this</span>.currentFeatureName()),
             FileSystemLocation.fromJSON(spec.location <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>),
         );
     }
@@ -280,8 +280,8 @@
      * @returns {string}
      */</span>
     <span class="hljs-keyword">private</span> currentFeatureName(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> !! <span class="hljs-keyword">this</span>.describes[<span class="hljs-number">0</span>]
-            ? <span class="hljs-keyword">this</span>.describes[<span class="hljs-number">0</span>].description
+        <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.describes[<span class="hljs-number">0</span>]
+            ? <span class="hljs-built_in">this</span>.describes[<span class="hljs-number">0</span>].description
             : <span class="hljs-string">&apos;Unknown feature&apos;</span>;
     }
 
@@ -291,7 +291,7 @@
      * @returns {string}
      */</span>
     <span class="hljs-keyword">private</span> currentScenarioNameFor(itBlockDescription: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> [ topSuite, ...rest ] = <span class="hljs-keyword">this</span>.describes;
+        <span class="hljs-keyword">const</span> [ topSuite, ...rest ] = <span class="hljs-built_in">this</span>.describes;
 
         <span class="hljs-keyword">return</span> rest.reverse().reduce(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ current.description }</span> <span class="hljs-subst">${ acc }</span>`</span>, itBlockDescription);
     }
@@ -304,7 +304,7 @@
     <span class="hljs-keyword">private</span> outcomeFrom(result: SpecResult | SuiteResult): Outcome {
         <span class="hljs-keyword">switch</span> (result.status) {
             <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;failed&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.failureOutcomeFrom(result.failedExpectations[<span class="hljs-number">0</span>]);
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.failureOutcomeFrom(result.failedExpectations[<span class="hljs-number">0</span>]);
             <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;pending&apos;</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError((result <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).pendingReason || <span class="hljs-string">&apos;&apos;</span>));
             <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;excluded&apos;</span>:
@@ -321,7 +321,7 @@
      * @returns {ProblemIndication}
      */</span>
     <span class="hljs-keyword">private</span> failureOutcomeFrom(failure: Expectation): ProblemIndication {
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">this</span>.errorFrom(failure);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-built_in">this</span>.errorFrom(failure);
 
         <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> AssertionError) {
             <span class="hljs-comment">// sadly, Jasmine error propagation mechanism is rather basic</span>
@@ -343,12 +343,12 @@
     }
 
     <span class="hljs-keyword">private</span> errorFrom(failure: Expectation): <span class="hljs-built_in">Error</span> {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.containsCorrectlySerialisedError(failure)) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.containsCorrectlySerialisedError(failure)) {
             <span class="hljs-keyword">return</span> ErrorSerialiser.deserialiseFromStackTrace(failure.stack);
         }
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.containsIncorrectlySerialisedError(failure)) {
-            <span class="hljs-keyword">return</span> ErrorSerialiser.deserialiseFromStackTrace(<span class="hljs-keyword">this</span>.repairedStackTraceOf(failure));
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.containsIncorrectlySerialisedError(failure)) {
+            <span class="hljs-keyword">return</span> ErrorSerialiser.deserialiseFromStackTrace(<span class="hljs-built_in">this</span>.repairedStackTraceOf(failure));
         }
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(failure.message);

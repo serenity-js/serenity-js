@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/execute-script/ExecuteScript.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ExecuteAsynchronousScript } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ExecuteAsynchronousScript&apos;</span>;
 <span class="hljs-keyword">import</span> { ExecuteScriptFromUrl } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ExecuteScriptFromUrl&apos;</span>;
@@ -173,13 +173,13 @@
 <span class="hljs-comment">/**
  * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteScript</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>(sourceUrl: string): Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecuteScript {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>(sourceUrl: <span class="hljs-built_in">string</span>): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteScriptFromUrl(sourceUrl);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *  The script fragment will be executed as the body of an anonymous function.
      *  If the script is provided as a function object, that function will be converted to a string for injection
@@ -191,19 +191,19 @@
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {<span class="hljs-doctag">@link </span>ExecuteScript#sync},
+     *  Unlike executing synchronous JavaScript with {@link ExecuteScript#sync},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
      *  and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      *  If the script invokes the `callback` with a return value, this will be made available
-     *  via the {<span class="hljs-doctag">@Link </span>LastScriptExecution.result}
+     *  via the {@Link LastScriptExecution.result}
      *
-     *  **Please note** that in order to signal an error in the `script` you need to throw an {<span class="hljs-doctag">@link </span>Error}
+     *  **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
      *  instead of passing it to the callback function.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Executing an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Executing an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var callback = arguments[arguments.length - 1];
      *
@@ -212,7 +212,7 @@
      *    callback(result)
      *  ));
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var name = arguments[0];
      *    var age = arguments[1];
@@ -223,7 +223,7 @@
      *    callback(result)
      *  ).withArguments(&apos;Bob&apos;, 24));
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
      * actor.attemptsTo(ExecuteScript.async(
      *    var header = arguments[0];    // Target gets converted to a WebElement
      *    var callback = arguments[arguments.length - 1];
@@ -231,14 +231,14 @@
      *    callback(header.innerText)
      *  ).withArguments(Target.the(&apos;header&apos;).located(by.css(&apos;h1&apos;))));
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Function}</span> <span class="hljs-variable">script</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{ExecuteScriptWithArguments}</span></span>
+     * @param {string | Function} script
+     * @returns {ExecuteScriptWithArguments}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span>(script: string | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span>(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteAsynchronousScript(script);
     }
 
-    <span class="hljs-keyword">static</span> sync(script: string | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                  <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+    <span class="hljs-keyword">static</span> sync(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                  <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(script);
     }
 }

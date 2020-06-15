@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileSystemLocation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Path&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FileSystemLocation <span class="hljs-keyword">extends</span> TinyType {
@@ -251,11 +251,11 @@
     )
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly path: Path,
-        <span class="hljs-keyword">public</span> readonly line?: <span class="hljs-built_in">number</span>,
-        <span class="hljs-keyword">public</span> readonly column?: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> path: Path,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> line?: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> column?: <span class="hljs-built_in">number</span>,
     </span>) {
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
     }
 }
 </code></pre>

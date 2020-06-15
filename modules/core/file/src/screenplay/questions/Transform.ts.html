@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Transform.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actor&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actor&apos;</span>;
 <span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Answerable&apos;</span>;
 <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Question&apos;</span>;
 
@@ -248,38 +248,38 @@
  * @experimental
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Transform&lt;Answer_Type <span class="hljs-keyword">extends</span> <span class="hljs-built_in">any</span>, Output_Type&gt; <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;Output_Type&gt;&gt; {
-    <span class="hljs-keyword">static</span> the&lt;AT <span class="hljs-keyword">extends</span> <span class="hljs-built_in">any</span>, OT&gt;<span class="hljs-function">(<span class="hljs-params">questions: Answerable&lt;AT&gt; | <span class="hljs-built_in">Array</span>&lt;Answerable&lt;AT&gt;&gt;, transformation: (<span class="hljs-params">...answers: AT[]</span>) =&gt; OT</span>) {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">Transform</span>&lt;<span class="hljs-params">AT</span>, <span class="hljs-params">OT</span>&gt;(<span class="hljs-params">[].concat(<span class="hljs-params">questions</span>), transformation</span>);
+    <span class="hljs-keyword">static</span> the&lt;AT <span class="hljs-keyword">extends</span> <span class="hljs-built_in">any</span>, OT&gt;(questions: Answerable&lt;AT&gt; | <span class="hljs-built_in">Array</span>&lt;Answerable&lt;AT&gt;&gt;, transformation: <span class="hljs-function">(<span class="hljs-params">...answers: AT[]</span>) =&gt;</span> OT) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Transform&lt;AT, OT&gt;([].concat(questions), transformation);
     }
 
-    <span class="hljs-params">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly questions: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;Answer_Type&gt;&gt;,
-        <span class="hljs-keyword">private</span> readonly transformation: (<span class="hljs-params">...answers: Answer_Type[]</span>) =&gt; Output_Type,
-        <span class="hljs-keyword">private</span> readonly description: <span class="hljs-built_in">string</span> = `a transformed answer`,
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> questions: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;Answer_Type&gt;&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> transformation: (...answers: Answer_Type[]) =&gt; Output_Type,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span> = `a transformed answer`,
     </span>) {
     }
 
-    /**
-     * @<span class="hljs-params">desc</span>
-     *  <span class="hljs-params">Overrides</span> <span class="hljs-params">the</span> <span class="hljs-params">default</span> {@<span class="hljs-params">link</span> <span class="hljs-params">Transform</span>#<span class="hljs-params">toString</span>} <span class="hljs-params">representation</span> <span class="hljs-params">of</span> <span class="hljs-params">this</span> <span class="hljs-params">object</span>.
+    <span class="hljs-comment">/**
+     * @desc
+     *  Overrides the default {@link Transform#toString} representation of this object.
      *
-     * @<span class="hljs-params">param</span> {<span class="hljs-params">string</span>} <span class="hljs-params">description</span>
-     * @<span class="hljs-params">returns</span> {<span class="hljs-params">Transform</span>}
-     */
-    <span class="hljs-params">as</span>(<span class="hljs-params">description: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">Transform</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.questions, <span class="hljs-keyword">this</span>.transformation, description</span>);
+     * @param {string} description
+     * @returns {Transform}
+     */</span>
+    <span class="hljs-keyword">as</span>(description: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Transform(<span class="hljs-built_in">this</span>.questions, <span class="hljs-built_in">this</span>.transformation, description);
     }
 
-    <span class="hljs-params">answeredBy</span>(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>): <span class="hljs-params">Promise</span>&lt;<span class="hljs-params">Output_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">Promise</span>.<span class="hljs-params">all</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.questions.map(<span class="hljs-params">question =&gt; actor.answer(<span class="hljs-params">question</span>)</span>)</span>)
-            .<span class="hljs-params">then</span>(<span class="hljs-params">answers =&gt; <span class="hljs-keyword">this</span>.transformation(<span class="hljs-params">...answers</span>)</span>);
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;Output_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(<span class="hljs-built_in">this</span>.questions.map(<span class="hljs-function"><span class="hljs-params">question</span> =&gt;</span> actor.answer(question)))
+            .then(<span class="hljs-function"><span class="hljs-params">answers</span> =&gt;</span> <span class="hljs-built_in">this</span>.transformation(...answers));
     }
 
-    <span class="hljs-params">toString</span><span class="hljs-params">()</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">this</span>.<span class="hljs-params">description</span>;
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

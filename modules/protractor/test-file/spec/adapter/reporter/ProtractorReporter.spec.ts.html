@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/reporter/ProtractorReporter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, SceneFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -175,13 +175,13 @@
 <span class="hljs-comment">/**
  * See the {@link ProtractorFrameworkAdapter} specs to see how the {@link ProtractorReporter} is used in the context
  */</span>
-describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> reporter:           ProtractorReporter,
         protractorRunner:   Runner,
         serenity:           Serenity;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         protractorRunner    = sinon.createStubInstance(Runner);
         reporter            = <span class="hljs-keyword">new</span> ProtractorReporter(protractorRunner);
         serenity            = <span class="hljs-keyword">new</span> Serenity();
@@ -196,7 +196,7 @@ describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span 
     );
 
     <span class="hljs-comment">/** @test {ProtractorReporter} */</span>
-    it(<span class="hljs-string">&apos;ignores events outcomes Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;ignores events outcomes Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         expect(reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(details, <span class="hljs-keyword">new</span> ExecutionSkipped()))).to.be.undefined;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
 
@@ -207,7 +207,7 @@ describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span 
     });
 
     <span class="hljs-comment">/** @test {ProtractorReporter} */</span>
-    it(<span class="hljs-string">&apos;ignores domain events Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;ignores domain events Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> artifact = TextData.fromJSON({ contentType: <span class="hljs-string">&apos;text/plain&apos;</span>, data: <span class="hljs-string">&apos;one,two,three&apos;</span>});
 

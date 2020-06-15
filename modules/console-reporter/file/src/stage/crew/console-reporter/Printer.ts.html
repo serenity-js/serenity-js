@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/Printer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> WritableStream = NodeJS.WritableStream;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> WritableStream = NodeJS.WritableStream;
 
 <span class="hljs-comment">/**
  * @desc
@@ -140,7 +140,7 @@
     <span class="hljs-comment">/**
      * @param {WritableStream} stdout
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly stdout: WritableStream = process.stdout</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stdout: WritableStream = process.stdout</span>) {
     }
 
     <span class="hljs-comment">/**
@@ -155,7 +155,7 @@
      * @returns {void}
      */</span>
     println(...args: <span class="hljs-built_in">any</span>[]) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.print(...args, <span class="hljs-string">&apos;\n&apos;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.print(...args, <span class="hljs-string">&apos;\n&apos;</span>);
     }
 
     <span class="hljs-comment">/**
@@ -168,8 +168,8 @@
      * @returns {void}
      */</span>
     print(...args: <span class="hljs-built_in">any</span>[]) {
-        <span class="hljs-keyword">this</span>.stdout.write(
-            <span class="hljs-keyword">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">&apos;&apos;</span>) }</span>`</span>),
+        <span class="hljs-built_in">this</span>.stdout.write(
+            <span class="hljs-built_in">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">&apos;&apos;</span>) }</span>`</span>),
         );
     }
 
@@ -180,7 +180,7 @@
      * @returns {void}
      */</span>
     indent() {
-        <span class="hljs-keyword">this</span>.indentation.increase();
+        <span class="hljs-built_in">this</span>.indentation.increase();
     }
 
     <span class="hljs-comment">/**
@@ -190,7 +190,7 @@
      * @returns {void}
      */</span>
     outdent() {
-        <span class="hljs-keyword">this</span>.indentation.decrease();
+        <span class="hljs-built_in">this</span>.indentation.decrease();
     }
 }
 
@@ -200,23 +200,23 @@
 <span class="hljs-keyword">class</span> Indentation {
     <span class="hljs-keyword">private</span> current = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly step: <span class="hljs-built_in">number</span></span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> step: <span class="hljs-built_in">number</span></span>) {
     }
 
     increase() {
-        <span class="hljs-keyword">this</span>.current += <span class="hljs-keyword">this</span>.step;
+        <span class="hljs-built_in">this</span>.current += <span class="hljs-built_in">this</span>.step;
     }
 
     decrease() {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.current - <span class="hljs-keyword">this</span>.step &gt;= <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">this</span>.current -= <span class="hljs-keyword">this</span>.step;
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.current - <span class="hljs-built_in">this</span>.step &gt;= <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">this</span>.current -= <span class="hljs-built_in">this</span>.step;
         }
     }
 
     indented(...fragments: <span class="hljs-built_in">string</span>[]) {
         <span class="hljs-keyword">return</span> fragments.join(<span class="hljs-string">&apos;&apos;</span>)
             .split(<span class="hljs-string">&apos;\n&apos;</span>)
-            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">&apos; &apos;</span>.repeat(<span class="hljs-keyword">this</span>.current) + line : <span class="hljs-string">&apos;&apos;</span>)
+            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">&apos; &apos;</span>.repeat(<span class="hljs-built_in">this</span>.current) + line : <span class="hljs-string">&apos;&apos;</span>)
             .join(<span class="hljs-string">&apos;\n&apos;</span>);
     }
 }

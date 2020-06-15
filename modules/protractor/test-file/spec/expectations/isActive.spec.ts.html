@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/isActive.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, not } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;isActive&apos;</span>, <span class="hlj
         Inactive_Input:     Target.the(<span class="hljs-string">&apos;inactive input&apos;</span>).located(by.id(<span class="hljs-string">&apos;inactive&apos;</span>)),
     };
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -192,7 +192,7 @@ describe(<span class="hljs-string">&apos;isActive&apos;</span>, <span class="hlj
     ));
 
     <span class="hljs-comment">/** @test {isActive} */</span>
-    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is active&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is active&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Active_Input, not(isActive())),
         Ensure.that(Page.Active_Input, not(isActive())),
         Click.on(Page.Active_Input),
@@ -201,20 +201,20 @@ describe(<span class="hljs-string">&apos;isActive&apos;</span>, <span class="hlj
     )).to.be.fulfilled);
 
     <span class="hljs-comment">/** @test {isActive} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when element is inactive&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is inactive&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Inactive_Input, isActive()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the inactive input to become active`</span>);
     });
 
     <span class="hljs-comment">/** @test {isActive} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Active_Input, isActive()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the active input does become active`</span>);
     });
 
     <span class="hljs-comment">/** @test {isActive} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Active_Input, isActive()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the active input does become active`</span>);
     });

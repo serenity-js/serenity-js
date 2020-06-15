@@ -125,25 +125,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/LocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { LogicError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { LogicError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-keyword">import</span> { AddressInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;net&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalServer</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> LocalServer {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Retrieves the URL of the local server started
-     *  using the {<span class="hljs-doctag">@link </span>StartLocalServer} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span> </span>Url of the locally running Node.js server
+     * @returns {@serenity-js/core/lib/screenplay~Question&lt;string&gt;} Url of the locally running Node.js server
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StartLocalServer}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}</span></span>
+     * @see {@link StartLocalServer}
+     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
      */</span>
     <span class="hljs-keyword">static</span> url() {
-        <span class="hljs-keyword">return</span> Question.about&lt;string&gt;(<span class="hljs-string">&apos;the URL of the local server&apos;</span>, actor =&gt; {
+        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;the URL of the local server&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).mapInstance(<span class="hljs-function">(<span class="hljs-params">server, protocol</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> info = server.address();
 
@@ -168,10 +168,10 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@param <span class="hljs-variable">maybeAddressInfo</span></span>
- * <span class="hljs-doctag">@private</span>
+ * @param maybeAddressInfo
+ * @private
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAddressInfo</span>(<span class="hljs-params">maybeAddressInfo: AddressInfo | string</span>): <span class="hljs-title">maybeAddressInfo</span> <span class="hljs-title">is</span> <span class="hljs-title">AddressInfo</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAddressInfo</span>(<span class="hljs-params">maybeAddressInfo: AddressInfo | <span class="hljs-built_in">string</span></span>): <span class="hljs-title">maybeAddressInfo</span> <span class="hljs-title">is</span> <span class="hljs-title">AddressInfo</span> </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeAddressInfo !== <span class="hljs-string">&apos;string&apos;</span>
         &amp;&amp; !! maybeAddressInfo.address
         &amp;&amp; !! maybeAddressInfo.family

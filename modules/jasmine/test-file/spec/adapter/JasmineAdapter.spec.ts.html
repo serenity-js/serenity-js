@@ -123,26 +123,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/JasmineAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { JasmineAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter&apos;</span>;
 <span class="hljs-keyword">import</span> { FakeJasmineRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FakeJasmineRunner&apos;</span>;
 
 <span class="hljs-comment">/** @test JasmineAdapter */</span>
-describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> loader: sinon.SinonStubbedInstance&lt;ModuleLoader&gt;;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         loader = sinon.createStubInstance(ModuleLoader);
-        (global <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = {
-            Suite: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
-            Spec: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+        (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = {
+            Suite: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+            Spec: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
             getEnv() {
                 <span class="hljs-keyword">return</span> {
-                    beforeEach: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
-                    afterAll: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                    beforeEach: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                    afterAll: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
                 };
             },
         };
@@ -150,12 +150,12 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
         loader.require.withArgs(<span class="hljs-string">&apos;jasmine&apos;</span>).returns(FakeJasmineRunner);
     });
 
-    afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        (global <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+    afterEach(<span class="hljs-function">() =&gt;</span> {
+        (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
     });
 
     <span class="hljs-comment">/** @test JasmineAdapter#run */</span>
-    it(<span class="hljs-string">&apos;defaults to running tests sequentially rather than in a random order&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;defaults to running tests sequentially rather than in a random order&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             config = {},
@@ -175,7 +175,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
     });
 
     <span class="hljs-comment">/** @test JasmineAdapter#run */</span>
-    it(<span class="hljs-string">&apos;configures the default timeout interval if required&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;configures the default timeout interval if required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             defaultTimeoutInterval = <span class="hljs-number">5000</span>,
@@ -183,7 +183,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
                 defaultTimeoutInterval,
             },
             specs  = [],
-            globalScope = global <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
+            globalScope = <span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
 
         expect(globalScope.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(<span class="hljs-literal">undefined</span>);
 

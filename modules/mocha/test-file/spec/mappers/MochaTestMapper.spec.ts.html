@@ -119,7 +119,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/mappers/MochaTestMapper.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 
@@ -128,17 +128,17 @@
 <span class="hljs-keyword">import</span> { MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/mappers&apos;</span>;
 <span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../exampleTest&apos;</span>;
 
-describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaTestMapper();
 
-    it(<span class="hljs-string">&apos;treats the outer-most describe as the name of the feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;treats the outer-most describe as the name of the feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> feature = mapper.featureNameFor(exampleTest)
 
         expect(feature).to.equal(<span class="hljs-string">&apos;Mocha reporting&apos;</span>);
     });
 
-    it(<span class="hljs-string">&apos;maps a Mocha test to Serenity/JS ScenarioDetails&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;maps a Mocha test to Serenity/JS ScenarioDetails&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> scenario = mapper.detailsOf(exampleTest)
 
         expect(scenario).to.equal(<span class="hljs-keyword">new</span> ScenarioDetails(

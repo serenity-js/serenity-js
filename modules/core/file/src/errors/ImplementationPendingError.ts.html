@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/ImplementationPendingError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./RuntimeError&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./RuntimeError&apos;</span>;
 
 <span class="hljs-comment">/**
  * @desc
@@ -263,14 +263,14 @@
  *
  * @extends {RuntimeError}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImplementationPendingError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ImplementationPendingError <span class="hljs-keyword">extends</span> RuntimeError {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">message</span></span> - Human-readable description of the error
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Error}</span> </span>[cause] - The root cause of this {<span class="hljs-doctag">@link </span>RuntimeError}, if any
+     * @param {string} message - Human-readable description of the error
+     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
      */</span>
-    <span class="hljs-keyword">constructor</span>(message: string, cause?: Error) {
-        <span class="hljs-keyword">super</span>(ImplementationPendingError, message, cause);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-built_in">super</span>(ImplementationPendingError, message, cause);
     }
 }
 </code></pre>

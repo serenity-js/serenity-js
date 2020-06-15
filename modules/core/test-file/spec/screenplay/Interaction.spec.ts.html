@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/Interaction.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated, ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/events&apos;</span>;
@@ -250,13 +250,13 @@
 <span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage/Extras&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> stage: Stage,
         Ivonne: Actor,
         stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         stageManager = sinon.createStubInstance(StageManager);
 
         stage = <span class="hljs-keyword">new</span> Stage(
@@ -266,13 +266,13 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
         Ivonne = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Ivonne&apos;</span>, stage);
     });
 
-    describe(<span class="hljs-string">&apos;when defining an interaction&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when defining an interaction&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** @test {Interaction} */</span>
-        it(<span class="hljs-string">&apos;provides a convenient factory method for synchronous interactions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;provides a convenient factory method for synchronous interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> spy = sinon.spy();
 
-            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
                 spy(actor);
             });
 
@@ -280,16 +280,16 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
                 InteractWithTheSystem(),
             ))
             .to.be.fulfilled
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            .then(<span class="hljs-function">() =&gt;</span> {
                 expect(spy).to.have.been.calledWith(Ivonne);
             });
         });
 
         <span class="hljs-comment">/** @test {Interaction} */</span>
-        it(<span class="hljs-string">&apos;provides a convenient factory method for asynchronous interactions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;provides a convenient factory method for asynchronous interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> spy = sinon.spy();
 
-            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
                 spy(actor);
 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
@@ -299,26 +299,26 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
                 InteractWithTheSystem(),
             ))
             .to.be.fulfilled
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            .then(<span class="hljs-function">() =&gt;</span> {
                 expect(spy).to.have.been.calledWith(Ivonne);
             });
         });
     });
 
-    describe(<span class="hljs-string">&apos;when handling errors&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when handling errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We&apos;re sorry, something happened`</span>);
 
-        it(<span class="hljs-string">&apos;rejects the promise when the interaction function rejects a promise&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.reject(error));
+        it(<span class="hljs-string">&apos;rejects the promise when the interaction function rejects a promise&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.reject(error));
 
             <span class="hljs-keyword">return</span> expect(Ivonne.attemptsTo(
                 InteractWithTheSystem(),
             )).to.be.rejectedWith(error);
         });
 
-        it(<span class="hljs-string">&apos;rejects the promise when the interaction function throws an error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;rejects the promise when the interaction function throws an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> error; });
+            <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> error; });
 
             <span class="hljs-keyword">return</span> expect(Ivonne.attemptsTo(
                 InteractWithTheSystem(),
@@ -327,12 +327,12 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
     });
 
     <span class="hljs-comment">/** @test {Interaction} */</span>
-    it(<span class="hljs-string">&apos;can optionally emit an artifact to be attached to the report or stored&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can optionally emit an artifact to be attached to the report or stored&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
             expectedArtifact = JSONData.fromJSON({ token: <span class="hljs-string">&apos;123&apos;</span> }),
             expectedArtifactName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Session Token&apos;</span>);
 
-        <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {
             actor.collect(expectedArtifact, expectedArtifactName);
         });
 
@@ -340,7 +340,7 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
             InteractWithTheSystem(),
         ))
         .to.be.fulfilled
-        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        .then(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> event = stageManager.notifyOf.args[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] <span class="hljs-keyword">as</span> ArtifactGenerated;
 
             expect(event.name).to.equal(expectedArtifactName);

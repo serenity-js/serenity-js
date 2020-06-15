@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/AssertionError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./RuntimeError&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./RuntimeError&apos;</span>;
 
 <span class="hljs-comment">/**
  * @desc
@@ -256,8 +256,8 @@
      * @param {any} actual - The value that was received instead of the expected one
      * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> readonly expected: <span class="hljs-built_in">any</span>, <span class="hljs-keyword">public</span> readonly actual: <span class="hljs-built_in">any</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
-        <span class="hljs-keyword">super</span>(AssertionError, message, cause);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> expected: <span class="hljs-built_in">any</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> actual: <span class="hljs-built_in">any</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-built_in">super</span>(AssertionError, message, cause);
     }
 }
 </code></pre>

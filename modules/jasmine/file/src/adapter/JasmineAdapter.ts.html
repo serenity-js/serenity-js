@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> reporter = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../index&apos;</span>);
 <span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./JasmineConfig&apos;</span>;
 
@@ -135,8 +135,8 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> JasmineAdapter {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly config: JasmineConfig,
-        <span class="hljs-keyword">private</span> readonly loader: ModuleLoader,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: JasmineConfig,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
     </span>) {
     }
 
@@ -147,14 +147,14 @@
     run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                JasmineRunner   = <span class="hljs-keyword">this</span>.loader.require(<span class="hljs-string">&apos;jasmine&apos;</span>),
+                JasmineRunner   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">&apos;jasmine&apos;</span>),
                 runner          = <span class="hljs-keyword">new</span> JasmineRunner({           <span class="hljs-comment">// instantiating the JasmineRunner has a side-effect...</span>
                     projectBaseDir: <span class="hljs-string">&apos;&apos;</span>,
                 }),
-                jasmine         = (global <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine;      <span class="hljs-comment">// ... of registering a global jasmine instance</span>
+                jasmine         = (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine;      <span class="hljs-comment">// ... of registering a global jasmine instance</span>
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.config.defaultTimeoutInterval) {
-                jasmine.DEFAULT_TIMEOUT_INTERVAL = <span class="hljs-keyword">this</span>.config.defaultTimeoutInterval;
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.config.defaultTimeoutInterval) {
+                jasmine.DEFAULT_TIMEOUT_INTERVAL = <span class="hljs-built_in">this</span>.config.defaultTimeoutInterval;
             }
 
             runner.clearReporters();
@@ -179,16 +179,16 @@
                      */</span>
                     random: <span class="hljs-literal">false</span>,
                 },
-                <span class="hljs-keyword">this</span>.config,
+                <span class="hljs-built_in">this</span>.config,
             ));
 
             runner.addReporter(reporter(jasmine));
 
             runner.onComplete(<span class="hljs-function">(<span class="hljs-params">passed: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> resolve());
 
-            runner.configureDefaultReporter(<span class="hljs-keyword">this</span>.config);
+            runner.configureDefaultReporter(<span class="hljs-built_in">this</span>.config);
 
-            runner.execute(pathsToScenarios, <span class="hljs-keyword">this</span>.config.grep);
+            runner.execute(pathsToScenarios, <span class="hljs-built_in">this</span>.config.grep);
         });
     }
 }

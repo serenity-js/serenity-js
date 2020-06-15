@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/notifier/Notifier.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> {
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
     DomainEvent,
     FeatureNarrativeDetected,
     SceneDescriptionDetected,
@@ -154,92 +154,92 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Notifier {
     <span class="hljs-keyword">private</span> currentScenario: ScenarioDetails;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly serenity: Serenity</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>) {
     }
 
     outlineDetected(scenario: Scenario, outline: ScenarioOutline, feature: Feature): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">const</span>
-            outlineDetails  = <span class="hljs-keyword">this</span>.detailsOf(outline, feature),
-            scenarioDetails = <span class="hljs-keyword">this</span>.detailsOf(scenario, feature),
+            outlineDetails  = <span class="hljs-built_in">this</span>.detailsOf(outline, feature),
+            scenarioDetails = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature),
             template        = outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.name.value).join(<span class="hljs-string">&apos;\n&apos;</span>);
 
-        <span class="hljs-keyword">this</span>.emit(...notEmpty([
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(outlineDetails, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(<span class="hljs-keyword">new</span> Description(template), <span class="hljs-keyword">this</span>.serenity.currentTime()),
+        <span class="hljs-built_in">this</span>.emit(...notEmpty([
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(outlineDetails, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> SceneTemplateDetected(<span class="hljs-keyword">new</span> Description(template), <span class="hljs-built_in">this</span>.serenity.currentTime()),
             <span class="hljs-keyword">new</span> SceneParametersDetected(
                 scenarioDetails,
                 outline.parameters[ scenario.location.line ],
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         ]));
     }
 
     scenarioStarts(scenario: Scenario, feature: Feature): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">this</span>.detailsOf(scenario, feature);
+        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature);
 
-        <span class="hljs-keyword">this</span>.currentScenario = details;
+        <span class="hljs-built_in">this</span>.currentScenario = details;
 
-        <span class="hljs-keyword">this</span>.emit(...notEmpty([
-            <span class="hljs-keyword">new</span> SceneStarts(details, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            feature.description &amp;&amp; <span class="hljs-keyword">new</span> FeatureNarrativeDetected(feature.description, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>), <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            ...this.scenarioHierarchyTagsFor(feature).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(details, tag, <span class="hljs-keyword">this</span>.serenity.currentTime())),
-            !! scenario.description &amp;&amp; <span class="hljs-keyword">new</span> SceneDescriptionDetected(scenario.description, <span class="hljs-keyword">this</span>.serenity.currentTime()),
-            ...scenario.tags.map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(details, tag, <span class="hljs-keyword">this</span>.serenity.currentTime())),
+        <span class="hljs-built_in">this</span>.emit(...notEmpty([
+            <span class="hljs-keyword">new</span> SceneStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            feature.description &amp;&amp; <span class="hljs-keyword">new</span> FeatureNarrativeDetected(feature.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            ...this.scenarioHierarchyTagsFor(feature).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(details, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
+            !! scenario.description &amp;&amp; <span class="hljs-keyword">new</span> SceneDescriptionDetected(scenario.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            ...scenario.tags.map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(details, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
         ]));
     }
 
     stepStarts(step: Step): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TaskStarts(<span class="hljs-keyword">new</span> ActivityDetails(step.name), <span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TaskStarts(<span class="hljs-keyword">new</span> ActivityDetails(step.name), <span class="hljs-built_in">this</span>.serenity.currentTime()));
     }
 
     stepFinished(step: Step, outcome: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> TaskFinished(
                 <span class="hljs-keyword">new</span> ActivityDetails(step.name),
                 outcome,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );
     }
 
     scenarioFinishes(scenario: Scenario, feature: Feature): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.emitSceneFinishes(<span class="hljs-keyword">this</span>.detailsOf(scenario, feature));
+        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.detailsOf(scenario, feature));
     }
 
     currentScenarioFinishes() {
-        <span class="hljs-keyword">this</span>.emitSceneFinishes(<span class="hljs-keyword">this</span>.currentScenario);
+        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.currentScenario);
     }
 
     scenarioFinished(scenario: Scenario, feature: Feature, outcome: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">this</span>.detailsOf(scenario, feature);
+        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature);
 
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinished(
                 details,
                 outcome,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );
     }
 
     testRunFinishes() {
-        <span class="hljs-keyword">this</span>.emit(
-            <span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-keyword">this</span>.serenity.currentTime()),
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
     testRunFinished() {
-        <span class="hljs-keyword">this</span>.emit(
-            <span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-keyword">this</span>.serenity.currentTime()),
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
     <span class="hljs-keyword">private</span> emitSceneFinishes(details: ScenarioDetails) {
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
                 details,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );
     }
@@ -268,7 +268,7 @@
     }
 
     <span class="hljs-keyword">private</span> emit(...events: DomainEvent[]) {
-        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-keyword">this</span>.serenity.announce(event));
+        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.serenity.announce(event));
     }
 }
 </code></pre>

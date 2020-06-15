@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/FeatureFileLoader.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -130,11 +130,11 @@
 <span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;gherkin&apos;</span>);
 <span class="hljs-keyword">import</span> { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
 
-describe(<span class="hljs-string">&apos;FeatureFileLoader&apos;</span>, () =&gt; {
+describe(<span class="hljs-string">&apos;FeatureFileLoader&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> sampleFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;sample.feature&apos;</span>));
 
-    it(<span class="hljs-string">&apos;caches the feature file map it has loaded&apos;</span>, () =&gt; {
+    it(<span class="hljs-string">&apos;caches the feature file map it has loaded&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             parser = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser()),

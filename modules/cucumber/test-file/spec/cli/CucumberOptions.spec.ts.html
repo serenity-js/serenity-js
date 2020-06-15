@@ -121,14 +121,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/cli/CucumberOptions.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/cli/CucumberOptions&apos;</span>;
 
-describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;when used to produce command line arguments for Cucumber CLI&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when used to produce command line arguments for Cucumber CLI&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
             <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;1.0.0&apos;</span>),
@@ -143,7 +143,7 @@ describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span cla
             expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>]);
         });
 
-        describe(<span class="hljs-string">&apos;tags&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;tags&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
                 <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>),
@@ -165,7 +165,7 @@ describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span cla
                 ]);
             });
 
-            it(<span class="hljs-string">&apos;passes the tags individually to Cucumber 1.x&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;passes the tags individually to Cucumber 1.x&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     tags: [
                         <span class="hljs-string">&apos;@smoke-test&apos;</span>,
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span cla
             });
         });
 
-        describe(<span class="hljs-string">&apos;flags&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;flags&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
                 { description: <span class="hljs-string">&apos;backtrace off&apos;</span>,    option: <span class="hljs-string">&apos;backtrace&apos;</span>,    state: <span class="hljs-literal">false</span>,  expected: <span class="hljs-string">&apos;--no-backtrace&apos;</span>   },
@@ -231,7 +231,7 @@ describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span cla
             });
         });
 
-        describe(<span class="hljs-string">&apos;other options&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;other options&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
                 { description: <span class="hljs-string">&apos;profile&apos;</span>,    option: <span class="hljs-string">&apos;profile&apos;</span>,    value: [<span class="hljs-string">&apos;dry&apos;</span>, <span class="hljs-string">&apos;progress&apos;</span>],          expected: [ <span class="hljs-string">&apos;--profile&apos;</span>, <span class="hljs-string">&apos;dry&apos;</span>, <span class="hljs-string">&apos;--profile&apos;</span>, <span class="hljs-string">&apos;progress&apos;</span> ] },

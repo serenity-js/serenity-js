@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/reports/ErrorRenderer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/errors&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 
 <span class="hljs-comment">/** @package */</span>
@@ -132,8 +132,8 @@
         <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread     Esdoc doesn&apos;t understand spread</span>
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
             {},
-            <span class="hljs-keyword">this</span>.renderError(error),
-            ((error <span class="hljs-keyword">instanceof</span> RuntimeError &amp;&amp; error.cause) ? { rootCause: <span class="hljs-keyword">this</span>.renderError(error.cause) } : {}),
+            <span class="hljs-built_in">this</span>.renderError(error),
+            ((error <span class="hljs-keyword">instanceof</span> RuntimeError &amp;&amp; error.cause) ? { rootCause: <span class="hljs-built_in">this</span>.renderError(error.cause) } : {}),
         );
     }
 

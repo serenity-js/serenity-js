@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runners/CucumberTestRunner.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberCLIAdapter, CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/cucumber/lib/cli&apos;</span>;     <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
 <span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunner&apos;</span>;
 
@@ -172,13 +172,13 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CucumberTestRunner <span class="hljs-keyword">implements</span> TestRunner {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly config: CucumberConfig,
-        <span class="hljs-keyword">private</span> readonly loader: ModuleLoader,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: CucumberConfig,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
     </span>) {
     }
 
     run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberCLIAdapter(<span class="hljs-keyword">this</span>.config, <span class="hljs-keyword">this</span>.loader).run(pathsToScenarios);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberCLIAdapter(<span class="hljs-built_in">this</span>.config, <span class="hljs-built_in">this</span>.loader).run(pathsToScenarios);
     }
 }
 </code></pre>

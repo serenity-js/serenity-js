@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/text/TextOfMultipleElements.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../withAnswerOf&apos;</span>;
@@ -176,11 +176,11 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TextOfMultipleElements
     <span class="hljs-keyword">implements</span> RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
 {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> readonly target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>) {
     }
 
-    of(parent: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfMultipleElements(<span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">this</span>.target));
+    <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfMultipleElements(<span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-built_in">this</span>.target));
     }
 
     <span class="hljs-comment">/**
@@ -199,14 +199,14 @@
 
         <span class="hljs-comment">// protractor ignores type definitions for the ElementArrayFinder, hence the `any`</span>
         <span class="hljs-comment">// https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92</span>
-        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-keyword">this</span>.target, <span class="hljs-function"><span class="hljs-params">eaf</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(eaf.getText() <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;);
+        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function"><span class="hljs-params">eaf</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(eaf.getText() <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;);
     }
 
     <span class="hljs-comment">/**
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`the text of <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.target }</span>`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`the text of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.target }</span>`</span>;
     }
 }
 </code></pre>

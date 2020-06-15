@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/Summary.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -140,14 +140,14 @@
  * @package
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Summary {
-    <span class="hljs-keyword">private</span> readonly records: SummaryRecord[] = [];
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> records: SummaryRecord[] = [];
 
     record(details: ScenarioDetails, outcome: Outcome, duration: Duration) {
-        <span class="hljs-keyword">this</span>.records.push({ details, outcome, duration });
+        <span class="hljs-built_in">this</span>.records.push({ details, outcome, duration });
     }
 
     aggregated(): AggregatedCategories {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.records.reduce(<span class="hljs-function">(<span class="hljs-params">acc: AggregatedCategories, record</span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.records.reduce(<span class="hljs-function">(<span class="hljs-params">acc: AggregatedCategories, record</span>) =&gt;</span> {
             acc.totalTime = acc.totalTime.plus(record.duration);
 
             <span class="hljs-keyword">const</span> categoryName = record.details.category.value;
@@ -173,7 +173,7 @@
             acc.categories[categoryName].totalTime = acc.categories[categoryName].totalTime.plus(record.duration);
 
             <span class="hljs-keyword">return</span> acc;
-        }, { categories: {}, totalTime: Duration.ofMilliseconds(<span class="hljs-number">0</span>), numberOfScenarios: <span class="hljs-keyword">this</span>.records.length });
+        }, { categories: {}, totalTime: Duration.ofMilliseconds(<span class="hljs-number">0</span>), numberOfScenarios: <span class="hljs-built_in">this</span>.records.length });
     }
 }
 

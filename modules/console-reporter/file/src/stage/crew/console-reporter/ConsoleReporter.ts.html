@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/ConsoleReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactGenerated,
@@ -206,7 +206,7 @@
     <span class="hljs-keyword">private</span> artifacts = <span class="hljs-keyword">new</span> ActivityRelatedArtifacts();
     <span class="hljs-keyword">private</span> summary = <span class="hljs-keyword">new</span> Summary();
     <span class="hljs-keyword">private</span> firstError: FirstError = <span class="hljs-keyword">new</span> FirstError();
-    <span class="hljs-keyword">private</span> readonly summaryFormatter: SummaryFormatter;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> summaryFormatter: SummaryFormatter;
 
     <span class="hljs-comment">/**
      * @desc
@@ -279,14 +279,14 @@
      * @param {@serenity-js/core/lib/stage~Stage} stage
      */</span>
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly printer: Printer,
-        <span class="hljs-keyword">private</span> readonly theme: TerminalTheme,
-        <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
         ensure(<span class="hljs-string">&apos;printer&apos;</span>, printer, isDefined());
         ensure(<span class="hljs-string">&apos;theme&apos;</span>, theme, isDefined());
 
-        <span class="hljs-keyword">this</span>.summaryFormatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-keyword">this</span>.theme);
+        <span class="hljs-built_in">this</span>.summaryFormatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-built_in">this</span>.theme);
     }
 
     <span class="hljs-comment">/**
@@ -300,7 +300,7 @@
      * @returns {@serenity-js/core/lib/stage~StageCrewMember} - A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
      */</span>
     assignedTo(stage: Stage) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConsoleReporter(<span class="hljs-keyword">this</span>.printer, <span class="hljs-keyword">this</span>.theme, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ConsoleReporter(<span class="hljs-built_in">this</span>.printer, <span class="hljs-built_in">this</span>.theme, stage);
     }
 
     <span class="hljs-comment">/**
@@ -316,142 +316,142 @@
         match(event)
             .when(SceneStarts, <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.firstError = <span class="hljs-keyword">new</span> FirstError();
-                <span class="hljs-keyword">this</span>.startTimes.recordStartOf(e);
+                <span class="hljs-built_in">this</span>.firstError = <span class="hljs-keyword">new</span> FirstError();
+                <span class="hljs-built_in">this</span>.startTimes.recordStartOf(e);
 
                 <span class="hljs-comment">// Print scenario header</span>
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.separator(<span class="hljs-string">&apos;-&apos;</span>));
-                <span class="hljs-keyword">this</span>.printer.println(e.value.location.path.value, e.value.location.line ? <span class="hljs-string">`:<span class="hljs-subst">${ e.value.location.line }</span>`</span> : <span class="hljs-string">&apos;&apos;</span>);
-                <span class="hljs-keyword">this</span>.printer.println();
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.heading(e.value.category.value, <span class="hljs-string">&apos;: &apos;</span>, e.value.name.value));
-                <span class="hljs-keyword">this</span>.printer.println();
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;-&apos;</span>));
+                <span class="hljs-built_in">this</span>.printer.println(e.value.location.path.value, e.value.location.line ? <span class="hljs-string">`:<span class="hljs-subst">${ e.value.location.line }</span>`</span> : <span class="hljs-string">&apos;&apos;</span>);
+                <span class="hljs-built_in">this</span>.printer.println();
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.heading(e.value.category.value, <span class="hljs-string">&apos;: &apos;</span>, e.value.name.value));
+                <span class="hljs-built_in">this</span>.printer.println();
 
             })
             .when(TaskStarts, <span class="hljs-function">(<span class="hljs-params">e: TaskStarts</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.printer.indent();
+                <span class="hljs-built_in">this</span>.printer.indent();
 
-                <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.firstError.alreadyRecorded()) {
-                    <span class="hljs-keyword">this</span>.printer.println(e.value.name.value);
+                <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.firstError.alreadyRecorded()) {
+                    <span class="hljs-built_in">this</span>.printer.println(e.value.name.value);
                 }
 
             })
             .when(InteractionStarts, <span class="hljs-function">(<span class="hljs-params">e: InteractionStarts</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.startTimes.recordStartOf(e);
+                <span class="hljs-built_in">this</span>.startTimes.recordStartOf(e);
 
             })
             .when(InteractionFinished, <span class="hljs-function">(<span class="hljs-params">e: InteractionFinished</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.printer.indent();
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.formattedOutcome(e));
+                <span class="hljs-built_in">this</span>.printer.indent();
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.formattedOutcome(e));
 
-                <span class="hljs-keyword">this</span>.printer.indent();
+                <span class="hljs-built_in">this</span>.printer.indent();
 
                 <span class="hljs-keyword">if</span> (e.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
-                    <span class="hljs-keyword">this</span>.firstError.recordIfNeeded(e.outcome.error);
+                    <span class="hljs-built_in">this</span>.firstError.recordIfNeeded(e.outcome.error);
 
                     <span class="hljs-keyword">if</span> (! (e.outcome.error <span class="hljs-keyword">instanceof</span> AssertionError)) {
-                        <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.outcome(e.outcome, e.outcome.error.toString()));
+                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, e.outcome.error.toString()));
                     }
                 }
 
-                <span class="hljs-keyword">const</span> artifacts = <span class="hljs-keyword">this</span>.artifacts.recordedFor(e.value);
+                <span class="hljs-keyword">const</span> artifacts = <span class="hljs-built_in">this</span>.artifacts.recordedFor(e.value);
 
                 <span class="hljs-keyword">if</span> (artifacts.filter(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> AssertionReport || a <span class="hljs-keyword">instanceof</span> LogEntry).length &gt; <span class="hljs-number">0</span>) {
-                    <span class="hljs-keyword">this</span>.printer.println();
+                    <span class="hljs-built_in">this</span>.printer.println();
                 }
 
                 artifacts.forEach(<span class="hljs-function"><span class="hljs-params">evt</span> =&gt;</span> {
                     <span class="hljs-keyword">if</span> (evt.artifact <span class="hljs-keyword">instanceof</span> AssertionReport) {
                         <span class="hljs-keyword">const</span> details = evt.artifact.map(
                             <span class="hljs-function">(<span class="hljs-params">artifactContents: { expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                                <span class="hljs-keyword">this</span>.theme.diff(
+                                <span class="hljs-built_in">this</span>.theme.diff(
                                     artifactContents.expected,
                                     artifactContents.actual,
                                 ),
                             );
 
-                        <span class="hljs-keyword">this</span>.printer.println();
+                        <span class="hljs-built_in">this</span>.printer.println();
 
-                        <span class="hljs-keyword">this</span>.printer.println(details);
+                        <span class="hljs-built_in">this</span>.printer.println(details);
 
-                        <span class="hljs-keyword">this</span>.printer.println();
+                        <span class="hljs-built_in">this</span>.printer.println();
                     }
 
                     <span class="hljs-keyword">if</span> (evt.artifact <span class="hljs-keyword">instanceof</span> LogEntry) {
                         <span class="hljs-keyword">const</span> details = evt.artifact.map(<span class="hljs-function">(<span class="hljs-params">artifactContents: { data: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> artifactContents.data);
 
                         <span class="hljs-keyword">if</span> (evt.name.value !== details) {
-                            <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.log(evt.name.value, <span class="hljs-string">&apos;:&apos;</span>));
+                            <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.log(evt.name.value, <span class="hljs-string">&apos;:&apos;</span>));
                         }
 
-                        <span class="hljs-keyword">this</span>.printer.println(details);
-                        <span class="hljs-keyword">this</span>.printer.println();
+                        <span class="hljs-built_in">this</span>.printer.println(details);
+                        <span class="hljs-built_in">this</span>.printer.println();
                     }
                 });
 
-                <span class="hljs-keyword">this</span>.printer.outdent();
+                <span class="hljs-built_in">this</span>.printer.outdent();
 
-                <span class="hljs-keyword">this</span>.printer.outdent();
+                <span class="hljs-built_in">this</span>.printer.outdent();
 
             })
             .when(ActivityRelatedArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactGenerated</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.artifacts.record(e);
+                <span class="hljs-built_in">this</span>.artifacts.record(e);
 
             })
             .when(TaskFinished, <span class="hljs-function">(<span class="hljs-params">e: TaskFinished</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.printer.outdent();
+                <span class="hljs-built_in">this</span>.printer.outdent();
 
                 <span class="hljs-keyword">if</span> (e.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
-                    <span class="hljs-keyword">this</span>.printer.indent();
-                    <span class="hljs-keyword">this</span>.printer.indent();
+                    <span class="hljs-built_in">this</span>.printer.indent();
+                    <span class="hljs-built_in">this</span>.printer.indent();
 
-                    <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.firstError.alreadyRecorded()) {
-                        <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.outcome(e.outcome, <span class="hljs-keyword">this</span>.iconFrom(e.outcome), e.outcome.error.toString()));
+                    <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.firstError.alreadyRecorded()) {
+                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, <span class="hljs-built_in">this</span>.iconFrom(e.outcome), e.outcome.error.toString()));
                     }
 
-                    <span class="hljs-keyword">this</span>.printer.outdent();
-                    <span class="hljs-keyword">this</span>.printer.outdent();
+                    <span class="hljs-built_in">this</span>.printer.outdent();
+                    <span class="hljs-built_in">this</span>.printer.outdent();
 
-                    <span class="hljs-keyword">this</span>.firstError.recordIfNeeded(e.outcome.error);
+                    <span class="hljs-built_in">this</span>.firstError.recordIfNeeded(e.outcome.error);
                 }
 
                 <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (! (e.outcome <span class="hljs-keyword">instanceof</span> ExecutionSuccessful)) {
-                    <span class="hljs-keyword">this</span>.printer.indent();
-                    <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.iconFrom(e.outcome), e.value.name.value);
+                    <span class="hljs-built_in">this</span>.printer.indent();
+                    <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.iconFrom(e.outcome), e.value.name.value);
 
-                    <span class="hljs-keyword">this</span>.printer.outdent();
+                    <span class="hljs-built_in">this</span>.printer.outdent();
                 }
 
             })
             .when(SceneFinished, <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">this</span>.summary.record(e.value, e.outcome, <span class="hljs-keyword">this</span>.startTimes.eventDurationOf(e));
+                <span class="hljs-built_in">this</span>.summary.record(e.value, e.outcome, <span class="hljs-built_in">this</span>.startTimes.eventDurationOf(e));
 
-                <span class="hljs-keyword">this</span>.printer.println();
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.outcome(e.outcome, <span class="hljs-keyword">this</span>.formattedOutcome(e, <span class="hljs-keyword">this</span>.deCamelCased(e.outcome.constructor.name))));
+                <span class="hljs-built_in">this</span>.printer.println();
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, <span class="hljs-built_in">this</span>.formattedOutcome(e, <span class="hljs-built_in">this</span>.deCamelCased(e.outcome.constructor.name))));
 
                 <span class="hljs-keyword">if</span> (e.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
 
-                    <span class="hljs-keyword">this</span>.printer.println();
-                    <span class="hljs-keyword">this</span>.printer.indent();
+                    <span class="hljs-built_in">this</span>.printer.println();
+                    <span class="hljs-built_in">this</span>.printer.indent();
 
-                    <span class="hljs-keyword">this</span>.printer.println(e.outcome.error.stack);
+                    <span class="hljs-built_in">this</span>.printer.println(e.outcome.error.stack);
 
-                    <span class="hljs-keyword">this</span>.printer.outdent();
+                    <span class="hljs-built_in">this</span>.printer.outdent();
                 }
 
-                <span class="hljs-keyword">this</span>.artifacts.clear();
+                <span class="hljs-built_in">this</span>.artifacts.clear();
             })
             .when(TestRunFinished, <span class="hljs-function">(<span class="hljs-params">e: TestRunFinished</span>) =&gt;</span> {
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
 
-                <span class="hljs-keyword">this</span>.printer.print(<span class="hljs-keyword">this</span>.summaryFormatter.format(<span class="hljs-keyword">this</span>.summary.aggregated()));
+                <span class="hljs-built_in">this</span>.printer.print(<span class="hljs-built_in">this</span>.summaryFormatter.format(<span class="hljs-built_in">this</span>.summary.aggregated()));
 
-                <span class="hljs-keyword">this</span>.printer.println(<span class="hljs-keyword">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
             })
             .else(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
@@ -460,12 +460,12 @@
 
     <span class="hljs-keyword">private</span> formattedOutcome(event: IdentifiableEvent &amp; { outcome: Outcome }, description: <span class="hljs-built_in">string</span> = event.value.name.value) {
         <span class="hljs-keyword">const</span>
-            icon = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.iconFrom(event.outcome) }</span>`</span>,
-            message = <span class="hljs-string">`<span class="hljs-subst">${ description }</span> (<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.startTimes.eventDurationOf(event) }</span>)`</span>;
+            icon = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.iconFrom(event.outcome) }</span>`</span>,
+            message = <span class="hljs-string">`<span class="hljs-subst">${ description }</span> (<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.startTimes.eventDurationOf(event) }</span>)`</span>;
 
         <span class="hljs-keyword">return</span> (event.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication)
-            ? <span class="hljs-keyword">this</span>.theme.outcome(event.outcome, <span class="hljs-string">`<span class="hljs-subst">${icon}</span><span class="hljs-subst">${message}</span>`</span>)
-            : <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.theme.outcome(event.outcome, icon) }</span><span class="hljs-subst">${ message }</span>`</span>;
+            ? <span class="hljs-built_in">this</span>.theme.outcome(event.outcome, <span class="hljs-string">`<span class="hljs-subst">${icon}</span><span class="hljs-subst">${message}</span>`</span>)
+            : <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.outcome(event.outcome, icon) }</span><span class="hljs-subst">${ message }</span>`</span>;
     }
 
     <span class="hljs-keyword">private</span> deCamelCased(name: <span class="hljs-built_in">string</span>) {
@@ -503,11 +503,11 @@
     <span class="hljs-keyword">private</span> times: { [correlationId: <span class="hljs-built_in">string</span>]: Timestamp } = {};
 
     recordStartOf(event: IdentifiableEvent) {
-        <span class="hljs-keyword">this</span>.times[event.value.toString()] = event.timestamp;
+        <span class="hljs-built_in">this</span>.times[event.value.toString()] = event.timestamp;
     }
 
     eventDurationOf(event: IdentifiableEvent &amp; { outcome: Outcome }): Duration {
-        <span class="hljs-keyword">return</span> event.timestamp.diff(<span class="hljs-keyword">this</span>.times[event.value.toString()]);
+        <span class="hljs-keyword">return</span> event.timestamp.diff(<span class="hljs-built_in">this</span>.times[event.value.toString()]);
     }
 }
 
@@ -515,17 +515,17 @@
     <span class="hljs-keyword">private</span> error: <span class="hljs-built_in">Error</span>;
 
     recordIfNeeded(error: <span class="hljs-built_in">Error</span>) {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.error) {
-            <span class="hljs-keyword">this</span>.error = error;
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.error) {
+            <span class="hljs-built_in">this</span>.error = error;
         }
     }
 
     alreadyRecorded(): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! <span class="hljs-keyword">this</span>.error;
+        <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.error;
     }
 
-    <span class="hljs-keyword">get</span>(): <span class="hljs-built_in">Error</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.error;
+    get(): <span class="hljs-built_in">Error</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.error;
     }
 }
 
@@ -534,16 +534,16 @@
     <span class="hljs-keyword">private</span> events: ActivityRelatedArtifactGenerated[] = [];
 
     record(event: ActivityRelatedArtifactGenerated) {
-        <span class="hljs-keyword">this</span>.events.push(event);
+        <span class="hljs-built_in">this</span>.events.push(event);
     }
 
     recordedFor(details: ActivityDetails): ActivityRelatedArtifactGenerated[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.events
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.events
             .filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.details.equals(details));
     }
 
     clear() {
-        <span class="hljs-keyword">this</span>.events = [];
+        <span class="hljs-built_in">this</span>.events = [];
     }
 }
 </code></pre>

@@ -163,70 +163,70 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Clear.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, LogicError, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, LogicError, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementFinder, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../withAnswerOf&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clear</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Clear <span class="hljs-keyword">extends</span> Interaction {
     <span class="hljs-keyword">static</span> theValueOf(field: Question&lt;ElementFinder&gt; | ElementFinder) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Clear(field);
     }
 
-    <span class="hljs-keyword">constructor</span>(private readonly field: Question&lt;ElementFinder&gt; | ElementFinder) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> field: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
-        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-keyword">this</span>.field, (elf: ElementFinder) =&gt;
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.field, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span>
             elf.getAttribute(<span class="hljs-string">&apos;value&apos;</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
                 <span class="hljs-keyword">if</span> (! value) {
                     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(
-                        <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.capitaliseFirstLetter(<span class="hljs-keyword">this</span>.field.toString()) }</span> doesn&apos;t seem to have a &apos;value&apos; attribute that could be cleared.`</span>,
+                        <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.capitaliseFirstLetter(<span class="hljs-built_in">this</span>.field.toString()) }</span> doesn&apos;t seem to have a &apos;value&apos; attribute that could be cleared.`</span>,
                     );
                 }
 
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.removeCharactersFrom(elf, value.length);
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.removeCharactersFrom(elf, value.length);
             }));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor clears the value of <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.field }</span>`</span>;
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor clears the value of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.field }</span>`</span>;
     }
 
-    private capitaliseFirstLetter(text: string) {
+    <span class="hljs-keyword">private</span> capitaliseFirstLetter(text: <span class="hljs-built_in">string</span>) {
         <span class="hljs-keyword">return</span> text.charAt(<span class="hljs-number">0</span>).toUpperCase() + text.substring(<span class="hljs-number">1</span>);
     }
 
-    private removeCharactersFrom(elf: ElementFinder, <span class="hljs-attr">numberOfCharacters</span>: number): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
+    <span class="hljs-keyword">private</span> removeCharactersFrom(elf: ElementFinder, numberOfCharacters: <span class="hljs-built_in">number</span>): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> numberOfCharacters === <span class="hljs-number">0</span>
-            ? <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">void</span> <span class="hljs-number">0</span>)
+            ? <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
             : elf.sendKeys(
                 protractor.Key.END,
                 ...this.times(numberOfCharacters, protractor.Key.BACK_SPACE),
             );
     }
 
-    private times(n: number, <span class="hljs-attr">key</span>: string) {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(n)).map(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> key);
+    <span class="hljs-keyword">private</span> times(n: <span class="hljs-built_in">number</span>, key: <span class="hljs-built_in">string</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(n)).map(<span class="hljs-function">() =&gt;</span> key);
     }
 }
 </code></pre>

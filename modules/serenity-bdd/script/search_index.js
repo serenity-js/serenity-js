@@ -1057,7 +1057,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber15",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber25",
     "SerenityBDDReporter",
     "test"
   ],
@@ -1111,7 +1111,7 @@ window.esdocSearchIndex = [
   ],
   [
     "serenitybddreporter scenesequencedetected scenetemplatedetected sceneparametersdetected scenarioparameters scenestarts scenefinished executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenesequencedetected,scenesequencedetected @serenity-js/core/lib/events~scenetemplatedetected,scenetemplatedetected @serenity-js/core/lib/events~sceneparametersdetected,sceneparametersdetected @serenity-js/core/lib/model~scenarioparameters,scenarioparameters @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber65",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber75",
     "SerenityBDDReporter captures information about a sequence of scenes (2 scenes in a sequence)",
     "test"
   ],
@@ -1135,7 +1135,7 @@ window.esdocSearchIndex = [
   ],
   [
     "serenitybddreporter scenesequencedetected scenetemplatedetected sceneparametersdetected scenarioparameters scenestarts scenefinished executionfailedwitherror executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenesequencedetected,scenesequencedetected @serenity-js/core/lib/events~scenetemplatedetected,scenetemplatedetected @serenity-js/core/lib/events~sceneparametersdetected,sceneparametersdetected @serenity-js/core/lib/model~scenarioparameters,scenarioparameters @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionfailedwitherror,executionfailedwitherror @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber136",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber146",
     "SerenityBDDReporter determines the result of the sequence based on the worst result of the contributing scenarios",
     "test"
   ],
@@ -1149,6 +1149,12 @@ window.esdocSearchIndex = [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful executionignored src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model~executionignored,executionignored",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber109",
     "SerenityBDDReporter emits an ArtifactGenerated event that is separate for each scenario",
+    "test"
+  ],
+  [
+    "serenitybddreporter scenesequencedetected scenetemplatedetected sceneparametersdetected scenarioparameters scenestarts scenefinished executionfailedwitherror executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenesequencedetected,scenesequencedetected @serenity-js/core/lib/events~scenetemplatedetected,scenetemplatedetected @serenity-js/core/lib/events~sceneparametersdetected,sceneparametersdetected @serenity-js/core/lib/model~scenarioparameters,scenarioparameters @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionfailedwitherror,executionfailedwitherror @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber205",
+    "SerenityBDDReporter ensures that context and tags are not duplicated despite having multiple scenarios in a sequence",
     "test"
   ],
   [
@@ -1813,8 +1819,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#value",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-member-value",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-value",
     "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#value",
+    "method"
+  ],
+  [
+    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#values",
+    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-member-values",
+    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#values",
     "member"
   ],
   [

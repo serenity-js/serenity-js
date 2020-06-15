@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/Printer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;chalk&apos;</span>);
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;chalk&apos;</span>);
 
 <span class="hljs-comment">/**
  * @package
@@ -129,17 +129,17 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Printer {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly out: NodeJS.WritableStream,
-        <span class="hljs-keyword">public</span> readonly err: NodeJS.WritableStream,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> out: NodeJS.WritableStream,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> err: NodeJS.WritableStream,
     </span>) {
     }
 
     info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.out.write(chalk.green(message) + <span class="hljs-string">&apos;\n&apos;</span>);
+        <span class="hljs-built_in">this</span>.out.write(chalk.green(message) + <span class="hljs-string">&apos;\n&apos;</span>);
     }
 
     error(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.out.write(chalk.red(message) + <span class="hljs-string">&apos;\n&apos;</span>);
+        <span class="hljs-built_in">this</span>.out.write(chalk.red(message) + <span class="hljs-string">&apos;\n&apos;</span>);
     }
 }
 </code></pre>

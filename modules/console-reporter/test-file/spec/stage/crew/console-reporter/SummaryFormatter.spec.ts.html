@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/console-reporter/SummaryFormatter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -135,7 +135,7 @@
 <span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/SummaryFormatter&apos;</span>;
 <span class="hljs-keyword">import</span> { ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/themes&apos;</span>;
 
-describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span>
         defaultCardPayment = <span class="hljs-keyword">new</span> ScenarioDetails(
             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Default card payment&apos;</span>),
@@ -161,12 +161,12 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
     <span class="hljs-keyword">let</span> summary: Summary,
         formatter: SummaryFormatter;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         summary = <span class="hljs-keyword">new</span> Summary();
         formatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-keyword">new</span> ThemeForMonochromaticTerminals());
     });
 
-    it(<span class="hljs-string">&apos;provides an empty description if no tests are recorded&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides an empty description if no tests are recorded&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
             | Execution Summary
@@ -177,7 +177,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;provides summary of a single successful category&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides summary of a single successful category&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 
@@ -191,7 +191,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;aggregates results per category&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;aggregates results per category&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
         summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
         summary.record(removingProductToBasket, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>)), Duration.ofMilliseconds(<span class="hljs-number">100</span>));
@@ -207,7 +207,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;caps the category name at 30 characters&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;caps the category name at 30 characters&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
@@ -220,7 +220,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;keeps the padding consistent between longer and shorter category names&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;keeps the padding consistent between longer and shorter category names&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
         summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 

@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/model/ScenarioOutline.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Description, Name, ScenarioParameters } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-keyword">import</span> { FeatureFileNode } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FeatureFileNode&apos;</span>;
@@ -134,11 +134,11 @@
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         location: FileSystemLocation,
         name: Name,
-        <span class="hljs-keyword">public</span> readonly description: Description,
-        <span class="hljs-keyword">public</span> readonly steps: Step[],
-        <span class="hljs-keyword">public</span> readonly parameters: { [line: <span class="hljs-built_in">number</span>]: ScenarioParameters },
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> steps: Step[],
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> parameters: { [line: <span class="hljs-built_in">number</span>]: ScenarioParameters },
     </span>) {
-        <span class="hljs-keyword">super</span>(location, name);
+        <span class="hljs-built_in">super</span>(location, name);
     }
 }
 </code></pre>

@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/feature-files/Cache.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { UnableToRetrieveFeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./errors&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -131,30 +131,30 @@
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> store: { [id: <span class="hljs-built_in">string</span>]: Value } = {}</span>) {
     }
 
-    <span class="hljs-keyword">set</span>(key: Key, value: Value): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.store[<span class="hljs-keyword">this</span>.idOf(key)] = value;
+    set(key: Key, value: Value): <span class="hljs-built_in">void</span> {
+        <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)] = value;
     }
 
-    <span class="hljs-keyword">get</span>(key: Key): Value {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.store[<span class="hljs-keyword">this</span>.idOf(key)]) {
+    get(key: Key): Value {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)]) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnableToRetrieveFeatureFileMap(
                 <span class="hljs-string">`Make sure you cache a value under <span class="hljs-subst">${ key.toString() }</span> before trying to retrieve it`</span>,
             );
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.store[<span class="hljs-keyword">this</span>.idOf(key)];
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)];
     }
 
     has(key: Key): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! <span class="hljs-keyword">this</span>.store[<span class="hljs-keyword">this</span>.idOf(key)];
+        <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)];
     }
 
     size(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.store).length;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.store).length;
     }
 
     clear(): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.store = {};
+        <span class="hljs-built_in">this</span>.store = {};
     }
 
     <span class="hljs-keyword">private</span> idOf(key: Key): <span class="hljs-built_in">string</span> {

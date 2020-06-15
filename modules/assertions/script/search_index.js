@@ -1393,265 +1393,265 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber22",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber23",
     "not",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber25",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber26",
     "not allows for the actor flow to continue when the \"actual\" meets the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber32",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber33",
     "not breaks the actor flow when \"actual\" does not meet the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber43",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber44",
     "not contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber56",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber57",
     "not double negative",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber58",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber59",
     "not double negative contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber49",
     "not flips the outcome of an assertion, but doesn't hide any errors that might have happened while making it",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber64",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber65",
     "not when combined with other assertions, such as",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber66",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber67",
     "not when combined with other assertions, such as and,",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber82",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber83",
     "not when combined with other assertions, such as and, contributes to a human-readable description",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber70",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber71",
     "not when combined with other assertions, such as and, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber110",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber111",
     "not when combined with other assertions, such as containAtLeastOneItemThat,",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber126",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber127",
     "not when combined with other assertions, such as containAtLeastOneItemThat, contributes to a human-readable description",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber114",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber115",
     "not when combined with other assertions, such as containAtLeastOneItemThat, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber88",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber89",
     "not when combined with other assertions, such as contains,",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber104",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber105",
     "not when combined with other assertions, such as contains, contributes to a human-readable description",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber92",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber93",
     "not when combined with other assertions, such as contains, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber132",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber133",
     "not when combined with other assertions, such as endsWith,",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber148",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber149",
     "not when combined with other assertions, such as endsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber136",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber137",
     "not when combined with other assertions, such as endsWith, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber154",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber155",
     "not when combined with other assertions, such as equals,",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber170",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber171",
     "not when combined with other assertions, such as equals, contributes to a human-readable description",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber158",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber159",
     "not when combined with other assertions, such as equals, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber220",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber221",
     "not when combined with other assertions, such as includes,",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber236",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber237",
     "not when combined with other assertions, such as includes, contributes to a human-readable description",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber224",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber225",
     "not when combined with other assertions, such as includes, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber198",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber199",
     "not when combined with other assertions, such as isFalse,",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber214",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber215",
     "not when combined with other assertions, such as isFalse, contributes to a human-readable description",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber202",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber203",
     "not when combined with other assertions, such as isFalse, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber242",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber243",
     "not when combined with other assertions, such as isGreaterThan,",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber258",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber259",
     "not when combined with other assertions, such as isGreaterThan, contributes to a human-readable description",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber246",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber247",
     "not when combined with other assertions, such as isGreaterThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber264",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber265",
     "not when combined with other assertions, such as isLessThan,",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber280",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber281",
     "not when combined with other assertions, such as isLessThan, contributes to a human-readable description",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber268",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber269",
     "not when combined with other assertions, such as isLessThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber176",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber177",
     "not when combined with other assertions, such as isTrue,",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber192",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber193",
     "not when combined with other assertions, such as isTrue, contributes to a human-readable description",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber180",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber181",
     "not when combined with other assertions, such as isTrue, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber286",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber287",
     "not when combined with other assertions, such as or,",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber302",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber303",
     "not when combined with other assertions, such as or, contributes to a human-readable description",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber290",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber291",
     "not when combined with other assertions, such as or, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber308",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber309",
     "not when combined with other assertions, such as startsWith,",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber324",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber325",
     "not when combined with other assertions, such as startsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber312",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber313",
     "not when combined with other assertions, such as startsWith, produces a sensible error message",
     "test"
   ],

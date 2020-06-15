@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/ManageALocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> getPort = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;get-port&apos;</span>);
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;http&apos;</span>;
 <span class="hljs-keyword">import</span> withShutdownSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;http-shutdown&apos;</span>);
@@ -171,7 +171,7 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ManageALocalServer <span class="hljs-keyword">implements</span> Ability {
 
-    <span class="hljs-keyword">private</span> readonly server: ServerWithShutdown;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> server: ServerWithShutdown;
 
     <span class="hljs-comment">/**
      * @desc
@@ -226,8 +226,8 @@
      *
      * @see https://www.npmjs.com/package/http-shutdown
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly protocol: SupportedProtocols, server: net.Server</span>) {
-        <span class="hljs-keyword">this</span>.server = withShutdownSupport(server);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protocol: SupportedProtocols, server: net.Server</span>) {
+        <span class="hljs-built_in">this</span>.server = withShutdownSupport(server);
     }
 
     <span class="hljs-comment">/**
@@ -238,49 +238,49 @@
      * @returns {Promise&lt;void&gt;}
      */</span>
     listen(preferredPorts: <span class="hljs-built_in">number</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> getPort({ port: preferredPorts }).then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">resolve, reject</span>) =&gt; {
-            <span class="hljs-keyword">function</span> errorHandler(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) {
-                <span class="hljs-keyword">if</span> (<span class="hljs-params">error.code === &apos;EADDRINUSE&apos;</span>) {
-                    <span class="hljs-keyword">return</span> reject(<span class="hljs-params"><span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-params">`Server address is <span class="hljs-keyword">in</span> use. Is there another server running on port ${ port }?`, error</span>)</span>);
+        <span class="hljs-keyword">return</span> getPort({ port: preferredPorts }).then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) </span>{
+                <span class="hljs-keyword">if</span> (error.code === <span class="hljs-string">&apos;EADDRINUSE&apos;</span>) {
+                    <span class="hljs-keyword">return</span> reject(<span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Server address is in use. Is there another server running on port <span class="hljs-subst">${ port }</span>?`</span>, error));
                 }
 
-                <span class="hljs-keyword">return</span> reject(<span class="hljs-params">error</span>);
+                <span class="hljs-keyword">return</span> reject(error);
             }
 
-            <span class="hljs-keyword">this</span>.server.once(<span class="hljs-params">&apos;error&apos;, errorHandler</span>);
+            <span class="hljs-built_in">this</span>.server.once(<span class="hljs-string">&apos;error&apos;</span>, errorHandler);
 
-            <span class="hljs-keyword">this</span>.server.listen(<span class="hljs-params">port, &apos;127.0.0.1&apos;, (<span class="hljs-params"></span>) =&gt; {
-                <span class="hljs-keyword">this</span>.server.removeListener(<span class="hljs-params">&apos;error&apos;, errorHandler</span>);
+            <span class="hljs-built_in">this</span>.server.listen(port, <span class="hljs-string">&apos;127.0.0.1&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-built_in">this</span>.server.removeListener(<span class="hljs-string">&apos;error&apos;</span>, errorHandler);
 
-                resolve(<span class="hljs-params"></span>);
-            }</span>);
-        }</span>));
+                resolve();
+            });
+        }));
     }
 
-    /**
-     * @<span class="hljs-params">desc</span>
-     *  <span class="hljs-params">Provides</span> <span class="hljs-params">access</span> <span class="hljs-params">to</span> <span class="hljs-params">the</span> <span class="hljs-params">server</span> <span class="hljs-params">requestListener</span>
+    <span class="hljs-comment">/**
+     * @desc
+     *  Provides access to the server requestListener
      *
-     * @<span class="hljs-params">param</span> {<span class="hljs-params">function</span>(<span class="hljs-params">server: ServerWithShutdown, protocol?: SupportedProtocols</span>): <span class="hljs-params">T</span>} <span class="hljs-params">fn</span>
-     * @<span class="hljs-params">returns</span> {<span class="hljs-params">T</span>}
-     */
-    <span class="hljs-params">mapInstance</span>&lt;<span class="hljs-params">T</span>&gt;(<span class="hljs-params">fn: (<span class="hljs-params">server: ServerWithShutdown, protocol?: SupportedProtocols</span>) =&gt; T</span>): <span class="hljs-params">T</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">fn</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.server, <span class="hljs-keyword">this</span>.protocol</span>);
+     * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn
+     * @returns {T}
+     */</span>
+    mapInstance&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">server: ServerWithShutdown, protocol?: SupportedProtocols</span>) =&gt;</span> T): T {
+        <span class="hljs-keyword">return</span> fn(<span class="hljs-built_in">this</span>.server, <span class="hljs-built_in">this</span>.protocol);
     }
 }
 
-/**
- * @<span class="hljs-params">desc</span>
- *  <span class="hljs-params">A</span> `<span class="hljs-params">requestListener</span>` <span class="hljs-params">function</span> <span class="hljs-params">that</span> <span class="hljs-params">Node</span>&apos;<span class="hljs-params">s</span>
- *  [`<span class="hljs-params">http</span>.<span class="hljs-params">createServer</span>`](<span class="hljs-params">https:<span class="hljs-comment">//nodejs.org/api/http.html#http_http_createserver_options_requestlistener)</span>
- *  or [`https.createServer`](<span class="hljs-params">https:<span class="hljs-comment">//nodejs.org/api/https.html#https_https_createserver_options_requestlistener)</span>
+<span class="hljs-comment">/**
+ * @desc
+ *  A `requestListener` function that Node&apos;s
+ *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
+ *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
  *  would accept.
  *
- * @<span class="hljs-keyword">public</span>
+ * @public
  *
- * @typedef {<span class="hljs-keyword">function</span>(<span class="hljs-params">request: http.IncomingMessage, response: http.ServerResponse</span>): <span class="hljs-built_in">void</span>} RequestListener
- */
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> RequestListener = (<span class="hljs-params">request: http.IncomingMessage, response: http.ServerResponse</span>) =&gt; <span class="hljs-built_in">void</span>;
+ * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> RequestListener = <span class="hljs-function">(<span class="hljs-params">request: http.IncomingMessage, response: http.ServerResponse</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-comment">/**
  * @desc
@@ -292,7 +292,7 @@
  *
  * @typedef {net~Server &amp; { shutdown: (callback: (error?: Error) =&gt; void) =&gt; void }} ServerWithShutdown
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> ServerWithShutdown = net.Server &amp; { shutdown: (<span class="hljs-params">callback: (<span class="hljs-params">error?: <span class="hljs-built_in">Error</span></span>) =&gt; <span class="hljs-built_in">void</span></span>) =&gt; <span class="hljs-built_in">void</span> };
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> ServerWithShutdown = net.Server &amp; { shutdown: (callback: <span class="hljs-function">(<span class="hljs-params">error?: <span class="hljs-built_in">Error</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>) =&gt; <span class="hljs-built_in">void</span> };
 
 <span class="hljs-comment">/**
  * @desc
@@ -307,11 +307,11 @@
  * @property {string} HTTP
  * @property {string} HTTPS
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">enum</span> SupportedProtocols {
-    HTTP = &apos;http&apos;,
-    HTTPS = &apos;https&apos;,
+<span class="hljs-keyword">export</span> <span class="hljs-built_in">enum</span> SupportedProtocols {
+    HTTP = <span class="hljs-string">&apos;http&apos;</span>,
+    HTTPS = <span class="hljs-string">&apos;https&apos;</span>,
 }
-</span></span></span></code></pre>
+</code></pre>
 
 </article>
             </section>

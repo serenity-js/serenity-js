@@ -121,22 +121,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberOptions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberConfig&apos;</span>;
 
 <span class="hljs-comment">/**
  * @private
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CucumberOptions {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly config: CucumberConfig</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: CucumberConfig</span>) {
     }
 
     asArgumentsForCucumber(version: Version): <span class="hljs-built_in">string</span>[] {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.config)
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.config)
             .reduce(
                 <span class="hljs-function">(<span class="hljs-params">acc, option: keyof CucumberConfig</span>) =&gt;</span>
-                    acc.concat(<span class="hljs-keyword">this</span>.optionToValues(option, <span class="hljs-keyword">this</span>.config[option], version)),
+                    acc.concat(<span class="hljs-built_in">this</span>.optionToValues(option, <span class="hljs-built_in">this</span>.config[option], version)),
 
                 <span class="hljs-comment">// Cucumber ignores the first two arguments anyway, but let&apos;s add them for completeness</span>
                 <span class="hljs-comment">//  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15</span>
@@ -147,11 +147,11 @@
     <span class="hljs-keyword">private</span> optionToValues&lt;O <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(option: O, value: CucumberConfig[O], version: Version): <span class="hljs-built_in">string</span>[] {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&apos;boolean&apos;</span>:
-                <span class="hljs-keyword">return</span> listOf(<span class="hljs-keyword">this</span>.flagToArg(option, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
+                <span class="hljs-keyword">return</span> listOf(<span class="hljs-built_in">this</span>.flagToArg(option, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
             <span class="hljs-keyword">case</span> option === <span class="hljs-string">&apos;tags&apos;</span> &amp;&amp; version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>)):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.valuesToArgs(option, <span class="hljs-keyword">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(option, <span class="hljs-built_in">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
             <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.valuesToArgs(option, listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(option, listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
         }
     }
 

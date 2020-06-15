@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/ProtractorFrameworkAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
 <span class="hljs-keyword">const</span> isPlainObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;is-plain-object&apos;</span>);   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
@@ -180,9 +180,9 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorFrameworkAdapter {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly serenity: Serenity,
-        <span class="hljs-keyword">private</span> readonly protractorRunner: Runner,
-        <span class="hljs-keyword">private</span> readonly detector: TestRunnerDetector,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protractorRunner: Runner,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> detector: TestRunnerDetector,
     </span>) {
     }
 
@@ -194,29 +194,29 @@
      */</span>
     run(specs: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;ProtractorReport&gt; {
 
-        <span class="hljs-keyword">const</span> noop      = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-keyword">this</span>.defaultConfig(), <span class="hljs-keyword">this</span>.protractorRunner.getConfig(), {
+        <span class="hljs-keyword">const</span> noop      = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-built_in">this</span>.defaultConfig(), <span class="hljs-built_in">this</span>.protractorRunner.getConfig(), {
             isMergeableObject: isPlainObject,
         });
 
-        <span class="hljs-keyword">const</span> runner    = <span class="hljs-keyword">this</span>.detector.runnerFor(config);
-        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-keyword">this</span>.protractorRunner);
+        <span class="hljs-keyword">const</span> runner    = <span class="hljs-built_in">this</span>.detector.runnerFor(config);
+        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.protractorRunner);
 
-        <span class="hljs-keyword">this</span>.serenity.configure({
+        <span class="hljs-built_in">this</span>.serenity.configure({
             cueTimeout:     config.serenity.cueTimeout,
             actors:         config.serenity.actors,
             crew:           [
-                BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> protractor.browser)),
+                BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function">() =&gt;</span> protractor.browser)),
                 ...config.serenity.crew,
                 reporter,
             ],
         });
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> runner.run(specs))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve((config.onComplete || noop)()))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> reporter.report());
+            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
+            .then(<span class="hljs-function">() =&gt;</span> runner.run(specs))
+            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve((config.onComplete || noop)()))
+            .then(<span class="hljs-function">() =&gt;</span> reporter.report());
     }
 
     <span class="hljs-keyword">private</span> defaultConfig(): Config {

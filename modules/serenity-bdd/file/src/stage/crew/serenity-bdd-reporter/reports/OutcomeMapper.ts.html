@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/reports/OutcomeMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> {
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -145,9 +145,9 @@
             when(ExecutionCompromised,              <span class="hljs-function">(<span class="hljs-params">{ error }: ExecutionCompromised</span>)               =&gt;</span> mapAs(<span class="hljs-string">&apos;COMPROMISED&apos;</span>, render.render(error))).
             when(ExecutionFailedWithError,          <span class="hljs-function">(<span class="hljs-params">{ error }: ExecutionFailedWithError</span>)           =&gt;</span> mapAs(<span class="hljs-string">&apos;ERROR&apos;</span>, render.render(error))).
             when(ExecutionFailedWithAssertionError, <span class="hljs-function">(<span class="hljs-params">{ error }: ExecutionFailedWithAssertionError</span>)  =&gt;</span> mapAs(<span class="hljs-string">&apos;FAILURE&apos;</span>, render.render(error))).
-            when(ExecutionSkipped,      _ =&gt; mapAs(<span class="hljs-string">&apos;SKIPPED&apos;</span>)).
-            when(ExecutionIgnored,      _ =&gt; mapAs(<span class="hljs-string">&apos;IGNORED&apos;</span>)).
-            when(ImplementationPending, _ =&gt; mapAs(<span class="hljs-string">&apos;PENDING&apos;</span>)).
+            when(ExecutionSkipped,      <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> mapAs(<span class="hljs-string">&apos;SKIPPED&apos;</span>)).
+            when(ExecutionIgnored,      <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> mapAs(<span class="hljs-string">&apos;IGNORED&apos;</span>)).
+            when(ImplementationPending, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> mapAs(<span class="hljs-string">&apos;PENDING&apos;</span>)).
             <span class="hljs-keyword">else</span>(<span class="hljs-comment">/* ExecutionSuccessful */</span> _ =&gt; <span class="hljs-comment">/* ignore */</span> mapAs(<span class="hljs-string">&apos;SUCCESS&apos;</span>));
     }
 }

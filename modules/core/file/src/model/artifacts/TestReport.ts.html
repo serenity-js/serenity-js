@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/artifacts/TestReport.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Artifact } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Artifact&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TestReport <span class="hljs-keyword">extends</span> Artifact {
@@ -249,11 +249,11 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestReport(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&apos;utf8&apos;</span>).toString(<span class="hljs-string">&apos;base64&apos;</span>));
     }
 
-    map&lt;O&gt;<span class="hljs-function">(<span class="hljs-params">fn: (<span class="hljs-params">decodedValue: JSONObject</span>) =&gt; O</span>): <span class="hljs-params">O</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">fn</span>(<span class="hljs-params"><span class="hljs-built_in">JSON</span>.parse(<span class="hljs-params">Buffer.<span class="hljs-keyword">from</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.base64EncodedValue, &apos;base64&apos;</span>).toString(<span class="hljs-params">&apos;utf8&apos;</span>)</span>)</span>);
+    map&lt;O&gt;(fn: <span class="hljs-function">(<span class="hljs-params">decodedValue: JSONObject</span>) =&gt;</span> O): O {
+        <span class="hljs-keyword">return</span> fn(<span class="hljs-built_in">JSON</span>.parse(Buffer.from(<span class="hljs-built_in">this</span>.base64EncodedValue, <span class="hljs-string">&apos;base64&apos;</span>).toString(<span class="hljs-string">&apos;utf8&apos;</span>)));
     }
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

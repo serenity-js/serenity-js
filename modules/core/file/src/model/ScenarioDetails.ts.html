@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/ScenarioDetails.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../io&apos;</span>;
 <span class="hljs-keyword">import</span> { Category } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Category&apos;</span>;
@@ -256,11 +256,11 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly name: Name,
-        <span class="hljs-keyword">public</span> readonly category: Category,
-        <span class="hljs-keyword">public</span> readonly location: FileSystemLocation,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> category: Category,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> location: FileSystemLocation,
     </span>) {
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
     }
 }
 </code></pre>

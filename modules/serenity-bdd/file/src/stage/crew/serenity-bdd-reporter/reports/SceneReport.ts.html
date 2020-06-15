@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/reports/SceneReport.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityDetails,
     BrowserTag,
@@ -166,51 +166,53 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneReport {
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> outcomeMapper = <span class="hljs-keyword">new</span> OutcomeMapper();
 
-    <span class="hljs-keyword">private</span> readonly report: Partial&lt;SerenityBDDReport&gt; &amp; { children?: <span class="hljs-built_in">Array</span>&lt;Partial&lt;TestStep&gt;&gt; };
-    <span class="hljs-keyword">private</span> readonly activities = <span class="hljs-keyword">new</span> ActivityStack();
-    <span class="hljs-keyword">private</span> readonly parameters: ScenarioParametersResultLocation[] = [];
+    <span class="hljs-keyword">private</span> id: SceneReportId;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> report: Partial&lt;SerenityBDDReport&gt; &amp; { children?: <span class="hljs-built_in">Array</span>&lt;Partial&lt;TestStep&gt;&gt; };
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities = <span class="hljs-keyword">new</span> ActivityStack();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parameters: ScenarioParametersResultLocation[] = [];
     <span class="hljs-keyword">private</span> stepNumber = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly scenarioDetails: ScenarioDetails</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> scenarioDetails: ScenarioDetails</span>) {
 
-        <span class="hljs-keyword">const</span> isFeatureFile = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value.endsWith(<span class="hljs-string">&apos;.feature&apos;</span>);
+        <span class="hljs-keyword">const</span> isFeatureFile = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.scenarioDetails.location.path.value.endsWith(<span class="hljs-string">&apos;.feature&apos;</span>);
 
-        <span class="hljs-keyword">this</span>.report = {
-            name:   <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
-            title:  <span class="hljs-keyword">this</span>.scenarioDetails.name.value,
-            id:     <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-keyword">this</span>.scenarioDetails.category.value).append(<span class="hljs-keyword">this</span>.scenarioDetails.name.value).value,
+        <span class="hljs-built_in">this</span>.id = <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-built_in">this</span>.scenarioDetails.category.value).append(<span class="hljs-built_in">this</span>.scenarioDetails.name.value);
+
+        <span class="hljs-built_in">this</span>.report = {
+            name:   <span class="hljs-built_in">this</span>.scenarioDetails.name.value,
+            title:  <span class="hljs-built_in">this</span>.scenarioDetails.name.value,
             manual: <span class="hljs-literal">false</span>,
             testSteps: [],
-            <span class="hljs-keyword">get</span> children() {
+            get children() {
                 <span class="hljs-comment">// fake reference to make the report and the test step interfaces compatible</span>
                 <span class="hljs-comment">// removed in &apos;toJSON&apos;</span>
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.testSteps;
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testSteps;
             },
             userStory: {
-                id:         <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-keyword">this</span>.scenarioDetails.category.value).value,
-                storyName:  <span class="hljs-keyword">this</span>.scenarioDetails.category.value,
-                path:       isFeatureFile() ? <span class="hljs-keyword">this</span>.scenarioDetails.location.path.value : <span class="hljs-string">&apos;&apos;</span>,
+                id:         <span class="hljs-keyword">new</span> SceneReportId(<span class="hljs-built_in">this</span>.scenarioDetails.category.value).value(),
+                storyName:  <span class="hljs-built_in">this</span>.scenarioDetails.category.value,
+                path:       isFeatureFile() ? <span class="hljs-built_in">this</span>.scenarioDetails.location.path.value : <span class="hljs-string">&apos;&apos;</span>,
                 <span class="hljs-keyword">type</span>:       <span class="hljs-string">&apos;feature&apos;</span>,
             },
         };
 
-        <span class="hljs-keyword">this</span>.activities.push(<span class="hljs-keyword">this</span>.report <span class="hljs-keyword">as</span> Partial&lt;TestStep&gt;);
+        <span class="hljs-built_in">this</span>.activities.push(<span class="hljs-built_in">this</span>.report <span class="hljs-keyword">as</span> Partial&lt;TestStep&gt;);
     }
 
     executionStartedAt(time: Timestamp): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.startTime = report.startTime || time.toMillisecondTimestamp();
         });
     }
 
     executedBy(testRunner: Name): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.testSource = testRunner.value;
         });
     }
 
     taggedWith(tag: Tag) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayNameOfRecorded</span>(<span class="hljs-params">typeOfTag: { Type: <span class="hljs-built_in">string</span> }</span>) </span>{
                 <span class="hljs-keyword">const</span> found = report.tags.find(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> t.type === typeOfTag.Type);
 
@@ -224,7 +226,14 @@
                 };
             }
 
-            <span class="hljs-keyword">const</span> concatenated = (...names: <span class="hljs-built_in">string</span>[]): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> names.filter(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> !! name).join(<span class="hljs-string">&apos;/&apos;</span>);
+            <span class="hljs-keyword">const</span> concatenated = (...names: <span class="hljs-built_in">string</span>[]): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span>
+                names.filter(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> !! name).join(<span class="hljs-string">&apos;/&apos;</span>);
+
+            <span class="hljs-keyword">const</span> unique = <span class="hljs-function">(<span class="hljs-params">items: <span class="hljs-built_in">string</span>[]</span>) =&gt;</span>
+                [...new <span class="hljs-built_in">Set</span>(items)];
+
+            <span class="hljs-keyword">const</span> appendUniqueTo = (commaSeparatedListOrEmpty: <span class="hljs-built_in">string</span>, item: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span>
+                unique((commaSeparatedListOrEmpty || <span class="hljs-string">&apos;&apos;</span>).split(<span class="hljs-string">&apos;,&apos;</span>).filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !! _).concat(item)).join(<span class="hljs-string">&apos;,&apos;</span>);
 
             <span class="hljs-keyword">const</span> serenityBDDTag = serenityBDDTagFrom(tag);
 
@@ -233,34 +242,40 @@
             }
 
             match&lt;Tag, <span class="hljs-built_in">void</span>&gt;(tag)
-                .when(ManualTag,     _ =&gt; report.manual = <span class="hljs-literal">true</span>)
-                .when(ThemeTag,      _ =&gt; {
+                .when(ManualTag,     <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.manual = <span class="hljs-literal">true</span>)
+                .when(ThemeTag,      <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     serenityBDDTag.displayName = tag.name;
                 })
-                .when(CapabilityTag, _ =&gt; {
+                .when(CapabilityTag, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     serenityBDDTag.name = concatenated(displayNameOfRecorded(ThemeTag), tag.name);
                     serenityBDDTag.displayName = tag.name;
                 })
-                .when(FeatureTag,    _ =&gt; {
+                .when(FeatureTag,    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     serenityBDDTag.name = concatenated(displayNameOfRecorded(CapabilityTag), tag.name);
                     serenityBDDTag.displayName = tag.name;
                     report.featureTag = serenityBDDTag;
                 })
-                .when(IssueTag,      _ =&gt; {
+                .when(IssueTag,      <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     report.issues            = (report.issues           || []).concat(tag.name);
                     report.additionalIssues  = (report.additionalIssues || []).concat(tag.name);
                 })
                 .when(BrowserTag,    <span class="hljs-function">(<span class="hljs-params">browserTag: BrowserTag</span>) =&gt;</span> {
-                    report.context   = [report.context, browserTag.browserName].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
-                    report.driver    = browserTag.browserName;
-                    report.id        = <span class="hljs-keyword">new</span> SceneReportId(browserTag.name, report.id).value;
+                    report.context  = appendUniqueTo(report.context, browserTag.browserName);
+                    report.driver   = browserTag.browserName;
+
+                    <span class="hljs-built_in">this</span>.id.append(browserTag.name);
                 })
                 .when(PlatformTag,   <span class="hljs-function">(<span class="hljs-params">platformTag: PlatformTag</span>) =&gt;</span> {
-                    report.context   = [report.context, platformTag.name].filter(<span class="hljs-function"><span class="hljs-params">part</span> =&gt;</span> !! part).join(<span class="hljs-string">&apos;,&apos;</span>);
-                    report.id        = <span class="hljs-keyword">new</span> SceneReportId(platformTag.name, report.id).value;
+                    report.context  = appendUniqueTo(report.context, platformTag.name);
+
+                    <span class="hljs-built_in">this</span>.id.append(platformTag.name);
                 })
-                .when(ContextTag,    _ =&gt; (report.context   = tag.name))
-                .else(_ =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
+                .when(ContextTag,    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
+                    report.context   = tag.name;
+
+                    <span class="hljs-built_in">this</span>.id.append(tag.name);
+                })
+                .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
 
             <span class="hljs-keyword">if</span> (! report.tags.find(<span class="hljs-function"><span class="hljs-params">current</span> =&gt;</span> equal(current, serenityBDDTag))) {
                 report.tags.push(serenityBDDTag);
@@ -269,15 +284,15 @@
     }
 
     executionFinishedAt(time: Timestamp): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.duration = Timestamp.fromMillisecondTimestamp(report.startTime).diff(time).inMilliseconds();
         });
     }
 
     activityStarted(activity: ActivityDetails, time: Timestamp) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> activityReport: Partial&lt;TestStep&gt; = {
-                <span class="hljs-built_in">number</span>:      ++<span class="hljs-keyword">this</span>.stepNumber,
+                <span class="hljs-built_in">number</span>:      ++<span class="hljs-built_in">this</span>.stepNumber,
                 description: activity.name.value,
                 startTime:   time.toMillisecondTimestamp(),
                 children:    [],
@@ -285,42 +300,42 @@
                 screenshots: [],
             };
 
-            <span class="hljs-keyword">this</span>.activities.last().children.push(activityReport <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
-            <span class="hljs-keyword">this</span>.activities.push(activityReport, activity.correlationId);
+            <span class="hljs-built_in">this</span>.activities.last().children.push(activityReport <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+            <span class="hljs-built_in">this</span>.activities.push(activityReport, activity.correlationId);
         });
     }
 
     activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-keyword">this</span>.mapOutcome(outcome, <span class="hljs-function">(<span class="hljs-params">result: <span class="hljs-built_in">string</span>, error?: ErrorDetails</span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-built_in">this</span>.mapOutcome(outcome, <span class="hljs-function">(<span class="hljs-params">result: <span class="hljs-built_in">string</span>, error?: ErrorDetails</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> activityReport = <span class="hljs-keyword">this</span>.activities.pop();
+            <span class="hljs-keyword">const</span> activityReport = <span class="hljs-built_in">this</span>.activities.pop();
 
             activityReport.result    = result;
             activityReport.duration  = Timestamp.fromMillisecondTimestamp(activityReport.startTime).diff(time).inMilliseconds();
 
-            <span class="hljs-keyword">if</span> (!! error &amp;&amp; ! <span class="hljs-keyword">this</span>.activities.haveFailed) {
+            <span class="hljs-keyword">if</span> (!! error &amp;&amp; ! <span class="hljs-built_in">this</span>.activities.haveFailed) {
                 activityReport.exception = error;
-                <span class="hljs-keyword">this</span>.activities.haveFailed = <span class="hljs-literal">true</span>;
+                <span class="hljs-built_in">this</span>.activities.haveFailed = <span class="hljs-literal">true</span>;
             }
         }));
     }
 
     withBackgroundOf(name: Name, description: Description) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.backgroundTitle       = name.value;
             report.backgroundDescription = description.value;
         });
     }
 
     withDescriptionOf(description: Description) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.description = description.value;
         });
     }
 
     withScenarioOutline(outline: Description) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            report.dataTable = <span class="hljs-keyword">this</span>.dataTableFrom(report);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+            report.dataTable = <span class="hljs-built_in">this</span>.dataTableFrom(report);
 
             report.dataTable.scenarioOutline = outline.value;
         });
@@ -337,8 +352,8 @@
                 &amp;&amp; descriptor.description === parameterSetDescription;
         };
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            report.dataTable = <span class="hljs-keyword">this</span>.dataTableFrom(report);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+            report.dataTable = <span class="hljs-built_in">this</span>.dataTableFrom(report);
             report.dataTable.headers = <span class="hljs-built_in">Object</span>.keys(parameters.values);
 
             <span class="hljs-keyword">let</span> descriptor: DataTableDataSetDescriptor = report.dataTable.dataSetDescriptors.find(matches(parameters));
@@ -360,19 +375,19 @@
                 values: extractValues(parameters.values),
             }));
 
-            <span class="hljs-keyword">this</span>.parameters.push({ parameters, index: length - <span class="hljs-number">1</span>, line: scenario.location.line });
+            <span class="hljs-built_in">this</span>.parameters.push({ parameters, index: length - <span class="hljs-number">1</span>, line: scenario.location.line });
         });
     }
 
     withFeatureNarrativeOf(description: Description) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             report.userStory.narrative = description.value;
         });
     }
 
     photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            <span class="hljs-keyword">this</span>.activities.itemByCorrelationId(details.correlationId).screenshots.push({
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+            <span class="hljs-built_in">this</span>.activities.itemByCorrelationId(details.correlationId).screenshots.push({
                 screenshot: path.basename(),
                 timeStamp:  timestamp.toMillisecondTimestamp(),
             });
@@ -380,8 +395,8 @@
     }
 
     arbitraryDataCaptured(name: Name, contents: <span class="hljs-built_in">string</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            <span class="hljs-keyword">this</span>.activities.mostRecentlyAccessedItem().reportData.push({
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+            <span class="hljs-built_in">this</span>.activities.mostRecentlyAccessedItem().reportData.push({
                 id: <span class="hljs-string">`report-data-<span class="hljs-subst">${ CorrelationId.create().value }</span>`</span>,
                 isEvidence: <span class="hljs-literal">false</span>,
                 path: <span class="hljs-string">&apos;&apos;</span>,
@@ -396,8 +411,8 @@
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(dictionary).map(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${key}</span>: <span class="hljs-subst">${dictionary[key]}</span>`</span>).join(<span class="hljs-string">&apos;\n&apos;</span>);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            <span class="hljs-keyword">this</span>.activities.mostRecentlyAccessedItem().restQuery = {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
+            <span class="hljs-built_in">this</span>.activities.mostRecentlyAccessedItem().restQuery = {
                 method:          requestResponse.request.method.toUpperCase(),
                 path:            requestResponse.request.url,
                 content:         inspect(requestResponse.request.data),
@@ -413,19 +428,19 @@
     }
 
     executionFinishedWith(scenario: ScenarioDetails, outcome: Outcome): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-keyword">this</span>.mapOutcome(outcome, <span class="hljs-function">(<span class="hljs-params">result: <span class="hljs-built_in">string</span>, error: ErrorDetails = <span class="hljs-literal">undefined</span></span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-built_in">this</span>.mapOutcome(outcome, <span class="hljs-function">(<span class="hljs-params">result: <span class="hljs-built_in">string</span>, error: ErrorDetails = <span class="hljs-literal">undefined</span></span>) =&gt;</span> {
 
             report.result           = result;
             report.testFailureCause = error;
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.parameters.length &gt; <span class="hljs-number">0</span>) {
-                <span class="hljs-keyword">const</span> entry = <span class="hljs-keyword">this</span>.parameters.find(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.line === scenario.location.line);
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.parameters.length &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">const</span> entry = <span class="hljs-built_in">this</span>.parameters.find(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.line === scenario.location.line);
                 <span class="hljs-keyword">if</span> (!! entry) {
                     entry.outcome = outcome;
 
                     report.dataTable.rows[ entry.index ].result = result;
 
-                    <span class="hljs-keyword">const</span> worstOutcomeOverall = <span class="hljs-keyword">this</span>.parameters
+                    <span class="hljs-keyword">const</span> worstOutcomeOverall = <span class="hljs-built_in">this</span>.parameters
                         .filter(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> !! p.outcome)
                         .map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.outcome)
                         .reduce(<span class="hljs-function">(<span class="hljs-params">worstSoFar, current</span>) =&gt;</span> {
@@ -434,7 +449,7 @@
                                 : worstSoFar;
                         }, <span class="hljs-keyword">new</span> ExecutionSuccessful());
 
-                    <span class="hljs-keyword">this</span>.mapOutcome(worstOutcomeOverall, <span class="hljs-function">(<span class="hljs-params">r: <span class="hljs-built_in">string</span>, e: ErrorDetails = <span class="hljs-literal">undefined</span></span>) =&gt;</span> {
+                    <span class="hljs-built_in">this</span>.mapOutcome(worstOutcomeOverall, <span class="hljs-function">(<span class="hljs-params">r: <span class="hljs-built_in">string</span>, e: ErrorDetails = <span class="hljs-literal">undefined</span></span>) =&gt;</span> {
                         report.result           = r;
                         report.testFailureCause = e;
                     });
@@ -444,11 +459,13 @@
     }
 
     toJSON(): Partial&lt;SerenityBDDReport&gt; {
-        <span class="hljs-keyword">const</span> report = <span class="hljs-keyword">this</span>.copyOf(<span class="hljs-keyword">this</span>.report);
+        <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.copyOf(<span class="hljs-built_in">this</span>.report);
 
         <span class="hljs-keyword">delete</span> report.children; <span class="hljs-comment">// remove the fake reference</span>
 
-        <span class="hljs-keyword">this</span>.parameters.forEach(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> {
+        report.id = <span class="hljs-built_in">this</span>.id.value();
+
+        <span class="hljs-built_in">this</span>.parameters.forEach(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> {
 
             <span class="hljs-keyword">const</span> parameters = entry.parameters.values;
             <span class="hljs-keyword">const</span> stringified = <span class="hljs-built_in">Object</span>.keys(parameters).map(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ key }</span>: <span class="hljs-subst">${ parameters[key] }</span>`</span>).join(<span class="hljs-string">&apos;, &apos;</span>).trim();
@@ -475,9 +492,9 @@
     }
 
     <span class="hljs-keyword">private</span> withMutated(mutate: <span class="hljs-function">(<span class="hljs-params">copied: Partial&lt;SerenityBDDReport&gt;</span>) =&gt;</span> <span class="hljs-built_in">void</span>): SceneReport {
-        mutate(<span class="hljs-keyword">this</span>.report);
+        mutate(<span class="hljs-built_in">this</span>.report);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
     }
 
     <span class="hljs-keyword">private</span> copyOf&lt;T <span class="hljs-keyword">extends</span> JSONObject&gt;(json: T): T {
@@ -490,42 +507,42 @@
  */</span>
 <span class="hljs-keyword">class</span> ActivityStack {
     <span class="hljs-keyword">public</span> haveFailed: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">private</span> readonly items: <span class="hljs-built_in">Array</span>&lt;Partial&lt;TestStep&gt;&gt; = [];
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> items: <span class="hljs-built_in">Array</span>&lt;Partial&lt;TestStep&gt;&gt; = [];
     <span class="hljs-keyword">private</span> mostRecent: Partial&lt;TestStep&gt; = <span class="hljs-literal">undefined</span>;
     <span class="hljs-keyword">private</span> correlations: { [key: <span class="hljs-built_in">string</span>]: Partial&lt;TestStep&gt; } = {};
 
     push(item: Partial&lt;TestStep&gt;, correlationId?: CorrelationId): Partial&lt;TestStep&gt; {
-        <span class="hljs-keyword">this</span>.items.push(item);
-        <span class="hljs-keyword">this</span>.mostRecent = item;
-        <span class="hljs-keyword">this</span>.haveFailed = <span class="hljs-literal">false</span>;
+        <span class="hljs-built_in">this</span>.items.push(item);
+        <span class="hljs-built_in">this</span>.mostRecent = item;
+        <span class="hljs-built_in">this</span>.haveFailed = <span class="hljs-literal">false</span>;
         <span class="hljs-keyword">if</span> (!! correlationId) {
-            <span class="hljs-keyword">this</span>.correlations[correlationId.value] = item;
+            <span class="hljs-built_in">this</span>.correlations[correlationId.value] = item;
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.mostRecent;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.mostRecent;
     }
 
     pop() {
-        <span class="hljs-keyword">const</span> item = <span class="hljs-keyword">this</span>.items.pop();
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.items.length === <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">this</span>.haveFailed = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">const</span> item = <span class="hljs-built_in">this</span>.items.pop();
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.items.length === <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">this</span>.haveFailed = <span class="hljs-literal">false</span>;
         }
 
-        <span class="hljs-keyword">this</span>.mostRecent = item;
+        <span class="hljs-built_in">this</span>.mostRecent = item;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.mostRecent;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.mostRecent;
     }
 
     last() {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items[<span class="hljs-keyword">this</span>.items.length - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.items[<span class="hljs-built_in">this</span>.items.length - <span class="hljs-number">1</span>];
     }
 
     mostRecentlyAccessedItem() {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.mostRecent;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.mostRecent;
     }
 
     itemByCorrelationId(correlationId: CorrelationId) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.correlations[correlationId.value];
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.correlations[correlationId.value];
     }
 }
 </code></pre>

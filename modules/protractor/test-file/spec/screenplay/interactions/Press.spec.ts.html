@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Press.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
@@ -172,7 +172,7 @@
 <span class="hljs-keyword">import</span> { Navigate, Press, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
         Text_Field:     Target.the(<span class="hljs-string">&apos;text field&apos;</span>).located(by.name(<span class="hljs-string">&apos;text&apos;</span>)),
@@ -190,11 +190,11 @@ describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-f
             &lt;/html&gt;
         `</span>);
 
-    describe(<span class="hljs-string">&apos;single keys&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;single keys&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** @test {Press} */</span>
         <span class="hljs-comment">/** @test {Press.the} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to enter keys individually into a field&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;allows the actor to enter keys individually into a field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(page),
 
             Press.the(<span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
@@ -209,7 +209,7 @@ describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-f
 
         <span class="hljs-comment">/** @test {Press} */</span>
         <span class="hljs-comment">/** @test {Press.the} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to use keyboard shortcuts&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;allows the actor to use keyboard shortcuts&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(page),
 
             Press.the(Key.SHIFT, <span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),

@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./model&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -248,13 +248,13 @@
  *
  * @see {@link configure}
  */</span>
-<span class="hljs-keyword">export</span> abstract <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityConfig</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SerenityConfig {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  A {<span class="hljs-doctag">@link </span>Cast} of {<span class="hljs-doctag">@link </span>Actor}s to be used when {<span class="hljs-doctag">@link </span>actorCalled}
-     *  and {<span class="hljs-doctag">@link </span>actorInTheSpotlight} functions are called.
+     * @desc
+     *  A {@link Cast} of {@link Actor}s to be used when {@link actorCalled}
+     *  and {@link actorInTheSpotlight} functions are called.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{?Cast}</span></span>
+     * @type {?Cast}
      */</span>
     actors?:        Cast;
 

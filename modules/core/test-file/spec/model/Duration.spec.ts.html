@@ -240,16 +240,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/Duration.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
 <span class="hljs-comment">/** @test {Duration} */</span>
-describe(<span class="hljs-string">&apos;Duration&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Duration&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;represents a duration of time that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;represents a duration of time that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given&lt;Duration, <span class="hljs-built_in">number</span>&gt;(
             [ Duration.ofMilliseconds(<span class="hljs-number">1</span>),     <span class="hljs-number">1</span>                               ],
@@ -275,12 +275,12 @@ describe(<span class="hljs-string">&apos;Duration&apos;</span>, <span class="hlj
         });
     });
 
-    describe(<span class="hljs-string">&apos;when performing computations&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when performing computations&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
             oneMinute   = Duration.ofMinutes(<span class="hljs-number">1</span>),
             tenSeconds  = Duration.ofSeconds(<span class="hljs-number">10</span>);
 
-        it(<span class="hljs-string">&apos;allows for durations to be added&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;allows for durations to be added&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(<span class="hljs-number">70</span>));
         });

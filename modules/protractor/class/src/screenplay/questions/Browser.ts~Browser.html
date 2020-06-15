@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {Browser} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/questions&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Browser} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/questions&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -306,8 +306,8 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Enabling Protractor browser logging</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
-exports.config = {
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// protractor.conf.js</span>
+<span class="hljs-built_in">exports</span>.config = {
   capabilities: {
     loggingPrefs: {
         <span class="hljs-comment">// available options: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL</span>
@@ -318,7 +318,7 @@ exports.config = {
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Ensure the app didn&apos;t log anything to the console during the test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, property, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 
 actor.attemptsTo(
@@ -327,7 +327,7 @@ actor.attemptsTo(
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mark the test as &quot;compromised&quot; if the server responds with a 500 to any AJAX request during the test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, property, equals, not, contrainAtLeastOneItemThat } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>
 
 actor.attemptsTo(

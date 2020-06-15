@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/outcomes.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
@@ -258,7 +258,7 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
 <span class="hljs-comment">/** @test {Outcome} */</span>
-describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/**
      * @test {ExecutionSkipped}
@@ -266,7 +266,7 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
      * @test {ImplementationPending}
      * @test {ExecutionSuccessful}
      */</span>
-    describe(<span class="hljs-string">&apos;non-error outcome&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;non-error outcome&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
             <span class="hljs-keyword">new</span> ExecutionSkipped(),
@@ -285,7 +285,7 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
      * @test {ExecutionFailedWithError}
      * @test {ExecutionFailedWithAssertionError}
      */</span>
-    describe(<span class="hljs-string">&apos;outcome indicating an error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;outcome indicating an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
             { outcome: <span class="hljs-keyword">new</span> ExecutionCompromised(<span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;Database is down&apos;</span>)), description: ExecutionCompromised.name },

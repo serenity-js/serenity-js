@@ -240,19 +240,19 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/ScenarioParameters.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Description, Name, ScenarioParameters } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;ScenarioParameters&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;ScenarioParameters&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         name = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;set of examples&apos;</span>),
         desciption = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;description of the examples&apos;</span>);
 
     <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
-    it(<span class="hljs-string">&apos;can be instantiated using a plain-old JavaScript object&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can be instantiated using a plain-old JavaScript object&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
         <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
@@ -261,7 +261,7 @@ describe(<span class="hljs-string">&apos;ScenarioParameters&apos;</span>, <span 
     });
 
     <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
-    it(<span class="hljs-string">&apos;can be serialised to JSON&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can be serialised to JSON&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
         <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
 
@@ -273,7 +273,7 @@ describe(<span class="hljs-string">&apos;ScenarioParameters&apos;</span>, <span 
     });
 
     <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
-    it(<span class="hljs-string">&apos;can be deserialised from JSON&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can be deserialised from JSON&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
 
         expect(<span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters))

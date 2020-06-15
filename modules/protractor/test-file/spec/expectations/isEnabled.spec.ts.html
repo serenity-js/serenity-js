@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/isEnabled.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;isEnabled&apos;</span>, <span class="hl
         Disabled_Button:    Target.the(<span class="hljs-string">&apos;disabled button&apos;</span>).located(by.id(<span class="hljs-string">&apos;disabled&apos;</span>)),
     };
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -192,26 +192,26 @@ describe(<span class="hljs-string">&apos;isEnabled&apos;</span>, <span class="hl
     ));
 
     <span class="hljs-comment">/** @test {isEnabled} */</span>
-    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is enabled&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is enabled&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Enabled_Button, isEnabled()),
         Ensure.that(Page.Enabled_Button, isEnabled()),
     )).to.be.fulfilled);
 
     <span class="hljs-comment">/** @test {isEnabled} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when element is disabled&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is disabled&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Disabled_Button, isEnabled()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the disabled button to become enabled`</span>);
     });
 
     <span class="hljs-comment">/** @test {isEnabled} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Enabled_Button, isEnabled()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the enabled button does become enabled`</span>);
     });
 
     <span class="hljs-comment">/** @test {isEnabled} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Enabled_Button, isEnabled()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the enabled button does become enabled`</span>);
     });

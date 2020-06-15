@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityFinished,
     ActivityRelatedArtifactGenerated,
@@ -198,7 +198,7 @@
      * @see {@serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}
      */</span>
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.shouldTakeAPhotoOf(event)) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.shouldTakeAPhotoOf(event)) {
             <span class="hljs-keyword">let</span> browseTheWeb: BrowseTheWeb;
 
             <span class="hljs-keyword">try</span> {
@@ -209,10 +209,10 @@
 
             <span class="hljs-keyword">const</span>
                 id              = CorrelationId.create(),
-                nameSuffix      = <span class="hljs-keyword">this</span>.photoNameFor(event);
+                nameSuffix      = <span class="hljs-built_in">this</span>.photoNameFor(event);
 
             stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[Photographer:<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Taking screenshot of &apos;<span class="hljs-subst">${ nameSuffix }</span>&apos;...`</span>),
+                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[Photographer:<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Taking screenshot of &apos;<span class="hljs-subst">${ nameSuffix }</span>&apos;...`</span>),
                 id,
             ));
 
@@ -223,7 +223,7 @@
 
                 <span class="hljs-keyword">const</span>
                     context   = [ capabilities.get(<span class="hljs-string">&apos;platform&apos;</span>), capabilities.get(<span class="hljs-string">&apos;browserName&apos;</span>), capabilities.get(<span class="hljs-string">&apos;version&apos;</span>) ],
-                    photoName = <span class="hljs-keyword">this</span>.combinedNameFrom(...context, nameSuffix);
+                    photoName = <span class="hljs-built_in">this</span>.combinedNameFrom(...context, nameSuffix);
 
                 stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(
                     event.value,
@@ -232,7 +232,7 @@
                 ));
 
                 stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Took screenshot of &apos;<span class="hljs-subst">${ nameSuffix }</span>&apos; on <span class="hljs-subst">${ context }</span>`</span>),
+                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Took screenshot of &apos;<span class="hljs-subst">${ nameSuffix }</span>&apos; on <span class="hljs-subst">${ context }</span>`</span>),
                     id,
                 ));
             }).catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {

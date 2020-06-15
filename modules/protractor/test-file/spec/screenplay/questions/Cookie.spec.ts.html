@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Cookie.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -175,11 +175,11 @@
 <span class="hljs-keyword">import</span> { BrowseTheWeb, DeleteCookies, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { Cookie } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">// a tiny express server, setting response cookies</span>
     <span class="hljs-keyword">const</span> cookieCutterApp = express().
-        <span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;/cookie&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request &amp; { query: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }}, res: express.Response</span>) =&gt;</span> {
+        get(<span class="hljs-string">&apos;/cookie&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request &amp; { query: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }}, res: express.Response</span>) =&gt;</span> {
             res.cookie(req.query.name, req.query.value, {
                 path:       <span class="hljs-string">&apos;/cookie&apos;</span>,
                 domain:     req.query.domain,
@@ -195,7 +195,7 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
         <span class="hljs-keyword">return</span> Transform.the(LocalServer.url(), <span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ url }</span><span class="hljs-subst">${ path }</span>`</span>);
     }
 
-    describe(<span class="hljs-string">&apos;over HTTP&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;over HTTP&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">// Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You&apos;re welcome.</span>
         <span class="hljs-keyword">const</span> Sid = actorCalled(<span class="hljs-string">&apos;Sid&apos;</span>).whoCan(
@@ -203,81 +203,81 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
             ManageALocalServer.runningAHttpListener(cookieCutterApp),
         );
 
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(StartLocalServer.onRandomPort()));
-        afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(StopLocalServer.ifRunning()));
-        afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(DeleteCookies.all()));
+        beforeEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(StartLocalServer.onRandomPort()));
+        afterEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(StopLocalServer.ifRunning()));
+        afterEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(DeleteCookies.all()));
 
-        describe(<span class="hljs-string">&apos;when working with the value&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;when working with the value&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#valueOf} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.valueOf(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-string">&apos;chocolate-chip&apos;</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#valueOf} */</span>
-            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.valueOf(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
-            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Cookie.valueOf(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the value of the &quot;favourite&quot; cookie&apos;</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;when working with the path&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;when working with the path&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#valueOf} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.pathOf(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-string">&apos;/cookie&apos;</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#pathOf} */</span>
-            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.pathOf(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
-            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Cookie.pathOf(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the path of the &quot;favourite&quot; cookie&apos;</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;when working with the domain&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;when working with the domain&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#valueOf} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.domainOf(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-string">&apos;127.0.0.1&apos;</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#domainOf} */</span>
-            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.domainOf(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
-            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Cookie.domainOf(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the domain of the &quot;favourite&quot; cookie&apos;</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;when working with http-only cookies&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;when working with http-only cookies&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#isHTTPOnly} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is http-only&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is http-only&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.isHTTPOnly(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-literal">false</span>)),
 
@@ -287,18 +287,18 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#isHTTPOnly} */</span>
-            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.isHTTPOnly(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
-            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Cookie.isHTTPOnly(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the HTTP-only status of the &quot;favourite&quot; cookie&apos;</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;when working with an expiry date&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;when working with an expiry date&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tomorrow</span>(<span class="hljs-params"></span>): <span class="hljs-title">Date</span> </span>{
                 <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
@@ -312,27 +312,27 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#expiryDateOf} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;allows the actor to retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">`/cookie?name=expiring&amp;value=chocolate-chip&amp;expires=<span class="hljs-subst">${ expectedExpiryDate.toISOString() }</span>`</span>)),
                 Ensure.that(Transform.the(Cookie.expiryDateOf(<span class="hljs-string">&apos;expiring&apos;</span>), <span class="hljs-function"><span class="hljs-params">date</span> =&gt;</span> date.getDay()), equals(expectedExpiryDate.getDay())),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
             <span class="hljs-comment">/** @test {Cookie#expiryDateOf} */</span>
-            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+            it(<span class="hljs-string">&apos;returns an undefined when it can\&apos;t retrieve it&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
                 Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
                 Ensure.that(Cookie.expiryDateOf(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
             ));
 
             <span class="hljs-comment">/** @test {Cookie} */</span>
-            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Cookie.expiryDateOf(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the expiry date of the &quot;favourite&quot; cookie&apos;</span>);
             });
         });
 
     });
 
-    describe(<span class="hljs-string">&apos;when working with secure cookies&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when working with secure cookies&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> Sid = actorCalled(<span class="hljs-string">&apos;Secure Sid&apos;</span>).whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -344,33 +344,33 @@ describe(<span class="hljs-string">&apos;Cookie&apos;</span>, <span class="hljs-
             }),
         );
 
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(StartLocalServer.onRandomPort()));
-        afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(StopLocalServer.ifRunning()));
-        afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(DeleteCookies.all()));
+        beforeEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(StartLocalServer.onRandomPort()));
+        afterEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(StopLocalServer.ifRunning()));
+        afterEach(<span class="hljs-function">() =&gt;</span> Sid.attemptsTo(DeleteCookies.all()));
 
         <span class="hljs-comment">/** @test {Cookie} */</span>
         <span class="hljs-comment">/** @test {Cookie#isSecure} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is not secure&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+        it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is not secure&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
             Ensure.that(Cookie.isSecure(<span class="hljs-string">&apos;favourite&apos;</span>), equals(<span class="hljs-literal">false</span>)),
         ));
 
         <span class="hljs-comment">/** @test {Cookie} */</span>
         <span class="hljs-comment">/** @test {Cookie#isSecure} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is secure&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+        it(<span class="hljs-string">&apos;allows the actor to confirm that a cookie is secure&apos;</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&amp;secure=1&apos;</span>)),
             Ensure.that(Cookie.isSecure(<span class="hljs-string">&apos;favourite&apos;</span>), isTrue()),
         ));
 
         <span class="hljs-comment">/** @test {Cookie} */</span>
         <span class="hljs-comment">/** @test {Cookie#isSecure} */</span>
-        it(<span class="hljs-string">`returns an undefined when it can&apos;t retrieve it`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Sid.attemptsTo(
+        it(<span class="hljs-string">`returns an undefined when it can&apos;t retrieve it`</span>, <span class="hljs-function">() =&gt;</span> Sid.attemptsTo(
             Navigate.to(cookieCutterURLFor(<span class="hljs-string">&apos;/cookie?name=favourite&amp;value=chocolate-chip&apos;</span>)),
             Ensure.that(Cookie.isSecure(<span class="hljs-string">&apos;not-so-favourite&apos;</span>), equals(<span class="hljs-literal">undefined</span>)),
         ));
 
         <span class="hljs-comment">/** @test {Cookie} */</span>
-        it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;provides a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Cookie.isSecure(<span class="hljs-string">&apos;favourite&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;the &quot;secure&quot; status of the &quot;favourite&quot; cookie&apos;</span>);
         });
     });

@@ -143,23 +143,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/containAtLeastOneItemThat.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { containAtLeastOneItemThat, Ensure, equals, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 
-describe(<span class="hljs-string">&apos;containAtLeastOneItemThat&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;containAtLeastOneItemThat&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/** @test {containAtLeastOneItemThat} */</span>
-    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; includes at least one item that meets the expectation&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; includes at least one item that meets the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ], containAtLeastOneItemThat(isGreaterThan(<span class="hljs-number">1</span>))),
         );
     });
 
     <span class="hljs-comment">/** @test {containAtLeastOneItemThat} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not include at least one item that meets the expectation&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not include at least one item that meets the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ], containAtLeastOneItemThat(equals(<span class="hljs-number">7</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 0, 1, 2 ] to contain at least one item that does equal 7`</span>)
@@ -170,7 +170,7 @@ describe(<span class="hljs-string">&apos;containAtLeastOneItemThat&apos;</span>,
     });
 
     <span class="hljs-comment">/** @test {containAtLeastOneItemThat} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; is an empty list&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; is an empty list&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([], containAtLeastOneItemThat(equals(<span class="hljs-number">42</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ ] to contain at least one item that does equal 42`</span>)
@@ -181,8 +181,8 @@ describe(<span class="hljs-string">&apos;containAtLeastOneItemThat&apos;</span>,
     });
 
     <span class="hljs-comment">/** @test {atLeastOne} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Question.about(<span class="hljs-string">&apos;list of numbers&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
+    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">&apos;list of numbers&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
 
         expect(Ensure.that(numbers(), containAtLeastOneItemThat(isGreaterThan(<span class="hljs-number">1</span>))).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that list of numbers does contain at least one item that does have value greater than 1`</span>);

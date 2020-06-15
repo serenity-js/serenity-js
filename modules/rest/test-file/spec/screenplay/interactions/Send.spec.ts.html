@@ -130,7 +130,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Send.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 <span class="hljs-keyword">import</span> MockAdapter <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios-mock-adapter&apos;</span>;
@@ -147,7 +147,7 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
 <span class="hljs-comment">/** @test {Send} */</span>
-describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/**
      * @test {Send.a}
@@ -156,7 +156,7 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
      * @test {LastResponse.status}
      * @test {LastResponse.body}
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to send a HTTPRequest&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;enables the actor to send a HTTPRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
 
         mock.onGet(<span class="hljs-string">&apos;/products/2&apos;</span>).reply(<span class="hljs-number">200</span>, {
@@ -177,7 +177,7 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
      * @test {LastResponse.status}
      * @test {LastResponse.body}
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to send an Axios Request&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;enables the actor to send an Axios Request&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
 
         mock.onGet(<span class="hljs-string">&apos;/products/2&apos;</span>).reply(<span class="hljs-number">200</span>, {
@@ -199,8 +199,8 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
      * @test {HTTPRequest}
      * @test {GetRequest.to}
      */</span>
-    it(<span class="hljs-string">&apos;emits the events so that the details of the HTTP interaction can be reported&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01&apos;</span>));
+    it(<span class="hljs-string">&apos;emits the events so that the details of the HTTP interaction can be reported&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01&apos;</span>));
         <span class="hljs-keyword">const</span> axiosInstance = axios.create({
             url: <span class="hljs-string">&apos;https://myapp.com/api&apos;</span>,
         });
@@ -221,7 +221,7 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
 
         <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">&apos;Apisitt&apos;</span>).attemptsTo(
             Send.a(GetRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)),
-        ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        ).then(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> events = recorder.events;
 
             expect(events).to.have.lengthOf(<span class="hljs-number">3</span>);

@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/RuntimeError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-comment">/**
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * @desc
  *  Base class for custom errors that may occur during execution of a test scenario.
  *
@@ -279,16 +279,16 @@
     <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; RuntimeError,
         message: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly cause?: <span class="hljs-built_in">Error</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cause?: <span class="hljs-built_in">Error</span>,
     </span>) {
-        <span class="hljs-keyword">super</span>(message);
-        <span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">type</span>.prototype);
-        <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">this</span>.constructor.name;
+        <span class="hljs-built_in">super</span>(message);
+        <span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-built_in">this</span>, <span class="hljs-keyword">type</span>.prototype);
+        <span class="hljs-built_in">this</span>.name = <span class="hljs-built_in">this</span>.constructor.name;
 
-        <span class="hljs-built_in">Error</span>.captureStackTrace(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">type</span>);
+        <span class="hljs-built_in">Error</span>.captureStackTrace(<span class="hljs-built_in">this</span>, <span class="hljs-keyword">type</span>);
 
         <span class="hljs-keyword">if</span> (!! cause) {
-            <span class="hljs-keyword">this</span>.stack = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.stack }</span>\nCaused by: <span class="hljs-subst">${ cause.stack }</span>`</span>;
+            <span class="hljs-built_in">this</span>.stack = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.stack }</span>\nCaused by: <span class="hljs-subst">${ cause.stack }</span>`</span>;
         }
     }
 
@@ -297,7 +297,7 @@
      *  Human-readable description
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>: <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.message }</span>`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.message }</span>`</span>;
     }
 }
 </code></pre>

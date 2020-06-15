@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/strategies/SceneSequenceReportingStrategy.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, DomainEvent, SceneFinished, SceneParametersDetected, SceneStarts, SceneTemplateDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, DomainEvent, SceneFinished, SceneParametersDetected, SceneStarts, SceneTemplateDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityDetails, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
@@ -135,16 +135,16 @@
 
     worksFor(anotherScenario: ScenarioDetails): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> !! anotherScenario
-            &amp;&amp; <span class="hljs-keyword">this</span>.scenario.name.equals(anotherScenario.name)             <span class="hljs-comment">// todo: what about templated scenario names?</span>
-            &amp;&amp; <span class="hljs-keyword">this</span>.scenario.category.equals(anotherScenario.category)
-            &amp;&amp; <span class="hljs-keyword">this</span>.scenario.location.path.equals(anotherScenario.location.path);
+            &amp;&amp; <span class="hljs-built_in">this</span>.scenario.name.equals(anotherScenario.name)             <span class="hljs-comment">// todo: what about templated scenario names?</span>
+            &amp;&amp; <span class="hljs-built_in">this</span>.scenario.category.equals(anotherScenario.category)
+            &amp;&amp; <span class="hljs-built_in">this</span>.scenario.location.path.equals(anotherScenario.location.path);
     }
 
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         <span class="hljs-keyword">return</span> match&lt;DomainEvent, SceneReport&gt;(event)
             .when(SceneStarts,                      <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> report
-                    .activityStarted(<span class="hljs-keyword">this</span>.asActivity(e.value), e.timestamp)
+                    .activityStarted(<span class="hljs-built_in">this</span>.asActivity(e.value), e.timestamp)
                     .executionStartedAt(e.timestamp);
             })
             .when(SceneTemplateDetected,    <span class="hljs-function">(<span class="hljs-params">e: SceneTemplateDetected</span>) =&gt;</span> {
@@ -161,11 +161,11 @@
             })
             .when(SceneFinished,                    <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> report
-                    .activityFinished(<span class="hljs-keyword">this</span>.asActivity(e.value), e.outcome, e.timestamp)
+                    .activityFinished(<span class="hljs-built_in">this</span>.asActivity(e.value), e.outcome, e.timestamp)
                     .executionFinishedWith(e.value, e.outcome)
                     .executionFinishedAt(e.timestamp);
             })
-            .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-keyword">super</span>.handle(e, report));
+            .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">super</span>.handle(e, report));
     }
 
     <span class="hljs-keyword">private</span> asActivity(scenario: ScenarioDetails): ActivityDetails {

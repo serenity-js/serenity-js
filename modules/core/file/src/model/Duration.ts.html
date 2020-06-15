@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Duration.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Duration <span class="hljs-keyword">extends</span> TinyType {
 
@@ -257,20 +257,20 @@
     <span class="hljs-keyword">static</span> ofDays           = <span class="hljs-function">(<span class="hljs-params">days: <span class="hljs-built_in">number</span></span>)         =&gt;</span> Duration.ofMilliseconds(days     * Duration.msPerDay);
     <span class="hljs-keyword">static</span> ofYears          = <span class="hljs-function">(<span class="hljs-params">years: <span class="hljs-built_in">number</span></span>)        =&gt;</span> Duration.ofMilliseconds(years    * Duration.msPerYear);
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly milliseconds: <span class="hljs-built_in">number</span></span>) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> milliseconds: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     plus(another: Duration) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-keyword">this</span>.milliseconds + another.milliseconds);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-built_in">this</span>.milliseconds + another.milliseconds);
     }
 
     inMilliseconds(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.milliseconds;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds;
     }
 
     toString() {
-        <span class="hljs-keyword">const</span> ms = <span class="hljs-keyword">this</span>.milliseconds;
+        <span class="hljs-keyword">const</span> ms = <span class="hljs-built_in">this</span>.milliseconds;
 
         <span class="hljs-comment">// tslint:disable:space-within-parens</span>
         <span class="hljs-keyword">const</span> levels = [

@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, Question, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
@@ -194,7 +194,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 
         ExecuteScript.async(<span class="hljs-string">`
@@ -211,7 +211,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a static argument&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a static argument&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 
         ExecuteScript.async(<span class="hljs-string">`
@@ -229,7 +229,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a promised argument&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a promised argument&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 
         ExecuteScript.async(<span class="hljs-string">`
@@ -247,7 +247,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a Target argument&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to execute an asynchronous script with a Target argument&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 
         ExecuteScript.async(<span class="hljs-string">`
@@ -267,7 +267,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed when invoked without arguments&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed when invoked without arguments&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(ExecuteScript.async(<span class="hljs-string">`
             arguments[arguments.length - 1]();
         `</span>).toString()).to.equal(<span class="hljs-string">`#actor executes an asynchronous script`</span>);
@@ -275,7 +275,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed when invoked with arguments&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed when invoked with arguments&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> arg3 = Question.about(<span class="hljs-string">&apos;arg number 3&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
 
         expect(ExecuteScript.async(<span class="hljs-string">`arguments[arguments.length - 1]();`</span>)
@@ -285,7 +285,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;complains if the script has failed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;complains if the script has failed&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 
         ExecuteScript.async(<span class="hljs-string">`
@@ -297,8 +297,8 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
     <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
     <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    it(<span class="hljs-string">&apos;emits the events so that the details of the script being executed can be reported&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01&apos;</span>));
+    it(<span class="hljs-string">&apos;emits the events so that the details of the script being executed can be reported&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01&apos;</span>));
         <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
         <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> EventRecorder();
 
@@ -309,7 +309,7 @@ describe(<span class="hljs-string">&apos;ExecuteAsynchronousScript&apos;</span>,
 
         <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">&apos;Ashwin&apos;</span>).attemptsTo(
             ExecuteScript.async(<span class="hljs-string">`arguments[arguments.length - 1]();`</span>),
-        ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        ).then(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> events = recorder.events;
 
             expect(events).to.have.lengthOf(<span class="hljs-number">3</span>);

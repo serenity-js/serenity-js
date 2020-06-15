@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Question.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
 
 <span class="hljs-comment">/**
  * @desc
@@ -306,45 +306,45 @@
      *
      * @returns {Question&lt;R&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> about&lt;R&gt;<span class="hljs-function">(<span class="hljs-params">description: <span class="hljs-built_in">string</span>, body: (<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt; R</span>): <span class="hljs-params">Question</span>&lt;<span class="hljs-params">R</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">AnonymousQuestion</span>&lt;<span class="hljs-params">R</span>&gt;(<span class="hljs-params">description, body</span>);
+    <span class="hljs-keyword">static</span> about&lt;R&gt;(description: <span class="hljs-built_in">string</span>, body: <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt;</span> R): Question&lt;R&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AnonymousQuestion&lt;R&gt;(description, body);
     }
 
-    /**
-     * @<span class="hljs-params">desc</span>
-     *  <span class="hljs-params">Checks</span> <span class="hljs-params">if</span> <span class="hljs-params">the</span> <span class="hljs-params">value</span> <span class="hljs-params">is</span> <span class="hljs-params">a</span> {@<span class="hljs-params">link</span> <span class="hljs-params">Question</span>}.
+    <span class="hljs-comment">/**
+     * @desc
+     *  Checks if the value is a {@link Question}.
      *
-     * @<span class="hljs-params">static</span>
+     * @static
      *
-     * @<span class="hljs-params">param</span> {<span class="hljs-params">any</span>} <span class="hljs-params">maybeQuestion</span>
-     * @<span class="hljs-params">returns</span> {<span class="hljs-params">boolean</span>}
-     */
-    <span class="hljs-params">static</span> <span class="hljs-params">isAQuestion</span>&lt;<span class="hljs-params">T</span>&gt;(<span class="hljs-params">maybeQuestion: <span class="hljs-built_in">any</span></span>): <span class="hljs-params">maybeQuestion</span> <span class="hljs-params">is</span> <span class="hljs-params">Question</span>&lt;<span class="hljs-params">T</span>&gt; {
-        <span class="hljs-params">return</span> !! (<span class="hljs-params">maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span></span>).<span class="hljs-params">answeredBy</span>;
+     * @param {any} maybeQuestion
+     * @returns {boolean}
+     */</span>
+    <span class="hljs-keyword">static</span> isAQuestion&lt;T&gt;(maybeQuestion: <span class="hljs-built_in">any</span>): maybeQuestion is Question&lt;T&gt; {
+        <span class="hljs-keyword">return</span> !! (maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).answeredBy;
     }
 
-    /**
-     * @<span class="hljs-params">abstract</span>
-     */
-    <span class="hljs-params">abstract</span> <span class="hljs-params">answeredBy</span>(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>): <span class="hljs-params">T</span>;
+    <span class="hljs-comment">/**
+     * @abstract
+     */</span>
+    <span class="hljs-keyword">abstract</span> answeredBy(actor: AnswersQuestions &amp; UsesAbilities): T;
 }
 
-/**
- * @<span class="hljs-params">package</span>
- */
-<span class="hljs-params">class</span> <span class="hljs-params">AnonymousQuestion</span>&lt;<span class="hljs-params">T</span>&gt; <span class="hljs-params">implements</span> <span class="hljs-params">Question</span>&lt;<span class="hljs-params">T</span>&gt; {
-    <span class="hljs-params">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> body: (<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt; T</span>) {
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> AnonymousQuestion&lt;T&gt; <span class="hljs-keyword">implements</span> Question&lt;T&gt; {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> body: (actor: AnswersQuestions &amp; UsesAbilities) =&gt; T</span>) {
     }
 
-    <span class="hljs-params">answeredBy</span>(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) {
-        <span class="hljs-params">return</span> <span class="hljs-params">this</span>.<span class="hljs-params">body</span>(<span class="hljs-params">actor</span>);
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.body(actor);
     }
 
-    <span class="hljs-params">toString</span><span class="hljs-params">()</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">this</span>.<span class="hljs-params">description</span>;
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

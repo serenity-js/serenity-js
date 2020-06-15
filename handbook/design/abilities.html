@@ -159,11 +159,11 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
         <span class="hljs-keyword">return</span> actor.abilityTo(BrowseTheWeb);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly browser: ProtractorBrowser</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>) {
     }
 
     locate(locator: Locator): ElementFinder {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.browser.element(locator);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.element(locator);
     }
 
     <span class="hljs-comment">// rest omitted for brevity</span>
@@ -185,7 +185,7 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
 <span class="hljs-keyword">const</span> Click = {
     onElement: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
         Interaction.where(<span class="hljs-string">`#actor clicks on the <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-keyword">this</span>.locator).click();
+            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-built_in">this</span>.locator).click();
         }),
 }
 </code></pre>

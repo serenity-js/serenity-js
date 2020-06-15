@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/tasks/InvokeSerenityBDD.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Check, equals, not } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Check, equals, not } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { AnswersQuestions, Log, Note, PerformsActivities, Question, TakeNote, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Spawn } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../interactions&apos;</span>;
@@ -131,68 +131,68 @@
 <span class="hljs-comment">/**
  * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvokeSerenityBDD</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> InvokeSerenityBDD <span class="hljs-keyword">extends</span> Task {
     <span class="hljs-keyword">static</span> at(pathToArtifact: Path) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(pathToArtifact);
     }
 
-    withArguments(args: Question&lt;string[]&gt;) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-keyword">this</span>.pathToArtifact, args, <span class="hljs-keyword">this</span>.props);
+    withArguments(args: Question&lt;<span class="hljs-built_in">string</span>[]&gt;) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-built_in">this</span>.pathToArtifact, args, <span class="hljs-built_in">this</span>.props);
     }
 
-    withProperties(properties: Question&lt;string[]&gt;) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-keyword">this</span>.pathToArtifact, <span class="hljs-keyword">this</span>.args, properties);
+    withProperties(properties: Question&lt;<span class="hljs-built_in">string</span>[]&gt;) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-built_in">this</span>.pathToArtifact, <span class="hljs-built_in">this</span>.args, properties);
     }
 
     <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
-    <span class="hljs-keyword">constructor</span>(
-        private readonly pathToArtifact: Path,
-        private readonly args: Question&lt;string[]&gt;  = Question.about(`no arguments`, actor =&gt; []),
-        private readonly props: Question&lt;string[]&gt; = Question.about(`no properties`, actor =&gt; []),
-    ) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> pathToArtifact: Path,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> args: Question&lt;<span class="hljs-built_in">string</span>[]&gt;  = Question.about(`no <span class="hljs-built_in">arguments</span>`, actor =&gt; []),
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> props: Question&lt;<span class="hljs-built_in">string</span>[]&gt; = Question.about(`no properties`, actor =&gt; []),
+    </span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Task}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; | PromiseLike&lt;any&gt; {
+    performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                actor.answer(<span class="hljs-keyword">this</span>.args),
-                actor.answer(<span class="hljs-keyword">this</span>.props),
+                actor.answer(<span class="hljs-built_in">this</span>.args),
+                actor.answer(<span class="hljs-built_in">this</span>.props),
             ])
             .then(<span class="hljs-function">(<span class="hljs-params">[ args, props ]</span>) =&gt;</span>
                 actor.attemptsTo(
                     Check
-                        .whether(FileExists.at(<span class="hljs-keyword">this</span>.pathToArtifact), equals(<span class="hljs-literal">false</span>))
+                        .whether(FileExists.at(<span class="hljs-built_in">this</span>.pathToArtifact), equals(<span class="hljs-literal">false</span>))
                         .andIfSo(TerminateFlow.because(
-                            <span class="hljs-string">`I couldn&apos;t access the Serenity BDD CLI at <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.pathToArtifact.value }</span>. `</span> +
+                            <span class="hljs-string">`I couldn&apos;t access the Serenity BDD CLI at <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.pathToArtifact.value }</span>. `</span> +
                             <span class="hljs-string">`Did you remember to run \`serenity-bdd update\`?`</span>,
                         )),
                     <span class="hljs-comment">// todo: check if reports exist before invoking the jar?</span>
-                    Spawn.the(<span class="hljs-keyword">new</span> JavaExecutable(), ...props, <span class="hljs-string">&apos;-jar&apos;</span>, <span class="hljs-keyword">this</span>.pathToArtifact.value, ...args),
+                    Spawn.the(<span class="hljs-keyword">new</span> JavaExecutable(), ...props, <span class="hljs-string">&apos;-jar&apos;</span>, <span class="hljs-built_in">this</span>.pathToArtifact.value, ...args),
                 ),
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor invokes Serenity BDD`</span>;
     }
 }

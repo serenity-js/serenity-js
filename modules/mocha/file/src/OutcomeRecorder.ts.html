@@ -119,7 +119,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/OutcomeRecorder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -129,11 +129,11 @@
     <span class="hljs-keyword">private</span> recordedOutcomes: RecordedOutcome[] = [];
 
     <span class="hljs-keyword">public</span> started(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.recordedOutcomes.push({ test });
+        <span class="hljs-built_in">this</span>.recordedOutcomes.push({ test });
     }
 
     <span class="hljs-keyword">public</span> finished(test: Test, outcome: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.recordedOutcomes = <span class="hljs-keyword">this</span>.recordedOutcomes.map(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span>
+        <span class="hljs-built_in">this</span>.recordedOutcomes = <span class="hljs-built_in">this</span>.recordedOutcomes.map(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span>
             recordedOutcome.test === test
                 ? {...recordedOutcome, outcome }
                 : recordedOutcome
@@ -141,11 +141,11 @@
     }
 
     <span class="hljs-keyword">public</span> outcomeOf(test: Test): Outcome {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.recordedOutcomes.find(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test === test)?.outcome;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.recordedOutcomes.find(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test === test)?.outcome;
     }
 
     <span class="hljs-keyword">public</span> erase(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.recordedOutcomes = <span class="hljs-keyword">this</span>.recordedOutcomes.filter(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test !== test);
+        <span class="hljs-built_in">this</span>.recordedOutcomes = <span class="hljs-built_in">this</span>.recordedOutcomes.filter(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test !== test);
     }
 }
 

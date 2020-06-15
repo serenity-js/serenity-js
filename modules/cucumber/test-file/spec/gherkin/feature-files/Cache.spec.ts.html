@@ -121,22 +121,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/Cache.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Cache } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Cache&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Cache&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;starts empty&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;starts empty&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache();
 
         expect(cache.size()).to.equal(<span class="hljs-number">0</span>);
     });
 
-    it(<span class="hljs-string">&apos;allows for items to be stored and retrieved&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for items to be stored and retrieved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
         cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>), <span class="hljs-number">1</span>);
@@ -147,7 +147,7 @@ describe(<span class="hljs-string">&apos;Cache&apos;</span>, <span class="hljs-f
         expect(cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/bob&apos;</span>))).to.equal(<span class="hljs-number">2</span>);
     });
 
-    it(<span class="hljs-string">&apos;tells whether or not an item has already been cached&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;tells whether or not an item has already been cached&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
         cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>), <span class="hljs-number">1</span>);
@@ -156,10 +156,10 @@ describe(<span class="hljs-string">&apos;Cache&apos;</span>, <span class="hljs-f
         expect(cache.has(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/bob&apos;</span>))).to.equal(<span class="hljs-literal">false</span>);
     });
 
-    it(<span class="hljs-string">&apos;complains when you try to retrieve an object that has not been cached yet&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains when you try to retrieve an object that has not been cached yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>))).to.throw(
+        expect(<span class="hljs-function">() =&gt;</span> cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>))).to.throw(
             <span class="hljs-string">&apos;Make sure you cache a value under Path(value=/home/alice) before trying to retrieve it&apos;</span>,
         );
     });

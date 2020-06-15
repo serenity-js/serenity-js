@@ -534,9 +534,9 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">  <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
   <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
-  describe(<span class="hljs-string">&apos;Feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  describe(<span class="hljs-string">&apos;Feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-     it(<span class="hljs-string">&apos;should have some behaviour&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+     it(<span class="hljs-string">&apos;should have some behaviour&apos;</span>, <span class="hljs-function">() =&gt;</span>
          actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
              <span class="hljs-comment">// ... activities</span>
          ));
@@ -627,7 +627,7 @@
              <span class="hljs-comment">// ... activities</span>
          ));
 
-  When(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+  When(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function">() =&gt;</span>
      actorInTheSpotlight().attemptsTo(
              <span class="hljs-comment">// ... activities</span>
          ));</code></pre>
@@ -809,13 +809,13 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
       <div class="example-caption" data-ice="exampleCaption">Usage with Jasmine</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
 
- beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));</code></pre>
+ beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Before } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cucumber&apos;</span>;
 
- Before(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors());</code></pre>
+ Before(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors());</code></pre>
     </div>
 </div>
 

@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Note.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/errors&apos;</span>;
@@ -250,15 +250,15 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { EnsureSame } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../EnsureSame&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span>
         expectedHobby = <span class="hljs-string">&apos;DYI&apos;</span>,
-        NameOfAHobby = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Question.about(<span class="hljs-string">`the name of a hobby`</span>, <span class="hljs-function"><span class="hljs-params">someActor</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(expectedHobby));
+        NameOfAHobby = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">`the name of a hobby`</span>, <span class="hljs-function"><span class="hljs-params">someActor</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(expectedHobby));
 
     <span class="hljs-keyword">let</span> stage: sinon.SinonStubbedInstance&lt;Stage&gt;,
         Noah: Actor;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         stage = sinon.createStubInstance(Stage);
         <span class="hljs-comment">// activityDetailsFor is a bit more involved than that, but this is a good approximation</span>
         stage.activityDetailsFor.callsFake(<span class="hljs-function">(<span class="hljs-params">activity: Activity</span>) =&gt;</span> <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(activity.toString())));
@@ -271,8 +271,8 @@ describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-fu
      * @test {TakeNotes}
      * @test {Note}
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> Map([ [NameOfAHobby().toString(), <span class="hljs-string">&apos;DYI&apos;</span>] ]);
+    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([ [NameOfAHobby().toString(), <span class="hljs-string">&apos;DYI&apos;</span>] ]);
         expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes(notepad)).attemptsTo(
             EnsureSame(Note.of(NameOfAHobby()), <span class="hljs-string">&apos;DYI&apos;</span>),
         ));
@@ -282,7 +282,7 @@ describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-fu
      * @test {TakeNotes}
      * @test {Note}
      */</span>
-    it(<span class="hljs-string">&apos;complains if no answer to a given question has ever been remembered&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;complains if no answer to a given question has ever been remembered&apos;</span>, <span class="hljs-function">() =&gt;</span>
         expect(actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
             Log.the(Note.of(NameOfAHobby())),
         )).to.be.rejectedWith(LogicError, <span class="hljs-string">&apos;The answer to &quot;the name of a hobby&quot; has never been recorded&apos;</span>));

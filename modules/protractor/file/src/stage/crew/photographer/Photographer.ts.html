@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/Photographer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./strategies&apos;</span>;
@@ -210,60 +210,60 @@
  *
  * @see {@link @serenity-js/core/lib/stage~Stage}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Photographer</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Photographer <span class="hljs-keyword">implements</span> StageCrewMember {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a new {<span class="hljs-doctag">@link </span>Photographer} configured to take photos (screenshots)
-     *  as per the specified {<span class="hljs-doctag">@link </span>PhotoTakingStrategy}.
+     * @desc
+     *  Instantiates a new {@link Photographer} configured to take photos (screenshots)
+     *  as per the specified {@link PhotoTakingStrategy}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Function}</span> <span class="hljs-variable">strategy</span></span> - A no-arg constructor function that instantiates a {<span class="hljs-doctag">@link </span>PhotoTakingStrategy}.
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{StageCrewMember}</span></span>
+     * @param {Function} strategy - A no-arg constructor function that instantiates a {@link PhotoTakingStrategy}.
+     * @returns {StageCrewMember}
      */</span>
     <span class="hljs-keyword">static</span> whoWill(strategy: <span class="hljs-keyword">new</span> () =&gt; PhotoTakingStrategy): StageCrewMember {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> strategy());
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{PhotoTakingStrategy}</span> <span class="hljs-variable">photoTakingStrategy</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> <span class="hljs-variable">stage</span></span>
+     * @param {PhotoTakingStrategy} photoTakingStrategy
+     * @param {Stage} stage
      */</span>
-    <span class="hljs-keyword">constructor</span>(
-        private readonly photoTakingStrategy: PhotoTakingStrategy,
-        private readonly stage: Stage = null,
-    ) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> photoTakingStrategy: PhotoTakingStrategy,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
+    </span>) {
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Creates a new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember} and assigns it to a given {<span class="hljs-doctag">@link </span>Stage}.
+     * @desc
+     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> <span class="hljs-variable">stage</span></span> - An instance of a {<span class="hljs-doctag">@link </span>Stage} this {<span class="hljs-doctag">@link </span>StageCrewMember} will be assigned to
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{StageCrewMember}</span> </span>- A new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember}
+     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
      */</span>
     assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">this</span>.photoTakingStrategy, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Photographer(<span class="hljs-built_in">this</span>.photoTakingStrategy, stage);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link </span>DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span>Stage}
-     *  this {<span class="hljs-doctag">@link </span>StageCrewMember} is assigned to.
+     * @desc
+     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
+     *  this {@link StageCrewMember} is assigned to.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent}</span> <span class="hljs-variable">event</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
+     * @param {DomainEvent} event
+     * @returns void
      */</span>
-    notifyOf(event: DomainEvent): <span class="hljs-keyword">void</span> {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.stage) {
+    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.stage) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`</span>);
         }
 
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.stage.theShowHasStarted()) {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.stage.theShowHasStarted()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
         }
 
         <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ActivityStarts || event <span class="hljs-keyword">instanceof</span> ActivityFinished) {
-            <span class="hljs-keyword">this</span>.photoTakingStrategy.considerTakingPhoto(event, <span class="hljs-keyword">this</span>.stage);
+            <span class="hljs-built_in">this</span>.photoTakingStrategy.considerTakingPhoto(event, <span class="hljs-built_in">this</span>.stage);
         }
     }
 }

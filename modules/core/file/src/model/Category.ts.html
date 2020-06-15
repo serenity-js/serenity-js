@@ -240,16 +240,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Category.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Category <span class="hljs-keyword">extends</span> TinyType {
     <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Category(v);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly value: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">super</span>();
-        ensure(<span class="hljs-keyword">this</span>.constructor.name, value, isDefined());
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-built_in">super</span>();
+        ensure(<span class="hljs-built_in">this</span>.constructor.name, value, isDefined());
     }
 }
 </code></pre>

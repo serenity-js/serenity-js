@@ -240,40 +240,40 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/errors/RuntimeError.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;subclass&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;subclass&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">class</span> CustomError <span class="hljs-keyword">extends</span> RuntimeError {
             <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>) {
-                <span class="hljs-keyword">super</span>(CustomError, message);
+                <span class="hljs-built_in">super</span>(CustomError, message);
             }
         }
 
         <span class="hljs-keyword">let</span> error: RuntimeError;
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
             error = <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">&apos;something happened&apos;</span>);
         });
 
         <span class="hljs-comment">/** @test {RuntimeError} */</span>
-        it(<span class="hljs-string">&apos;is recognised as an instance of its type&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;is recognised as an instance of its type&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
             expect(error).to.be.instanceOf(RuntimeError);
             expect(error).to.be.instanceOf(CustomError);
         });
 
         <span class="hljs-comment">/** @test {RuntimeError} */</span>
-        it(<span class="hljs-string">&apos;has a message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;has a message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(error.message).to.equal(<span class="hljs-string">&apos;something happened&apos;</span>);
         });
 
         <span class="hljs-comment">/** @test {RuntimeError} */</span>
-        it(<span class="hljs-string">&apos;retains the stacktrace&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;retains the stacktrace&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> frames = error.stack.split(<span class="hljs-string">&apos;\n&apos;</span>);
 
             expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;CustomError: something happened&apos;</span>);
@@ -281,22 +281,22 @@ describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class=
         });
     });
 
-    describe(<span class="hljs-string">&apos;when propagating errors&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when propagating errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">class</span> ApplicationError <span class="hljs-keyword">extends</span> RuntimeError {
             <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
-                <span class="hljs-keyword">super</span>(ApplicationError, message, cause);
+                <span class="hljs-built_in">super</span>(ApplicationError, message, cause);
             }
         }
 
         <span class="hljs-keyword">class</span> IOError <span class="hljs-keyword">extends</span> RuntimeError {
             <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
-                <span class="hljs-keyword">super</span>(IOError, message, cause);
+                <span class="hljs-built_in">super</span>(IOError, message, cause);
             }
         }
 
         <span class="hljs-comment">/** @test {RuntimeError} */</span>
-        it(<span class="hljs-string">&apos;includes the stack trace of the original errors&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;includes the stack trace of the original errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span> fsError  = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;ENOENT: no such file or directory&apos;</span>);
             <span class="hljs-keyword">const</span> ioError  = <span class="hljs-keyword">new</span> IOError(<span class="hljs-string">`Directory not writable`</span>, fsError);

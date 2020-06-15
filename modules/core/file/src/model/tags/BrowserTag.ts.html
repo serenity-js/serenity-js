@@ -240,26 +240,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/tags/BrowserTag.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
 
 <span class="hljs-comment">/**
  * @access public
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BrowserTag <span class="hljs-keyword">extends</span> Tag {
-    <span class="hljs-keyword">static</span> readonly Type = <span class="hljs-string">&apos;browser&apos;</span>;
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">&apos;browser&apos;</span>;
 
     <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserTag(o.browserName <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>, o.browserVersion <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly browserName: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly browserVersion: <span class="hljs-built_in">string</span> = &apos;&apos;,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> browserName: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> browserVersion: <span class="hljs-built_in">string</span> = &apos;&apos;,
     </span>) {
-        <span class="hljs-keyword">super</span>(
+        <span class="hljs-built_in">super</span>(
             [ browserName, browserVersion ]
-                .filter(_ =&gt; !! _)
+                .filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !! _)
                 .join(<span class="hljs-string">&apos; &apos;</span>),
             BrowserTag.Type,
         );
@@ -267,10 +267,10 @@
 
     toJSON() {
         <span class="hljs-keyword">return</span> {
-            name: <span class="hljs-keyword">this</span>.name,
+            name: <span class="hljs-built_in">this</span>.name,
             <span class="hljs-keyword">type</span>: BrowserTag.Type,
-            browserName: <span class="hljs-keyword">this</span>.browserName,
-            browserVersion: <span class="hljs-keyword">this</span>.browserVersion,
+            browserName: <span class="hljs-built_in">this</span>.browserName,
+            browserVersion: <span class="hljs-built_in">this</span>.browserVersion,
         };
     }
 }

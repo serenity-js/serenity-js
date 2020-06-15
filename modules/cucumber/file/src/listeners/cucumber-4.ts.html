@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/cucumber-4.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { cucumberEventProtocolAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberEventProtocolAdapter&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { cucumberEventProtocolAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberEventProtocolAdapter&apos;</span>;
 <span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Dependencies&apos;</span>;
 
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dependencies: Dependencies</span>) </span>{
@@ -137,7 +137,7 @@
         dependencies.notifier.testRunFinishes();
 
         <span class="hljs-keyword">return</span> dependencies.serenity.waitForNextCue()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            .then(<span class="hljs-function">() =&gt;</span> {
                 dependencies.notifier.testRunFinished();
             });
     });

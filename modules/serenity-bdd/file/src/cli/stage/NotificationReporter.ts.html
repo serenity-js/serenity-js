@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/stage/NotificationReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Complaint, Notification } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Printer&apos;</span>;
@@ -134,22 +134,22 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> NotificationReporter <span class="hljs-keyword">implements</span> StageCrewMember {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly printer: Printer,
-        <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NotificationReporter(<span class="hljs-keyword">this</span>.printer, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NotificationReporter(<span class="hljs-built_in">this</span>.printer, stage);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; event.artifact <span class="hljs-keyword">instanceof</span> Notification) {
-            <span class="hljs-keyword">this</span>.printer.info(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">notification: { message: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> notification.message));
+            <span class="hljs-built_in">this</span>.printer.info(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">notification: { message: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> notification.message));
         }
 
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; event.artifact <span class="hljs-keyword">instanceof</span> Complaint) {
-            <span class="hljs-keyword">this</span>.printer.info(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">{ description, message }: { description: <span class="hljs-built_in">string</span>, message: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+            <span class="hljs-built_in">this</span>.printer.info(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">{ description, message }: { description: <span class="hljs-built_in">string</span>, message: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
                 <span class="hljs-string">`<span class="hljs-subst">${ description }</span>\n<span class="hljs-subst">${ message }</span>`</span>));
             <span class="hljs-comment">// todo: add stack if verbose</span>
         }

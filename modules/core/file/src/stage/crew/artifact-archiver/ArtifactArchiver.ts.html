@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/artifact-archiver/ArtifactArchiver.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isGreaterThan, property } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isGreaterThan, property } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -273,13 +273,13 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly fileSystem: FileSystem,
-        <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
     }
 
     assignedTo(stage: Stage) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactArchiver(<span class="hljs-keyword">this</span>.fileSystem, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactArchiver(<span class="hljs-built_in">this</span>.fileSystem, stage);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
@@ -290,24 +290,24 @@
         }
 
         <span class="hljs-keyword">if</span> (event.artifact <span class="hljs-keyword">instanceof</span> Photo) {
-            <span class="hljs-keyword">const</span> filename = <span class="hljs-keyword">this</span>.fileNameFor(<span class="hljs-string">&apos;photo&apos;</span>, event.name, event.artifact, <span class="hljs-string">&apos;png&apos;</span>);
+            <span class="hljs-keyword">const</span> filename = <span class="hljs-built_in">this</span>.fileNameFor(<span class="hljs-string">&apos;photo&apos;</span>, event.name, event.artifact, <span class="hljs-string">&apos;png&apos;</span>);
 
-            <span class="hljs-keyword">this</span>.archive(
+            <span class="hljs-built_in">this</span>.archive(
                 filename,
                 event.artifact.base64EncodedValue,
                 <span class="hljs-string">&apos;base64&apos;</span>,
-                <span class="hljs-keyword">this</span>.archivisationAnnouncement(event, filename),
+                <span class="hljs-built_in">this</span>.archivisationAnnouncement(event, filename),
             );
         }
 
         <span class="hljs-keyword">if</span> (event.artifact <span class="hljs-keyword">instanceof</span> TestReport) {
-            <span class="hljs-keyword">const</span> filename = <span class="hljs-keyword">this</span>.fileNameFor(<span class="hljs-string">&apos;scenario&apos;</span>, event.name, event.artifact, <span class="hljs-string">&apos;json&apos;</span>);
+            <span class="hljs-keyword">const</span> filename = <span class="hljs-built_in">this</span>.fileNameFor(<span class="hljs-string">&apos;scenario&apos;</span>, event.name, event.artifact, <span class="hljs-string">&apos;json&apos;</span>);
 
-            <span class="hljs-keyword">this</span>.archive(
+            <span class="hljs-built_in">this</span>.archive(
                 filename,
                 event.artifact.map(<span class="hljs-built_in">JSON</span>.stringify),
                 <span class="hljs-string">&apos;utf8&apos;</span>,
-                <span class="hljs-keyword">this</span>.archivisationAnnouncement(event, filename),
+                <span class="hljs-built_in">this</span>.archivisationAnnouncement(event, filename),
             );
         }
     }
@@ -327,36 +327,36 @@
     <span class="hljs-keyword">private</span> archive(relativePath: Path, contents: <span class="hljs-built_in">string</span>, encoding: <span class="hljs-built_in">string</span>, announce: <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">const</span> id = CorrelationId.create();
 
-        <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Saving &apos;<span class="hljs-subst">${ relativePath.value }</span>&apos;...`</span>),
+        <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
+            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Saving &apos;<span class="hljs-subst">${ relativePath.value }</span>&apos;...`</span>),
             id,
         ));
 
-        <span class="hljs-keyword">this</span>.fileSystem.store(relativePath, contents, encoding)
+        <span class="hljs-built_in">this</span>.fileSystem.store(relativePath, contents, encoding)
             .then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
                 announce(relativePath);
 
-                <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Saved &apos;<span class="hljs-subst">${ absolutePath.value }</span>&apos;`</span>),
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
+                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Saved &apos;<span class="hljs-subst">${ absolutePath.value }</span>&apos;`</span>),
                     id,
                 ));
             })
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id));
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id));
             });
     }
 
     <span class="hljs-keyword">private</span> archivisationAnnouncement(evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> {
             <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ActivityRelatedArtifactGenerated) {
-                <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(
                     evt.details,
                     evt.name,
                     evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ArtifactGenerated) {
-                <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactArchived(
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactArchived(
                     evt.name,
                     evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,

@@ -143,7 +143,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Expectation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./outcomes&apos;</span>;
 
@@ -247,24 +247,24 @@
 <span class="hljs-keyword">class</span> DynamicallyGeneratedExpectation&lt;Expected, Actual&gt; <span class="hljs-keyword">implements</span> Expectation&lt;Expected, Actual&gt; {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly description: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">private</span> readonly predicate: Predicate&lt;Actual, Expected&gt;,
-        <span class="hljs-keyword">private</span> readonly expectedValue: Answerable&lt;Expected&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> predicate: Predicate&lt;Actual, Expected&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectedValue: Answerable&lt;Expected&gt;,
     </span>) {
     }
 
     answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;Expected, Actual&gt;&gt; {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> actor.answer(<span class="hljs-keyword">this</span>.expectedValue)
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> actor.answer(<span class="hljs-built_in">this</span>.expectedValue)
             .then(<span class="hljs-function"><span class="hljs-params">expected</span> =&gt;</span> {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.predicate(actual, expected)
-                    ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-keyword">this</span>.toString(), expected, actual)
-                    : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-keyword">this</span>.toString(), expected, actual);
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.predicate(actual, expected)
+                    ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.toString(), expected, actual)
+                    : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), expected, actual);
             });
     }
 
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.expectedValue}</span>`</span> }</span>`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>.expectedValue}</span>`</span> }</span>`</span>;
     }
 }
 
@@ -274,21 +274,21 @@
 <span class="hljs-keyword">class</span> ExpectationAlias&lt;Actual&gt; <span class="hljs-keyword">implements</span> Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt; {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly description: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">private</span> readonly expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
     </span>) {
     }
 
     answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span>
-            <span class="hljs-keyword">this</span>.expectation.answeredBy(actor)(actual).then(_ =&gt; _ <span class="hljs-keyword">instanceof</span> ExpectationMet
-                ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-keyword">this</span>.description, _.expected, _.actual)
+            <span class="hljs-built_in">this</span>.expectation.answeredBy(actor)(actual).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _ <span class="hljs-keyword">instanceof</span> ExpectationMet
+                ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.description, _.expected, _.actual)
                 : <span class="hljs-keyword">new</span> ExpectationNotMet(_.message, _.expected, _.actual));
     }
 
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.description;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }
 </code></pre>

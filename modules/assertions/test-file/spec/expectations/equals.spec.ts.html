@@ -143,7 +143,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/equals.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -152,7 +152,7 @@
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 
 <span class="hljs-comment">/** @test {equals} */</span>
-describe(<span class="hljs-string">&apos;equals&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;equals&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">class</span> Name <span class="hljs-keyword">extends</span> TinyTypeOf&lt;<span class="hljs-built_in">string</span>&gt;() {}
 
@@ -172,7 +172,7 @@ describe(<span class="hljs-string">&apos;equals&apos;</span>, <span class="hljs-
     });
 
     <span class="hljs-comment">/** @test {equals} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when the values of &quot;actual&quot; and &quot;expected&quot; don\&apos;t match&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when the values of &quot;actual&quot; and &quot;expected&quot; don\&apos;t match&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-number">27</span>, equals(<span class="hljs-number">42</span>)),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">&apos;Expected 27 to equal 42&apos;</span>)
@@ -183,7 +183,7 @@ describe(<span class="hljs-string">&apos;equals&apos;</span>, <span class="hljs-
     });
 
     <span class="hljs-comment">/** @test {equals} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(<span class="hljs-number">27</span>, equals(<span class="hljs-number">42</span>)).toString()).to.equal(<span class="hljs-string">&apos;#actor ensures that 27 does equal 42&apos;</span>);
     });
 });

@@ -130,7 +130,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/PatchRequest.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 <span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./HTTPRequest&apos;</span>;
 
@@ -158,51 +158,51 @@
  *
  * @extends {HTTPRequest}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PatchRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTTPRequest</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> PatchRequest <span class="hljs-keyword">extends</span> HTTPRequest {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Configures the object with a destination URI.
      *
      *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      *  it gets concatenated with the URL provided to the Axios instance
-     *  when the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
+     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;}</span> <span class="hljs-variable">resourceUri</span></span>
-     *  The URI where the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  should send the {<span class="hljs-doctag">@link </span>HTTPRequest}.
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} resourceUri
+     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  should send the {@link HTTPRequest}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PatchRequest}</span></span>
+     * @returns {PatchRequest}
      */</span>
-    <span class="hljs-keyword">static</span> to(resourceUri: Answerable&lt;string&gt;): PatchRequest {
+    <span class="hljs-keyword">static</span> to(resourceUri: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): PatchRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(resourceUri);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Configures the object with a request body.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;any&gt;}</span> <span class="hljs-variable">data</span></span>
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;any&gt;} data
      *  Data to be sent to the `resourceUri`
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PatchRequest}</span></span>
+     * @returns {PatchRequest}
      */</span>
-    <span class="hljs-keyword">with</span>(data: Answerable&lt;any&gt;): PatchRequest {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(<span class="hljs-keyword">this</span>.resourceUri, data, <span class="hljs-keyword">this</span>.config);
+    <span class="hljs-keyword">with</span>(data: Answerable&lt;<span class="hljs-built_in">any</span>&gt;): PatchRequest {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(<span class="hljs-built_in">this</span>.resourceUri, data, <span class="hljs-built_in">this</span>.config);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Overrides the default Axios request configuration provided
-     *  when {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
+     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;}</span> <span class="hljs-variable">config</span></span>
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} config
      *  Axios request configuration overrides
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PatchRequest}</span></span>
+     * @returns {PatchRequest}
      */</span>
     using(config: AxiosRequestConfig): PatchRequest {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(<span class="hljs-keyword">this</span>.resourceUri, <span class="hljs-keyword">this</span>.data, config);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-built_in">this</span>.data, config);
     }
 }
 </code></pre>

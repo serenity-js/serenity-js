@@ -121,111 +121,111 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs gherkin" data-ice="content">/<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
- <span class="hljs-symbol">*</span> <span class="hljs-meta">@public</span>
- <span class="hljs-symbol">*</span>/
-export interface CucumberConfig {
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Step definitions and support files can be written in languages that transpile to JavaScript.
-     <span class="hljs-symbol">*</span>  To do set the `compiler` option to <span class="hljs-variable">&lt;file_extension&gt;</span>:<span class="hljs-variable">&lt;module_name&gt;</span>
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span>  For Cucumber 4.x and above use the {<span class="hljs-meta">@link</span> CucumberConfig<span class="hljs-comment">#require} option instead.</span>
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@example</span> <span class="hljs-variable">&lt;caption&gt;</span>Enable TypeScript support in Cucumber 1.x - 3.x<span class="hljs-variable">&lt;/caption&gt;</span>
-     <span class="hljs-symbol">*</span>  compiler: &apos;ts:ts-node/register&apos;
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md<span class="hljs-comment">#transpilers</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@version</span> 1.x - 3.x
-     <span class="hljs-symbol">*</span>/
-    compiler?: string;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
+ * @public
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CucumberConfig {
+    <span class="hljs-comment">/**
+     * @desc
+     *  Step definitions and support files can be written in languages that transpile to JavaScript.
+     *  To do set the `compiler` option to &lt;file_extension&gt;:&lt;module_name&gt;
+     *
+     *  For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.
+     *
+     * @example &lt;caption&gt;Enable TypeScript support in Cucumber 1.x - 3.x&lt;/caption&gt;
+     *  compiler: &apos;ts:ts-node/register&apos;
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers
+     * @version 1.x - 3.x
+     */</span>
+    compiler?: <span class="hljs-built_in">string</span>;
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Specify additional output formats, optionally supply PATH to redirect formatter output
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md<span class="hljs-comment">#formats</span>
-     <span class="hljs-symbol">*</span>/
-    format?: string;
+    <span class="hljs-comment">/**
+     * @desc
+     *  Specify additional output formats, optionally supply PATH to redirect formatter output
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
+     */</span>
+    format?: <span class="hljs-built_in">string</span>;
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Provide options for formatters
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@example</span> <span class="hljs-variable">&lt;caption&gt;</span>Cucumber 1.x<span class="hljs-variable">&lt;/caption&gt;</span>
-     <span class="hljs-symbol">*</span>  formatOptions: JSON.stringify({ option: &apos;value&apos; })
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md<span class="hljs-comment">#format-options</span>
-     <span class="hljs-symbol">*</span>/
-    formatOptions?: string;
+    <span class="hljs-comment">/**
+     * @desc
+     *  Provide options for formatters
+     *
+     * @example &lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
+     *  formatOptions: JSON.stringify({ option: &apos;value&apos; })
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
+     */</span>
+    formatOptions?: <span class="hljs-built_in">string</span>;
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Only execute the scenarios with name matching the expression.
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md<span class="hljs-comment">#running-specific-features</span>
-     <span class="hljs-symbol">*</span>/
-    name?: string[];
+    <span class="hljs-comment">/**
+     * @desc
+     *  Only execute the scenarios with name matching the expression.
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features
+     */</span>
+    name?: <span class="hljs-built_in">string</span>[];
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  In order to store and reuse commonly used CLI options,
-     <span class="hljs-symbol">*</span>  you can add a `cucumber.js` file to your project root directory.
-     <span class="hljs-symbol">*</span>  The file should export an object where the key is the profile name
-     <span class="hljs-symbol">*</span>  and the value is a string of CLI options.
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span>  The profile can be applied with -p <span class="hljs-variable">&lt;NAME&gt;</span> or --profile <span class="hljs-variable">&lt;NAME&gt;</span>.
-     <span class="hljs-symbol">*</span>  This will prepend the profile&apos;s CLI options to the ones provided by the command line.
-     <span class="hljs-symbol">*</span>  Multiple profiles can be specified at a time.
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span>  If no profile is specified and a profile named default exists,
-     <span class="hljs-symbol">*</span>  it will be applied.
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md<span class="hljs-comment">#profiles</span>
-     <span class="hljs-symbol">*</span>/
-    profile?: string[];
+    <span class="hljs-comment">/**
+     * @desc
+     *  In order to store and reuse commonly used CLI options,
+     *  you can add a `cucumber.js` file to your project root directory.
+     *  The file should export an object where the key is the profile name
+     *  and the value is a string of CLI options.
+     *
+     *  The profile can be applied with -p &lt;NAME&gt; or --profile &lt;NAME&gt;.
+     *  This will prepend the profile&apos;s CLI options to the ones provided by the command line.
+     *  Multiple profiles can be specified at a time.
+     *
+     *  If no profile is specified and a profile named default exists,
+     *  it will be applied.
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles
+     */</span>
+    profile?: <span class="hljs-built_in">string</span>[];
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Require files before executing features
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string}
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md<span class="hljs-comment">#requiring-support-files</span>
-     <span class="hljs-symbol">*</span>/
-    require?: string[];
+    <span class="hljs-comment">/**
+     * @desc
+     *  Require files before executing features
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files
+     */</span>
+    <span class="hljs-built_in">require</span>?: <span class="hljs-built_in">string</span>[];
 
-    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@desc</span>
-     <span class="hljs-symbol">*</span>  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.
-     <span class="hljs-symbol">*</span>  For example, to run all scenarios tagged with `<span class="hljs-meta">@smoketest`,</span> but not with `<span class="hljs-meta">@wip`:</span>
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@example</span> <span class="hljs-variable">&lt;caption&gt;</span>Cucumber 1.x<span class="hljs-variable">&lt;/caption&gt;</span>
-     <span class="hljs-symbol">*</span> tag: [ &apos;<span class="hljs-meta">@smoketest&apos;,</span> &apos;~<span class="hljs-meta">@wip&apos;</span> ]
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@example</span> <span class="hljs-variable">&lt;caption&gt;</span>Cucumber &gt;= 2.x<span class="hljs-variable">&lt;/caption&gt;</span>
-     <span class="hljs-symbol">*</span> tag: &apos;<span class="hljs-meta">@smoketest</span> and not <span class="hljs-meta">@wip&apos;</span>
-     <span class="hljs-symbol">*</span>
-     <span class="hljs-symbol">*</span> <span class="hljs-meta">@type</span> {string[]|<span class="hljs-string">string}
+    <span class="hljs-comment">/**
+     * @desc
+     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.
+     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:
+     *
+     * @example &lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
+     * tag: [ &apos;@smoketest&apos;, &apos;~@wip&apos; ]
+     *
+     * @example &lt;caption&gt;Cucumber &gt;= 2.x&lt;/caption&gt;
+     * tag: &apos;@smoketest and not @wip&apos;
+     *
+     * @type {string[]|string}
      * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags
      * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags
-     */
-    tags?: string[] </span>|<span class="hljs-string"> string;
+     */</span>
+    tags?: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span>;
 
-    /**
+    <span class="hljs-comment">/**
      * @desc
      *  Fail if there are any undefined or pending steps
      *
      * @type {boolean}
      * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber
-     */
-    strict?: boolean;
+     */</span>
+    strict?: <span class="hljs-built_in">boolean</span>;
 
-    /**
+    <span class="hljs-comment">/**
      * @desc
      *  Provide parameters that will be passed to the world constructor
      *
@@ -234,10 +234,10 @@ export interface CucumberConfig {
      *
      * @type {string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
-     */
-    worldParameters?: string;
+     */</span>
+    worldParameters?: <span class="hljs-built_in">string</span>;
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

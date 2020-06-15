@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {Ability} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Ability} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -277,7 +277,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Ability, Actor, Interface } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Ability, Actor, Interface } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-keyword">class</span> MakePhoneCalls <span class="hljs-keyword">implements</span> Ability {
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): MakesPhoneCalls {
@@ -288,7 +288,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MakePhoneCalls(phone);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly phone: Phone</span>) {}
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> phone: Phone</span>) {}
 
     <span class="hljs-comment">// some method that allows us to interact with the external interface of the system under test</span>
     dial(phoneNumber: <span class="hljs-built_in">string</span>) {

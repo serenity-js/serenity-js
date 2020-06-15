@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Hover.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -192,7 +192,7 @@ describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-f
 
     <span class="hljs-comment">/** @test {Scroll} */</span>
     <span class="hljs-comment">/** @test {Scroll.to} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to move the mouse to a given target&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Mickey&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to move the mouse to a given target&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Mickey&apos;</span>).attemptsTo(
         Navigate.to(pageWithALink),
 
         Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">&apos;class&apos;</span>), equals(<span class="hljs-string">&apos;off&apos;</span>)),
@@ -205,7 +205,7 @@ describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-f
     ));
 
     <span class="hljs-comment">/** @test {Enter#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Hover.over(Page.Link).toString())
             .to.equal(<span class="hljs-string">`#actor hovers the mouse over the link`</span>);
     });

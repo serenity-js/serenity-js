@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/CollectsArtifacts.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Artifact, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Artifact, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 
 <span class="hljs-comment">/**
  * @desc
@@ -248,15 +248,15 @@
  *
  * @public
  */</span>
-<span class="hljs-keyword">export</span> interface CollectsArtifacts {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CollectsArtifacts {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     * Makes the {<span class="hljs-doctag">@link </span>Actor} collect an {<span class="hljs-doctag">@link </span>Artifact} so that it&apos;s included in the test report.
+     * @desc
+     * Makes the {@link Actor} collect an {@link Artifact} so that it&apos;s included in the test report.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Artifact}</span> <span class="hljs-variable">artifact</span></span> - The artifact to be collected, such as {<span class="hljs-doctag">@link </span>JSONData}
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Name}</span> </span>[name] - The name of the artifact to make it easy to recognise in the test report
+     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}
+     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report
      */</span>
-    collect(artifact: Artifact, name?: Name): <span class="hljs-keyword">void</span>;
+    collect(artifact: Artifact, name?: Name): <span class="hljs-built_in">void</span>;
 }
 </code></pre>
 

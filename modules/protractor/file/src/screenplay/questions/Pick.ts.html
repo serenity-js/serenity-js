@@ -163,78 +163,78 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Pick.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Expectation, ExpectationMet } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation, ExpectationMet } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { RelativeQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./RelativeQuestion&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Collection&lt;T&gt; {
     filter(fn: <span class="hljs-function">(<span class="hljs-params">item: T, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">boolean</span> | <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;): Collection&lt;T&gt;;
-    map&lt;O&gt;<span class="hljs-function">(<span class="hljs-params">fn: (<span class="hljs-params">item: T, index?: <span class="hljs-built_in">number</span></span>) =&gt; O</span>): <span class="hljs-params">PromiseLike</span>&lt;<span class="hljs-params">O</span>[]&gt;;
-    <span class="hljs-params">first</span><span class="hljs-params">()</span>: <span class="hljs-params">T</span>;
-    <span class="hljs-params">last</span><span class="hljs-params">()</span>: <span class="hljs-params">T</span>;
-    <span class="hljs-params">get</span>(<span class="hljs-params">index: <span class="hljs-built_in">number</span></span>): <span class="hljs-params">T</span>;
-    <span class="hljs-params">count</span><span class="hljs-params">()</span>: <span class="hljs-params">PromiseLike</span>&lt;<span class="hljs-params">number</span>&gt; | <span class="hljs-params">number</span>;
+    map&lt;O&gt;(fn: <span class="hljs-function">(<span class="hljs-params">item: T, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> O): PromiseLike&lt;O[]&gt;;
+    first(): T;
+    last(): T;
+    get(index: <span class="hljs-built_in">number</span>): T;
+    count(): PromiseLike&lt;<span class="hljs-built_in">number</span>&gt; | <span class="hljs-built_in">number</span>;
 }
 
-/**
- * @<span class="hljs-params">experimental</span>
- */
-<span class="hljs-params">export</span> <span class="hljs-params">class</span> <span class="hljs-params">Pick</span>&lt;<span class="hljs-params">Item_Type</span>, <span class="hljs-params">Collection_Type</span> <span class="hljs-params">extends</span> <span class="hljs-params">Collection</span>&lt;<span class="hljs-params">Item_Type</span>&gt; = <span class="hljs-params">Collection</span>&lt;<span class="hljs-params">Item_Type</span>&gt;&gt; {
+<span class="hljs-comment">/**
+ * @experimental
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Pick&lt;Item_Type, Collection_Type <span class="hljs-keyword">extends</span> Collection&lt;Item_Type&gt; = Collection&lt;Item_Type&gt;&gt; {
 
-    <span class="hljs-params">static</span> <span class="hljs-params">from</span>&lt;<span class="hljs-params">IT</span>, <span class="hljs-params">CT</span> <span class="hljs-params">extends</span> <span class="hljs-params">Collection</span>&lt;<span class="hljs-params">IT</span>&gt; = <span class="hljs-params">Collection</span>&lt;<span class="hljs-params">IT</span>&gt;&gt;(<span class="hljs-params">collection: Question&lt;CT&gt; | CT</span>) {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">Pick</span>&lt;<span class="hljs-params">IT</span>, <span class="hljs-params">CT</span>&gt;(<span class="hljs-params">collection</span>);
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>&lt;IT, CT <span class="hljs-keyword">extends</span> Collection&lt;IT&gt; = Collection&lt;IT&gt;&gt;(collection: Question&lt;CT&gt; | CT) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pick&lt;IT, CT&gt;(collection);
     }
 
-    <span class="hljs-params">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly collection: Question&lt;Collection_Type&gt; | Collection_Type,
-        <span class="hljs-keyword">private</span> readonly filters: Filters&lt;Item_Type, Collection_Type&gt; = <span class="hljs-keyword">new</span> Filters&lt;Item_Type, Collection_Type&gt;(<span class="hljs-params"></span>),
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;Collection_Type&gt; | Collection_Type,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: Filters&lt;Item_Type, Collection_Type&gt; = <span class="hljs-keyword">new</span> Filters&lt;Item_Type, Collection_Type&gt;(),
     </span>) {
     }
 
-    <span class="hljs-params">count</span><span class="hljs-params">()</span>: <span class="hljs-params">Question</span>&lt;<span class="hljs-params">Promise</span>&lt;<span class="hljs-params">number</span>&gt;&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">NumberOfMatchingItems</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.collection, <span class="hljs-keyword">this</span>.filters</span>);
+    count(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NumberOfMatchingItems(<span class="hljs-built_in">this</span>.collection, <span class="hljs-built_in">this</span>.filters);
     }
 
-    <span class="hljs-params">all</span><span class="hljs-params">()</span>: <span class="hljs-params">Question</span>&lt;<span class="hljs-params">Collection_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">AllMatchingItems</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.collection, <span class="hljs-keyword">this</span>.filters</span>);
+    all(): Question&lt;Collection_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AllMatchingItems(<span class="hljs-built_in">this</span>.collection, <span class="hljs-built_in">this</span>.filters);
     }
 
-    <span class="hljs-params">first</span><span class="hljs-params">()</span>: <span class="hljs-params">Question</span>&lt;<span class="hljs-params">Item_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">FirstMatchingItem</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.collection, <span class="hljs-keyword">this</span>.filters</span>);
+    first(): Question&lt;Item_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> FirstMatchingItem(<span class="hljs-built_in">this</span>.collection, <span class="hljs-built_in">this</span>.filters);
     }
 
-    <span class="hljs-params">last</span><span class="hljs-params">()</span>: <span class="hljs-params">Question</span>&lt;<span class="hljs-params">Item_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">LastMatchingItem</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.collection, <span class="hljs-keyword">this</span>.filters</span>);
+    last(): Question&lt;Item_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LastMatchingItem(<span class="hljs-built_in">this</span>.collection, <span class="hljs-built_in">this</span>.filters);
     }
 
-    <span class="hljs-params">get</span>(<span class="hljs-params">index: <span class="hljs-built_in">number</span></span>): <span class="hljs-params">Question</span>&lt;<span class="hljs-params">Item_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">NthMatchingItem</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.collection, <span class="hljs-keyword">this</span>.filters, index</span>);
+    get(index: <span class="hljs-built_in">number</span>): Question&lt;Item_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NthMatchingItem(<span class="hljs-built_in">this</span>.collection, <span class="hljs-built_in">this</span>.filters, index);
     }
 
-    <span class="hljs-params">where</span>&lt;<span class="hljs-params">Property_Type</span>&gt;(<span class="hljs-params">
+    where&lt;Property_Type&gt;(
         question: RelativeQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
         expectation: Expectation&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
-    </span>): <span class="hljs-params">Pick</span>&lt;<span class="hljs-params">Item_Type</span>, <span class="hljs-params">Collection_Type</span>&gt; {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">Pick</span>&lt;<span class="hljs-params">Item_Type</span>, <span class="hljs-params">Collection_Type</span>&gt;(<span class="hljs-params">
-            <span class="hljs-keyword">this</span>.collection,
-            <span class="hljs-keyword">this</span>.filters.append(<span class="hljs-params"><span class="hljs-keyword">new</span> Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;(<span class="hljs-params">question, expectation</span>)</span>),
-        </span>);
+    ): Pick&lt;Item_Type, Collection_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pick&lt;Item_Type, Collection_Type&gt;(
+            <span class="hljs-built_in">this</span>.collection,
+            <span class="hljs-built_in">this</span>.filters.append(<span class="hljs-keyword">new</span> Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;(question, expectation)),
+        );
     }
 }
 
-/**
- * @<span class="hljs-params">package</span>
- */
-<span class="hljs-params">class</span> <span class="hljs-params">Filters</span>&lt;<span class="hljs-params">Item_Type</span>, <span class="hljs-params">Collection_Type</span>
-    <span class="hljs-params">extends</span> <span class="hljs-params">Collection</span>&lt;<span class="hljs-params">Item_Type</span>&gt;&gt;
-    <span class="hljs-params">implements</span> <span class="hljs-params">Question</span>&lt;(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> Filters&lt;Item_Type, Collection_Type
+    <span class="hljs-keyword">extends</span> Collection&lt;Item_Type&gt;&gt;
+    <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
 {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly filters: <span class="hljs-built_in">Array</span>&lt;Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;&gt; = []</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: <span class="hljs-built_in">Array</span>&lt;Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;&gt; = []</span>) {
     }
 
     append(filter: Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Filters(<span class="hljs-keyword">this</span>.filters.concat(filter));
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Filters(<span class="hljs-built_in">this</span>.filters.concat(filter));
     }
 
     <span class="hljs-comment">/**
@@ -251,7 +251,7 @@
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type {
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">collection: Collection_Type</span>) =&gt;</span>
-            <span class="hljs-keyword">this</span>.filters.reduce(<span class="hljs-function">(<span class="hljs-params">filteredCollection, filter</span>) =&gt;</span>
+            <span class="hljs-built_in">this</span>.filters.reduce(<span class="hljs-function">(<span class="hljs-params">filteredCollection, filter</span>) =&gt;</span>
                     filter.answeredBy(actor)(filteredCollection),
                 collection,
             );
@@ -261,7 +261,7 @@
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString() {
-        <span class="hljs-keyword">const</span> fullDescription = <span class="hljs-keyword">this</span>.filters
+        <span class="hljs-keyword">const</span> fullDescription = <span class="hljs-built_in">this</span>.filters
             .reduce(<span class="hljs-function">(<span class="hljs-params">description, filter</span>) =&gt;</span> description.concat(filter.toString()), [ ])
             .join(<span class="hljs-string">&apos; and &apos;</span>);
 
@@ -278,8 +278,8 @@
     <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly question: RelativeQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
-        <span class="hljs-keyword">private</span> readonly expectation: Expectation&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: RelativeQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
     </span>) {
     }
 
@@ -298,8 +298,8 @@
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type {
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">collection: Collection_Type</span>) =&gt;</span>
             collection.filter(<span class="hljs-function">(<span class="hljs-params">item: Item_Type</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> expectation = <span class="hljs-keyword">this</span>.expectation.answeredBy(actor);
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">this</span>.question.of(item).answeredBy(actor))
+                <span class="hljs-keyword">const</span> expectation = <span class="hljs-built_in">this</span>.expectation.answeredBy(actor);
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">this</span>.question.of(item).answeredBy(actor))
                     .then(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> expectation(answer))
                     .then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcome <span class="hljs-keyword">instanceof</span> ExpectationMet);
             }) <span class="hljs-keyword">as</span> Collection_Type;
@@ -309,7 +309,7 @@
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.question }</span> does <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.expectation }</span>`</span>;
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.question }</span> does <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation }</span>`</span>;
     }
 }
 
@@ -320,9 +320,9 @@
     <span class="hljs-keyword">implements</span> Question&lt;Answer_Type&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">protected</span> readonly collection: Question&lt;CT&gt; | CT,
-        <span class="hljs-keyword">private</span> readonly filters: Filters&lt;IT, CT&gt;,
-        <span class="hljs-keyword">private</span> readonly description: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;CT&gt; | CT,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: Filters&lt;IT, CT&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
     </span>) {
     }
 
@@ -344,15 +344,15 @@
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.collection }</span>`</span>}</span> <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.filters.toString() }</span>`</span>.trim();
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection }</span>`</span>}</span> <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.filters.toString() }</span>`</span>.trim();
     }
 
     <span class="hljs-keyword">protected</span> collectionFilteredBy(actor: AnswersQuestions &amp; UsesAbilities): CT {
-        <span class="hljs-keyword">const</span> collection = <span class="hljs-keyword">this</span>.isAQuestion(<span class="hljs-keyword">this</span>.collection)
-            ? <span class="hljs-keyword">this</span>.collection.answeredBy(actor)
-            : <span class="hljs-keyword">this</span>.collection;
+        <span class="hljs-keyword">const</span> collection = <span class="hljs-built_in">this</span>.isAQuestion(<span class="hljs-built_in">this</span>.collection)
+            ? <span class="hljs-built_in">this</span>.collection.answeredBy(actor)
+            : <span class="hljs-built_in">this</span>.collection;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filters.answeredBy(actor)(collection);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.filters.answeredBy(actor)(collection);
     }
 
     <span class="hljs-keyword">private</span> isAQuestion&lt;T&gt;(h: <span class="hljs-built_in">any</span>): h is Question&lt;T&gt; {
@@ -367,7 +367,7 @@
     <span class="hljs-keyword">extends</span> QuestionAboutCollectionItems&lt;IT, CT, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
-        <span class="hljs-keyword">super</span>(collection, filters, <span class="hljs-string">&apos;the number of&apos;</span>);
+        <span class="hljs-built_in">super</span>(collection, filters, <span class="hljs-string">&apos;the number of&apos;</span>);
     }
 
     <span class="hljs-comment">/**
@@ -383,7 +383,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">this</span>.collectionFilteredBy(actor).count());
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">this</span>.collectionFilteredBy(actor).count());
     }
 }
 
@@ -393,7 +393,7 @@
 <span class="hljs-keyword">class</span> AllMatchingItems&lt;IT, CT <span class="hljs-keyword">extends</span> Collection&lt;IT&gt;&gt; <span class="hljs-keyword">extends</span> QuestionAboutCollectionItems&lt;IT, CT, CT&gt; {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
-        <span class="hljs-keyword">super</span>(collection, filters, <span class="hljs-string">&apos;&apos;</span>);
+        <span class="hljs-built_in">super</span>(collection, filters, <span class="hljs-string">&apos;&apos;</span>);
     }
 
     <span class="hljs-comment">/**
@@ -409,7 +409,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): CT {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collectionFilteredBy(actor);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collectionFilteredBy(actor);
     }
 }
 
@@ -419,7 +419,7 @@
 <span class="hljs-keyword">class</span> FirstMatchingItem&lt;IT, CT <span class="hljs-keyword">extends</span> Collection&lt;IT&gt;&gt; <span class="hljs-keyword">extends</span> QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
-        <span class="hljs-keyword">super</span>(collection, filters, <span class="hljs-string">&apos;the first of&apos;</span>);
+        <span class="hljs-built_in">super</span>(collection, filters, <span class="hljs-string">&apos;the first of&apos;</span>);
     }
 
     <span class="hljs-comment">/**
@@ -435,7 +435,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collectionFilteredBy(actor).first();
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collectionFilteredBy(actor).first();
     }
 }
 
@@ -445,7 +445,7 @@
 <span class="hljs-keyword">class</span> LastMatchingItem&lt;IT, CT <span class="hljs-keyword">extends</span> Collection&lt;IT&gt;&gt; <span class="hljs-keyword">extends</span> QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
-        <span class="hljs-keyword">super</span>(collection, filters, <span class="hljs-string">&apos;the last of&apos;</span>);
+        <span class="hljs-built_in">super</span>(collection, filters, <span class="hljs-string">&apos;the last of&apos;</span>);
     }
 
     <span class="hljs-comment">/**
@@ -461,7 +461,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collectionFilteredBy(actor).last();
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collectionFilteredBy(actor).last();
     }
 }
 
@@ -489,9 +489,9 @@
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         collection: Question&lt;CT&gt; | CT,
         filters: Filters&lt;IT, CT&gt;,
-        <span class="hljs-keyword">private</span> readonly index: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> index: <span class="hljs-built_in">number</span>,
     </span>) {
-        <span class="hljs-keyword">super</span>(collection, filters, <span class="hljs-string">`the <span class="hljs-subst">${ NthMatchingItem.ordinalSuffixOf(index + <span class="hljs-number">1</span>) }</span> of`</span>);
+        <span class="hljs-built_in">super</span>(collection, filters, <span class="hljs-string">`the <span class="hljs-subst">${ NthMatchingItem.ordinalSuffixOf(index + <span class="hljs-number">1</span>) }</span> of`</span>);
     }
 
     <span class="hljs-comment">/**
@@ -507,7 +507,7 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collectionFilteredBy(actor).get(<span class="hljs-keyword">this</span>.index);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collectionFilteredBy(actor).get(<span class="hljs-built_in">this</span>.index);
     }
 }
 </code></pre>

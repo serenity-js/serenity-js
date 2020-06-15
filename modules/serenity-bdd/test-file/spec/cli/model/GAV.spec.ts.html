@@ -121,18 +121,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/cli/model/GAV.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 
 <span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/cli/model&apos;</span>;
 
-describe(<span class="hljs-string">&apos;GAV&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;GAV&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;can be described using a string which format&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;can be described using a string which format&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">&apos;follows group:artifact:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:2.1.9&apos;</span>);
 
             expect(gav.groupId).to.equal(<span class="hljs-string">&apos;net.serenity-bdd&apos;</span>);
@@ -142,7 +142,7 @@ describe(<span class="hljs-string">&apos;GAV&apos;</span>, <span class="hljs-fun
             expect(gav.classifier).to.equal(<span class="hljs-literal">undefined</span>);
         });
 
-        it(<span class="hljs-string">&apos;follows group:artifact:extension:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:extension:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity:war:2.1.9&apos;</span>);
 
             expect(gav.groupId).to.equal(<span class="hljs-string">&apos;net.serenity-bdd&apos;</span>);
@@ -152,7 +152,7 @@ describe(<span class="hljs-string">&apos;GAV&apos;</span>, <span class="hljs-fun
             expect(gav.classifier).to.equal(<span class="hljs-literal">undefined</span>);
         });
 
-        it(<span class="hljs-string">&apos;follows group:artifact:extension:classifier:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:extension:classifier:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:jar:all:2.1.9&apos;</span>);
 
             expect(gav.groupId).to.equal(<span class="hljs-string">&apos;net.serenity-bdd&apos;</span>);
@@ -163,20 +163,20 @@ describe(<span class="hljs-string">&apos;GAV&apos;</span>, <span class="hljs-fun
         });
     });
 
-    describe(<span class="hljs-string">&apos;can be converted to a file name when the identifier&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        it(<span class="hljs-string">&apos;follows group:artifact:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;can be converted to a file name when the identifier&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:2.1.9&apos;</span>);
 
             expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;serenity-cli-2.1.9.jar&apos;</span>));
         });
 
-        it(<span class="hljs-string">&apos;follows group:artifact:extension:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:extension:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity:war:2.1.9&apos;</span>);
 
             expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;serenity-2.1.9.war&apos;</span>));
         });
 
-        it(<span class="hljs-string">&apos;follows group:artifact:extension:classifier:version&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;follows group:artifact:extension:classifier:version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:jar:all:2.1.9&apos;</span>);
 
             expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;serenity-cli-2.1.9-all.jar&apos;</span>));

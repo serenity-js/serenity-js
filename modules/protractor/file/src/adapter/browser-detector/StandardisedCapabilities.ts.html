@@ -163,13 +163,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/browser-detector/StandardisedCapabilities.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-comment">/**
  * @private
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StandardisedCapabilities {
-    <span class="hljs-keyword">static</span> of(currentBrowser: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ProtractorBrowser) {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(currentBrowser: <span class="hljs-function">() =&gt;</span> ProtractorBrowser) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StandardisedCapabilities(currentBrowser);
     }
 
@@ -177,34 +177,34 @@
     }
 
     browserName(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.get(
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;browserName&apos;</span>),
         );
     }
 
     browserVersion(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.get(
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;version&apos;</span>),
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;browserVersion&apos;</span>),
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.has(<span class="hljs-string">&apos;deviceManufacturer&apos;</span>) &amp;&amp; caps.has(<span class="hljs-string">&apos;deviceModel&apos;</span>)
-                ? <span class="hljs-string">`<span class="hljs-subst">${ caps.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;deviceManufacturer&apos;</span>) }</span> <span class="hljs-subst">${ caps.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;deviceModel&apos;</span>) }</span>`</span>
+                ? <span class="hljs-string">`<span class="hljs-subst">${ caps.get(<span class="hljs-string">&apos;deviceManufacturer&apos;</span>) }</span> <span class="hljs-subst">${ caps.get(<span class="hljs-string">&apos;deviceModel&apos;</span>) }</span>`</span>
                 : <span class="hljs-literal">undefined</span>,
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.has(<span class="hljs-string">&apos;mobile&apos;</span>) &amp;&amp; caps.get(<span class="hljs-string">&apos;mobile&apos;</span>).version,
         ).
         then(<span class="hljs-function"><span class="hljs-params">version</span> =&gt;</span>
-            <span class="hljs-keyword">this</span>.get(
+            <span class="hljs-built_in">this</span>.get(
                 <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> !! caps.get(<span class="hljs-string">&apos;mobileEmulationEnabled&apos;</span>) &amp;&amp; <span class="hljs-string">&apos;(mobile emulation)&apos;</span>,
             ).then(<span class="hljs-function"><span class="hljs-params">suffix</span> =&gt;</span>
                 [
                     version,
                     suffix,
-                ].filter(_ =&gt; !!_).join(<span class="hljs-string">&apos; &apos;</span>),
+                ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">&apos; &apos;</span>),
             ),
         );
     }
 
     platformName(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.get(
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> (!! caps.get(<span class="hljs-string">&apos;platformName&apos;</span>) &amp;&amp; ! <span class="hljs-regexp">/any/i</span>.test(caps.get(<span class="hljs-string">&apos;platformName&apos;</span>)))
                 ? caps.get(<span class="hljs-string">&apos;platformName&apos;</span>)
                 : caps.get(<span class="hljs-string">&apos;platform&apos;</span>),
@@ -212,14 +212,14 @@
     }
 
     platformVersion(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.get(
             <span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> caps.get(<span class="hljs-string">&apos;platformVersion&apos;</span>),
         );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">get</span>(...fetchers: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-function">(<span class="hljs-params">capabilities: Capabilities</span>) =&gt;</span> <span class="hljs-built_in">string</span>&gt;): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.currentBrowser().getCapabilities().then(<span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fetcher of fetchers) {
+    <span class="hljs-keyword">private</span> get(...fetchers: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-function">(<span class="hljs-params">capabilities: Capabilities</span>) =&gt;</span> <span class="hljs-built_in">string</span>&gt;): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentBrowser().getCapabilities().then(<span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fetcher <span class="hljs-keyword">of</span> fetchers) {
                 <span class="hljs-keyword">const</span> result = fetcher(caps);
                 <span class="hljs-keyword">if</span> (!! result) {
                     <span class="hljs-keyword">return</span> result;

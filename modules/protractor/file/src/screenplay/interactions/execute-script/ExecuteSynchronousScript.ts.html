@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../abilities&apos;</span>;
 <span class="hljs-keyword">import</span> { ExecuteScriptWithArguments } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ExecuteScriptWithArguments&apos;</span>;
@@ -174,17 +174,17 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecuteSynchronousScript <span class="hljs-keyword">extends</span> ExecuteScriptWithArguments {
 
     withArguments(...args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(<span class="hljs-keyword">this</span>.script, args);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(<span class="hljs-built_in">this</span>.script, args);
     }
 
     <span class="hljs-keyword">protected</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeScript(<span class="hljs-keyword">this</span>.toString(), <span class="hljs-keyword">this</span>.script, ...args);
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeScript(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-built_in">this</span>.script, ...args);
     }
 
     <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.args.length &gt; <span class="hljs-number">0</span>
-            ? formatted <span class="hljs-string">`#actor executes a synchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.args }</span>`</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.args.length &gt; <span class="hljs-number">0</span>
+            ? formatted <span class="hljs-string">`#actor executes a synchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.args }</span>`</span>
             : <span class="hljs-string">`#actor executes a synchronous script`</span>;
     }
 }

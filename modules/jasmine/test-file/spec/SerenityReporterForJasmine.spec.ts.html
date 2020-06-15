@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/SerenityReporterForJasmine.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -153,7 +153,7 @@
 <span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/SerenityReporterForJasmine&apos;</span>;
 
 <span class="hljs-comment">/** @test {SerenityReporterForJasmine} */</span>
-describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> serenity: Serenity,
         reporter: SerenityReporterForJasmine,
@@ -161,17 +161,17 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
 
     <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01T00:00:00Z&apos;</span>);
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> now));
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
+        serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> now));
         reporter = <span class="hljs-keyword">new</span> SerenityReporterForJasmine(serenity);
         listener = <span class="hljs-keyword">new</span> Listener();
 
         serenity.configure({ crew: [ listener ] });
     });
 
-    describe(<span class="hljs-string">&apos;notifies Serenity when&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;notifies Serenity when&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;the test run&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;the test run&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-comment">/** @test {SerenityReporterForJasmine#jasmineDone} */</span>
             it(<span class="hljs-string">&apos;ends&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
                 <span class="hljs-keyword">await</span> reporter.jasmineDone({
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                     order: {
                         random: <span class="hljs-literal">true</span>,
                         seed: <span class="hljs-string">&apos;14552&apos;</span>,
-                        sort: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                        sort: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
                     },
                     failedExpectations: [],
                     deprecationWarnings: [],
@@ -191,10 +191,10 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
             });
         });
 
-        describe(<span class="hljs-string">&apos;the test suite&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;the test suite&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {SerenityReporterForJasmine#suiteStarted} */</span>
-            it(<span class="hljs-string">&apos;starts&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;starts&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> jasmineEvent = {
                     id: <span class="hljs-string">&apos;suite1&apos;</span>,
@@ -229,7 +229,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * @test {SerenityReporterForJasmine#suiteStarted}
              * @test {SerenityReporterForJasmine#suiteDone}
              */</span>
-            it(<span class="hljs-string">&apos;ends&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;ends&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 reporter.suiteStarted({
                     id: <span class="hljs-string">&apos;suite1&apos;</span>,
@@ -282,7 +282,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * @test {SerenityReporterForJasmine#suiteStarted}
              * @test {SerenityReporterForJasmine#suiteDone}
              */</span>
-            it(<span class="hljs-string">&apos;ends with an error, reporting the first error that has occurred&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;ends with an error, reporting the first error that has occurred&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">/*
                  * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
                  */</span>
@@ -347,7 +347,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * @test {SerenityReporterForJasmine#suiteStarted}
              * @test {SerenityReporterForJasmine#suiteDone}
              */</span>
-            it(<span class="hljs-string">&apos;is pending&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;is pending&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 reporter.suiteStarted({
                     id: <span class="hljs-string">&apos;suite3&apos;</span>,
                     description: <span class="hljs-string">&apos;pending suite&apos;</span>,
@@ -388,9 +388,9 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
             });
         });
 
-        describe(<span class="hljs-string">&apos;the test spec&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;the test spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            describe(<span class="hljs-string">&apos;starts and&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            describe(<span class="hljs-string">&apos;starts and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
                     reporter.suiteStarted({
@@ -497,7 +497,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * @test {SerenityReporterForJasmine#specStarted}
                  * @test {SerenityReporterForJasmine#specDone}
                  */</span>
-                it(<span class="hljs-string">&apos;derives the name of the scenario from the nested `describe` blocks&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                it(<span class="hljs-string">&apos;derives the name of the scenario from the nested `describe` blocks&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
                         .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.value.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>))
                         .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.value.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>));
@@ -509,7 +509,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * @test {SerenityReporterForJasmine#specStarted}
                  * @test {SerenityReporterForJasmine#specDone}
                  */</span>
-                it(<span class="hljs-string">&apos;derives the name of the feature from the outer-most `describe` block&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                it(<span class="hljs-string">&apos;derives the name of the feature from the outer-most `describe` block&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
                         .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Jasmine&apos;</span>)));
                 });
@@ -520,15 +520,15 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * @test {SerenityReporterForJasmine#specStarted}
                  * @test {SerenityReporterForJasmine#specDone}
                  */</span>
-                it(<span class="hljs-string">&apos;detects the test runner&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                it(<span class="hljs-string">&apos;detects the test runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
                         .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>)));
                 });
             });
 
-            describe(<span class="hljs-string">&apos;ends and&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            describe(<span class="hljs-string">&apos;ends and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-                beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                beforeEach(<span class="hljs-function">() =&gt;</span> {
                     reporter.specStarted({
                         id: <span class="hljs-string">&apos;spec0&apos;</span>,
                         description: <span class="hljs-string">&apos;scenario&apos;</span>,
@@ -785,7 +785,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
             });
         });
 
-        describe(<span class="hljs-string">&apos;the `it` block is not nested within a `describe` block and&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;the `it` block is not nested within a `describe` block and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
                 reporter.specStarted({
@@ -832,7 +832,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * @test {SerenityReporterForJasmine#specStarted}
              * @test {SerenityReporterForJasmine#specDone}
              */</span>
-            it(<span class="hljs-string">&apos;tags the feature as &quot;unknown&quot;&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;tags the feature as &quot;unknown&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 PickEvent.from(listener.events)
                     .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Unknown feature&apos;</span>)));
             });
@@ -841,7 +841,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * @test {SerenityReporterForJasmine#specStarted}
              * @test {SerenityReporterForJasmine#specDone}
              */</span>
-            it(<span class="hljs-string">&apos;correctly derives the name of the spec&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;correctly derives the name of the spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 PickEvent.from(listener.events)
                     .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.value.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>))
                     .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.value.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>));
@@ -850,18 +850,18 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
     });
 
     <span class="hljs-keyword">class</span> Listener <span class="hljs-keyword">implements</span> StageCrewMember {
-        <span class="hljs-keyword">public</span> readonly events: DomainEvent[] = [];
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> events: DomainEvent[] = [];
 
         <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
         }
 
         assignedTo(stage: Stage): StageCrewMember {
-            <span class="hljs-keyword">this</span>.stage = stage;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+            <span class="hljs-built_in">this</span>.stage = stage;
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
         }
 
         notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-            <span class="hljs-keyword">this</span>.events.push(event);
+            <span class="hljs-built_in">this</span>.events.push(event);
         }
     }
 });

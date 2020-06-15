@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/CucumberEventProtocolAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { ImplementationPendingError, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -134,9 +134,9 @@
 <span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { listenerForCucumber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/listeners&apos;</span>;
 
-describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
 
     <span class="hljs-keyword">let</span> afterHook: CucumberHook;
 
@@ -152,14 +152,14 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         eventBroadcaster: EventEmitter,
         adapter: <span class="hljs-built_in">any</span>;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
 
         log      = sinon.spy();
         serenity = <span class="hljs-keyword">new</span> Serenity();
         recorder = <span class="hljs-keyword">new</span> EventRecorder();
         eventBroadcaster = <span class="hljs-keyword">new</span> EventEmitter();
 
-        eventBroadcaster.on(<span class="hljs-string">&apos;test-case-finished&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> afterHook());
+        eventBroadcaster.on(<span class="hljs-string">&apos;test-case-finished&apos;</span>, <span class="hljs-function">() =&gt;</span> afterHook());
 
         serenity.configure({
             crew: [recorder],
@@ -170,7 +170,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         adapter = <span class="hljs-keyword">new</span> listener({ eventBroadcaster, log });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises Cucumber Event Protocol events&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises Cucumber Event Protocol events&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-with-hooks.json&apos;</span>));
 
@@ -184,7 +184,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
             PickEvent.from(recorder.events)
                 .next(SceneStarts,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
                 .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
@@ -207,7 +207,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises undefined steps&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises undefined steps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-with-undefined-steps.json&apos;</span>));
 
@@ -221,7 +221,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
@@ -245,7 +245,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises pending steps&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises pending steps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-with-pending-steps.json&apos;</span>));
 
@@ -259,7 +259,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
@@ -283,7 +283,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises ambiguous steps&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises ambiguous steps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-with-ambiguous-steps.json&apos;</span>));
 
@@ -297,7 +297,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
                 .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
@@ -322,7 +322,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises errors thrown in steps&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises errors thrown in steps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-with-errors.json&apos;</span>));
 
@@ -336,7 +336,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
@@ -359,7 +359,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;correctly recognises scenario outlines&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;correctly recognises scenario outlines&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/scenario-outline.json&apos;</span>));
 
@@ -373,7 +373,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
@@ -400,7 +400,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         });
     });
 
-    it(<span class="hljs-string">&apos;considers a scenario with no steps and no hooks to be pending implementation&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;considers a scenario with no steps and no hooks to be pending implementation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./samples/pending-scenario.json&apos;</span>));
 
@@ -414,7 +414,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
                 .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))

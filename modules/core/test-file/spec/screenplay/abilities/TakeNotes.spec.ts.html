@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/abilities/TakeNotes.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled, engage, LogicError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/events&apos;</span>;
@@ -252,7 +252,7 @@
 <span class="hljs-keyword">import</span> { EnsureSame } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../EnsureSame&apos;</span>;
 
 <span class="hljs-comment">/** @test {TakeNotes} */</span>
-describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
         prepare(actor: Actor): Actor {
@@ -279,20 +279,20 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
         <span class="hljs-string">&apos;Wendy&apos;</span>: <span class="hljs-string">&apos;Water&apos;</span>,
     }
 
-    <span class="hljs-keyword">const</span> AFavouriteDrink = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    <span class="hljs-keyword">const</span> AFavouriteDrink = <span class="hljs-function">() =&gt;</span>
         Question.about(<span class="hljs-string">`a favourite drink`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> drinks[actor.name]);
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
     <span class="hljs-comment">/** @test {TakeNotes.usingAnEmptyNotepad} */</span>
-    describe(<span class="hljs-string">&apos;usingAnEmptyNotepad&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;usingAnEmptyNotepad&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
          * @test {TakeNotes.usingAnEmptyNotepad}
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Emma),
@@ -303,17 +303,17 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">`ensures that actors have their own notepads and don&apos;t share notes`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`ensures that actors have their own notepads and don&apos;t share notes`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink())
             ).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
+            then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
             )).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
+            then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Emma),
             )).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
+            then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Wendy&apos;</span>).attemptsTo(
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Wendy),
             )));
 
@@ -322,15 +322,15 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink())
             ).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            then(<span class="hljs-function">() =&gt;</span> {
                 serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
             }).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> serenity.waitForNextCue()).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
+            then(<span class="hljs-function">() =&gt;</span>
                 expect(actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                     EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
                 )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The answer to &quot;a favourite drink&quot; has never been recorded`</span>),
@@ -339,14 +339,14 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
     });
 
     <span class="hljs-comment">/** @test {TakeNotes.usingASharedNotepad} */</span>
-    describe(<span class="hljs-string">&apos;usingASharedNotepad&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;usingASharedNotepad&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
          * @test {TakeNotes.usingASharedNotepad}
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
@@ -357,11 +357,11 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">`ensures that actors can share their notes`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`ensures that actors can share their notes`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
             ).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bob&apos;</span>).attemptsTo(
+            then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bob&apos;</span>).attemptsTo(
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
             ))
         );
@@ -371,15 +371,15 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
          * @test {Note}
          * @test {TakeNote}
          */</span>
-        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
             ).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            then(<span class="hljs-function">() =&gt;</span> {
                 serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
             }).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> serenity.waitForNextCue()).
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+            then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
+            then(<span class="hljs-function">() =&gt;</span>
                 expect(actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
                     EnsureSame(Note.of(AFavouriteDrink()), drinks.Alice),
                 )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The answer to &quot;a favourite drink&quot; has never been recorded`</span>),

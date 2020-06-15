@@ -163,15 +163,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/override.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">obj</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">name</span></span> - name of the method or field to override
- * <span class="hljs-doctag">@param <span class="hljs-variable">implementation</span></span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
+ * @package
+ * @param obj
+ * @param name - name of the method or field to override
+ * @param implementation
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">override</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">object</span>, <span class="hljs-title">K</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>&gt;(<span class="hljs-params">obj: T, name: K, implementation: T[K]</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>&lt;T&gt;(obj, {
-        get(o: T, <span class="hljs-attr">prop</span>: string | number) {
+        get(o: T, prop: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>) {
             <span class="hljs-keyword">return</span> prop === name
                 ? implementation
                 : obj[prop];

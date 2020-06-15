@@ -240,12 +240,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/FileSystem.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { FakeFS } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../FakeFS&apos;</span>;
 
 <span class="hljs-comment">/** @test {FileSystem} */</span>
-describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         image        = <span class="hljs-string">&apos;iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=&apos;</span>,
@@ -253,9 +253,9 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
         originalJSON = { name: <span class="hljs-string">&apos;jan&apos;</span> },
         processCWD   = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/Users/jan/projects/serenityjs&apos;</span>);
 
-    describe (<span class="hljs-string">&apos;when storing JSON files&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe (<span class="hljs-string">&apos;when storing JSON files&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it (<span class="hljs-string">&apos;stores a JSON file in a desired location&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it (<span class="hljs-string">&apos;stores a JSON file in a desired location&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 fs = FakeFS.with({
                     [ processCWD.value ]: FakeFS.Empty_Directory,
@@ -268,7 +268,7 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
             });
         });
 
-        it (<span class="hljs-string">&apos;tells the absolute path to a JSON file once it is saved&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it (<span class="hljs-string">&apos;tells the absolute path to a JSON file once it is saved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 fs = FakeFS.with({
                     [ processCWD.value ]: FakeFS.Empty_Directory,
@@ -280,10 +280,10 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
                 then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> expect(result.equals(processCWD.resolve(dest))));
         });
 
-        it (<span class="hljs-string">`complains when the file can&apos;t be written`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it (<span class="hljs-string">`complains when the file can&apos;t be written`</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> fs = FakeFS.with(FakeFS.Empty_Directory);
 
-            <span class="hljs-function">(<span class="hljs-params">fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span></span>).<span class="hljs-params">writeFile</span> = <span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-comment">// memfs doesn&apos;t support mocking error conditions or permissions</span>
+            (fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).writeFile = <span class="hljs-function">() =&gt;</span> { <span class="hljs-comment">// memfs doesn&apos;t support mocking error conditions or permissions</span>
                 <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;EACCES, permission denied&apos;</span>);
             };
 
@@ -294,9 +294,9 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
         });
     });
 
-    describe (<span class="hljs-string">&apos;when storing pictures&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe (<span class="hljs-string">&apos;when storing pictures&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it (<span class="hljs-string">&apos;stores a base64-encoded picture at a desired location&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it (<span class="hljs-string">&apos;stores a base64-encoded picture at a desired location&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 fs = FakeFS.with({
                     [ processCWD.value ]: FakeFS.Empty_Directory,
@@ -309,7 +309,7 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
             });
         });
 
-        it (<span class="hljs-string">&apos;tells the absolute path to a JSON file once it is saved&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it (<span class="hljs-string">&apos;tells the absolute path to a JSON file once it is saved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 fs = FakeFS.with({
                     [ processCWD.value ]: FakeFS.Empty_Directory,
@@ -323,11 +323,11 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
         });
     });
 
-    describe (<span class="hljs-string">&apos;when removing&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe (<span class="hljs-string">&apos;when removing&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;individual files&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;individual files&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">&apos;removes the file&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;removes the file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span>
                     fs = FakeFS.with({
                         [processCWD.value]: {
@@ -341,7 +341,7 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
                     }),
                     out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
 
-                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir/file-to-be-deleted.json&apos;</span>))).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir/file-to-be-deleted.json&apos;</span>))).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
 
                     expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir/file-to-be-deleted.json&apos;</span>)).value)).to.equal(<span class="hljs-literal">false</span>);
                     expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir/file-not-to-be-deleted.json&apos;</span>)).value)).to.equal(<span class="hljs-literal">true</span>);
@@ -349,9 +349,9 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
             });
         });
 
-        describe(<span class="hljs-string">&apos;directories&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;directories&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">&apos;removes the directory recursively&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;removes the directory recursively&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span>
                     fs = FakeFS.with({
                         [processCWD.value]: {
@@ -367,7 +367,7 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
                     }),
                     out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
 
-                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir&apos;</span>))).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir&apos;</span>))).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
 
                     expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir/file-to-be-deleted.json&apos;</span>)).value)).to.equal(<span class="hljs-literal">false</span>);
                     expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;outlet/subdir&apos;</span>)).value)).to.equal(<span class="hljs-literal">false</span>);

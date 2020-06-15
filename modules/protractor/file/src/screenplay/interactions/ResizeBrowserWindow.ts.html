@@ -163,69 +163,69 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/ResizeBrowserWindow.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResizeBrowserWindow</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ResizeBrowserWindow {
     <span class="hljs-keyword">static</span> toMaximum = (): <span class="hljs-function"><span class="hljs-params">Interaction</span> =&gt;</span> <span class="hljs-keyword">new</span> MaximiseBrowserWindow();
-    <span class="hljs-keyword">static</span> to = (width: number, <span class="hljs-attr">height</span>: number): <span class="hljs-function"><span class="hljs-params">Interaction</span> =&gt;</span> <span class="hljs-keyword">new</span> SetBrowserWindowSize(width, height);
+    <span class="hljs-keyword">static</span> to = (width: <span class="hljs-built_in">number</span>, height: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Interaction</span> =&gt;</span> <span class="hljs-keyword">new</span> SetBrowserWindowSize(width, height);
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MaximiseBrowserWindow</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">class</span> MaximiseBrowserWindow <span class="hljs-keyword">implements</span> Interaction {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
-    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).manage().window().maximize();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
     toString() {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor maximises the browser window`</span>;
     }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SetBrowserWindowSize</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-keyword">constructor</span>(private width: number, private height: number) {
+<span class="hljs-keyword">class</span> SetBrowserWindowSize <span class="hljs-keyword">implements</span> Interaction {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> width: <span class="hljs-built_in">number</span>, <span class="hljs-keyword">private</span> height: <span class="hljs-built_in">number</span></span>) {
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
-    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).manage().window().setSize(<span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.height);
+    performAs(actor: UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).manage().window().setSize(<span class="hljs-built_in">this</span>.width, <span class="hljs-built_in">this</span>.height);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor sets the size of the browser window to <span class="hljs-subst">${<span class="hljs-keyword">this</span>.width}</span> x <span class="hljs-subst">${<span class="hljs-keyword">this</span>.height}</span>`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor sets the size of the browser window to <span class="hljs-subst">${<span class="hljs-built_in">this</span>.width}</span> x <span class="hljs-subst">${<span class="hljs-built_in">this</span>.height}</span>`</span>;
     }
 }
 </code></pre>

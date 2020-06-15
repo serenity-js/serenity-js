@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Artifact.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isString, JSONObject, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isString, JSONObject, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../errors&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> artifacts <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./artifacts&apos;</span>;
@@ -279,27 +279,27 @@
         <span class="hljs-keyword">return</span> artifacts[<span class="hljs-keyword">type</span>];
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly base64EncodedValue: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">super</span>();
-        ensure(<span class="hljs-keyword">this</span>.constructor.name, base64EncodedValue, isDefined(), isString(), looksLikeBase64Encoded());
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> base64EncodedValue: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-built_in">super</span>();
+        ensure(<span class="hljs-built_in">this</span>.constructor.name, base64EncodedValue, isDefined(), isString(), looksLikeBase64Encoded());
     }
 
-    <span class="hljs-keyword">abstract</span> map&lt;T&gt;<span class="hljs-function">(<span class="hljs-params">fn: (<span class="hljs-params">decodedValue: <span class="hljs-built_in">any</span></span>) =&gt; T</span>): <span class="hljs-params">T</span>;
+    <span class="hljs-keyword">abstract</span> map&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">decodedValue: <span class="hljs-built_in">any</span></span>) =&gt;</span> T): T;
 
-    <span class="hljs-params">toJSON</span><span class="hljs-params">()</span>: <span class="hljs-params">SerialisedArtifact</span> {
-        <span class="hljs-params">return</span> (<span class="hljs-params">{
-            <span class="hljs-keyword">type</span>: <span class="hljs-keyword">this</span>.constructor.name,
-            base64EncodedValue: <span class="hljs-keyword">this</span>.base64EncodedValue,
-        }</span>);
+    toJSON(): SerialisedArtifact {
+        <span class="hljs-keyword">return</span> ({
+            <span class="hljs-keyword">type</span>: <span class="hljs-built_in">this</span>.constructor.name,
+            base64EncodedValue: <span class="hljs-built_in">this</span>.base64EncodedValue,
+        });
     }
 }
 
-<span class="hljs-params">function</span> <span class="hljs-params">looksLikeBase64Encoded</span><span class="hljs-params">()</span>: <span class="hljs-params">Predicate</span>&lt;<span class="hljs-params">string</span>&gt; {
-    <span class="hljs-params">const</span> <span class="hljs-params">regex</span> = /^(<span class="hljs-params">[A-Za-z0-9+/]{4}</span>)*(<span class="hljs-params">[A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==</span>)$/;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">looksLikeBase64Encoded</span>(<span class="hljs-params"></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
+    <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/</span>;
 
-    <span class="hljs-params">return</span> <span class="hljs-params">Predicate</span>.<span class="hljs-params">to</span>(<span class="hljs-params">`be base64-encoded`, (<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt; regex.test(<span class="hljs-params">value</span>)</span>);
+    <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be base64-encoded`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> regex.test(value));
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

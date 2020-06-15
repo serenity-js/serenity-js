@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {Question} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Question} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -276,7 +276,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A basic Question</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>
 
 <span class="hljs-keyword">const</span> LastItemOf = &lt;T&gt;(list: T[]): Question&lt;T&gt; =&gt;
@@ -290,21 +290,21 @@ Actor.named(<span class="hljs-string">&apos;Quentin&apos;</span>).attemptsTo(
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A question using the Actor&apos;s Ability to do something</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
 
-<span class="hljs-keyword">const</span> TextOfLastResponseStatus = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+<span class="hljs-keyword">const</span> TextOfLastResponseStatus = <span class="hljs-function">() =&gt;</span>
     Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
         <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.statusText);
     });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mapping answers to other questions</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
 <span class="hljs-keyword">import</span> { CallAnApi, LastResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 
-<span class="hljs-keyword">const</span> RequestWasSuccessful = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+<span class="hljs-keyword">const</span> RequestWasSuccessful = <span class="hljs-function">() =&gt;</span>
     Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
         <span class="hljs-keyword">return</span> LastResponse.status().answeredBy(actor) === <span class="hljs-number">200</span>;
     });
@@ -478,7 +478,7 @@ actor.attemptsTo(
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">const</span> EnvVariable = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">const</span> EnvVariable = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
      Question.about(<span class="hljs-string">`the <span class="hljs-subst">${ name }</span> env variable`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> process.env[name])</code></pre>
     </div>
 </div>

@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {Note} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay/questions&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Note} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay/questions&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -277,11 +277,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs javascript"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
  <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vouchers</span> </span>{
+ <span class="hljs-keyword">class</span> Vouchers {
      <span class="hljs-keyword">static</span> code             = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;voucher&apos;</span>));
      <span class="hljs-keyword">static</span> appliedVoucher   = Target.the(<span class="hljs-string">&apos;voucher code&apos;</span>).located(by.id(<span class="hljs-string">&apos;applied-voucher&apos;</span>));
  }

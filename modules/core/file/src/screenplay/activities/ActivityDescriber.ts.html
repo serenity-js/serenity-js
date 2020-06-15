@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/activities/ActivityDescriber.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Activity&apos;</span>;
 
 <span class="hljs-comment">/** @package */</span>
@@ -252,7 +252,7 @@
             : <span class="hljs-string">`#actor performs <span class="hljs-subst">${ activity.constructor.name }</span>`</span>;
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(
-            <span class="hljs-keyword">this</span>.includeActorName(template, actor),
+            <span class="hljs-built_in">this</span>.includeActorName(template, actor),
         );
     }
 

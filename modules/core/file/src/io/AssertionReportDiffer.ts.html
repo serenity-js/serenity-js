@@ -240,18 +240,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/AssertionReportDiffer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Change, diffLines } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;diff&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Change, diffLines } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;diff&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AssertionReportDiffer {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly mappers: AssertionReportDiffMappers</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> mappers: AssertionReportDiffMappers</span>) {
     }
 
     diff(expectedValue: <span class="hljs-built_in">string</span>, actualValue: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> changes = diffLines(actualValue, expectedValue)
-            .map(<span class="hljs-function"><span class="hljs-params">change</span> =&gt;</span> <span class="hljs-keyword">this</span>.markChanges(change));
+            .map(<span class="hljs-function"><span class="hljs-params">change</span> =&gt;</span> <span class="hljs-built_in">this</span>.markChanges(change));
 
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">`Difference (<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.mappers.expected(<span class="hljs-string">&apos;expected&apos;</span>) }</span>, <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.mappers.actual(<span class="hljs-string">&apos;actual&apos;</span>) }</span>):`</span>,
+            <span class="hljs-string">`Difference (<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.mappers.expected(<span class="hljs-string">&apos;expected&apos;</span>) }</span>, <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.mappers.actual(<span class="hljs-string">&apos;actual&apos;</span>) }</span>):`</span>,
             <span class="hljs-string">&apos;&apos;</span>,
             changes.length === <span class="hljs-number">2</span>
                 ? changes.join(<span class="hljs-string">&apos;\n&apos;</span>)
@@ -262,10 +262,10 @@
     <span class="hljs-keyword">private</span> markChanges(change: Change): <span class="hljs-built_in">string</span> {
 
         <span class="hljs-keyword">return</span> !! change.added
-            ? <span class="hljs-keyword">this</span>.eachLineOf(change.value, <span class="hljs-keyword">this</span>.mappers.expected)
+            ? <span class="hljs-built_in">this</span>.eachLineOf(change.value, <span class="hljs-built_in">this</span>.mappers.expected)
             : change.removed
-                ? <span class="hljs-keyword">this</span>.eachLineOf(change.value, <span class="hljs-keyword">this</span>.mappers.actual)
-                : <span class="hljs-keyword">this</span>.eachLineOf(change.value, <span class="hljs-keyword">this</span>.mappers.matching);
+                ? <span class="hljs-built_in">this</span>.eachLineOf(change.value, <span class="hljs-built_in">this</span>.mappers.actual)
+                : <span class="hljs-built_in">this</span>.eachLineOf(change.value, <span class="hljs-built_in">this</span>.mappers.matching);
     }
 
     <span class="hljs-keyword">private</span> eachLineOf(lines: <span class="hljs-built_in">string</span>, mapper: <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {

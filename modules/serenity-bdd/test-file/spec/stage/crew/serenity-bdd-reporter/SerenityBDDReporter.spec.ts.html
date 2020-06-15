@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -149,7 +149,7 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../given&apos;</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./create&apos;</span>;
 
-describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         startTime = Timestamp.fromJSON(<span class="hljs-string">&apos;2018-05-25T00:00:00.123Z&apos;</span>),
@@ -183,7 +183,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
 
         stageManager    = env.stageManager;
@@ -191,11 +191,11 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         reporter        = env.reporter;
     });
 
-    describe(<span class="hljs-string">&apos;generates a SerenityBDDReport Artifact that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;generates a SerenityBDDReport Artifact that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> artifact: JSONData;
 
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
             given(reporter).isNotifiedOfFollowingEvents(
                 <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                 <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
@@ -214,12 +214,12 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
          * @test {ExecutionSuccessful}
          * @test {TestRunFinishes}
          */</span>
-        it(<span class="hljs-string">&apos;is a valid artifact&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;is a valid artifact&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(artifact).to.be.instanceOf(TestReport);
         });
     });
 
-    describe(<span class="hljs-string">&apos;emits an ArtifactGenerated event that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;emits an ArtifactGenerated event that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
          * @test {SerenityBDDReporter}
@@ -229,7 +229,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
          * @test {ExecutionSuccessful}
          * @test {ExecutionIgnored}
          */</span>
-        it(<span class="hljs-string">&apos;is separate for each scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;is separate for each scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             given(reporter).isNotifiedOfFollowingEvents(
                 <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                 <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
@@ -244,26 +244,26 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 event1: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,
                 event2: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;
 
-            expect(event1.artifact.map(_ =&gt; _).name).to.equal(defaultCardScenario.name.value);
+            expect(event1.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).name).to.equal(defaultCardScenario.name.value);
 
-            expect(event2.artifact.map(_ =&gt; _).name).to.equal(voucherScenario.name.value);
+            expect(event2.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).name).to.equal(voucherScenario.name.value);
         });
     });
 
-    describe(<span class="hljs-string">&apos;produces a SerenityBDDReport that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;produces a SerenityBDDReport that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> report: SerenityBDDReport;
 
-        describe(<span class="hljs-string">&apos;at the scenario level&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;at the scenario level&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario, startTime),
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful(), startTime.plus(scenarioDuration)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
             });
 
             <span class="hljs-comment">/**
@@ -273,7 +273,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;contains the id of the scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contains the id of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.id).to.equal(<span class="hljs-string">&apos;online-checkout;paying-with-a-default-card&apos;</span>);
             });
 
@@ -284,7 +284,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;contains the name of the scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contains the name of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.name).to.equal(defaultCardScenario.name.value);
                 expect(report.title).to.equal(defaultCardScenario.name.value);
             });
@@ -296,7 +296,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;contains the start time of the scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contains the start time of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.startTime).to.equal(startTime.toMillisecondTimestamp());
             });
 
@@ -307,14 +307,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;contains the duration of the scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contains the duration of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.duration).to.equal(scenarioDuration.inMilliseconds());
             });
         });
 
-        describe(<span class="hljs-string">&apos;describes the result of scenario execution that&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;describes the result of scenario execution that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-            beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                 );
@@ -327,14 +327,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;has finished with success&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has finished with success&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;SUCCESS&apos;</span>);
             });
@@ -346,14 +346,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ImplementationPending}
              */</span>
-            it(<span class="hljs-string">&apos;hasn\&apos;t been implemented yet&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;hasn\&apos;t been implemented yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>))),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;PENDING&apos;</span>);
             });
@@ -365,14 +365,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionIgnored}
              */</span>
-            it(<span class="hljs-string">&apos;has been ignored&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has been ignored&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionIgnored()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;IGNORED&apos;</span>);
             });
@@ -384,14 +384,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSkipped}
              */</span>
-            it(<span class="hljs-string">&apos;has been skipped&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has been skipped&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;SKIPPED&apos;</span>);
             });
@@ -403,7 +403,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionFailedWithAssertionError}
              */</span>
-            it(<span class="hljs-string">&apos;has failed with an assertion error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has failed with an assertion error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">&apos;expected true to equal false&apos;</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
 
@@ -412,7 +412,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;FAILURE&apos;</span>);
                 expect(report.testFailureCause.errorType).to.equal(<span class="hljs-string">&apos;AssertionError&apos;</span>);
@@ -428,7 +428,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestCompromisedError}
              * @test {ExecutionCompromised}
              */</span>
-            it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">// const assertionError = new AssertionError(&apos;expected true to equal false&apos;, false, true);</span>
                 <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;expected true to equal false&apos;</span>);
@@ -438,7 +438,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;COMPROMISED&apos;</span>);
                 expect(report.testFailureCause.errorType).to.equal(<span class="hljs-string">&apos;TestCompromisedError&apos;</span>);
@@ -453,7 +453,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionFailedWithError}
              */</span>
-            it(<span class="hljs-string">&apos;has failed with a non-assertion error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has failed with a non-assertion error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;We&apos;re sorry, something happened&quot;</span>);
 
                 error.stack = [
@@ -468,7 +468,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;ERROR&apos;</span>);
                 expect(report.testFailureCause).to.deep.equal({
@@ -495,7 +495,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionCompromised}
              */</span>
-            it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> dbError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Could not connect to the database`</span>);
                 dbError.stack = [
                     <span class="hljs-string">&apos;Error: Could not connect to the database&apos;</span>,
@@ -515,7 +515,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;COMPROMISED&apos;</span>);
                 expect(report.testFailureCause).to.deep.equal({
@@ -545,7 +545,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
         });
 
-        describe(<span class="hljs-string">&apos;indicates its execution context&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;indicates its execution context&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
              * @test {SerenityBDDReporter}
@@ -555,7 +555,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;specifies the test runner&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;specifies the test runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                     <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)),
@@ -563,7 +563,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.testSource).to.equal(<span class="hljs-string">&apos;Cucumber&apos;</span>);
             });
@@ -575,14 +575,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;specifies the user story covered&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;specifies the user story covered&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                     <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.userStory).to.deep.equal({
                     id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
@@ -599,14 +599,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
              * @test {TestRunFinishes}
              * @test {ExecutionSuccessful}
              */</span>
-            it(<span class="hljs-string">&apos;does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
                     <span class="hljs-keyword">new</span> SceneStarts(jasmineScenario),
                     <span class="hljs-keyword">new</span> SceneFinished(jasmineScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ =&gt; _);
+                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.userStory).to.deep.equal({
                     id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
@@ -616,7 +616,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 });
             });
 
-            describe(<span class="hljs-string">&apos;reports information from the cucumber feature file&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            describe(<span class="hljs-string">&apos;reports information from the cucumber feature file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
                 it(<span class="hljs-string">&apos;reports the scenario-level narrative&apos;</span>);
@@ -630,7 +630,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         });
     });
 
-    describe(<span class="hljs-string">&apos;attachements&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;attachements&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         it(<span class="hljs-string">&apos;todo&apos;</span>);
         <span class="hljs-comment">// todo:</span>
         <span class="hljs-comment">// - screenshots</span>
@@ -639,7 +639,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         <span class="hljs-comment">// - arbitrary text data</span>
     });
 
-    describe(<span class="hljs-string">&apos;Error handling&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;Error handling&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">// todo: node-cleanup</span>
         it(<span class="hljs-string">&apos;generates the report even when the test runner has crashed&apos;</span>);

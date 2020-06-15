@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
@@ -175,15 +175,15 @@
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../create&apos;</span>;
 <span class="hljs-keyword">import</span> { Perform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;when instructed to take a photo of all interactions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when instructed to take a photo of all interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> photographer: Photographer,
             stage: Stage,
             recorder: EventRecorder;
 
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> testSubject = create();
             stage = testSubject.stage;
             recorder = testSubject.recorder;
@@ -192,10 +192,10 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
             stage.assign(photographer);
         });
 
-        it(<span class="hljs-string">&apos;takes a photo when the interaction goes well&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;takes a photo when the interaction goes well&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -204,10 +204,10 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes a photo when a problem occurs&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;takes a photo when a problem occurs&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
-            )).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -216,10 +216,10 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">`correlates the photo with the activity it&apos;s concerning`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`correlates the photo with the activity it&apos;s concerning`</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
-            )).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">let</span> correlationId: CorrelationId;
 
@@ -232,14 +232,14 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes only one photo, even though nested tasks might all be marked as failing&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;takes only one photo, even though nested tasks might all be marked as failing&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.taskWith(
                     Perform.taskWith(
                         Perform.interactionThatFailsWith(<span class="hljs-built_in">TypeError</span>),
                     ),
                 ),
-            )).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -248,11 +248,11 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes one photo per interaction&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;takes one photo per interaction&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
                 Perform.interactionThatSucceeds(<span class="hljs-number">2</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -265,25 +265,25 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;includes the browser context in the name of the emitted artifact&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">&apos;includes the browser context in the name of the emitted artifact&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> protractor.browser.getCapabilities()).
+            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().
+            then(<span class="hljs-function">() =&gt;</span> protractor.browser.getCapabilities()).
             then(<span class="hljs-function"><span class="hljs-params">capabilities</span> =&gt;</span> {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.name.value).to.equal(
-                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;platform&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;browserName&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.<span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;version&apos;</span>) }</span>-Betty succeeds (#1)`</span>,
+                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;platform&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;browserName&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;version&apos;</span>) }</span>-Betty succeeds (#1)`</span>,
                         );
                     });
             })));
 
-        it(<span class="hljs-string">`does not attempt to take a photo if the actor in the spotlight can&apos;t BrowseTheWeb`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        it(<span class="hljs-string">`does not attempt to take a photo if the actor in the spotlight can&apos;t BrowseTheWeb`</span>, <span class="hljs-function">() =&gt;</span>
             expect(stage.theActorCalled(<span class="hljs-string">&apos;Adam&apos;</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 expect(recorder.events.length).to.equal(<span class="hljs-number">2</span>);
                 expect(recorder.events[<span class="hljs-number">0</span>]).to.be.instanceOf(InteractionStarts);

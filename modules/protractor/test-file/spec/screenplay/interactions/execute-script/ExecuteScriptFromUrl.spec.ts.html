@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { containAtLeastOneItemThat, Ensure, equals, includes, property } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
@@ -183,7 +183,7 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
 
     <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
     <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to execute a script stored at a specific location&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to execute a script stored at a specific location&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript),
@@ -193,18 +193,18 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
 
     <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
     <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
-    it(<span class="hljs-string">&apos;complains if the script could not be loaded&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;complains if the script could not be loaded&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript + <span class="hljs-string">&apos;.invalid&apos;</span>),
     )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Couldn&apos;t load script from <span class="hljs-subst">${ pathToScript }</span>.invalid`</span>)
-        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+        .then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             Ensure.that(Browser.log(), containAtLeastOneItemThat(property(<span class="hljs-string">&apos;message&apos;</span>, includes(<span class="hljs-string">&apos;execute-script-sample.js.invalid - Failed to load resource&apos;</span>)))),
         )));
 
     <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
     <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
-    it(<span class="hljs-string">&apos;complains if the script has already been loaded&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;complains if the script has already been loaded&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript),
@@ -213,7 +213,7 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
 
     <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
     <span class="hljs-comment">/** @test {ExecuteScriptFromUrl#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(<span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ pathToScript }</span>`</span>);
     });

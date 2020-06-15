@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/CucumberEventProtocolAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/errors&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { ErrorSerialiser, FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
@@ -158,10 +158,10 @@
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> CucumberEventProtocolAdapter {
 
         <span class="hljs-comment">// note: exported class expression can&apos;t have private properties</span>
-        <span class="hljs-keyword">public</span> readonly log: <span class="hljs-built_in">any</span>;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> log: <span class="hljs-built_in">any</span>;
 
         <span class="hljs-keyword">constructor</span>(<span class="hljs-params">{ eventBroadcaster, log }: CucumberFormatterOptions</span>) {
-            <span class="hljs-keyword">this</span>.log = log;
+            <span class="hljs-built_in">this</span>.log = log;
 
             eventBroadcaster.on(<span class="hljs-string">&apos;gherkin-document&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ uri, <span class="hljs-built_in">document</span> }</span>) =&gt;</span> {
                 ensure(<span class="hljs-string">&apos;gherkin-document :: uri&apos;</span>, uri, isDefined());
@@ -171,10 +171,10 @@
                 cache.set(path, mapper.map(<span class="hljs-built_in">document</span>, path));
             });
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-case-prepared&apos;</span>, ({ steps, sourceLocation }: {
+            eventBroadcaster.on(<span class="hljs-string">&apos;test-case-prepared&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ steps, sourceLocation }: {
                 steps: StepLocations[],
                 sourceLocation: Location,
-            }) =&gt; {
+            }</span>) =&gt;</span> {
                 ensure(<span class="hljs-string">&apos;test-case-prepared :: steps&apos;</span>, steps, isDefined());
                 ensure(<span class="hljs-string">&apos;test-case-prepared :: sourceLocation&apos;</span>, sourceLocation, isDefined());
 
@@ -263,7 +263,7 @@
                     step     = scenario.steps[index];
 
                 <span class="hljs-keyword">if</span> (step <span class="hljs-keyword">instanceof</span> Step) { <span class="hljs-comment">// ignore hooks</span>
-                    notifier.stepFinished(step, <span class="hljs-keyword">this</span>.outcomeFrom(result));
+                    notifier.stepFinished(step, <span class="hljs-built_in">this</span>.outcomeFrom(result));
                 }
             });
 
@@ -278,7 +278,7 @@
                     nonHookSteps    = scenario.steps.filter(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step <span class="hljs-keyword">instanceof</span> Step);
 
                 <span class="hljs-keyword">const</span> outcome: Outcome = nonHookSteps.length &gt; <span class="hljs-number">0</span>
-                    ? <span class="hljs-keyword">this</span>.outcomeFrom(result)
+                    ? <span class="hljs-built_in">this</span>.outcomeFrom(result)
                     : <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">`&quot;<span class="hljs-subst">${ scenario.name.value }</span>&quot; has no test steps`</span>));
 
                 notifier.scenarioFinished(scenario, map.getFirst(Feature), outcome);
@@ -286,7 +286,7 @@
         }
 
         outcomeFrom(result: { duration: <span class="hljs-built_in">number</span>, exception: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Error</span>, status: <span class="hljs-built_in">string</span> }): Outcome {
-            <span class="hljs-keyword">const</span> error = !! result.exception &amp;&amp; <span class="hljs-keyword">this</span>.errorFrom(result.exception);
+            <span class="hljs-keyword">const</span> error = !! result.exception &amp;&amp; <span class="hljs-built_in">this</span>.errorFrom(result.exception);
 
             <span class="hljs-comment">// tslint:disable:switch-default</span>
             <span class="hljs-keyword">switch</span> (result.status) {

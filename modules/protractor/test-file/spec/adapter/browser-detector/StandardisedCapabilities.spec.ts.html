@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/browser-detector/StandardisedCapabilities.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
@@ -172,7 +172,7 @@
 
 <span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/adapter/browser-detector&apos;</span>;
 
-describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     given([
         {
@@ -263,10 +263,10 @@ describe(<span class="hljs-string">&apos;StandardisedCapabilities&apos;</span>, 
     ]).
     it(<span class="hljs-string">`standardises the WebDriver capabilities across browsers and platforms`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> fakeBrowser = {
-            getCapabilities: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> Capabilities(actual)),
+            getCapabilities: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> Capabilities(actual)),
         };
 
-        <span class="hljs-keyword">const</span> capabilities = StandardisedCapabilities.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> fakeBrowser <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> ProtractorBrowser);
+        <span class="hljs-keyword">const</span> capabilities = StandardisedCapabilities.of(<span class="hljs-function">() =&gt;</span> fakeBrowser <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> ProtractorBrowser);
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
             expect(capabilities.browserName()).to.eventually.equal(expected.browserName),

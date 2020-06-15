@@ -121,58 +121,58 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/interactions/Complain.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Complaint } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 
 <span class="hljs-comment">/**
  * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Complain</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Complain <span class="hljs-keyword">extends</span> Interaction {
     <span class="hljs-keyword">static</span> about(error: <span class="hljs-built_in">Error</span>) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Complain(error);
     }
 
-    <span class="hljs-keyword">constructor</span>(private readonly error: Error) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(
             actor.collect(Complaint.fromJSON({
-                <span class="hljs-attr">description</span>: <span class="hljs-keyword">this</span>.description(),
-                <span class="hljs-attr">message</span>:     <span class="hljs-keyword">this</span>.error.message,
-                <span class="hljs-attr">stack</span>:       <span class="hljs-keyword">this</span>.error.stack,
+                description: <span class="hljs-built_in">this</span>.description(),
+                message:     <span class="hljs-built_in">this</span>.error.message,
+                stack:       <span class="hljs-built_in">this</span>.error.stack,
             })),
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor complains about: <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.error.message }</span>`</span>;
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor complains about: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.error.message }</span>`</span>;
     }
 
-    private description() {
+    <span class="hljs-keyword">private</span> description() {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.test(<span class="hljs-keyword">this</span>.error.message):
+            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.test(<span class="hljs-built_in">this</span>.error.message):
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`Are you behind a proxy or a firewall that needs to be configured?`</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.test(<span class="hljs-keyword">this</span>.error.message):
+            <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.test(<span class="hljs-built_in">this</span>.error.message):
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`If you&apos;re using a self-signed certificate you might want to check if it&apos;s configured correctly, `</span> +
                     <span class="hljs-string">`or use the --ignoreSSL option.`</span>;
             <span class="hljs-keyword">default</span>:

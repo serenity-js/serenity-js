@@ -240,14 +240,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/ModuleLoader.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;path&apos;</span>);
 <span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;ModuleLoader&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;ModuleLoader&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;returns the major version number of a given package&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;returns the major version number of a given package&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
 
         <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../package.json&apos;</span>).version;
@@ -255,7 +255,7 @@ describe(<span class="hljs-string">&apos;ModuleLoader&apos;</span>, <span class=
         expect(loader.versionOf(<span class="hljs-string">&apos;../../&apos;</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
     });
 
-    it(<span class="hljs-string">&apos;returns the major version of the npm-resolved package if the local package could not be found&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;returns the major version of the npm-resolved package if the local package could not be found&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(path.join(__dirname, <span class="hljs-string">&apos;non-existent&apos;</span>, <span class="hljs-string">&apos;local&apos;</span>, <span class="hljs-string">&apos;directory&apos;</span>));
 
         <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;tiny-types/package.json&apos;</span>).version;                             <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
@@ -263,9 +263,9 @@ describe(<span class="hljs-string">&apos;ModuleLoader&apos;</span>, <span class=
         expect(loader.versionOf(<span class="hljs-string">&apos;tiny-types&apos;</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
     });
 
-    it(<span class="hljs-string">&apos;complains if neither a local version or the npm-resolved version could not be found&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if neither a local version or the npm-resolved version could not be found&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> loader.versionOf(<span class="hljs-string">&apos;non-existent-module&apos;</span>)).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Cannot find module &apos;non-existent-module/package&apos;`</span>);
+        expect(<span class="hljs-function">() =&gt;</span> loader.versionOf(<span class="hljs-string">&apos;non-existent-module&apos;</span>)).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Cannot find module &apos;non-existent-module/package&apos;`</span>);
     });
 });
 </code></pre>

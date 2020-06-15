@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/bootstrap.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { monkeyPatched } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./monkeyPatched&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityReporterForJasmine&apos;</span>;
 
@@ -146,7 +146,7 @@
  * @param {jasmine} jasmine - the global.jasmine instance
  * @returns {SerenityReporterForJasmine}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">jasmine = (global <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine</span>) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">jasmine = (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine</span>) </span>{
     <span class="hljs-keyword">const</span> wrappers = {
         expectationResultFactory: <span class="hljs-function"><span class="hljs-params">originalExpectationResultFactory</span> =&gt;</span> (<span class="hljs-function">(<span class="hljs-params">attrs: { passed: <span class="hljs-built_in">boolean</span>, error: <span class="hljs-built_in">Error</span> }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> result = originalExpectationResultFactory(attrs);

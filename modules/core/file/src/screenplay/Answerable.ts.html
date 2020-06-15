@@ -240,15 +240,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Answerable.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs gherkin" data-ice="content">import { Question } from &apos;./Question&apos;;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Question&apos;</span>;
 
-/<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
- <span class="hljs-symbol">*</span> <span class="hljs-meta">@public</span>
- <span class="hljs-symbol">*</span>
- <span class="hljs-symbol">*</span> <span class="hljs-meta">@typedef</span> {Question<span class="hljs-variable">&lt;Promise&lt;T&gt;</span>&gt; |<span class="hljs-string"> Question&lt;T&gt; </span>|<span class="hljs-string"> Promise&lt;T&gt; </span>|<span class="hljs-string"> T} Answerable&lt;T&gt;
- */
-export type Answerable&lt;T&gt; = Question&lt;Promise&lt;T&gt;&gt; </span>|<span class="hljs-string"> Question&lt;T&gt; </span>|<span class="hljs-string"> Promise&lt;T&gt; </span>|<span class="hljs-string"> T;
-</span></code></pre>
+<span class="hljs-comment">/**
+ * @public
+ *
+ * @typedef {Question&lt;Promise&lt;T&gt;&gt; | Question&lt;T&gt; | Promise&lt;T&gt; | T} Answerable&lt;T&gt;
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Answerable&lt;T&gt; = Question&lt;<span class="hljs-built_in">Promise</span>&lt;T&gt;&gt; | Question&lt;T&gt; | <span class="hljs-built_in">Promise</span>&lt;T&gt; | T;
+</code></pre>
 
 </article>
             </section>

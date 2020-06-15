@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Click.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
@@ -171,7 +171,7 @@
 <span class="hljs-keyword">import</span> { Attribute, Click, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
         Checkbox: Target.the(<span class="hljs-string">&apos;checkbox&apos;</span>).located(by.id(<span class="hljs-string">&apos;no-spam-please&apos;</span>)),
@@ -179,7 +179,7 @@ describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-f
 
     <span class="hljs-comment">/** @test {Click} */</span>
     <span class="hljs-comment">/** @test {Click.on} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to click on an element&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to click on an element&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -196,7 +196,7 @@ describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-f
     ));
 
     <span class="hljs-comment">/** @test {Click#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Click.on(Form.Checkbox).toString())
             .to.equal(<span class="hljs-string">&apos;#actor clicks on the checkbox&apos;</span>);
     });

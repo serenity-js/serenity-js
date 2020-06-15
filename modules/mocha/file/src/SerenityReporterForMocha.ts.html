@@ -119,7 +119,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityReporterForMocha.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOptions, reporters, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
@@ -128,128 +128,128 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityReporterForMocha <span class="hljs-keyword">extends</span> reporters.Base {
 
-    <span class="hljs-keyword">private</span> readonly testMapper: MochaTestMapper = <span class="hljs-keyword">new</span> MochaTestMapper();
-    <span class="hljs-keyword">private</span> readonly outcomeMapper: MochaOutcomeMapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testMapper: MochaTestMapper = <span class="hljs-keyword">new</span> MochaTestMapper();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> outcomeMapper: MochaOutcomeMapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
 
-    <span class="hljs-keyword">private</span> readonly recorder: OutcomeRecorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> recorder: OutcomeRecorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
 
     <span class="hljs-comment">/**
      * @param {Serenity} serenity
      * @param {mocha~Runner} runner
      * @param {mocha~MochaOptions} options
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly serenity: Serenity,
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
                 runner: Runner,
                 options?: MochaOptions,
     </span>) {
-        <span class="hljs-keyword">super</span>(runner, options);
+        <span class="hljs-built_in">super</span>(runner, options);
 
         runner.on(Runner.constants.EVENT_TEST_BEGIN,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
-                <span class="hljs-keyword">this</span>.recorder.started(test);
+                <span class="hljs-built_in">this</span>.recorder.started(test);
 
-                <span class="hljs-keyword">this</span>.announceSceneStartsFor(test);
+                <span class="hljs-built_in">this</span>.announceSceneStartsFor(test);
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
-                <span class="hljs-keyword">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-keyword">this</span>.outcomeMapper.outcomeOf(test))
+                <span class="hljs-built_in">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-                <span class="hljs-keyword">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-keyword">this</span>.outcomeMapper.outcomeOf(test))
+                <span class="hljs-built_in">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
             },
         );
 
-        <span class="hljs-keyword">const</span> announceSceneFinishedFor = <span class="hljs-keyword">this</span>.announceSceneFinishedFor.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">const</span> announceSceneFinishedFor = <span class="hljs-built_in">this</span>.announceSceneFinishedFor.bind(<span class="hljs-built_in">this</span>);
 
         runner.suite.afterEach(<span class="hljs-string">&apos;Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-            <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-keyword">this</span>.currentTest);
+            <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-built_in">this</span>.currentTest);
         });
 
         <span class="hljs-comment">// Tests without body don&apos;t trigger the above custom afterEach hook</span>
         runner.on(Runner.constants.EVENT_TEST_PENDING,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
                 <span class="hljs-keyword">if</span> (! test.fn) {
-                    <span class="hljs-keyword">this</span>.announceSceneSkippedFor(test);
+                    <span class="hljs-built_in">this</span>.announceSceneSkippedFor(test);
                 }
             },
         );
     }
 
     <span class="hljs-keyword">public</span> done(failures: <span class="hljs-built_in">number</span>, fn?: <span class="hljs-function">(<span class="hljs-params">failures: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-keyword">this</span>.serenity.currentTime()));
+        <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()));
 
-        <span class="hljs-keyword">this</span>.serenity.waitForNextCue()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-keyword">this</span>.serenity.currentTime())))
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> fn(failures));
+        <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
+            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime())))
+            .then(<span class="hljs-function">() =&gt;</span> fn(failures));
     }
 
     <span class="hljs-keyword">private</span> announceSceneStartsFor(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> scenario = <span class="hljs-keyword">this</span>.testMapper.detailsOf(test);
+        <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test);
 
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneStarts(
                 scenario,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
             <span class="hljs-keyword">new</span> SceneTagged(
                 scenario,
-                <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-keyword">this</span>.testMapper.featureNameFor(test)),
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.testMapper.featureNameFor(test)),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
             <span class="hljs-keyword">new</span> TestRunnerDetected(
                 <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Mocha&apos;</span>),
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );
     }
 
     <span class="hljs-keyword">private</span> announceSceneFinishedFor(test: Test): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> scenario = <span class="hljs-keyword">this</span>.testMapper.detailsOf(test);
+        <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test);
 
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
                 scenario,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.serenity.waitForNextCue()
-            .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-                <span class="hljs-keyword">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
+            .then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
                     scenario,
-                    <span class="hljs-keyword">this</span>.recorder.outcomeOf(test) || <span class="hljs-keyword">this</span>.outcomeMapper.outcomeOf(test),
-                    <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                    <span class="hljs-built_in">this</span>.recorder.outcomeOf(test) || <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test),
+                    <span class="hljs-built_in">this</span>.serenity.currentTime(),
                 ));
 
-                <span class="hljs-keyword">this</span>.recorder.erase(test);
+                <span class="hljs-built_in">this</span>.recorder.erase(test);
             });
     }
 
     <span class="hljs-keyword">private</span> announceSceneSkippedFor(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> scenario = <span class="hljs-keyword">this</span>.testMapper.detailsOf(test)
+        <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test)
 
-        <span class="hljs-keyword">this</span>.announceSceneStartsFor(test);
+        <span class="hljs-built_in">this</span>.announceSceneStartsFor(test);
 
-        <span class="hljs-keyword">this</span>.emit(
+        <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
                 scenario,
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
             <span class="hljs-keyword">new</span> SceneFinished(
                 scenario,
-                <span class="hljs-keyword">this</span>.outcomeMapper.outcomeOf(test),
-                <span class="hljs-keyword">this</span>.serenity.currentTime(),
+                <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
             )
         );
     }
 
     <span class="hljs-keyword">private</span> emit(...events: DomainEvent[]): <span class="hljs-built_in">void</span> {
-        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-keyword">this</span>.serenity.announce(event));
+        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.serenity.announce(event));
     }
 }
 </code></pre>

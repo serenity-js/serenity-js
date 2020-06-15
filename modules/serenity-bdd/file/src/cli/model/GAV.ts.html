@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/model/GAV.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -141,13 +141,13 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly groupId: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly artifactId: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly version: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> readonly extension: <span class="hljs-built_in">string</span> = &apos;jar&apos;,
-        <span class="hljs-keyword">public</span> readonly classifier?: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> groupId: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> artifactId: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = &apos;jar&apos;,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> classifier?: <span class="hljs-built_in">string</span>,
     </span>) {
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-string">&apos;groupId&apos;</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
         ensure(<span class="hljs-string">&apos;artifactId&apos;</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));
         ensure(<span class="hljs-string">&apos;version&apos;</span>, version, isDefined(), matches(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
@@ -156,12 +156,12 @@
 
     toPath(): Path {
         <span class="hljs-keyword">const</span> name = [
-            <span class="hljs-keyword">this</span>.artifactId,
-            <span class="hljs-keyword">this</span>.version,
-            <span class="hljs-keyword">this</span>.classifier,
+            <span class="hljs-built_in">this</span>.artifactId,
+            <span class="hljs-built_in">this</span>.version,
+            <span class="hljs-built_in">this</span>.classifier,
         ].filter(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> !!s).join(<span class="hljs-string">&apos;-&apos;</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.extension}</span>`</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.extension}</span>`</span>);
     }
 }
 </code></pre>

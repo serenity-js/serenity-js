@@ -240,17 +240,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/InteractionFinished.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ActivityDetails, Outcome, SerialisedOutcome, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ActivityFinished&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InteractionFinished</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ActivityFinished</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> InteractionFinished <span class="hljs-keyword">extends</span> ActivityFinished {
     <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InteractionFinished(
             ActivityDetails.fromJSON(o.value <span class="hljs-keyword">as</span> JSONObject),
             Outcome.fromJSON(o.outcome <span class="hljs-keyword">as</span> SerialisedOutcome),
-            Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> string),
+            Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 }

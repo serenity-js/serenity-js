@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/ScenarioParameters.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Description } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Description&apos;</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Name&apos;</span>;
@@ -255,11 +255,11 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly name: Name,
-        <span class="hljs-keyword">public</span> readonly description: Description,
-        <span class="hljs-keyword">public</span> readonly values: { [ parameter: <span class="hljs-built_in">string</span> ]: <span class="hljs-built_in">string</span> },
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> values: { [ parameter: <span class="hljs-built_in">string</span> ]: <span class="hljs-built_in">string</span> },
     </span>) {
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
 
         ensure(<span class="hljs-string">&apos;name&apos;</span>, name, isDefined());
         ensure(<span class="hljs-string">&apos;values&apos;</span>, values, isDefined());

@@ -143,23 +143,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/endsWith.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { endsWith, Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 
-describe(<span class="hljs-string">&apos;endsWith&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;endsWith&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/** @test {endsWith} */</span>
-    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; ends with &quot;expected&quot;&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; ends with &quot;expected&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, endsWith(<span class="hljs-string">&apos;World!&apos;</span>)),
         )).to.be.fulfilled;
     });
 
     <span class="hljs-comment">/** @test {endsWith} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not end with &quot;expected&quot;&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not end with &quot;expected&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, endsWith(<span class="hljs-string">&apos;Mundo!&apos;</span>)),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected &apos;Hello World!&apos; to end with &apos;Mundo!&apos;`</span>)
@@ -170,7 +170,7 @@ describe(<span class="hljs-string">&apos;endsWith&apos;</span>, <span class="hlj
     });
 
     <span class="hljs-comment">/** @test {endsWith} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, endsWith(<span class="hljs-string">&apos;o&apos;</span>)).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does end with &apos;o&apos;`</span>);
     });

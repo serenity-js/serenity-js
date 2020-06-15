@@ -119,7 +119,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/mappers/MochaTestMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Suite, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
@@ -128,30 +128,39 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MochaTestMapper {
     <span class="hljs-keyword">public</span> detailsOf(test: Test): ScenarioDetails {
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fileOf</span>(<span class="hljs-params">t</span>) </span>{
+            <span class="hljs-keyword">return</span> !! t.file || ! t.parent
+                ? t.file
+                : fileOf(t.parent);
+        }
+
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-keyword">this</span>.nameOf(test)),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-keyword">this</span>.featureNameFor(test)),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-built_in">this</span>.nameOf(test)),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-built_in">this</span>.featureNameFor(test)),
             <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(test.file),
+                <span class="hljs-keyword">new</span> Path(fileOf(test)),
             ),
         );
     }
 
     <span class="hljs-keyword">public</span> featureNameFor(scenario: Test | Suite): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> !! scenario.parent &amp;&amp; scenario.parent.title.trim() !== <span class="hljs-string">&apos;&apos;</span>
-            ? <span class="hljs-keyword">this</span>.featureNameFor(scenario.parent)
+        <span class="hljs-keyword">const</span> parentTitle = scenario?.parent?.title;
+
+        <span class="hljs-keyword">return</span> parentTitle !== <span class="hljs-literal">undefined</span> &amp;&amp; parentTitle.trim() !== <span class="hljs-string">&apos;&apos;</span>
+            ? <span class="hljs-built_in">this</span>.featureNameFor(scenario.parent)
             : scenario.title;
     }
 
     <span class="hljs-keyword">private</span> fullNameOf(scenario: Test | Suite): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> !! scenario.parent
-            ? <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.fullNameOf(scenario.parent) }</span> <span class="hljs-subst">${ scenario.title }</span>`</span>.trim()
+            ? <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.fullNameOf(scenario.parent) }</span> <span class="hljs-subst">${ scenario.title }</span>`</span>.trim()
             : scenario.title;
     }
 
     <span class="hljs-keyword">private</span> nameOf(scenario: Test | Suite): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.fullNameOf(scenario)
-            .substring(<span class="hljs-keyword">this</span>.featureNameFor(scenario).length)
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fullNameOf(scenario)
+            .substring(<span class="hljs-built_in">this</span>.featureNameFor(scenario).length)
             .trim();
     }
 }

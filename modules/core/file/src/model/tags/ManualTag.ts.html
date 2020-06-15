@@ -240,16 +240,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/tags/ManualTag.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
 
 <span class="hljs-comment">/**
  * @access public
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ManualTag <span class="hljs-keyword">extends</span> Tag {
-    <span class="hljs-keyword">static</span> readonly Type = <span class="hljs-string">&apos;External Tests&apos;</span>;
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">&apos;External Tests&apos;</span>;
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span> = &apos;Manual&apos;</span>) {  <span class="hljs-comment">// parametrised constructor to make all tag constructors compatible</span>
-        <span class="hljs-keyword">super</span>(name, ManualTag.Type);
+        <span class="hljs-built_in">super</span>(name, ManualTag.Type);
     }
 }
 </code></pre>

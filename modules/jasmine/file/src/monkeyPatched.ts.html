@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/monkeyPatched.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 
 <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> ErrorStackParser();
 
@@ -138,10 +138,10 @@
  * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">monkeyPatched</span>(<span class="hljs-params">
-    jasmineConstructor: any,
-    wrappers: {[key: string]: (original: (attrs: object</span>) =&gt; <span class="hljs-title">any</span>) =&gt; (<span class="hljs-params">attrs: object</span>) =&gt; <span class="hljs-title">any</span>} = </span>{},
-) {
-    <span class="hljs-keyword">const</span> result = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MonkeyPatched</span>(<span class="hljs-params">attrs: object</span>) </span>{
+    jasmineConstructor: <span class="hljs-built_in">any</span>,
+    wrappers: {[key: <span class="hljs-built_in">string</span>]: (original: (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>) =&gt; (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>} = {},
+</span>) </span>{
+    <span class="hljs-keyword">const</span> result = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MonkeyPatched</span>(<span class="hljs-params">attrs: <span class="hljs-built_in">object</span></span>) </span>{
 
         <span class="hljs-built_in">Object</span>.keys(wrappers).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
             attrs[key] = wrappers[key](attrs[key]);
@@ -163,34 +163,34 @@
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+ * @desc
  *  Retrieves the file system location of the caller function.
  *
- * <span class="hljs-doctag">@package</span>
+ * @package
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callerLocation</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">const</span> callers = parser.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>())
         .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.test(frame.fileName))
-        .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.test(frame.functionName));
+        .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> /^(Suite|<span class="hljs-built_in">Object</span>)/.test(frame.functionName));
 
-    <span class="hljs-keyword">const</span> caller = callers[<span class="hljs-number">0</span>] || { <span class="hljs-attr">fileName</span>: <span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">columnNumber</span>: <span class="hljs-number">0</span> };
+    <span class="hljs-keyword">const</span> caller = callers[<span class="hljs-number">0</span>] || { fileName: <span class="hljs-string">&apos;unknown&apos;</span>, lineNumber: <span class="hljs-number">0</span>, columnNumber: <span class="hljs-number">0</span> };
 
     <span class="hljs-keyword">return</span> {
-        <span class="hljs-attr">path</span>: caller.fileName,
-        <span class="hljs-attr">line</span>: caller.lineNumber,
-        <span class="hljs-attr">column</span>: caller.columnNumber,
+        path: caller.fileName,
+        line: caller.lineNumber,
+        column: caller.columnNumber,
     };
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+ * @desc
  *  Checks if a given property is likely to be a static method or a static field on the constructor function.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">property</span></span> - name of the property to be checked
+ * @param {string} property - name of the property to be checked
  *
- * <span class="hljs-doctag">@package</span>
+ * @package
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAStaticProperty</span>(<span class="hljs-params">property: string</span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAStaticProperty</span>(<span class="hljs-params">property: <span class="hljs-built_in">string</span></span>) </span>{
     <span class="hljs-keyword">return</span> ! ~[<span class="hljs-string">&apos;length&apos;</span>, <span class="hljs-string">&apos;name&apos;</span>, <span class="hljs-string">&apos;arguments&apos;</span>, <span class="hljs-string">&apos;caller&apos;</span>, <span class="hljs-string">&apos;prototype&apos;</span>].indexOf(property);
 }
 </code></pre>

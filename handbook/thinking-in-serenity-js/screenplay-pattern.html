@@ -207,9 +207,9 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
         actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>)
         ));
@@ -251,9 +251,9 @@ Those abilities is what the interactions use under the hood and what enables the
 <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
         actorCalled(<span class="hljs-string">&apos;James&apos;</span>)
             .whoCan(BrowseTheWeb.using(protractor.browser))
             .attemptsTo(
@@ -277,11 +277,11 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
     }
 }
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
         actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>)
         ));
@@ -337,7 +337,7 @@ Wait.until(header, isPresent())
 Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>))
 </code></pre>
 <p>If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -345,7 +345,7 @@ Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>
 <span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor.whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -354,15 +354,15 @@ Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>
 }
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
-<span class="hljs-keyword">class</span> TodoListApp {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
     <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
 }
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
         actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
             Wait.until(TodoListApp.header, isVisible()),
@@ -389,7 +389,7 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 <span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { isVisible, Navigate, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 
-<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
     Task.where(<span class="hljs-string">`#actor launches the app`</span>, 
         Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
         Wait.until(TodoListApp.header, isVisible()),
@@ -397,7 +397,7 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
     )
 </code></pre>
 <p>To make an actor perform a task, you pass it to the <code>attemptsTo(..)</code> method, just like we did with the interactions.</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -405,7 +405,7 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 <span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor.whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -414,22 +414,22 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 }
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
-<span class="hljs-keyword">class</span> TodoListApp {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
     <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
 }
 
-<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
     Task.where(<span class="hljs-string">`#actor launches the app`</span>,
         Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
         Wait.until(TodoListApp.header, isVisible()),
         Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">&apos;todos&apos;</span>)),
     )
 
-fdescribe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+fdescribe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
         actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
             LaunchTheApp(),
             <span class="hljs-comment">// perform other tasks, like adding items to the list</span>
@@ -445,7 +445,7 @@ Todo List App: helps engineers learn Serenity/JS
   James launches the app
     &#x2713; James navigates to <span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span> (<span class="hljs-number">840</span>ms)
     &#x2713; James waits up to <span class="hljs-number">5</span>s until the header does become visible (<span class="hljs-number">155</span>ms)
-    &#x2713; James ensures that the text of the header does equal <span class="hljs-string">&apos;todos&apos;</span> (<span class="hljs-number">18</span>ms)
+    &#x2713; James ensures that the text <span class="hljs-keyword">of</span> the header does equal <span class="hljs-string">&apos;todos&apos;</span> (<span class="hljs-number">18</span>ms)
 
 &#x2713; Execution successful (<span class="hljs-number">1</span>s <span class="hljs-number">39</span>ms)
 </code></pre><p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/tasks.html">learn more about tasks</a>.</p>

@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Enter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -171,7 +171,7 @@
 <span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
         Field: Target.the(<span class="hljs-string">&apos;name field&apos;</span>).located(by.id(<span class="hljs-string">&apos;name&apos;</span>)),
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
 
     <span class="hljs-comment">/** @test {Enter} */</span>
     <span class="hljs-comment">/** @test {Enter.theValue} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to enter the value into a field&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to enter the value into a field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -203,7 +203,7 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
     ));
 
     <span class="hljs-comment">/** @test {Enter#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Enter.theValue(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name).into(Form.Field).toString())
             .to.equal(<span class="hljs-string">`#actor enters &apos;Bernie&apos; into the name field`</span>);
     });

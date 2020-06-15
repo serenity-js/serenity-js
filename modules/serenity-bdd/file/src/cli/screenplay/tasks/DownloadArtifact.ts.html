@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/tasks/DownloadArtifact.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { GetRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
@@ -133,75 +133,75 @@
 <span class="hljs-comment">/**
  * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadArtifact</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> DownloadArtifact <span class="hljs-keyword">extends</span> Task {
     <span class="hljs-keyword">static</span> identifiedBy(artifactIdentifier: GAV) {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">availableFrom</span>: <span class="hljs-function">(<span class="hljs-params">repository: URL</span>) =&gt;</span> ({
-                <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destinationDirectory: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> DownloadArtifact(artifactIdentifier, repository, destinationDirectory),
+            availableFrom: <span class="hljs-function">(<span class="hljs-params">repository: URL</span>) =&gt;</span> ({
+                to: <span class="hljs-function">(<span class="hljs-params">destinationDirectory: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> DownloadArtifact(artifactIdentifier, repository, destinationDirectory),
             }),
         };
     }
 
-    <span class="hljs-keyword">constructor</span>(
-        private readonly gav: GAV,
-        private readonly repository: URL,
-        private readonly destinationDirectory: Path,
-        private readonly config?: AxiosRequestConfig,
-    ) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> gav: GAV,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> repository: URL,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> destinationDirectory: Path,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config?: AxiosRequestConfig,
+    </span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     using(config: AxiosRequestConfig): DownloadArtifact {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DownloadArtifact(<span class="hljs-keyword">this</span>.gav, <span class="hljs-keyword">this</span>.repository, <span class="hljs-keyword">this</span>.destinationDirectory, config);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DownloadArtifact(<span class="hljs-built_in">this</span>.gav, <span class="hljs-built_in">this</span>.repository, <span class="hljs-built_in">this</span>.destinationDirectory, config);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Task}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; | PromiseLike&lt;any&gt; {
+    performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">const</span>
-            tempFileName        = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.gav.toPath().value }</span>.download`</span>),
-            pathToTempFile      = <span class="hljs-keyword">this</span>.destinationDirectory.join(tempFileName),
-            pathToFinishedFile  = <span class="hljs-keyword">this</span>.destinationDirectory.join(<span class="hljs-keyword">this</span>.gav.toPath());
+            tempFileName        = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.gav.toPath().value }</span>.download`</span>),
+            pathToTempFile      = <span class="hljs-built_in">this</span>.destinationDirectory.join(tempFileName),
+            pathToFinishedFile  = <span class="hljs-built_in">this</span>.destinationDirectory.join(<span class="hljs-built_in">this</span>.gav.toPath());
 
         <span class="hljs-keyword">return</span> actor.attemptsTo(
             Notify.that(<span class="hljs-string">`Looks like you need the latest Serenity BDD CLI jar. Let me download it for you...`</span>),
-            CreateDirectory.at(<span class="hljs-keyword">this</span>.destinationDirectory),
+            CreateDirectory.at(<span class="hljs-built_in">this</span>.destinationDirectory),
             StreamResponse
-                .to(GetRequest.to(<span class="hljs-keyword">this</span>.artifactURL()).using(<span class="hljs-keyword">this</span>.config))
-                .to(<span class="hljs-keyword">this</span>.destinationDirectory.join(tempFileName)),
+                .to(GetRequest.to(<span class="hljs-built_in">this</span>.artifactURL()).using(<span class="hljs-built_in">this</span>.config))
+                .to(<span class="hljs-built_in">this</span>.destinationDirectory.join(tempFileName)),
             RenameFile.from(pathToTempFile).to(pathToFinishedFile),
             Notify.that(<span class="hljs-string">`Downloaded <span class="hljs-subst">${ pathToFinishedFile.value }</span>`</span>),
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor downloads <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.gav.toPath().value }</span> from <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.repository.toString() }</span>`</span>;
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor downloads <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.gav.toPath().value }</span> from <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.repository.toString() }</span>`</span>;
     }
 
-    private artifactURL() {
+    <span class="hljs-keyword">private</span> artifactURL() {
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-keyword">this</span>.repository.toString(),
+            <span class="hljs-built_in">this</span>.repository.toString(),
             ...this.gav.groupId.split(<span class="hljs-string">&apos;.&apos;</span>),
-            <span class="hljs-keyword">this</span>.gav.artifactId,
-            <span class="hljs-keyword">this</span>.gav.version,
-            <span class="hljs-keyword">this</span>.gav.toPath().value,
+            <span class="hljs-built_in">this</span>.gav.artifactId,
+            <span class="hljs-built_in">this</span>.gav.version,
+            <span class="hljs-built_in">this</span>.gav.toPath().value,
         ].join(<span class="hljs-string">&apos;/&apos;</span>);
     }
 }

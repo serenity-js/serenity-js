@@ -240,12 +240,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/ModuleLoader.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">const</span> Module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;module&apos;</span>);             <span class="hljs-comment">// tslint:disable-line:no-var-requires     No type definitions available</span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">const</span> Module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;module&apos;</span>);             <span class="hljs-comment">// tslint:disable-line:no-var-requires     No type definitions available</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;path&apos;</span>;
 <span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Version&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ModuleLoader {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly cwd: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cwd: <span class="hljs-built_in">string</span></span>) {
     }
 
     <span class="hljs-comment">/**
@@ -255,18 +255,18 @@
      *  NPM module id, for example &apos;cucumber&apos; or &apos;@serenity-js/core&apos;
      */</span>
     resolve(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> fromFile = path.join(<span class="hljs-keyword">this</span>.cwd, <span class="hljs-string">&apos;noop.js&apos;</span>);
+        <span class="hljs-keyword">const</span> fromFile = path.join(<span class="hljs-built_in">this</span>.cwd, <span class="hljs-string">&apos;noop.js&apos;</span>);
 
         <span class="hljs-keyword">return</span> Module._resolveFilename(moduleId, {
             id: fromFile,
             filename: fromFile,
-            paths: Module._nodeModulePaths(<span class="hljs-keyword">this</span>.cwd),
+            paths: Module._nodeModulePaths(<span class="hljs-built_in">this</span>.cwd),
         });
     }
 
     <span class="hljs-built_in">require</span>(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">any</span> {
         <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-keyword">this</span>.resolve(moduleId));
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-built_in">this</span>.resolve(moduleId));
         }
         <span class="hljs-keyword">catch</span> (e) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(moduleId);
@@ -274,7 +274,7 @@
     }
 
     versionOf(moduleId: <span class="hljs-built_in">string</span>): Version {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Version(<span class="hljs-keyword">this</span>.require(<span class="hljs-string">`<span class="hljs-subst">${ moduleId }</span>/package`</span>).version);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Version(<span class="hljs-built_in">this</span>.require(<span class="hljs-string">`<span class="hljs-subst">${ moduleId }</span>/package`</span>).version);
     }
 }
 </code></pre>

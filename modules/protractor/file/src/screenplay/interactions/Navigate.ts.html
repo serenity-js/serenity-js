@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Navigate.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
@@ -176,9 +176,9 @@
  * @abstract
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */</span>
-<span class="hljs-keyword">export</span> abstract <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Navigate</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Navigate <span class="hljs-keyword">extends</span> Interaction {
 
-    <span class="hljs-keyword">static</span> to(url: Answerable&lt;string&gt;): NavigateToUrl {
+    <span class="hljs-keyword">static</span> to(url: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): NavigateToUrl {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateToUrl(url);
     }
 
@@ -195,18 +195,18 @@
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    abstract performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt;;
+    <span class="hljs-keyword">abstract</span> performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt;;
 
     <span class="hljs-comment">/**
      * @desc
@@ -214,190 +214,190 @@
      *
      * @returns {string}
      */</span>
-    abstract toString(): string;
+    <span class="hljs-keyword">abstract</span> toString(): <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ * @extends {Navigate}
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateToUrl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
-    <span class="hljs-keyword">constructor</span>(private readonly url: Answerable&lt;string&gt;) {
-        <span class="hljs-keyword">super</span>();
+<span class="hljs-keyword">class</span> NavigateToUrl <span class="hljs-keyword">extends</span> Navigate {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> url: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Specifies timeout to wait for an Angular app to load.
      *  Please note that the timeout is ignored if you disable
      *  synchronisation with Angular.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;Duration&gt;}</span> <span class="hljs-variable">duration</span></span>
+     * @param {Answerable&lt;Duration&gt;} duration
      */</span>
     withTimeout(duration: Answerable&lt;Duration&gt;): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateToUrlWithTimeout(<span class="hljs-keyword">this</span>.url, duration);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NavigateToUrlWithTimeout(<span class="hljs-built_in">this</span>.url, duration);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-keyword">this</span>.url).then(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span>
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.url).then(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span>
             BrowseTheWeb.as(actor).get(url),
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates to <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.url }</span>`</span>;
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.url }</span>`</span>;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ * @extends {Navigate}
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateToUrlWithTimeout</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
-    <span class="hljs-keyword">constructor</span>(private readonly url: Answerable&lt;string&gt;, private readonly timeout: Answerable&lt;Duration&gt;) {
-        <span class="hljs-keyword">super</span>();
+<span class="hljs-keyword">class</span> NavigateToUrlWithTimeout <span class="hljs-keyword">extends</span> Navigate {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> url: Answerable&lt;<span class="hljs-built_in">string</span>&gt;, <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> timeout: Answerable&lt;Duration&gt;</span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-            actor.answer(<span class="hljs-keyword">this</span>.url),
-            actor.answer(<span class="hljs-keyword">this</span>.timeout),
+            actor.answer(<span class="hljs-built_in">this</span>.url),
+            actor.answer(<span class="hljs-built_in">this</span>.timeout),
         ]).then(<span class="hljs-function">(<span class="hljs-params">[url, timeout]</span>) =&gt;</span>
             BrowseTheWeb.as(actor).get(url, timeout.inMilliseconds()),
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates to <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.url }</span> waiting up to <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.timeout }</span> for Angular to load`</span>;
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.url }</span> waiting up to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.timeout }</span> for Angular to load`</span>;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ * @extends {Navigate}
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateBack</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
+<span class="hljs-keyword">class</span> NavigateBack <span class="hljs-keyword">extends</span> Navigate {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(BrowseTheWeb.as(actor).navigate().back());
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates back in the browser history`</span>;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ * @extends {Navigate}
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NavigateForward</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
+<span class="hljs-keyword">class</span> NavigateForward <span class="hljs-keyword">extends</span> Navigate {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(BrowseTheWeb.as(actor).navigate().forward());
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor navigates forward in the browser history`</span>;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Navigate}</span></span>
+ * @extends {Navigate}
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReloadPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Navigate</span> </span>{
+<span class="hljs-keyword">class</span> ReloadPage <span class="hljs-keyword">extends</span> Navigate {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-keyword">void</span>&gt; {
+    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> promiseOf(BrowseTheWeb.as(actor).navigate().refresh());
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    toString(): string {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor reloads the page`</span>;
     }
 }

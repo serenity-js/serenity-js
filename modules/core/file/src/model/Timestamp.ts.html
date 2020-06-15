@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Timestamp.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;moment&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;moment&apos;</span>;
 <span class="hljs-keyword">import</span> { ensure, isDefined, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Duration&apos;</span>;
@@ -254,33 +254,33 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(v).toDate());
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly value: <span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>) {
+        <span class="hljs-built_in">super</span>();
         ensure(Timestamp.name, value, isDefined(), isInstanceOf(<span class="hljs-built_in">Date</span>));
     }
 
     diff(another: Timestamp): Duration {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-built_in">Math</span>.abs(moment(<span class="hljs-keyword">this</span>.value).diff(another.value, <span class="hljs-string">&apos;ms&apos;</span>, <span class="hljs-literal">true</span>)));
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-built_in">Math</span>.abs(moment(<span class="hljs-built_in">this</span>.value).diff(another.value, <span class="hljs-string">&apos;ms&apos;</span>, <span class="hljs-literal">true</span>)));
     }
 
     plus(duration: Duration): Timestamp {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(<span class="hljs-keyword">this</span>.value).add(duration.inMilliseconds(), <span class="hljs-string">&apos;ms&apos;</span>).toDate());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(<span class="hljs-built_in">this</span>.value).add(duration.inMilliseconds(), <span class="hljs-string">&apos;ms&apos;</span>).toDate());
     }
 
     less(duration: Duration): Timestamp {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(<span class="hljs-keyword">this</span>.value).subtract(duration.inMilliseconds(), <span class="hljs-string">&apos;ms&apos;</span>).toDate());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(<span class="hljs-built_in">this</span>.value).subtract(duration.inMilliseconds(), <span class="hljs-string">&apos;ms&apos;</span>).toDate());
     }
 
     toMillisecondTimestamp(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> moment(<span class="hljs-keyword">this</span>.value).valueOf();
+        <span class="hljs-keyword">return</span> moment(<span class="hljs-built_in">this</span>.value).valueOf();
     }
 
     toJSON(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.value.toJSON();
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.value.toJSON();
     }
 
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.value.toString();
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.value.toString();
     }
 }
 

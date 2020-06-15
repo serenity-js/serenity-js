@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/isVisible.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -181,7 +181,7 @@ describe(<span class="hljs-string">&apos;isVisible&apos;</span>, <span class="hl
         Non_Existent_Header:   Target.the(<span class="hljs-string">&apos;non-existent header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h3&apos;</span>)),
     };
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -193,26 +193,26 @@ describe(<span class="hljs-string">&apos;isVisible&apos;</span>, <span class="hl
     ));
 
     <span class="hljs-comment">/** @test {isVisible} */</span>
-    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is visible&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is visible&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Visible_Header, isVisible()),
         Ensure.that(Page.Visible_Header, isVisible()),
     )).to.be.fulfilled);
 
     <span class="hljs-comment">/** @test {isVisible} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when element is not visible&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is not visible&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Invisible_Header, isVisible()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the invisible header to become displayed`</span>);
     });
 
     <span class="hljs-comment">/** @test {isVisible} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Visible_Header, isVisible()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the header does become visible`</span>);
     });
 
     <span class="hljs-comment">/** @test {isVisible} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Visible_Header, isVisible()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the header does become visible`</span>);
     });

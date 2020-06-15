@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProtractorReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Description, ExecutionSuccessful, ProblemIndication, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage&apos;</span>;
@@ -174,41 +174,41 @@
  * @private
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorReporter <span class="hljs-keyword">implements</span> StageCrewMember {
-    <span class="hljs-keyword">private</span> readonly startTime: { [key: <span class="hljs-built_in">string</span> ]: Timestamp } = {};
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> startTime: { [key: <span class="hljs-built_in">string</span> ]: Timestamp } = {};
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> readonly runner: Runner,
-        <span class="hljs-keyword">private</span> readonly reported: ProtractorReport = { failedCount: 0, specResults: [] },
-        <span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runner: Runner,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reported: ProtractorReport = { failedCount: 0, specResults: [] },
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-keyword">this</span>.runner, <span class="hljs-keyword">this</span>.reported, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.runner, <span class="hljs-built_in">this</span>.reported, stage);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneStarts) {
-            <span class="hljs-keyword">this</span>.recordStart(event);
+            <span class="hljs-built_in">this</span>.recordStart(event);
         }
 
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinishes) {
-            <span class="hljs-keyword">this</span>.afterEach();
+            <span class="hljs-built_in">this</span>.afterEach();
         }
 
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; event.outcome <span class="hljs-keyword">instanceof</span> ExecutionSuccessful) {
-            <span class="hljs-keyword">this</span>.recordSuccess(event);
+            <span class="hljs-built_in">this</span>.recordSuccess(event);
 
-            <span class="hljs-keyword">this</span>.runner.emit(<span class="hljs-string">&apos;testPass&apos;</span>, {
+            <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">&apos;testPass&apos;</span>, {
                 name:       event.value.name.value,
                 category:   event.value.category.value,
             });
         }
 
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; event.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
-            <span class="hljs-keyword">this</span>.recordFailure(event);
+            <span class="hljs-built_in">this</span>.recordFailure(event);
 
-            <span class="hljs-keyword">this</span>.runner.emit(<span class="hljs-string">&apos;testFail&apos;</span>, {
+            <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">&apos;testFail&apos;</span>, {
                 name:       event.value.name.value,
                 category:   event.value.category.value,
             });
@@ -216,17 +216,17 @@
     }
 
     report(): ProtractorReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.reported;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reported;
     }
 
     <span class="hljs-keyword">private</span> recordFailure(event: SceneFinished) {
         <span class="hljs-keyword">const</span> outcome = (event.outcome <span class="hljs-keyword">as</span> ProblemIndication);
 
-        <span class="hljs-keyword">this</span>.reported.failedCount++;
+        <span class="hljs-built_in">this</span>.reported.failedCount++;
 
-        <span class="hljs-keyword">this</span>.reported.specResults.push({
+        <span class="hljs-built_in">this</span>.reported.specResults.push({
             description: <span class="hljs-string">`<span class="hljs-subst">${ event.value.category.value }</span> <span class="hljs-subst">${ event.value.name.value }</span>`</span>,
-            duration: event.timestamp.diff(<span class="hljs-keyword">this</span>.startTime[event.value.toString()]).inMilliseconds(),
+            duration: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.value.toString()]).inMilliseconds(),
             assertions: [{
                 passed: <span class="hljs-literal">false</span>,
                 errorMsg: outcome.error.message,
@@ -236,13 +236,13 @@
     }
 
     <span class="hljs-keyword">private</span> recordStart(event: SceneStarts) {
-        <span class="hljs-keyword">this</span>.startTime[event.value.toString()] = event.timestamp;
+        <span class="hljs-built_in">this</span>.startTime[event.value.toString()] = event.timestamp;
     }
 
     <span class="hljs-keyword">private</span> recordSuccess(event: SceneFinished) {
-        <span class="hljs-keyword">this</span>.reported.specResults.push({
+        <span class="hljs-built_in">this</span>.reported.specResults.push({
             description: <span class="hljs-string">`<span class="hljs-subst">${ event.value.category.value }</span> <span class="hljs-subst">${ event.value.name.value }</span>`</span>,
-            duration: event.timestamp.diff(<span class="hljs-keyword">this</span>.startTime[event.value.toString()]).inMilliseconds(),
+            duration: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.value.toString()]).inMilliseconds(),
             assertions: [{
                 passed: <span class="hljs-literal">true</span>,
             }],
@@ -250,28 +250,28 @@
     }
 
     <span class="hljs-keyword">private</span> afterEach(): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.runner.afterEach) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.runner.afterEach) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
         }
 
         <span class="hljs-keyword">const</span> id = CorrelationId.create();
 
-        <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] Invoking ProtractorRunner.afterEach...`</span>),
+        <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
+            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Invoking ProtractorRunner.afterEach...`</span>),
             id,
-            <span class="hljs-keyword">this</span>.stage.currentTime(),
+            <span class="hljs-built_in">this</span>.stage.currentTime(),
         ));
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">this</span>.runner.afterEach() <span class="hljs-keyword">as</span> PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-literal">undefined</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">this</span>.runner.afterEach() <span class="hljs-keyword">as</span> PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-literal">undefined</span>)
             .then(
-                <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
-                    <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.constructor.name }</span>] ProtractorRunner.afterEach succeeded`</span>),
+                <span class="hljs-function">() =&gt;</span>
+                    <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
+                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] ProtractorRunner.afterEach succeeded`</span>),
                         id,
-                        <span class="hljs-keyword">this</span>.stage.currentTime(),
+                        <span class="hljs-built_in">this</span>.stage.currentTime(),
                     )),
                 <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span>
-                    <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id, <span class="hljs-keyword">this</span>.stage.currentTime())),
+                    <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id, <span class="hljs-built_in">this</span>.stage.currentTime())),
             );
     }
 }

@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForColourTerminals.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -149,69 +149,69 @@
  * @public
  * @abstract
  */</span>
-<span class="hljs-keyword">export</span> abstract <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThemeForColourTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TerminalTheme</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> ThemeForColourTerminals <span class="hljs-keyword">extends</span> TerminalTheme {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{chalk~Chalk}</span> <span class="hljs-variable">chalk</span></span>
+     * @param {chalk~Chalk} chalk
      *
-     * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/chalk
+     * @see https://www.npmjs.com/package/chalk
      */</span>
-    <span class="hljs-keyword">constructor</span>(protected readonly chalk: Chalk) {
-        <span class="hljs-keyword">super</span>(<span class="hljs-keyword">new</span> AssertionReportDiffer({
-            <span class="hljs-attr">expected</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-keyword">this</span>.chalk.green(<span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>),
-            <span class="hljs-attr">actual</span>:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-keyword">this</span>.chalk.red(<span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>),
-            <span class="hljs-attr">matching</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ line }</span>`</span>,
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> chalk: Chalk</span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> AssertionReportDiffer({
+            expected: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">this</span>.chalk.green(<span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>),
+            actual:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">this</span>.chalk.red(<span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>),
+            matching: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ line }</span>`</span>,
         }));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Joins the `parts` into a single string and decorates it
-     *  using a colour appropriate for a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}.
+     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/model~Outcome | string}</span> <span class="hljs-variable">outcome</span></span>
-     *  an instance of an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}
+     * @param {@serenity-js/core/lib/model~Outcome | string} outcome
+     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *  the parts of the message to be decorated
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    outcome(outcome: Outcome | string, ...parts: any[]): string {
+    outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> outcomeName = (outcome <span class="hljs-keyword">instanceof</span> Outcome)
             ? outcome.constructor.name
             : outcome;
 
         <span class="hljs-keyword">switch</span> (outcomeName) {
             <span class="hljs-keyword">case</span> ExecutionCompromised.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.magenta(<span class="hljs-keyword">this</span>.joined(parts));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.magenta(<span class="hljs-built_in">this</span>.joined(parts));
             <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:
             <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.red(<span class="hljs-keyword">this</span>.joined(parts));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.red(<span class="hljs-built_in">this</span>.joined(parts));
             <span class="hljs-keyword">case</span> ImplementationPending.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.blue(<span class="hljs-keyword">this</span>.joined(parts));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.blue(<span class="hljs-built_in">this</span>.joined(parts));
             <span class="hljs-keyword">case</span> ExecutionSkipped.name:
             <span class="hljs-keyword">case</span> ExecutionIgnored.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.blackBright(<span class="hljs-keyword">this</span>.joined(parts));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.blackBright(<span class="hljs-built_in">this</span>.joined(parts));
             <span class="hljs-keyword">case</span> ExecutionSuccessful.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.green(<span class="hljs-keyword">this</span>.joined(parts));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.green(<span class="hljs-built_in">this</span>.joined(parts));
         }
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Turns the serialised `expectedValue` and `actualValue` into
      *  a visual diff, so that it&apos;s easier for the developer to spot
      *  the difference between the two values.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">expectedValue</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">actualValue</span></span>
+     * @param {string} expectedValue
+     * @param {string} actualValue
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    diff(expectedValue: string, <span class="hljs-attr">actualValue</span>: string): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.differ.diff(expectedValue, actualValue);
+    diff(expectedValue: <span class="hljs-built_in">string</span>, actualValue: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.differ.diff(expectedValue, actualValue);
     }
 }
 </code></pre>

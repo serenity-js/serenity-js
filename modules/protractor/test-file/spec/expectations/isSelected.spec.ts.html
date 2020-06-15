@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/isSelected.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -181,7 +181,7 @@ describe(<span class="hljs-string">&apos;isSelected&apos;</span>, <span class="h
         Java:       Target.the(<span class="hljs-string">&apos;Java option&apos;</span>).located(by.css(<span class="hljs-string">&apos;select[name=&quot;languages&quot;] &gt; option[value=&quot;Java&quot;]&apos;</span>)),
     };
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -195,33 +195,33 @@ describe(<span class="hljs-string">&apos;isSelected&apos;</span>, <span class="h
     ));
 
     <span class="hljs-comment">/** @test {isSelected} */</span>
-    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is selected&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is selected&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Languages.TypeScript, isSelected()),
         Ensure.that(Languages.TypeScript, isSelected()),
     )).to.be.fulfilled);
 
     <span class="hljs-comment">/** @test {isSelected} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when element is not selected&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is not selected&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Languages.JavaScript, isSelected()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the JavaScript option to become selected`</span>);
     });
 
     <span class="hljs-comment">/** @test {isSelected} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when element is not present&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when element is not present&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Languages.Java, isSelected()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the Java option to become present`</span>);
     });
 
     <span class="hljs-comment">/** @test {isSelected} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Languages.TypeScript, isSelected()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the TypeScript option does become selected`</span>);
     });
 
     <span class="hljs-comment">/** @test {isSelected} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Languages.TypeScript, isSelected()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the TypeScript option does become selected`</span>);
     });

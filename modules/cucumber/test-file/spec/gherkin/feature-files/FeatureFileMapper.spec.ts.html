@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/FeatureFileMapper.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -139,11 +139,11 @@
     Step,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
 
-describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> fixtures = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>));
 
-    describe(<span class="hljs-string">&apos;when mapping names and descriptions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping names and descriptions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;maps a feature&apos;</span>, parse(<span class="hljs-string">&apos;names_and_descriptions.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             expect(map.get(Feature).onLine(<span class="hljs-number">1</span>)).to.equal(<span class="hljs-keyword">new</span> Feature(
@@ -171,7 +171,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenarios with no steps&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenarios with no steps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;maps a scenario even though it has no steps defined&apos;</span>, parse(<span class="hljs-string">&apos;no_steps.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">3</span>);
@@ -181,7 +181,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenarios with backgrounds&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenarios with backgrounds&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;maps the background with no name or description&apos;</span>, parse(<span class="hljs-string">&apos;background_with_no_name_or_description.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> firstBackground = map.get(Background).onLine(<span class="hljs-number">3</span>);
@@ -248,7 +248,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenario with special step arguments&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenario with special step arguments&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;recognises DocString argument&apos;</span>, parse(<span class="hljs-string">&apos;step_arguments.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">3</span>);
@@ -273,7 +273,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenario outlines with one set of examples&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenario outlines with one set of examples&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         it(<span class="hljs-string">&apos;maps the scenario template&apos;</span>, parse(<span class="hljs-string">&apos;scenario_outlines.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 scenario = map.get(ScenarioOutline).onLine(<span class="hljs-number">3</span>),
@@ -337,7 +337,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenario outlines with multiple sets of examples&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenario outlines with multiple sets of examples&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         it(<span class="hljs-string">&apos;recognises the different names and descriptions of example sets&apos;</span>, parse(<span class="hljs-string">&apos;scenario_outlines.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;scenario_outlines.feature&apos;</span>));
 
@@ -377,7 +377,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping scenario outlines with special step arguments&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping scenario outlines with special step arguments&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         it(<span class="hljs-string">&apos;recognises and interpolates DocString arguments&apos;</span>, parse(<span class="hljs-string">&apos;scenario_outlines.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;scenario_outlines.feature&apos;</span>)),
@@ -437,9 +437,9 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         }));
     });
 
-    describe(<span class="hljs-string">&apos;when mapping an empty feature file&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping an empty feature file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">&apos;returns an empty map&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;returns an empty map&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> empty = { <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;GherkinDocument&apos;</span>, comments: [] };
 
             <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> FeatureFileMapper();
@@ -448,7 +448,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
         });
     });
 
-    describe(<span class="hljs-string">&apos;when mapping a tagged scenario&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when mapping a tagged scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;detects all the applicable tags&apos;</span>,  parse(<span class="hljs-string">&apos;tags.feature&apos;</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">7</span>);
@@ -467,7 +467,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
             mapper = <span class="hljs-keyword">new</span> FeatureFileMapper(),
             loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> loader.parse(path).then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> mapper.map(<span class="hljs-built_in">document</span>, path)).then(spec);
+        <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> loader.parse(path).then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> mapper.map(<span class="hljs-built_in">document</span>, path)).then(spec);
     }
 });
 </code></pre>

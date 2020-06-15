@@ -130,7 +130,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/HTTPRequest.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 
@@ -158,9 +158,9 @@
      *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
      */</span>
     <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">protected</span> readonly resourceUri?: Answerable&lt;<span class="hljs-built_in">string</span>&gt;,
-        <span class="hljs-keyword">protected</span> readonly data?: Answerable&lt;<span class="hljs-built_in">any</span>&gt;,
-        <span class="hljs-keyword">protected</span> readonly config?: Answerable&lt;AxiosRequestConfig&gt;,
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> resourceUri?: Answerable&lt;<span class="hljs-built_in">string</span>&gt;,
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> data?: Answerable&lt;<span class="hljs-built_in">any</span>&gt;,
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> config?: Answerable&lt;AxiosRequestConfig&gt;,
     </span>) {
     }
 
@@ -173,9 +173,9 @@
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;AxiosRequestConfig&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                <span class="hljs-keyword">this</span>.resourceUri ? actor.answer(<span class="hljs-keyword">this</span>.resourceUri)   : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-                <span class="hljs-keyword">this</span>.config      ? actor.answer(<span class="hljs-keyword">this</span>.config)        : <span class="hljs-built_in">Promise</span>.resolve({}),
-                <span class="hljs-keyword">this</span>.data        ? actor.answer(<span class="hljs-keyword">this</span>.data)          : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+                <span class="hljs-built_in">this</span>.resourceUri ? actor.answer(<span class="hljs-built_in">this</span>.resourceUri)   : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+                <span class="hljs-built_in">this</span>.config      ? actor.answer(<span class="hljs-built_in">this</span>.config)        : <span class="hljs-built_in">Promise</span>.resolve({}),
+                <span class="hljs-built_in">this</span>.data        ? actor.answer(<span class="hljs-built_in">this</span>.data)          : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
             ])
             .then(<span class="hljs-function">(<span class="hljs-params">[url, config, data]</span>) =&gt;</span>
                 <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread</span>
@@ -183,7 +183,7 @@
                     {},
                     { url, data },
                     config,
-                    { method: <span class="hljs-keyword">this</span>.httpMethodName() },
+                    { method: <span class="hljs-built_in">this</span>.httpMethodName() },
                 ),
             )
             .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> <span class="hljs-built_in">Object</span>.keys(config).reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
@@ -198,7 +198,7 @@
      * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Interaction}.
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.requestDescription() }</span> to <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.resourceUri }</span>`</span> }</span>`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.requestDescription() }</span> to <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.resourceUri }</span>`</span> }</span>`</span>;
     }
 
     <span class="hljs-comment">/**
@@ -206,7 +206,7 @@
      * For example: GetRequest =&gt; GET, PostRequest =&gt; POST, etc.
      */</span>
     <span class="hljs-keyword">private</span> httpMethodName(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.constructor.name.replace(<span class="hljs-regexp">/Request/</span>, <span class="hljs-string">&apos;&apos;</span>).toUpperCase();
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.constructor.name.replace(<span class="hljs-regexp">/Request/</span>, <span class="hljs-string">&apos;&apos;</span>).toUpperCase();
     }
 
     <span class="hljs-comment">/**
@@ -215,7 +215,7 @@
     <span class="hljs-keyword">private</span> requestDescription(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span>
             vowels = [ <span class="hljs-string">&apos;A&apos;</span>, <span class="hljs-string">&apos;E&apos;</span>, <span class="hljs-string">&apos;I&apos;</span>, <span class="hljs-string">&apos;O&apos;</span>, <span class="hljs-string">&apos;U&apos;</span> ],
-            method = <span class="hljs-keyword">this</span>.httpMethodName();
+            method = <span class="hljs-built_in">this</span>.httpMethodName();
 
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ ~vowels.indexOf(method[<span class="hljs-number">0</span>]) ? <span class="hljs-string">&apos;an&apos;</span> : <span class="hljs-string">&apos;a&apos;</span> }</span> <span class="hljs-subst">${ method }</span> request`</span>;
     }

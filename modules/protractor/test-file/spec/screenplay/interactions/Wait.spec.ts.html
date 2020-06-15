@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Wait.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -171,7 +171,7 @@
 <span class="hljs-keyword">import</span> { Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Status = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.id(<span class="hljs-string">&apos;status&apos;</span>));
 
@@ -190,11 +190,11 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
         &lt;/html&gt;
     `</span>);
 
-    describe(<span class="hljs-string">&apos;for&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;for&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** @test {Wait} */</span>
         <span class="hljs-comment">/** @test {Wait.for} */</span>
-        it(<span class="hljs-string">&apos;pauses the actor flow for the length of an explicitly-set duration&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;pauses the actor flow for the length of an explicitly-set duration&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.for(Duration.ofMilliseconds(<span class="hljs-number">300</span>)),
@@ -203,17 +203,17 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
         ));
 
         <span class="hljs-comment">/** @test {Wait#toString} */</span>
-        it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Wait.for(Duration.ofMilliseconds(<span class="hljs-number">300</span>)).toString())
                 .to.equal(<span class="hljs-string">`#actor waits for 300ms`</span>);
         });
     });
 
-    describe(<span class="hljs-string">&apos;until&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;until&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** @test {Wait} */</span>
         <span class="hljs-comment">/** @test {Wait.until} */</span>
-        it(<span class="hljs-string">&apos;pauses the actor flow until the expectation is met&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;pauses the actor flow until the expectation is met&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.until(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)),
@@ -224,7 +224,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
         <span class="hljs-comment">/** @test {Wait} */</span>
         <span class="hljs-comment">/** @test {Wait.upTo} */</span>
         <span class="hljs-comment">/** @test {Wait.until} */</span>
-        it(<span class="hljs-string">&apos;fails the actor flow when the timeout expires&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;fails the actor flow when the timeout expires&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
             Wait.upTo(Duration.ofMilliseconds(<span class="hljs-number">10</span>)).until(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)),
@@ -239,7 +239,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
         }));
 
         <span class="hljs-comment">/** @test {Wait#toString} */</span>
-        it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Wait.upTo(Duration.ofMilliseconds(<span class="hljs-number">10</span>)).until(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)).toString())
                 .to.equal(<span class="hljs-string">`#actor waits up to 10ms until the text of the header does equal &apos;Ready!&apos;`</span>);
         });

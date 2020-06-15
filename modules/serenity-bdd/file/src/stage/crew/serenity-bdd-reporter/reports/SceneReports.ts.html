@@ -121,50 +121,50 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/reports/SceneReports.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SceneReport&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneReportId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SceneReportId&apos;</span>;
 
 <span class="hljs-comment">/** @package */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneReports {
-    <span class="hljs-keyword">private</span> readonly reports: { [entryId: <span class="hljs-built_in">string</span>]: SceneReport } = {};
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reports: { [entryId: <span class="hljs-built_in">string</span>]: SceneReport } = {};
 
     <span class="hljs-keyword">for</span>(scenarioDetails: ScenarioDetails): SceneReport {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">this</span>.alreadyHasAReportFor(scenarioDetails)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.createReportFor(scenarioDetails);
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.alreadyHasAReportFor(scenarioDetails)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.createReportFor(scenarioDetails);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.reportFor(scenarioDetails);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reportFor(scenarioDetails);
     }
 
     save(scenarioReport: SceneReport) {
-        <span class="hljs-keyword">this</span>.reports[<span class="hljs-keyword">this</span>.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;
+        <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;
     }
 
-    map&lt;T&gt;<span class="hljs-function">(<span class="hljs-params">fn: (<span class="hljs-params">report: SceneReport</span>) =&gt; T</span>): <span class="hljs-params">T</span>[] {
-        <span class="hljs-params">return</span> <span class="hljs-params">Object</span>.<span class="hljs-params">keys</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>.reports</span>).<span class="hljs-params">map</span>(<span class="hljs-params">correlationId =&gt; <span class="hljs-keyword">this</span>.reports[correlationId]</span>).<span class="hljs-params">map</span>(<span class="hljs-params">fn</span>);
+    map&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">report: SceneReport</span>) =&gt;</span> T): T[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.reports).map(<span class="hljs-function"><span class="hljs-params">correlationId</span> =&gt;</span> <span class="hljs-built_in">this</span>.reports[correlationId]).map(fn);
     }
 
-    <span class="hljs-params">private</span> <span class="hljs-params">alreadyHasAReportFor</span>(<span class="hljs-params">scenarioDetails: ScenarioDetails</span>): <span class="hljs-params">boolean</span> {
-        <span class="hljs-params">return</span> !! <span class="hljs-params">this</span>.<span class="hljs-params">reports</span>[<span class="hljs-params">this</span>.<span class="hljs-params">correlationIdFor</span>(<span class="hljs-params">scenarioDetails</span>)];
+    <span class="hljs-keyword">private</span> alreadyHasAReportFor(scenarioDetails: ScenarioDetails): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioDetails)];
     }
 
-    <span class="hljs-params">private</span> <span class="hljs-params">reportFor</span>(<span class="hljs-params">scenarioDetails: ScenarioDetails</span>): <span class="hljs-params">SceneReport</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">this</span>.<span class="hljs-params">reports</span>[<span class="hljs-params">this</span>.<span class="hljs-params">correlationIdFor</span>(<span class="hljs-params">scenarioDetails</span>)];
+    <span class="hljs-keyword">private</span> reportFor(scenarioDetails: ScenarioDetails): SceneReport {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioDetails)];
     }
 
-    <span class="hljs-params">private</span> <span class="hljs-params">createReportFor</span>(<span class="hljs-params">scenarioDetails: ScenarioDetails</span>): <span class="hljs-params">SceneReport</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">SceneReport</span>(<span class="hljs-params">scenarioDetails</span>);
+    <span class="hljs-keyword">private</span> createReportFor(scenarioDetails: ScenarioDetails): SceneReport {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneReport(scenarioDetails);
     }
 
-    <span class="hljs-params">private</span> <span class="hljs-params">correlationIdFor</span>(<span class="hljs-params">scenarioDetails: ScenarioDetails</span>): <span class="hljs-params">string</span> {
-        <span class="hljs-params">return</span> <span class="hljs-params">new</span> <span class="hljs-params">SceneReportId</span>(<span class="hljs-params">scenarioDetails.category.value</span>)
-            .<span class="hljs-params">append</span>(<span class="hljs-params">scenarioDetails.name.value</span>)
-            .<span class="hljs-params">append</span>(<span class="hljs-params">scenarioDetails.location.path.value</span>)    // <span class="hljs-params">todo</span>: <span class="hljs-params">should</span> <span class="hljs-params">this</span> <span class="hljs-params">include</span> <span class="hljs-params">the</span> <span class="hljs-params">line</span>?
-            .<span class="hljs-params">value</span>;
+    <span class="hljs-keyword">private</span> correlationIdFor(scenarioDetails: ScenarioDetails): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneReportId(scenarioDetails.category.value)
+            .append(scenarioDetails.name.value)
+            .append(scenarioDetails.location.path.value)    <span class="hljs-comment">// todo: should this include the line?</span>
+            .value();
     }
 }
-</span></code></pre>
+</code></pre>
 
 </article>
             </section>

@@ -163,18 +163,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/UseAngular.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> UseAngular {
     <span class="hljs-keyword">static</span> disableSynchronisation(): Interaction {
         <span class="hljs-keyword">return</span> Interaction.where(<span class="hljs-string">`#actor disables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">false</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">false</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
     }
 
     <span class="hljs-keyword">static</span> enableSynchronisation(): Interaction {
         <span class="hljs-keyword">return</span> Interaction.where(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">true</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">true</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
     }
 }
 </code></pre>

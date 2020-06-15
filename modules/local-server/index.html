@@ -169,7 +169,7 @@ would accept can be used with <code>ManageALocalServer</code>.</p>
 <p>Below are example implementations of a simple HTTP server that would
 satisfy the above test.</p>
 <h4 id="raw-node-js">Raw Node.js</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-built_in">module</span>.exports.requestListener = <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
+<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span>.requestListener = <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
   response.setHeader(<span class="hljs-string">&apos;Connection&apos;</span>, <span class="hljs-string">&apos;close&apos;</span>);
   response.end(<span class="hljs-string">&apos;Hello World!&apos;</span>);
 }
@@ -178,8 +178,8 @@ satisfy the above test.</p>
 <h4 id="express">Express</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>);
 
-<span class="hljs-built_in">module</span>.exports.requestListener = express().
-    <span class="hljs-keyword">get</span>(<span class="hljs-string">&apos;/&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
+<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span>.requestListener = express().
+    get(<span class="hljs-string">&apos;/&apos;</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
         res.status(<span class="hljs-number">200</span>).send(<span class="hljs-string">&apos;Hello World!&apos;</span>);
     });
 </code></pre>
@@ -190,13 +190,13 @@ satisfy the above test.</p>
 <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> hapi.Server();
 server.route({ method: <span class="hljs-string">&apos;GET&apos;</span>, path: <span class="hljs-string">&apos;/&apos;</span>, handler: <span class="hljs-function">(<span class="hljs-params">req, h</span>) =&gt;</span> <span class="hljs-string">&apos;Hello World!&apos;</span> })
 
-<span class="hljs-built_in">module</span>.exports.requestListener = server.listener;
+<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span>.requestListener = server.listener;
 </code></pre>
 <p><a href="https://hapijs.com/">Learn more about HAPI</a>.</p>
 <h4 id="koa">Koa</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
 <span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa&apos;</span>);
 
-<span class="hljs-built_in">module</span>.exports.requestListener = <span class="hljs-keyword">new</span> Koa()
+<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span>.requestListener = <span class="hljs-keyword">new</span> Koa()
     .use(<span class="hljs-function"><span class="hljs-params">ctx</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(ctx.body = <span class="hljs-string">&apos;Hello World!&apos;</span>))
     .callback();
 </code></pre>
@@ -210,7 +210,7 @@ server.get(<span class="hljs-string">&apos;/&apos;</span>, <span class="hljs-fun
     res.send(<span class="hljs-string">&apos;Hello World!&apos;</span>);
 });
 
-<span class="hljs-built_in">module</span>.exports.requestListener = server;
+<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span>.requestListener = server;
 </code></pre>
 <p><a href="http://restify.com/">Learn more about Restify</a>.</p>
 </div>

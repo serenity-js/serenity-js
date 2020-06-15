@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Name, ScenarioDetails, TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
@@ -138,11 +138,11 @@
  * @access public
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityBDDReporter <span class="hljs-keyword">implements</span> StageCrewMember {
-    <span class="hljs-keyword">private</span> readonly reports: SceneReports = <span class="hljs-keyword">new</span> SceneReports();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reports: SceneReports = <span class="hljs-keyword">new</span> SceneReports();
     <span class="hljs-keyword">private</span> currentScenario = <span class="hljs-keyword">new</span> Current&lt;ScenarioDetails&gt;();
     <span class="hljs-keyword">private</span> currentStrategy = <span class="hljs-keyword">new</span> Current&lt;SceneReportingStrategy&gt;();
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly stage: Stage = <span class="hljs-literal">null</span></span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -151,31 +151,31 @@
 
     notifyOf = (event: DomainEvent): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> match&lt;DomainEvent, <span class="hljs-built_in">void</span>&gt;(event)
         .when(SceneSequenceDetected, <span class="hljs-function">(<span class="hljs-params">e: SceneSequenceDetected</span>) =&gt;</span> {
-            <span class="hljs-keyword">this</span>.use(SceneSequenceReportingStrategy, e.value);
+            <span class="hljs-built_in">this</span>.use(SceneSequenceReportingStrategy, e.value);
         })
         .when(SceneStarts, <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {
-            <span class="hljs-keyword">this</span>.use(SingleSceneReportingStrategy, e.value);
+            <span class="hljs-built_in">this</span>.use(SingleSceneReportingStrategy, e.value);
 
-            <span class="hljs-keyword">this</span>.reports.save(<span class="hljs-keyword">this</span>.currentStrategy.value.handle(e, <span class="hljs-keyword">this</span>.reports.for(<span class="hljs-keyword">this</span>.currentScenario.value)));
+            <span class="hljs-built_in">this</span>.reports.save(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(e, <span class="hljs-built_in">this</span>.reports.for(<span class="hljs-built_in">this</span>.currentScenario.value)));
         })
-        .when(TestRunFinishes, _ =&gt; {
-            <span class="hljs-keyword">this</span>.reports.map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-keyword">this</span>.broadcast(report.toJSON()));
+        .when(TestRunFinishes, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
+            <span class="hljs-built_in">this</span>.reports.map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-built_in">this</span>.broadcast(report.toJSON()));
         })
         .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.currentStrategy.isSet()) {
-                <span class="hljs-keyword">this</span>.reports.save(<span class="hljs-keyword">this</span>.currentStrategy.value.handle(e, <span class="hljs-keyword">this</span>.reports.for(<span class="hljs-keyword">this</span>.currentScenario.value)));
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentStrategy.isSet()) {
+                <span class="hljs-built_in">this</span>.reports.save(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(e, <span class="hljs-built_in">this</span>.reports.for(<span class="hljs-built_in">this</span>.currentScenario.value)));
             }
         })
 
     <span class="hljs-keyword">private</span> use(strategy: <span class="hljs-keyword">new</span> (sd: ScenarioDetails) =&gt; SceneReportingStrategy, scenario: ScenarioDetails) {
-        <span class="hljs-keyword">if</span> (! (<span class="hljs-keyword">this</span>.currentStrategy.isSet() &amp;&amp; <span class="hljs-keyword">this</span>.currentStrategy.value.worksFor(scenario))) {
-            <span class="hljs-keyword">this</span>.currentStrategy.value = <span class="hljs-keyword">new</span> strategy(scenario);
-            <span class="hljs-keyword">this</span>.currentScenario.value = scenario;
+        <span class="hljs-keyword">if</span> (! (<span class="hljs-built_in">this</span>.currentStrategy.isSet() &amp;&amp; <span class="hljs-built_in">this</span>.currentStrategy.value.worksFor(scenario))) {
+            <span class="hljs-built_in">this</span>.currentStrategy.value = <span class="hljs-keyword">new</span> strategy(scenario);
+            <span class="hljs-built_in">this</span>.currentScenario.value = scenario;
         }
     }
 
     <span class="hljs-keyword">private</span> broadcast(report: Partial&lt;SerenityBDDReport&gt;) {
-        <span class="hljs-keyword">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+        <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
             <span class="hljs-keyword">new</span> Name(report.name),
             TestReport.fromJSON(report),
         ));

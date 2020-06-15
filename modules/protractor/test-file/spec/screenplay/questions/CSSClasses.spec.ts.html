@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/CSSClasses.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -171,7 +171,7 @@
 <span class="hljs-keyword">import</span> { CSSClasses, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> testPage = pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -190,7 +190,7 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
 
     <span class="hljs-comment">/** @test {CSSClasses} */</span>
     <span class="hljs-comment">/** @test {CSSClasses.of} */</span>
-    describe(<span class="hljs-string">&apos;of&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;of&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
             { description: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    expected: []                            },
@@ -212,7 +212,7 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
 
         <span class="hljs-comment">/** @test {CSSClasses} */</span>
         <span class="hljs-comment">/** @test {CSSClasses#of} */</span>
-        it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(testPage),
 
             Ensure.that(

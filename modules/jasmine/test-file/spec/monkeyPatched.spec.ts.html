@@ -123,17 +123,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/monkeyPatched.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../src&apos;</span>);
 
-describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> jasmine: <span class="hljs-built_in">any</span>;
     <span class="hljs-keyword">let</span> attrs: <span class="hljs-built_in">any</span>;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = {
             beforeEach: sinon.spy(),
             afterAll: sinon.spy(),
@@ -147,24 +147,24 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
 
         jasmine = {
             Spec: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Spec</span>(<span class="hljs-params"></span>) </span>{
-                <span class="hljs-keyword">this</span>.result = {};
+                <span class="hljs-built_in">this</span>.result = {};
             },
             Suite: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Suite</span>(<span class="hljs-params"></span>) </span>{
-                <span class="hljs-keyword">this</span>.result = {};
+                <span class="hljs-built_in">this</span>.result = {};
             },
-            getEnv: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> env,
+            getEnv: <span class="hljs-function">() =&gt;</span> env,
         };
     });
 
-    describe(<span class="hljs-string">&apos;monkey-patches Jasmine&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;monkey-patches Jasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;so that the Spec&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;so that the Spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
              * @test {bootstrap}
              * @test {monkeyPatched}
              */</span>
-            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
                 serenityReporterForJasmine(jasmine);
 
@@ -179,7 +179,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
              * @test {bootstrap}
              * @test {monkeyPatched}
              */</span>
-            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>;
 
@@ -192,7 +192,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
              * @test {bootstrap}
              * @test {monkeyPatched}
              */</span>
-            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>;
 
@@ -201,7 +201,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
                 expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>);
             });
 
-            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;DB is down&apos;</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Connection error&apos;</span>));
 
                 serenityReporterForJasmine(jasmine);
@@ -216,13 +216,13 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
             });
         });
 
-        describe(<span class="hljs-string">&apos;so that the Suite&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;so that the Suite&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
              * @test {bootstrap}
              * @test {monkeyPatched}
              */</span>
-            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
                 serenityReporterForJasmine(jasmine);
 
@@ -233,7 +233,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
                 expect(suite.result.location.column).to.equal(<span class="hljs-number">0</span>);
             });
 
-            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;DB is down&apos;</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Connection error&apos;</span>));
 
                 serenityReporterForJasmine(jasmine);

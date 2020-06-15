@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/Serenity.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> sinon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;sinon&apos;</span>);
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> sinon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;sinon&apos;</span>);
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/screenplay&apos;</span>;
@@ -248,9 +248,9 @@
 <span class="hljs-keyword">import</span> { Cast, Clock, Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;constructs a Stage and connects it with a provided Cast&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;constructs a Stage and connects it with a provided Cast&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> prepareSpy = sinon.spy();
 
@@ -274,7 +274,7 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
         expect(prepareSpy.getCall(<span class="hljs-number">0</span>).args[<span class="hljs-number">0</span>]).to.equal(Joe);
     });
 
-    it(<span class="hljs-string">&apos;enables propagation of DomainEvents triggered by Actors\&apos; Activities and StageCrewMembers&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;enables propagation of DomainEvents triggered by Actors\&apos; Activities and StageCrewMembers&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
             prepare(actor: Actor): Actor {
@@ -282,11 +282,11 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
             }
         }
 
-        <span class="hljs-keyword">const</span> PerformSomeInteraction = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Interaction.where(<span class="hljs-string">`#actor performs some interaction`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> PerformSomeInteraction = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor performs some interaction`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
         });
 
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1983-07-03&apos;</span>));
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1983-07-03&apos;</span>));
         <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
         <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> Listener&lt;ActivityStarts | ActivityFinished&gt;();
 
@@ -298,8 +298,8 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
         <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             PerformSomeInteraction(),
         ).
-        then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> serenity.waitForNextCue()).
-        then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
+        then(<span class="hljs-function">() =&gt;</span> {
             expect(listener.events).to.have.lengthOf(<span class="hljs-number">2</span>);
 
             expect(listener.events[<span class="hljs-number">0</span>]).to.be.instanceOf(ActivityStarts);
@@ -310,9 +310,9 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
         });
     });
 
-    it(<span class="hljs-string">&apos;allows for external parties, such as test runner adapters, to announce DomainEvents&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for external parties, such as test runner adapters, to announce DomainEvents&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1983-07-03&apos;</span>));
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1983-07-03&apos;</span>));
         <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
         <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> Listener&lt;TestRunnerDetected&gt;();
 
@@ -323,7 +323,7 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
         serenity.announce(<span class="hljs-keyword">new</span> TestRunnerDetected(testRunnerName, serenity.currentTime()));
 
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().
-            then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            then(<span class="hljs-function">() =&gt;</span> {
                 expect(listener.events).to.have.lengthOf(<span class="hljs-number">1</span>);
 
                 expect(listener.events[<span class="hljs-number">0</span>]).to.be.instanceOf(TestRunnerDetected);
@@ -332,19 +332,19 @@ describe(<span class="hljs-string">&apos;Serenity&apos;</span>, <span class="hlj
     });
 
     <span class="hljs-keyword">class</span> Listener&lt;Event_Type <span class="hljs-keyword">extends</span> DomainEvent&gt; <span class="hljs-keyword">implements</span> StageCrewMember {
-        <span class="hljs-keyword">public</span> readonly events: Event_Type[] = [];
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> events: Event_Type[] = [];
 
         <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
         }
 
         assignedTo(stage: Stage): StageCrewMember {
-            <span class="hljs-keyword">this</span>.stage = stage;
+            <span class="hljs-built_in">this</span>.stage = stage;
 
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
         }
 
         notifyOf(event: Event_Type): <span class="hljs-built_in">void</span> {
-            <span class="hljs-keyword">this</span>.events.push(event);
+            <span class="hljs-built_in">this</span>.events.push(event);
         }
     }
 });

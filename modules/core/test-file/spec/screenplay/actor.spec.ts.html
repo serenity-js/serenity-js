@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/actor.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
@@ -263,13 +263,13 @@
 
 <span class="hljs-keyword">const</span> equals = <span class="hljs-function">(<span class="hljs-params">expected: <span class="hljs-built_in">number</span></span>) =&gt;</span> (actual: PromiseLike&lt;<span class="hljs-built_in">number</span>&gt;) =&gt; expect(actual).to.equal(expected);
 
-describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span>
         guitar: sinon.SinonStubbedInstance&lt;Guitar&gt;,
         stage: sinon.SinonStubbedInstance&lt;Stage&gt;;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         guitar = sinon.createStubInstance(AcousticGuitar);
         stage = sinon.createStubInstance(Stage);
 
@@ -282,13 +282,13 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
     }
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;can be identified by their name&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can be identified by their name&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         expect(actor(<span class="hljs-string">&apos;Chris&apos;</span>).name).to.equal(<span class="hljs-string">&apos;Chris&apos;</span>);
     });
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;provides a developer-friendly toString&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a developer-friendly toString&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">class</span> DoCoolThings <span class="hljs-keyword">implements</span> Ability {
         }
 
@@ -298,30 +298,30 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
     });
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;has Abilities allowing them to perform Activities and interact with a given Interface of the system under test&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;has Abilities allowing them to perform Activities and interact with a given Interface of the system under test&apos;</span>, <span class="hljs-function">() =&gt;</span>
 
         actor(<span class="hljs-string">&apos;Chris&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
             PlayAChord.of(Chords.AMajor),
         ).
-        then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        then(<span class="hljs-function">() =&gt;</span> {
             expect(guitar.play).to.have.been.calledWith(Chords.AMajor);
         }));
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;performs composite Tasks recursively to accomplish their Business Goals&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;performs composite Tasks recursively to accomplish their Business Goals&apos;</span>, <span class="hljs-function">() =&gt;</span>
 
         actor(<span class="hljs-string">&apos;Chris&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
             PlayASong.from(MusicSheets.Wild_Thing),
         ).
-        then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        then(<span class="hljs-function">() =&gt;</span> {
             expect(guitar.play.getCall(<span class="hljs-number">0</span>)).to.have.been.calledWith(Chords.AMajor);
             expect(guitar.play.getCall(<span class="hljs-number">1</span>)).to.have.been.calledWith(Chords.DMajor);
             expect(guitar.play.getCall(<span class="hljs-number">2</span>)).to.have.been.calledWith(Chords.EMajor);
         }));
 
-    describe(<span class="hljs-string">&apos;asks Questions about the state of the system&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;asks Questions about the state of the system&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-comment">/** @test {Actor} */</span>
-        it(<span class="hljs-string">&apos;fulfills the promise should the question be answered as expected&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;fulfills the promise should the question be answered as expected&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             guitar.availableStrings.returns(<span class="hljs-built_in">Promise</span>.resolve([<span class="hljs-string">&apos;E2&apos;</span>, <span class="hljs-string">&apos;A2&apos;</span>, <span class="hljs-string">&apos;D3&apos;</span>, <span class="hljs-string">&apos;G3&apos;</span>, <span class="hljs-string">&apos;B3&apos;</span>, <span class="hljs-string">&apos;E4&apos;</span> ]));
 
             <span class="hljs-keyword">return</span> expect(actor(<span class="hljs-string">&apos;Chris&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -331,7 +331,7 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
         });
 
         <span class="hljs-comment">/** @test {Actor} */</span>
-        it(<span class="hljs-string">&apos;rejects the promise should the answer differ from what was expected&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;rejects the promise should the answer differ from what was expected&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> oneStringMissing = [<span class="hljs-string">&apos;E2&apos;</span>, <span class="hljs-string">&apos;A2&apos;</span>, <span class="hljs-string">&apos;D3&apos;</span>, <span class="hljs-string">&apos;G3&apos;</span>, <span class="hljs-string">&apos;B3&apos;</span> ];
             guitar.availableStrings.returns(<span class="hljs-built_in">Promise</span>.resolve(oneStringMissing));
 
@@ -343,35 +343,35 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
     });
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;admits if it does not have the Ability necessary to accomplish a given Interaction&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+    it(<span class="hljs-string">&apos;admits if it does not have the Ability necessary to accomplish a given Interaction&apos;</span>, <span class="hljs-function">() =&gt;</span>
 
         expect(actor(<span class="hljs-string">&apos;Ben&apos;</span>).attemptsTo(
             PlayAChord.of(Chords.AMajor),
         )).to.be.eventually.rejectedWith(ConfigurationError, <span class="hljs-string">`Ben can&apos;t PlayAGuitar yet. Did you give them the ability to do so?`</span>));
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;complains if given the same ability twice&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if given the same ability twice&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+        expect(<span class="hljs-function">() =&gt;</span>
             actor(<span class="hljs-string">&apos;Ben&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
         ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don&apos;t need to give it to them again.`</span>);
     });
 
     <span class="hljs-comment">/** @test {Actor} */</span>
-    it(<span class="hljs-string">&apos;can be instantiated without explicitly specifying the Stage&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;can be instantiated without explicitly specifying the Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> anActor: Actor = Actor.named(<span class="hljs-string">&apos;Bob&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar));
 
         expect(anActor.name).to.equal(<span class="hljs-string">&apos;Bob&apos;</span>);
     });
 
-    describe(<span class="hljs-string">&apos;DomainEvent handling&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;DomainEvent handling&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> Bob: Actor;
         <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;2018-06-10T22:57:07.112Z&apos;</span>));
         <span class="hljs-keyword">const</span> activityName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Bob plays the chord of A&apos;</span>);
 
-        beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
             stage = sinon.createStubInstance(Stage);
             stage.currentTime.returns(now);
             stage.activityDetailsFor.returns(<span class="hljs-keyword">new</span> ActivityDetails(activityName));
@@ -379,12 +379,12 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
             Bob = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Bob&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
         });
 
-        describe(<span class="hljs-string">&apos;announces the events that activities it performs&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;announces the events that activities it performs&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {Actor} */</span>
-            it(<span class="hljs-string">&apos;notifies when an activity begins and ends&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+            it(<span class="hljs-string">&apos;notifies when an activity begins and ends&apos;</span>, <span class="hljs-function">() =&gt;</span> Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayAChord.of(Chords.AMajor),
-            ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            ).then(<span class="hljs-function">() =&gt;</span> {
                 expect(stage.announce).to.have.callCount(<span class="hljs-number">2</span>);
 
                 <span class="hljs-keyword">const</span>

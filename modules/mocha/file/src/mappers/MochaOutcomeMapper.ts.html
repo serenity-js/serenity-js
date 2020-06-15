@@ -119,7 +119,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/mappers/MochaOutcomeMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -137,7 +137,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MochaOutcomeMapper {
     <span class="hljs-keyword">public</span> outcomeOf(test: Test): Outcome {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> !! test.err &amp;&amp; <span class="hljs-keyword">this</span>.isAssertionError(test.err):
+            <span class="hljs-keyword">case</span> !! test.err &amp;&amp; <span class="hljs-built_in">this</span>.isAssertionError(test.err):
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(test.err <span class="hljs-keyword">as</span> AssertionError);
 
             <span class="hljs-keyword">case</span> !! test.err &amp;&amp; test.err <span class="hljs-keyword">instanceof</span> TestCompromisedError:
@@ -159,7 +159,7 @@
 
     <span class="hljs-keyword">private</span> isAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {
         <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> AssertionError
-            || <span class="hljs-keyword">this</span>.looksLikeAnAssertionError(error);
+            || <span class="hljs-built_in">this</span>.looksLikeAnAssertionError(error);
     }
 
     <span class="hljs-keyword">private</span> looksLikeAnAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {

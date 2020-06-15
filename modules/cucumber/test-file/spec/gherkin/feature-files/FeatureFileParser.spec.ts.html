@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/FeatureFileParser.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -129,13 +129,13 @@
 
 <span class="hljs-keyword">import</span> { FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
 
-describe(<span class="hljs-string">&apos;FeatureFileParser&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;FeatureFileParser&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         sampleFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;sample.feature&apos;</span>)),
         brokenFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;broken.feature&apos;</span>));
 
-    it(<span class="hljs-string">&apos;loads a GherkinDocument from a file&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;loads a GherkinDocument from a file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
         <span class="hljs-keyword">return</span> loader.parse(sampleFeature)
@@ -172,14 +172,14 @@ describe(<span class="hljs-string">&apos;FeatureFileParser&apos;</span>, <span c
             });
     });
 
-    it(<span class="hljs-string">&apos;complains if the feature file does not exist&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if the feature file does not exist&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
         <span class="hljs-keyword">return</span> expect(loader.parse(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;path/to/invalid.feature&apos;</span>)))
             .to.be.rejectedWith(<span class="hljs-string">&apos;Could not read feature file at &quot;path/to/invalid.feature&quot;&apos;</span>);
     });
 
-    it(<span class="hljs-string">&apos;complains if the feature file could not be parsed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if the feature file could not be parsed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
         <span class="hljs-keyword">return</span> expect(loader.parse(brokenFeature))

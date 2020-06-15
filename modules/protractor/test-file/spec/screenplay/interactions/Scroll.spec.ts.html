@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Scroll.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, isGreaterThan, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -187,7 +187,7 @@ describe(<span class="hljs-string">&apos;Scroll&apos;</span>, <span class="hljs-
 
     <span class="hljs-comment">/** @test {Scroll} */</span>
     <span class="hljs-comment">/** @test {Scroll.to} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to scroll to a given target so that it appears in the viewport&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Gandalf&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to scroll to a given target so that it appears in the viewport&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Gandalf&apos;</span>).attemptsTo(
         Navigate.to(aLongSpell),
 
         ExecuteScript.sync(<span class="hljs-string">`return arguments[0].getBoundingClientRect().top;`</span>).withArguments(Page.Execute_Button),
@@ -200,7 +200,7 @@ describe(<span class="hljs-string">&apos;Scroll&apos;</span>, <span class="hljs-
     ));
 
     <span class="hljs-comment">/** @test {Enter#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Scroll.to(Page.Execute_Button).toString())
             .to.equal(<span class="hljs-string">`#actor scrolls to the &quot;Cast!&quot; button`</span>);
     });

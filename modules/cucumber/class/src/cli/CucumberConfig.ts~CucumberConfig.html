@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {CucumberConfig} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/cucumber/lib/cli&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {CucumberConfig} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/cucumber/lib/cli&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -485,7 +485,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Enable TypeScript support in Cucumber 1.x - 3.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> compiler: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> compiler: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span></code></pre>
     </div>
 </div>
 
@@ -580,7 +580,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> formatOptions: <span class="hljs-built_in">JSON</span>.stringify({ option: <span class="hljs-string">&apos;value&apos;</span> })</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> formatOptions: <span class="hljs-built_in">JSON</span>.stringify({ option: <span class="hljs-string">&apos;value&apos;</span> })</code></pre>
     </div>
 </div>
 
@@ -816,11 +816,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs gherkin">tag: [ &apos;<span class="hljs-meta">@smoketest&apos;,</span> &apos;~<span class="hljs-meta">@wip&apos;</span> ]</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">tag: [ <span class="hljs-string">&apos;@smoketest&apos;</span>, <span class="hljs-string">&apos;~@wip&apos;</span> ]</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber &gt;= 2.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs gherkin">tag: &apos;<span class="hljs-meta">@smoketest</span> and not <span class="hljs-meta">@wip&apos;</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">tag: <span class="hljs-string">&apos;@smoketest and not @wip&apos;</span></code></pre>
     </div>
 </div>
 
@@ -872,7 +872,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">worldParameters: <span class="hljs-built_in">JSON</span>.stringify({ isDev: process.env.NODE_ENV !== <span class="hljs-string">&apos;production&apos;</span> })</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">worldParameters: <span class="hljs-built_in">JSON</span>.stringify({ isDev: process.env.NODE_ENV !== <span class="hljs-string">&apos;production&apos;</span> })</code></pre>
     </div>
 </div>
 

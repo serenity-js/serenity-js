@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/TakeScreenshot.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 
@@ -171,11 +171,11 @@
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../UIActors&apos;</span>;
 
-describe(<span class="hljs-string">&apos;TakeScreenshot&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;TakeScreenshot&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> recorder: EventRecorder;
 
-    beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
         recorder = <span class="hljs-keyword">new</span> EventRecorder();
 
         configure({
@@ -196,10 +196,10 @@ describe(<span class="hljs-string">&apos;TakeScreenshot&apos;</span>, <span clas
 
     <span class="hljs-comment">/** @test {TakeScreenshot} */</span>
     <span class="hljs-comment">/** @test {TakeScreenshot.of} */</span>
-    it(<span class="hljs-string">&apos;allows the actor to take a screenshot with an arbitrary name&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">&apos;allows the actor to take a screenshot with an arbitrary name&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(page),
         TakeScreenshot.of(<span class="hljs-string">&apos;the page&apos;</span>),
-    ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    ).then(<span class="hljs-function">() =&gt;</span> {
         PickEvent.from(recorder.events)
             .next(ActivityRelatedArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactGenerated</span>) =&gt;</span> {
                 expect(e.name.value).to.equal(<span class="hljs-string">&apos;the page&apos;</span>);
@@ -207,7 +207,7 @@ describe(<span class="hljs-string">&apos;TakeScreenshot&apos;</span>, <span clas
     }));
 
     <span class="hljs-comment">/** @test {TakeScreenshot#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(TakeScreenshot.of(<span class="hljs-string">&apos;the page&apos;</span>).toString()).to.equal(<span class="hljs-string">`#actor takes a screenshot of &apos;the page&apos;`</span>);
     });
 });

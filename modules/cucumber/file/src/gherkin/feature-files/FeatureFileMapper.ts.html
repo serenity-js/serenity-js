@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/feature-files/FeatureFileMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Background, Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
@@ -155,7 +155,7 @@
                         ),
                         <span class="hljs-keyword">new</span> Name(scenarioDefinition.name),
                         scenarioDefinition.description &amp;&amp; <span class="hljs-keyword">new</span> Description(scenarioDefinition.description),
-                        scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-keyword">this</span>.asStep(path, step)),
+                        scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step)),
                     );
 
                     map.set(background).onLine(scenarioDefinition.location.line);
@@ -172,8 +172,8 @@
                         ),
                         <span class="hljs-keyword">new</span> Name(scenarioDefinition.name),
                         scenarioDefinition.description &amp;&amp; <span class="hljs-keyword">new</span> Description(scenarioDefinition.description),
-                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-keyword">this</span>.asStep(path, step))),
-                        <span class="hljs-keyword">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, scenarioDefinition.tags),
+                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step))),
+                        <span class="hljs-built_in">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, scenarioDefinition.tags),
                     )).onLine(scenarioDefinition.location.line);
 
                     <span class="hljs-keyword">break</span>;
@@ -199,8 +199,8 @@
 
                             outline.steps.forEach(<span class="hljs-function"><span class="hljs-params">scenarioOutlineStep</span> =&gt;</span> {
                                 <span class="hljs-keyword">const</span>
-                                    interpolatedStepText = <span class="hljs-keyword">this</span>.interpolate(scenarioOutlineStep.text, variableCells, valueCells),
-                                    interpolatedStepArgument = <span class="hljs-keyword">this</span>.interpolateStepArgument(scenarioOutlineStep.argument, variableCells, valueCells);
+                                    interpolatedStepText = <span class="hljs-built_in">this</span>.interpolate(scenarioOutlineStep.text, variableCells, valueCells),
+                                    interpolatedStepArgument = <span class="hljs-built_in">this</span>.interpolateStepArgument(scenarioOutlineStep.argument, variableCells, valueCells);
 
                                 steps.push(<span class="hljs-keyword">new</span> Step(
                                     <span class="hljs-keyword">new</span> FileSystemLocation(
@@ -212,7 +212,7 @@
                                         scenarioOutlineStep.keyword,
                                         interpolatedStepText,
                                         interpolatedStepArgument,
-                                    ].filter(_ =&gt; !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
+                                    ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
                                 ));
                             });
 
@@ -242,7 +242,7 @@
                                 <span class="hljs-keyword">new</span> Name(outline.name),
                                 outline.description &amp;&amp; <span class="hljs-keyword">new</span> Description(outline.description),
                                 steps,
-                                <span class="hljs-keyword">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, outline.tags, examples.tags),
+                                <span class="hljs-built_in">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, outline.tags, examples.tags),
                                 <span class="hljs-keyword">new</span> FileSystemLocation(
                                     path,
                                     outline.location.line,
@@ -260,7 +260,7 @@
                         ),
                         <span class="hljs-keyword">new</span> Name(outline.name),
                         outline.description &amp;&amp; <span class="hljs-keyword">new</span> Description(outline.description),
-                        (background ? background.steps : []).concat(outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-keyword">this</span>.asStep(path, step, [], []))),
+                        (background ? background.steps : []).concat(outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step, [], []))),
                         parameters,
                     )).onLine(scenarioDefinition.location.line);
 
@@ -292,8 +292,8 @@
             <span class="hljs-keyword">new</span> Name([
                 step.keyword,
                 step.text,
-                <span class="hljs-keyword">this</span>.interpolateStepArgument(step.argument, variableCells, valueCells),
-            ].filter(_ =&gt; !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
+                <span class="hljs-built_in">this</span>.interpolateStepArgument(step.argument, variableCells, valueCells),
+            ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
         );
     }
 
@@ -310,9 +310,9 @@
     <span class="hljs-keyword">private</span> interpolateStepArgument(argument: nodes.StepArgument, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">&apos;DocString&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-keyword">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-built_in">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
             <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">&apos;DataTable&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-keyword">this</span>.interpolate(
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-built_in">this</span>.interpolate(
                     (argument <span class="hljs-keyword">as</span> nodes.DataTable).rows
                         .map(<span class="hljs-function"><span class="hljs-params">row</span> =&gt;</span> <span class="hljs-string">`| <span class="hljs-subst">${ row.cells.map(cell =&gt; cell.value).join(<span class="hljs-string">&apos; | &apos;</span>) }</span> |`</span>)
                         .join(<span class="hljs-string">&apos;\n&apos;</span>),

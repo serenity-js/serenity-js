@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberConfig&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberOptions&apos;</span>;
 
@@ -130,29 +130,29 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CucumberCLIAdapter {
 
-    <span class="hljs-keyword">private</span> readonly options: CucumberOptions;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> options: CucumberOptions;
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         config: CucumberConfig,
-        <span class="hljs-keyword">private</span> readonly loader: ModuleLoader,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
     </span>) {
-        <span class="hljs-keyword">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
+        <span class="hljs-built_in">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
     }
 
     run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
 
             <span class="hljs-keyword">const</span>
-                cucumber: <span class="hljs-built_in">any</span>   = <span class="hljs-keyword">this</span>.loader.require(<span class="hljs-string">&apos;cucumber&apos;</span>),
-                version         = <span class="hljs-keyword">this</span>.loader.versionOf(<span class="hljs-string">&apos;cucumber&apos;</span>),
-                argv            = <span class="hljs-keyword">this</span>.options.asArgumentsForCucumber(version),
+                cucumber: <span class="hljs-built_in">any</span>   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">&apos;cucumber&apos;</span>),
+                version         = <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">&apos;cucumber&apos;</span>),
+                argv            = <span class="hljs-built_in">this</span>.options.asArgumentsForCucumber(version),
 
-                serenityListener = <span class="hljs-keyword">this</span>.loader.resolve(<span class="hljs-string">&apos;@serenity-js/cucumber&apos;</span>);
+                serenityListener = <span class="hljs-built_in">this</span>.loader.resolve(<span class="hljs-string">&apos;@serenity-js/cucumber&apos;</span>);
 
             <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>))) {
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.Cli({
                     argv:   argv.concat(<span class="hljs-string">&apos;--format&apos;</span>, serenityListener, ...pathsToScenarios),
-                    cwd:    <span class="hljs-keyword">this</span>.loader.cwd,
+                    cwd:    <span class="hljs-built_in">this</span>.loader.cwd,
                     stdout: process.stdout,
                 }).run().then(resolve, reject);
             }

@@ -240,24 +240,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/See.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chai&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chai&apos;</span>;
 
 <span class="hljs-keyword">import</span> sinon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;sinon&apos;</span>);
 <span class="hljs-keyword">import</span> { Actor, Question, See } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Interactions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;See&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;See&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> stage = sinon.createStubInstance(Stage);
 
-        describe(<span class="hljs-string">&apos;when used with async questions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> SomeAsyncResult = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">&apos;some async result&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&apos;some value&apos;</span>));
+        describe(<span class="hljs-string">&apos;when used with async questions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> SomeAsyncResult = <span class="hljs-function">() =&gt;</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">&apos;some async result&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&apos;some value&apos;</span>));
 
             <span class="hljs-comment">/** @test {See} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to verify a condition&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;allows the actor to verify a condition&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;James&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
 
                 <span class="hljs-keyword">const</span> promise = See.if(SomeAsyncResult(), <span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> expect(r).to.equal(<span class="hljs-string">&apos;some value&apos;</span>)).performAs(actor);
@@ -266,7 +266,7 @@ describe(<span class="hljs-string">&apos;Interactions&apos;</span>, <span class=
             });
 
             <span class="hljs-comment">/** @test {See} */</span>
-            it(<span class="hljs-string">&apos;rejects the promise if the condition is not met&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;rejects the promise if the condition is not met&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;James&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
 
                 <span class="hljs-keyword">const</span> promise = See.if(SomeAsyncResult(), <span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> expect(r).to.equal(<span class="hljs-string">&apos;other value&apos;</span>)).performAs(actor);
@@ -275,11 +275,11 @@ describe(<span class="hljs-string">&apos;Interactions&apos;</span>, <span class=
             });
         });
 
-        describe(<span class="hljs-string">&apos;when used with sync questions&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> SomeSyncResult = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;some async result&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-string">&apos;some value&apos;</span>);
+        describe(<span class="hljs-string">&apos;when used with sync questions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> SomeSyncResult = <span class="hljs-function">() =&gt;</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;some async result&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-string">&apos;some value&apos;</span>);
 
             <span class="hljs-comment">/** @test {See} */</span>
-            it(<span class="hljs-string">&apos;allows the actor to verify a condition&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;allows the actor to verify a condition&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;James&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
 
                 <span class="hljs-keyword">const</span> promise = See.if(SomeSyncResult(), <span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> expect(r).to.equal(<span class="hljs-string">&apos;some value&apos;</span>)).performAs(actor);
@@ -288,7 +288,7 @@ describe(<span class="hljs-string">&apos;Interactions&apos;</span>, <span class=
             });
 
             <span class="hljs-comment">/** @test {See} */</span>
-            it(<span class="hljs-string">&apos;rejects the promise if the condition is not met&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;rejects the promise if the condition is not met&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;James&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
 
                 <span class="hljs-keyword">const</span> promise = See.if(SomeSyncResult(), <span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> expect(r).to.equal(<span class="hljs-string">&apos;other value&apos;</span>)).performAs(actor);

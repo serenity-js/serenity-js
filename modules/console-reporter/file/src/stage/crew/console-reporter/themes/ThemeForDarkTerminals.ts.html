@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForDarkTerminals.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { Chalk } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chalk&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Chalk } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chalk&apos;</span>;
 <span class="hljs-keyword">import</span> { ThemeForColourTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ThemeForColourTerminals&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -136,53 +136,53 @@
  *
  * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThemeForDarkTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeForColourTerminals</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ThemeForDarkTerminals <span class="hljs-keyword">extends</span> ThemeForColourTerminals {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{chalk~Chalk}</span> <span class="hljs-variable">chalk</span></span>
+     * @param {chalk~Chalk} chalk
      *
-     * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/chalk
+     * @see https://www.npmjs.com/package/chalk
      */</span>
-    <span class="hljs-keyword">constructor</span>(chalk: Chalk) {
-        <span class="hljs-keyword">super</span>(chalk);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">chalk: Chalk</span>) {
+        <span class="hljs-built_in">super</span>(chalk);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Formats the heading
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *  `parts` to be converted to string, joined together, and formatted as a heading
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    heading(...parts: any[]): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.bold.white(<span class="hljs-keyword">this</span>.joined(parts));
+    heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.bold.white(<span class="hljs-built_in">this</span>.joined(parts));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Decorates the heading with theme colours.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">pattern</span></span>
+     * @param {string} pattern
      *  The pattern to be repeated to create a separator, for example `-`, `&#x2702; - - `, etc.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    separator(pattern: string): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.yellow(<span class="hljs-keyword">this</span>.repeat(pattern));
+    separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.yellow(<span class="hljs-built_in">this</span>.repeat(pattern));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    log(...parts): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.chalk.yellow(<span class="hljs-keyword">this</span>.joined(parts));
+    log(...parts): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.yellow(<span class="hljs-built_in">this</span>.joined(parts));
     }
 }
 </code></pre>

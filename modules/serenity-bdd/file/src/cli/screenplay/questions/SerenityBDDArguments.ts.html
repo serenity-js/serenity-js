@@ -121,7 +121,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/SerenityBDDArguments.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../Argv&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -142,14 +142,14 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SerenityBDDArguments(argv);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly argv: Argv</span>) {
-        <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> argv: Argv</span>) {
+        <span class="hljs-built_in">super</span>();
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> flatten(<span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.argv)
-            .filter(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> !! ~ SerenityBDDArguments.Allowed.indexOf(key) &amp;&amp; !! <span class="hljs-keyword">this</span>.argv[key])
-            .map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> [<span class="hljs-string">`--<span class="hljs-subst">${ arg }</span>`</span>, <span class="hljs-keyword">this</span>.argv[arg]]));
+        <span class="hljs-keyword">return</span> flatten(<span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.argv)
+            .filter(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> !! ~ SerenityBDDArguments.Allowed.indexOf(key) &amp;&amp; !! <span class="hljs-built_in">this</span>.argv[key])
+            .map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> [<span class="hljs-string">`--<span class="hljs-subst">${ arg }</span>`</span>, <span class="hljs-built_in">this</span>.argv[arg]]));
     }
 
     toString() {

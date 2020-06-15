@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForMonochromaticTerminals.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TerminalTheme&apos;</span>;
 
@@ -137,85 +137,85 @@
  *
  * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThemeForMonochromaticTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TerminalTheme</span> </span>{
-    <span class="hljs-keyword">constructor</span>() {
-        <span class="hljs-keyword">super</span>(<span class="hljs-keyword">new</span> AssertionReportDiffer({
-            <span class="hljs-attr">expected</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>,
-            <span class="hljs-attr">actual</span>:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>,
-            <span class="hljs-attr">matching</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ line }</span>`</span>,
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ThemeForMonochromaticTerminals <span class="hljs-keyword">extends</span> TerminalTheme {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> AssertionReportDiffer({
+            expected: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>,
+            actual:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>,
+            matching: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ line }</span>`</span>,
         }));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Formats the heading
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *  `parts` to be converted to string, joined together, and formatted as a heading
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    heading(...parts: any[]): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.joined(parts);
+    heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.joined(parts);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Joins the `parts` into a single string.
      *  Since this class represents a theme for monochromatic terminals,
      *  no decoration of the text is performed.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/model~Outcome | string}</span> <span class="hljs-variable">outcome</span></span>
-     *  an instance of an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}
+     * @param {@serenity-js/core/lib/model~Outcome | string} outcome
+     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *  the parts of the message
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    outcome(outcome: Outcome, ...parts: any[]): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.joined(parts);
+    outcome(outcome: Outcome, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.joined(parts);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Decorates the heading with theme colours.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">pattern</span></span>
+     * @param {string} pattern
      *  The pattern to be repeated to create a separator, for example `-`, `&#x2702; - - `, etc.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    separator(pattern: string): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.repeat(pattern);
+    separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.repeat(pattern);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Turns the serialised `expectedValue` and `actualValue` into
      *  a visual diff, so that it&apos;s easier for the developer to spot
      *  the difference between the two values.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">expectedValue</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">actualValue</span></span>
+     * @param {string} expectedValue
+     * @param {string} actualValue
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    diff(expectedValue: string, <span class="hljs-attr">actualValue</span>: string): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.differ.diff(expectedValue, actualValue);
+    diff(expectedValue: <span class="hljs-built_in">string</span>, actualValue: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.differ.diff(expectedValue, actualValue);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+     * @desc
      *  Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * @param {...any[]} parts
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * @returns {string}
      */</span>
-    log(...parts): string {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.joined(parts);
+    log(...parts): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.joined(parts);
     }
 }
 </code></pre>

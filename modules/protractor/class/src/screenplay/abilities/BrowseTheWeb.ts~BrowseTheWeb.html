@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {BrowseTheWeb} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/abilities&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {BrowseTheWeb} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/abilities&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -199,7 +199,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using the protractor.browser</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -1154,8 +1154,8 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs javascript">exports.config = {
-    <span class="hljs-attr">onPrepare</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-built_in">exports</span>.config = {
+    onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">return</span> browser.waitForAngularEnabled(<span class="hljs-literal">false</span>);
     },
 
@@ -1265,7 +1265,7 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
   var delay    = arguments[0];
   var callback = arguments[arguments.length - 1];
 
@@ -1274,7 +1274,7 @@ in protractor configuration:</p>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Return a value asynchronously</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
   var callback = arguments[arguments.length - 1];
 
   callback(&apos;some return value&apos;)
@@ -1391,7 +1391,7 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
   return arguments[0].tagName;
 `</span>, Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(h1))</code></pre>
     </div>

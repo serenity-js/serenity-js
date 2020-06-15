@@ -143,9 +143,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/not.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> {
     and,
     contain,
@@ -164,17 +165,17 @@
     startsWith,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 
-describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/** @test {not} */</span>
-    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; meets the expectation&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; meets the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, not(startsWith(<span class="hljs-string">&apos;&#xA1;Hola&apos;</span>))),
         )).to.be.fulfilled;
     });
 
     <span class="hljs-comment">/** @test {not} */</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not meet the expectation&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not meet the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, not(startsWith(<span class="hljs-string">&apos;Hello&apos;</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected &apos;Hello World!&apos; to not start with &apos;Hello&apos;`</span>)
@@ -185,34 +186,34 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
     });
 
     <span class="hljs-comment">/** @test {not} */</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(startsWith(<span class="hljs-string">&apos;o&apos;</span>))).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does not start with &apos;o&apos;`</span>);
     });
 
-    it(<span class="hljs-string">&apos;flips the outcome of an assertion, but doesn\&apos;t hide any errors that might have happened while making it&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">const</span> blowsUp = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> Expectation.thatActualShould(<span class="hljs-string">&apos;blow up&apos;</span>, <span class="hljs-string">&apos;expected&apos;</span>).soThat(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>); });
+    it(<span class="hljs-string">&apos;flips the outcome of an assertion, but doesn\&apos;t hide any errors that might have happened while making it&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> blowsUp = <span class="hljs-function">() =&gt;</span> Expectation.thatActualShould(<span class="hljs-string">&apos;blow up&apos;</span>, <span class="hljs-string">&apos;expected&apos;</span>).soThat(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>); });
 
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, not(blowsUp())),
         )).to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`boom`</span>);
     });
 
-    describe(<span class="hljs-string">&apos;double negative&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;double negative&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-comment">/** @test {not} */</span>
-        it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(not(startsWith(<span class="hljs-string">&apos;o&apos;</span>)))).toString())
                 .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does start with &apos;o&apos;`</span>);
         });
     });
 
-    describe(<span class="hljs-string">&apos;when combined with other assertions, such as&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when combined with other assertions, such as&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;and,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;and,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {and} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-number">3</span>, not(and(isGreaterThan(<span class="hljs-number">2</span>), isLessThan(<span class="hljs-number">4</span>)))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 3 to not have value greater than 2 and have value that&apos;s less than 4`</span>)
@@ -224,17 +225,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {and} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-number">3</span>, not(and(isGreaterThan(<span class="hljs-number">2</span>), isLessThan(<span class="hljs-number">4</span>)))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that 3 does not have value greater than 2 and have value that&apos;s less than 4`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;contains,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;contains,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {contains} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(contain(<span class="hljs-number">2</span>)),
                 ))).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain 2`</span>)
@@ -246,17 +247,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {contains} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that([ <span class="hljs-string">&apos;H&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;o&apos;</span> ], not(contain(<span class="hljs-string">&apos;o&apos;</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that [ &apos;H&apos;, &apos;e&apos;, &apos;l&apos;, &apos;l&apos;, &apos;o&apos; ] does not contain &apos;o&apos;`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;containAtLeastOneItemThat,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;containAtLeastOneItemThat,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {containAtLeastOneItemThat} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(containAtLeastOneItemThat(equals(<span class="hljs-number">2</span>))),
                 ))).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`</span>)
@@ -268,17 +269,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {containAtLeastOneItemThat} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that([ <span class="hljs-string">&apos;H&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;o&apos;</span> ], not(containAtLeastOneItemThat(equals(<span class="hljs-string">&apos;o&apos;</span>)))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that [ &apos;H&apos;, &apos;e&apos;, &apos;l&apos;, &apos;l&apos;, &apos;o&apos; ] does not contain at least one item that does equal &apos;o&apos;`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;endsWith,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;endsWith,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {endsWith} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(endsWith(<span class="hljs-string">&apos;o&apos;</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected &apos;Hello&apos; to not end with &apos;o&apos;`</span>)
@@ -290,17 +291,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {endsWith} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(endsWith(<span class="hljs-string">&apos;o&apos;</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does not end with &apos;o&apos;`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;equals,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;equals,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {equals} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-literal">true</span>, not(equals(<span class="hljs-literal">true</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected true to not equal true`</span>)
@@ -312,17 +313,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {equals} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-literal">true</span>, not(equals(<span class="hljs-literal">true</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that true does not equal true`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;isTrue,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;isTrue,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isTrue} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-literal">true</span>, not(isTrue())),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected true to not equal true`</span>)
@@ -334,17 +335,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isTrue} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-literal">true</span>, not(isTrue())).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that true does not equal true`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;isFalse,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;isFalse,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isFalse} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-literal">false</span>, not(isFalse())),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected false to not equal false`</span>)
@@ -356,17 +357,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isFalse} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-literal">false</span>, not(isFalse())).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that false does not equal false`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;includes,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;includes,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {includes} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(includes(<span class="hljs-string">&apos;Hello&apos;</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected &apos;Hello&apos; to not include &apos;Hello&apos;`</span>)
@@ -378,17 +379,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {includes} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(includes(<span class="hljs-string">&apos;Hello&apos;</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does not include &apos;Hello&apos;`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;isGreaterThan,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;isGreaterThan,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isGreaterThan} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-number">2</span>, not(isGreaterThan(<span class="hljs-number">1</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 2 to not have value greater than 1`</span>)
@@ -400,17 +401,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isGreaterThan} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-number">2</span>, not(isGreaterThan(<span class="hljs-number">1</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that 2 does not have value greater than 1`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;isLessThan,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;isLessThan,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isLessThan} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-number">1</span>, not(isLessThan(<span class="hljs-number">2</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 1 to not have value that&apos;s less than 2`</span>)
@@ -422,17 +423,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {isLessThan} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-number">1</span>, not(isLessThan(<span class="hljs-number">2</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that 1 does not have value that&apos;s less than 2`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;or,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;or,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {or} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-number">1</span>, not(or(isGreaterThan(<span class="hljs-number">0</span>), isLessThan(<span class="hljs-number">2</span>)))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 1 to not have value greater than 0 or have value that&apos;s less than 2`</span>)
@@ -444,17 +445,17 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {or} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-number">1</span>, not(isLessThan(<span class="hljs-number">2</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that 1 does not have value that&apos;s less than 2`</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;startsWith,&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        describe(<span class="hljs-string">&apos;startsWith,&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {startsWith} */</span>
-            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;produces a sensible error message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                     Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(startsWith(<span class="hljs-string">&apos;H&apos;</span>))),
                 )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected &apos;Hello&apos; to not start with &apos;H&apos;`</span>)
@@ -466,7 +467,7 @@ describe(<span class="hljs-string">&apos;not&apos;</span>, <span class="hljs-fun
 
             <span class="hljs-comment">/** @test {not} */</span>
             <span class="hljs-comment">/** @test {startsWith} */</span>
-            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, not(startsWith(<span class="hljs-string">&apos;H&apos;</span>))).toString())
                     .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does not start with &apos;H&apos;`</span>);
             });

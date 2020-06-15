@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/SummaryFormatter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> {
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -141,28 +141,28 @@
  * @package
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SummaryFormatter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> readonly theme: TerminalTheme</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>) {
     }
 
     format(aggregatedCategories: AggregatedCategories): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span>
-            categoryNames                   = <span class="hljs-keyword">this</span>.sorted(<span class="hljs-built_in">Object</span>.keys(aggregatedCategories.categories)),
+            categoryNames                   = <span class="hljs-built_in">this</span>.sorted(<span class="hljs-built_in">Object</span>.keys(aggregatedCategories.categories)),
             maxCategoryNameLength           = <span class="hljs-built_in">Math</span>.max(...(categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> categoryName.length))),
             maxCategoryNameLengthAllowed    = <span class="hljs-built_in">Math</span>.min(<span class="hljs-built_in">Math</span>.max(maxCategoryNameLength, <span class="hljs-number">10</span>), <span class="hljs-number">30</span>);
 
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-keyword">this</span>.theme.heading(<span class="hljs-string">&apos;Execution Summary&apos;</span>),
+            <span class="hljs-built_in">this</span>.theme.heading(<span class="hljs-string">&apos;Execution Summary&apos;</span>),
             <span class="hljs-string">&apos;&apos;</span>,
             ...categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> displayName = (categoryName.length &gt; maxCategoryNameLengthAllowed
                     ? categoryName.substring(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
                     : <span class="hljs-string">`<span class="hljs-subst">${ categoryName }</span>:`</span>).padEnd(maxCategoryNameLengthAllowed + <span class="hljs-number">1</span>);
 
-                <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-keyword">this</span>.theme.heading(displayName) }</span> <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.formatTotalsFor(aggregatedCategories.categories[categoryName]) }</span>`</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(displayName) }</span> <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.formatTotalsFor(aggregatedCategories.categories[categoryName]) }</span>`</span>;
             }),
             <span class="hljs-string">``</span>,
-            <span class="hljs-string">`Total time: <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.theme.heading(aggregatedCategories.totalTime) }</span>`</span>,
-            <span class="hljs-string">`Scenarios:  <span class="hljs-subst">${ <span class="hljs-keyword">this</span>.theme.heading(aggregatedCategories.numberOfScenarios) }</span>`</span>,
+            <span class="hljs-string">`Total time: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.totalTime) }</span>`</span>,
+            <span class="hljs-string">`Scenarios:  <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.numberOfScenarios) }</span>`</span>,
             <span class="hljs-string">&apos;&apos;</span>,
         ].join(<span class="hljs-string">&apos;\n&apos;</span>);
     }
@@ -176,7 +176,7 @@
             .filter(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.outcomes[outcomeName].count &gt; <span class="hljs-number">0</span>)
             .sort(<span class="hljs-function">(<span class="hljs-params">left, right</span>) =&gt;</span> category.outcomes[left].code &gt; category.outcomes[right].code ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>)
             .reduce(<span class="hljs-function">(<span class="hljs-params">acc, outcomeName</span>) =&gt;</span> {
-                acc.push(<span class="hljs-keyword">this</span>.theme.outcome(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-keyword">this</span>.nameOf(outcomeName)}</span>`</span>));
+                acc.push(<span class="hljs-built_in">this</span>.theme.outcome(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.nameOf(outcomeName)}</span>`</span>));
                 <span class="hljs-keyword">return</span> acc;
             } , [])
             .join(<span class="hljs-string">&apos;, &apos;</span>);

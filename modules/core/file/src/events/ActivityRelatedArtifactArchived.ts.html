@@ -240,7 +240,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/ActivityRelatedArtifactArchived.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../io&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityDetails, Artifact, ArtifactType, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
@@ -258,23 +258,23 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> readonly details: ActivityDetails,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> details: ActivityDetails,
         name: Name,
         <span class="hljs-keyword">type</span>: ArtifactType,
         path: Path,
         timestamp?: Timestamp,
     </span>) {
-        <span class="hljs-keyword">super</span>(name, <span class="hljs-keyword">type</span>, path, timestamp);
+        <span class="hljs-built_in">super</span>(name, <span class="hljs-keyword">type</span>, path, timestamp);
         ensure(<span class="hljs-string">&apos;activity details&apos;</span>, details, isDefined());
     }
 
     toJSON(): JSONObject {
         <span class="hljs-keyword">return</span> {
-            details: <span class="hljs-keyword">this</span>.details.toJSON(),
-            name: <span class="hljs-keyword">this</span>.name.toJSON(),
-            <span class="hljs-keyword">type</span>: <span class="hljs-keyword">this</span>.type.name,
-            path: <span class="hljs-keyword">this</span>.path.toJSON(),
-            timestamp: <span class="hljs-keyword">this</span>.timestamp.toJSON(),
+            details: <span class="hljs-built_in">this</span>.details.toJSON(),
+            name: <span class="hljs-built_in">this</span>.name.toJSON(),
+            <span class="hljs-keyword">type</span>: <span class="hljs-built_in">this</span>.type.name,
+            path: <span class="hljs-built_in">this</span>.path.toJSON(),
+            timestamp: <span class="hljs-built_in">this</span>.timestamp.toJSON(),
         };
     }
 }

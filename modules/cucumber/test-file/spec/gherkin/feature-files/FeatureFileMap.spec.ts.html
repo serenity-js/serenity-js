@@ -121,51 +121,51 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/FeatureFileMap.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Description, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
 
-describe(<span class="hljs-string">&apos;FeatureFileMap&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;FeatureFileMap&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         featureName = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;some feature&apos;</span>);
 
-    it(<span class="hljs-string">&apos;allows for values to be stored and retrieved&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for values to be stored and retrieved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
             .set(featureName).onLine(<span class="hljs-number">1</span>);
 
         expect(map.get(Description).onLine(<span class="hljs-number">1</span>)).to.equal(featureName);
     });
 
-    it(<span class="hljs-string">&apos;allows for values to be retrieved based on their type when their location is not known&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for values to be retrieved based on their type when their location is not known&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
             .set(featureName).onLine(<span class="hljs-number">1</span>);
 
         expect(map.getFirst(Description)).to.equal(featureName);
     });
 
-    it(<span class="hljs-string">&apos;allows for values to be retrieved based on the line alone&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;allows for values to be retrieved based on the line alone&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
             .set(featureName).onLine(<span class="hljs-number">1</span>);
 
         expect(map.get(Description).onLine(<span class="hljs-number">1</span>)).to.equal(featureName);
     });
 
-    it(<span class="hljs-string">&apos;complains if the value stored is not of the same type as value that needs to be retrieved&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if the value stored is not of the same type as value that needs to be retrieved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
             .set(featureName).onLine(<span class="hljs-number">1</span>);
 
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">&apos;Item on line 1 is a Description, not a Name&apos;</span>);
+        expect(<span class="hljs-function">() =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">&apos;Item on line 1 is a Description, not a Name&apos;</span>);
     });
 
-    it(<span class="hljs-string">&apos;complains if the requested value is not present&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains if the requested value is not present&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap();
 
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">&apos;Nothing was found on line 1&apos;</span>);
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> map.getFirst(Name)).to.throw(<span class="hljs-string">`Didn&apos;t find any Name amongst no items`</span>);
+        expect(<span class="hljs-function">() =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">&apos;Nothing was found on line 1&apos;</span>);
+        expect(<span class="hljs-function">() =&gt;</span> map.getFirst(Name)).to.throw(<span class="hljs-string">`Didn&apos;t find any Name amongst no items`</span>);
     });
 });
 </code></pre>

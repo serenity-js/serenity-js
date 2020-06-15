@@ -240,14 +240,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Ability.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs javascript" data-ice="content">
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content">
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  An Ability enables the {<span class="hljs-doctag">@link </span>Actor} to interact with an external interface of the system under test.
+ * @desc
+ *  An Ability enables the {@link Actor} to interact with an external interface of the system under test.
  *  Technically speaking, it&apos;s a wrapper around a client of said interface.
  *
- * <span class="hljs-doctag">@example</span>
- * import { Ability, Actor, Interface } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ * @example
+ * import { Ability, Actor, Interface } from &apos;@serenity-js/core&apos;;
  *
  * class MakePhoneCalls implements Ability {
  *     static as(actor: UsesAbilities): MakesPhoneCalls {
@@ -272,9 +272,9 @@
  *  MakePhoneCalls.as(actor).dial(phoneNumber);
  * );
  *
- * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
+ * @access public
  */</span>
-<span class="hljs-keyword">export</span> interface Ability {  <span class="hljs-comment">// tslint:disable-line:no-empty-interface</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Ability {  <span class="hljs-comment">// tslint:disable-line:no-empty-interface</span>
 }
 </code></pre>
 

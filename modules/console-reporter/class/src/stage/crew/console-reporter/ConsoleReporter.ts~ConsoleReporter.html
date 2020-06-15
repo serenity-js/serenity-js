@@ -125,7 +125,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {ConsoleReporter} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter/lib/stage/crew/console-reporter&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ConsoleReporter} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter/lib/stage/crew/console-reporter&apos;</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -165,7 +165,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter programmatically</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-keyword">import</span> { serenity } form <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity } form <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ConsoleReporter } form <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
 
 serenity.configure({
@@ -174,10 +174,10 @@ serenity.configure({
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter using Protractor configuration</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// protractor.conf.js</span>
 <span class="hljs-keyword">const</span> { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>);
 
-exports.config = {
+<span class="hljs-built_in">exports</span>.config = {
   framework:     <span class="hljs-string">&apos;custom&apos;</span>,
   frameworkPath: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 

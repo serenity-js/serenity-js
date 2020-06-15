@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/Photographer.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect, givenFollowingEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -187,7 +187,7 @@
 <span class="hljs-keyword">import</span> { Photographer, TakePhotosOfFailures } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./create&apos;</span>;
 
-describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         defaultCardScenario = <span class="hljs-keyword">new</span> ScenarioDetails(
@@ -199,13 +199,13 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
         ),
         pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
 
-    it(<span class="hljs-string">&apos;complains when sent DomainEvents before getting assigned to a Stage&apos;</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    it(<span class="hljs-string">&apos;complains when sent DomainEvents before getting assigned to a Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures());
-        expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> photographer.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario)))
+        expect(<span class="hljs-function">() =&gt;</span> photographer.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario)))
             .to.throw(LogicError, <span class="hljs-string">`Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`</span>);
     });
 
-    describe(<span class="hljs-string">`when there&apos;s no actor in the spotlight`</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    describe(<span class="hljs-string">`when there&apos;s no actor in the spotlight`</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(
             <span class="hljs-keyword">new</span> ExecutionSkipped(),
@@ -226,7 +226,7 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                 <span class="hljs-keyword">new</span> TestRunFinished(),
             ).areSentTo(photographer);
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
                 expect(recorder.events).to.have.lengthOf(<span class="hljs-number">0</span>);
             });
         });
@@ -249,7 +249,7 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                 <span class="hljs-keyword">new</span> TestRunFinished(),
             ).areSentTo(photographer);
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
                 expect(recorder.events).to.have.lengthOf(<span class="hljs-number">0</span>);
             });
         });

@@ -163,7 +163,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/RelativeQuestion.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs typescript" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-comment">/**
  * @public
@@ -172,7 +172,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RelativeQuestion&lt;Parent, Answer&gt; {
     name?: <span class="hljs-built_in">string</span>;
     toString(): <span class="hljs-built_in">string</span>;
-    of(parent: Parent): Question&lt;Answer&gt;;
+    <span class="hljs-keyword">of</span>(parent: Parent): Question&lt;Answer&gt;;
 }
 </code></pre>
 
