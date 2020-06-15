@@ -38,6 +38,6 @@ export class SceneReports {
         return new SceneReportId(scenarioDetails.category.value)
             .append(scenarioDetails.name.value)
             .append(scenarioDetails.location.path.value)    // todo: should this include the line?
-            .value;
+            .value();
     }
 }
