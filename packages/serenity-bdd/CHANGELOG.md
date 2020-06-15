@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.3](https://github.com/serenity-js/serenity-js/compare/v2.10.2...v2.10.3) (2020-06-15)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** browser and platform context icons show up correctly in scenario outline reports ([a685afc](https://github.com/serenity-js/serenity-js/commit/a685afccf4436b8ed5e9259d3aad3e4fee5f0f39)), closes [#597](https://github.com/serenity-js/serenity-js/issues/597)
+
+
+
+
+
 ## [2.10.2](https://github.com/serenity-js/serenity-js/compare/v2.10.1...v2.10.2) (2020-06-11)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
