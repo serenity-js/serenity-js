@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FeatureTag, Name } from '@serenity-js/core/lib/model';
@@ -33,13 +35,13 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             (test: Test) => {
-                this.recorder.finished(test.ctx.currentTest || test, this.outcomeMapper.outcomeOf(test))
+                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             (test: Test, err: Error) => {
-                this.recorder.finished(test.ctx.currentTest || test, this.outcomeMapper.outcomeOf(test))
+                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
             },
         );
 
@@ -47,6 +49,11 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.suite.afterEach('Serenity/JS', function () {
             return announceSceneFinishedFor(this.currentTest);
+        });
+
+        // https://github.com/cypress-io/cypress/issues/7562
+        runner.on('test:after:run', (test: Test) => {
+            return announceSceneFinishedFor(test);
         });
 
         // Tests without body don't trigger the above custom afterEach hook

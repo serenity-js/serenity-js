@@ -1,6 +1,7 @@
 import { Test } from 'mocha';
 
 export const exampleTest = {
+    'state': 'passed',
     'type': 'test',
     'title': 'passes',
     'body': '() => {\n\n        }',
@@ -13,6 +14,8 @@ export const exampleTest = {
     'timedOut': false,
     '_currentRetry': 0,
     'pending': false,
+    isPassed: () => ! exampleTest.pending && exampleTest.state === 'passed',
+    isFailed: () => ! exampleTest.pending && exampleTest.state === 'failed',
     isPending: () => exampleTest.pending,
     'file': '/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js',
     'parent': {

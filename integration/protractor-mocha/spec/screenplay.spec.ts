@@ -1,0 +1,33 @@
+import 'mocha';
+
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
+import { InteractionStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { protractor } from '../src/protractor';
+
+describe('@serenity-js/mocha', function () {
+
+    this.timeout(30000);
+
+    it('correctly reports on Screenplay scenarios', () =>
+        protractor(
+            './examples/protractor.conf.js',
+            '--specs=examples/screenplay.spec.js',
+        )
+            .then(ifExitCodeIsOtherThan(0, logOutput))
+            .then(res => {
+
+                expect(res.exitCode).to.equal(0);
+
+                PickEvent.from(res.events)
+                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A screenplay scenario passes')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
+                    .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
+                    .next(InteractionStarts,   event => expect(event.value.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
+                    .next(InteractionStarts,   event => expect(event.value.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
+                    .next(InteractionStarts,   event => expect(event.value.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
+                    .next(InteractionStarts,   event => expect(event.value.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
+                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                ;
+            }));
+});

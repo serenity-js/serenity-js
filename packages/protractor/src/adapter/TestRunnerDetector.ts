@@ -10,8 +10,9 @@ export class TestRunnerDetector {
 
     static protractorCliOptions() {
         return [
-            'cucumberOpts',         // todo: alias: cucumber ?
-            'jasmineNodeOpts',      // todo: alias: jasmine ?
+            'cucumberOpts',
+            'jasmineNodeOpts',
+            'mochaOpts',
         ];
     }
 
@@ -40,8 +41,12 @@ export class TestRunnerDetector {
                 return this.useCucumber(config);
             case specifiesRunnerFor('jasmine'):
                 return this.useJasmine(config);
+            case specifiesRunnerFor('mocha'):
+                return this.useMocha(config);
             case !! config.cucumberOpts:
                 return this.useCucumber(config);
+            case !! config.mochaOpts:
+                return this.useMocha(config);
             case !! config.jasmineNodeOpts:
             default:
                 return this.useJasmine(config);
@@ -56,5 +61,10 @@ export class TestRunnerDetector {
     private useJasmine(config: Config): TestRunner {
         const { JasmineTestRunner } = require('./runners/JasmineTestRunner');
         return new JasmineTestRunner(config.jasmineNodeOpts, this.loader);
+    }
+
+    private useMocha(config: Config): TestRunner {
+        const { MochaTestRunner } = require('./runners/MochaTestRunner');
+        return new MochaTestRunner(config.mochaOpts, this.loader);
     }
 }

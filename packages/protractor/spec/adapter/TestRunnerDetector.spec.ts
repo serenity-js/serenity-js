@@ -1,8 +1,11 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { TestRunnerDetector } from '../../src/adapter';
 import { CucumberTestRunner } from '../../src/adapter/runners/CucumberTestRunner';
 import { JasmineTestRunner } from '../../src/adapter/runners/JasmineTestRunner';
+import { MochaTestRunner } from '../../src/adapter/runners/MochaTestRunner';
 
 describe('TestRunnerDetector', () => {
 
@@ -24,13 +27,14 @@ describe('TestRunnerDetector', () => {
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it('uses the CucumberTestRunner even when the Jasmine config is present as well', () => {
+        it('uses the CucumberTestRunner even when config for other runners is present as well', () => {
             const runner = detector.runnerFor({
                 serenity: {
                     runner: 'cucumber',
                 },
                 cucumberOpts: {},
                 jasmineNodeOpts: {},
+                mochaOpts: {},
             });
 
             expect(runner).to.be.instanceOf(CucumberTestRunner);
@@ -46,19 +50,41 @@ describe('TestRunnerDetector', () => {
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it('uses the JasmineTestRunner even when the Cucumber config is present as well', () => {
+        it('uses the JasmineTestRunner even when config for other runners is present as well', () => {
             const runner = detector.runnerFor({
                 serenity: {
                     runner: 'jasmine',
                 },
                 cucumberOpts: {},
                 jasmineNodeOpts: {},
+                mochaOpts: {},
             });
 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it('uses the MochaTestRunner');
+        it('uses the MochaTestRunner', () => {
+            const runner = detector.runnerFor({
+                serenity: {
+                    runner: 'mocha',
+                },
+            });
+
+            expect(runner).to.be.instanceOf(MochaTestRunner);
+        });
+
+        it('uses the MochaTestRunner even when config for other runners is present as well', () => {
+            const runner = detector.runnerFor({
+                serenity: {
+                    runner: 'mocha',
+                },
+                cucumberOpts: {},
+                jasmineNodeOpts: {},
+                mochaOpts: {},
+            });
+
+            expect(runner).to.be.instanceOf(MochaTestRunner);
+        });
     });
 
     describe('when no specific test runner is set', () => {
@@ -92,7 +118,15 @@ describe('TestRunnerDetector', () => {
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it('uses the MochaTestRunner when mochaOpts are specified');
+        it('uses the MochaTestRunner when mochaOpts are specified', () => {
+            const runner = detector.runnerFor({
+                mochaOpts: {
+                    require: 'ts:ts-node/register',
+                },
+            });
+
+            expect(runner).to.be.instanceOf(MochaTestRunner);
+        });
     });
 
     describe('to support test runner options specified in the capabilities section', () => {
