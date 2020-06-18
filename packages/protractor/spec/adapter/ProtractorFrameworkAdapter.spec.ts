@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Serenity, Stage } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';

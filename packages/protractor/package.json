@@ -53,10 +53,13 @@
     "is-plain-object": "^3.0.0",
     "tiny-types": "^1.14.1"
   },
-  "peerDependencies": {
-    "@serenity-js/core": "2.x",
+  "optionalDependencies": {
     "@serenity-js/cucumber": "2.x",
     "@serenity-js/jasmine": "2.x",
+    "@serenity-js/mocha": "2.x"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "2.x",
     "protractor": "^5.0.0 || ^7.0.0",
     "selenium-webdriver": "^3.6.0"
   },
@@ -67,6 +70,7 @@
     "@serenity-js/core": "2.10.2",
     "@serenity-js/cucumber": "2.10.2",
     "@serenity-js/jasmine": "2.10.2",
+    "@serenity-js/mocha": "2.10.2",
     "@serenity-js/local-server": "2.10.2",
     "@types/express": "^4.17.6",
     "@types/html-minifier": "^3.5.3",

@@ -109,4 +109,52 @@ describe('MochaTestMapper', () => {
         expect(outcome).to.be.instanceof(ExecutionFailedWithError);
         expect((outcome as ProblemIndication).error).to.equal(error);
     });
+
+    describe('when working with retryable tests', () => {
+
+        it('recognises the first failure (singular)', () => {
+
+            const test = new Test('example', someScenario);
+            test.isPending = () => false;
+            test.isPassed = () => false;
+            test.isFailed = () => false;
+            test.retries = () => 1;
+            (test as any).currentRetry = () => 0;
+
+            const outcome = mapper.outcomeOf(test);
+
+            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
+            expect((outcome as ProblemIndication).error.message).to.equal('Execution failed, 1 retry left.');
+        });
+
+        it('recognises the first failure (plural)', () => {
+
+            const test = new Test('example', someScenario);
+            test.isPending = () => false;
+            test.isPassed = () => false;
+            test.isFailed = () => false;
+            test.retries = () => 2;
+            (test as any).currentRetry = () => 0;
+
+            const outcome = mapper.outcomeOf(test);
+
+            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
+            expect((outcome as ProblemIndication).error.message).to.equal('Execution failed, 2 retries left.');
+        });
+
+        it('recognises a failed retry attempt', () => {
+
+            const test = new Test('example', someScenario);
+            test.isPending = () => false;
+            test.isPassed = () => false;
+            test.isFailed = () => false;
+            test.retries = () => 2;
+            (test as any).currentRetry = () => 1;
+
+            const outcome = mapper.outcomeOf(test);
+
+            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
+            expect((outcome as ProblemIndication).error.message).to.equal('Retry 1 of 2 failed.');
+        });
+    });
 });

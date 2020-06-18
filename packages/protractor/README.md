@@ -27,7 +27,9 @@ exports.config = {
     // Configure Serenity/JS to use an appropriate test runner
     // and the Stage Crew Members we've imported at the top of this file
     serenity: {
-        runner: 'jasmine',  // or 'cucumber'
+        runner: 'jasmine',
+        // runner: 'cucumber',
+        // runner: 'mocha',
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             ConsoleReporter.forDarkTerminals(),
@@ -41,9 +43,14 @@ exports.config = {
         // see the Cucumber configuration options below
     },
 
-    // configure Jasmine runner
+    // or configure Jasmine runner
     jasmineNodeOpts: {
         // see the Jasmine configuration options below
+    },
+
+    // or configure Mocha runner
+    mochaOpts: {
+        // see the Mocha configuration options below
     },
 
     // ... other Protractor-specific configuration   
@@ -53,6 +60,7 @@ exports.config = {
 Learn more about:
 - [Cucumber configuration options](https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html)
 - [Jasmine configuration options](https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html)
+- [Mocha configuration options](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html)
 - [Protractor configuration file](https://github.com/angular/protractor/blob/master/lib/config.ts).
 
 ### Interacting with websites and web apps
