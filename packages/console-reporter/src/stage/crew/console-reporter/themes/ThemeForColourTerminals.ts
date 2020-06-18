@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
