@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { Examples } from './Examples';
 import { ScenarioDefinition } from './ScenarioDefinition';
 import { Tag } from './Tag';

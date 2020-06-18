@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { ASTNode } from './ASTNode';
 import { TableCell } from './TableCell';
 
