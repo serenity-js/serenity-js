@@ -6,6 +6,7 @@ import {
     ContextTag,
     CorrelationId,
     Description,
+    ExecutionRetriedTag,
     ExecutionSuccessful,
     FeatureTag,
     IssueTag,
@@ -48,6 +49,7 @@ export class SceneReport {
     private readonly activities = new ActivityStack();
     private readonly parameters: ScenarioParametersResultLocation[] = [];
     private stepNumber = 0;
+    private completed = false;
 
     constructor(public readonly scenarioDetails: ScenarioDetails) {
 
@@ -150,6 +152,9 @@ export class SceneReport {
                 .when(ContextTag,    _ => {
                     report.context   = tag.name;
 
+                    this.id.append(tag.name);
+                })
+                .when(ExecutionRetriedTag, _ => {
                     this.id.append(tag.name);
                 })
                 .else(_ => void 0);
@@ -333,6 +338,16 @@ export class SceneReport {
                 }
             }
         }));
+    }
+
+    markedAsCompleted() {
+        this.completed = true;
+
+        return this;
+    }
+
+    isCompleted() {
+        return this.completed;
     }
 
     toJSON(): Partial<SerenityBDDReport> {

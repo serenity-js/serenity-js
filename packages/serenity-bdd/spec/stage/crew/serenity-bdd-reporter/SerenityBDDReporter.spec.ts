@@ -1,3 +1,6 @@
+import 'mocha';
+import * as sinon from 'sinon';
+
 import { expect } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
@@ -18,9 +21,7 @@ import {
     TestReport,
     Timestamp,
 } from '@serenity-js/core/lib/model';
-import 'mocha';
 
-import * as sinon from 'sinon';
 import { SerenityBDDReporter } from '../../../../src/stage';
 import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { given } from '../given';
@@ -104,14 +105,14 @@ describe('SerenityBDDReporter', () => {
          * @test {SceneFinished}
          * @test {TestRunFinishes}
          * @test {ExecutionSuccessful}
-         * @test {ExecutionIgnored}
+         * @test {ExecutionSkipped}
          */
         it('is separate for each scenario', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(defaultCardScenario),
                 new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
                 new SceneStarts(voucherScenario),
-                new SceneFinished(voucherScenario, new ExecutionIgnored()),
+                new SceneFinished(voucherScenario, new ExecutionSkipped()),
                 new TestRunFinishes(),
             );
 
@@ -245,7 +246,7 @@ describe('SerenityBDDReporter', () => {
             it('has been ignored', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneFinished(defaultCardScenario, new ExecutionIgnored()),
+                    new SceneFinished(defaultCardScenario, new ExecutionIgnored(new Error(`Failed, retrying`))),
                     new TestRunFinishes(),
                 );
 

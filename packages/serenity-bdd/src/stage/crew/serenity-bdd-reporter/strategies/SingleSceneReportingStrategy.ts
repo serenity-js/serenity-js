@@ -21,7 +21,8 @@ export class SingleSceneReportingStrategy extends SceneReportingStrategy {
             .when(SceneFinished,    (e: SceneFinished)    => {
                 return report
                     .executionFinishedAt(e.timestamp)
-                    .executionFinishedWith(e.value, e.outcome);
+                    .executionFinishedWith(e.value, e.outcome)
+                    .markedAsCompleted();
             })
             .else(e => super.handle(e, report));
     }

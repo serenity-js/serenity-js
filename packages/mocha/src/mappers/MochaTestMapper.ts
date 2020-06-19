@@ -15,6 +15,7 @@ export class MochaTestMapper {
         }
 
         return new ScenarioDetails(
+            // todo: consider including retry number in test name
             new Name(this.nameOf(test)),
             new Category(this.featureNameFor(test)),
             new FileSystemLocation(

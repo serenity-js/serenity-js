@@ -13,8 +13,8 @@ export abstract class Outcome extends TinyType {
         .when(ExecutionFailedWithError.Code,            _ => ExecutionFailedWithError.fromJSON(o))
         .when(ExecutionFailedWithAssertionError.Code,   _ => ExecutionFailedWithAssertionError.fromJSON(o))
         .when(ImplementationPending.Code,               _ => ImplementationPending.fromJSON(o))
-        .when(ExecutionSkipped.Code,                    _ => ExecutionSkipped.fromJSON(o))
         .when(ExecutionIgnored.Code,                    _ => ExecutionIgnored.fromJSON(o))
+        .when(ExecutionSkipped.Code,                    _ => ExecutionSkipped.fromJSON(o))
         .when(ExecutionSuccessful.Code,                 _ => ExecutionSuccessful.fromJSON(o))
         .else(_ => { throw new Error(`Outcome could not be deserialised: ${ JSON.stringify(o) }`); }) as Outcome
 
@@ -105,29 +105,29 @@ export class ImplementationPending extends ProblemIndication {
 }
 
 /**
+ * The result of the scenario should be ignored, most likely because it's going to be retried.
+ */
+export class ExecutionIgnored extends ProblemIndication {
+    static Code = 1 << 4;
+
+    static fromJSON = (o: SerialisedOutcome) => new ExecutionIgnored(ErrorSerialiser.deserialise(o.error));
+
+    constructor(error: Error) {
+        super(error, ExecutionIgnored.Code);
+    }
+}
+
+/**
  * The Activity was not executed because a previous one has failed.
  * A whole Scene can be marked as skipped to indicate that it is currently "work-in-progress"
  */
 export class ExecutionSkipped extends Outcome {
-    static Code = 1 << 4;
+    static Code = 1 << 5;
 
     static fromJSON = (o: SerialisedOutcome) => new ExecutionSkipped();
 
     constructor() {
         super(ExecutionSkipped.Code);
-    }
-}
-
-/**
- * The Activity was deliberately ignored and will not be executed.
- */
-export class ExecutionIgnored extends Outcome {
-    static Code = 1 << 5;
-
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionIgnored();
-
-    constructor() {
-        super(ExecutionIgnored.Code);
     }
 }
 

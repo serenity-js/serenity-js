@@ -6,6 +6,7 @@ import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
@@ -112,49 +113,57 @@ describe('MochaTestMapper', () => {
 
     describe('when working with retryable tests', () => {
 
-        it('recognises the first failure (singular)', () => {
+        const errorThrownInTest = new Error(`Something happened`)
 
-            const test = new Test('example', someScenario);
+        it('ignores the failure as long as execution is going to be retried', () => {
+
+            const test = new Test('has retries left', someScenario);
+            test.err = undefined;           // retryable tests don't have the `err` property
             test.isPending = () => false;
             test.isPassed = () => false;
             test.isFailed = () => false;
             test.retries = () => 1;
             (test as any).currentRetry = () => 0;
 
-            const outcome = mapper.outcomeOf(test);
+            const outcome = mapper.outcomeOf(test, errorThrownInTest);
 
-            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-            expect((outcome as ProblemIndication).error.message).to.equal('Execution failed, 1 retry left.');
+            expect(outcome).to.be.instanceof(ExecutionIgnored);
+            expect((outcome as ProblemIndication).error.message).to.equal('Something happened');
         });
 
-        it('recognises the first failure (plural)', () => {
+        describe('when there are no retries left', () => {
+            it(`marks execution as failed if there's an error`, () => {
 
-            const test = new Test('example', someScenario);
-            test.isPending = () => false;
-            test.isPassed = () => false;
-            test.isFailed = () => false;
-            test.retries = () => 2;
-            (test as any).currentRetry = () => 0;
+                const test = new Test('has no retries left', someScenario);
+                test.err = undefined;           // retryable tests don't have the `err` property
+                test.isPending = () => false;
+                test.isPassed = () => false;
+                test.isFailed = () => false;
+                test.retries = () => 1;
+                (test as any).currentRetry = () => 1;
 
-            const outcome = mapper.outcomeOf(test);
+                const outcome = mapper.outcomeOf(test, errorThrownInTest);
 
-            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-            expect((outcome as ProblemIndication).error.message).to.equal('Execution failed, 2 retries left.');
-        });
+                expect(outcome).to.be.instanceof(ExecutionFailedWithError);
+                expect((outcome as ProblemIndication).error.message).to.equal('Something happened');
+            });
 
-        it('recognises a failed retry attempt', () => {
+            it(`marks execution as successful if there are no errors`, () => {
 
-            const test = new Test('example', someScenario);
-            test.isPending = () => false;
-            test.isPassed = () => false;
-            test.isFailed = () => false;
-            test.retries = () => 2;
-            (test as any).currentRetry = () => 1;
+                const noError = undefined;
 
-            const outcome = mapper.outcomeOf(test);
+                const test = new Test('has no retries left', someScenario);
+                test.err = undefined;           // retryable tests don't have the `err` property
+                test.isPending = () => false;
+                test.isPassed = () => false;
+                test.isFailed = () => false;
+                test.retries = () => 1;
+                (test as any).currentRetry = () => 1;
 
-            expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-            expect((outcome as ProblemIndication).error.message).to.equal('Retry 1 of 2 failed.');
+                const outcome = mapper.outcomeOf(test, noError);
+
+                expect(outcome).to.be.instanceof(ExecutionSuccessful);
+            });
         });
     });
 });

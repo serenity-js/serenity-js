@@ -3,6 +3,7 @@ import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
@@ -14,16 +15,21 @@ import { Test } from 'mocha';
  * @package
  */
 export class MochaOutcomeMapper {
-    public outcomeOf(test: Test): Outcome {
+    public outcomeOf(test: Test, err?: Error): Outcome {
+        const error = err || test.err;
+
         switch (true) {
-            case !! test.err && this.isAssertionError(test.err):
-                return new ExecutionFailedWithAssertionError(test.err as AssertionError);
+            case !! error && this.isGoingToBeRetried(test):
+                return new ExecutionIgnored(error);
 
-            case !! test.err && test.err instanceof TestCompromisedError:
-                return new ExecutionCompromised(test.err as TestCompromisedError);
+            case !! error && this.isAssertionError(error):
+                return new ExecutionFailedWithAssertionError(error as AssertionError);
 
-            case !! test.err:
-                return new ExecutionFailedWithError(test.err);
+            case !! error && error instanceof TestCompromisedError:
+                return new ExecutionCompromised(error as TestCompromisedError);
+
+            case !! error:
+                return new ExecutionFailedWithError(error);
 
             case test.isPending() && !! test.fn:
                 return new ExecutionSkipped();
@@ -31,26 +37,16 @@ export class MochaOutcomeMapper {
             case test.isPending() && ! test.fn:
                 return new ImplementationPending(new ImplementationPendingError(`Scenario not implemented`));
 
-            case this.isRetryable(test) && (test as any).currentRetry() === 0:
-                return new ExecutionFailedWithError(
-                    new Error(`Execution failed, ${ test.retries() } ${ test.retries() === 1 ? 'retry' : 'retries' } left.`)
-                );
-
-            case this.isRetryable(test) && (test as any).currentRetry() > 0:
-                return new ExecutionFailedWithError(
-                    new Error(`Retry ${(test as any).currentRetry()} of ${ test.retries() } failed.`)
-                );
-
             default:
                 return new ExecutionSuccessful();
         }
     }
 
-    private isRetryable(test: Test) {
+    private isGoingToBeRetried(test: Test) {
         return ! test.isPassed()
             && ! test.isFailed()
             && ! test.isPending()
-            && test.retries() > 0;
+            && (test as any).currentRetry() < test.retries();
     }
 
     private isAssertionError(error: Error): error is AssertionError {

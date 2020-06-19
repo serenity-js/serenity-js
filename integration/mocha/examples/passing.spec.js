@@ -3,11 +3,11 @@ describe('Mocha reporting', () => {
     describe('A scenario', () => {
 
         afterEach(() => {
-            console.log('test after each')
+            // no-op, passing
         })
 
         it('passes', () => {
-
+            // no-op, passing
         });
     });
 });

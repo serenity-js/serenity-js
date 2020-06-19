@@ -1,7 +1,9 @@
 import { Tag } from './Tag';
 
 /**
- * @desc Tagged with an arbitrary tag that doesn't have any special interpretation such as @regression, @wip, etc.
+ * @desc
+ *  Tagged with an arbitrary tag that doesn't have any special interpretation
+ *  such as @regression, @wip, etc.
  *
  * @access public
  */

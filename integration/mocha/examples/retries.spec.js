@@ -1,4 +1,4 @@
-describe('Mocha', () => {
+describe('Mocha reporting', () => {
 
     describe('A scenario', () => {
 
@@ -6,8 +6,8 @@ describe('Mocha', () => {
 
         it('passes the third time', () => {
 
-            if (counter++ < 2) {
-                throw new Error(`Something's happened`);
+            if (retries++ < 2) {
+                throw new Error(`Something happened`);
             }
 
             // third time lucky, isn't it?

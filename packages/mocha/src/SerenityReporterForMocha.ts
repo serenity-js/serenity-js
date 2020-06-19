@@ -2,7 +2,7 @@
 
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
@@ -35,13 +35,28 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             (test: Test) => {
+                this.announceRetryOf(test);
+
                 this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             (test: Test, err: Error) => {
-                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
+                this.announceRetryOf(test);
+
+                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test, err))
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_TEST_RETRY,
+            (test: Test, err: Error) => {
+                this.announceRetryOf(test);
+
+                this.recorder.finished(
+                    !! test.ctx && test.ctx.currentTest ? test.ctx.currentTest : test,
+                    this.outcomeMapper.outcomeOf(test, err),
+                );
             },
         );
 
@@ -132,6 +147,32 @@ export class SerenityReporterForMocha extends reporters.Base {
                 this.serenity.currentTime(),
             )
         );
+    }
+
+    private announceRetryOf(test: Test): void {
+        const scenario = this.testMapper.detailsOf(test)
+
+        this.emit(
+            new SceneTagged(
+                scenario,
+                new ArbitraryTag('retried'),
+                this.serenity.currentTime(),
+            ),
+        );
+
+        if (this.currentRetryOf(test) > 0) {
+            this.emit(
+                new SceneTagged(
+                    scenario,
+                    new ExecutionRetriedTag(this.currentRetryOf(test)),
+                    this.serenity.currentTime(),
+                ),
+            );
+        }
+    }
+
+    private currentRetryOf(test: Test): number {
+        return (test as any).currentRetry();
     }
 
     private emit(...events: DomainEvent[]): void {
