@@ -964,6 +964,88 @@ class ToDoListApp {
 
 To learn more, check out the examples in the [API docs of the `Target` class](modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html).
 
+#### Nested Targets
+
+Serenity/JS 1.x provided a simple `Target.of` API that helped you replace parts of your locator dynamically during the test.
+
+For example, you might have located a header of a table column using a `Target` defined as follows:
+
+```typescript
+import { Target } from 'serenity-js/protractor';
+import { by } from 'protractor';
+
+class DataTable {
+    static Column_Header = Target.the('column header')
+        .located(by.xpath(
+            `//*[@id="data-table"]` +
+            `//div[contains(@class, "ag-header-cell-label")]` +
+            `//span[text()[contains(.,"{0}")]]`
+        ));
+}
+```
+
+You'd then configure such `Target` dynamically in your test scenario or task:
+
+```typescript
+const SortBy = (columnName: string) =>
+    Task.where(`#actor sorts the data by ${ columnName }`,
+        Click.on(
+            DataTable.Column_Header.of(columnName),
+        ),
+    );
+```
+
+Serenity/JS 2.x allows you to nest `Target`s, which should help you get rid of some of those terrible `xpath` locators
+from your codebase:
+
+```typescript
+import { Target } from '@serenity-js/protractor';
+import { by } from 'protractor';
+
+class DataTable {
+    static component =
+        Target.the('data table component').located(by.id('data-table'));
+
+    static columnHeaders =
+        Target.all('column headers').of(DataTable.component).located(by.css('.ag-header-cell-label'));
+}
+```
+
+But what about picking a header with the right name?
+This is where [`Pick`](/modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html) can help you:
+
+```typescript
+import { Target } from '@serenity-js/protractor';
+import { includes } from '@serenity-js/assertions';
+import { by } from 'protractor';
+
+class DataTable {
+    static component =
+        Target.the('data table component').located(by.id('data-table'));
+
+    static columnHeaders =
+        Target.all('column headers').of(DataTable.component).located(by.css('.ag-header-cell-label'));
+
+    static columnHeaderCalled = (name: string) =>
+        Pick.from<ElementFinder, ElementArrayFinder>(DataTable.columnHeaders)
+            .where(Text, includes(name))
+            .first();
+}
+```
+
+And then our `SortBy` task becomes:
+
+```typescript
+const SortBy = (columnName: string) =>
+    Task.where(`#actor sorts the data by ${ columnName }`,
+        Click.on(
+            DataTable.columnHeaderCalled(columnName),
+        ),
+    );
+```
+
+Learn more about `Pick` from its [unit tests](/modules/protractor/test-file/spec/screenplay/questions/Pick.spec.ts.html).
+
 #### Targets as arguments
 
 Since the responsibilities of the 2.x `Target` differ from its predecessor, if you have written any custom [`Activity`](/modules/core/class/src/screenplay/Activity.ts~Activity.html) classes in your project where a [`Target`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html) is passed as an argument (for example in a constructor or a method call), you'll need to change the signatures to receive a `Question<ElementFinder>` for single-element activities or `Question<ElementArrayFinder>` for multi-element activities.
