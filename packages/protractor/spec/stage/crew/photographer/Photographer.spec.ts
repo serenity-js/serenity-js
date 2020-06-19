@@ -44,7 +44,6 @@ describe('Photographer', () => {
 
         given(
             new ExecutionSkipped(),
-            new ExecutionIgnored(),
             new ExecutionSuccessful(),
         ).
         it('doesn\'t take a picture if everything goes well', (outcome: Outcome) => {
@@ -71,6 +70,7 @@ describe('Photographer', () => {
             { description: 'error',                     outcome: new ExecutionFailedWithError(new TypeError())                                                          },
             { description: 'assertion error',           outcome: new ExecutionFailedWithAssertionError(new AssertionError(`expected false to equal true`, false, true)) },
             { description: 'implementation pending',    outcome: new ImplementationPending(new ImplementationPendingError('method missing'))                            },
+            { description: 'ignored',                   outcome: new ExecutionIgnored(new Error('Failed, retrying'))                                                    },
         ).
         it('does nothing, even when a problem occurs', ({ outcome }) => {
             const { stage, recorder } = create();

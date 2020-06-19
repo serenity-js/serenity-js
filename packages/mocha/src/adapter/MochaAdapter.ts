@@ -1,5 +1,7 @@
 /* istanbul ignore file */
 
+import * as fs from 'fs';
+import * as path from 'path';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { MochaConfig } from './MochaConfig';
 
@@ -22,6 +24,8 @@ export class MochaAdapter {
      */
     run(pathsToScenarios: string[]): Promise<void> {
         return new Promise((resolve, reject) => {
+            this.requireAny(this.config.require);
+
             const
                 Mocha   = this.loader.require('mocha'),
                 mocha   = new Mocha({
@@ -35,6 +39,20 @@ export class MochaAdapter {
                 .then(() =>
                     mocha.run(numberOfFailures => resolve())
                 );
+        });
+    }
+
+    private requireAny(filesOrModules: string | string[]) {
+        const requires = !! filesOrModules
+            ? [].concat(filesOrModules).filter(item => !! item)
+            : [];
+
+        requires.forEach(fileOrModule => {
+            const required = fs.existsSync(fileOrModule) || fs.existsSync(`${ fileOrModule }.js`)
+                ? path.resolve(fileOrModule)    // local file
+                : fileOrModule;                 // module
+
+            require(required);
         });
     }
 }

@@ -5,13 +5,22 @@ import { SceneReportId } from './SceneReportId';
 /** @package */
 export class SceneReports {
     private readonly reports: { [entryId: string]: SceneReport } = {};
+    private readonly completedReports: SceneReport[] = [];
 
     for(scenarioDetails: ScenarioDetails): SceneReport {
         if (! this.alreadyHasAReportFor(scenarioDetails)) {
             return this.createReportFor(scenarioDetails);
         }
 
-        return this.reportFor(scenarioDetails);
+        const report = this.reportFor(scenarioDetails);
+
+        if (report.isCompleted()) {
+            this.completedReports.push(report);
+
+            return this.createReportFor(scenarioDetails);
+        }
+
+        return report;
     }
 
     save(scenarioReport: SceneReport) {
@@ -19,7 +28,10 @@ export class SceneReports {
     }
 
     map<T>(fn: (report: SceneReport) => T): T[] {
-        return Object.keys(this.reports).map(correlationId => this.reports[correlationId]).map(fn);
+        return Object.keys(this.reports)
+            .map(correlationId => this.reports[correlationId])
+            .concat(this.completedReports)
+            .map(fn);
     }
 
     private alreadyHasAReportFor(scenarioDetails: ScenarioDetails): boolean {

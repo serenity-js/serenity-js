@@ -28,7 +28,6 @@ describe('Outcome', () => {
 
         given([
             new ExecutionSkipped(),
-            new ExecutionIgnored(),
             new ExecutionSuccessful(),
         ]).
         it('can be serialised and deserialised', (outcome: Outcome) => {
@@ -50,6 +49,7 @@ describe('Outcome', () => {
             { outcome: new ExecutionFailedWithError(new Error(`Something's wrong`)), description: ExecutionFailedWithError.name },
             { outcome: new ExecutionFailedWithAssertionError(assertionError()), description: ExecutionFailedWithAssertionError.name },
             { outcome: new ImplementationPending(new ImplementationPendingError('method missing')), description: ImplementationPending.name },
+            { outcome: new ExecutionIgnored(new Error('Test failed but will be retried')), description: ImplementationPending.name },
         ]).
         it('can be serialised and deserialised', ({ outcome }: { outcome: ProblemIndication }) => {
             const deserialised: any = Outcome.fromJSON(outcome.toJSON());
