@@ -3,6 +3,8 @@
  *  Configuration object for the Mocha test runner.
  *
  * @see https://github.com/mochajs/mocha/blob/v8.0.1/example/config/.mocharc.yml
+ *
+ * @public
  */
 export interface MochaConfig {
 

@@ -7,6 +7,9 @@ import { MochaOptions, reporters, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
 
+/**
+ * @package
+ */
 export class SerenityReporterForMocha extends reporters.Base {
 
     private readonly testMapper: MochaTestMapper = new MochaTestMapper();
