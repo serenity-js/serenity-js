@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
@@ -51,30 +53,35 @@ describe('Pick', () => {
 
             const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Titles);
 
+            /** @test {Pick} */
             it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(3)),
             ));
 
+            /** @test {Pick} */
             it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk')),
             ));
 
+            /** @test {Pick} */
             it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), equals('oats')),
             ));
 
+            /** @test {Pick} */
             it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), equals('coffee')),
             ));
 
+            /** @test {Pick} */
             it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
@@ -87,18 +94,22 @@ describe('Pick', () => {
 
             const picked = Pick.from(ShoppingList.Items);
 
+            /** @test {Pick} */
             it('returns the number of items', () =>
                 expect(picked.count().toString())
                     .to.equal('the number of the shopping list items'));
 
+            /** @test {Pick} */
             it('picks all the items', () =>
                 expect(picked.all().toString())
                     .to.equal('the shopping list items'));
 
+            /** @test {Pick} */
             it('picks the first item', () =>
                 expect(picked.first().toString())
                     .to.equal('the first of the shopping list items'));
 
+            /** @test {Pick} */
             it('picks the last item', () =>
                 expect(picked.last().toString())
                     .to.equal('the last of the shopping list items'));
@@ -130,30 +141,35 @@ describe('Pick', () => {
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
+            /** @test {Pick} */
             it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(2)),
             ));
 
+            /** @test {Pick} */
             it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
+            /** @test {Pick} */
             it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), startsWith('oats')),
             ));
 
+            /** @test {Pick} */
             it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), startsWith('coconut milk')),
             ));
 
+            /** @test {Pick} */
             it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
@@ -163,18 +179,22 @@ describe('Pick', () => {
 
         describe('provides a sensible description when it', () => {
 
+            /** @test {Pick} */
             it('returns the number of answers', () =>
                 expect(picked.count().toString())
                     .to.equal(`the number of the shopping list items where CSSClasses property does contain 'buy'`));
 
+            /** @test {Pick} */
             it('picks all the items', () =>
                 expect(picked.all().toString())
                     .to.equal(`the shopping list items where CSSClasses property does contain 'buy'`));
 
+            /** @test {Pick} */
             it('picks the first item', () =>
                 expect(picked.first().toString())
                     .to.equal(`the first of the shopping list items where CSSClasses property does contain 'buy'`));
 
+            /** @test {Pick} */
             it('picks the last item', () =>
                 expect(picked.last().toString())
                     .to.equal(`the last of the shopping list items where CSSClasses property does contain 'buy'`));
@@ -204,30 +224,35 @@ describe('Pick', () => {
 
         describe('lets the actor filter the list of matching elements so that it', () => {
 
+            /** @test {Pick} */
             it('gets the number of items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(picked.count(), equals(1)),
             ));
 
+            /** @test {Pick} */
             it('picks all the items', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.ofAll(picked.all()), contain('coconut milk x')),
             ));
 
+            /** @test {Pick} */
             it('picks the first item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.first()), startsWith('coconut milk')),
             ));
 
+            /** @test {Pick} */
             it('picks the last item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
                 Ensure.that(Text.of(picked.last()), startsWith('coconut milk')),
             ));
 
+            /** @test {Pick} */
             it('picks the nth item', () => actorCalled('Peter').attemptsTo(
                 Navigate.to(shoppingListPage),
 
@@ -237,18 +262,22 @@ describe('Pick', () => {
 
         describe('provides a sensible description when it', () => {
 
+            /** @test {Pick} */
             it('returns the number of answers', () =>
                 expect(picked.count().toString())
                     .to.equal(`the number of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
 
+            /** @test {Pick} */
             it('picks all the items', () =>
                 expect(picked.all().toString())
                     .to.equal(`the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
 
+            /** @test {Pick} */
             it('picks the first item', () =>
                 expect(picked.first().toString())
                     .to.equal(`the first of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
 
+            /** @test {Pick} */
             it('picks the last item', () =>
                 expect(picked.last().toString())
                     .to.equal(`the last of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
@@ -286,6 +315,7 @@ describe('Pick', () => {
 
         const LinkTo = (item: Question<ElementFinder> | ElementFinder) => Target.the('link to element').of(item).located(by.css('a'));
 
+        /** @test {Pick} */
         it('makes it easy for an actor to pick the element of interest', () => actorCalled('Peter').attemptsTo(
             Navigate.to(shoppingListPage),
 
@@ -294,6 +324,7 @@ describe('Pick', () => {
             Ensure.that(CSSClasses.of(ItemCalled('coffee')), contain('buy')),
         ));
 
+        /** @test {Pick} */
         it('makes it easy for an actor to pick all elements of interest', () => actorCalled('Peter').attemptsTo(
             Navigate.to(shoppingListPage),
 
