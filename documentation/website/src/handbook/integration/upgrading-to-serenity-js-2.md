@@ -79,33 +79,42 @@ So, assuming that your Serenity/JS 1.x-based project interacted with the Web int
     </div>
 </div>
 
-Since test runner adaptors are no longer part of the core framework but instead live in their own independent modules,
-the next thing you'll need to do is to pick such adaptor for your test runner of choice.
+Since test runner adapters are no longer part of the core framework but instead live in their own independent modules, the next thing you'll need to do is to pick such adapter for your test runner of choice.
  
-For example, if you were using Serenity/JS with Cucumber, you'll need the [Serenity/JS Cucumber adaptor](/modules/cucumber):
+For example, if you were using Serenity/JS with Cucumber, you'll need the [Serenity/JS Cucumber adapter](/modules/cucumber):
 
 ```
 "@serenity-js/cucumber": "^2.0.0",
 ```
 
-If you were using `mocha`, you'll need to switch to [`jasmine`](/modules/jasmine) for now and add the below dependencies:
+If you were using `mocha`, you can continue to do so by using [`@serenity-js/mocha`](/modules/mocha) adapter and a recent version of [`mocha`](https://mochajs.org/) itself:
+
+```
+"@serenity-js/mocha": "^2.0.0",
+"mocha": "^8.0.0",
+"@types/mocha": "latest",
+```
+
+Alternatively, you can also switch to [`jasmine`](/modules/jasmine) if you prefer that test runner:
 
 ```
 "@serenity-js/jasmine": "^2.0.0",
 "jasmine": "^3.5.0",
+"@types/jasmine": "^3.5.10",
 ```
-
-Both Mocha and Jasmine offer nearly identical `describe` and `it` APIs, and since Serenity/JS 2.0 offers its own [assertions
-library](/modules/assertions), you're unlikely to see much difference between the two test runners.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>Where's support for Mocha?</h4>
+        <h4>Mocha vs Jasmine</h4>
         <p>
-            While Serenity/JS 2.0 was in development, Mocha was undergoing a number of API changes, which made it easier for Serenity/JS to integrate with a more stable Jasmine instead.
+            Both Mocha and Jasmine offer nearly identical `describe` and `it` APIs, and since Serenity/JS 2.0 offers its own [assertions library](/modules/assertions), you're unlikely to see much difference between the two test runners in this respect.
         </p>
-        <p>However, there's nothing preventing Serenity/JS from supporting Mocha, or Jest, or any other test runner in the future. So if that's something you'd like to see, please [raise a ticket](https://github.com/serenity-js/serenity-js/issues) or consider [sponsoring this feature](/support.html).
+        <p>
+            The main reason why you'd want to use Jasmine instead of Mocha is if you're already using it in your project, for example to run your unit tests, and want to avoid additional dependencies.
+        </p>
+        <p>
+            The main reason why you'd want to use Mocha instead of Jasmine is if you wanted a smaller test runner or needed to be able to [automatically retry](https://mochajs.org/#retry-tests) failed tests. Plus, Jasmine still has a problem where a failing `beforeEach` and `beforeAll` hook doesn't prevent the rest of the test from executing (see [`#577`](https://github.com/jasmine/jasmine/issues/577) and [`#1533`](https://github.com/jasmine/jasmine/issues/1533)).
         </p>
     </div>
 </div>
@@ -117,7 +126,6 @@ There's a number of libraries that Serenity/JS used to depend on that you won't 
 In particular:
 
  - [`chai`](https://www.chaijs.com/) is no longer needed as it's been superseded by [`@serenity-js/assertions`](/modules/assertions/), 
- - [`mocha`](https://mochajs.org/) test runner is not yet supported, but you can use [`jasmine`](https://jasmine.github.io/) test runner instead as their main APIs (`describe` and `it`) are nearly identical,
  - `serenity-cli` has been merged with other code that enables integration of Serenity/JS and Serenity BDD and is available as [`@serenity-js/serenity-bdd`](/modules/serenity-bdd). 
  
 All the above means that you can remove the following entries from the [`dependencies`](https://docs.npmjs.com/files/package.json#dependencies) or [`devDependencies`](https://docs.npmjs.com/files/package.json#devdependencies) section of your `packages.json`: 
@@ -125,11 +133,9 @@ All the above means that you can remove the following entries from the [`depende
 ```javascript
 "@types/chai": "...",
 "@types/chai-as-promised": "...",
-"@types/mocha": "...",
 "chai": "...",
 "chai-as-promised": "...",
 "chai-smoothie": "...",
-"mocha": "...",
 "serenity-cli": "...",
 "serenity-js": "...",
 ```    
@@ -228,7 +234,7 @@ before (1.x) | after (2.x)
 
 Serenity/JS 2.x is a full-stack acceptance testing framework and can be used with or without a web browser. However, since the most common use case for Serenity/JS 1.x was to **run Web-based tests via Protractor**, in this guide I'll focus on upgrading this particular setup.
 
-To learn more about configuring a test runner that **doesn't use** Protractor, check out the documentation for the [Serenity/JS module](/modules) you're interested in, for example the [Cucumber](/modules/cucumber) and [Jasmine](/modules/jasmine) adaptors. 
+To learn more about configuring a test runner that **doesn't use** Protractor, check out the documentation for the [Serenity/JS module](/modules) you're interested in, for example the [Cucumber](/modules/cucumber), [Jasmine](/modules/jasmine), or [Mocha](/modules/mocha) adapters. 
 
 ### Protractor
 
@@ -306,13 +312,11 @@ Learn more about the stage crew:
 - [`SerenityBDDReporter`](/modules/serenity-bdd/)
 - [`ArtifactArchiver`](/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html)
 
-#### Migrating from Mocha to Jasmine
+#### Upgrading Mocha
 
-Serenity/JS 2.x does not support Mocha ([yet!](https://github.com/orgs/serenity-js/projects)). 
+Serenity/JS 2.x uses Mocha version 8 or newer, which has slightly different configuration options than version 5 that Serenity/JS 1.x supported. 
 
-If you were using Mocha with your Serenity/JS 1.x test suite, you can easily switch to Jasmine since there are very few differences between the two runners, given that the responsibility for performing the assertions is now with [`@serenity-js/assertions`](/modules/assertions) rather than with the test runner itself.
-
-Provided you have added a recent version of [`jasmine`](https://www.npmjs.com/package/jasmine) to you `package.json`, you can configure Protractor to use it as follows:
+Provided you have added a recent version of [`mocha`](https://www.npmjs.com/package/mocha) to you `package.json`, you can configure Protractor to use it as follows:
 
 ##### Before
 ```javascript
@@ -350,28 +354,30 @@ exports.config = {
     // Test runner config
     specs: [ 'spec/*.spec.ts', ],
 
-    jasmineNodeOpts: {
-        requires: [ 'ts-node/register' ],
-        helpers: [ 'spec/setup.ts' ] 
+    mochaOpts: {
+        require: [ 
+            'ts-node/register',
+            'spec/setup.ts'
+        ],
     },
     
     // Other Protractor config [...]
 };
 ```
 
-**Please note** that the above config instructs Jasmine to load a `setup.ts` file located at `spec/setup.ts`.
-While this is not mandatory, you can use a setup file like that to further configure Jasmine and Serenity/JS to your needs.
+**Please note** that the above config instructs Mocha to load a `setup.ts` file located at `spec/setup.ts`.
+While this is not mandatory, you can use a setup file like that to further configure Mocha and Serenity/JS to your needs.
 I'll explain it in more depth in the next section.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>I'd still rather use Mocha (or Jest, or Ava, or Karma...)</h4>
+        <h4>I'd still rather use Jest, or Ava, or Karma...)</h4>
         <p>
             Sure thing, and we'd love to support it! However, with limited time and virtually unlimited possibilities for extending Serenity/JS, we have to be very strict about our priorities.
         </p>
         <p>
-            If you'd like to see Serenity/JS support Mocha, or any other test runner for this matter, please [raise a ticket](https://github.com/serenity-js/serenity-js/issues) or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
+            If you'd like to see Serenity/JS support your favourity test runner, please [raise a ticket](https://github.com/serenity-js/serenity-js/issues) or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
         </p>
         <p>
             Also, please consider [becoming our Github Sponsor](/support.html) to help the Serenity/JS team secure more time on the project to support more integrations.
@@ -678,16 +684,16 @@ When(/^she adds "(.*?)" to her todo list$/, (itemName: string) =>
     ));
 ```
 
-### Actors in Jasmine tests
+### Actors in Mocha tests
 
 The above-described mechanism for accessing the actors works regardless of the test runner you're using.
 
-For example, this is how you could use the same strategy to implement a Jasmine `setup.ts` file:  
+For example, this is how you could use the same strategy to implement a Mocha `setup.ts` file:  
 
 ```typescript
 // spec/setup.ts
 
-import 'jasmine';
+import 'mocha';
 
 import { Actor, Cast, engage } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/protractor';
@@ -705,12 +711,12 @@ beforeEach(() => engage(new Actors()));         // the `beforeEach` can be defin
                                                 // or in each spec file. 
 ```
 
-And a test using the Jasmine test runner:
+And a test using the Mocha test runner:
 
 ```typescript
 // spec/example.spec.ts
 
-import 'jasmine';
+import 'mocha';
 import { actorCalled } from '@serenity-js/core';
 
 describe('some feature', () => {

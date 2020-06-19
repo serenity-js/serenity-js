@@ -9,6 +9,8 @@ import { MochaConfig } from './MochaConfig';
  * @desc
  *  Allows for programmatic execution of Mocha test scenarios,
  *  using {@link SerenityReporterForMocha} to report progress.
+ *
+ * @package
  */
 export class MochaAdapter {
 
