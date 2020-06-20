@@ -77,13 +77,14 @@
 /** @external {@serenity-js/core/lib/model~ExecutionFailedWithError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithError.html */
 /** @external {@serenity-js/core/lib/model~ExecutionFailedWithAssertionError} /modules/core/class/src/model/outcomes.ts~ExecutionFailedWithAssertionError.html */
 /** @external {@serenity-js/core/lib/model~ImplementationPending} /modules/core/class/src/model/outcomes.ts~ImplementationPending.html */
-/** @external {@serenity-js/core/lib/model~ExecutionSkipped} /modules/core/class/src/model/outcomes.ts~ExecutionSkipped.html */
 /** @external {@serenity-js/core/lib/model~ExecutionIgnored} /modules/core/class/src/model/outcomes.ts~ExecutionIgnored.html */
+/** @external {@serenity-js/core/lib/model~ExecutionSkipped} /modules/core/class/src/model/outcomes.ts~ExecutionSkipped.html */
 /** @external {@serenity-js/core/lib/model~ExecutionSuccessful} /modules/core/class/src/model/outcomes.ts~ExecutionSuccessful.html */
 /** @external {@serenity-js/core/lib/model/tags~ArbitraryTag} /modules/core/class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html */
 /** @external {@serenity-js/core/lib/model/tags~BrowserTag} /modules/core/class/src/model/tags/BrowserTag.ts~BrowserTag.html */
 /** @external {@serenity-js/core/lib/model/tags~CapabilityTag} /modules/core/class/src/model/tags/CapabilityTag.ts~CapabilityTag.html */
 /** @external {@serenity-js/core/lib/model/tags~ContextTag} /modules/core/class/src/model/tags/ContextTag.ts~ContextTag.html */
+/** @external {@serenity-js/core/lib/model/tags~ExecutionRetriedTag} /modules/core/class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html */
 /** @external {@serenity-js/core/lib/model/tags~FeatureTag} /modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html */
 /** @external {@serenity-js/core/lib/model/tags~IssueTag} /modules/core/class/src/model/tags/IssueTag.ts~IssueTag.html */
 /** @external {@serenity-js/core/lib/model/tags~ManualTag} /modules/core/class/src/model/tags/ManualTag.ts~ManualTag.html */

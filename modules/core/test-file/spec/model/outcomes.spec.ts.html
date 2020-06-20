@@ -197,6 +197,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ContextTag.ts~ContextTag.html">ContextTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html">ExecutionRetriedTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/FeatureTag.ts~FeatureTag.html">FeatureTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/IssueTag.ts~IssueTag.html">IssueTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ManualTag.ts~ManualTag.html">ManualTag</a></span></span></li>
@@ -270,7 +271,6 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
 
         given([
             <span class="hljs-keyword">new</span> ExecutionSkipped(),
-            <span class="hljs-keyword">new</span> ExecutionIgnored(),
             <span class="hljs-keyword">new</span> ExecutionSuccessful(),
         ]).
         it(<span class="hljs-string">&apos;can be serialised and deserialised&apos;</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
@@ -292,6 +292,7 @@ describe(<span class="hljs-string">&apos;Outcome&apos;</span>, <span class="hljs
             { outcome: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something&apos;s wrong`</span>)), description: ExecutionFailedWithError.name },
             { outcome: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(assertionError()), description: ExecutionFailedWithAssertionError.name },
             { outcome: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>)), description: ImplementationPending.name },
+            { outcome: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Test failed but will be retried&apos;</span>)), description: ImplementationPending.name },
         ]).
         it(<span class="hljs-string">&apos;can be serialised and deserialised&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }: { outcome: ProblemIndication }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> deserialised: <span class="hljs-built_in">any</span> = Outcome.fromJSON(outcome.toJSON());

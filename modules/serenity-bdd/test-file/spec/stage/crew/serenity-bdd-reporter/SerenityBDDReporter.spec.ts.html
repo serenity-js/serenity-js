@@ -121,7 +121,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
+
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
@@ -141,9 +144,7 @@
     TestReport,
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema&apos;</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../given&apos;</span>;
@@ -227,14 +228,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
          * @test {SceneFinished}
          * @test {TestRunFinishes}
          * @test {ExecutionSuccessful}
-         * @test {ExecutionIgnored}
+         * @test {ExecutionSkipped}
          */</span>
         it(<span class="hljs-string">&apos;is separate for each scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             given(reporter).isNotifiedOfFollowingEvents(
                 <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
                 <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> SceneStarts(voucherScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(voucherScenario, <span class="hljs-keyword">new</span> ExecutionIgnored()),
+                <span class="hljs-keyword">new</span> SceneFinished(voucherScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -368,7 +369,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             it(<span class="hljs-string">&apos;has been ignored&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionIgnored()),
+                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Failed, retrying`</span>))),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 

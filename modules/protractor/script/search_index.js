@@ -768,6 +768,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~executionretriedtag",
+    "/modules/core/class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html",
+    "@serenity-js/core/lib/model/tags~ExecutionRetriedTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~featuretag",
     "/modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html",
     "@serenity-js/core/lib/model/tags~FeatureTag",
@@ -1152,6 +1158,108 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/cucumber/lib/gherkin/nodes~astnode",
+    "/modules/cucumber/class/src/gherkin/nodes/ASTNode.ts~ASTNode.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~ASTNode",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~background",
+    "/modules/cucumber/class/src/gherkin/nodes/Background.ts~Background.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Background",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~comment",
+    "/modules/cucumber/class/src/gherkin/nodes/Comment.ts~Comment.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Comment",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~datatable",
+    "/modules/cucumber/class/src/gherkin/nodes/DataTable.ts~DataTable.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~DataTable",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~docstring",
+    "/modules/cucumber/class/src/gherkin/nodes/DocString.ts~DocString.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~DocString",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~examples",
+    "/modules/cucumber/class/src/gherkin/nodes/Examples.ts~Examples.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Examples",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~feature",
+    "/modules/cucumber/class/src/gherkin/nodes/Feature.ts~Feature.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Feature",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~gherkindocument",
+    "/modules/cucumber/class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~GherkinDocument",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~location",
+    "/modules/cucumber/class/src/gherkin/nodes/Location.ts~Location.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Location",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~scenario",
+    "/modules/cucumber/class/src/gherkin/nodes/Scenario.ts~Scenario.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Scenario",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~scenariodefinition",
+    "/modules/cucumber/class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~ScenarioDefinition",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~scenariooutline",
+    "/modules/cucumber/class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~ScenarioOutline",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~step",
+    "/modules/cucumber/class/src/gherkin/nodes/Step.ts~Step.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Step",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~stepargument",
+    "/modules/cucumber/class/src/gherkin/nodes/StepArgument.ts~StepArgument.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~StepArgument",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~tablecell",
+    "/modules/cucumber/class/src/gherkin/nodes/TableCell.ts~TableCell.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~TableCell",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~tablerow",
+    "/modules/cucumber/class/src/gherkin/nodes/TableRow.ts~TableRow.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~TableRow",
+    "external"
+  ],
+  [
+    "@serenity-js/cucumber/lib/gherkin/nodes~tag",
+    "/modules/cucumber/class/src/gherkin/nodes/Tag.ts~Tag.html",
+    "@serenity-js/cucumber/lib/gherkin/nodes~Tag",
+    "external"
+  ],
+  [
     "@serenity-js/cucumber/lib/listeners~listenerforcucumber",
     "/modules/cucumber/function/src/listeners/index.ts~listenerForCucumber.html",
     "@serenity-js/cucumber/lib/listeners~listenerForCucumber",
@@ -1209,6 +1317,12 @@ window.esdocSearchIndex = [
     "@serenity-js/local-server/lib/screenplay/questions~localserver",
     "/modules/local/class/src/screenplay/questions/LocalServer.ts~LocalServer.html",
     "@serenity-js/local-server/lib/screenplay/questions~LocalServer",
+    "external"
+  ],
+  [
+    "@serenity-js/mocha/lib/adapter~mochaconfig",
+    "/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html",
+    "@serenity-js/mocha/lib/adapter~MochaConfig",
     "external"
   ],
   [
@@ -1975,241 +2089,241 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber11",
     "Pick",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber189",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber200",
     "Pick (when a filter is applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber193",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber204",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber195",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber207",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber201",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber214",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber207",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber221",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber213",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber228",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber219",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber235",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber226",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber242",
     "Pick (when a filter is applied) provides a sensible description when it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber232",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber250",
     "Pick (when a filter is applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber236",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber255",
     "Pick (when a filter is applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber240",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber260",
     "Pick (when a filter is applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber228",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber245",
     "Pick (when a filter is applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber338",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber367",
     "Pick (when interacting with elements on screen)",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber359",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber390",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick all elements of interest",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber351",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber381",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick the element of interest",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber263",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber283",
     "Pick (when multiple filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber267",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber287",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber269",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber290",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber275",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber297",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber281",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber304",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber287",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber311",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber293",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber318",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber300",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber325",
     "Pick (when multiple filters are applied) provides a sensible description when it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber306",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber333",
     "Pick (when multiple filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber310",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber338",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber314",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber343",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber302",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber328",
     "Pick (when multiple filters are applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber110",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber112",
     "Pick (when no filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber112",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber114",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber116",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber119",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber122",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber126",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber128",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber133",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber134",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber140",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber140",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber147",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber148",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber155",
     "Pick (when no filters are applied) provides a sensible description when it",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber156",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber165",
     "Pick (when no filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber160",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber170",
     "Pick (when no filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber164",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber175",
     "Pick (when no filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber152",
+    "pick src/screenplay/questions/pick.ts~pick,pick",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber160",
     "Pick (when no filters are applied) provides a sensible description when it returns the number of items",
     "test"
   ],
@@ -2245,127 +2359,127 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber13",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber15",
     "ProtractorFrameworkAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber296",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber298",
     "ProtractorFrameworkAdapter configuration",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber334",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber336",
     "ProtractorFrameworkAdapter configuration allows for the defaults to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber320",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber322",
     "ProtractorFrameworkAdapter configuration provides sensible defaults when no explicit configuration is provided",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber120",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber122",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\"",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber268",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber270",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber272",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber274",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach errors out",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber281",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber283",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach rejects the promise",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber199",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber201",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.getConfig().onComplete() after executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber187",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber189",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.runTestPreparer before executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber122",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber124",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber159",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber161",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes both successful and failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber144",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber146",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber124",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber126",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes no test results if no tests were executed",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber131",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber133",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes successful tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber243",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber245",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber257",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber259",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber245",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber247",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.emit with a \"testFail\" message",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber218",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber220",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber232",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber234",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber220",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber222",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.emit with a \"testPass\" message",
     "test"
   ],
@@ -2563,97 +2677,103 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber7",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber10",
     "TestRunnerDetector",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber98",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber132",
     "TestRunnerDetector to support test runner options specified in the capabilities section",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber100",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber134",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the cucumberOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber104",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the jasmineNodeOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber102",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber136",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the mochaOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber15",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber18",
     "TestRunnerDetector when configured with a specific runner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber17",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber20",
     "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber27",
-    "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner even when the Jasmine config is present as well",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber30",
+    "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner even when config for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber39",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber43",
     "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber49",
-    "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner even when the Cucumber config is present as well",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber61",
-    "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber64",
-    "TestRunnerDetector when no specific test runner is set",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber53",
+    "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner even when config for other runners is present as well",
     "test"
   ],
   [
     "",
     "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber66",
+    "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber76",
+    "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner even when config for other runners is present as well",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber90",
+    "TestRunnerDetector when no specific test runner is set",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber92",
     "TestRunnerDetector when no specific test runner is set uses the CucumberTestRunner when cucumberOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber79",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber105",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when jasmineNodeOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber89",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber115",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when no other runners are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber95",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber121",
     "TestRunnerDetector when no specific test runner is set uses the MochaTestRunner when mochaOpts are specified",
     "test"
   ],
@@ -3375,6 +3495,12 @@ window.esdocSearchIndex = [
     "src/adapter/runners/jasminetestrunner.ts",
     "file/src/adapter/runners/JasmineTestRunner.ts.html",
     "src/adapter/runners/JasmineTestRunner.ts",
+    "file"
+  ],
+  [
+    "src/adapter/runners/mochatestrunner.ts",
+    "file/src/adapter/runners/MochaTestRunner.ts.html",
+    "src/adapter/runners/MochaTestRunner.ts",
     "file"
   ],
   [

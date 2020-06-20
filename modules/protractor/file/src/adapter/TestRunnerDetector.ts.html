@@ -175,8 +175,9 @@
 
     <span class="hljs-keyword">static</span> protractorCliOptions() {
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">&apos;cucumberOpts&apos;</span>,         <span class="hljs-comment">// todo: alias: cucumber ?</span>
-            <span class="hljs-string">&apos;jasmineNodeOpts&apos;</span>,      <span class="hljs-comment">// todo: alias: jasmine ?</span>
+            <span class="hljs-string">&apos;cucumberOpts&apos;</span>,
+            <span class="hljs-string">&apos;jasmineNodeOpts&apos;</span>,
+            <span class="hljs-string">&apos;mochaOpts&apos;</span>,
         ];
     }
 
@@ -205,8 +206,12 @@
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
             <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">&apos;jasmine&apos;</span>):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
+            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">&apos;mocha&apos;</span>):
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
             <span class="hljs-keyword">case</span> !! config.cucumberOpts:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
+            <span class="hljs-keyword">case</span> !! config.mochaOpts:
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
             <span class="hljs-keyword">case</span> !! config.jasmineNodeOpts:
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
@@ -221,6 +226,11 @@
     <span class="hljs-keyword">private</span> useJasmine(config: Config): TestRunner {
         <span class="hljs-keyword">const</span> { JasmineTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/JasmineTestRunner&apos;</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JasmineTestRunner(config.jasmineNodeOpts, <span class="hljs-built_in">this</span>.loader);
+    }
+
+    <span class="hljs-keyword">private</span> useMocha(config: Config): TestRunner {
+        <span class="hljs-keyword">const</span> { MochaTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/MochaTestRunner&apos;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MochaTestRunner(config.mochaOpts, <span class="hljs-built_in">this</span>.loader);
     }
 }
 </code></pre>

@@ -197,6 +197,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ContextTag.ts~ContextTag.html">ContextTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html">ExecutionRetriedTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/FeatureTag.ts~FeatureTag.html">FeatureTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/IssueTag.ts~IssueTag.html">IssueTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ManualTag.ts~ManualTag.html">ManualTag</a></span></span></li>
@@ -255,8 +256,8 @@
         .when(ExecutionFailedWithError.Code,            <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionFailedWithError.fromJSON(o))
         .when(ExecutionFailedWithAssertionError.Code,   <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionFailedWithAssertionError.fromJSON(o))
         .when(ImplementationPending.Code,               <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ImplementationPending.fromJSON(o))
-        .when(ExecutionSkipped.Code,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionSkipped.fromJSON(o))
         .when(ExecutionIgnored.Code,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionIgnored.fromJSON(o))
+        .when(ExecutionSkipped.Code,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionSkipped.fromJSON(o))
         .when(ExecutionSuccessful.Code,                 <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionSuccessful.fromJSON(o))
         .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Outcome could not be deserialised: <span class="hljs-subst">${ <span class="hljs-built_in">JSON</span>.stringify(o) }</span>`</span>); }) <span class="hljs-keyword">as</span> Outcome
 
@@ -347,29 +348,29 @@
 }
 
 <span class="hljs-comment">/**
+ * The result of the scenario should be ignored, most likely because it&apos;s going to be retried.
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecutionIgnored <span class="hljs-keyword">extends</span> ProblemIndication {
+    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">4</span>;
+
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionIgnored(ErrorSerialiser.deserialise(o.error));
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-built_in">super</span>(error, ExecutionIgnored.Code);
+    }
+}
+
+<span class="hljs-comment">/**
  * The Activity was not executed because a previous one has failed.
  * A whole Scene can be marked as skipped to indicate that it is currently &quot;work-in-progress&quot;
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecutionSkipped <span class="hljs-keyword">extends</span> Outcome {
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">4</span>;
+    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">5</span>;
 
     <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
         <span class="hljs-built_in">super</span>(ExecutionSkipped.Code);
-    }
-}
-
-<span class="hljs-comment">/**
- * The Activity was deliberately ignored and will not be executed.
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecutionIgnored <span class="hljs-keyword">extends</span> Outcome {
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">5</span>;
-
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionIgnored();
-
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-built_in">super</span>(ExecutionIgnored.Code);
     }
 }
 

@@ -197,6 +197,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ContextTag.ts~ContextTag.html">ContextTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html">ExecutionRetriedTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/FeatureTag.ts~FeatureTag.html">FeatureTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/IssueTag.ts~IssueTag.html">IssueTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ManualTag.ts~ManualTag.html">ManualTag</a></span></span></li>
@@ -2246,7 +2247,7 @@
       <div>
         
         
-        <div data-ice="description"><p>The Activity was deliberately ignored and will not be executed.</p>
+        <div data-ice="description"><p>The result of the scenario should be ignored, most likely because it&apos;s going to be retried. </p>
 </div>
       </div>
     </td>
@@ -2664,7 +2665,8 @@
       <div>
         
         
-        <div data-ice="description"><p>Tagged with an arbitrary tag that doesn&apos;t have any special interpretation such as @regression, @wip, etc.</p>
+        <div data-ice="description"><p> Tagged with an arbitrary tag that doesn&apos;t have any special interpretation
+ such as @regression, @wip, etc.</p>
 </div>
       </div>
     </td>
@@ -2751,6 +2753,36 @@
         
         <div data-ice="description"><p>There are a couple of common use-cases for contexts: running the same test in different browsers,
 and running the same test on different operating systems.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-class">C</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html">ExecutionRetriedTag</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Indicates that execution of a given scene
+ has been retried for the <code>currentRetry</code>-th time.</p>
 </div>
       </div>
     </td>

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 341,
+  "end": 346,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 36,
+      "line": 35,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 341,
+    "end": 346,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 36,
+        "line": 35,
         "column": 0
       }
     },
@@ -31,198 +31,96 @@
     "interpreter": null,
     "body": [
       {
-        "type": "ImportDeclaration",
-        "start": 0,
-        "end": 38,
-        "loc": {
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          }
-        },
-        "importKind": "value",
-        "specifiers": [
-          {
-            "type": "ImportSpecifier",
-            "start": 9,
-            "end": 17,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 9
-              },
-              "end": {
-                "line": 1,
-                "column": 17
-              }
-            },
-            "imported": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 17,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 17
-                },
-                "identifierName": "Location"
-              },
-              "name": "Location"
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 17,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 17
-                },
-                "identifierName": "Location"
-              },
-              "name": "Location"
-            }
-          }
-        ],
-        "source": {
-          "type": "StringLiteral",
-          "start": 25,
-          "end": 37,
-          "loc": {
-            "start": {
-              "line": 1,
-              "column": 25
-            },
-            "end": {
-              "line": 1,
-              "column": 37
-            }
-          },
-          "extra": {
-            "rawValue": "./Location",
-            "raw": "'./Location'"
-          },
-          "value": "./Location"
-        },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
-            "start": 39,
-            "end": 83,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ]
-      },
-      {
         "type": "ExportNamedDeclaration",
         "start": 86,
-        "end": 340,
+        "end": 345,
         "loc": {
           "start": {
-            "line": 10,
+            "line": 9,
             "column": 0
           },
           "end": {
-            "line": 35,
+            "line": 34,
             "column": 1
           }
         },
-        "exportKind": "type",
+        "exportKind": "value",
         "specifiers": [],
         "source": null,
         "declaration": {
-          "type": "TSInterfaceDeclaration",
+          "type": "ClassDeclaration",
           "start": 93,
-          "end": 340,
+          "end": 345,
           "loc": {
             "start": {
-              "line": 10,
+              "line": 9,
               "column": 7
             },
             "end": {
-              "line": 35,
+              "line": 34,
               "column": 1
             }
           },
+          "abstract": true,
           "id": {
             "type": "Identifier",
-            "start": 103,
-            "end": 110,
+            "start": 108,
+            "end": 115,
             "loc": {
               "start": {
-                "line": 10,
-                "column": 17
+                "line": 9,
+                "column": 22
               },
               "end": {
-                "line": 10,
-                "column": 24
+                "line": 9,
+                "column": 29
               },
               "identifierName": "ASTNode"
             },
             "name": "ASTNode"
           },
+          "superClass": null,
           "body": {
-            "type": "TSInterfaceBody",
-            "start": 111,
-            "end": 340,
+            "type": "ClassBody",
+            "start": 116,
+            "end": 345,
             "loc": {
               "start": {
-                "line": 10,
-                "column": 25
+                "line": 9,
+                "column": 30
               },
               "end": {
-                "line": 35,
+                "line": 34,
                 "column": 1
               }
             },
             "body": [
               {
-                "type": "TSPropertySignature",
-                "start": 208,
-                "end": 221,
+                "type": "ClassProperty",
+                "start": 213,
+                "end": 226,
                 "loc": {
                   "start": {
-                    "line": 22,
+                    "line": 21,
                     "column": 4
                   },
                   "end": {
-                    "line": 22,
+                    "line": 21,
                     "column": 17
                   }
                 },
+                "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 208,
-                  "end": 212,
+                  "start": 213,
+                  "end": 217,
                   "loc": {
                     "start": {
-                      "line": 22,
+                      "line": 21,
                       "column": 4
                     },
                     "end": {
-                      "line": 22,
+                      "line": 21,
                       "column": 8
                     },
                     "identifierName": "type"
@@ -232,47 +130,48 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 212,
-                  "end": 220,
+                  "start": 217,
+                  "end": 225,
                   "loc": {
                     "start": {
-                      "line": 22,
+                      "line": 21,
                       "column": 8
                     },
                     "end": {
-                      "line": 22,
+                      "line": 21,
                       "column": 16
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSStringKeyword",
-                    "start": 214,
-                    "end": 220,
+                    "start": 219,
+                    "end": 225,
                     "loc": {
                       "start": {
-                        "line": 22,
+                        "line": 21,
                         "column": 10
                       },
                       "end": {
-                        "line": 22,
+                        "line": 21,
                         "column": 16
                       }
                     }
                   }
                 },
+                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 113,
-                    "end": 202,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 118,
+                    "end": 207,
                     "loc": {
                       "start": {
-                        "line": 11,
+                        "line": 10,
                         "column": 0
                       },
                       "end": {
-                        "line": 20,
+                        "line": 19,
                         "column": 3
                       }
                     }
@@ -281,16 +180,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
-                    "start": 222,
-                    "end": 313,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
+                    "start": 227,
+                    "end": 318,
                     "loc": {
                       "start": {
-                        "line": 23,
+                        "line": 22,
                         "column": 0
                       },
                       "end": {
-                        "line": 32,
+                        "line": 31,
                         "column": 3
                       }
                     }
@@ -298,30 +197,31 @@
                 ]
               },
               {
-                "type": "TSPropertySignature",
-                "start": 319,
-                "end": 338,
+                "type": "ClassProperty",
+                "start": 324,
+                "end": 343,
                 "loc": {
                   "start": {
-                    "line": 34,
+                    "line": 33,
                     "column": 4
                   },
                   "end": {
-                    "line": 34,
+                    "line": 33,
                     "column": 23
                   }
                 },
+                "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 319,
-                  "end": 327,
+                  "start": 324,
+                  "end": 332,
                   "loc": {
                     "start": {
-                      "line": 34,
+                      "line": 33,
                       "column": 4
                     },
                     "end": {
-                      "line": 34,
+                      "line": 33,
                       "column": 12
                     },
                     "identifierName": "location"
@@ -331,43 +231,43 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 327,
-                  "end": 337,
+                  "start": 332,
+                  "end": 342,
                   "loc": {
                     "start": {
-                      "line": 34,
+                      "line": 33,
                       "column": 12
                     },
                     "end": {
-                      "line": 34,
+                      "line": 33,
                       "column": 22
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 329,
-                    "end": 337,
+                    "start": 334,
+                    "end": 342,
                     "loc": {
                       "start": {
-                        "line": 34,
+                        "line": 33,
                         "column": 14
                       },
                       "end": {
-                        "line": 34,
+                        "line": 33,
                         "column": 22
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 329,
-                      "end": 337,
+                      "start": 334,
+                      "end": 342,
                       "loc": {
                         "start": {
-                          "line": 34,
+                          "line": 33,
                           "column": 14
                         },
                         "end": {
-                          "line": 34,
+                          "line": 33,
                           "column": 22
                         },
                         "identifierName": "Location"
@@ -376,19 +276,20 @@
                     }
                   }
                 },
+                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
-                    "start": 222,
-                    "end": 313,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
+                    "start": 227,
+                    "end": 318,
                     "loc": {
                       "start": {
-                        "line": 23,
+                        "line": 22,
                         "column": 0
                       },
                       "end": {
-                        "line": 32,
+                        "line": 31,
                         "column": 3
                       }
                     }
@@ -400,9 +301,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
-              "start": 39,
-              "end": 83,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 2 \n ",
+              "start": 1,
+              "end": 45,
               "loc": {
                 "start": {
                   "line": 2,
@@ -413,6 +314,22 @@
                   "column": 3
                 }
               }
+            },
+            {
+              "type": "CommentBlock",
+              "value": " istanbul ignore file * @interface ",
+              "start": 46,
+              "end": 85,
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 0
+                },
+                "end": {
+                  "line": 8,
+                  "column": 39
+                }
+              }
             }
           ],
           "trailingComments": []
@@ -420,9 +337,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
-            "start": 39,
-            "end": 83,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 2 \n ",
+            "start": 1,
+            "end": 45,
             "loc": {
               "start": {
                 "line": 2,
@@ -431,6 +348,22 @@
               "end": {
                 "line": 7,
                 "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file * @interface ",
+            "start": 46,
+            "end": 85,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 39
               }
             }
           }
@@ -442,9 +375,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
-      "start": 39,
-      "end": 83,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 2 \n ",
+      "start": 1,
+      "end": 45,
       "loc": {
         "start": {
           "line": 2,
@@ -458,32 +391,48 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-      "start": 113,
-      "end": 202,
+      "value": " istanbul ignore file * @interface ",
+      "start": 46,
+      "end": 85,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 8,
           "column": 0
         },
         "end": {
-          "line": 20,
+          "line": 8,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 118,
+      "end": 207,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
-      "start": 222,
-      "end": 313,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
+      "start": 227,
+      "end": 318,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 22,
           "column": 0
         },
         "end": {
-          "line": 32,
+          "line": 31,
           "column": 3
         }
       }

@@ -113,6 +113,23 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#gherkin-nodes">gherkin/nodes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ASTNode.ts~ASTNode.html">ASTNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Background.ts~Background.html">Background</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Comment.ts~Comment.html">Comment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DataTable.ts~DataTable.html">DataTable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DocString.ts~DocString.html">DocString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Examples.ts~Examples.html">Examples</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Feature.ts~Feature.html">Feature</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html">GherkinDocument</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Location.ts~Location.html">Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Scenario.ts~Scenario.html">Scenario</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html">ScenarioDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html">ScenarioOutline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Step.ts~Step.html">Step</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/StepArgument.ts~StepArgument.html">StepArgument</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableCell.ts~TableCell.html">TableCell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableRow.ts~TableRow.html">TableRow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Tag.ts~Tag.html">Tag</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners">listeners</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-listenerForCucumber">listenerForCucumber</a></span></span></li>
 </ul>
 </div>
@@ -121,7 +138,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/nodes/ASTNode.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Location } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Location&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
+
+<span class="hljs-keyword">import</span> { Location } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Location&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ASTNode {
     <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;

@@ -111,7 +111,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html">SerenityReporterForMocha</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,6 +127,7 @@
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
@@ -229,6 +230,62 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
 
         expect(outcome).to.be.instanceof(ExecutionFailedWithError);
         expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
+    });
+
+    describe(<span class="hljs-string">&apos;when working with retryable tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-keyword">const</span> errorThrownInTest = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something happened`</span>)
+
+        it(<span class="hljs-string">&apos;ignores the failure as long as execution is going to be retried&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has retries left&apos;</span>, someScenario);
+            test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+            test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+            (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">0</span>;
+
+            <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
+
+            expect(outcome).to.be.instanceof(ExecutionIgnored);
+            expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">&apos;Something happened&apos;</span>);
+        });
+
+        describe(<span class="hljs-string">&apos;when there are no retries left&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">`marks execution as failed if there&apos;s an error`</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has no retries left&apos;</span>, someScenario);
+                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+                test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+
+                <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
+
+                expect(outcome).to.be.instanceof(ExecutionFailedWithError);
+                expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">&apos;Something happened&apos;</span>);
+            });
+
+            it(<span class="hljs-string">`marks execution as successful if there are no errors`</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-keyword">const</span> noError = <span class="hljs-literal">undefined</span>;
+
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has no retries left&apos;</span>, someScenario);
+                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+                test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+
+                <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, noError);
+
+                expect(outcome).to.be.instanceof(ExecutionSuccessful);
+            });
+        });
     });
 });
 </code></pre>

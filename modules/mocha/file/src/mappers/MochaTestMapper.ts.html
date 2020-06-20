@@ -111,7 +111,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html">SerenityReporterForMocha</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -136,6 +136,7 @@
         }
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
+            <span class="hljs-comment">// todo: consider including retry number in test name</span>
             <span class="hljs-keyword">new</span> Name(<span class="hljs-built_in">this</span>.nameOf(test)),
             <span class="hljs-keyword">new</span> Category(<span class="hljs-built_in">this</span>.featureNameFor(test)),
             <span class="hljs-keyword">new</span> FileSystemLocation(

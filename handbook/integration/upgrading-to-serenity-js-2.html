@@ -195,23 +195,29 @@ as a <strong>collection of NPM modules</strong> under the <a href="https://www.n
     </div>
 </div>
 
-<p>Since test runner adaptors are no longer part of the core framework but instead live in their own independent modules,
-the next thing you&apos;ll need to do is to pick such adaptor for your test runner of choice.</p>
-<p>For example, if you were using Serenity/JS with Cucumber, you&apos;ll need the <a href="/modules/cucumber">Serenity/JS Cucumber adaptor</a>:</p>
+<p>Since test runner adapters are no longer part of the core framework but instead live in their own independent modules, the next thing you&apos;ll need to do is to pick such adapter for your test runner of choice.</p>
+<p>For example, if you were using Serenity/JS with Cucumber, you&apos;ll need the <a href="/modules/cucumber">Serenity/JS Cucumber adapter</a>:</p>
 <pre><code class="hljs gherkin"><span class="hljs-string">&quot;@serenity-js/cucumber&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
-</code></pre><p>If you were using <code>mocha</code>, you&apos;ll need to switch to <a href="/modules/jasmine"><code>jasmine</code></a> for now and add the below dependencies:</p>
+</code></pre><p>If you were using <code>mocha</code>, you can continue to do so by using <a href="/modules/mocha"><code>@serenity-js/mocha</code></a> adapter and a recent version of <a href="https://mochajs.org/"><code>mocha</code></a> itself:</p>
+<pre><code class="hljs gherkin"><span class="hljs-string">&quot;@serenity-js/mocha&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
+<span class="hljs-string">&quot;mocha&quot;</span>: <span class="hljs-string">&quot;^8.0.0&quot;</span>,
+<span class="hljs-string">&quot;@types/mocha&quot;</span>: <span class="hljs-string">&quot;latest&quot;</span>,
+</code></pre><p>Alternatively, you can also switch to <a href="/modules/jasmine"><code>jasmine</code></a> if you prefer that test runner:</p>
 <pre><code class="hljs gherkin"><span class="hljs-string">&quot;@serenity-js/jasmine&quot;</span>: <span class="hljs-string">&quot;^2.0.0&quot;</span>,
 <span class="hljs-string">&quot;jasmine&quot;</span>: <span class="hljs-string">&quot;^3.5.0&quot;</span>,
-</code></pre><p>Both Mocha and Jasmine offer nearly identical <code>describe</code> and <code>it</code> APIs, and since Serenity/JS 2.0 offers its own <a href="/modules/assertions">assertions
-library</a>, you&apos;re unlikely to see much difference between the two test runners.</p>
-<div class="pro-tip">
+<span class="hljs-string">&quot;@types/jasmine&quot;</span>: <span class="hljs-string">&quot;^3.5.10&quot;</span>,
+</code></pre><div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>Where&apos;s support for Mocha?</h4>
+        <h4>Mocha vs Jasmine</h4>
         <p>
-            While Serenity/JS 2.0 was in development, Mocha was undergoing a number of API changes, which made it easier for Serenity/JS to integrate with a more stable Jasmine instead.
+            Both Mocha and Jasmine offer nearly identical <code>describe</code> and <code>it</code> APIs, and since Serenity/JS 2.0 offers its own <a href="/modules/assertions">assertions library</a>, you&apos;re unlikely to see much difference between the two test runners in this respect.
         </p>
-        <p>However, there&apos;s nothing preventing Serenity/JS from supporting Mocha, or Jest, or any other test runner in the future. So if that&apos;s something you&apos;d like to see, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or consider <a href="/support.html">sponsoring this feature</a>.
+        <p>
+            The main reason why you&apos;d want to use Jasmine instead of Mocha is if you&apos;re already using it in your project, for example to run your unit tests, and want to avoid additional dependencies.
+        </p>
+        <p>
+            The main reason why you&apos;d want to use Mocha instead of Jasmine is if you wanted a smaller test runner or needed to be able to <a href="https://mochajs.org/#retry-tests">automatically retry</a> failed tests. Plus, Jasmine still has a problem where a failing <code>beforeEach</code> and <code>beforeAll</code> hook doesn&apos;t prevent the rest of the test from executing (see <a href="https://github.com/jasmine/jasmine/issues/577"><code>#577</code></a> and <a href="https://github.com/jasmine/jasmine/issues/1533"><code>#1533</code></a>).
         </p>
     </div>
 </div>
@@ -221,17 +227,14 @@ library</a>, you&apos;re unlikely to see much difference between the two test ru
 <p>In particular:</p>
 <ul>
 <li><a href="https://www.chaijs.com/"><code>chai</code></a> is no longer needed as it&apos;s been superseded by <a href="/modules/assertions/"><code>@serenity-js/assertions</code></a>, </li>
-<li><a href="https://mochajs.org/"><code>mocha</code></a> test runner is not yet supported, but you can use <a href="https://jasmine.github.io/"><code>jasmine</code></a> test runner instead as their main APIs (<code>describe</code> and <code>it</code>) are nearly identical,</li>
 <li><code>serenity-cli</code> has been merged with other code that enables integration of Serenity/JS and Serenity BDD and is available as <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>. </li>
 </ul>
 <p>All the above means that you can remove the following entries from the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> or <a href="https://docs.npmjs.com/files/package.json#devdependencies"><code>devDependencies</code></a> section of your <code>packages.json</code>: </p>
 <pre><code class="lang-javascript hljs gherkin"><span class="hljs-string">&quot;@types/chai&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;@types/chai-as-promised&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
-<span class="hljs-string">&quot;@types/mocha&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;chai&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;chai-as-promised&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;chai-smoothie&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
-<span class="hljs-string">&quot;mocha&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;serenity-cli&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 <span class="hljs-string">&quot;serenity-js&quot;</span>: <span class="hljs-string">&quot;...&quot;</span>,
 </code></pre>
@@ -315,7 +318,7 @@ library</a>, you&apos;re unlikely to see much difference between the two test ru
 
 <h2 id="configuration">Configuration</h2>
 <p>Serenity/JS 2.x is a full-stack acceptance testing framework and can be used with or without a web browser. However, since the most common use case for Serenity/JS 1.x was to <strong>run Web-based tests via Protractor</strong>, in this guide I&apos;ll focus on upgrading this particular setup.</p>
-<p>To learn more about configuring a test runner that <strong>doesn&apos;t use</strong> Protractor, check out the documentation for the <a href="/modules">Serenity/JS module</a> you&apos;re interested in, for example the <a href="/modules/cucumber">Cucumber</a> and <a href="/modules/jasmine">Jasmine</a> adaptors. </p>
+<p>To learn more about configuring a test runner that <strong>doesn&apos;t use</strong> Protractor, check out the documentation for the <a href="/modules">Serenity/JS module</a> you&apos;re interested in, for example the <a href="/modules/cucumber">Cucumber</a>, <a href="/modules/jasmine">Jasmine</a>, or <a href="/modules/mocha">Mocha</a> adapters. </p>
 <h3 id="protractor">Protractor</h3>
 <p>Serenity/JS 1.x bundled the various reporting services, a.k.a. the <a href="modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMember</code>s</a>, in the <code>serenity-js</code> module, which made it easier to import them in your <code>protractor.conf.js</code> file.</p>
 <p>In Serenity/JS 2.x, the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMember</code>s</a> are bundled together with other code supporting given integration, i.e. <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> or <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>, or have their own standalone modules, i.e. <a href="/modules/console-reporter"><code>@serenity-js/console-reporter</code></a>.</p>
@@ -378,10 +381,9 @@ using syntax similar to version 1.x, as per the code sample below.</p>
 <li><a href="/modules/serenity-bdd/"><code>SerenityBDDReporter</code></a></li>
 <li><a href="/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"><code>ArtifactArchiver</code></a></li>
 </ul>
-<h4 id="migrating-from-mocha-to-jasmine">Migrating from Mocha to Jasmine</h4>
-<p>Serenity/JS 2.x does not support Mocha (<a href="https://github.com/orgs/serenity-js/projects">yet!</a>). </p>
-<p>If you were using Mocha with your Serenity/JS 1.x test suite, you can easily switch to Jasmine since there are very few differences between the two runners, given that the responsibility for performing the assertions is now with <a href="/modules/assertions"><code>@serenity-js/assertions</code></a> rather than with the test runner itself.</p>
-<p>Provided you have added a recent version of <a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a> to you <code>package.json</code>, you can configure Protractor to use it as follows:</p>
+<h4 id="upgrading-mocha">Upgrading Mocha</h4>
+<p>Serenity/JS 2.x uses Mocha version 8 or newer, which has slightly different configuration options than version 5 that Serenity/JS 1.x supported. </p>
+<p>Provided you have added a recent version of <a href="https://www.npmjs.com/package/mocha"><code>mocha</code></a> to you <code>package.json</code>, you can configure Protractor to use it as follows:</p>
 <h5 id="before">Before</h5>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 
@@ -414,26 +416,28 @@ using syntax similar to version 1.x, as per the code sample below.</p>
     <span class="hljs-comment">// Test runner config</span>
     specs: [ <span class="hljs-string">&apos;spec/*.spec.ts&apos;</span>, ],
 
-    jasmineNodeOpts: {
-        requires: [ <span class="hljs-string">&apos;ts-node/register&apos;</span> ],
-        helpers: [ <span class="hljs-string">&apos;spec/setup.ts&apos;</span> ] 
+    mochaOpts: {
+        <span class="hljs-built_in">require</span>: [ 
+            <span class="hljs-string">&apos;ts-node/register&apos;</span>,
+            <span class="hljs-string">&apos;spec/setup.ts&apos;</span>
+        ],
     },
 
     <span class="hljs-comment">// Other Protractor config [...]</span>
 };
 </code></pre>
-<p><strong>Please note</strong> that the above config instructs Jasmine to load a <code>setup.ts</code> file located at <code>spec/setup.ts</code>.
-While this is not mandatory, you can use a setup file like that to further configure Jasmine and Serenity/JS to your needs.
+<p><strong>Please note</strong> that the above config instructs Mocha to load a <code>setup.ts</code> file located at <code>spec/setup.ts</code>.
+While this is not mandatory, you can use a setup file like that to further configure Mocha and Serenity/JS to your needs.
 I&apos;ll explain it in more depth in the next section.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>I&apos;d still rather use Mocha (or Jest, or Ava, or Karma...)</h4>
+        <h4>I&apos;d still rather use Jest, or Ava, or Karma...)</h4>
         <p>
             Sure thing, and we&apos;d love to support it! However, with limited time and virtually unlimited possibilities for extending Serenity/JS, we have to be very strict about our priorities.
         </p>
         <p>
-            If you&apos;d like to see Serenity/JS support Mocha, or any other test runner for this matter, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
+            If you&apos;d like to see Serenity/JS support your favourity test runner, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
         </p>
         <p>
             Also, please consider <a href="/support.html">becoming our Github Sponsor</a> to help the Serenity/JS team secure more time on the project to support more integrations.
@@ -682,12 +686,12 @@ When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</
         <span class="hljs-comment">// some tasks to perform...</span>
     ));
 </code></pre>
-<h3 id="actors-in-jasmine-tests">Actors in Jasmine tests</h3>
+<h3 id="actors-in-mocha-tests">Actors in Mocha tests</h3>
 <p>The above-described mechanism for accessing the actors works regardless of the test runner you&apos;re using.</p>
-<p>For example, this is how you could use the same strategy to implement a Jasmine <code>setup.ts</code> file:  </p>
+<p>For example, this is how you could use the same strategy to implement a Mocha <code>setup.ts</code> file:  </p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/setup.ts</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Actor, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
@@ -704,10 +708,10 @@ When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</
 beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));         <span class="hljs-comment">// the `beforeEach` can be defined either in spec/setup.ts</span>
                                                 <span class="hljs-comment">// or in each spec file. </span>
 </code></pre>
-<p>And a test using the Jasmine test runner:</p>
+<p>And a test using the Mocha test runner:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/example.spec.ts</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 describe(<span class="hljs-string">&apos;some feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -915,6 +919,70 @@ interaction instead:</p>
 }
 </code></pre>
 <p>To learn more, check out the examples in the <a href="modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">API docs of the <code>Target</code> class</a>.</p>
+<h4 id="nested-targets">Nested Targets</h4>
+<p>Serenity/JS 1.x provided a simple <code>Target.of</code> API that helped you replace parts of your locator dynamically during the test.</p>
+<p>For example, you might have located a header of a table column using a <code>Target</code> defined as follows:</p>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTable</span> </span>{
+    <span class="hljs-keyword">static</span> Column_Header = Target.the(<span class="hljs-string">&apos;column header&apos;</span>)
+        .located(by.xpath(
+            <span class="hljs-string">`//*[@id=&quot;data-table&quot;]`</span> +
+            <span class="hljs-string">`//div[contains(@class, &quot;ag-header-cell-label&quot;)]`</span> +
+            <span class="hljs-string">`//span[text()[contains(.,&quot;{0}&quot;)]]`</span>
+        ));
+}
+</code></pre>
+<p>You&apos;d then configure such <code>Target</code> dynamically in your test scenario or task:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">const</span> SortBy = <span class="hljs-function">(<span class="hljs-params">columnName: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+    Task.where(<span class="hljs-string">`#actor sorts the data by <span class="hljs-subst">${ columnName }</span>`</span>,
+        Click.on(
+            DataTable.Column_Header.of(columnName),
+        ),
+    );
+</code></pre>
+<p>Serenity/JS 2.x allows you to nest <code>Target</code>s, which should help you get rid of some of those terrible <code>xpath</code> locators
+from your codebase:</p>
+<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTable</span> </span>{
+    <span class="hljs-keyword">static</span> component =
+        Target.the(<span class="hljs-string">&apos;data table component&apos;</span>).located(by.id(<span class="hljs-string">&apos;data-table&apos;</span>));
+
+    <span class="hljs-keyword">static</span> columnHeaders =
+        Target.all(<span class="hljs-string">&apos;column headers&apos;</span>).of(DataTable.component).located(by.css(<span class="hljs-string">&apos;.ag-header-cell-label&apos;</span>));
+}
+</code></pre>
+<p>But what about picking a header with the right name?
+This is where <a href="/modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html"><code>Pick</code></a> can help you:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { includes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+<span class="hljs-keyword">class</span> DataTable {
+    <span class="hljs-keyword">static</span> component =
+        Target.the(<span class="hljs-string">&apos;data table component&apos;</span>).located(by.id(<span class="hljs-string">&apos;data-table&apos;</span>));
+
+    <span class="hljs-keyword">static</span> columnHeaders =
+        Target.all(<span class="hljs-string">&apos;column headers&apos;</span>).of(DataTable.component).located(by.css(<span class="hljs-string">&apos;.ag-header-cell-label&apos;</span>));
+
+    <span class="hljs-keyword">static</span> columnHeaderCalled = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+        Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(DataTable.columnHeaders)
+            .where(Text, includes(name))
+            .first();
+}
+</code></pre>
+<p>And then our <code>SortBy</code> task becomes:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">const</span> SortBy = <span class="hljs-function">(<span class="hljs-params">columnName: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+    Task.where(<span class="hljs-string">`#actor sorts the data by <span class="hljs-subst">${ columnName }</span>`</span>,
+        Click.on(
+            DataTable.columnHeaderCalled(columnName),
+        ),
+    );
+</code></pre>
+<p>Learn more about <code>Pick</code> from its <a href="/modules/protractor/test-file/spec/screenplay/questions/Pick.spec.ts.html">unit tests</a>.</p>
 <h4 id="targets-as-arguments">Targets as arguments</h4>
 <p>Since the responsibilities of the 2.x <code>Target</code> differ from its predecessor, if you have written any custom <a href="/modules/core/class/src/screenplay/Activity.ts~Activity.html"><code>Activity</code></a> classes in your project where a <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html"><code>Target</code></a> is passed as an argument (for example in a constructor or a method call), you&apos;ll need to change the signatures to receive a <code>Question&lt;ElementFinder&gt;</code> for single-element activities or <code>Question&lt;ElementArrayFinder&gt;</code> for multi-element activities.</p>
 <p>Consider a hypothetical Serenity/JS 1.x interaction we discussed earlier, the one that enabled a disabled element:</p>

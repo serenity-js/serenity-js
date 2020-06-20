@@ -182,7 +182,9 @@ of modern full-stack applications faster, more collaborative and easier to scale
     <span class="hljs-comment">// Configure Serenity/JS to use an appropriate test runner</span>
     <span class="hljs-comment">// and the Stage Crew Members we&apos;ve imported at the top of this file</span>
     serenity: {
-        runner: <span class="hljs-string">&apos;jasmine&apos;</span>,  <span class="hljs-comment">// or &apos;cucumber&apos;</span>
+        runner: <span class="hljs-string">&apos;jasmine&apos;</span>,
+        <span class="hljs-comment">// runner: &apos;cucumber&apos;,</span>
+        <span class="hljs-comment">// runner: &apos;mocha&apos;,</span>
         crew: [
             ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
             ConsoleReporter.forDarkTerminals(),
@@ -196,9 +198,14 @@ of modern full-stack applications faster, more collaborative and easier to scale
         <span class="hljs-comment">// see the Cucumber configuration options below</span>
     },
 
-    <span class="hljs-comment">// configure Jasmine runner</span>
+    <span class="hljs-comment">// or configure Jasmine runner</span>
     jasmineNodeOpts: {
         <span class="hljs-comment">// see the Jasmine configuration options below</span>
+    },
+
+    <span class="hljs-comment">// or configure Mocha runner</span>
+    mochaOpts: {
+        <span class="hljs-comment">// see the Mocha configuration options below</span>
     },
 
     <span class="hljs-comment">// ... other Protractor-specific configuration   </span>
@@ -208,6 +215,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <ul>
 <li><a href="https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html">Cucumber configuration options</a></li>
 <li><a href="https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html">Jasmine configuration options</a></li>
+<li><a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">Mocha configuration options</a></li>
 <li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">Protractor configuration file</a>.</li>
 </ul>
 <h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;

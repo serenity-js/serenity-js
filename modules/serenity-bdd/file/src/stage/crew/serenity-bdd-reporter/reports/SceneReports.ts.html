@@ -128,13 +128,22 @@
 <span class="hljs-comment">/** @package */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneReports {
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reports: { [entryId: <span class="hljs-built_in">string</span>]: SceneReport } = {};
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> completedReports: SceneReport[] = [];
 
     <span class="hljs-keyword">for</span>(scenarioDetails: ScenarioDetails): SceneReport {
         <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.alreadyHasAReportFor(scenarioDetails)) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.createReportFor(scenarioDetails);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reportFor(scenarioDetails);
+        <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.reportFor(scenarioDetails);
+
+        <span class="hljs-keyword">if</span> (report.isCompleted()) {
+            <span class="hljs-built_in">this</span>.completedReports.push(report);
+
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.createReportFor(scenarioDetails);
+        }
+
+        <span class="hljs-keyword">return</span> report;
     }
 
     save(scenarioReport: SceneReport) {
@@ -142,7 +151,10 @@
     }
 
     map&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">report: SceneReport</span>) =&gt;</span> T): T[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.reports).map(<span class="hljs-function"><span class="hljs-params">correlationId</span> =&gt;</span> <span class="hljs-built_in">this</span>.reports[correlationId]).map(fn);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.reports)
+            .map(<span class="hljs-function"><span class="hljs-params">correlationId</span> =&gt;</span> <span class="hljs-built_in">this</span>.reports[correlationId])
+            .concat(<span class="hljs-built_in">this</span>.completedReports)
+            .map(fn);
     }
 
     <span class="hljs-keyword">private</span> alreadyHasAReportFor(scenarioDetails: ScenarioDetails): <span class="hljs-built_in">boolean</span> {

@@ -209,7 +209,6 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
 
         given(
             <span class="hljs-keyword">new</span> ExecutionSkipped(),
-            <span class="hljs-keyword">new</span> ExecutionIgnored(),
             <span class="hljs-keyword">new</span> ExecutionSuccessful(),
         ).
         it(<span class="hljs-string">&apos;doesn\&apos;t take a picture if everything goes well&apos;</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
@@ -236,6 +235,7 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
             { description: <span class="hljs-string">&apos;error&apos;</span>,                     outcome: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>())                                                          },
             { description: <span class="hljs-string">&apos;assertion error&apos;</span>,           outcome: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(<span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`expected false to equal true`</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)) },
             { description: <span class="hljs-string">&apos;implementation pending&apos;</span>,    outcome: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>))                            },
+            { description: <span class="hljs-string">&apos;ignored&apos;</span>,                   outcome: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Failed, retrying&apos;</span>))                                                    },
         ).
         it(<span class="hljs-string">&apos;does nothing, even when a problem occurs&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> { stage, recorder } = create();

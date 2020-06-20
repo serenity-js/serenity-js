@@ -111,7 +111,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html">SerenityReporterForMocha</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -124,6 +124,7 @@
 <span class="hljs-keyword">import</span> { SerenityReporterForMocha } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityReporterForMocha&apos;</span>;
 
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">runner: Runner, options?: MochaOptions</span>) </span>{
+    <span class="hljs-comment">// todo: add requires - a list that includes a serenity config file</span>
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SerenityReporterForMocha(serenity, runner, options);
 }
 </code></pre>

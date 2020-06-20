@@ -570,6 +570,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~executionretriedtag",
+    "/modules/core/class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html",
+    "@serenity-js/core/lib/model/tags~ExecutionRetriedTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~featuretag",
     "/modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html",
     "@serenity-js/core/lib/model/tags~FeatureTag",

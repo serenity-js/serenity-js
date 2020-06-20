@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 295,
+  "end": 367,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 8,
+      "line": 9,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 295,
+    "end": 367,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 8,
+        "line": 9,
         "column": 0
       }
     },
@@ -343,28 +343,28 @@
       {
         "type": "TSExportAssignment",
         "start": 164,
-        "end": 294,
+        "end": 366,
         "loc": {
           "start": {
             "line": 5,
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 8,
             "column": 1
           }
         },
         "expression": {
           "type": "FunctionExpression",
           "start": 173,
-          "end": 294,
+          "end": 366,
           "loc": {
             "start": {
               "line": 5,
               "column": 9
             },
             "end": {
-              "line": 7,
+              "line": 8,
               "column": 1
             }
           },
@@ -505,57 +505,57 @@
           "body": {
             "type": "BlockStatement",
             "start": 223,
-            "end": 294,
+            "end": 366,
             "loc": {
               "start": {
                 "line": 5,
                 "column": 59
               },
               "end": {
-                "line": 7,
+                "line": 8,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 229,
-                "end": 292,
+                "start": 301,
+                "end": 364,
                 "loc": {
                   "start": {
-                    "line": 6,
+                    "line": 7,
                     "column": 4
                   },
                   "end": {
-                    "line": 6,
+                    "line": 7,
                     "column": 67
                   }
                 },
                 "argument": {
                   "type": "NewExpression",
-                  "start": 236,
-                  "end": 291,
+                  "start": 308,
+                  "end": 363,
                   "loc": {
                     "start": {
-                      "line": 6,
+                      "line": 7,
                       "column": 11
                     },
                     "end": {
-                      "line": 6,
+                      "line": 7,
                       "column": 66
                     }
                   },
                   "callee": {
                     "type": "Identifier",
-                    "start": 240,
-                    "end": 264,
+                    "start": 312,
+                    "end": 336,
                     "loc": {
                       "start": {
-                        "line": 6,
+                        "line": 7,
                         "column": 15
                       },
                       "end": {
-                        "line": 6,
+                        "line": 7,
                         "column": 39
                       },
                       "identifierName": "SerenityReporterForMocha"
@@ -565,15 +565,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 265,
-                      "end": 273,
+                      "start": 337,
+                      "end": 345,
                       "loc": {
                         "start": {
-                          "line": 6,
+                          "line": 7,
                           "column": 40
                         },
                         "end": {
-                          "line": 6,
+                          "line": 7,
                           "column": 48
                         },
                         "identifierName": "serenity"
@@ -582,15 +582,15 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 275,
-                      "end": 281,
+                      "start": 347,
+                      "end": 353,
                       "loc": {
                         "start": {
-                          "line": 6,
+                          "line": 7,
                           "column": 50
                         },
                         "end": {
-                          "line": 6,
+                          "line": 7,
                           "column": 56
                         },
                         "identifierName": "runner"
@@ -599,15 +599,15 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 283,
-                      "end": 290,
+                      "start": 355,
+                      "end": 362,
                       "loc": {
                         "start": {
-                          "line": 6,
+                          "line": 7,
                           "column": 58
                         },
                         "end": {
-                          "line": 6,
+                          "line": 7,
                           "column": 65
                         },
                         "identifierName": "options"
@@ -615,7 +615,25 @@
                       "name": "options"
                     }
                   ]
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentLine",
+                    "value": " todo: add requires - a list that includes a serenity config file",
+                    "start": 229,
+                    "end": 296,
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 71
+                      }
+                    }
+                  }
+                ]
               }
             ],
             "directives": []
@@ -625,5 +643,22 @@
     ],
     "directives": []
   },
-  "comments": []
+  "comments": [
+    {
+      "type": "CommentLine",
+      "value": " todo: add requires - a list that includes a serenity config file",
+      "start": 229,
+      "end": 296,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 4
+        },
+        "end": {
+          "line": 6,
+          "column": 71
+        }
+      }
+    }
+  ]
 }

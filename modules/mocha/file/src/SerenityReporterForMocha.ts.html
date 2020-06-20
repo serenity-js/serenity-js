@@ -111,7 +111,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html">SerenityReporterForMocha</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -119,13 +119,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityReporterForMocha.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
+
+<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOptions, reporters, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./mappers&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeRecorder&apos;</span>;
 
+<span class="hljs-comment">/**
+ * @package
+ */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityReporterForMocha <span class="hljs-keyword">extends</span> reporters.Base {
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testMapper: MochaTestMapper = <span class="hljs-keyword">new</span> MochaTestMapper();
@@ -154,13 +159,28 @@
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
+                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+
+                <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.recorder.finished(test.ctx.currentTest || test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
+                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+
+                <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, err))
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_TEST_RETRY,
+            <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
+                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+
+                <span class="hljs-built_in">this</span>.recorder.finished(
+                    !! test.ctx &amp;&amp; test.ctx.currentTest ? test.ctx.currentTest : test,
+                    <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, err),
+                );
             },
         );
 
@@ -168,6 +188,11 @@
 
         runner.suite.afterEach(<span class="hljs-string">&apos;Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-built_in">this</span>.currentTest);
+        });
+
+        <span class="hljs-comment">// https://github.com/cypress-io/cypress/issues/7562</span>
+        runner.on(<span class="hljs-string">&apos;test:after:run&apos;</span>, <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> announceSceneFinishedFor(test);
         });
 
         <span class="hljs-comment">// Tests without body don&apos;t trigger the above custom afterEach hook</span>
@@ -246,6 +271,32 @@
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             )
         );
+    }
+
+    <span class="hljs-keyword">private</span> announceRetryOf(test: Test): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test)
+
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> SceneTagged(
+                scenario,
+                <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;retried&apos;</span>),
+                <span class="hljs-built_in">this</span>.serenity.currentTime(),
+            ),
+        );
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentRetryOf(test) &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">this</span>.emit(
+                <span class="hljs-keyword">new</span> SceneTagged(
+                    scenario,
+                    <span class="hljs-keyword">new</span> ExecutionRetriedTag(<span class="hljs-built_in">this</span>.currentRetryOf(test)),
+                    <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                ),
+            );
+        }
+    }
+
+    <span class="hljs-keyword">private</span> currentRetryOf(test: Test): <span class="hljs-built_in">number</span> {
+        <span class="hljs-keyword">return</span> (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry();
     }
 
     <span class="hljs-keyword">private</span> emit(...events: DomainEvent[]): <span class="hljs-built_in">void</span> {

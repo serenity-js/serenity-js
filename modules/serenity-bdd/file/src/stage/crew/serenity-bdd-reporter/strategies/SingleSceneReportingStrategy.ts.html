@@ -144,7 +144,8 @@
             .when(SceneFinished,    <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>)    =&gt;</span> {
                 <span class="hljs-keyword">return</span> report
                     .executionFinishedAt(e.timestamp)
-                    .executionFinishedWith(e.value, e.outcome);
+                    .executionFinishedWith(e.value, e.outcome)
+                    .markedAsCompleted();
             })
             .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">super</span>.handle(e, report));
     }

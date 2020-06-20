@@ -510,6 +510,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model/tags~executionretriedtag",
+    "/modules/core/class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html",
+    "@serenity-js/core/lib/model/tags~ExecutionRetriedTag",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~featuretag",
     "/modules/core/class/src/model/tags/FeatureTag.ts~FeatureTag.html",
     "@serenity-js/core/lib/model/tags~FeatureTag",
@@ -1069,19 +1075,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber29",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber30",
     "SerenityBDDReporter",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber519",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber520",
     "SerenityBDDReporter Error handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber522",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber523",
     "SerenityBDDReporter Error handling generates the report even when the test runner has crashed",
     "test"
   ],
@@ -1099,13 +1105,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber510",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber511",
     "SerenityBDDReporter attachements",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber511",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber512",
     "SerenityBDDReporter attachements todo",
     "test"
   ],
@@ -1141,13 +1147,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber99",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber100",
     "SerenityBDDReporter emits an ArtifactGenerated event that",
     "test"
   ],
   [
-    "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful executionignored src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model~executionignored,executionignored",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber109",
+    "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful executionskipped src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/model~executionskipped,executionskipped",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber110",
     "SerenityBDDReporter emits an ArtifactGenerated event that is separate for each scenario",
     "test"
   ],
@@ -1159,13 +1165,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber71",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber72",
     "SerenityBDDReporter generates a SerenityBDDReport Artifact that",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber94",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber95",
     "SerenityBDDReporter generates a SerenityBDDReport Artifact that is a valid artifact",
     "test"
   ],
@@ -1195,37 +1201,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber130",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber131",
     "SerenityBDDReporter produces a SerenityBDDReport that",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber134",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber135",
     "SerenityBDDReporter produces a SerenityBDDReport that at the scenario level",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber187",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber188",
     "SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the duration of the scenario",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber153",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber154",
     "SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the id of the scenario",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber164",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber165",
     "SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the name of the scenario",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber176",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber177",
     "SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the start time of the scenario",
     "test"
   ],
@@ -1327,103 +1333,103 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber192",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber193",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes testcompromisederror executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/errors~testcompromisederror,testcompromisederror @serenity-js/core/lib/model~executioncompromised,executioncompromised",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber308",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber309",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executioncompromised,executioncompromised",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber375",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber376",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionignored src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionignored,executionignored",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber245",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber246",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been ignored",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionskipped src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionskipped,executionskipped",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber264",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber265",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been skipped",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionfailedwitherror src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionfailedwitherror,executionfailedwitherror",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber333",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber334",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with a non-assertion error",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionfailedwithassertionerror src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionfailedwithassertionerror,executionfailedwithassertionerror",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber283",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber284",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with an assertion error",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber207",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber208",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has finished with success",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes implementationpending src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~implementationpending,implementationpending",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber226",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber227",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that hasn't been implemented yet",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber425",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber426",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber479",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber480",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber496",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber497",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file",
     "test"
   ],
   [
     "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber505",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber506",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background description",
     "test"
   ],
   [
     "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber502",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber503",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background title",
     "test"
   ],
   [
     "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber499",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber500",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level narrative",
     "test"
   ],
   [
     "serenitybddreporter testrunnerdetected scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~testrunnerdetected,testrunnerdetected @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber435",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber436",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the test runner",
     "test"
   ],
   [
     "serenitybddreporter scenestarts scenefinished testrunfinishes executionsuccessful src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executionsuccessful,executionsuccessful",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber455",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber456",
     "SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the user story covered",
     "test"
   ],

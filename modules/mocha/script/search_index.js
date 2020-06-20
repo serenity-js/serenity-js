@@ -1,8 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/mocha~serenityreporterformocha",
-    "class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html",
-    "<span>SerenityReporterForMocha</span> <span class=\"search-result-import-path\">@serenity-js/mocha</span>",
+    "@serenity-js/mocha/lib/adapter~mochaconfig",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html",
+    "<span>MochaConfig</span> <span class=\"search-result-import-path\">@serenity-js/mocha/lib/adapter</span>",
     "class"
   ],
   [
@@ -357,6 +357,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model/tags~contexttag",
     "/modules/core/class/src/model/tags/ContextTag.ts~ContextTag.html",
     "@serenity-js/core/lib/model/tags~ContextTag",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/model/tags~executionretriedtag",
+    "/modules/core/class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html",
+    "@serenity-js/core/lib/model/tags~ExecutionRetriedTag",
     "external"
   ],
   [
@@ -739,7 +745,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber18",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber19",
     "MochaTestMapper",
     "test"
   ],
@@ -751,43 +757,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber53",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber54",
     "MochaTestMapper recognises compromised tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber23",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber24",
     "MochaTestMapper recognises passing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber33",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber34",
     "MochaTestMapper recognises pending tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber43",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber44",
     "MochaTestMapper recognises skipped tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber67",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber68",
     "MochaTestMapper recognises tests that failed with a Serenity/JS AssertionError",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber81",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber82",
     "MochaTestMapper recognises tests that failed with a generic AssertionError",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber99",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber100",
     "MochaTestMapper recognises tests that failed with an Error",
     "test"
   ],
@@ -795,6 +801,36 @@ window.esdocSearchIndex = [
     "",
     "test-file/spec/mappers/MochaTestMapper.spec.ts.html#lineNumber14",
     "MochaTestMapper treats the outer-most describe as the name of the feature",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber114",
+    "MochaTestMapper when working with retryable tests",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber118",
+    "MochaTestMapper when working with retryable tests ignores the failure as long as execution is going to be retried",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber134",
+    "MochaTestMapper when working with retryable tests when there are no retries left",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber135",
+    "MochaTestMapper when working with retryable tests when there are no retries left ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber151",
+    "MochaTestMapper when working with retryable tests when there are no retries left ",
     "test"
   ],
   [
@@ -852,16 +888,112 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/serenityreporterformocha.ts~serenityreporterformocha#constructor",
-    "class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html#instance-constructor-constructor",
-    "src/SerenityReporterForMocha.ts~SerenityReporterForMocha#constructor",
-    "method"
+    "src/adapter/mochaadapter.ts",
+    "file/src/adapter/MochaAdapter.ts.html",
+    "src/adapter/MochaAdapter.ts",
+    "file"
   ],
   [
-    "src/serenityreporterformocha.ts~serenityreporterformocha#done",
-    "class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html#instance-method-done",
-    "src/SerenityReporterForMocha.ts~SerenityReporterForMocha#done",
-    "method"
+    "src/adapter/mochaconfig.ts",
+    "file/src/adapter/MochaConfig.ts.html",
+    "src/adapter/MochaConfig.ts",
+    "file"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#bail",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-bail",
+    "src/adapter/MochaConfig.ts~MochaConfig#bail",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#config",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-config",
+    "src/adapter/MochaConfig.ts~MochaConfig#config",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#delay",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-delay",
+    "src/adapter/MochaConfig.ts~MochaConfig#delay",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#fgrep",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-fgrep",
+    "src/adapter/MochaConfig.ts~MochaConfig#fgrep",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#file",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-file",
+    "src/adapter/MochaConfig.ts~MochaConfig#file",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#global",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-global",
+    "src/adapter/MochaConfig.ts~MochaConfig#global",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#grep",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-grep",
+    "src/adapter/MochaConfig.ts~MochaConfig#grep",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#growl",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-growl",
+    "src/adapter/MochaConfig.ts~MochaConfig#growl",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#invert",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-invert",
+    "src/adapter/MochaConfig.ts~MochaConfig#invert",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#require",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-require",
+    "src/adapter/MochaConfig.ts~MochaConfig#require",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#retries",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-retries",
+    "src/adapter/MochaConfig.ts~MochaConfig#retries",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#slow",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-slow",
+    "src/adapter/MochaConfig.ts~MochaConfig#slow",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#timeout",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-timeout",
+    "src/adapter/MochaConfig.ts~MochaConfig#timeout",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#ui",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-ui",
+    "src/adapter/MochaConfig.ts~MochaConfig#ui",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#undefined",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-undefined",
+    "src/adapter/MochaConfig.ts~MochaConfig#undefined",
+    "member"
+  ],
+  [
+    "src/adapter/index.ts",
+    "file/src/adapter/index.ts.html",
+    "src/adapter/index.ts",
+    "file"
   ],
   [
     "src/index.ts",

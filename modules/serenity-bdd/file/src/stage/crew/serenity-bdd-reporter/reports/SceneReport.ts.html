@@ -129,6 +129,7 @@
     ContextTag,
     CorrelationId,
     Description,
+    ExecutionRetriedTag,
     ExecutionSuccessful,
     FeatureTag,
     IssueTag,
@@ -171,6 +172,7 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities = <span class="hljs-keyword">new</span> ActivityStack();
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parameters: ScenarioParametersResultLocation[] = [];
     <span class="hljs-keyword">private</span> stepNumber = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> completed = <span class="hljs-literal">false</span>;
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> scenarioDetails: ScenarioDetails</span>) {
 
@@ -273,6 +275,9 @@
                 .when(ContextTag,    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     report.context   = tag.name;
 
+                    <span class="hljs-built_in">this</span>.id.append(tag.name);
+                })
+                .when(ExecutionRetriedTag, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
                     <span class="hljs-built_in">this</span>.id.append(tag.name);
                 })
                 .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
@@ -456,6 +461,16 @@
                 }
             }
         }));
+    }
+
+    markedAsCompleted() {
+        <span class="hljs-built_in">this</span>.completed = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+    }
+
+    isCompleted() {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.completed;
     }
 
     toJSON(): Partial&lt;SerenityBDDReport&gt; {

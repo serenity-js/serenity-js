@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 933,
+  "end": 961,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 35,
+      "line": 37,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 933,
+    "end": 961,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 35,
+        "line": 37,
         "column": 0
       }
     },
@@ -32,15 +32,15 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 45,
+        "start": 28,
+        "end": 73,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 3,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 3,
             "column": 45
           }
         },
@@ -48,29 +48,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 9,
-            "end": 17,
+            "start": 37,
+            "end": 45,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 3,
                 "column": 9
               },
               "end": {
-                "line": 1,
+                "line": 3,
                 "column": 17
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 9,
-              "end": 17,
+              "start": 37,
+              "end": 45,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 3,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 3,
                   "column": 17
                 },
                 "identifierName": "serenity"
@@ -79,15 +79,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 9,
-              "end": 17,
+              "start": 37,
+              "end": 45,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 3,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 3,
                   "column": 17
                 },
                 "identifierName": "serenity"
@@ -98,15 +98,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 25,
-          "end": 44,
+          "start": 53,
+          "end": 72,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 3,
               "column": 25
             },
             "end": {
-              "line": 1,
+              "line": 3,
               "column": 44
             }
           },
@@ -115,19 +115,37 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
-        "start": 46,
-        "end": 102,
+        "start": 74,
+        "end": 130,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 4,
             "column": 56
           }
         },
@@ -135,29 +153,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 55,
-            "end": 67,
+            "start": 83,
+            "end": 95,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 2,
+                "line": 4,
                 "column": 21
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 55,
-              "end": 67,
+              "start": 83,
+              "end": 95,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 4,
                   "column": 21
                 },
                 "identifierName": "ModuleLoader"
@@ -166,15 +184,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 55,
-              "end": 67,
+              "start": 83,
+              "end": 95,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 4,
                   "column": 21
                 },
                 "identifierName": "ModuleLoader"
@@ -185,15 +203,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 75,
-          "end": 101,
+          "start": 103,
+          "end": 129,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 4,
               "column": 29
             },
             "end": {
-              "line": 2,
+              "line": 4,
               "column": 55
             }
           },
@@ -206,15 +224,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 103,
-        "end": 139,
+        "start": 131,
+        "end": 167,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 5,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 5,
             "column": 36
           }
         },
@@ -222,29 +240,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 112,
-            "end": 118,
+            "start": 140,
+            "end": 146,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 5,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 5,
                 "column": 15
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 112,
-              "end": 118,
+              "start": 140,
+              "end": 146,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 5,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 5,
                   "column": 15
                 },
                 "identifierName": "Runner"
@@ -253,15 +271,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 112,
-              "end": 118,
+              "start": 140,
+              "end": 146,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 5,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 5,
                   "column": 15
                 },
                 "identifierName": "Runner"
@@ -272,15 +290,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 126,
-          "end": 138,
+          "start": 154,
+          "end": 166,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 5,
               "column": 23
             },
             "end": {
-              "line": 3,
+              "line": 5,
               "column": 35
             }
           },
@@ -293,15 +311,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 140,
-        "end": 214,
+        "start": 168,
+        "end": 242,
         "loc": {
           "start": {
-            "line": 4,
+            "line": 6,
             "column": 0
           },
           "end": {
-            "line": 4,
+            "line": 6,
             "column": 74
           }
         },
@@ -309,29 +327,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 149,
-            "end": 175,
+            "start": 177,
+            "end": 203,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 6,
                 "column": 9
               },
               "end": {
-                "line": 4,
+                "line": 6,
                 "column": 35
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 149,
-              "end": 175,
+              "start": 177,
+              "end": 203,
               "loc": {
                 "start": {
-                  "line": 4,
+                  "line": 6,
                   "column": 9
                 },
                 "end": {
-                  "line": 4,
+                  "line": 6,
                   "column": 35
                 },
                 "identifierName": "ProtractorFrameworkAdapter"
@@ -340,15 +358,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 149,
-              "end": 175,
+              "start": 177,
+              "end": 203,
               "loc": {
                 "start": {
-                  "line": 4,
+                  "line": 6,
                   "column": 9
                 },
                 "end": {
-                  "line": 4,
+                  "line": 6,
                   "column": 35
                 },
                 "identifierName": "ProtractorFrameworkAdapter"
@@ -359,15 +377,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 183,
-          "end": 213,
+          "start": 211,
+          "end": 241,
           "loc": {
             "start": {
-              "line": 4,
+              "line": 6,
               "column": 43
             },
             "end": {
-              "line": 4,
+              "line": 6,
               "column": 73
             }
           },
@@ -380,15 +398,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 215,
-        "end": 261,
+        "start": 243,
+        "end": 289,
         "loc": {
           "start": {
-            "line": 5,
+            "line": 7,
             "column": 0
           },
           "end": {
-            "line": 5,
+            "line": 7,
             "column": 46
           }
         },
@@ -396,29 +414,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 224,
-            "end": 240,
+            "start": 252,
+            "end": 268,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 7,
                 "column": 9
               },
               "end": {
-                "line": 5,
+                "line": 7,
                 "column": 25
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 224,
-              "end": 240,
+              "start": 252,
+              "end": 268,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 7,
                   "column": 9
                 },
                 "end": {
-                  "line": 5,
+                  "line": 7,
                   "column": 25
                 },
                 "identifierName": "ProtractorReport"
@@ -427,15 +445,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 224,
-              "end": 240,
+              "start": 252,
+              "end": 268,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 7,
                   "column": 9
                 },
                 "end": {
-                  "line": 5,
+                  "line": 7,
                   "column": 25
                 },
                 "identifierName": "ProtractorReport"
@@ -446,15 +464,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 248,
-          "end": 260,
+          "start": 276,
+          "end": 288,
           "loc": {
             "start": {
-              "line": 5,
+              "line": 7,
               "column": 33
             },
             "end": {
-              "line": 5,
+              "line": 7,
               "column": 45
             }
           },
@@ -467,15 +485,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 262,
-        "end": 320,
+        "start": 290,
+        "end": 348,
         "loc": {
           "start": {
-            "line": 6,
+            "line": 8,
             "column": 0
           },
           "end": {
-            "line": 6,
+            "line": 8,
             "column": 58
           }
         },
@@ -483,29 +501,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 271,
-            "end": 289,
+            "start": 299,
+            "end": 317,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 8,
                 "column": 9
               },
               "end": {
-                "line": 6,
+                "line": 8,
                 "column": 27
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 271,
-              "end": 289,
+              "start": 299,
+              "end": 317,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 9
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 27
                 },
                 "identifierName": "TestRunnerDetector"
@@ -514,15 +532,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 271,
-              "end": 289,
+              "start": 299,
+              "end": 317,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 9
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 27
                 },
                 "identifierName": "TestRunnerDetector"
@@ -533,15 +551,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 297,
-          "end": 319,
+          "start": 325,
+          "end": 347,
           "loc": {
             "start": {
-              "line": 6,
+              "line": 8,
               "column": 35
             },
             "end": {
-              "line": 6,
+              "line": 8,
               "column": 57
             }
           },
@@ -554,16 +572,16 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-            "start": 321,
-            "end": 454,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+            "start": 349,
+            "end": 482,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 9,
                 "column": 0
               },
               "end": {
-                "line": 18,
+                "line": 20,
                 "column": 3
               }
             }
@@ -571,15 +589,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-            "start": 457,
-            "end": 688,
+            "start": 485,
+            "end": 716,
             "loc": {
               "start": {
-                "line": 21,
+                "line": 23,
                 "column": 0
               },
               "end": {
-                "line": 27,
+                "line": 29,
                 "column": 3
               }
             }
@@ -588,15 +606,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 689,
-        "end": 932,
+        "start": 717,
+        "end": 960,
         "loc": {
           "start": {
-            "line": 28,
+            "line": 30,
             "column": 0
           },
           "end": {
-            "line": 34,
+            "line": 36,
             "column": 1
           }
         },
@@ -605,29 +623,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 696,
-          "end": 932,
+          "start": 724,
+          "end": 960,
           "loc": {
             "start": {
-              "line": 28,
+              "line": 30,
               "column": 7
             },
             "end": {
-              "line": 34,
+              "line": 36,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 705,
-            "end": 708,
+            "start": 733,
+            "end": 736,
             "loc": {
               "start": {
-                "line": 28,
+                "line": 30,
                 "column": 16
               },
               "end": {
-                "line": 28,
+                "line": 30,
                 "column": 19
               },
               "identifierName": "run"
@@ -639,15 +657,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 709,
-              "end": 723,
+              "start": 737,
+              "end": 751,
               "loc": {
                 "start": {
-                  "line": 28,
+                  "line": 30,
                   "column": 20
                 },
                 "end": {
-                  "line": 28,
+                  "line": 30,
                   "column": 34
                 },
                 "identifierName": "runner"
@@ -655,43 +673,43 @@
               "name": "runner",
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 715,
-                "end": 723,
+                "start": 743,
+                "end": 751,
                 "loc": {
                   "start": {
-                    "line": 28,
+                    "line": 30,
                     "column": 26
                   },
                   "end": {
-                    "line": 28,
+                    "line": 30,
                     "column": 34
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSTypeReference",
-                  "start": 717,
-                  "end": 723,
+                  "start": 745,
+                  "end": 751,
                   "loc": {
                     "start": {
-                      "line": 28,
+                      "line": 30,
                       "column": 28
                     },
                     "end": {
-                      "line": 28,
+                      "line": 30,
                       "column": 34
                     }
                   },
                   "typeName": {
                     "type": "Identifier",
-                    "start": 717,
-                    "end": 723,
+                    "start": 745,
+                    "end": 751,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 30,
                         "column": 28
                       },
                       "end": {
-                        "line": 28,
+                        "line": 30,
                         "column": 34
                       },
                       "identifierName": "Runner"
@@ -703,15 +721,15 @@
             },
             {
               "type": "Identifier",
-              "start": 725,
-              "end": 740,
+              "start": 753,
+              "end": 768,
               "loc": {
                 "start": {
-                  "line": 28,
+                  "line": 30,
                   "column": 36
                 },
                 "end": {
-                  "line": 28,
+                  "line": 30,
                   "column": 51
                 },
                 "identifierName": "specs"
@@ -719,43 +737,43 @@
               "name": "specs",
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 730,
-                "end": 740,
+                "start": 758,
+                "end": 768,
                 "loc": {
                   "start": {
-                    "line": 28,
+                    "line": 30,
                     "column": 41
                   },
                   "end": {
-                    "line": 28,
+                    "line": 30,
                     "column": 51
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSArrayType",
-                  "start": 732,
-                  "end": 740,
+                  "start": 760,
+                  "end": 768,
                   "loc": {
                     "start": {
-                      "line": 28,
+                      "line": 30,
                       "column": 43
                     },
                     "end": {
-                      "line": 28,
+                      "line": 30,
                       "column": 51
                     }
                   },
                   "elementType": {
                     "type": "TSStringKeyword",
-                    "start": 732,
-                    "end": 738,
+                    "start": 760,
+                    "end": 766,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 30,
                         "column": 43
                       },
                       "end": {
-                        "line": 28,
+                        "line": 30,
                         "column": 49
                       }
                     }
@@ -766,43 +784,43 @@
           ],
           "returnType": {
             "type": "TSTypeAnnotation",
-            "start": 741,
-            "end": 768,
+            "start": 769,
+            "end": 796,
             "loc": {
               "start": {
-                "line": 28,
+                "line": 30,
                 "column": 52
               },
               "end": {
-                "line": 28,
+                "line": 30,
                 "column": 79
               }
             },
             "typeAnnotation": {
               "type": "TSTypeReference",
-              "start": 743,
-              "end": 768,
+              "start": 771,
+              "end": 796,
               "loc": {
                 "start": {
-                  "line": 28,
+                  "line": 30,
                   "column": 54
                 },
                 "end": {
-                  "line": 28,
+                  "line": 30,
                   "column": 79
                 }
               },
               "typeName": {
                 "type": "Identifier",
-                "start": 743,
-                "end": 750,
+                "start": 771,
+                "end": 778,
                 "loc": {
                   "start": {
-                    "line": 28,
+                    "line": 30,
                     "column": 54
                   },
                   "end": {
-                    "line": 28,
+                    "line": 30,
                     "column": 61
                   },
                   "identifierName": "Promise"
@@ -811,44 +829,44 @@
               },
               "typeParameters": {
                 "type": "TSTypeParameterInstantiation",
-                "start": 750,
-                "end": 768,
+                "start": 778,
+                "end": 796,
                 "loc": {
                   "start": {
-                    "line": 28,
+                    "line": 30,
                     "column": 61
                   },
                   "end": {
-                    "line": 28,
+                    "line": 30,
                     "column": 79
                   }
                 },
                 "params": [
                   {
                     "type": "TSTypeReference",
-                    "start": 751,
-                    "end": 767,
+                    "start": 779,
+                    "end": 795,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 30,
                         "column": 62
                       },
                       "end": {
-                        "line": 28,
+                        "line": 30,
                         "column": 78
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 751,
-                      "end": 767,
+                      "start": 779,
+                      "end": 795,
                       "loc": {
                         "start": {
-                          "line": 28,
+                          "line": 30,
                           "column": 62
                         },
                         "end": {
-                          "line": 28,
+                          "line": 30,
                           "column": 78
                         },
                         "identifierName": "ProtractorReport"
@@ -862,86 +880,86 @@
           },
           "body": {
             "type": "BlockStatement",
-            "start": 769,
-            "end": 932,
+            "start": 797,
+            "end": 960,
             "loc": {
               "start": {
-                "line": 28,
+                "line": 30,
                 "column": 80
               },
               "end": {
-                "line": 34,
+                "line": 36,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 775,
-                "end": 930,
+                "start": 803,
+                "end": 958,
                 "loc": {
                   "start": {
-                    "line": 29,
+                    "line": 31,
                     "column": 4
                   },
                   "end": {
-                    "line": 33,
+                    "line": 35,
                     "column": 17
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 782,
-                  "end": 929,
+                  "start": 810,
+                  "end": 957,
                   "loc": {
                     "start": {
-                      "line": 29,
+                      "line": 31,
                       "column": 11
                     },
                     "end": {
-                      "line": 33,
+                      "line": 35,
                       "column": 16
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 782,
-                    "end": 922,
+                    "start": 810,
+                    "end": 950,
                     "loc": {
                       "start": {
-                        "line": 29,
+                        "line": 31,
                         "column": 11
                       },
                       "end": {
-                        "line": 33,
+                        "line": 35,
                         "column": 9
                       }
                     },
                     "object": {
                       "type": "NewExpression",
-                      "start": 782,
-                      "end": 918,
+                      "start": 810,
+                      "end": 946,
                       "loc": {
                         "start": {
-                          "line": 29,
+                          "line": 31,
                           "column": 11
                         },
                         "end": {
-                          "line": 33,
+                          "line": 35,
                           "column": 5
                         }
                       },
                       "callee": {
                         "type": "Identifier",
-                        "start": 786,
-                        "end": 812,
+                        "start": 814,
+                        "end": 840,
                         "loc": {
                           "start": {
-                            "line": 29,
+                            "line": 31,
                             "column": 15
                           },
                           "end": {
-                            "line": 29,
+                            "line": 31,
                             "column": 41
                           },
                           "identifierName": "ProtractorFrameworkAdapter"
@@ -951,15 +969,15 @@
                       "arguments": [
                         {
                           "type": "Identifier",
-                          "start": 822,
-                          "end": 830,
+                          "start": 850,
+                          "end": 858,
                           "loc": {
                             "start": {
-                              "line": 30,
+                              "line": 32,
                               "column": 8
                             },
                             "end": {
-                              "line": 30,
+                              "line": 32,
                               "column": 16
                             },
                             "identifierName": "serenity"
@@ -968,15 +986,15 @@
                         },
                         {
                           "type": "Identifier",
-                          "start": 840,
-                          "end": 846,
+                          "start": 868,
+                          "end": 874,
                           "loc": {
                             "start": {
-                              "line": 31,
+                              "line": 33,
                               "column": 8
                             },
                             "end": {
-                              "line": 31,
+                              "line": 33,
                               "column": 14
                             },
                             "identifierName": "runner"
@@ -985,29 +1003,29 @@
                         },
                         {
                           "type": "NewExpression",
-                          "start": 856,
-                          "end": 911,
+                          "start": 884,
+                          "end": 939,
                           "loc": {
                             "start": {
-                              "line": 32,
+                              "line": 34,
                               "column": 8
                             },
                             "end": {
-                              "line": 32,
+                              "line": 34,
                               "column": 63
                             }
                           },
                           "callee": {
                             "type": "Identifier",
-                            "start": 860,
-                            "end": 878,
+                            "start": 888,
+                            "end": 906,
                             "loc": {
                               "start": {
-                                "line": 32,
+                                "line": 34,
                                 "column": 12
                               },
                               "end": {
-                                "line": 32,
+                                "line": 34,
                                 "column": 30
                               },
                               "identifierName": "TestRunnerDetector"
@@ -1017,29 +1035,29 @@
                           "arguments": [
                             {
                               "type": "NewExpression",
-                              "start": 879,
-                              "end": 910,
+                              "start": 907,
+                              "end": 938,
                               "loc": {
                                 "start": {
-                                  "line": 32,
+                                  "line": 34,
                                   "column": 31
                                 },
                                 "end": {
-                                  "line": 32,
+                                  "line": 34,
                                   "column": 62
                                 }
                               },
                               "callee": {
                                 "type": "Identifier",
-                                "start": 883,
-                                "end": 895,
+                                "start": 911,
+                                "end": 923,
                                 "loc": {
                                   "start": {
-                                    "line": 32,
+                                    "line": 34,
                                     "column": 35
                                   },
                                   "end": {
-                                    "line": 32,
+                                    "line": 34,
                                     "column": 47
                                   },
                                   "identifierName": "ModuleLoader"
@@ -1049,43 +1067,43 @@
                               "arguments": [
                                 {
                                   "type": "CallExpression",
-                                  "start": 896,
-                                  "end": 909,
+                                  "start": 924,
+                                  "end": 937,
                                   "loc": {
                                     "start": {
-                                      "line": 32,
+                                      "line": 34,
                                       "column": 48
                                     },
                                     "end": {
-                                      "line": 32,
+                                      "line": 34,
                                       "column": 61
                                     }
                                   },
                                   "callee": {
                                     "type": "MemberExpression",
-                                    "start": 896,
-                                    "end": 907,
+                                    "start": 924,
+                                    "end": 935,
                                     "loc": {
                                       "start": {
-                                        "line": 32,
+                                        "line": 34,
                                         "column": 48
                                       },
                                       "end": {
-                                        "line": 32,
+                                        "line": 34,
                                         "column": 59
                                       }
                                     },
                                     "object": {
                                       "type": "Identifier",
-                                      "start": 896,
-                                      "end": 903,
+                                      "start": 924,
+                                      "end": 931,
                                       "loc": {
                                         "start": {
-                                          "line": 32,
+                                          "line": 34,
                                           "column": 48
                                         },
                                         "end": {
-                                          "line": 32,
+                                          "line": 34,
                                           "column": 55
                                         },
                                         "identifierName": "process"
@@ -1094,15 +1112,15 @@
                                     },
                                     "property": {
                                       "type": "Identifier",
-                                      "start": 904,
-                                      "end": 907,
+                                      "start": 932,
+                                      "end": 935,
                                       "loc": {
                                         "start": {
-                                          "line": 32,
+                                          "line": 34,
                                           "column": 56
                                         },
                                         "end": {
-                                          "line": 32,
+                                          "line": 34,
                                           "column": 59
                                         },
                                         "identifierName": "cwd"
@@ -1121,15 +1139,15 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 919,
-                      "end": 922,
+                      "start": 947,
+                      "end": 950,
                       "loc": {
                         "start": {
-                          "line": 33,
+                          "line": 35,
                           "column": 6
                         },
                         "end": {
-                          "line": 33,
+                          "line": 35,
                           "column": 9
                         },
                         "identifierName": "run"
@@ -1141,15 +1159,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 923,
-                      "end": 928,
+                      "start": 951,
+                      "end": 956,
                       "loc": {
                         "start": {
-                          "line": 33,
+                          "line": 35,
                           "column": 10
                         },
                         "end": {
-                          "line": 33,
+                          "line": 35,
                           "column": 15
                         },
                         "identifierName": "specs"
@@ -1165,16 +1183,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-              "start": 321,
-              "end": 454,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+              "start": 349,
+              "end": 482,
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 9,
                   "column": 0
                 },
                 "end": {
-                  "line": 18,
+                  "line": 20,
                   "column": 3
                 }
               }
@@ -1182,15 +1200,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-              "start": 457,
-              "end": 688,
+              "start": 485,
+              "end": 716,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 23,
                   "column": 0
                 },
                 "end": {
-                  "line": 27,
+                  "line": 29,
                   "column": 3
                 }
               }
@@ -1201,16 +1219,16 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-            "start": 321,
-            "end": 454,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+            "start": 349,
+            "end": 482,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 9,
                 "column": 0
               },
               "end": {
-                "line": 18,
+                "line": 20,
                 "column": 3
               }
             }
@@ -1218,15 +1236,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-            "start": 457,
-            "end": 688,
+            "start": 485,
+            "end": 716,
             "loc": {
               "start": {
-                "line": 21,
+                "line": 23,
                 "column": 0
               },
               "end": {
-                "line": 27,
+                "line": 29,
                 "column": 3
               }
             }
@@ -1239,16 +1257,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-      "start": 321,
-      "end": 454,
+      "value": " istanbul ignore file ",
+      "start": 0,
+      "end": 26,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 1,
           "column": 0
         },
         "end": {
-          "line": 18,
+          "line": 1,
+          "column": 26
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+      "start": 349,
+      "end": 482,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
           "column": 3
         }
       }
@@ -1256,15 +1290,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-      "start": 457,
-      "end": 688,
+      "start": 485,
+      "end": 716,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 23,
           "column": 0
         },
         "end": {
-          "line": 27,
+          "line": 29,
           "column": 3
         }
       }

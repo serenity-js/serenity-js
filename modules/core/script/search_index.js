@@ -246,6 +246,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/model/tags~executionretriedtag",
+    "class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html",
+    "<span>ExecutionRetriedTag</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model/tags</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/model~executionskipped",
     "class/src/model/outcomes.ts~ExecutionSkipped.html",
     "<span>ExecutionSkipped</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
@@ -1243,7 +1249,7 @@ window.esdocSearchIndex = [
   ],
   [
     "executioncompromised executionfailedwitherror executionfailedwithassertionerror src/model/outcomes.ts~executioncompromised,executioncompromised src/model/outcomes.ts~executionfailedwitherror,executionfailedwitherror src/model/outcomes.ts~executionfailedwithassertionerror,executionfailedwithassertionerror",
-    "test-file/spec/model/outcomes.spec.ts.html#lineNumber46",
+    "test-file/spec/model/outcomes.spec.ts.html#lineNumber45",
     "Outcome outcome indicating an error",
     "test"
   ],
@@ -3664,6 +3670,30 @@ window.esdocSearchIndex = [
     "class/src/model/tags/ContextTag.ts~ContextTag.html#static-member-Type",
     "src/model/tags/ContextTag.ts~ContextTag.Type",
     "member"
+  ],
+  [
+    "src/model/tags/executionretriedtag.ts",
+    "file/src/model/tags/ExecutionRetriedTag.ts.html",
+    "src/model/tags/ExecutionRetriedTag.ts",
+    "file"
+  ],
+  [
+    "src/model/tags/executionretriedtag.ts~executionretriedtag#constructor",
+    "class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html#instance-constructor-constructor",
+    "src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag#constructor",
+    "method"
+  ],
+  [
+    "src/model/tags/executionretriedtag.ts~executionretriedtag.type",
+    "class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html#static-member-Type",
+    "src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.Type",
+    "member"
+  ],
+  [
+    "src/model/tags/executionretriedtag.ts~executionretriedtag.fromjson",
+    "class/src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.html#static-method-fromJSON",
+    "src/model/tags/ExecutionRetriedTag.ts~ExecutionRetriedTag.fromJSON",
+    "method"
   ],
   [
     "src/model/tags/featuretag.ts",

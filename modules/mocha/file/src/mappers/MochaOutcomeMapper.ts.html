@@ -111,7 +111,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SerenityReporterForMocha.ts~SerenityReporterForMocha.html">SerenityReporterForMocha</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -124,6 +124,7 @@
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
@@ -135,16 +136,21 @@
  * @package
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MochaOutcomeMapper {
-    <span class="hljs-keyword">public</span> outcomeOf(test: Test): Outcome {
+    <span class="hljs-keyword">public</span> outcomeOf(test: Test, err?: <span class="hljs-built_in">Error</span>): Outcome {
+        <span class="hljs-keyword">const</span> error = err || test.err;
+
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> !! test.err &amp;&amp; <span class="hljs-built_in">this</span>.isAssertionError(test.err):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(test.err <span class="hljs-keyword">as</span> AssertionError);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-built_in">this</span>.isGoingToBeRetried(test):
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionIgnored(error);
 
-            <span class="hljs-keyword">case</span> !! test.err &amp;&amp; test.err <span class="hljs-keyword">instanceof</span> TestCompromisedError:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(test.err <span class="hljs-keyword">as</span> TestCompromisedError);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-built_in">this</span>.isAssertionError(error):
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error <span class="hljs-keyword">as</span> AssertionError);
 
-            <span class="hljs-keyword">case</span> !! test.err:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(test.err);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; error <span class="hljs-keyword">instanceof</span> TestCompromisedError:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error <span class="hljs-keyword">as</span> TestCompromisedError);
+
+            <span class="hljs-keyword">case</span> !! error:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
 
             <span class="hljs-keyword">case</span> test.isPending() &amp;&amp; !! test.fn:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
@@ -155,6 +161,13 @@
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
         }
+    }
+
+    <span class="hljs-keyword">private</span> isGoingToBeRetried(test: Test) {
+        <span class="hljs-keyword">return</span> ! test.isPassed()
+            &amp;&amp; ! test.isFailed()
+            &amp;&amp; ! test.isPending()
+            &amp;&amp; (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry() &lt; test.retries();
     }
 
     <span class="hljs-keyword">private</span> isAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {
