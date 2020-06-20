@@ -47,7 +47,7 @@ export = {
             describe: `Project name to appear in the Serenity reports`,
         },
         shortFilenames: {
-            default: false,
+            default: true,
             type: 'boolean',
             describe: `Use unique hashes instead of human-readable names for the HTML files`,
         },
