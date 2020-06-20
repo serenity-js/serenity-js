@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
+
+
+### Bug Fixes
+
+* **docs:** documented changes to Target.of in the Serenity/JS 2.0 upgrade guide ([43bec7b](https://github.com/serenity-js/serenity-js/commit/43bec7b86d16f977bcd059d271cae76bab81171d)), closes [#598](https://github.com/serenity-js/serenity-js/issues/598)
+* **docs:** updated Serenity/JS 2.0 upgrade guide to explain how to use Mocha ([3cdd74c](https://github.com/serenity-js/serenity-js/commit/3cdd74c75e4ddc97889cfba1c57a1636d1d48e94))
+* **serenity-bdd:** default Serenity BDD CLI to generating short filenames for the HTML report ([50c649d](https://github.com/serenity-js/serenity-js/commit/50c649d34fbe31f7129527a0aadca39e51e67543))
+* **serenity-bdd:** moved core, assertions and rest from peerDependencies to dependencies ([966b20a](https://github.com/serenity-js/serenity-js/commit/966b20a7abf63a94463edd0f6313be3f995e0690))
+
+
+### Features
+
+* **mocha:** support for retrying failed scenarios ([2ff755b](https://github.com/serenity-js/serenity-js/commit/2ff755b4fa395ae412f4b250c3ba924a1337438c)), closes [#101](https://github.com/serenity-js/serenity-js/issues/101)
+* **protractor:** support for using Mocha with Protractor ([ae5bd7e](https://github.com/serenity-js/serenity-js/commit/ae5bd7efe780894c07451edec030d156c16aa8fa))
+
+
+
+
+
 ## [2.10.3](https://github.com/serenity-js/serenity-js/compare/v2.10.2...v2.10.3) (2020-06-15)
 
 

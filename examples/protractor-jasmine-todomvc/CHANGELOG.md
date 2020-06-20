@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
+
+**Note:** Version bump only for package @serenity-js-examples/protractor-jasmine-todomvc
+
+
+
+
+
 ## [2.10.3](https://github.com/serenity-js/serenity-js/compare/v2.10.2...v2.10.3) (2020-06-15)
 
 **Note:** Version bump only for package @serenity-js-examples/protractor-jasmine-todomvc
