@@ -6,7 +6,7 @@ describe('Mocha', () => {
 
         it('passes the third time', () => {
 
-            if (counter++ < 2) {
+            if (retries++ < 2) {
                 throw new Error(`Something's happened`);
             }
 
