@@ -123,10 +123,6 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/bootstrap.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;yargs&apos;</span>);
 
-<span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage&apos;</span>;
-
 <span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../package.json&apos;</span>);  <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
 <span class="hljs-comment">/**
@@ -151,7 +147,7 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">argv: <span class="hljs-built_in">string</span>[], interceptor?: Interceptor</span>) </span>{
     yargs()
-        .version(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../package.json&apos;</span>).version)
+        .version(pkg.version)
         .demand(<span class="hljs-number">1</span>)
         .usage(<span class="hljs-string">&apos;Usage: $0 &lt;command&gt; [options]&apos;</span>)
         .example(<span class="hljs-string">&apos;$0 update [options]&apos;</span>, <span class="hljs-string">&apos;updates the Serenity jar to the latest version&apos;</span>)
