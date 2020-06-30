@@ -1,9 +1,5 @@
 import yargs = require('yargs');
 
-import { engage } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
-import { Actors } from './stage';
-
 const pkg = require('../../package.json');  // tslint:disable-line:no-var-requires
 
 /**
@@ -28,7 +24,7 @@ export type Interceptor = (error: Error, parsed: { [key: string]: string | numbe
  */
 export function bootstrap(argv: string[], interceptor?: Interceptor) {
     yargs()
-        .version(require('../../package.json').version)
+        .version(pkg.version)
         .demand(1)
         .usage('Usage: $0 <command> [options]')
         .example('$0 update [options]', 'updates the Serenity jar to the latest version')
