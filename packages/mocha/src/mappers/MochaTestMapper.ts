@@ -9,13 +9,19 @@ export class MochaTestMapper {
     public detailsOf(test: Test): ScenarioDetails {
 
         function fileOf(t) {
-            return !! t.file || ! t.parent
-                ? t.file
-                : fileOf(t.parent);
+            switch (true) {
+                case !! t.ctx && !! t.ctx.currentTest && !! t.ctx.currentTest.file:
+                    return t.ctx.currentTest.file;
+                case !! t.file:
+                    return t.file;
+                case !! t.parent:
+                    return fileOf(t.parent);
+                default:
+                    throw new Error(`Couldn't determine path of ${ t }`);
+            }
         }
 
         return new ScenarioDetails(
-            // todo: consider including retry number in test name
             new Name(this.nameOf(test)),
             new Category(this.featureNameFor(test)),
             new FileSystemLocation(
