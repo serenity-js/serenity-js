@@ -17,6 +17,10 @@ export class SceneSequenceReportingStrategy extends SceneReportingStrategy {
             && this.scenario.location.path.equals(anotherScenario.location.path);
     }
 
+    recordingFinished(): boolean {
+        return false;
+    }
+
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         return match<DomainEvent, SceneReport>(event)
             .when(SceneStarts,                      (e: SceneStarts) => {
