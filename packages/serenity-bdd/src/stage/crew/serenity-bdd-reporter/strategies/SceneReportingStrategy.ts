@@ -29,6 +29,8 @@ export abstract class SceneReportingStrategy {
 
     abstract worksFor(anotherScenario: ScenarioDetails): boolean;
 
+    abstract recordingFinished(): boolean;
+
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         return match<DomainEvent, SceneReport>(event)
             .when(FeatureNarrativeDetected, (e: FeatureNarrativeDetected)   => report.withFeatureNarrativeOf(e.description))

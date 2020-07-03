@@ -35,7 +35,7 @@ describe('SerenityBDDReporter', () => {
         reporter        = env.reporter;
     });
 
-    describe('reports the activities that took place during scenario execution:', () => {
+    describe('when reporting activities that took place during scenario execution', () => {
 
         /**
          * @test {SerenityBDDReporter}
@@ -62,6 +62,23 @@ describe('SerenityBDDReporter', () => {
             expect(report.testSteps).to.have.lengthOf(1);
             expect(report.testSteps[0].description).to.equal(pickACard.name.value);
             expect(report.testSteps[0].result).to.equal('SUCCESS');
+        });
+
+        it('ignores any activities that occurred after the scene has finished', () => {
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+
+            given(reporter).isNotifiedOfFollowingEvents(
+                new SceneStarts(defaultCardScenario),
+                new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                // activities that occur outside of the scenario, i.e. in Mocha's `after` hook, should be ignored by this reporter
+                new TaskStarts(pickACard),
+                new TaskFinished(pickACard, new ExecutionSuccessful()),
+                new TestRunFinishes(),
+            );
+
+            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+            expect(report.testSteps).to.have.lengthOf(0);
         });
 
         /**
