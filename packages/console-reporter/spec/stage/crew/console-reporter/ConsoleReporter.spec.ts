@@ -1,8 +1,7 @@
 import 'mocha';
 
-import { expect } from '@integration/testing-tools';
+import { EventStreamEmitter, expect } from '@integration/testing-tools';
 import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
-import * as events from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { ConsoleReporter } from '../../../../src';
 import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
@@ -367,24 +366,6 @@ describe('ConsoleReporter', () => {
         }));
     });
 });
-
-class EventStreamEmitter {
-    constructor(private readonly stage: Stage) {
-    }
-
-    emit(eventLog: string): Promise<void> {
-        const entries = eventLog
-            .split('\n')
-            .map(line => line.trim())
-            .filter(line => !! line)
-            .map(line => JSON.parse(line.trim()))
-            .map(entry => events[ entry.type ].fromJSON(entry.event));
-
-        entries.forEach(event => this.stage.announce(event));
-
-        return this.stage.waitForNextCue();
-    }
-}
 
 class FakeWritableStream implements Partial<NodeJS.WritableStream> {
     constructor(public buffer: string = '') {
