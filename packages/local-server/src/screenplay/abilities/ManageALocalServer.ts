@@ -1,9 +1,9 @@
 import { Ability, ConfigurationError, UsesAbilities } from '@serenity-js/core';
-import getPort = require('get-port');
 import * as http from 'http';
 import withShutdownSupport = require('http-shutdown');
 import * as https from 'https';
 import * as net from 'net';
+import { getPortPromise } from 'portfinder';
 
 /**
  * @desc
@@ -65,7 +65,7 @@ export class ManageALocalServer implements Ability {
      * @desc
      *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
-     * @param {RequestListener | net.Server} listener
+     * @param {RequestListener | https~Server} listener
      * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
      * @returns {ManageALocalServer}
      *
@@ -105,29 +105,35 @@ export class ManageALocalServer implements Ability {
 
     /**
      * @desc
-     *  Starts the server on the first available of the `preferredPorts`.
+     *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.
      *
-     * @param {number[]} preferredPorts - If the provided list is empty the server will be started on a random port
+     * @param {number} [preferredPort=8000]
+     *  Lower bound of the preferred port range
+     *
+     * @param {number} [highestPort=65535] highestPort
+     *  Upper bound of the preferred port range
+     *
      * @returns {Promise<void>}
      */
-    listen(preferredPorts: number[]): Promise<void> {
-        return getPort({ port: preferredPorts }).then(port => new Promise<void>((resolve, reject) => {
-            function errorHandler(error: Error & {code: string}) {
-                if (error.code === 'EADDRINUSE') {
-                    return reject(new ConfigurationError(`Server address is in use. Is there another server running on port ${ port }?`, error));
+    listen(preferredPort: number = 8000, highestPort: number = 65535): Promise<void> {
+        return getPortPromise({ port: preferredPort, stopPort: highestPort })
+            .then(port => new Promise<void>((resolve, reject) => {
+                function errorHandler(error: Error & {code: string}) {
+                    if (error.code === 'EADDRINUSE') {
+                        return reject(new ConfigurationError(`Server address is in use. Is there another server running on port ${ port }?`, error));
+                    }
+
+                    return reject(error);
                 }
 
-                return reject(error);
-            }
+                this.server.once('error', errorHandler);
 
-            this.server.once('error', errorHandler);
+                this.server.listen(port, '127.0.0.1', () => {
+                    this.server.removeListener('error', errorHandler);
 
-            this.server.listen(port, '127.0.0.1', () => {
-                this.server.removeListener('error', errorHandler);
-
-                resolve();
-            });
-        }));
+                    resolve();
+                });
+            }));
     }
 
     /**
@@ -165,7 +171,10 @@ export type RequestListener = (request: http.IncomingMessage, response: http.Ser
  *
  * @typedef {net~Server & { shutdown: (callback: (error?: Error) => void) => void }} ServerWithShutdown
  */
-export type ServerWithShutdown = net.Server & { shutdown: (callback: (error?: Error) => void) => void };
+export type ServerWithShutdown = net.Server & {
+    shutdown: (callback: (error?: Error) => void) => void,
+    forceShutdown: (callback: (error?: Error) => void) => void,
+};
 
 /**
  * @desc
