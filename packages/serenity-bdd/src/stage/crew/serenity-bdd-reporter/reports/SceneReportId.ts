@@ -1,5 +1,8 @@
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
 
+/**
+ * @package
+ */
 export class SceneReportId extends TinyType {
 
     public readonly values: string[] = [];
