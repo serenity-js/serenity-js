@@ -9,14 +9,9 @@ import { SceneReportingStrategy } from './SceneReportingStrategy';
  * @package
  */
 export class SingleSceneReportingStrategy extends SceneReportingStrategy {
-    private finished = false;
 
     worksFor(anotherScenario: ScenarioDetails): boolean {
         return this.scenario.equals(anotherScenario);
-    }
-
-    recordingFinished(): boolean {
-        return this.finished;
     }
 
     handle(event: DomainEvent, report: SceneReport): SceneReport {
@@ -24,14 +19,12 @@ export class SingleSceneReportingStrategy extends SceneReportingStrategy {
             .when(SceneStarts,      (e: SceneStarts)      => report.executionStartedAt(e.timestamp))
             .when(ActivityStarts,   (e: ActivityStarts)   => report.activityStarted(e.value, e.timestamp))
             .when(ActivityFinished, (e: ActivityFinished) => report.activityFinished(e.value, e.outcome, e.timestamp))
-            .when(SceneFinished,    (e: SceneFinished)    => {
-                this.finished = true;
-
-                return report
+            .when(SceneFinished,    (e: SceneFinished)    =>
+                report
                     .executionFinishedAt(e.timestamp)
                     .executionFinishedWith(e.value, e.outcome)
-                    .markedAsCompleted();
-            })
+                    .markedAsCompleted()
+            )
             .else(e => super.handle(e, report));
     }
 }
