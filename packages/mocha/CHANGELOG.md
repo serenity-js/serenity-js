@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **mocha:** correctly handle events emitted in `before` hook ([fb3e549](https://github.com/serenity-js/serenity-js/commit/fb3e549fd7038de9cde28d0eb2309e56a7062c22))
+
+
+
+
+
 ## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
 
 **Note:** Version bump only for package @serenity-js/mocha
