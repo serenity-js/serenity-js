@@ -36,7 +36,9 @@
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test": "nyc --report-dir ../../target/coverage/rest mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
-    "site": "esdoc -c .esdoc.js"
+    "site": "esdoc -c .esdoc.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -51,7 +53,8 @@
   },
   "dependencies": {
     "portfinder": "^1.0.26",
-    "http-shutdown": "^1.2.2"
+    "http-shutdown": "^1.2.2",
+    "snyk": "^1.360.0"
   },
   "peerDependencies": {
     "@serenity-js/core": "2.x"
@@ -94,5 +97,6 @@
     ],
     "cache": true,
     "all": true
-  }
+  },
+  "snyk": true
 }
