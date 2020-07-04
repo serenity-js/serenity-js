@@ -1093,13 +1093,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber216",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber233",
     "SerenityBDDReporter artifacts",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts artifactgenerated taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~artifactgenerated,artifactgenerated @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber228",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber245",
     "SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction",
     "test"
   ],
@@ -1177,19 +1177,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber131",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber148",
     "SerenityBDDReporter order of events",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts artifactgenerated taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~artifactgenerated,artifactgenerated @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber143",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber160",
     "SerenityBDDReporter order of events records the events in a correct order",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber179",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber196",
     "SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context",
     "test"
   ],
@@ -1436,25 +1436,31 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber38",
-    "SerenityBDDReporter reports the activities that took place during scenario execution:",
+    "SerenityBDDReporter when reporting activities that took place during scenario execution",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber67",
+    "SerenityBDDReporter when reporting activities that took place during scenario execution ignores any activities that occurred after the scene has finished",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber76",
-    "SerenityBDDReporter reports the activities that took place during scenario execution: reports the outcome of a sequence of several activities",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber93",
+    "SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber49",
-    "SerenityBDDReporter reports the activities that took place during scenario execution: reports the outcome of a single activity",
+    "SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a single activity",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber108",
-    "SerenityBDDReporter reports the activities that took place during scenario execution: reports the outcome of nested activities",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber125",
+    "SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities",
     "test"
   ],
   [

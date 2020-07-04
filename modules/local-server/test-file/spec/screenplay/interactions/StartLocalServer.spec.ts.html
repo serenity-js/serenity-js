@@ -124,96 +124,82 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1>Source code</h1>
-<img data-ice="coverageBadge" src="./badge.svg">
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/StartLocalServer.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
-<table class="files-summary" data-ice="files" data-use-coverage="true">
-  <thead>
-    <tr>
-      <td>File</td>
-      <td>Identifier</td>
-      <td class="coverage">Documentation</td>
-      <td style="display: none;">Size</td>
-      <td style="display: none;">Lines</td>
-      <td style="display: none;">Updated</td>
-    </tr>
-  </thead>
-  <tbody>
-    
-  <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/index.ts.html">src/index.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">30 byte</td>
-      <td style="display: none;" data-ice="lines">1</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/abilities/ManageALocalServer.ts.html">src/screenplay/abilities/ManageALocalServer.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html">ManageALocalServer</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
-      <td style="display: none;" data-ice="size">7161 byte</td>
-      <td style="display: none;" data-ice="lines">195</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/abilities/index.ts.html">src/screenplay/abilities/index.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">38 byte</td>
-      <td style="display: none;" data-ice="lines">1</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/index.ts.html">src/screenplay/index.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">90 byte</td>
-      <td style="display: none;" data-ice="lines">3</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#errorLines=207,257,313">src/screenplay/interactions/StartLocalServer.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html">StartLocalServer</a></span></td>
-      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">17/20</span></td>
-      <td style="display: none;" data-ice="size">5150 byte</td>
-      <td style="display: none;" data-ice="lines">158</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/interactions/StopLocalServer.ts.html">src/screenplay/interactions/StopLocalServer.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/src/screenplay/interactions/StopLocalServer.ts~StopLocalServer.html">StopLocalServer</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
-      <td style="display: none;" data-ice="size">1971 byte</td>
-      <td style="display: none;" data-ice="lines">58</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/interactions/index.ts.html">src/screenplay/interactions/index.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">71 byte</td>
-      <td style="display: none;" data-ice="lines">2</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/questions/LocalServer.ts.html">src/screenplay/questions/LocalServer.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/src/screenplay/questions/LocalServer.ts~LocalServer.html">LocalServer</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
-      <td style="display: none;" data-ice="size">2607 byte</td>
-      <td style="display: none;" data-ice="lines">75</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/screenplay/questions/index.ts.html">src/screenplay/questions/index.ts</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">31 byte</td>
-      <td style="display: none;" data-ice="lines">1</td>
-      <td style="display: none;" data-ice="updated">2020-07-07 01:02:48 (UTC)</td>
-    </tr>
-</tbody>
-</table>
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { and, Ensure, equals, isGreaterThan, isLessThan, or } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, actorInTheSpotlight, Cast, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
+<span class="hljs-keyword">import</span> { Server } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;net&apos;</span>;
+<span class="hljs-keyword">import</span> { satisfies } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;semver&apos;</span>;
+<span class="hljs-keyword">import</span> { RequestListener } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay/abilities&apos;</span>;
+
+<span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
+<span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../servers&apos;</span>);
+
+<span class="hljs-comment">/** @test {StartALocalServer} */</span>
+<span class="hljs-comment">/** @test {LocalServer.url} */</span>
+<span class="hljs-comment">/** @test {LocalServer.port} */</span>
+describe(<span class="hljs-string">&apos;StartALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> listener: () =&gt; RequestListener | Server</span>) {
+        }
+
+        prepare(actor: Actor): Actor {
+            <span class="hljs-keyword">return</span> actor.whoCan(ManageALocalServer.runningAHttpListener(<span class="hljs-built_in">this</span>.listener()));
+        }
+    }
+
+    given(servers).
+    it(<span class="hljs-string">&apos;allows the Actor to start the server on a preferred port&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
+        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+        }
+
+        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
+            StartLocalServer.onPort(<span class="hljs-number">30000</span>),
+            Ensure.that(LocalServer.port(), equals(<span class="hljs-number">30000</span>)),
+        )).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+    });
+
+    given(servers).
+    it(<span class="hljs-string">&apos;allows the Actor to start the server on a random port&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
+        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+        }
+
+        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
+            StartLocalServer.onRandomPort(),
+            Ensure.that(LocalServer.port(), and(or(equals(<span class="hljs-number">8000</span>), isGreaterThan(<span class="hljs-number">8000</span>)), or(isLessThan(<span class="hljs-number">65535</span>), equals(<span class="hljs-number">65535</span>)))),
+        )).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+    });
+
+    given(servers).
+    it(<span class="hljs-string">&apos;allows the Actor to start the server on a random port within a range&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
+        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+        }
+
+        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
+            StartLocalServer.onRandomPortBetween(<span class="hljs-number">8080</span>, <span class="hljs-number">9090</span>),
+            Ensure.that(LocalServer.port(), and(or(equals(<span class="hljs-number">8080</span>), isGreaterThan(<span class="hljs-number">8080</span>)), or(isLessThan(<span class="hljs-number">9090</span>), equals(<span class="hljs-number">9090</span>)))),
+        )).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+    });
+
+    afterEach(<span class="hljs-function">() =&gt;</span> actorInTheSpotlight().attemptsTo(
+        StopLocalServer.ifRunning(),
+    ));
+});
+</code></pre>
+
 </article>
             </section>
         </div>

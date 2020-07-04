@@ -131,7 +131,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber17">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber15">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -139,12 +139,12 @@
 
   
 
-  <div class="description" data-ice="description"><p> Starts the local server so that the test can interact with it.</p>
+  <div class="description" data-ice="description"><p> Starts local server so that a test can interact with it.</p>
 </div>
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> &#x2192; StartLocalServer</div></div>
+  
   
   
   
@@ -162,7 +162,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/reporting.spec.ts.html#lineNumber66">@serenity-js/local-server when managing a local server </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/reporting.spec.ts.html#lineNumber65">@serenity-js/local-server when managing a local server </a></span></li>
 </ul>
   </div>
 
@@ -190,13 +190,44 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onOneOfThePreferredPorts">onOneOfThePreferredPorts</a></span></span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onOneOfThePreferredPorts">onOneOfThePreferredPorts</a></span></span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>&lt;<span><span>number</span><span>[]</span></span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+        </p>
+      </div>
+      <div>
+        <div class="deprecated" data-ice="deprecated">this method was deprecated. Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`</div>
+        
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on one of the preferred ports.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onPort">onPort</a></span></span><span class="code" data-ice="signature">(preferredPort: <span>Answerable</span>&lt;<span>number</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Starts the local test server on one of the preferred ports.</p>
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on a <code>preferredPort</code>, or a random one if that&apos;s not available.</p>
 </div>
       </div>
     </td>
@@ -225,80 +256,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Starts the local test server on one of the available ports.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>&lt;<span><span>number</span><span>[]</span></span>&gt;)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-method-performAs">performAs</a></span></span><span class="code" data-ice="signature">(actor: <span>UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
- perform this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+        <div data-ice="description"><p> Starts local test server on a random available ports.</p>
 </div>
       </div>
     </td>
@@ -310,7 +268,7 @@
 <tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
-      
+      <span data-ice="static">static</span>
       
       
       <span class="override" data-ice="override"></span>
@@ -321,13 +279,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-method-toString">toString</a></span></span><span class="code" data-ice="signature">(): <span>string</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onRandomPortBetween">onRandomPortBetween</a></span></span><span class="code" data-ice="signature">(lowestPort: <span>Answerable</span>&lt;<span>number</span>&gt;, highestPort: <span>Answerable</span>&lt;<span>number</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p> Generates a description to be used when reporting this <span><a href="/modules/core/class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on a random port between <code>lowestPort</code> and <code>highestPort</code>.</p>
 </div>
       </div>
     </td>
@@ -339,6 +298,9 @@
 </tbody>
 </table>
 </div>
+
+
+
 
 
 
@@ -353,149 +315,23 @@
     
     
     
-    <span class="code" data-ice="name">onOneOfThePreferredPorts</span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="code" data-ice="name">onOneOfThePreferredPorts</span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>&lt;<span><span>number</span><span>[]</span></span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
   
+  <div class="deprecated" data-ice="deprecated">this method was deprecated. Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`</div>
   
-  
-  <div data-ice="description"><p>Starts the local test server on one of the preferred ports. </p>
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on one of the preferred ports.</p>
+<p> Please note: this method is kept for backwards compatibility. However, its behaviour has changed
+ and is currently identical to calling <code>StartLocalServer.onPort</code> with the first of <code>preferredPorts</code>
+ passed as an argument.</p>
 </div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">preferredPorts</td>
-      <td data-ice="type" class="code"><span>Answerable</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-method-onRandomPort">
-    <span class="access" data-ice="access">public</span>
-    <span data-ice="static">static</span>
-    
-    
-    
-    
-    <span class="code" data-ice="name">onRandomPort</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber17">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Starts the local test server on one of the available ports. </p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-constructor-constructor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(preferredPorts: <span>Answerable</span>&lt;<span><span>number</span><span>[]</span></span>&gt;)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber62">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
 
   
 
@@ -510,9 +346,8 @@
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">preferredPorts</td>
       <td data-ice="type" class="code"><span>Answerable</span>&lt;<span><span>number</span><span>[]</span></span>&gt;</td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: []</li></ul></td>
-      <td data-ice="description"><p>preferredPorts</p>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A list of preferred ports. Please note that only the first one will be used!</p>
 </td>
     </tr>
 </tbody>
@@ -520,7 +355,19 @@
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -534,34 +381,32 @@
 
   
 
-  <div data-ice="see"><h4>See:</h4><ul><li><span><span>@serenity-js/core/lib/screenplay~Answerable</span></span></li></ul></div>
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/LocalServer.ts~LocalServer.html#static-method-url">LocalServer.url</a></span></span></li>
+<li><span><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onPort">StartLocalServer.onPort</a></span></span></li>
+<li><span><span><a href="class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onRandomPortBetween">StartLocalServer.onRandomPortBetween</a></span></span></li></ul></div>
   
 </div>
-</div>
-
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
-
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-performAs">
+  <h3 data-ice="anchor" id="static-method-onPort">
     <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
     
     
     
     
-    
-    <span class="code" data-ice="name">performAs</span><span class="code" data-ice="signature">(actor: <span>UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="code" data-ice="name">onPort</span><span class="code" data-ice="signature">(preferredPort: <span>Answerable</span>&lt;<span>number</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber92">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber109">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
- perform this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on a <code>preferredPort</code>, or a random one if that&apos;s not available.</p>
 </div>
 
   
@@ -575,10 +420,11 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">actor</td>
-      <td data-ice="type" class="code"><span>UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span></td>
+      <td data-ice="name" class="code" data-depth="0">preferredPort</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>number</span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>preferred port</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -590,7 +436,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
           
         </tr>
       </tbody>
@@ -611,32 +457,30 @@
 
   
 
-  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
-<li><span><span><a href="/modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
-<li><span><span><a href="/modules/core/class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
-<li><span><span><a href="/modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li></ul></div>
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/LocalServer.ts~LocalServer.html#static-method-url">LocalServer.url</a></span></span></li>
+<li><span><span>@serenity-js/core/lib/screenplay~Answerable</span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-toString">
+  <h3 data-ice="anchor" id="static-method-onRandomPort">
     <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
     
     
     
     
-    
-    <span class="code" data-ice="name">toString</span><span class="code" data-ice="signature">(): <span>string</span></span>
+    <span class="code" data-ice="name">onRandomPort</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber114">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Generates a description to be used when reporting this <span><a href="/modules/core/class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+  <div data-ice="description"><p> Starts local test server on a random available ports.</p>
 </div>
 
   
@@ -649,7 +493,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>string</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
           
         </tr>
       </tbody>
@@ -670,10 +514,94 @@
 
   
 
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/LocalServer.ts~LocalServer.html#static-method-url">LocalServer.url</a></span></span></li></ul></div>
   
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-onRandomPortBetween">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">onRandomPortBetween</span><span class="code" data-ice="signature">(lowestPort: <span>Answerable</span>&lt;<span>number</span>&gt;, highestPort: <span>Answerable</span>&lt;<span>number</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/StartLocalServer.ts.html#lineNumber145">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to start a local test server on a random port between <code>lowestPort</code> and <code>highestPort</code>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">lowestPort</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>number</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Lower bound of the preferred port range</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">highestPort</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>number</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Upper bound of the preferred port range</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/LocalServer.ts~LocalServer.html#static-method-url">LocalServer.url</a></span></span></li></ul></div>
   
 </div>
 </div>
+
+
+
 </article>
             </section>
         </div>

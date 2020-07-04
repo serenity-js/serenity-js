@@ -140,6 +140,10 @@
             &amp;&amp; <span class="hljs-built_in">this</span>.scenario.location.path.equals(anotherScenario.location.path);
     }
 
+    recordingFinished(): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         <span class="hljs-keyword">return</span> match&lt;DomainEvent, SceneReport&gt;(event)
             .when(SceneStarts,                      <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {

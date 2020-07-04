@@ -129,6 +129,7 @@
 <span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-keyword">import</span> { AddressInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;net&apos;</span>;
+<span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> LocalServer {
 
@@ -141,8 +142,10 @@
      *
      * @see {@link StartLocalServer}
      * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question&lt;string&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> url() {
+    <span class="hljs-keyword">static</span> url(): Question&lt;<span class="hljs-built_in">string</span>&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;the URL of the local server&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).mapInstance(<span class="hljs-function">(<span class="hljs-params">server, protocol</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> info = server.address();
@@ -163,6 +166,26 @@
                     info.port,
                 ].join(<span class="hljs-string">&apos;&apos;</span>);
             });
+        });
+    }
+
+    <span class="hljs-comment">/**
+     * @desc
+     *  Retrieves the port number of the local server started
+     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question&lt;string&gt;} port number of the locally running Node.js server
+     *
+     * @see {@link StartLocalServer}
+     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question&lt;number&gt;}
+     */</span>
+    <span class="hljs-keyword">static</span> port(): Question&lt;<span class="hljs-built_in">number</span>&gt; {
+        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`local server port number`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> url = LocalServer.url().answeredBy(actor);
+
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(parse(url).port, <span class="hljs-number">10</span>);
         });
     }
 }

@@ -129,9 +129,8 @@
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { endsWith, Ensure, equals, not, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, ConfigurationError, configure, Log } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 
@@ -180,8 +179,8 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
         )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(ActivityStarts,   hasName(<span class="hljs-string">`Nadia starts the local server`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia starts the local server`</span>))
+                .next(ActivityStarts,   hasName(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
+                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
                 .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia ensures that the URL of the local server does start with &apos;http://127.0.0.1&apos;`</span>))
                 .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia sends a GET request to the URL of the local server`</span>))
                 .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia ensures that the status of the last response does equal 200`</span>))

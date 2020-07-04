@@ -152,6 +152,8 @@
 
     <span class="hljs-keyword">abstract</span> worksFor(anotherScenario: ScenarioDetails): <span class="hljs-built_in">boolean</span>;
 
+    <span class="hljs-keyword">abstract</span> recordingFinished(): <span class="hljs-built_in">boolean</span>;
+
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         <span class="hljs-keyword">return</span> match&lt;DomainEvent, SceneReport&gt;(event)
             .when(FeatureNarrativeDetected, <span class="hljs-function">(<span class="hljs-params">e: FeatureNarrativeDetected</span>)   =&gt;</span> report.withFeatureNarrativeOf(e.description))

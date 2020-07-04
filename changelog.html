@@ -89,6 +89,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
+                            <li><a href="CHANGELOG.html#2-11-2-2020-07-04-">2.11.2 (2020-07-04)</a></li>
                             <li><a href="CHANGELOG.html#2-11-1-2020-06-30-">2.11.1 (2020-06-30)</a></li>
                             <li><a href="CHANGELOG.html#2-10-3-2020-06-15-">2.10.3 (2020-06-15)</a></li>
                             <li><a href="CHANGELOG.html#2-10-2-2020-06-11-">2.10.2 (2020-06-11)</a></li>
@@ -263,6 +264,13 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h2 id="2-11-2-2020-07-04-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2">2.11.2</a> (2020-07-04)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>local-server:</strong> corrected issue where local server could come back on a random port after restart (<a href="https://github.com/serenity-js/serenity-js/commit/32f18b9dbd2278e0874635f7be9727aa0b90a6ae">32f18b9</a>), closes <a href="https://github.com/sindresorhus/get-port/issues/43">sindresorhus/get-port#43</a></li>
+<li><strong>mocha:</strong> correctly handle events emitted in <code>before</code> hook (<a href="https://github.com/serenity-js/serenity-js/commit/fb3e549fd7038de9cde28d0eb2309e56a7062c22">fb3e549</a>)</li>
+<li><strong>serenity-bdd:</strong> serenityBDD reporter ignores any events that happen outside of the test (<a href="https://github.com/serenity-js/serenity-js/commit/bb3b027b9b1aa3f4024dcadeb8df1483d5e18906">bb3b027</a>)</li>
+</ul>
 <h2 id="2-11-1-2020-06-30-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1">2.11.1</a> (2020-06-30)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>

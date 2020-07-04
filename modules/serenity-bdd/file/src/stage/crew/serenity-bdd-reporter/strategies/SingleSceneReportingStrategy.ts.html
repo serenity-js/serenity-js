@@ -132,8 +132,14 @@
  * @package
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SingleSceneReportingStrategy <span class="hljs-keyword">extends</span> SceneReportingStrategy {
+    <span class="hljs-keyword">private</span> finished = <span class="hljs-literal">false</span>;
+
     worksFor(anotherScenario: ScenarioDetails): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.scenario.equals(anotherScenario);
+    }
+
+    recordingFinished(): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.finished;
     }
 
     handle(event: DomainEvent, report: SceneReport): SceneReport {
@@ -142,6 +148,8 @@
             .when(ActivityStarts,   <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts</span>)   =&gt;</span> report.activityStarted(e.value, e.timestamp))
             .when(ActivityFinished, <span class="hljs-function">(<span class="hljs-params">e: ActivityFinished</span>) =&gt;</span> report.activityFinished(e.value, e.outcome, e.timestamp))
             .when(SceneFinished,    <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>)    =&gt;</span> {
+                <span class="hljs-built_in">this</span>.finished = <span class="hljs-literal">true</span>;
+
                 <span class="hljs-keyword">return</span> report
                     .executionFinishedAt(e.timestamp)
                     .executionFinishedWith(e.value, e.outcome)

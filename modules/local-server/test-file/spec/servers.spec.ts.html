@@ -139,9 +139,9 @@
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src&apos;</span>;
 <span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./servers&apos;</span>);
 
-<span class="hljs-comment">/** @test {ManageALocalServer} */</span>
 describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
+    <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
     describe(<span class="hljs-string">&apos;when working with HTTP&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(servers).
@@ -198,6 +198,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
 
     <span class="hljs-comment">// ---</span>
 
+    <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
     describe(<span class="hljs-string">&apos;when working with HTTPS&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> testHttpsServer = [

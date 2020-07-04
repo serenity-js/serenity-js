@@ -901,31 +901,31 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber13",
+    "test-file/spec/reporting.spec.ts.html#lineNumber12",
     "@serenity-js/local-server",
     "test"
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber59",
+    "test-file/spec/reporting.spec.ts.html#lineNumber58",
     "@serenity-js/local-server when managing a local server",
     "test"
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber88",
+    "test-file/spec/reporting.spec.ts.html#lineNumber87",
     "@serenity-js/local-server when managing a local server",
     "test"
   ],
   [
     "managealocalserver startlocalserver stoplocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver src/screenplay/interactions/startlocalserver.ts~startlocalserver,startlocalserver src/screenplay/interactions/stoplocalserver.ts~stoplocalserver,stoplocalserver",
-    "test-file/spec/reporting.spec.ts.html#lineNumber66",
+    "test-file/spec/reporting.spec.ts.html#lineNumber65",
     "@serenity-js/local-server when managing a local server ",
     "test"
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber99",
+    "test-file/spec/reporting.spec.ts.html#lineNumber98",
     "@serenity-js/local-server when managing a local server ",
     "test"
   ],
@@ -1002,39 +1002,69 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
-    "test-file/spec/servers.spec.ts.html#lineNumber16",
+    "",
+    "test-file/spec/restarting.spec.ts.html#lineNumber13",
     "ManageALocalServer",
     "test"
   ],
   [
     "",
+    "test-file/spec/servers.spec.ts.html#lineNumber15",
+    "ManageALocalServer",
+    "test"
+  ],
+  [
+    "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
+    "test-file/spec/restarting.spec.ts.html#lineNumber16",
+    "ManageALocalServer restarting",
+    "test"
+  ],
+  [
+    "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
     "test-file/spec/servers.spec.ts.html#lineNumber18",
     "ManageALocalServer when working with HTTP",
     "test"
   ],
   [
-    "",
-    "test-file/spec/servers.spec.ts.html#lineNumber114",
+    "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
+    "test-file/spec/servers.spec.ts.html#lineNumber115",
     "ManageALocalServer when working with HTTPS",
     "test"
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber182",
+    "test-file/spec/servers.spec.ts.html#lineNumber183",
     "ManageALocalServer when working with HTTPS allows the Actor to start, stop and access the location of a HTTPS Hapi app",
     "test"
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber239",
+    "test-file/spec/servers.spec.ts.html#lineNumber240",
     "ManageALocalServer when working with HTTPS allows the Actor to start, stop and access the location of a Restify app",
+    "test"
+  ],
+  [
+    "localserver.port src/screenplay/questions/localserver.ts~localserver.port,localserver.port",
+    "test-file/spec/screenplay/interactions/StartLocalServer.spec.ts.html#lineNumber17",
+    "StartALocalServer",
     "test"
   ],
   [
     "spec/reporting.spec.ts",
     "test-file/spec/reporting.spec.ts.html",
     "spec/reporting.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/restarting.spec.ts",
+    "test-file/spec/restarting.spec.ts.html",
+    "spec/restarting.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/interactions/startlocalserver.spec.ts",
+    "test-file/spec/screenplay/interactions/StartLocalServer.spec.ts.html",
+    "spec/screenplay/interactions/StartLocalServer.spec.ts",
     "testFile"
   ],
   [
@@ -1134,33 +1164,27 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/screenplay/interactions/startlocalserver.ts~startlocalserver#constructor",
-    "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-constructor-constructor",
-    "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer#constructor",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/startlocalserver.ts~startlocalserver#performas",
-    "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-method-performAs",
-    "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer#performAs",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/startlocalserver.ts~startlocalserver#tostring",
-    "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#instance-method-toString",
-    "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer#toString",
-    "method"
-  ],
-  [
     "src/screenplay/interactions/startlocalserver.ts~startlocalserver.ononeofthepreferredports",
     "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onOneOfThePreferredPorts",
     "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.onOneOfThePreferredPorts",
     "method"
   ],
   [
+    "src/screenplay/interactions/startlocalserver.ts~startlocalserver.onport",
+    "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onPort",
+    "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.onPort",
+    "method"
+  ],
+  [
     "src/screenplay/interactions/startlocalserver.ts~startlocalserver.onrandomport",
     "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onRandomPort",
     "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.onRandomPort",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/startlocalserver.ts~startlocalserver.onrandomportbetween",
+    "class/src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.html#static-method-onRandomPortBetween",
+    "src/screenplay/interactions/StartLocalServer.ts~StartLocalServer.onRandomPortBetween",
     "method"
   ],
   [
@@ -1198,6 +1222,12 @@ window.esdocSearchIndex = [
     "file/src/screenplay/questions/LocalServer.ts.html",
     "src/screenplay/questions/LocalServer.ts",
     "file"
+  ],
+  [
+    "src/screenplay/questions/localserver.ts~localserver.port",
+    "class/src/screenplay/questions/LocalServer.ts~LocalServer.html#static-method-port",
+    "src/screenplay/questions/LocalServer.ts~LocalServer.port",
+    "method"
   ],
   [
     "src/screenplay/questions/localserver.ts~localserver.url",

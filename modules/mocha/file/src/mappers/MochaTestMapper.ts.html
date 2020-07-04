@@ -130,13 +130,19 @@
     <span class="hljs-keyword">public</span> detailsOf(test: Test): ScenarioDetails {
 
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fileOf</span>(<span class="hljs-params">t</span>) </span>{
-            <span class="hljs-keyword">return</span> !! t.file || ! t.parent
-                ? t.file
-                : fileOf(t.parent);
+            <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
+                <span class="hljs-keyword">case</span> !! t.ctx &amp;&amp; !! t.ctx.currentTest &amp;&amp; !! t.ctx.currentTest.file:
+                    <span class="hljs-keyword">return</span> t.ctx.currentTest.file;
+                <span class="hljs-keyword">case</span> !! t.file:
+                    <span class="hljs-keyword">return</span> t.file;
+                <span class="hljs-keyword">case</span> !! t.parent:
+                    <span class="hljs-keyword">return</span> fileOf(t.parent);
+                <span class="hljs-keyword">default</span>:
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Couldn&apos;t determine path of <span class="hljs-subst">${ t }</span>`</span>);
+            }
         }
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-comment">// todo: consider including retry number in test name</span>
             <span class="hljs-keyword">new</span> Name(<span class="hljs-built_in">this</span>.nameOf(test)),
             <span class="hljs-keyword">new</span> Category(<span class="hljs-built_in">this</span>.featureNameFor(test)),
             <span class="hljs-keyword">new</span> FileSystemLocation(

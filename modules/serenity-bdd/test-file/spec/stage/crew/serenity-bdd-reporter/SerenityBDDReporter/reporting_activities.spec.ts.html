@@ -158,7 +158,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         reporter        = env.reporter;
     });
 
-    describe(<span class="hljs-string">&apos;reports the activities that took place during scenario execution:&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">&apos;when reporting activities that took place during scenario execution&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
          * @test {SerenityBDDReporter}
@@ -185,6 +185,23 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].description).to.equal(pickACard.name.value);
             expect(report.testSteps[<span class="hljs-number">0</span>].result).to.equal(<span class="hljs-string">&apos;SUCCESS&apos;</span>);
+        });
+
+        it(<span class="hljs-string">&apos;ignores any activities that occurred after the scene has finished&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
+
+            given(reporter).isNotifiedOfFollowingEvents(
+                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
+                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-comment">// activities that occur outside of the scenario, i.e. in Mocha&apos;s `after` hook, should be ignored by this reporter</span>
+                <span class="hljs-keyword">new</span> TaskStarts(pickACard),
+                <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            );
+
+            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+
+            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">0</span>);
         });
 
         <span class="hljs-comment">/**

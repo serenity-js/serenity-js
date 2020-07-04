@@ -194,8 +194,10 @@ actor.attemptsTo(
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/servers.spec.ts.html#lineNumber16">ManageALocalServer</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/reporting.spec.ts.html#lineNumber66">@serenity-js/local-server when managing a local server </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/servers.spec.ts.html#lineNumber115">ManageALocalServer when working with HTTPS</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/restarting.spec.ts.html#lineNumber16">ManageALocalServer restarting</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/servers.spec.ts.html#lineNumber18">ManageALocalServer when working with HTTP</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/reporting.spec.ts.html#lineNumber65">@serenity-js/local-server when managing a local server </a></span></li>
 </ul>
   </div>
 
@@ -284,7 +286,7 @@ actor.attemptsTo(
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html#static-method-runningAHttpsListener">runningAHttpsListener</a></span></span><span class="code" data-ice="signature">(listener: <span>RequestListener </span> | <span> net.Server</span>, options: <span>ServerOptions</span>): <span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html">ManageALocalServer</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html#static-method-runningAHttpsListener">runningAHttpsListener</a></span></span><span class="code" data-ice="signature">(listener: <span>Server</span>, options: <span>ServerOptions</span>): <span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html">ManageALocalServer</a></span></span>
         </p>
       </div>
       <div>
@@ -356,13 +358,13 @@ actor.attemptsTo(
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html#instance-method-listen">listen</a></span></span><span class="code" data-ice="signature">(preferredPorts: <span><span>number</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html#instance-method-listen">listen</a></span></span><span class="code" data-ice="signature">(preferredPort: <span>number</span>, highestPort: <span>number</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p> Starts the server on the first available of the <code>preferredPorts</code>.</p>
+        <div data-ice="description"><p> Starts the server on the first free port between <code>preferredPort</code> and <code>highestPort</code>, inclusive.</p>
 </div>
       </div>
     </td>
@@ -563,7 +565,7 @@ actor.attemptsTo(
     
     
     
-    <span class="code" data-ice="name">runningAHttpsListener</span><span class="code" data-ice="signature">(listener: <span>RequestListener </span> | <span> net.Server</span>, options: <span>ServerOptions</span>): <span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html">ManageALocalServer</a></span></span>
+    <span class="code" data-ice="name">runningAHttpsListener</span><span class="code" data-ice="signature">(listener: <span>Server</span>, options: <span>ServerOptions</span>): <span><a href="class/src/screenplay/abilities/ManageALocalServer.ts~ManageALocalServer.html">ManageALocalServer</a></span></span>
     <span class="right-info">
       
       
@@ -589,7 +591,7 @@ actor.attemptsTo(
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">listener</td>
-      <td data-ice="type" class="code"><span>RequestListener </span> | <span> net.Server</span></td>
+      <td data-ice="type" class="code"><span>Server</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -716,18 +718,18 @@ actor.attemptsTo(
     
     
     
-    <span class="code" data-ice="name">listen</span><span class="code" data-ice="signature">(preferredPorts: <span><span>number</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="code" data-ice="name">listen</span><span class="code" data-ice="signature">(preferredPort: <span>number</span>, highestPort: <span>number</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/ManageALocalServer.ts.html#lineNumber187">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/ManageALocalServer.ts.html#lineNumber194">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Starts the server on the first available of the <code>preferredPorts</code>.</p>
+  <div data-ice="description"><p> Starts the server on the first free port between <code>preferredPort</code> and <code>highestPort</code>, inclusive.</p>
 </div>
 
   
@@ -741,10 +743,20 @@ actor.attemptsTo(
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">preferredPorts</td>
-      <td data-ice="type" class="code"><span><span>number</span><span>[]</span></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>If the provided list is empty the server will be started on a random port</p>
+      <td data-ice="name" class="code" data-depth="0">preferredPort</td>
+      <td data-ice="type" class="code"><span>number</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 8000</li></ul></td>
+      <td data-ice="description"><p>Lower bound of the preferred port range</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">highestPort</td>
+      <td data-ice="type" class="code"><span>number</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 65535</li></ul></td>
+      <td data-ice="description"><p>highestPort
+ Upper bound of the preferred port range</p>
 </td>
     </tr>
 </tbody>
@@ -793,7 +805,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/ManageALocalServer.ts.html#lineNumber247">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/ManageALocalServer.ts.html#lineNumber255">source</a></span></span>
     </span>
   </h3>
 

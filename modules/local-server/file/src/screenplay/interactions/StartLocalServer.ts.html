@@ -130,68 +130,157 @@
 
 <span class="hljs-comment">/**
  * @desc
- *  Starts the local server so that the test can interact with it.
- *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ *  Starts local server so that a test can interact with it.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StartLocalServer <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StartLocalServer {
 
     <span class="hljs-comment">/**
-     * Starts the local test server on one of the available ports.
+     * @desc
+     *  Starts local test server on a random available ports.
      *
-     * @see {@link LocalServer#url}
+     * @see {@link LocalServer.url}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
     <span class="hljs-keyword">static</span> onRandomPort(): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServer();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnRandomPort();
     }
 
     <span class="hljs-comment">/**
-     * Starts the local test server on one of the preferred ports.
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to start a local test server on one of the preferred ports.
      *
-     * @param {Answerable&lt;number[]&gt;} preferredPorts
+     *  Please note: this method is kept for backwards compatibility. However, its behaviour has changed
+     *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
+     *  passed as an argument.
      *
-     * @see {@link LocalServer#url}
-     * @see {@link @serenity-js/core/lib/screenplay~Answerable}
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number[]&gt;} preferredPorts
+     *  A list of preferred ports. Please note that only the first one will be used!
+     *
+     * @see {@link LocalServer.url}
+     * @see {@link StartLocalServer.onPort}
+     * @see {@link StartLocalServer.onRandomPortBetween}
+     *
+     * @deprecated Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
     <span class="hljs-keyword">static</span> onOneOfThePreferredPorts(preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt;): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServer(preferredPorts);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnFirstOf(preferredPorts);
     }
 
     <span class="hljs-comment">/**
-     * @param {Answerable&lt;number[]&gt;} [preferredPorts=[]] preferredPorts
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to start a local test server on a `preferredPort`, or a random one if that&apos;s not available.
      *
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} preferredPort
+     *  preferred port
+     *
+     * @see {@link LocalServer.url}
      * @see {@link @serenity-js/core/lib/screenplay~Answerable}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt; = []</span>) {
+    <span class="hljs-keyword">static</span> onPort(preferredPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;): Interaction {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnPort(preferredPort);
+    }
+
+    <span class="hljs-comment">/**
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to start a local test server on a random port between `lowestPort` and `highestPort`.
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} lowestPort
+     *  Lower bound of the preferred port range
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} highestPort
+     *  Upper bound of the preferred port range
+     *
+     * @see {@link LocalServer.url}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     */</span>
+    <span class="hljs-keyword">static</span> onRandomPortBetween(lowestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;, highestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;): Interaction {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnRandomPortBetween(lowestPort, highestPort);
+    }
+}
+
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> StartLocalServerOnRandomPort <span class="hljs-keyword">extends</span> Interaction {
+
+    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).listen();
+    }
+
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor starts local server on a random port`</span>;
+    }
+}
+
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> StartLocalServerOnPort <span class="hljs-keyword">extends</span> Interaction {
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>) {
         <span class="hljs-built_in">super</span>();
     }
 
-    <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     */</span>
     performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.preferredPorts)
-            .then(<span class="hljs-function"><span class="hljs-params">preferredPorts</span> =&gt;</span> ManageALocalServer.as(actor).listen(preferredPorts));
+        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.preferredPort)
+            .then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> ManageALocalServer.as(actor).listen(port));
     }
 
-    <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */</span>
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor starts the local server`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor starts local server on port <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.preferredPort }</span>`</span>;
+    }
+}
+
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> StartLocalServerOnRandomPortBetween <span class="hljs-keyword">extends</span> Interaction {
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> lowestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> highestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;,
+    </span>) {
+        <span class="hljs-built_in">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
+                actor.answer(<span class="hljs-built_in">this</span>.lowestPort),
+                actor.answer(<span class="hljs-built_in">this</span>.highestPort),
+            ])
+            .then(<span class="hljs-function">(<span class="hljs-params">[lowestPort, highestPort]</span>) =&gt;</span> ManageALocalServer.as(actor).listen(lowestPort, highestPort));
+    }
+
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor starts local server on port between <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.lowestPort }</span> and <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.highestPort }</span>`</span>;
+    }
+}
+
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> StartLocalServerOnFirstOf <span class="hljs-keyword">extends</span> Interaction {
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt;</span>) {
+        <span class="hljs-built_in">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.preferredPorts)
+            .then(<span class="hljs-function"><span class="hljs-params">preferredPorts</span> =&gt;</span> ManageALocalServer.as(actor).listen(preferredPorts[<span class="hljs-number">0</span>]));
+    }
+
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor starts local server on first port of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.preferredPorts }</span>`</span>;
     }
 }
 </code></pre>

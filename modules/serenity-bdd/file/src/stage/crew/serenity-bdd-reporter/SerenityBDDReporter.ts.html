@@ -162,7 +162,7 @@
             <span class="hljs-built_in">this</span>.reports.map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-built_in">this</span>.broadcast(report.toJSON()));
         })
         .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentStrategy.isSet()) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentStrategy.isSet() &amp;&amp; ! <span class="hljs-built_in">this</span>.currentStrategy.value.recordingFinished()) {
                 <span class="hljs-built_in">this</span>.reports.save(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(e, <span class="hljs-built_in">this</span>.reports.for(<span class="hljs-built_in">this</span>.currentScenario.value)));
             }
         })
