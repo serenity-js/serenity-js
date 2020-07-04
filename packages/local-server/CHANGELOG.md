@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **local-server:** corrected issue where local server could come back on a random port after restart ([32f18b9](https://github.com/serenity-js/serenity-js/commit/32f18b9dbd2278e0874635f7be9727aa0b90a6ae)), closes [sindresorhus/get-port#43](https://github.com/sindresorhus/get-port/issues/43)
+
+
+
+
+
 ## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
 
 **Note:** Version bump only for package @serenity-js/local-server
