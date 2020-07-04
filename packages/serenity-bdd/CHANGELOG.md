@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** changed the default location of the cache directory so that npm doesn't prune it ([54d6dd4](https://github.com/serenity-js/serenity-js/commit/54d6dd4eb9c380c8fa917ffc4f2f23f98c9afcba)), closes [npm/npm#16853](https://github.com/npm/npm/issues/16853)
+
+
+
+
+
 # [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
 
 
