@@ -13,7 +13,7 @@ can then turn into world-class, illustrated test reports and living documentatio
 ### Installation
 
 ```
-npm install --save-dev @serenity-js/core @serenity-js/assertions @serenity-js/rest @serenity-js/serenity-bdd
+npm install --save-dev @serenity-js/core @serenity-js/serenity-bdd
 ```
 
 ### SerenityBDDReporter
@@ -29,10 +29,12 @@ This can be done in your `protractor.conf.js` file if you're using Protractor, o
 import { ArtifactArchiver, serenity } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 
-serenity.setTheStage(
-    ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-    new SerenityBDDReporter(),
-);
+serenity.configure({
+    crew: [
+        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+        new SerenityBDDReporter()
+    ],
+});
 ```
 
 #### Protractor
