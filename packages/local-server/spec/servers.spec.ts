@@ -12,9 +12,9 @@ import { satisfies } from 'semver'; // tslint:disable-line:no-implicit-dependenc
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 import servers = require('./servers');
 
-/** @test {ManageALocalServer} */
 describe('ManageALocalServer', () => {
 
+    /** @test {ManageALocalServer} */
     describe('when working with HTTP', () => {
 
         given(servers).
@@ -71,6 +71,7 @@ describe('ManageALocalServer', () => {
 
     // ---
 
+    /** @test {ManageALocalServer} */
     describe('when working with HTTPS', () => {
 
         const testHttpsServer = [
