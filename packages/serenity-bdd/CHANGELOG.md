@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** serenityBDD reporter ignores any events that happen outside of the test ([bb3b027](https://github.com/serenity-js/serenity-js/commit/bb3b027b9b1aa3f4024dcadeb8df1483d5e18906))
+
+
+
+
+
 ## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
 
 
