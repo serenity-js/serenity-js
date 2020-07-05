@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.3](https://github.com/serenity-js/serenity-js/compare/v2.11.2...v2.11.3) (2020-07-05)
+
+
+### Bug Fixes
+
+* **core:** stageManager can be used to replay test suites from event logs for diagnostics ([cb051b8](https://github.com/serenity-js/serenity-js/commit/cb051b8b09db70a846b6231ebfc5d3db04e097b5))
+
+
+
+
+
 ## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
 
 **Note:** Version bump only for package @serenity-js/core
