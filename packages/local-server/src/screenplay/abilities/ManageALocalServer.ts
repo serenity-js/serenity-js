@@ -33,7 +33,7 @@ import { getPortPromise } from 'portfinder';
  *     StartLocalTestServer.onRandomPort(),
  *     Send.a(GetRequest.to(LocalServer.url())),
  *     Ensure.that(LastResponse.status(), equals(200)),
- *     Ensure.that(LastResponse.body(), equals('Hello!')),
+ *     Ensure.that(LastResponse.body<string>(), equals('Hello!')),
  *     StopLocalTestServer.ifRunning(),
  * );
  *

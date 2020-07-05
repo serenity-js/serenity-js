@@ -47,7 +47,7 @@ describe('@serenity-js/local-server', () => {
             Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals('Hello World!')),
+            Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
             StopLocalServer.ifRunning(),
         )).to.be.fulfilled.then(() => {
 
