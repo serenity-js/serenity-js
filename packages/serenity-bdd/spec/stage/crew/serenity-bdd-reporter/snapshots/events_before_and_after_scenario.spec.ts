@@ -25,7 +25,7 @@ describe('SerenityBDDReporter', () => {
 
     /** @test {SerenityBDDReporter} */
     it(`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`, () => emitter.emit(
-        contentsOf(__dirname, 'examples', 'scenario_with_interactions_in_before_and_after_hooks.log')
+        contentsOf(__dirname, 'examples', 'scenario_with_interactions_in_before_and_after_hooks.events')
     ).then(() => {
         const reports: TestReport[] = testReportsFrom(recorder.events);
         expect(reports).to.have.lengthOf(1);
