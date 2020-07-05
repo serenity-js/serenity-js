@@ -8,13 +8,64 @@ import { Expectation } from './Expectation';
 import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
 /**
+ * @desc
+ *  Used to perform verification of the system under test.
+ *
+ *  Resolves any `Answerable` describing the actual
+ *  state and ensures that its value meets the {@link Expectation}s provided.
+ *
+ * @example <caption>Usage with static values</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
+ *
+ *  const actor = actorCalled('Erica');
+ *
+ *  actor.attemptsTo(
+ *    Ensure.that('Hello world!', equals('Hello world!'))
+ *  );
+ *
+ * @example <caption>Composing expectations with `and`</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
+ *
+ *  const actor = actorCalled('Erica');
+ *
+ *  actor.attemptsTo(
+ *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
+ *  );
+ *
+ * @example <caption>Overriding the type of Error thrown upon assertion failure</caption>
+ *  import { actorCalled, TestCompromisedError } from '@serenity-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
+ *
+ *  const actor = actorCalled('Erica')
+ *      .whoCan(CallAnApi.at('https://example.com'));
+ *
+ *  actor.attemptsTo(
+ *    Send.a(GetRequest.to('/api/health')),
+ *    Ensure.that(LastResponse.status(), equals(200))
+ *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
+ *  );
+ *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
 export class Ensure<Actual> extends Interaction {
+    /**
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
+     * @param {Expectation<any, A>} expectation
+     *
+     * @returns {Ensure<A>}
+     */
     static that<A>(actual: Answerable<A>, expectation: Expectation<any, A>): Ensure<A> {
         return new Ensure(actual, expectation);
     }
 
+    /**
+     * @param {Answera@serenity-js/core/lib/screenplay~Answerable<T>} actual
+     * @param {Expectation<T>} expectation
+     */
     constructor(
         protected readonly actual: Answerable<Actual>,
         protected readonly expectation: Expectation<Actual>,
@@ -35,7 +86,7 @@ export class Ensure<Actual> extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         return Promise.all([
             actor.answer(this.actual),
             actor.answer(this.expectation),
@@ -66,15 +117,46 @@ export class Ensure<Actual> extends Interaction {
         return formatted `#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }
 
+    /**
+     * @desc
+     *  Overrides the default {@link @serenity-js/core/lib/errors~AssertionError} thrown when
+     *  the actual value does not meet the expectations set.
+     *
+     * @param {Function} typeOfRuntimeError
+     *  The type of RuntimeError to throw, i.e. TestCompromisedError
+     *
+     * @param message
+     *  The message explaining the failure
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     */
     otherwiseFailWith(typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError, message?: string): Interaction {
         return new EnsureOrFailWithCustomError(this.actual, this.expectation, typeOfRuntimeError, message);
     }
 
+    /**
+     * @desc
+     *  Maps an {@link Outcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.
+     *
+     * @param {Outcome} outcome
+     * @returns {@serenity-js/core/lib/errors~RuntimeError}
+     *
+     * @protected
+     */
     protected errorForOutcome(outcome: Outcome<any, Actual>): RuntimeError {
         return this.asAssertionError(outcome);
     }
 
-    protected asAssertionError(outcome: Outcome<any, Actual>) {
+    /**
+     * @desc
+     *  Maps an {@link Outcome} to {@link @serenity-js/core/lib/errors~AssertionError}.
+     *
+     * @param {Outcome} outcome
+     * @returns {@serenity-js/core/lib/errors~AssertionError}
+     *
+     * @protected
+     */
+    protected asAssertionError(outcome: Outcome<any, Actual>): AssertionError {
         return new AssertionError(
             `Expected ${ formatted`${ this.actual }` } to ${ outcome.message }`,
             outcome.expected,
