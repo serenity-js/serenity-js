@@ -50,7 +50,7 @@ import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
-export class Ensure<Actual> extends Interaction {
+export class  Ensure<Actual> extends Interaction {
     /**
      *
      * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
@@ -125,7 +125,7 @@ export class Ensure<Actual> extends Interaction {
      * @param {Function} typeOfRuntimeError
      *  The type of RuntimeError to throw, i.e. TestCompromisedError
      *
-     * @param message
+     * @param {string} message
      *  The message explaining the failure
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
