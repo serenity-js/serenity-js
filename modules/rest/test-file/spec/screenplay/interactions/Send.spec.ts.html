@@ -149,6 +149,10 @@
 <span class="hljs-comment">/** @test {Send} */</span>
 describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
+    <span class="hljs-keyword">interface</span> ExampleResponse {
+        id: <span class="hljs-built_in">number</span>;
+    }
+
     <span class="hljs-comment">/**
      * @test {Send.a}
      * @test {HTTPRequest}
@@ -166,7 +170,7 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
         <span class="hljs-keyword">return</span> actor.attemptsTo(
             Send.a(GetRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body(), equals({ id: <span class="hljs-number">2</span> })),
+            Ensure.that(LastResponse.body&lt;ExampleResponse&gt;(), equals({ id: <span class="hljs-number">2</span> })),
         );
     });
 
@@ -190,7 +194,7 @@ describe(<span class="hljs-string">&apos;Send&apos;</span>, <span class="hljs-fu
                 url: <span class="hljs-string">&apos;/products/2&apos;</span>,
             }),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body(), equals({ id: <span class="hljs-number">2</span> })),
+            Ensure.that(LastResponse.body&lt;ExampleResponse&gt;(), equals({ id: <span class="hljs-number">2</span> })),
         );
     });
 

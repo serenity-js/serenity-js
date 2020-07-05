@@ -152,12 +152,17 @@
  *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
  *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
  *
+ *  interface Book {
+ *      title: string;
+ *      author: string;
+ *  }
+ *
  *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(CallAnApi.at(&apos;https://myapp.com/api&apos;));
  *
  *  actor.attemptsTo(
  *      Send.a(GetRequest.to(&apos;/books/0-688-00230-7&apos;)),
  *      Ensure.that(LastResponse.status(), equals(200)),
- *      Ensure.that(LastResponse.body(), equals({
+ *      Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
  *          title: &apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;,
  *          author: &apos;Robert M. Pirsig&apos;,
  *      })),

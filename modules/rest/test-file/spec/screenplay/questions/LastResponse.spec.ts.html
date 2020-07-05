@@ -147,6 +147,11 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
 
     describe(<span class="hljs-string">&apos;when asserting on the response to the last HTTP request&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
+        <span class="hljs-keyword">interface</span> Product {
+            id: <span class="hljs-built_in">number</span>;
+            name: <span class="hljs-built_in">string</span>;
+        }
+
         <span class="hljs-keyword">const</span>
             url     = <span class="hljs-string">&apos;/products/2&apos;</span>,
             body    = { id: <span class="hljs-number">2</span>, name: <span class="hljs-string">&apos;apple&apos;</span> },
@@ -169,7 +174,7 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
          */</span>
         it(<span class="hljs-string">&apos;enables access to the response body&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.body(), equals(body)),
+            Ensure.that(LastResponse.body&lt;Product&gt;(), equals(body)),
         ));
 
         <span class="hljs-comment">/**

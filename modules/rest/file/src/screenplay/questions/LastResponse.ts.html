@@ -143,13 +143,18 @@
  *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
  *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
  *
+ *  interface Book {
+ *      title: string;
+ *      author: string
+ *  }
+ *
  *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(CallAnApi.at(&apos;https://myapp.com/api&apos;));
  *
  *  actor.attemptsTo(
  *      Send.a(GetRequest.to(&apos;/books/0-688-00230-7&apos;)),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *      Ensure.that(LastResponse.header(&apos;Content-Type&apos;), equals(&apos;application/json&apos;)),
- *      Ensure.that(LastResponse.body(), equals({
+ *      Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
  *          title: &apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;,
  *          author: &apos;Robert M. Pirsig&apos;,
  *      })),
@@ -173,11 +178,34 @@
      * @desc
      *  Enables asserting on the {@link LastResponse} body
      *
+     * @example &lt;caption&gt;A type-safe approach using generics&lt;/caption&gt;
+     *  interface Book {
+     *      title: string;
+     *      author: string
+     *  }
+     *
+     *  actor.attemptsTo(
+     *      // ...
+     *      Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
+     *          title: &apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;,
+     *          author: &apos;Robert M. Pirsig&apos;,
+     *      })),
+     *  );
+     *
+     * @example &lt;caption&gt;A non-type-safe approach using `any`&lt;/caption&gt;
+     *  actor.attemptsTo(
+     *      // ...
+     *      Ensure.that(LastResponse.body&lt;any&gt;(), equals({
+     *          title: &apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;,
+     *          author: &apos;Robert M. Pirsig&apos;,
+     *      })),
+     *  );
+     *
      * @returns {@serenity-js/core/lib/screenplay~Question&lt;any&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> body(): Question&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">any</span>&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.data);
+    <span class="hljs-keyword">static</span> body&lt;T = <span class="hljs-built_in">any</span>&gt;(): Question&lt;T&gt; {
+        <span class="hljs-keyword">return</span> Question.about&lt;T&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse&lt;T&gt;(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.data <span class="hljs-keyword">as</span> T);
         });
     }
 

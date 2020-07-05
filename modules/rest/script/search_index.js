@@ -1093,7 +1093,7 @@ window.esdocSearchIndex = [
   ],
   [
     "callanapi.maplastresponse src/screenplay/abilities/callanapi.ts~callanapi#maplastresponse,callanapi.maplastresponse",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber65",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber99",
     "LastResponse complains if the last response is attempted to be retrieved without making a request first",
     "test"
   ],
@@ -1105,25 +1105,25 @@ window.esdocSearchIndex = [
   ],
   [
     "lastresponse lastresponse.header src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.header,lastresponse.header",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber81",
     "LastResponse when asserting on the response to the last HTTP request enables access to a specific response header",
     "test"
   ],
   [
     "lastresponse lastresponse.headers src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.headers,lastresponse.headers",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber56",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber90",
     "LastResponse when asserting on the response to the last HTTP request enables access to all response headers",
     "test"
   ],
   [
     "lastresponse lastresponse.body src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber38",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber72",
     "LastResponse when asserting on the response to the last HTTP request enables access to the response body",
     "test"
   ],
   [
     "lastresponse lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber29",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber63",
     "LastResponse when asserting on the response to the last HTTP request enables access to the response status",
     "test"
   ],
@@ -1249,19 +1249,19 @@ window.esdocSearchIndex = [
   ],
   [
     "send.a httprequest getrequest.to src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber70",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber92",
     "Send emits the events so that the details of the HTTP interaction can be reported",
     "test"
   ],
   [
     "send.a httprequest getrequest.to lastresponse.status lastresponse.body src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber27",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber49",
     "Send enables the actor to send a HTTPRequest",
     "test"
   ],
   [
     "send.a httprequest getrequest.to lastresponse.status lastresponse.body src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber70",
     "Send enables the actor to send an Axios Request",
     "test"
   ],

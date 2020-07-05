@@ -160,7 +160,7 @@
  *     StartLocalTestServer.onRandomPort(),
  *     Send.a(GetRequest.to(LocalServer.url())),
  *     Ensure.that(LastResponse.status(), equals(200)),
- *     Ensure.that(LastResponse.body(), equals(&apos;Hello!&apos;)),
+ *     Ensure.that(LastResponse.body&lt;string&gt;(), equals(&apos;Hello!&apos;)),
  *     StopLocalTestServer.ifRunning(),
  * );
  *

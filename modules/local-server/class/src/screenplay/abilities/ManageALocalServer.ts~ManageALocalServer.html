@@ -184,7 +184,7 @@ actor.attemptsTo(
     StartLocalTestServer.onRandomPort(),
     Send.a(GetRequest.to(LocalServer.url())),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-    Ensure.that(LastResponse.body(), equals(<span class="hljs-string">&apos;Hello!&apos;</span>)),
+    Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">&apos;Hello!&apos;</span>)),
     StopLocalTestServer.ifRunning(),
 );</code></pre>
     </div>

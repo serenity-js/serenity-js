@@ -168,7 +168,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 Ensure.that(LocalServer.url(), startsWith(<span class="hljs-string">&apos;http://127.0.0.1&apos;</span>)),
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-                Ensure.that(LastResponse.body(), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
+                Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
             )).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
         });
 
@@ -206,7 +206,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             Ensure.that(LocalServer.url(), startsWith(<span class="hljs-string">&apos;https://127.0.0.1&apos;</span>)),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body(), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
+            Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
         ];
 
         given(

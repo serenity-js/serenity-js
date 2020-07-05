@@ -136,7 +136,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber33">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber38">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -171,13 +171,18 @@
  <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
  <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 
+ <span class="hljs-keyword">interface</span> Book {
+     title: <span class="hljs-built_in">string</span>;
+     author: <span class="hljs-built_in">string</span>
+ }
+
  <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(CallAnApi.at(<span class="hljs-string">&apos;https://myapp.com/api&apos;</span>));
 
  actor.attemptsTo(
      Send.a(GetRequest.to(<span class="hljs-string">&apos;/books/0-688-00230-7&apos;</span>)),
      Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
      Ensure.that(LastResponse.header(<span class="hljs-string">&apos;Content-Type&apos;</span>), equals(<span class="hljs-string">&apos;application/json&apos;</span>)),
-     Ensure.that(LastResponse.body(), equals({
+     Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
          title: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
          author: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
      })),
@@ -190,10 +195,10 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber10">LastResponse</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber29">LastResponse when asserting on the response to the last HTTP request enables access to the response status</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber38">LastResponse when asserting on the response to the last HTTP request enables access to the response body</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber47">LastResponse when asserting on the response to the last HTTP request enables access to a specific response header</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber56">LastResponse when asserting on the response to the last HTTP request enables access to all response headers</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber63">LastResponse when asserting on the response to the last HTTP request enables access to the response status</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber72">LastResponse when asserting on the response to the last HTTP request enables access to the response body</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber81">LastResponse when asserting on the response to the last HTTP request enables access to a specific response header</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber90">LastResponse when asserting on the response to the last HTTP request enables access to all response headers</a></span></li>
 </ul>
   </div>
 
@@ -348,7 +353,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber79">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber107">source</a></span></span>
     </span>
   </h3>
 
@@ -385,15 +390,43 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">A type-safe approach using generics</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">interface</span> Book {
+     title: <span class="hljs-built_in">string</span>;
+     author: <span class="hljs-built_in">string</span>
+ }
+
+ actor.attemptsTo(
+     <span class="hljs-comment">// ...</span>
+     Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
+         title: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
+         author: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
+     })),
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">A non-type-safe approach using `any`</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> actor.attemptsTo(
+     <span class="hljs-comment">// ...</span>
+     Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">any</span>&gt;(), equals({
+         title: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
+         author: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
+     })),
+ );</code></pre>
+    </div>
+</div>
 
   <div data-ice="tests">
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber27">Send enables the actor to send a HTTPRequest</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber48">Send enables the actor to send an Axios Request</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber38">LastResponse when asserting on the response to the last HTTP request enables access to the response body</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber49">Send enables the actor to send a HTTPRequest</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber70">Send enables the actor to send an Axios Request</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber72">LastResponse when asserting on the response to the last HTTP request enables access to the response body</a></span></li>
 </ul>
   </div>
 
@@ -412,7 +445,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber135">source</a></span></span>
     </span>
   </h3>
 
@@ -471,7 +504,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber47">LastResponse when asserting on the response to the last HTTP request enables access to a specific response header</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber81">LastResponse when asserting on the response to the last HTTP request enables access to a specific response header</a></span></li>
 </ul>
   </div>
 
@@ -490,7 +523,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber131">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -534,7 +567,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber56">LastResponse when asserting on the response to the last HTTP request enables access to all response headers</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber90">LastResponse when asserting on the response to the last HTTP request enables access to all response headers</a></span></li>
 </ul>
   </div>
 
@@ -553,7 +586,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -596,9 +629,9 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber27">Send enables the actor to send a HTTPRequest</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber48">Send enables the actor to send an Axios Request</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber29">LastResponse when asserting on the response to the last HTTP request enables access to the response status</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber49">Send enables the actor to send a HTTPRequest</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber70">Send enables the actor to send an Axios Request</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber63">LastResponse when asserting on the response to the last HTTP request enables access to the response status</a></span></li>
 </ul>
   </div>
 
