@@ -135,8 +135,8 @@ with dark and light backgrounds.</p>
 instead of <code>cmd.exe</code> to benefit from the colour output.</p>
 <h3 id="usage">Usage</h3><p>To allow Serenity/JS to print the progress report to standard output, assign the <code>ConsoleReporter</code> to the <code>Stage</code>.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you&apos;re using Protractor, or programmatically.</p>
-<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure } form <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ConsoleReporter } form <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
+<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
 
 configure({
     crew: [

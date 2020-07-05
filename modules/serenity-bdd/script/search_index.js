@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports~scenereportid",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html",
-    "<span>SceneReportId</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports</span>",
-    "class"
-  ],
-  [
     "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~serenitybddreporter",
     "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html",
     "<span>SerenityBDDReporter</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter</span>",
@@ -1081,6 +1075,18 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber8",
+    "SerenityBDDReporter",
+    "test"
+  ],
+  [
+    "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber27",
+    "SerenityBDDReporter ",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber520",
     "SerenityBDDReporter Error handling",
     "test"
@@ -1093,13 +1099,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber233",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber216",
     "SerenityBDDReporter artifacts",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts artifactgenerated taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~artifactgenerated,artifactgenerated @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber245",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber228",
     "SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction",
     "test"
   ],
@@ -1177,19 +1183,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber148",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber131",
     "SerenityBDDReporter order of events",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts artifactgenerated taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~artifactgenerated,artifactgenerated @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber160",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber143",
     "SerenityBDDReporter order of events records the events in a correct order",
     "test"
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber196",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber179",
     "SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context",
     "test"
   ],
@@ -1440,14 +1446,8 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber67",
-    "SerenityBDDReporter when reporting activities that took place during scenario execution ignores any activities that occurred after the scene has finished",
-    "test"
-  ],
-  [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber93",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber76",
     "SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities",
     "test"
   ],
@@ -1459,7 +1459,7 @@ window.esdocSearchIndex = [
   ],
   [
     "serenitybddreporter scenestarts taskstarts taskfinished executionsuccessful scenefinished testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~taskstarts,taskstarts @serenity-js/core/lib/events~taskfinished,taskfinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber125",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber108",
     "SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities",
     "test"
   ],
@@ -1509,6 +1509,12 @@ window.esdocSearchIndex = [
     "spec/stage/crew/serenity-bdd-reporter/serenitybddreporter/tagging_scenarios.spec.ts",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html",
     "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html",
+    "spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts",
     "testFile"
   ],
   [
@@ -1783,9 +1789,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter#notifyof",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-member-notifyOf",
+    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-method-notifyOf",
     "src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter#notifyOf",
-    "member"
+    "method"
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/index.ts",
@@ -1816,30 +1822,6 @@ window.esdocSearchIndex = [
     "file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html",
     "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts",
     "file"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#append",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-append",
-    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#append",
-    "method"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#constructor",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-constructor-constructor",
-    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#constructor",
-    "method"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#value",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-value",
-    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#value",
-    "method"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/reports/scenereportid.ts~scenereportid#values",
-    "class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-member-values",
-    "src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId#values",
-    "member"
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/reports/scenereports.ts",

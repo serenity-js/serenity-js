@@ -113,414 +113,65 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {SceneReportId} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter/reports&apos;</span></code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">class</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html#lineNumber3">source</a></span></span>
-</div>
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> { contentsOf, EventRecorder, EventStreamEmitter, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+<span class="hljs-keyword">import</span> { TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src&apos;</span>;
+
+describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+    <span class="hljs-keyword">let</span> reporter: SerenityBDDReporter,
+        stage: Stage,
+        emitter: EventStreamEmitter,
+        recorder: EventRecorder;
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
+        stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock()));
+        emitter = <span class="hljs-keyword">new</span> EventStreamEmitter(stage);
+        recorder = <span class="hljs-keyword">new</span> EventRecorder([], stage);
+
+        reporter = <span class="hljs-keyword">new</span> SerenityBDDReporter(stage);
+
+        stage.assign(recorder);
+        stage.assign(reporter);
+    });
+
+    <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
+    it(<span class="hljs-string">`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`</span>, <span class="hljs-function">() =&gt;</span> emitter.emit(
+        contentsOf(__dirname, <span class="hljs-string">&apos;examples&apos;</span>, <span class="hljs-string">&apos;scenario_with_interactions_in_before_and_after_hooks.events&apos;</span>)
+    ).then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> reports: TestReport[] = testReportsFrom(recorder.events);
+        expect(reports).to.have.lengthOf(<span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">const</span> generated = reports[<span class="hljs-number">0</span>].map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report);
+        <span class="hljs-keyword">const</span> expected = <span class="hljs-built_in">JSON</span>.parse(contentsOf(__dirname, <span class="hljs-string">&apos;examples&apos;</span>, <span class="hljs-string">&apos;scenario_with_interactions_in_before_and_after_hooks.json&apos;</span>));
+
+        expect(generated).to.deep.equal(expected);
+    }));
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testReportsFrom</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title">TestReport</span>[] </span>{
+    <span class="hljs-keyword">return</span> events
+        .filter(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> e <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; e.artifact <span class="hljs-keyword">instanceof</span> TestReport)
+        .map(<span class="hljs-function">(<span class="hljs-params">e: ArtifactGenerated</span>) =&gt;</span> e.artifact);
+}
+
+<span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
+    prepare(actor: Actor): Actor {
+        <span class="hljs-keyword">return</span> actor;
+    }
+}
+</code></pre>
 
-<div class="self-detail detail">
-  <h1 data-ice="name">SceneReportId</h1>
-
-  
-
-  
-
-  
-  
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>tiny-types~TinyType</span> &#x2192; SceneReportId</div></div>
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-</div>
-
-
-
-<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-member-values">values</a></span></span><span class="code" data-ice="signature">: <span>UNKNOWN</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-append">append</a></span></span><span class="code" data-ice="signature">(segment: <span>string</span>): <span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html#instance-method-value">value</a></span></span><span class="code" data-ice="signature">(): <span>string</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-
-
-
-
-<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-constructor-constructor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html#lineNumber25">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-values">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">values</span><span class="code" data-ice="signature">: <span>UNKNOWN</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html#lineNumber5">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-append">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">append</span><span class="code" data-ice="signature">(segment: <span>string</span>): <span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html#lineNumber13">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">segment</td>
-      <td data-ice="type" class="code"><span>string</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-value">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">value</span><span class="code" data-ice="signature">(): <span>string</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts.html#lineNumber19">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>string</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 </article>
             </section>
         </div>

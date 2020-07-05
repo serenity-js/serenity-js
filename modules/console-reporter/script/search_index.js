@@ -775,79 +775,79 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber10",
     "ConsoleReporter",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber32",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber31",
     "ConsoleReporter when instantiated",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber34",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber33",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber39",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber38",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber297",
     "ConsoleReporter when the developer logs arbitrary data",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber301",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber300",
     "ConsoleReporter when the developer logs arbitrary data ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber84",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber83",
     "ConsoleReporter when the scenario fails with an error",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber231",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber230",
     "ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber128",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber127",
     "ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber173",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber172",
     "ConsoleReporter when the scenario fails with an error prints the details of the failed assertion",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber87",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber86",
     "ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber45",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber44",
     "ConsoleReporter when the scenario passes",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber48",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber47",
     "ConsoleReporter when the scenario passes prints the passing steps and the scenario summary",
     "test"
   ],

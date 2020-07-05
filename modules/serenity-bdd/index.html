@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -125,17 +124,19 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h2 id="serenity-bdd">Serenity BDD</h2><p>The <code>@serenity-js/serenity-bdd</code> module integrates Serenity/JS and the Serenity BDD reporting CLI.</p>
 <p>This integration enables your Serenity/JS tests to produce interim JSON reports, which the Serenity BDD reporting CLI
 can then turn into world-class, illustrated test reports and living documentation.</p>
-<h3 id="installation">Installation</h3><pre><code class="hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span> <span class="hljs-meta">@serenity-js/assertions</span> <span class="hljs-meta">@serenity-js/rest</span> <span class="hljs-meta">@serenity-js/serenity-bdd</span>
+<h3 id="installation">Installation</h3><pre><code class="hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span> <span class="hljs-meta">@serenity-js/serenity-bdd</span>
 </code></pre><h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
 and configure the <code>ArtifactArchiver</code> to store the reports at the location where Serenity BDD expects to find them.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you&apos;re using Protractor, or programmatically.</p>
 <h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>;
 
-serenity.setTheStage(
-    ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
-    <span class="hljs-keyword">new</span> SerenityBDDReporter(),
-);
+serenity.configure({
+    crew: [
+        ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+        <span class="hljs-keyword">new</span> SerenityBDDReporter()
+    ],
+});
 </code></pre>
 <h4 id="protractor">Protractor</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 

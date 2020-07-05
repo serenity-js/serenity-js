@@ -279,7 +279,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Writing DomainEvents to standard output</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity, StreamReporter } form <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 serenity.configure({
     crew: [ <span class="hljs-keyword">new</span> StreamReporter(process.stdout) ],
@@ -287,7 +287,7 @@ serenity.configure({
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Writing DomainEvents to a file</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity, StreamReporter } form <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;fs&apos;</span>);
 
 serenity.configure({

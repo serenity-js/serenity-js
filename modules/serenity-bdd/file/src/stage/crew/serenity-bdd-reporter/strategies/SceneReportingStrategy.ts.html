@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -152,8 +151,6 @@
 
     <span class="hljs-keyword">abstract</span> worksFor(anotherScenario: ScenarioDetails): <span class="hljs-built_in">boolean</span>;
 
-    <span class="hljs-keyword">abstract</span> recordingFinished(): <span class="hljs-built_in">boolean</span>;
-
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         <span class="hljs-keyword">return</span> match&lt;DomainEvent, SceneReport&gt;(event)
             .when(FeatureNarrativeDetected, <span class="hljs-function">(<span class="hljs-params">e: FeatureNarrativeDetected</span>)   =&gt;</span> report.withFeatureNarrativeOf(e.description))
@@ -163,14 +160,24 @@
             .when(TestRunnerDetected,       <span class="hljs-function">(<span class="hljs-params">e: TestRunnerDetected</span>)         =&gt;</span> report.executedBy(e.value))
             .when(ArtifactGenerated,        <span class="hljs-function">(<span class="hljs-params">e: ArtifactGenerated</span>)          =&gt;</span> match&lt;Artifact, SceneReport&gt;(e.artifact)
                 .when(HTTPRequestResponse,  <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.httpRequestCaptured(e.artifact.map(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> data)))
-                .when(TextData,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> artifactContents.data)))
-                .when(LogEntry,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> artifactContents.data)))
+                .when(TextData,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> artifactContents.data), e.timestamp))
+                .when(LogEntry,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> artifactContents.data), e.timestamp))
                 .when(AssertionReport,      <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span>
-                    report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span>
-                        SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),
-                    )),
+                    report.arbitraryDataCaptured(
+                        e.name,
+                        e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span>
+                            SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),
+                        ),
+                        e.timestamp,
+                    ),
                 )
-                .when(JSONData,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.arbitraryDataCaptured(e.name, e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(artifactContents, <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>))))
+                .when(JSONData,             <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span>
+                    report.arbitraryDataCaptured(
+                        e.name,
+                        e.artifact.map(<span class="hljs-function"><span class="hljs-params">artifactContents</span> =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(artifactContents, <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>)),
+                        e.timestamp,
+                    ),
+                )
                 .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report))
             .when(ActivityRelatedArtifactArchived, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactArchived</span>) =&gt;</span> match&lt;ArtifactType, SceneReport&gt;(e.type)
                 .when(Photo,                <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> report.photoTaken(e.details, e.path, e.timestamp))

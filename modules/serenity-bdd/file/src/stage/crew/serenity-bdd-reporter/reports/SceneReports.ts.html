@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -135,19 +134,19 @@
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.createReportFor(scenarioDetails);
         }
 
-        <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.reportFor(scenarioDetails);
-
-        <span class="hljs-keyword">if</span> (report.isCompleted()) {
-            <span class="hljs-built_in">this</span>.completedReports.push(report);
-
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.createReportFor(scenarioDetails);
-        }
-
-        <span class="hljs-keyword">return</span> report;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reportFor(scenarioDetails);
     }
 
-    save(scenarioReport: SceneReport) {
+    createReportFor(scenarioDetails: ScenarioDetails): SceneReport {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneReport(scenarioDetails);
+    }
+
+    saveInProgress(scenarioReport: SceneReport) {
         <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;
+    }
+
+    saveCompleted(scenarioReport: SceneReport) {
+        <span class="hljs-built_in">this</span>.completedReports.push(scenarioReport);
     }
 
     map&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">report: SceneReport</span>) =&gt;</span> T): T[] {
@@ -162,11 +161,12 @@
     }
 
     <span class="hljs-keyword">private</span> reportFor(scenarioDetails: ScenarioDetails): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioDetails)];
-    }
+        <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioDetails)];
 
-    <span class="hljs-keyword">private</span> createReportFor(scenarioDetails: ScenarioDetails): SceneReport {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneReport(scenarioDetails);
+        <span class="hljs-comment">// prevent mutating the report</span>
+        <span class="hljs-keyword">delete</span> <span class="hljs-built_in">this</span>.reports[<span class="hljs-built_in">this</span>.correlationIdFor(scenarioDetails)]
+
+        <span class="hljs-keyword">return</span> report;
     }
 
     <span class="hljs-keyword">private</span> correlationIdFor(scenarioDetails: ScenarioDetails): <span class="hljs-built_in">string</span> {

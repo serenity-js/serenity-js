@@ -149,7 +149,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/Ensure.ts.html#lineNumber20">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/Ensure.ts.html#lineNumber60">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -157,7 +157,10 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> Used to perform verification of the system under test.</p>
+<p> Resolves any <code>Answerable</code> describing the actual
+ state and ensures that its value meets the <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>s provided.</p>
+</div>
 
   
   
@@ -173,7 +176,47 @@
   
   
 
-  
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Usage with static values</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>);
+
+ actor.attemptsTo(
+   Ensure.that(<span class="hljs-string">&apos;Hello world!&apos;</span>, equals(<span class="hljs-string">&apos;Hello world!&apos;</span>))
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Composing expectations with `and`</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { and, Ensure, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>);
+
+ actor.attemptsTo(
+   Ensure.that(<span class="hljs-string">&apos;Hello world!&apos;</span>, and(startsWith(<span class="hljs-string">&apos;Hello&apos;</span>), endsWith(<span class="hljs-string">&apos;!&apos;</span>))
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Overriding the type of Error thrown upon assertion failure</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { and, Ensure, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
+
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>)
+     .whoCan(CallAnApi.at(<span class="hljs-string">&apos;https://example.com&apos;</span>));
+
+ actor.attemptsTo(
+   Send.a(GetRequest.to(<span class="hljs-string">&apos;/api/health&apos;</span>)),
+   Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>))
+     .otherwiseFailWith(TestCompromisedError, <span class="hljs-string">&apos;The server is down, please cheer it up!&apos;</span>)
+ );</code></pre>
+    </div>
+</div>
 
   <div data-ice="tests">
     <h4 id="tests">Tests:</h4>
@@ -207,7 +250,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#static-method-that">that</a></span></span><span class="code" data-ice="signature">(actual: <span>Answerable</span>, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>): <span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#static-method-that">that</a></span></span><span class="code" data-ice="signature">(actual: <span>Answerable</span>&lt;<span>T</span>&gt;, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>A</span>&gt;): <span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span>&lt;<span>A</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -242,7 +285,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(actual: <span>Answerable</span>&lt;<span>T</span>&gt;, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>T</span>&gt;)</span>
         </p>
       </div>
       <div>
@@ -278,13 +321,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-method-otherwiseFailWith">otherwiseFailWith</a></span></span><span class="code" data-ice="signature">(typeOfRuntimeError: <span>UNKNOWN</span>, message: <span>string</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-method-otherwiseFailWith">otherwiseFailWith</a></span></span><span class="code" data-ice="signature">(typeOfRuntimeError: <span>Function</span>, message: <span>*</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Overrides the default <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span> thrown when
+ the actual value does not meet the expectations set.</p>
+</div>
       </div>
     </td>
     <td>
@@ -371,13 +416,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-method-asAssertionError">asAssertionError</a></span></span><span class="code" data-ice="signature">(outcome: <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html#instance-method-asAssertionError">asAssertionError</a></span></span><span class="code" data-ice="signature">(outcome: <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span>): <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Maps an <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span> to <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -405,7 +451,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p> Maps an <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span> to appropriate <span><a href="/modules/core/class/src/errors/RuntimeError.ts~RuntimeError.html">RuntimeError</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -430,11 +477,11 @@
     
     
     
-    <span class="code" data-ice="name">that</span><span class="code" data-ice="signature">(actual: <span>Answerable</span>, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>): <span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span>
+    <span class="code" data-ice="name">that</span><span class="code" data-ice="signature">(actual: <span>Answerable</span>&lt;<span>T</span>&gt;, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>A</span>&gt;): <span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span>&lt;<span>A</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber14">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -455,13 +502,13 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">actual</td>
-      <td data-ice="type" class="code"><span>Answerable</span></td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>T</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">expectation</td>
-      <td data-ice="type" class="code"><span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>A</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -475,7 +522,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span>&lt;<span>A</span>&gt;</td>
           
         </tr>
       </tbody>
@@ -522,11 +569,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(actual: <span>Answerable</span>&lt;<span>T</span>&gt;, expectation: <span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>T</span>&gt;)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
@@ -537,7 +584,29 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">actual</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>T</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">expectation</td>
+      <td data-ice="type" class="code"><span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>T</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -569,18 +638,20 @@
     
     
     
-    <span class="code" data-ice="name">otherwiseFailWith</span><span class="code" data-ice="signature">(typeOfRuntimeError: <span>UNKNOWN</span>, message: <span>string</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="code" data-ice="name">otherwiseFailWith</span><span class="code" data-ice="signature">(typeOfRuntimeError: <span>Function</span>, message: <span>*</span>): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber69">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber196">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Overrides the default <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span> thrown when
+ the actual value does not meet the expectations set.</p>
+</div>
 
   
 
@@ -594,15 +665,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">typeOfRuntimeError</td>
-      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="type" class="code"><span>Function</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The type of RuntimeError to throw, i.e. TestCompromisedError</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">message</td>
-      <td data-ice="type" class="code"><span>string</span></td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The message explaining the failure</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -650,7 +723,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -726,7 +799,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber113">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber164">source</a></span></span>
     </span>
   </h3>
 
@@ -780,18 +853,19 @@
     
     
     
-    <span class="code" data-ice="name">asAssertionError</span><span class="code" data-ice="signature">(outcome: <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">asAssertionError</span><span class="code" data-ice="signature">(outcome: <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span>): <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber248">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Maps an <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span> to <span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span>.</p>
+</div>
 
   
 
@@ -819,7 +893,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/errors/AssertionError.ts~AssertionError.html">AssertionError</a></span></td>
           
         </tr>
       </tbody>
@@ -855,14 +929,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Ensure.ts.html#lineNumber222">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Maps an <span><a href="/modules/core/class/src/model/outcomes.ts~Outcome.html">Outcome</a></span> to appropriate <span><a href="/modules/core/class/src/errors/RuntimeError.ts~RuntimeError.html">RuntimeError</a></span>.</p>
+</div>
 
   
 

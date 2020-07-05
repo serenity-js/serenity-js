@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -124,7 +123,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Duration, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -185,23 +184,6 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].description).to.equal(pickACard.name.value);
             expect(report.testSteps[<span class="hljs-number">0</span>].result).to.equal(<span class="hljs-string">&apos;SUCCESS&apos;</span>);
-        });
-
-        it(<span class="hljs-string">&apos;ignores any activities that occurred after the scene has finished&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
-
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-comment">// activities that occur outside of the scenario, i.e. in Mocha&apos;s `after` hook, should be ignored by this reporter</span>
-                <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
-            );
-
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
-
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">0</span>);
         });
 
         <span class="hljs-comment">/**

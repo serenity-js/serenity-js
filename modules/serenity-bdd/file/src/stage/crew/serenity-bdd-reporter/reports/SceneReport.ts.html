@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -143,6 +142,7 @@
     ThemeTag,
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { createHash } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;crypto&apos;</span>;
 <span class="hljs-keyword">import</span> { JSONObject, match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types/lib/objects&apos;</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
 <span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;util&apos;</span>;
@@ -392,17 +392,23 @@
 
     photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
-            <span class="hljs-built_in">this</span>.activities.itemByCorrelationId(details.correlationId).screenshots.push({
+            <span class="hljs-built_in">this</span>.activities.itemByCorrelationId(details.correlationId)?.screenshots.push({
                 screenshot: path.basename(),
                 timeStamp:  timestamp.toMillisecondTimestamp(),
             });
         });
     }
 
-    arbitraryDataCaptured(name: Name, contents: <span class="hljs-built_in">string</span>) {
+    arbitraryDataCaptured(name: Name, contents: <span class="hljs-built_in">string</span>, timestamp: Timestamp) {
+        <span class="hljs-keyword">const</span> id = createHash(<span class="hljs-string">&apos;sha1&apos;</span>)
+            .update(name.value)
+            .update(contents)
+            .update(<span class="hljs-string">`<span class="hljs-subst">${ timestamp.toMillisecondTimestamp() }</span>`</span>)
+            .digest(<span class="hljs-string">&apos;hex&apos;</span>);
+
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.withMutated(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> {
             <span class="hljs-built_in">this</span>.activities.mostRecentlyAccessedItem().reportData.push({
-                id: <span class="hljs-string">`report-data-<span class="hljs-subst">${ CorrelationId.create().value }</span>`</span>,
+                id: <span class="hljs-string">`report-data-<span class="hljs-subst">${ id }</span>`</span>,
                 isEvidence: <span class="hljs-literal">false</span>,
                 path: <span class="hljs-string">&apos;&apos;</span>,
                 title: name.value,
@@ -463,12 +469,14 @@
         }));
     }
 
+    <span class="hljs-comment">// todo: remove</span>
     markedAsCompleted() {
         <span class="hljs-built_in">this</span>.completed = <span class="hljs-literal">true</span>;
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
     }
 
+    <span class="hljs-comment">// todo: remove</span>
     isCompleted() {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.completed;
     }

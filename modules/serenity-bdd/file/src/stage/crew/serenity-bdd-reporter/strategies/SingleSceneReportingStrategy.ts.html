@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -132,14 +131,9 @@
  * @package
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SingleSceneReportingStrategy <span class="hljs-keyword">extends</span> SceneReportingStrategy {
-    <span class="hljs-keyword">private</span> finished = <span class="hljs-literal">false</span>;
 
     worksFor(anotherScenario: ScenarioDetails): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.scenario.equals(anotherScenario);
-    }
-
-    recordingFinished(): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.finished;
     }
 
     handle(event: DomainEvent, report: SceneReport): SceneReport {
@@ -147,14 +141,12 @@
             .when(SceneStarts,      <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>)      =&gt;</span> report.executionStartedAt(e.timestamp))
             .when(ActivityStarts,   <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts</span>)   =&gt;</span> report.activityStarted(e.value, e.timestamp))
             .when(ActivityFinished, <span class="hljs-function">(<span class="hljs-params">e: ActivityFinished</span>) =&gt;</span> report.activityFinished(e.value, e.outcome, e.timestamp))
-            .when(SceneFinished,    <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>)    =&gt;</span> {
-                <span class="hljs-built_in">this</span>.finished = <span class="hljs-literal">true</span>;
-
-                <span class="hljs-keyword">return</span> report
+            .when(SceneFinished,    <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>)    =&gt;</span>
+                report
                     .executionFinishedAt(e.timestamp)
                     .executionFinishedWith(e.value, e.outcome)
-                    .markedAsCompleted();
-            })
+                    .markedAsCompleted()
+            )
             .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">super</span>.handle(e, report));
     }
 }

@@ -113,7 +113,6 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter-reports">stage/crew/serenity-bdd-reporter/reports</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/reports/SceneReportId.ts~SceneReportId.html">SceneReportId</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,7 +126,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber24">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber59">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -135,7 +134,9 @@
 
   
 
-  <div class="description" data-ice="description"><p>Produces Serenity BDD-standard JSON reports.</p>
+  <div class="description" data-ice="description"><p> Produces <a href="http://serenity-bdd.info/">Serenity BDD</a>-standard JSON reports
+ that <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD CLI Reporter</a>
+ can parse to produce HTML reports and living documentation.</p>
 </div>
 
   
@@ -143,16 +144,53 @@
   
   
   
-  
-  
-  
-  
-
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></li></ul></div>
   
   
   
 
   
+  
+  
+
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Registering the reporter programmatically</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>;
+
+ serenity.configure({
+   crew: [
+     ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+     <span class="hljs-keyword">new</span> SerenityBDDReporter()
+   ],
+ });</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Registering the reporter using Protractor configuration</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-comment">// protractor.conf.js</span>
+ <span class="hljs-keyword">const</span>
+   { ArtifactArchiver }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/core&apos;</span>),
+   { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>);
+
+ <span class="hljs-built_in">exports</span>.config = {
+   framework:     <span class="hljs-string">&apos;custom&apos;</span>,
+   frameworkPath: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+
+   serenity: {
+     crew: [
+       ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+       <span class="hljs-keyword">new</span> SerenityBDDReporter(),
+     ],
+     <span class="hljs-comment">// other Serenity/JS config</span>
+   },
+
+   <span class="hljs-comment">// other Protractor config</span>
+ };</code></pre>
+    </div>
+</div>
 
   <div data-ice="tests">
     <h4 id="tests">Tests:</h4>
@@ -162,11 +200,11 @@
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber57">SerenityBDDReporter captures the description of the scenario</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber78">SerenityBDDReporter captures the narrative behind the scenario</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber49">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a single activity</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber93">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber125">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber160">SerenityBDDReporter order of events records the events in a correct order</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber196">SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber245">SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber76">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber108">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber143">SerenityBDDReporter order of events records the events in a correct order</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber179">SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber228">SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber75">SerenityBDDReporter captures information about a sequence of scenes (2 scenes in a sequence)</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber146">SerenityBDDReporter determines the result of the sequence based on the worst result of the contributing scenarios</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber205">SerenityBDDReporter ensures that context and tags are not duplicated despite having multiple scenarios in a sequence</a></span></li>
@@ -200,12 +238,13 @@
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber500">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level narrative</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber503">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background title</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber506">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background description</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber27">SerenityBDDReporter </a></span></li>
 </ul>
   </div>
 
   
 
-  <div data-ice="see"><h4>See also:</h4><ul><li><span><a href="http://serenity-bdd.info/">http://serenity-bdd.info/</a></span></li></ul></div>
+  
 </div>
 
 
@@ -228,7 +267,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>)</span>
         </p>
       </div>
       <div>
@@ -245,41 +284,7 @@
 </tbody>
 </table>
 </div>
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-member-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 <div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
   <tbody>
@@ -304,7 +309,38 @@
       <div>
         
         
+        <div data-ice="description"><p> Creates a new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>
+ and assigns it to a given <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html#instance-method-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p> Handles <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span> objects emitted by the <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -330,103 +366,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber58">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-notifyOf">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">notifyOf</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber29">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-assignedTo">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">assignedTo</span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
@@ -448,6 +392,147 @@
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">stage</td>
       <td data-ice="type" class="code"><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>stage</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-assignedTo">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">assignedTo</span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber137">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Creates a new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>
+ and assigns it to a given <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">stage</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An instance of a <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span> this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> will be assigned to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-notifyOf">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">notifyOf</span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber163">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Handles <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span> objects emitted by the <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">event</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -461,7 +546,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
           
         </tr>
       </tbody>
@@ -482,7 +567,7 @@
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li></ul></div>
   
 </div>
 </div>

@@ -127,9 +127,8 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/console-reporter/ConsoleReporter.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { EventStreamEmitter, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> events <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/Printer&apos;</span>;
@@ -494,24 +493,6 @@ describe(<span class="hljs-string">&apos;ConsoleReporter&apos;</span>, <span cla
         }));
     });
 });
-
-<span class="hljs-keyword">class</span> EventStreamEmitter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage</span>) {
-    }
-
-    emit(eventLog: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> entries = eventLog
-            .split(<span class="hljs-string">&apos;\n&apos;</span>)
-            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.trim())
-            .filter(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line)
-            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">JSON</span>.parse(line.trim()))
-            .map(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> events[ entry.type ].fromJSON(entry.event));
-
-        entries.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.stage.announce(event));
-
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.waitForNextCue();
-    }
-}
 
 <span class="hljs-keyword">class</span> FakeWritableStream <span class="hljs-keyword">implements</span> Partial&lt;NodeJS.WritableStream&gt; {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> buffer: <span class="hljs-built_in">string</span> = &apos;&apos;</span>) {
