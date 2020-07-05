@@ -41,7 +41,7 @@ describe('ManageALocalServer', () => {
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(200)),
-                Ensure.that(LastResponse.body(), equals('Hello World!')),
+                Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
             )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
 
@@ -79,7 +79,7 @@ describe('ManageALocalServer', () => {
             Ensure.that(LocalServer.url(), startsWith('https://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals('Hello World!')),
+            Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
         ];
 
         given(

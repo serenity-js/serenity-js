@@ -11,13 +11,18 @@ import { CallAnApi } from '../abilities';
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
+ *  interface Book {
+ *      title: string;
+ *      author: string
+ *  }
+ *
  *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
  *
  *  actor.attemptsTo(
  *      Send.a(GetRequest.to('/books/0-688-00230-7')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),
- *      Ensure.that(LastResponse.body(), equals({
+ *      Ensure.that(LastResponse.body<Book>(), equals({
  *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
  *          author: 'Robert M. Pirsig',
  *      })),
@@ -41,11 +46,34 @@ export class LastResponse {
      * @desc
      *  Enables asserting on the {@link LastResponse} body
      *
+     * @example <caption>A type-safe approach using generics</caption>
+     *  interface Book {
+     *      title: string;
+     *      author: string
+     *  }
+     *
+     *  actor.attemptsTo(
+     *      // ...
+     *      Ensure.that(LastResponse.body<Book>(), equals({
+     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+     *          author: 'Robert M. Pirsig',
+     *      })),
+     *  );
+     *
+     * @example <caption>A non-type-safe approach using `any`</caption>
+     *  actor.attemptsTo(
+     *      // ...
+     *      Ensure.that(LastResponse.body<any>(), equals({
+     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+     *          author: 'Robert M. Pirsig',
+     *      })),
+     *  );
+     *
      * @returns {@serenity-js/core/lib/screenplay~Question<any>}
      */
-    static body(): Question<any> {
-        return Question.about<any>(`the body of the last response`, actor => {
-            return CallAnApi.as(actor).mapLastResponse(response => response.data);
+    static body<T = any>(): Question<T> {
+        return Question.about<T>(`the body of the last response`, actor => {
+            return CallAnApi.as(actor).mapLastResponse<T>(response => response.data as T);
         });
     }
 
