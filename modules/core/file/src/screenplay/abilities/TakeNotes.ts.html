@@ -386,25 +386,29 @@
      * @desc
      *  Records the answer to a given {@link Question}
      *
-     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt;} question
+     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string} subject
+     *  Question or name to record the Answer as
+     *
      * @param {Promise&lt;Answer&gt; | Answer} value
+     *  The Answer to record
      *
      * @returns {void}
      */</span>
-    record&lt;Answer&gt;(question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt;, value: <span class="hljs-built_in">Promise</span>&lt;Answer&gt; | Answer): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.notepad.set(question.toString(), value);
+    record&lt;Answer&gt;(subject: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span>, value: <span class="hljs-built_in">Promise</span>&lt;Answer&gt; | Answer): <span class="hljs-built_in">void</span> {
+        <span class="hljs-built_in">this</span>.notepad.set(subject.toString(), value);
     }
 
     <span class="hljs-comment">/**
      * @desc
      *  Recalls the answer to a given {@link Question}
      *
-     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt;} question
+     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string} subject
+     *  Question or name the Answer was recorded as
      *
      * @returns {Promise&lt;Answer&gt;}
      */</span>
-    answerTo&lt;Answer&gt;(question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt;): <span class="hljs-built_in">Promise</span>&lt;Answer&gt; {
-        <span class="hljs-keyword">const</span> key = question.toString();
+    answerTo&lt;Answer&gt;(subject: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Answer&gt; {
+        <span class="hljs-keyword">const</span> key = subject.toString();
 
         <span class="hljs-keyword">return</span> ! <span class="hljs-built_in">this</span>.notepad.has(key)
             ? <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`The answer to &quot;<span class="hljs-subst">${ key }</span>&quot; has never been recorded`</span>))

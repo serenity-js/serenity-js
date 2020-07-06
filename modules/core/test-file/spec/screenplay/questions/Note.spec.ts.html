@@ -283,10 +283,30 @@ describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-fu
      * @test {TakeNotes}
      * @test {Note}
      */</span>
+    it(<span class="hljs-string">&apos;enables the actor to recall the answer on a given subject&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([ [<span class="hljs-string">&apos;custom subject&apos;</span>, <span class="hljs-string">&apos;DYI&apos;</span>] ]);
+        expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes(notepad)).attemptsTo(
+            EnsureSame(Note.of(<span class="hljs-string">&apos;custom subject&apos;</span>), <span class="hljs-string">&apos;DYI&apos;</span>),
+        ));
+    });
+
+    <span class="hljs-comment">/**
+     * @test {TakeNotes}
+     * @test {Note}
+     */</span>
     it(<span class="hljs-string">&apos;complains if no answer to a given question has ever been remembered&apos;</span>, <span class="hljs-function">() =&gt;</span>
         expect(actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
             Log.the(Note.of(NameOfAHobby())),
         )).to.be.rejectedWith(LogicError, <span class="hljs-string">&apos;The answer to &quot;the name of a hobby&quot; has never been recorded&apos;</span>));
+
+    <span class="hljs-comment">/**
+     * @test {TakeNotes}
+     * @test {Note}
+     */</span>
+    it(<span class="hljs-string">&apos;complains if no answer on a given subject has ever been remembered&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        expect(actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            Log.the(Note.of(<span class="hljs-string">&apos;some subject&apos;</span>)),
+        )).to.be.rejectedWith(LogicError, <span class="hljs-string">&apos;The answer to &quot;some subject&quot; has never been recorded&apos;</span>));
 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">actorWhoCan</span>(<span class="hljs-params">...abilities: Ability[]</span>): <span class="hljs-title">Actor</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Noah&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage)

@@ -252,7 +252,7 @@
  *  Enables the {@link Actor} to remember an answer to a given {@link Question},
  *  and recall it later.
  *
- * @example
+ * @example &lt;caption&gt;Using default subject name based on the name of the question&lt;/caption&gt;
  *  import { actorCalled, Note, TakeNote, TakeNotes } from &apos;@serenity-js/core&apos;
  *  import { BrowseTheWeb, Target, Text } from &apos;@serenity-js/protractor&apos;
  *  import { by, protractor } from &apos;protractor&apos;;
@@ -273,6 +273,13 @@
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
+ * @example &lt;caption&gt;Using custom subject name&lt;/caption&gt;
+ *  actor.attemptsTo(
+ *      TakeNote.of(Text.of(Vouchers.code)).as(&apos;voucher code&apos;),
+ *      // ... add the product to a basket, go to checkout, etc.
+ *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(&apos;voucher code&apos;))),
+ *  );
+ *
  * @see {@link Note}
  * @see {@link TakeNotes}
  *
@@ -281,17 +288,37 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TakeNote&lt;Answer&gt; <span class="hljs-keyword">extends</span> Interaction {
 
     <span class="hljs-comment">/**
+     * @desc
+     *  Instructs the {@link Actor} to remember the answer to a given question
+     *
      * @param {Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt;} question
+     *
+     * @returns {TakeNote&lt;A&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;A&gt;(question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;A&gt;&gt; | Question&lt;A&gt;) {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;A&gt;(question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;A&gt;&gt; | Question&lt;A&gt;): TakeNote&lt;A&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TakeNote&lt;A&gt;(question);
     }
 
     <span class="hljs-comment">/**
      * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt;} question
+     * @param {string} subject
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt;</span>) {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> subject: <span class="hljs-built_in">string</span> = question.toString()
+    </span>) {
         <span class="hljs-built_in">super</span>();
+    }
+
+    <span class="hljs-comment">/**
+     * @desc
+     *  Sets a custom subject name to remember the answer as.
+     *
+     * @param {string} subject
+     * @returns {TakeNote&lt;Answer&gt;}
+     */</span>
+    <span class="hljs-keyword">as</span>(subject: <span class="hljs-built_in">string</span>): TakeNote&lt;Answer&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TakeNote&lt;Answer&gt;(<span class="hljs-built_in">this</span>.question, subject);
     }
 
     <span class="hljs-comment">/**
@@ -308,7 +335,7 @@
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.question)
-            .then(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> TakeNotes.as(actor).record(<span class="hljs-built_in">this</span>.question, answer));
+            .then(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> TakeNotes.as(actor).record(<span class="hljs-built_in">this</span>.subject, answer));
     }
 
     <span class="hljs-comment">/**
@@ -318,7 +345,7 @@
      * @returns {string}
      */</span>
     toString() {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor takes note <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.question }</span>`</span>;
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor takes note of &quot;<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.subject }</span>&quot;`</span>;
     }
 }
 </code></pre>

@@ -281,7 +281,9 @@
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber13">TakeNotes</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber32">Note enables the actor to recall the answer to a given question</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43">Note complains if no answer to a given question has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43">Note enables the actor to recall the answer on a given subject</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber54">Note complains if no answer to a given question has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber63">Note complains if no answer on a given subject has ever been remembered</a></span></li>
 </ul>
   </div>
 
@@ -442,7 +444,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-answerTo">answerTo</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-answerTo">answerTo</a></span></span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -500,7 +502,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record">record</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record">record</a></span></span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
         </p>
       </div>
       <div>
@@ -690,10 +692,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber120">TakeNotes usingASharedNotepad</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152">TakeNotes usingASharedNotepad </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber131">TakeNotes usingASharedNotepad</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163">TakeNotes usingASharedNotepad </a></span></li>
 </ul>
   </div>
 
@@ -803,8 +805,9 @@
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66">TakeNotes usingAnEmptyNotepad</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114">TakeNotes usingAnEmptyNotepad </a></span></li>
 </ul>
   </div>
 
@@ -886,11 +889,11 @@
     
     
     
-    <span class="code" data-ice="name">answerTo</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
+    <span class="code" data-ice="name">answerTo</span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>): <span>Promise</span>&lt;<span>Answer</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber250">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber254">source</a></span></span>
     </span>
   </h3>
 
@@ -911,10 +914,11 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Question or name the Answer was recorded as</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -962,7 +966,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber275">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber279">source</a></span></span>
     </span>
   </h3>
 
@@ -1014,11 +1018,11 @@
     
     
     
-    <span class="code" data-ice="name">record</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
+    <span class="code" data-ice="name">record</span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber225">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber228">source</a></span></span>
     </span>
   </h3>
 
@@ -1039,16 +1043,18 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Question or name to record the Answer as</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
       <td data-ice="type" class="code"><span>Promise&lt;Answer&gt; </span> | <span> Answer</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The Answer to record</p>
+</td>
     </tr>
 </tbody>
   </table>

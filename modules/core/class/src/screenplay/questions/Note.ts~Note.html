@@ -247,7 +247,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber43">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber50">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -277,7 +277,7 @@
     <h4 id="examples">Examples:</h4>
     
   <div class="example-doc" data-ice="exampleDoc">
-      
+      <div class="example-caption" data-ice="exampleCaption">Using default subject name based on the name of the question</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
  <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -298,6 +298,14 @@
      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  );</code></pre>
     </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using custom subject name</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> actor.attemptsTo(
+     TakeNote.of(Text.of(Vouchers.code)).as(<span class="hljs-string">&apos;voucher code&apos;</span>),
+     <span class="hljs-comment">// ... add the product to a basket, go to checkout, etc.</span>
+     Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(<span class="hljs-string">&apos;voucher code&apos;</span>))),
+ );</code></pre>
+    </div>
 </div>
 
   <div data-ice="tests">
@@ -305,13 +313,16 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163">TakeNotes usingASharedNotepad </a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber32">Note enables the actor to recall the answer to a given question</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43">Note complains if no answer to a given question has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43">Note enables the actor to recall the answer on a given subject</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber54">Note complains if no answer to a given question has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber63">Note complains if no answer on a given subject has ever been remembered</a></span></li>
 </ul>
   </div>
 
@@ -340,7 +351,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>&lt;<span>A</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string</span>): <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>&lt;<span>A</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -376,7 +387,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>)</span>
         </p>
       </div>
       <div>
@@ -538,11 +549,11 @@
     
     
     
-    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>&lt;<span>A</span>&gt;</span>
+    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string</span>): <span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span>&lt;<span>A</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber68">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
@@ -563,8 +574,8 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;</td>
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -613,11 +624,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -637,8 +648,8 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">question</td>
-      <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -680,7 +691,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber104">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
@@ -755,7 +766,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Note.ts.html#lineNumber83">source</a></span></span>
     </span>
   </h3>
 

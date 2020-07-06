@@ -247,7 +247,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber45">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber52">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -277,7 +277,7 @@
     <h4 id="examples">Examples:</h4>
     
   <div class="example-doc" data-ice="exampleDoc">
-      
+      <div class="example-caption" data-ice="exampleCaption">Using default subject name based on the name of the question</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>
  <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -298,6 +298,14 @@
      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  );</code></pre>
     </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using custom subject name</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> actor.attemptsTo(
+     TakeNote.of(Text.of(Vouchers.code)).as(<span class="hljs-string">&apos;voucher code&apos;</span>),
+     <span class="hljs-comment">// ... add the product to a basket, go to checkout, etc.</span>
+     Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(<span class="hljs-string">&apos;voucher code&apos;</span>))),
+ );</code></pre>
+    </div>
 </div>
 
   <div data-ice="tests">
@@ -305,11 +313,12 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163">TakeNotes usingASharedNotepad </a></span></li>
 </ul>
   </div>
 
@@ -338,13 +347,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>A</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Instructs the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to remember the answer to a given question</p>
+</div>
       </div>
     </td>
     <td>
@@ -373,7 +383,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, subject: <span>string</span>)</span>
         </p>
       </div>
       <div>
@@ -396,6 +406,35 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#instance-method-as">as</a></span></span><span class="code" data-ice="signature">(subject: <span>string</span>): <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>Answer</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Sets a custom subject name to remember the answer as.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -505,18 +544,19 @@
     
     
     
-    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span>*</span></span>
+    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>A&gt;</span>&gt;|<span>Question&lt;A</span>&gt;): <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>A</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Instructs the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to remember the answer to a given question</p>
+</div>
 
   
 
@@ -544,7 +584,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>A</span>&gt;</td>
           
         </tr>
       </tbody>
@@ -579,11 +619,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(question: <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;, subject: <span>string</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -605,6 +645,12 @@
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">question</td>
       <td data-ice="type" class="code"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>Answer&gt;</span>&gt;|<span>Question&lt;Answer</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>string</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -635,6 +681,78 @@
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-as">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">as</span><span class="code" data-ice="signature">(subject: <span>string</span>): <span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>Answer</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber112">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Sets a custom subject name to remember the answer as.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">subject</td>
+      <td data-ice="type" class="code"><span>string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span>&lt;<span>Answer</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-performAs">
     <span class="access" data-ice="access">public</span>
     
@@ -646,7 +764,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -721,7 +839,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber119">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/TakeNote.ts.html#lineNumber161">source</a></span></span>
     </span>
   </h3>
 

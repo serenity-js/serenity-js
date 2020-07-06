@@ -1225,8 +1225,20 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber63",
+    "Note complains if no answer on a given subject has ever been remembered",
+    "test"
+  ],
+  [
+    "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber54",
     "Note complains if no answer to a given question has ever been remembered",
+    "test"
+  ],
+  [
+    "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber43",
+    "Note enables the actor to recall the answer on a given subject",
     "test"
   ],
   [
@@ -1579,25 +1591,25 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes.usingasharednotepad src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber120",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber131",
     "TakeNotes usingASharedNotepad",
     "test"
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149",
+    "TakeNotes usingASharedNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163",
+    "TakeNotes usingASharedNotepad ",
+    "test"
+  ],
+  [
+    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
     "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138",
-    "TakeNotes usingASharedNotepad ",
-    "test"
-  ],
-  [
-    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber152",
-    "TakeNotes usingASharedNotepad ",
-    "test"
-  ],
-  [
-    "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber127",
     "TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later",
     "test"
   ],
@@ -1609,13 +1621,13 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95",
     "TakeNotes usingAnEmptyNotepad ",
     "test"
   ],
   [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber103",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114",
     "TakeNotes usingAnEmptyNotepad ",
     "test"
   ],
@@ -1623,6 +1635,12 @@ window.esdocSearchIndex = [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
     "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73",
     "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84",
+    "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name",
     "test"
   ],
   [
@@ -4168,6 +4186,12 @@ window.esdocSearchIndex = [
     "file/src/screenplay/interactions/TakeNote.ts.html",
     "src/screenplay/interactions/TakeNote.ts",
     "file"
+  ],
+  [
+    "src/screenplay/interactions/takenote.ts~takenote#as",
+    "class/src/screenplay/interactions/TakeNote.ts~TakeNote.html#instance-method-as",
+    "src/screenplay/interactions/TakeNote.ts~TakeNote#as",
+    "method"
   ],
   [
     "src/screenplay/interactions/takenote.ts~takenote#constructor",
