@@ -38,7 +38,7 @@ describe('TakeNotes', () => {
     }
 
     const AFavouriteDrink = () =>
-        Question.about(`a favourite drink`, (actor: Actor) => drinks[actor.name]);
+        Question.about<string>(`a favourite drink`, (actor: Actor) => drinks[actor.name]);
 
     beforeEach(() => engage(new Actors()));
 
@@ -54,6 +54,17 @@ describe('TakeNotes', () => {
             actorCalled('Emma').attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
                 EnsureSame(Note.of(AFavouriteDrink()), drinks.Emma),
+            ));
+
+        /**
+         * @test {TakeNotes.usingAnEmptyNotepad}
+         * @test {Note}
+         * @test {TakeNote}
+         */
+        it('enables the actor to take note of an answer to a given question under a custom name', () =>
+            actorCalled('Emma').attemptsTo(
+                TakeNote.of(AFavouriteDrink()).as('favourite drink'),
+                EnsureSame(Note.of<string>('favourite drink'), drinks.Emma),
             ));
 
         /**
