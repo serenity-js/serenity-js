@@ -9,7 +9,7 @@ import { Question } from '../Question';
  *  Enables the {@link Actor} to remember an answer to a given {@link Question},
  *  and recall it later.
  *
- * @example
+ * @example <caption>Using default subject name based on the name of the question</caption>
  *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'
  *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
@@ -30,6 +30,13 @@ import { Question } from '../Question';
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
+ * @example <caption>Using custom subject name</caption>
+ *  actor.attemptsTo(
+ *      TakeNote.of(Text.of(Vouchers.code)).as('voucher code'),
+ *      // ... add the product to a basket, go to checkout, etc.
+ *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of('voucher code'))),
+ *  );
+ *
  * @see {@link Note}
  * @see {@link TakeNotes}
  *
@@ -38,17 +45,37 @@ import { Question } from '../Question';
 export class TakeNote<Answer> extends Interaction {
 
     /**
+     * @desc
+     *  Instructs the {@link Actor} to remember the answer to a given question
+     *
      * @param {Question<Promise<A>> | Question<A>} question
+     *
+     * @returns {TakeNote<A>}
      */
-    static of<A>(question: Question<Promise<A>> | Question<A>) {
+    static of<A>(question: Question<Promise<A>> | Question<A>): TakeNote<A> {
         return new TakeNote<A>(question);
     }
 
     /**
      * @param {Question<Promise<Answer>> | Question<Answer>} question
+     * @param {string} subject
      */
-    constructor(private readonly question: Question<Promise<Answer>> | Question<Answer>) {
+    constructor(
+        private readonly question: Question<Promise<Answer>> | Question<Answer>,
+        private readonly subject: string = question.toString()
+    ) {
         super();
+    }
+
+    /**
+     * @desc
+     *  Sets a custom subject name to remember the answer as.
+     *
+     * @param {string} subject
+     * @returns {TakeNote<Answer>}
+     */
+    as(subject: string): TakeNote<Answer> {
+        return new TakeNote<Answer>(this.question, subject);
     }
 
     /**
@@ -65,7 +92,7 @@ export class TakeNote<Answer> extends Interaction {
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.question)
-            .then(answer => TakeNotes.as(actor).record(this.question, answer));
+            .then(answer => TakeNotes.as(actor).record(this.subject, answer));
     }
 
     /**
@@ -75,6 +102,6 @@ export class TakeNote<Answer> extends Interaction {
      * @returns {string}
      */
     toString() {
-        return formatted `#actor takes note ${ this.question }`;
+        return formatted `#actor takes note of "${ this.subject }"`;
     }
 }

@@ -7,7 +7,7 @@ import { Question } from '../Question';
  *  Enables the {@link Actor} to recall an answer to a given {@link Question},
  *  recorded using {@link TakeNote}.
  *
- * @example
+ * @example <caption>Using default subject name based on the name of the question</caption>
  *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'
  *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
@@ -28,6 +28,13 @@ import { Question } from '../Question';
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
+ * @example <caption>Using custom subject name</caption>
+ *  actor.attemptsTo(
+ *      TakeNote.of(Text.of(Vouchers.code)).as('voucher code'),
+ *      // ... add the product to a basket, go to checkout, etc.
+ *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of('voucher code'))),
+ *  );
+ *
  * @see {@link TakeNote}
  * @see {@link TakeNotes}
  *
@@ -39,18 +46,18 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @desc
      *  Retrieves the previously recorded answer to a given {@link Question}
      *
-     * @param {Question<Promise<A>> | Question<A>} question
+     * @param {Question<Promise<A>> | Question<A> | string} subject
      *
      * @returns {Note<A>}
      */
-    static of<A>(question: Question<Promise<A>> | Question<A>): Note<A> {
-        return new Note<A>(question);
+    static of<A>(subject: Question<Promise<A>> | Question<A> | string): Note<A> {
+        return new Note<A>(subject);
     }
 
     /**
-     * @param {Question<Promise<Answer>> | Question<Answer>} question
+     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject
      */
-    constructor(private readonly question: Question<Promise<Answer>> | Question<Answer>) {
+    constructor(private readonly subject: Question<Promise<Answer>> | Question<Answer> | string) {
         super();
     }
 
@@ -67,13 +74,13 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @see {@link UsesAbilities}
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer> {
-        return TakeNotes.as(actor).answerTo(this.question);
+        return TakeNotes.as(actor).answerTo(this.subject);
     }
 
     /**
      * Description to be used when reporting this {@link Question}.
      */
     toString() {
-        return `a note of ${ this.question }`;
+        return `a note of ${ this.subject }`;
     }
 }

@@ -143,25 +143,29 @@ export class TakeNotes implements Discardable, Ability {
      * @desc
      *  Records the answer to a given {@link Question}
      *
-     * @param {Question<Promise<Answer>> | Question<Answer>} question
+     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject
+     *  Question or name to record the Answer as
+     *
      * @param {Promise<Answer> | Answer} value
+     *  The Answer to record
      *
      * @returns {void}
      */
-    record<Answer>(question: Question<Promise<Answer>> | Question<Answer>, value: Promise<Answer> | Answer): void {
-        this.notepad.set(question.toString(), value);
+    record<Answer>(subject: Question<Promise<Answer>> | Question<Answer> | string, value: Promise<Answer> | Answer): void {
+        this.notepad.set(subject.toString(), value);
     }
 
     /**
      * @desc
      *  Recalls the answer to a given {@link Question}
      *
-     * @param {Question<Promise<Answer>> | Question<Answer>} question
+     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject
+     *  Question or name the Answer was recorded as
      *
      * @returns {Promise<Answer>}
      */
-    answerTo<Answer>(question: Question<Promise<Answer>> | Question<Answer>): Promise<Answer> {
-        const key = question.toString();
+    answerTo<Answer>(subject: Question<Promise<Answer>> | Question<Answer> | string): Promise<Answer> {
+        const key = subject.toString();
 
         return ! this.notepad.has(key)
             ? Promise.reject(new LogicError(`The answer to "${ key }" has never been recorded`))
