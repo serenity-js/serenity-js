@@ -79,6 +79,6 @@ describe('ChangeApiConfig', () => {
         it('complains if the url to be changed is invalid', () => expect(actor.attemptsTo(
             ChangeApiConfig.setUrlTo('invalid'),
             ChangeApiConfig.setPortTo(8080),
-        )).to.be.rejectedWith(LogicError, `Could not change the API port`);
+        )).to.be.rejectedWith(LogicError, `Could not change the API port`));
     });
 });
