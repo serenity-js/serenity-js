@@ -130,63 +130,143 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">spec/model/PutRequest.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { PutRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/ChangeApiConfig.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
+<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
-<span class="hljs-comment">/** @test {PutRequest} */</span>
-describe(<span class="hljs-string">&apos;PutRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-
-    <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
-
-    <span class="hljs-comment">/** @test {PutRequest.to} */</span>
-    it(<span class="hljs-string">&apos;represents an Axios request&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            }));
+<span class="hljs-comment">/**
+ * @desc
+ *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+ *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.
+ *
+ * @example &lt;caption&gt;Changing API URL&lt;/caption&gt;
+ *  import { Actor } from &apos;@serenity-js/core&apos;;
+ *  import { Navigate, Target, Text } from &apos;@serenity-js/protractor&apos;;
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
+ *  import { protractor, by } from &apos;protractor&apos;;
+ *
+ *  import axios  from &apos;axios&apos;;
+ *
+ *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(
+ *      BrowseTheWeb.using(protractor.browser),
+ *
+ *      // Note: no default base URL is given when the axios instance is created
+ *      CallAnApi.using(axios.create()),
+ *  );
+ *
+ *  // Let&apos;s imagine that the website under test displays
+ *  // a dynamically generated API URL we&apos;d like to use
+ *  const ApiDetailsWidget = {
+ *      Url: Target.the(&apos;API URL&apos;).located(by.id(&apos;api-url&apos;)),
+ *  }
+ *
+ *  actor.attemptsTo(
+ *      Navigate.to(&apos;/profile&apos;),
+ *
+ *      // We change the API URL based on the text displayed in the widget
+ *      // (although we could change it to some arbitrary string too).
+ *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),
+ *
+ *      // Any subsequent request will be sent to the newly set URL
+ *      Send.a(GetRequest.to(&apos;/projects&apos;)),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
+ *
+ * @example &lt;caption&gt;Changing API port&lt;/caption&gt;
+ *  import { Actor } from &apos;@serenity-js/core&apos;;
+ *  import { LocalServer, ManageALocalServer, StartLocalServer } from &apos;@serenity-js/local-server&apos;;
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
+ *
+ *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(
+ *      ManageALocalServer.runningAHttpListener(someServer),
+ *      CallAnApi.at(http://localhost),
+ *  );
+ *
+ *  actor.attemptsTo(
+ *     StartALocalServer.onRandomPort(),
+ *     ChangeApiConfig.setPortTo(LocalServer.port()),
+ *     Send.a(GetRequest.to(&apos;/api&apos;)),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *  );
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ChangeApiConfig {
 
     <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} newApiUrl
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    it(<span class="hljs-string">&apos;can have a request body&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> })))
-            .to.eventually.deep.equal({
-            method: <span class="hljs-string">&apos;PUT&apos;</span>,
-            url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-        }));
+    <span class="hljs-keyword">static</span> setUrlTo(newApiUrl: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): Interaction {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ChangeApiConfigSetUrl(newApiUrl);
+    }
 
     <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     * @test {PutRequest#using}
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} newApiPort
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    it(<span class="hljs-string">&apos;allows for additional request properties to be specified&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> }).using({
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-            })))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-                data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-            }));
+    <span class="hljs-keyword">static</span> setPortTo(newApiPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;): Interaction {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ChangeApiConfigSetPort(newApiPort)
+    }
+}
 
-    <span class="hljs-comment">/** @test {PutRequest#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).toString())
-            .to.equal(<span class="hljs-string">`a PUT request to &apos;/products/2&apos;`</span>);
-    });
-});
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> ChangeApiConfigSetUrl  <span class="hljs-keyword">extends</span> Interaction {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> newApiUrl: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
+        <span class="hljs-built_in">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.newApiUrl)
+            .then(<span class="hljs-function"><span class="hljs-params">newApiUrl</span> =&gt;</span> CallAnApi.as(actor).modifyConfig(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> config.baseURL = newApiUrl));
+    }
+
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor changes API URL configuration to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.newApiUrl }</span>`</span>;
+    }
+}
+
+<span class="hljs-comment">/**
+ * @package
+ */</span>
+<span class="hljs-keyword">class</span> ChangeApiConfigSetPort  <span class="hljs-keyword">extends</span> Interaction {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> newPort: Answerable&lt;<span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;</span>) {
+        <span class="hljs-built_in">super</span>();
+    }
+
+    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.newPort)
+            .then(<span class="hljs-function"><span class="hljs-params">newPort</span> =&gt;</span> CallAnApi.as(actor).modifyConfig(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (! config.baseURL) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Can&apos;t change the port of a baseURL that has not been set.`</span>)
+                }
+
+                <span class="hljs-keyword">try</span> {
+                    <span class="hljs-keyword">const</span> newUrl = <span class="hljs-keyword">new</span> URL(config.baseURL);
+                    newUrl.port = <span class="hljs-string">`<span class="hljs-subst">${ newPort }</span>`</span>;
+                    config.baseURL = newUrl.toString();
+                }
+                <span class="hljs-keyword">catch</span> (e) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Could not change the API port`</span>, e);
+                }
+            }));
+    }
+
+    toString() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor changes API port configuration to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.newPort }</span>`</span>;
+    }
+}
+
 </code></pre>
 
 </article>

@@ -936,6 +936,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/rest/lib/screenplay/interactions~changeapiconfig",
+    "/modules/rest/class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html",
+    "@serenity-js/rest/lib/screenplay/interactions~ChangeApiConfig",
+    "external"
+  ],
+  [
     "@serenity-js/rest/lib/screenplay/interactions~changeapiurl",
     "/modules/rest/class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html",
     "@serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl",

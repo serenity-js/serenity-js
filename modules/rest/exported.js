@@ -7,6 +7,7 @@
 /** @external {@serenity-js/rest/lib/model~PostRequest} /modules/rest/class/src/model/PostRequest.ts~PostRequest.html */
 /** @external {@serenity-js/rest/lib/model~PutRequest} /modules/rest/class/src/model/PutRequest.ts~PutRequest.html */
 /** @external {@serenity-js/rest/lib/screenplay/abilities~CallAnApi} /modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html */
+/** @external {@serenity-js/rest/lib/screenplay/interactions~ChangeApiConfig} /modules/rest/class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html */
 /** @external {@serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl} /modules/rest/class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html */
 /** @external {@serenity-js/rest/lib/screenplay/interactions~Send} /modules/rest/class/src/screenplay/interactions/Send.ts~Send.html */
 /** @external {@serenity-js/rest/lib/screenplay/questions~LastResponse} /modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html */

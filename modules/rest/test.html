@@ -120,7 +120,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/PostRequest.ts~PostRequest.html">PostRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/PutRequest.ts~PutRequest.html">PutRequest</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html">ChangeApiUrl</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html">ChangeApiUrl</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Send.ts~Send.html">Send</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastResponse.ts~LastResponse.html">LastResponse</a></span></span></li>
 </ul>
@@ -408,6 +409,52 @@
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span>
 <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html#instance-method-request">CallAnApi.request</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber10"><p>ChangeApiConfig</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber17"><p>when changing the API URL</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32"><p>changes the base URL used by any subsequent requests</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span>
+<span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setUrlTo">ChangeApiConfig.setUrlTo</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber42"><p>when changing the API port</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57"><p>changes the base URL used by any subsequent requests</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span>
+<span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setPortTo">ChangeApiConfig.setPortTo</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70"><p>complains if the url has not been set prior to attempted port change</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span>
+<span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setPortTo">ChangeApiConfig.setPortTo</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79"><p>complains if the url to be changed is invalid</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html">ChangeApiConfig</a></span>
+<span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setPortTo">ChangeApiConfig.setPortTo</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">

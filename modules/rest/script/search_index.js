@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/rest/lib/screenplay/interactions~changeapiconfig",
+    "class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html",
+    "<span>ChangeApiConfig</span> <span class=\"search-result-import-path\">@serenity-js/rest/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/rest/lib/screenplay/interactions~changeapiurl",
     "class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html",
     "<span>ChangeApiUrl</span> <span class=\"search-result-import-path\">@serenity-js/rest/lib/screenplay/interactions</span>",
@@ -1014,6 +1020,48 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber10",
+    "ChangeApiConfig",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber17",
+    "ChangeApiConfig when changing the API URL",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.seturlto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.seturlto,changeapiconfig.seturlto",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32",
+    "ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber42",
+    "ChangeApiConfig when changing the API port",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57",
+    "ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70",
+    "ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79",
+    "ChangeApiConfig when changing the API port complains if the url to be changed is invalid",
+    "test"
+  ],
+  [
     "deleterequest src/model/deleterequest.ts~deleterequest,deleterequest",
     "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber7",
     "DeleteRequest",
@@ -1314,6 +1362,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/interactions/changeapiconfig.spec.ts",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html",
+    "spec/screenplay/interactions/ChangeAPIConfig.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/interactions/send.spec.ts",
     "test-file/spec/screenplay/interactions/Send.spec.ts.html",
     "spec/screenplay/interactions/Send.spec.ts",
@@ -1570,6 +1624,24 @@ window.esdocSearchIndex = [
     "file/src/screenplay/index.ts.html",
     "src/screenplay/index.ts",
     "file"
+  ],
+  [
+    "src/screenplay/interactions/changeapiconfig.ts",
+    "file/src/screenplay/interactions/ChangeApiConfig.ts.html",
+    "src/screenplay/interactions/ChangeApiConfig.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto",
+    "class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setPortTo",
+    "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setPortTo",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.seturlto",
+    "class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setUrlTo",
+    "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setUrlTo",
+    "method"
   ],
   [
     "src/screenplay/interactions/changeapiurl.ts",

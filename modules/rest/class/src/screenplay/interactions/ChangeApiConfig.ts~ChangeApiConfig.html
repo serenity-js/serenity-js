@@ -130,64 +130,354 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">spec/model/PutRequest.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { PutRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ChangeApiConfig} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest/lib/screenplay/interactions&apos;</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber68">source</a></span></span>
+</div>
 
-<span class="hljs-comment">/** @test {PutRequest} */</span>
-describe(<span class="hljs-string">&apos;PutRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+<div class="self-detail detail">
+  <h1 data-ice="name">ChangeApiConfig</h1>
 
-    <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
+  
 
-    <span class="hljs-comment">/** @test {PutRequest.to} */</span>
-    it(<span class="hljs-string">&apos;represents an Axios request&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            }));
+  <div class="description" data-ice="description"><p> Changes configuration of the <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>
+ the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ executing this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> has been configured with.</p>
+</div>
 
-    <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     */</span>
-    it(<span class="hljs-string">&apos;can have a request body&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> })))
-            .to.eventually.deep.equal({
-            method: <span class="hljs-string">&apos;PUT&apos;</span>,
-            url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-        }));
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-    <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     * @test {PutRequest#using}
-     */</span>
-    it(<span class="hljs-string">&apos;allows for additional request properties to be specified&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> }).using({
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-            })))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-                data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-            }));
+  
+  
+  
 
-    <span class="hljs-comment">/** @test {PutRequest#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).toString())
-            .to.equal(<span class="hljs-string">`a PUT request to &apos;/products/2&apos;`</span>);
-    });
-});
-</code></pre>
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Changing API URL</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
+ <span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+ <span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
+
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(
+     BrowseTheWeb.using(protractor.browser),
+
+     <span class="hljs-comment">// Note: no default base URL is given when the axios instance is created</span>
+     CallAnApi.using(axios.create()),
+ );
+
+ <span class="hljs-comment">// Let&apos;s imagine that the website under test displays</span>
+ <span class="hljs-comment">// a dynamically generated API URL we&apos;d like to use</span>
+ <span class="hljs-keyword">const</span> ApiDetailsWidget = {
+     Url: Target.the(<span class="hljs-string">&apos;API URL&apos;</span>).located(by.id(<span class="hljs-string">&apos;api-url&apos;</span>)),
+ }
+
+ actor.attemptsTo(
+     Navigate.to(<span class="hljs-string">&apos;/profile&apos;</span>),
+
+     <span class="hljs-comment">// We change the API URL based on the text displayed in the widget</span>
+     <span class="hljs-comment">// (although we could change it to some arbitrary string too).</span>
+     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),
+
+     <span class="hljs-comment">// Any subsequent request will be sent to the newly set URL</span>
+     Send.a(GetRequest.to(<span class="hljs-string">&apos;/projects&apos;</span>)),
+     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Changing API port</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
+
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(
+     ManageALocalServer.runningAHttpListener(someServer),
+     CallAnApi.at(http:<span class="hljs-comment">//localhost),</span>
+ );
+
+ actor.attemptsTo(
+    StartALocalServer.onRandomPort(),
+    ChangeApiConfig.setPortTo(LocalServer.port()),
+    Send.a(GetRequest.to(<span class="hljs-string">&apos;/api&apos;</span>)),
+    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+ );</code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber10">ChangeApiConfig</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32">ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57">ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
+</ul>
+  </div>
+
+  
+
+  
+</div>
+
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setPortTo">setPortTo</a></span></span><span class="code" data-ice="signature">(newApiPort: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to change the port configured in the base URL of their <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setUrlTo">setUrlTo</a></span></span><span class="code" data-ice="signature">(newApiUrl: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to change the base URL of their <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-setPortTo">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">setPortTo</span><span class="code" data-ice="signature">(newApiPort: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber120">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to change the port configured in the base URL of their <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">newApiPort</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57">ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-setUrlTo">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">setUrlTo</span><span class="code" data-ice="signature">(newApiUrl: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber93">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to change the base URL of their <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">newApiUrl</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32">ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+</div>
+
+
 
 </article>
             </section>

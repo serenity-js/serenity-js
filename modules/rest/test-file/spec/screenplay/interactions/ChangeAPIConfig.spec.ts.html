@@ -130,61 +130,89 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">spec/model/PutRequest.spec.ts</h1>
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/ChangeAPIConfig.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { PutRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {PutRequest} */</span>
-describe(<span class="hljs-string">&apos;PutRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
+<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../actors&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-    <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
+<span class="hljs-comment">/** @test {ChangeApiConfig} */</span>
+describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {PutRequest.to} */</span>
-    it(<span class="hljs-string">&apos;represents an Axios request&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            }));
+    <span class="hljs-keyword">const</span>
+        originalUrl             = <span class="hljs-string">&apos;http://localhost/&apos;</span>,
+        newUrl                  = <span class="hljs-string">&apos;http://example.com/&apos;</span>,
+        originalUrlWithNewPort  = <span class="hljs-string">&apos;http://localhost:8080/&apos;</span>;
 
-    <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     */</span>
-    it(<span class="hljs-string">&apos;can have a request body&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> })))
-            .to.eventually.deep.equal({
-            method: <span class="hljs-string">&apos;PUT&apos;</span>,
-            url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-        }));
+    describe(<span class="hljs-string">&apos;when changing the API URL&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     * @test {PutRequest#using}
-     */</span>
-    it(<span class="hljs-string">&apos;allows for additional request properties to be specified&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ name: <span class="hljs-string">&apos;apple&apos;</span> }).using({
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-            })))
-            .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;PUT&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-                headers: {
-                    Accept: <span class="hljs-string">&apos;application/json&apos;</span>,
-                },
-                data: { name: <span class="hljs-string">&apos;apple&apos;</span> },
-            }));
+        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
 
-    <span class="hljs-comment">/** @test {PutRequest#toString} */</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(PutRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).toString())
-            .to.equal(<span class="hljs-string">`a PUT request to &apos;/products/2&apos;`</span>);
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
+            mock.onGet(originalUrl).reply(<span class="hljs-number">500</span>);
+            mock.onGet(newUrl).reply(<span class="hljs-number">200</span>);
+        });
+
+        afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
+
+        <span class="hljs-comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setUrlTo}
+         */</span>
+        it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
+
+            ChangeApiConfig.setUrlTo(newUrl),
+            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+        ));
+    });
+
+    describe(<span class="hljs-string">&apos;when changing the API port&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
+
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
+            mock.onGet(originalUrl).reply(<span class="hljs-number">500</span>);
+            mock.onGet(originalUrlWithNewPort).reply(<span class="hljs-number">200</span>);
+        });
+
+        afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
+
+        <span class="hljs-comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
+         */</span>
+        it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
+
+            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+        ));
+
+        <span class="hljs-comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
+         */</span>
+        it(<span class="hljs-string">&apos;complains if the url has not been set prior to attempted port change&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
+            ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
+            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can&apos;t change the port of a baseURL that has not been set.`</span>));
+
+        <span class="hljs-comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
+         */</span>
+        it(<span class="hljs-string">&apos;complains if the url to be changed is invalid&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
+            ChangeApiConfig.setUrlTo(<span class="hljs-string">&apos;invalid&apos;</span>),
+            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Could not change the API port`</span>));
     });
 });
 </code></pre>
