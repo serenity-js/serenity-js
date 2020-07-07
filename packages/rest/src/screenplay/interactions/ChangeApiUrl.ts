@@ -40,6 +40,10 @@ import { CallAnApi } from '../abilities';
  *     Ensure.that(LastResponse.status(), equals(200)),
  * );
  *
+ * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead
+ *
+ * @see {@link ChangeApiConfig}
+ *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
 export class ChangeApiUrl extends Interaction {
