@@ -151,8 +151,6 @@ export interface MochaConfig {
      * @desc
      *  Retry failed tests this many times.
      *
-     * @todo: will this work with Protractor?
-     *
      * @type {number | undefined}
      * @public
      */

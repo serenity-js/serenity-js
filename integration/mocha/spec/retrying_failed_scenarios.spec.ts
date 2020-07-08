@@ -51,4 +51,16 @@ describe('@serenity-js/mocha', function () {
                     .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                 ;
             }));
+
+    it(`doesn't announce retries if the scenario is not being retried`, () =>
+        mocha('examples/passing.spec.js')
+            .then(ifExitCodeIsOtherThan(0, logOutput))
+            .then(res => {
+
+                const sceneTaggedEvents = res.events.filter(e => e instanceof SceneTagged) as SceneTagged[];
+
+                expect(sceneTaggedEvents).to.have.lengthOf(1);
+
+                expect(sceneTaggedEvents[0].tag).to.equal(new FeatureTag('Mocha reporting'))
+            }));
 });
