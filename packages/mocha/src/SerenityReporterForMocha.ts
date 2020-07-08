@@ -38,7 +38,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             (test: Test) => {
-                this.announceRetryOf(test);
+                this.announceRetryIfNeeded(test);
 
                 this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
             },
@@ -46,7 +46,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             (test: Test, err: Error) => {
-                this.announceRetryOf(test);
+                this.announceRetryIfNeeded(test);
 
                 this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test, err))
             },
@@ -54,7 +54,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         runner.on(Runner.constants.EVENT_TEST_RETRY,
             (test: Test, err: Error) => {
-                this.announceRetryOf(test);
+                this.announceRetryIfNeeded(test);
 
                 this.recorder.finished(
                     !! test.ctx && test.ctx.currentTest ? test.ctx.currentTest : test,
@@ -152,7 +152,11 @@ export class SerenityReporterForMocha extends reporters.Base {
         );
     }
 
-    private announceRetryOf(test: Test): void {
+    private announceRetryIfNeeded(test: Test): void {
+        if (! this.isRetriable(test)) {
+            return void 0;
+        }
+
         const scenario = this.testMapper.detailsOf(test)
 
         this.emit(
@@ -172,6 +176,10 @@ export class SerenityReporterForMocha extends reporters.Base {
                 ),
             );
         }
+    }
+
+    private isRetriable(test: Test): boolean {
+        return (test as any).retries() >= 0;
     }
 
     private currentRetryOf(test: Test): number {
