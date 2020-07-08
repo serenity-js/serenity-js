@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* **rest:** new interactions to ChangeApiConfig.setPortTo(..) and ChangeApiConfig.setUrlTo(..) ([28e8c28](https://github.com/serenity-js/serenity-js/commit/28e8c2891d74a8db12eddc24d2a38d1d3f408311))
+
+
+
+
+
 # [2.12.0](https://github.com/serenity-js/serenity-js/compare/v2.11.4...v2.12.0) (2020-07-06)
 
 
