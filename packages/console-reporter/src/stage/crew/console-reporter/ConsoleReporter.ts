@@ -45,30 +45,30 @@ import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForM
  *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
  * @example <caption>Registering the reporter programmatically</caption>
- * import { serenity } form '@serenity-js/core';
- * import { ConsoleReporter } form '@serenity-js/console-reporter';
+ *  import { serenity } from '@serenity-js/core';
+ *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *
- * serenity.configure({
- *     crew: [ ConsoleReporter.withDefaultColourSupport() ],
- * });
+ *  serenity.configure({
+ *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
+ *  });
  *
  * @example <caption>Registering the reporter using Protractor configuration</caption>
- * // protractor.conf.js
- * const { ConsoleReporter } = require('@serenity-js/console-reporter');
+ *  // protractor.conf.js
+ *  const { ConsoleReporter } = require('@serenity-js/console-reporter');
  *
- * exports.config = {
- *   framework:     'custom',
- *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *  exports.config = {
+ *    framework:     'custom',
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
- *   serenity: {
- *     crew: [
- *       ConsoleReporter.withDefaultColourSupport(),
- *     ],
- *     // other Serenity/JS config
- *   },
+ *    serenity: {
+ *      crew: [
+ *        ConsoleReporter.withDefaultColourSupport(),
+ *      ],
+ *      // other Serenity/JS config
+ *    },
  *
- *   // other Protractor config
- * };
+ *    // other Protractor config
+ *  };
  *
  * @public
  * @implements {@serenity-js/core/lib/stage~StageCrewMember}

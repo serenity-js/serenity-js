@@ -1,8 +1,9 @@
 # don't build tags, it's redundant
 if: tag IS blank
 
-sudo: false
 language: node_js
+dist: xenial
+os: linux
 notifications:
   email: false
   webhooks:

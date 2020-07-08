@@ -1,3 +1,5 @@
+import { TinyType } from 'tiny-types';
+
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../screenplay';
@@ -16,7 +18,7 @@ interface FailedAsyncOperationDetails {
 
 export class StageManager {
     private readonly subscribers: ListensToDomainEvents[] = [];
-    private readonly wip: Map<CorrelationId, AsyncOperationDetails> = new Map();
+    private readonly wip = new WIP<CorrelationId, AsyncOperationDetails>();
     private readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
     constructor(private readonly cueTimeout: Duration,
@@ -46,8 +48,8 @@ export class StageManager {
             timeout = setTimeout(() => {
                 clearInterval(interval);
 
-                if (this.wip.size > 0) {
-                    let message = `Some of the ${ this.wip.size } async operations have failed to complete within ${ this.cueTimeout.toString()}:\n`;
+                if (this.wip.size() > 0) {
+                    let message = `Some of the ${ this.wip.size() } async operations have failed to complete within ${ this.cueTimeout.toString()}:\n`;
 
                     this.wip.forEach((op: AsyncOperationDetails) => {
                         message += `${ this.clock.now().diff(op.startedAt) } - ${ op.taskDescription.value }\n`;
@@ -71,7 +73,7 @@ export class StageManager {
             }, this.cueTimeout.inMilliseconds());
 
             interval = setInterval(() => {
-                if (this.wip.size === 0 && this.failedOperations.length === 0) {
+                if (this.wip.size() === 0 && this.failedOperations.length === 0) {
                     clearTimeout(timeout);
                     clearInterval(interval);
 
@@ -105,5 +107,46 @@ export class StageManager {
             });
             this.wip.delete(event.correlationId);
         }
+    }
+}
+
+/**
+ * @package
+ */
+class WIP<Key extends TinyType, Value> {
+    private wip = new Map<Key, Value>();
+
+    set(key: Key, value: Value) {
+        this.wip.set(key, value);
+    }
+
+    get(key: Key): Value {
+        return this.wip.get(this.asReference(key));
+    }
+
+    delete(key: Key): boolean {
+        return this.wip.delete(this.asReference(key));
+    }
+
+    has(key): boolean {
+        return !! this.asReference(key);
+    }
+
+    size(): number {
+        return this.wip.size;
+    }
+
+    forEach(callback: (value: Value, key: Key, map: Map<Key, Value>) => void, thisArg?: any) {
+        return this.wip.forEach(callback);
+    }
+
+    private asReference(key: Key) {
+        for (const [ k, v ] of this.wip.entries()) {
+            if (k.equals(key)) {
+                return k;
+            }
+        }
+
+        return undefined;
     }
 }

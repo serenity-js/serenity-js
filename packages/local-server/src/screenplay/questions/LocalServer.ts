@@ -2,6 +2,7 @@ import { LogicError, Question } from '@serenity-js/core';
 import { ManageALocalServer } from '../abilities';
 
 import { AddressInfo } from 'net';
+import { parse } from 'url';
 
 export class LocalServer {
 
@@ -14,8 +15,10 @@ export class LocalServer {
      *
      * @see {@link StartLocalServer}
      * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<string>}
      */
-    static url() {
+    static url(): Question<string> {
         return Question.about<string>('the URL of the local server', actor => {
             return ManageALocalServer.as(actor).mapInstance((server, protocol) => {
                 const info = server.address();
@@ -36,6 +39,26 @@ export class LocalServer {
                     info.port,
                 ].join('');
             });
+        });
+    }
+
+    /**
+     * @desc
+     *  Retrieves the port number of the local server started
+     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<string>} port number of the locally running Node.js server
+     *
+     * @see {@link StartLocalServer}
+     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<number>}
+     */
+    static port(): Question<number> {
+        return Question.about(`local server port number`, actor => {
+            const url = LocalServer.url().answeredBy(actor);
+
+            return parseInt(parse(url).port, 10);
         });
     }
 }

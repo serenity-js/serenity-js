@@ -40,10 +40,30 @@ describe('Note', () => {
      * @test {TakeNotes}
      * @test {Note}
      */
+    it('enables the actor to recall the answer on a given subject', () => {
+        const notepad = new Map([ ['custom subject', 'DYI'] ]);
+        expect(actorWhoCan(new TakeNotes(notepad)).attemptsTo(
+            EnsureSame(Note.of('custom subject'), 'DYI'),
+        ));
+    });
+
+    /**
+     * @test {TakeNotes}
+     * @test {Note}
+     */
     it('complains if no answer to a given question has ever been remembered', () =>
         expect(actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
             Log.the(Note.of(NameOfAHobby())),
         )).to.be.rejectedWith(LogicError, 'The answer to "the name of a hobby" has never been recorded'));
+
+    /**
+     * @test {TakeNotes}
+     * @test {Note}
+     */
+    it('complains if no answer on a given subject has ever been remembered', () =>
+        expect(actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            Log.the(Note.of('some subject')),
+        )).to.be.rejectedWith(LogicError, 'The answer to "some subject" has never been recorded'));
 
     function actorWhoCan(...abilities: Ability[]): Actor {
         return new Actor('Noah', stage as unknown as Stage)

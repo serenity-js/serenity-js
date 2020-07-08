@@ -10,14 +10,14 @@ import { StageCrewMember } from '../../StageCrewMember';
  *  to the output stream.
  *
  * @example <caption>Writing DomainEvents to standard output</caption>
- * import { serenity, StreamReporter } form '@serenity-js/core';
+ * import { serenity, StreamReporter } from '@serenity-js/core';
  *
  * serenity.configure({
  *     crew: [ new StreamReporter(process.stdout) ],
  * });
  *
  * @example <caption>Writing DomainEvents to a file</caption>
- * import { serenity, StreamReporter } form '@serenity-js/core';
+ * import { serenity, StreamReporter } from '@serenity-js/core';
  * import fs = require('fs');
  *
  * serenity.configure({

@@ -17,6 +17,10 @@ import { expect } from '../../expect';
 /** @test {Send} */
 describe('Send', () => {
 
+    interface ExampleResponse {
+        id: number;
+    }
+
     /**
      * @test {Send.a}
      * @test {HTTPRequest}
@@ -34,7 +38,7 @@ describe('Send', () => {
         return actor.attemptsTo(
             Send.a(GetRequest.to('/products/2')),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals({ id: 2 })),
+            Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),
         );
     });
 
@@ -58,7 +62,7 @@ describe('Send', () => {
                 url: '/products/2',
             }),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals({ id: 2 })),
+            Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),
         );
     });
 

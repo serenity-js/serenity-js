@@ -15,6 +15,11 @@ describe('LastResponse', () => {
 
     describe('when asserting on the response to the last HTTP request', () => {
 
+        interface Product {
+            id: number;
+            name: string;
+        }
+
         const
             url     = '/products/2',
             body    = { id: 2, name: 'apple' },
@@ -37,7 +42,7 @@ describe('LastResponse', () => {
          */
         it('enables access to the response body', () => actor.attemptsTo(
             Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.body(), equals(body)),
+            Ensure.that(LastResponse.body<Product>(), equals(body)),
         ));
 
         /**

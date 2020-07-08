@@ -12,9 +12,9 @@ import { satisfies } from 'semver'; // tslint:disable-line:no-implicit-dependenc
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 import servers = require('./servers');
 
-/** @test {ManageALocalServer} */
 describe('ManageALocalServer', () => {
 
+    /** @test {ManageALocalServer} */
     describe('when working with HTTP', () => {
 
         given(servers).
@@ -41,7 +41,7 @@ describe('ManageALocalServer', () => {
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(200)),
-                Ensure.that(LastResponse.body(), equals('Hello World!')),
+                Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
             )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
         });
 
@@ -71,6 +71,7 @@ describe('ManageALocalServer', () => {
 
     // ---
 
+    /** @test {ManageALocalServer} */
     describe('when working with HTTPS', () => {
 
         const testHttpsServer = [
@@ -78,7 +79,7 @@ describe('ManageALocalServer', () => {
             Ensure.that(LocalServer.url(), startsWith('https://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals('Hello World!')),
+            Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
         ];
 
         given(

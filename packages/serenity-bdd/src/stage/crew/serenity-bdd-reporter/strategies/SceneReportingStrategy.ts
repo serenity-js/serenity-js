@@ -38,14 +38,24 @@ export abstract class SceneReportingStrategy {
             .when(TestRunnerDetected,       (e: TestRunnerDetected)         => report.executedBy(e.value))
             .when(ArtifactGenerated,        (e: ArtifactGenerated)          => match<Artifact, SceneReport>(e.artifact)
                 .when(HTTPRequestResponse,  _ => report.httpRequestCaptured(e.artifact.map(data => data)))
-                .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
-                .when(LogEntry,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data)))
+                .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data), e.timestamp))
+                .when(LogEntry,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data), e.timestamp))
                 .when(AssertionReport,      _ =>
-                    report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents =>
-                        SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),
-                    )),
+                    report.arbitraryDataCaptured(
+                        e.name,
+                        e.artifact.map(artifactContents =>
+                            SceneReportingStrategy.differ.diff(artifactContents.expected, artifactContents.actual),
+                        ),
+                        e.timestamp,
+                    ),
                 )
-                .when(JSONData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4))))
+                .when(JSONData,             _ =>
+                    report.arbitraryDataCaptured(
+                        e.name,
+                        e.artifact.map(artifactContents => JSON.stringify(artifactContents, null, 4)),
+                        e.timestamp,
+                    ),
+                )
                 .else(_ => report))
             .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)
                 .when(Photo,                _ => report.photoTaken(e.details, e.path, e.timestamp))
