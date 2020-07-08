@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.2](https://github.com/serenity-js/serenity-js/compare/v2.12.1...v2.12.2) (2020-07-08)
+
+
+### Bug Fixes
+
+* **mocha:** mark scenarios as retriable only if they are being retried ([c876263](https://github.com/serenity-js/serenity-js/commit/c876263daf79aafc97d1eb507850c5588174ff60))
+
+
+
+
+
 ## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
 
 
