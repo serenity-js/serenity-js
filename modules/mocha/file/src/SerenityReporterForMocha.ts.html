@@ -159,7 +159,7 @@
 
         runner.on(Runner.constants.EVENT_TEST_PASS,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+                <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
                 <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
             },
@@ -167,7 +167,7 @@
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
             <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+                <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
                 <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, err))
             },
@@ -175,7 +175,7 @@
 
         runner.on(Runner.constants.EVENT_TEST_RETRY,
             <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.announceRetryOf(test);
+                <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
                 <span class="hljs-built_in">this</span>.recorder.finished(
                     !! test.ctx &amp;&amp; test.ctx.currentTest ? test.ctx.currentTest : test,
@@ -273,7 +273,11 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> announceRetryOf(test: Test): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">private</span> announceRetryIfNeeded(test: Test): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.isRetriable(test)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+        }
+
         <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test)
 
         <span class="hljs-built_in">this</span>.emit(
@@ -293,6 +297,10 @@
                 ),
             );
         }
+    }
+
+    <span class="hljs-keyword">private</span> isRetriable(test: Test): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).retries() &gt;= <span class="hljs-number">0</span>;
     }
 
     <span class="hljs-keyword">private</span> currentRetryOf(test: Test): <span class="hljs-built_in">number</span> {
