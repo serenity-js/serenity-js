@@ -30,8 +30,8 @@ This can be done in your `protractor.conf.js` file if you're using Protractor, o
 #### Programmatic configuration
 
 ```typescript
-import { configure } form '@serenity-js/core';
-import { ConsoleReporter } form '@serenity-js/console-reporter';
+import { configure } from '@serenity-js/core';
+import { ConsoleReporter } from '@serenity-js/console-reporter';
 
 configure({
     crew: [

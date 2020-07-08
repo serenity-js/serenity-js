@@ -20,6 +20,7 @@ import {
     ThemeTag,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import { createHash } from 'crypto';
 import { JSONObject, match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
 import { inspect } from 'util';
@@ -269,17 +270,23 @@ export class SceneReport {
 
     photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
         return this.withMutated(report => {
-            this.activities.itemByCorrelationId(details.correlationId).screenshots.push({
+            this.activities.itemByCorrelationId(details.correlationId)?.screenshots.push({
                 screenshot: path.basename(),
                 timeStamp:  timestamp.toMillisecondTimestamp(),
             });
         });
     }
 
-    arbitraryDataCaptured(name: Name, contents: string) {
+    arbitraryDataCaptured(name: Name, contents: string, timestamp: Timestamp) {
+        const id = createHash('sha1')
+            .update(name.value)
+            .update(contents)
+            .update(`${ timestamp.toMillisecondTimestamp() }`)
+            .digest('hex');
+
         return this.withMutated(report => {
             this.activities.mostRecentlyAccessedItem().reportData.push({
-                id: `report-data-${ CorrelationId.create().value }`,
+                id: `report-data-${ id }`,
                 isEvidence: false,
                 path: '',
                 title: name.value,
@@ -340,12 +347,14 @@ export class SceneReport {
         }));
     }
 
+    // todo: remove
     markedAsCompleted() {
         this.completed = true;
 
         return this;
     }
 
+    // todo: remove
     isCompleted() {
         return this.completed;
     }

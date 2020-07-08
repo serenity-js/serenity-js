@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [2.12.0](https://github.com/serenity-js/serenity-js/compare/v2.11.4...v2.12.0) (2020-07-06)
+
+
+### Features
+
+* **core:** notes can be recorded under custom subject names ([b36ac73](https://github.com/serenity-js/serenity-js/commit/b36ac73423375cd6d89ac3292d624e0b5bdca61a)), closes [#586](https://github.com/serenity-js/serenity-js/issues/586)
+
+
+
+
+
+## [2.11.4](https://github.com/serenity-js/serenity-js/compare/v2.11.3...v2.11.4) (2020-07-05)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [2.11.3](https://github.com/serenity-js/serenity-js/compare/v2.11.2...v2.11.3) (2020-07-05)
+
+
+### Bug Fixes
+
+* **core:** stageManager can be used to replay test suites from event logs for diagnostics ([cb051b8](https://github.com/serenity-js/serenity-js/commit/cb051b8b09db70a846b6231ebfc5d3db04e097b5))
+
+
+
+
+
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
 # [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
 
 

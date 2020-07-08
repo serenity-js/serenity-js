@@ -12,19 +12,19 @@ export class SceneReports {
             return this.createReportFor(scenarioDetails);
         }
 
-        const report = this.reportFor(scenarioDetails);
-
-        if (report.isCompleted()) {
-            this.completedReports.push(report);
-
-            return this.createReportFor(scenarioDetails);
-        }
-
-        return report;
+        return this.reportFor(scenarioDetails);
     }
 
-    save(scenarioReport: SceneReport) {
+    createReportFor(scenarioDetails: ScenarioDetails): SceneReport {
+        return new SceneReport(scenarioDetails);
+    }
+
+    saveInProgress(scenarioReport: SceneReport) {
         this.reports[this.correlationIdFor(scenarioReport.scenarioDetails)] = scenarioReport;
+    }
+
+    saveCompleted(scenarioReport: SceneReport) {
+        this.completedReports.push(scenarioReport);
     }
 
     map<T>(fn: (report: SceneReport) => T): T[] {
@@ -39,11 +39,12 @@ export class SceneReports {
     }
 
     private reportFor(scenarioDetails: ScenarioDetails): SceneReport {
-        return this.reports[this.correlationIdFor(scenarioDetails)];
-    }
+        const report = this.reports[this.correlationIdFor(scenarioDetails)];
 
-    private createReportFor(scenarioDetails: ScenarioDetails): SceneReport {
-        return new SceneReport(scenarioDetails);
+        // prevent mutating the report
+        delete this.reports[this.correlationIdFor(scenarioDetails)]
+
+        return report;
     }
 
     private correlationIdFor(scenarioDetails: ScenarioDetails): string {

@@ -2,9 +2,8 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, not, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, Cast, ConfigurationError, configure, Log } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
-import { Photo } from '@serenity-js/core/lib/model';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 
@@ -48,13 +47,13 @@ describe('@serenity-js/local-server', () => {
             Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(200)),
-            Ensure.that(LastResponse.body(), equals('Hello World!')),
+            Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
             StopLocalServer.ifRunning(),
         )).to.be.fulfilled.then(() => {
 
             PickEvent.from(recorder.events)
-                .next(ActivityStarts,   hasName(`Nadia starts the local server`))
-                .next(ActivityFinished, hasName(`Nadia starts the local server`))
+                .next(ActivityStarts,   hasName(`Nadia starts local server on a random port`))
+                .next(ActivityFinished, hasName(`Nadia starts local server on a random port`))
                 .next(ActivityFinished, hasName(`Nadia ensures that the URL of the local server does start with 'http://127.0.0.1'`))
                 .next(ActivityFinished, hasName(`Nadia sends a GET request to the URL of the local server`))
                 .next(ActivityFinished, hasName(`Nadia ensures that the status of the last response does equal 200`))

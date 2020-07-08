@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Duration, StageManager } from '@serenity-js/core';
+import { StageManager } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -35,7 +35,7 @@ describe('SerenityBDDReporter', () => {
         reporter        = env.reporter;
     });
 
-    describe('reports the activities that took place during scenario execution:', () => {
+    describe('when reporting activities that took place during scenario execution', () => {
 
         /**
          * @test {SerenityBDDReporter}

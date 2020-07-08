@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
+# [2.12.0](https://github.com/serenity-js/serenity-js/compare/v2.11.4...v2.12.0) (2020-07-06)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
+## [2.11.4](https://github.com/serenity-js/serenity-js/compare/v2.11.3...v2.11.4) (2020-07-05)
+
+
+### Bug Fixes
+
+* **rest:** LastResponse.body() is now type-safe ([a936a1f](https://github.com/serenity-js/serenity-js/commit/a936a1f6b02657ebe81c23d3ad083dd94d60703f))
+
+
+
+
+
+## [2.11.3](https://github.com/serenity-js/serenity-js/compare/v2.11.2...v2.11.3) (2020-07-05)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **local-server:** corrected issue where local server could come back on a random port after restart ([32f18b9](https://github.com/serenity-js/serenity-js/commit/32f18b9dbd2278e0874635f7be9727aa0b90a6ae)), closes [sindresorhus/get-port#43](https://github.com/sindresorhus/get-port/issues/43)
+
+
+
+
+
+## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
 # [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
 
 **Note:** Version bump only for package @serenity-js/local-server

@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [2.12.0](https://github.com/serenity-js/serenity-js/compare/v2.11.4...v2.12.0) (2020-07-06)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.11.4](https://github.com/serenity-js/serenity-js/compare/v2.11.3...v2.11.4) (2020-07-05)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.11.3](https://github.com/serenity-js/serenity-js/compare/v2.11.2...v2.11.3) (2020-07-05)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** serenityBDDReporter reports events that occured in Mocha's before and after hooks ([a8e0ccb](https://github.com/serenity-js/serenity-js/commit/a8e0ccb20aa4bd8fed4c63816b4a09254fa09c24))
+
+
+
+
+
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** serenityBDD reporter ignores any events that happen outside of the test ([bb3b027](https://github.com/serenity-js/serenity-js/commit/bb3b027b9b1aa3f4024dcadeb8df1483d5e18906))
+
+
+
+
+
+## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** changed the default location of the cache directory so that npm doesn't prune it ([54d6dd4](https://github.com/serenity-js/serenity-js/commit/54d6dd4eb9c380c8fa917ffc4f2f23f98c9afcba)), closes [npm/npm#16853](https://github.com/npm/npm/issues/16853)
+
+
+
+
+
 # [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
 
 

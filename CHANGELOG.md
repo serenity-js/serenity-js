@@ -3,6 +3,75 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/serenity-js/serenity-js/compare/v2.12.0...v2.12.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* **rest:** new interactions to ChangeApiConfig.setPortTo(..) and ChangeApiConfig.setUrlTo(..) ([28e8c28](https://github.com/serenity-js/serenity-js/commit/28e8c2891d74a8db12eddc24d2a38d1d3f408311))
+
+
+
+
+
+# [2.12.0](https://github.com/serenity-js/serenity-js/compare/v2.11.4...v2.12.0) (2020-07-06)
+
+
+### Features
+
+* **core:** notes can be recorded under custom subject names ([b36ac73](https://github.com/serenity-js/serenity-js/commit/b36ac73423375cd6d89ac3292d624e0b5bdca61a)), closes [#586](https://github.com/serenity-js/serenity-js/issues/586)
+
+
+
+
+
+## [2.11.4](https://github.com/serenity-js/serenity-js/compare/v2.11.3...v2.11.4) (2020-07-05)
+
+
+### Bug Fixes
+
+* **rest:** LastResponse.body() is now type-safe ([a936a1f](https://github.com/serenity-js/serenity-js/commit/a936a1f6b02657ebe81c23d3ad083dd94d60703f))
+
+
+
+
+
+## [2.11.3](https://github.com/serenity-js/serenity-js/compare/v2.11.2...v2.11.3) (2020-07-05)
+
+
+### Bug Fixes
+
+* **core:** stageManager can be used to replay test suites from event logs for diagnostics ([cb051b8](https://github.com/serenity-js/serenity-js/commit/cb051b8b09db70a846b6231ebfc5d3db04e097b5))
+* **serenity-bdd:** serenityBDDReporter reports events that occured in Mocha's before and after hooks ([a8e0ccb](https://github.com/serenity-js/serenity-js/commit/a8e0ccb20aa4bd8fed4c63816b4a09254fa09c24))
+
+
+
+
+
+## [2.11.2](https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2) (2020-07-04)
+
+
+### Bug Fixes
+
+* **local-server:** corrected issue where local server could come back on a random port after restart ([32f18b9](https://github.com/serenity-js/serenity-js/commit/32f18b9dbd2278e0874635f7be9727aa0b90a6ae)), closes [sindresorhus/get-port#43](https://github.com/sindresorhus/get-port/issues/43)
+* **mocha:** correctly handle events emitted in `before` hook ([fb3e549](https://github.com/serenity-js/serenity-js/commit/fb3e549fd7038de9cde28d0eb2309e56a7062c22))
+* **serenity-bdd:** serenityBDD reporter ignores any events that happen outside of the test ([bb3b027](https://github.com/serenity-js/serenity-js/commit/bb3b027b9b1aa3f4024dcadeb8df1483d5e18906))
+
+
+
+
+
+## [2.11.1](https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** changed the default location of the cache directory so that npm doesn't prune it ([54d6dd4](https://github.com/serenity-js/serenity-js/commit/54d6dd4eb9c380c8fa917ffc4f2f23f98c9afcba)), closes [npm/npm#16853](https://github.com/npm/npm/issues/16853)
+
+
+
+
+
 # [2.11.0](https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0) (2020-06-20)
 
 
