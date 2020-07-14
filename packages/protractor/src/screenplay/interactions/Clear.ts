@@ -27,7 +27,7 @@ export class Clear extends Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return withAnswerOf(actor, this.field, (elf: ElementFinder) =>
             elf.getAttribute('value').then(value => {
-                if (! value) {
+                if (value === null) {
                     throw new LogicError(
                         `${ this.capitaliseFirstLetter(this.field.toString()) } doesn't seem to have a 'value' attribute that could be cleared.`,
                     );
