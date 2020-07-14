@@ -1381,43 +1381,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber11",
     "Clear",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber53",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber91",
     "Clear allows the actor to clear the value of a date field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber109",
     "Clear allows the actor to clear the value of an RTL input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber17",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber19",
+    "Clear allows the actor to clear the value of an empty input field",
+    "test"
+  ],
+  [
+    "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber37",
+    "Clear allows the actor to clear the value of an empty input with no \"value\" attribute",
+    "test"
+  ],
+  [
+    "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber55",
     "Clear allows the actor to clear the value of an input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber35",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber73",
     "Clear allows the actor to clear the value of an number field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber89",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber127",
     "Clear complains if the element cannot be cleared",
     "test"
   ],
   [
     "clear#tostring src/screenplay/interactions/clear.ts~clear#tostring,clear#tostring",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber140",
     "Clear provides a sensible description of the interaction being performed",
     "test"
   ],
