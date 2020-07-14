@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
@@ -20,6 +22,24 @@ describe('Clear', () => {
                 <body>
                     <form>
                         <input type="text" id="field" value="" />
+                    </form>
+                </body>
+            </html>
+        `)),
+
+        Clear.theValueOf(Form.Field),
+
+        Ensure.that(Value.of(Form.Field), equals('')),
+    ));
+
+    /** @test {Clear} */
+    /** @test {Clear.theValueOf} */
+    it('allows the actor to clear the value of an empty input with no "value" attribute', () => actorCalled('Bernie').attemptsTo(
+        Navigate.to(pageFromTemplate(`
+            <html>
+                <body>
+                    <form>
+                        <input type="text" id="field" />
                     </form>
                 </body>
             </html>
