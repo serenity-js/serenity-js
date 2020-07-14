@@ -14,6 +14,24 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
+    it('allows the actor to clear the value of an empty input field', () => actorCalled('Bernie').attemptsTo(
+        Navigate.to(pageFromTemplate(`
+            <html>
+                <body>
+                    <form>
+                        <input type="text" id="field" value="" />
+                    </form>
+                </body>
+            </html>
+        `)),
+
+        Clear.theValueOf(Form.Field),
+
+        Ensure.that(Value.of(Form.Field), equals('')),
+    ));
+
+    /** @test {Clear} */
+    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of an input field', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
