@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isPresent, Navigate, Target, Wait } from '../../src';
@@ -30,6 +30,11 @@ describe('isPresent', function () {
         Wait.until(Page.Present_Header, isPresent()),
         Ensure.that(Page.Present_Header, isPresent()),
     )).to.be.fulfilled);
+
+    /** @test {isPresent} */
+    it('breaks the actor flow when element does not become present in the DOM', () => expect(actorCalled('Bernie').attemptsTo(
+        Wait.upTo(Duration.ofMilliseconds(250)).until(Page.Non_Existent_Header, isPresent()),
+    )).to.be.rejectedWith(AssertionError, `Waited 250ms for the non-existent header to become present`));
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () => {
