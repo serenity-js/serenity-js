@@ -120,9 +120,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSelected">isSelected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isVisible">isVisible</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Accept.ts~Accept.html">Accept</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Click.ts~Click.html">Click</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html">DeleteCookies</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Dismiss.ts~Dismiss.html">Dismiss</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html">DoubleClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html">Enter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Hover.ts~Hover.html">Hover</a></span></span></li>
@@ -140,6 +142,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/CSSClasses.ts~CSSClasses.html">CSSClasses</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Cookie.ts~Cookie.html">Cookie</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
@@ -169,7 +172,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber6">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber7">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -195,7 +198,13 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber10">Enter</a></span></li>
+</ul>
+  </div>
 
   
 
@@ -358,7 +367,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber7">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber8">source</a></span></span>
     </span>
   </h3>
 
@@ -416,7 +425,9 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber18">Enter allows the actor to enter the value into a field</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber161">ModalDialog, when working with prompt(), allows the actor to enter value into a prompt</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber35">Enter allows the actor to enter the value into an input field</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber45">Enter allows the actor to enter the value into a number field</a></span></li>
 </ul>
   </div>
 
@@ -438,7 +449,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber33">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber35">source</a></span></span>
     </span>
   </h3>
 
@@ -485,7 +496,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -560,7 +571,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber87">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber91">source</a></span></span>
     </span>
   </h3>
 
@@ -604,7 +615,7 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber38">Scroll provides a sensible description of the interaction being performed</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber41">Enter provides a sensible description of the interaction being performed</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber54">Enter provides a sensible description of the interaction being performed</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber43">Hover provides a sensible description of the interaction being performed</a></span></li>
 </ul>
   </div>
@@ -693,6 +704,7 @@
 <script src="/js/inherited-summary.js"></script>
 <script src="/js/test-summary.js"></script>
 <script src="/js/patch-for-local.js"></script>
+<script src="/js/external-links.js"></script>
 
 <script>
     anchors.add('article h1, article h2, article h3, article h4');

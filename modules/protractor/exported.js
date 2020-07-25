@@ -7,9 +7,11 @@
 /** @external {@serenity-js/protractor/lib/expectations~isSelected} /modules/protractor/function/src/expectations/isSelected.ts~isSelected.html */
 /** @external {@serenity-js/protractor/lib/expectations~isVisible} /modules/protractor/function/src/expectations/isVisible.ts~isVisible.html */
 /** @external {@serenity-js/protractor/lib/screenplay/abilities~BrowseTheWeb} /modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html */
+/** @external {@serenity-js/protractor/lib/screenplay/interactions~Accept} /modules/protractor/class/src/screenplay/interactions/Accept.ts~Accept.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Clear} /modules/protractor/class/src/screenplay/interactions/Clear.ts~Clear.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Click} /modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~DeleteCookies} /modules/protractor/class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html */
+/** @external {@serenity-js/protractor/lib/screenplay/interactions~Dismiss} /modules/protractor/class/src/screenplay/interactions/Dismiss.ts~Dismiss.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~DoubleClick} /modules/protractor/class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Enter} /modules/protractor/class/src/screenplay/interactions/Enter.ts~Enter.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Hover} /modules/protractor/class/src/screenplay/interactions/Hover.ts~Hover.html */
@@ -27,6 +29,7 @@
 /** @external {@serenity-js/protractor/lib/screenplay/questions~CSSClasses} /modules/protractor/class/src/screenplay/questions/CSSClasses.ts~CSSClasses.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Cookie} /modules/protractor/class/src/screenplay/questions/Cookie.ts~Cookie.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~LastScriptExecution} /modules/protractor/class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html */
+/** @external {@serenity-js/protractor/lib/screenplay/questions~ModalDialog} /modules/protractor/class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Pick} /modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~RelativeQuestion} /modules/protractor/class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Value} /modules/protractor/class/src/screenplay/questions/Value.ts~Value.html */

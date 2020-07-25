@@ -120,9 +120,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSelected">isSelected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isVisible">isVisible</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Accept.ts~Accept.html">Accept</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Click.ts~Click.html">Click</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html">DeleteCookies</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Dismiss.ts~Dismiss.html">Dismiss</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html">DoubleClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html">Enter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Hover.ts~Hover.html">Hover</a></span></span></li>
@@ -140,6 +142,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/CSSClasses.ts~CSSClasses.html">CSSClasses</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Cookie.ts~Cookie.html">Cookie</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
@@ -167,7 +170,7 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, AssertionError, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">import</span> { isPresent, Navigate, Target, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
@@ -195,6 +198,11 @@ describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hl
         Wait.until(Page.Present_Header, isPresent()),
         Ensure.that(Page.Present_Header, isPresent()),
     )).to.be.fulfilled);
+
+    <span class="hljs-comment">/** @test {isPresent} */</span>
+    it(<span class="hljs-string">&apos;breaks the actor flow when element does not become present in the DOM&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        Wait.upTo(Duration.ofMilliseconds(<span class="hljs-number">250</span>)).until(Page.Non_Existent_Header, isPresent()),
+    )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Waited 250ms for the non-existent header to become present`</span>));
 
     <span class="hljs-comment">/** @test {isPresent} */</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element is not present in the DOM&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -297,6 +305,7 @@ describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hl
 <script src="/js/inherited-summary.js"></script>
 <script src="/js/test-summary.js"></script>
 <script src="/js/patch-for-local.js"></script>
+<script src="/js/external-links.js"></script>
 
 <script>
     anchors.add('article h1, article h2, article h3, article h4');

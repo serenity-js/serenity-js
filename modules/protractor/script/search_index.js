@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~accept",
+    "class/src/screenplay/interactions/Accept.ts~Accept.html",
+    "<span>Accept</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/questions~attribute",
     "class/src/screenplay/questions/Attribute.ts~Attribute.html",
     "<span>Attribute</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
@@ -54,6 +60,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~dismiss",
+    "class/src/screenplay/interactions/Dismiss.ts~Dismiss.html",
+    "<span>Dismiss</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/interactions~doubleclick",
     "class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html",
     "<span>DoubleClick</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
@@ -87,6 +99,12 @@ window.esdocSearchIndex = [
     "@serenity-js/protractor/lib/screenplay/questions~lastscriptexecution",
     "class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html",
     "<span>LastScriptExecution</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/screenplay/questions~modaldialog",
+    "class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html",
+    "<span>ModalDialog</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
     "class"
   ],
   [
@@ -1632,20 +1650,26 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber9",
+    "enter src/screenplay/interactions/enter.ts~enter,enter",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber10",
     "Enter",
     "test"
   ],
   [
     "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber18",
-    "Enter allows the actor to enter the value into a field",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber45",
+    "Enter allows the actor to enter the value into a number field",
+    "test"
+  ],
+  [
+    "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber35",
+    "Enter allows the actor to enter the value into an input field",
     "test"
   ],
   [
     "enter#tostring src/screenplay/interactions/enter.ts~enter#tostring,enter#tostring",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber41",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber54",
     "Enter provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -1851,6 +1875,114 @@ window.esdocSearchIndex = [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
     "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber64",
     "LastScriptExecution when used with ExecuteScript.sync returns null if the script did not return any result",
+    "test"
+  ],
+  [
+    "modaldialog src/screenplay/questions/modaldialog.ts~modaldialog,modaldialog",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber14",
+    "ModalDialog,",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber198",
+    "ModalDialog, when interacting with the Photographer,",
+    "test"
+  ],
+  [
+    "photographer src/stage/crew/photographer/photographer.ts~photographer,photographer",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber215",
+    "ModalDialog, when interacting with the Photographer, is does not negatively impact the screenshot capture process",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber170",
+    "ModalDialog, when waiting",
+    "test"
+  ],
+  [
+    "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber187",
+    "ModalDialog, when waiting allows the actor to wait until a modal dialog is present",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber21",
+    "ModalDialog, when working with alert(),",
+    "test"
+  ],
+  [
+    "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber39",
+    "ModalDialog, when working with alert(), allows the actor to accept an alert",
+    "test"
+  ],
+  [
+    "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber50",
+    "ModalDialog, when working with alert(), allows the actor to dismiss an alert",
+    "test"
+  ],
+  [
+    "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber61",
+    "ModalDialog, when working with alert(), allows the actor to read the message on an alert",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber69",
+    "ModalDialog, when working with confirm(),",
+    "test"
+  ],
+  [
+    "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber87",
+    "ModalDialog, when working with confirm(), allows the actor to accept a confirmation dialog",
+    "test"
+  ],
+  [
+    "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber98",
+    "ModalDialog, when working with confirm(), allows the actor to dismiss a confirmation dialog",
+    "test"
+  ],
+  [
+    "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber107",
+    "ModalDialog, when working with confirm(), allows the actor to read the message on a confirmation dialog",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber115",
+    "ModalDialog, when working with prompt(),",
+    "test"
+  ],
+  [
+    "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber131",
+    "ModalDialog, when working with prompt(), allows the actor to accept a prompt",
+    "test"
+  ],
+  [
+    "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber142",
+    "ModalDialog, when working with prompt(), allows the actor to dismiss a prompt",
+    "test"
+  ],
+  [
+    "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber161",
+    "ModalDialog, when working with prompt(), allows the actor to enter value into a prompt",
+    "test"
+  ],
+  [
+    "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber151",
+    "ModalDialog, when working with prompt(), allows the actor to read the message on a prompt",
     "test"
   ],
   [
@@ -3104,18 +3236,24 @@ window.esdocSearchIndex = [
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
     "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber35",
+    "isPresent breaks the actor flow when element does not become present in the DOM",
+    "test"
+  ],
+  [
+    "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber40",
     "isPresent breaks the actor flow when element is not present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber53",
     "isPresent contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber42",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber47",
     "isPresent contributes to a human-readable description of an assertion",
     "test"
   ],
@@ -3366,6 +3504,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/questions/modaldialog.spec.ts",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html",
+    "spec/screenplay/questions/ModalDialog.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/questions/pick.spec.ts",
     "test-file/spec/screenplay/questions/Pick.spec.ts.html",
     "spec/screenplay/questions/Pick.spec.ts",
@@ -3594,6 +3738,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#alert",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-alert",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#alert",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#constructor",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-constructor-constructor",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#constructor",
@@ -3714,6 +3864,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/screenplay/interactions/accept.ts",
+    "file/src/screenplay/interactions/Accept.ts.html",
+    "src/screenplay/interactions/Accept.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/accept.ts~accept#constructor",
+    "class/src/screenplay/interactions/Accept.ts~Accept.html#instance-constructor-constructor",
+    "src/screenplay/interactions/Accept.ts~Accept#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/accept.ts~accept#performas",
+    "class/src/screenplay/interactions/Accept.ts~Accept.html#instance-method-performAs",
+    "src/screenplay/interactions/Accept.ts~Accept#performAs",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/accept.ts~accept#tostring",
+    "class/src/screenplay/interactions/Accept.ts~Accept.html#instance-method-toString",
+    "src/screenplay/interactions/Accept.ts~Accept#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/accept.ts~accept.the",
+    "class/src/screenplay/interactions/Accept.ts~Accept.html#static-method-the",
+    "src/screenplay/interactions/Accept.ts~Accept.the",
+    "method"
+  ],
+  [
     "src/screenplay/interactions/clear.ts",
     "file/src/screenplay/interactions/Clear.ts.html",
     "src/screenplay/interactions/Clear.ts",
@@ -3789,6 +3969,36 @@ window.esdocSearchIndex = [
     "src/screenplay/interactions/deletecookies.ts~deletecookies.called",
     "class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html#static-method-called",
     "src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.called",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/dismiss.ts",
+    "file/src/screenplay/interactions/Dismiss.ts.html",
+    "src/screenplay/interactions/Dismiss.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/dismiss.ts~dismiss#constructor",
+    "class/src/screenplay/interactions/Dismiss.ts~Dismiss.html#instance-constructor-constructor",
+    "src/screenplay/interactions/Dismiss.ts~Dismiss#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/dismiss.ts~dismiss#performas",
+    "class/src/screenplay/interactions/Dismiss.ts~Dismiss.html#instance-method-performAs",
+    "src/screenplay/interactions/Dismiss.ts~Dismiss#performAs",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/dismiss.ts~dismiss#tostring",
+    "class/src/screenplay/interactions/Dismiss.ts~Dismiss.html#instance-method-toString",
+    "src/screenplay/interactions/Dismiss.ts~Dismiss#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/dismiss.ts~dismiss.the",
+    "class/src/screenplay/interactions/Dismiss.ts~Dismiss.html#static-method-the",
+    "src/screenplay/interactions/Dismiss.ts~Dismiss.the",
     "method"
   ],
   [
@@ -4269,6 +4479,30 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution.result",
     "class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html#static-method-result",
     "src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.result",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/modaldialog.ts",
+    "file/src/screenplay/questions/ModalDialog.ts.html",
+    "src/screenplay/questions/ModalDialog.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/modaldialog.ts~modaldialog.haspoppedup",
+    "class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html#static-method-hasPoppedUp",
+    "src/screenplay/questions/ModalDialog.ts~ModalDialog.hasPoppedUp",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/modaldialog.ts~modaldialog.message",
+    "class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html#static-method-message",
+    "src/screenplay/questions/ModalDialog.ts~ModalDialog.message",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/modaldialog.ts~modaldialog.window",
+    "class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html#static-method-window",
+    "src/screenplay/questions/ModalDialog.ts~ModalDialog.window",
     "method"
   ],
   [

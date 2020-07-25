@@ -120,9 +120,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSelected">isSelected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isVisible">isVisible</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Accept.ts~Accept.html">Accept</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Click.ts~Click.html">Click</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html">DeleteCookies</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Dismiss.ts~Dismiss.html">Dismiss</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html">DoubleClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html">Enter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Hover.ts~Hover.html">Hover</a></span></span></li>
@@ -140,6 +142,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/CSSClasses.ts~CSSClasses.html">CSSClasses</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Cookie.ts~Cookie.html">Cookie</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
@@ -165,7 +168,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/BrowseTheWeb.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { Capabilities, Navigation, Options } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
+<span class="hljs-keyword">import</span> { AlertPromise, Capabilities, Navigation, Options } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
 
 <span class="hljs-comment">/**
@@ -263,7 +266,9 @@
      *  Interface for defining sequences of complex user interactions.
      *  Each sequence will not be executed until `perform` is called.
      *
-     * @returns {external:selenium-webdriver.ActionSequence}
+     * @returns {ActionSequence}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
      */</span>
     actions(): ActionSequence {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.actions();
@@ -273,7 +278,9 @@
      * @desc
      *  Interface for managing browser and driver state.
      *
-     * @returns {external:selenium-webdriver.Options}
+     * @returns {Options}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
      */</span>
     manage(): Options {
         <span class="hljs-comment">/*
@@ -283,6 +290,25 @@
          */</span>
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.manage();
+    }
+
+    <span class="hljs-comment">/**
+     * @desc
+     *  Changes focus to the active modal dialog,
+     *  such as those opened by
+     *  [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),
+     *  [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt), or
+     *  [`Window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm).
+     *
+     * The returned promise will be rejected with an [`error.NoSuchAlertError`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/error_exports_NoSuchAlertError.html)
+     * if there are no open alerts.
+     *
+     * @returns {AlertPromise}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_TargetLocator.html#alert
+     */</span>
+    alert(): AlertPromise {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.switchTo().alert();
     }
 
     <span class="hljs-comment">/**
@@ -373,8 +399,12 @@
      * @param {string} description  - useful for debugging
      * @param {string | Function} script
      * @param {any[]} args
+     *
+     * @returns {Promise&lt;any&gt;}
+     *
+     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */</span>
-    executeScript(description: <span class="hljs-built_in">string</span>, script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>, ...args: <span class="hljs-built_in">any</span>[]) {        <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+    executeScript(description: <span class="hljs-built_in">string</span>, script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>, ...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {        <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeScriptWithDescription(script, description, ...args))
             .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
                 <span class="hljs-built_in">this</span>.lastScriptExecutionSummary = <span class="hljs-keyword">new</span> LastScriptExecutionSummary(
@@ -431,6 +461,10 @@
      *
      * @param {string|Function} script
      * @param {any[]} args
+     *
+     * @returns {Promise&lt;any&gt;}
+     *
+     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */</span>
     executeAsyncScript(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>, ...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {   <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeAsyncScript(script, ...args))
@@ -499,6 +533,7 @@
      * @desc
      *  Pause the actor flow for a specified number of milliseconds.
      *
+     * @param {number} millis
      * @returns {Promise&lt;void&gt;}
      */</span>
     sleep(millis: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
@@ -509,12 +544,21 @@
      * @desc
      *  Pause the actor flow until the condition is met or the timeout expires.
      *
+     * @param {function(): Promise&lt;boolean&gt;} condition
+     * @param {number} timeoutInMillis
      * @returns {Promise&lt;boolean&gt;}
      */</span>
-    wait(condition: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;, timeout: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.wait(condition, timeout));
+    wait(condition: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;, timeoutInMillis: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.wait(condition, timeoutInMillis));
     }
 
+    <span class="hljs-comment">/**
+     * @desc
+     *  Returns the last result of calling {@link BrowseTheWeb#executeAsyncScript}
+     *  or {@link BrowseTheWeb#executeScript}
+     *
+     * @returns {any}
+     */</span>
     getLastScriptExecutionResult(): <span class="hljs-built_in">any</span> {
         <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.lastScriptExecutionSummary) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Make sure to execute a script before checking on the result`</span>);
@@ -612,6 +656,7 @@
 <script src="/js/inherited-summary.js"></script>
 <script src="/js/test-summary.js"></script>
 <script src="/js/patch-for-local.js"></script>
+<script src="/js/external-links.js"></script>
 
 <script>
     anchors.add('article h1, article h2, article h3, article h4');
