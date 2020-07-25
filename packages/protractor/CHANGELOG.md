@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.3](https://github.com/serenity-js/serenity-js/compare/v2.12.2...v2.12.3) (2020-07-14)
+
+
+### Bug Fixes
+
+* **protractor:** `Clear` can clear a value of an empty field ([6bd85ff](https://github.com/serenity-js/serenity-js/commit/6bd85ffc4d4a5169652cb8d1a5d743e47e9efcc2))
+
+
+
+
+
 ## [2.12.2](https://github.com/serenity-js/serenity-js/compare/v2.12.1...v2.12.2) (2020-07-08)
 
 **Note:** Version bump only for package @serenity-js/protractor
