@@ -7,20 +7,24 @@ import { AlertPromise } from 'selenium-webdriver';
  *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to accept
  *  a {@link ModalDialog}.
  *
- * @example <caption>Widget</caption>
+ * @example <caption>Example widget</caption>
  *  <button
  *      data-test="trigger"
  *      onclick="alert('hello!')">Trigger Alert</button>
  *
- * @example <caption>Usage</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Accept, BrowseTheWeb, Click, ModalDialog, Target } from '@serenity-js/protractor';
- *  import { browser, by } from 'protractor';
+ * @example <caption>Lean Page Object</caption>
+ *  import { Target } from '@serenity-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  class Widget {
  *      static trigger = Target.the('trigger button')
  *          .located(by.css('[data-test="trigger"]'));
  *  }
+ *
+ * @example <caption>Accepting a modal dialog window</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';
+ *  import { protractor } from 'protractor';
  *
  *  actorCalled('Nick')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
@@ -28,6 +32,11 @@ import { AlertPromise } from 'selenium-webdriver';
  *          Click.on(Widget.trigger),
  *          Accept.the(ModalDialog.window()),
  *      );
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ *
+ * @see {@link Dismiss}
+ * @see {@link ModalDialog}
  */
 export class Accept extends Interaction {
 
