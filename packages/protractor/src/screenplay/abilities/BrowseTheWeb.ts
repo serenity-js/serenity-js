@@ -1,6 +1,6 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
-import { Capabilities, Navigation, Options } from 'selenium-webdriver';
+import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
 /**
@@ -98,7 +98,9 @@ export class BrowseTheWeb implements Ability {
      *  Interface for defining sequences of complex user interactions.
      *  Each sequence will not be executed until `perform` is called.
      *
-     * @returns {external:selenium-webdriver.ActionSequence}
+     * @returns {ActionSequence}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
      */
     actions(): ActionSequence {
         return this.browser.actions();
@@ -108,7 +110,9 @@ export class BrowseTheWeb implements Ability {
      * @desc
      *  Interface for managing browser and driver state.
      *
-     * @returns {external:selenium-webdriver.Options}
+     * @returns {Options}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
      */
     manage(): Options {
         /*
@@ -118,6 +122,25 @@ export class BrowseTheWeb implements Ability {
          */
 
         return this.browser.manage();
+    }
+
+    /**
+     * @desc
+     *  Changes focus to the active modal dialog,
+     *  such as those opened by
+     *  [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),
+     *  [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt), or
+     *  [`Window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm).
+     *
+     * The returned promise will be rejected with an [`error.NoSuchAlertError`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/error_exports_NoSuchAlertError.html)
+     * if there are no open alerts.
+     *
+     * @returns {AlertPromise}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_TargetLocator.html#alert
+     */
+    alert(): AlertPromise {
+        return this.browser.switchTo().alert();
     }
 
     /**
@@ -208,8 +231,12 @@ export class BrowseTheWeb implements Ability {
      * @param {string} description  - useful for debugging
      * @param {string | Function} script
      * @param {any[]} args
+     *
+     * @returns {Promise<any>}
+     *
+     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript(description: string, script: string | Function, ...args: any[]) {        // tslint:disable-line:ban-types
+    executeScript(description: string, script: string | Function, ...args: any[]): Promise<any> {        // tslint:disable-line:ban-types
         return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
@@ -266,6 +293,10 @@ export class BrowseTheWeb implements Ability {
      *
      * @param {string|Function} script
      * @param {any[]} args
+     *
+     * @returns {Promise<any>}
+     *
+     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
     executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // tslint:disable-line:ban-types
         return promiseOf(this.browser.executeAsyncScript(script, ...args))
@@ -334,6 +365,7 @@ export class BrowseTheWeb implements Ability {
      * @desc
      *  Pause the actor flow for a specified number of milliseconds.
      *
+     * @param {number} millis
      * @returns {Promise<void>}
      */
     sleep(millis: number): Promise<void> {
@@ -344,12 +376,21 @@ export class BrowseTheWeb implements Ability {
      * @desc
      *  Pause the actor flow until the condition is met or the timeout expires.
      *
+     * @param {function(): Promise<boolean>} condition
+     * @param {number} timeoutInMillis
      * @returns {Promise<boolean>}
      */
-    wait(condition: () => Promise<boolean>, timeout: number): Promise<boolean> {
-        return promiseOf(this.browser.wait(condition, timeout));
+    wait(condition: () => Promise<boolean>, timeoutInMillis: number): Promise<boolean> {
+        return promiseOf(this.browser.wait(condition, timeoutInMillis));
     }
 
+    /**
+     * @desc
+     *  Returns the last result of calling {@link BrowseTheWeb#executeAsyncScript}
+     *  or {@link BrowseTheWeb#executeScript}
+     *
+     * @returns {any}
+     */
     getLastScriptExecutionResult(): any {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
