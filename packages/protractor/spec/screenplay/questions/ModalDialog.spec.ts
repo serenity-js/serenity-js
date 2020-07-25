@@ -11,14 +11,14 @@ import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 /** @test {ModalDialog} */
-describe('ModalDialog', function () {
+describe('ModalDialog,', function () {
 
     const Example = {
         trigger:    Target.the('alert trigger').located(by.id('trigger')),
         result:     Target.the('result').located(by.id('result')),
     }
 
-    describe('alert()', () => {
+    describe('when working with alert(),', () => {
 
         beforeEach(() =>
             actorCalled('Nick').attemptsTo(
@@ -32,6 +32,7 @@ describe('ModalDialog', function () {
                 Click.on(Example.trigger),
             ));
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Accept} */
         /** @test {Accept.the} */
@@ -42,6 +43,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Dismiss} */
         /** @test {Dismiss.the} */
@@ -52,6 +54,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.message} */
         /** @test {Dismiss} */
         /** @test {Dismiss.the} */
@@ -63,7 +66,7 @@ describe('ModalDialog', function () {
         );
     });
 
-    describe('confirm()', () => {
+    describe('when working with confirm(),', () => {
 
         beforeEach(() =>
             actorCalled('Nick').attemptsTo(
@@ -77,6 +80,7 @@ describe('ModalDialog', function () {
                 Click.on(Example.trigger),
             ));
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Accept} */
         /** @test {Accept.the} */
@@ -87,6 +91,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Dismiss} */
         /** @test {Dismiss.the} */
@@ -97,6 +102,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.message} */
         it('allows the actor to read the message on a confirmation dialog', () =>
             actorCalled('Nick').attemptsTo(
@@ -106,7 +112,7 @@ describe('ModalDialog', function () {
         );
     });
 
-    describe('prompt()', () => {
+    describe('when working with prompt(),', () => {
 
         beforeEach(() =>
             actorCalled('Nick').attemptsTo(
@@ -118,6 +124,7 @@ describe('ModalDialog', function () {
                 Click.on(Example.trigger),
             ));
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Accept} */
         /** @test {Accept.the} */
@@ -128,6 +135,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.window} */
         /** @test {Dismiss} */
         /** @test {Dismiss.the} */
@@ -138,6 +146,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.message} */
         it('allows the actor to read the message on a prompt', () =>
             actorCalled('Nick').attemptsTo(
@@ -146,6 +155,7 @@ describe('ModalDialog', function () {
             ),
         );
 
+        /** @test {ModalDialog} */
         /** @test {ModalDialog.message} */
         /** @test {Enter.theValue} */
         it('allows the actor to enter value into a prompt', () =>
@@ -157,7 +167,7 @@ describe('ModalDialog', function () {
         );
     });
 
-    describe('waiting', () => {
+    describe('when waiting', () => {
 
         beforeEach(() =>
             actorCalled('Nick').attemptsTo(
@@ -185,7 +195,7 @@ describe('ModalDialog', function () {
         );
     });
 
-    describe('Photograper', () => {
+    describe('when interacting with the Photographer,', () => {
 
         let recorder: EventRecorder;
 
@@ -202,7 +212,7 @@ describe('ModalDialog', function () {
         });
 
         /** @test {Photographer} */
-        it('is not negatively impacted by the presence of an alert', () =>
+        it('is does not negatively impact the screenshot capture process', () =>
             actorCalled('Nick').attemptsTo(
                 Navigate.to(sandboxWith(`
                     function() {

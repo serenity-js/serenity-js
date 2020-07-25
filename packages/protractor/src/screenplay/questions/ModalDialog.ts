@@ -12,20 +12,25 @@ import { BrowseTheWeb } from '../abilities';
  *
  *  Check out the examples below, as well as the unit tests demonstrating the usage.
  *
- * @example <caption>Widget</caption>
+ * @example <caption>Example widget</caption>
  *  <button
  *      data-test="trigger"
  *      onclick="alert('Hello!')">Trigger Alert</button>
  *
- * @example <caption>Usage</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Accept, BrowseTheWeb, Click, ModalDialog, Target } from '@serenity-js/protractor';
+ * @example <caption>Lean Page Object</caption>
+ *  import { Target } from '@serenity-js/protractor';
  *  import { browser, by } from 'protractor';
  *
  *  class Widget {
  *      static trigger = Target.the('trigger button')
  *          .located(by.css('[data-test="trigger"]'));
  *  }
+ *
+ * @see {@link Accept}
+ * @see {@link Dismiss}
+ * @see {@link Enter}
+ * @see {@link Wait}
+ * @see {@link @serenity-js/assertions~Ensure}
  */
 export class ModalDialog {
 
@@ -36,10 +41,10 @@ export class ModalDialog {
      *  If the window was created using [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)
      *  you can use the {@link @serenity-js/core/lib/screenplay~Interaction} to {@link Enter} with it too.
      *
-     * @example <caption>Usage</caption>
+     * @example <caption>Accepting an alert</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { Accept, BrowseTheWeb, Click, ModalDialog, Target } from '@serenity-js/protractor';
-     *  import { browser, by } from 'protractor';
+     *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';
+     *  import { protractor } from 'protractor';
      *
      *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
@@ -51,6 +56,8 @@ export class ModalDialog {
      * @see {@link Accept}
      * @see {@link Dismiss}
      * @see {@link Enter}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<AlertPromise>}
      */
     static window(): Question<AlertPromise> {
         return Question.about<AlertPromise>(`the modal dialog window`, actor =>
@@ -62,11 +69,11 @@ export class ModalDialog {
      * @desc
      *  Resolves to `true` if the modal dialog window is present, or `false` if it's not.
      *
-     * @example <caption>Usage</caption>
+     * @example <caption>Verifying if a modal dialog window is present</caption>
      *  import { actorCalled } from '@serenity-js/core';
      *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';
      *  import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
-     *  import { browser, by } from 'protractor';
+     *  import { protractor } from 'protractor';
      *
      *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
@@ -76,8 +83,24 @@ export class ModalDialog {
      *          Ensure.that(ModalDialog.hasPoppedUp(), isTrue()),
      *      );
      *
-     * @see {@link @serenity-js/assertions/lib/screenplay~Ensure}
+     * @example <caption>Waiting for a modal dialog window</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { BrowseTheWeb, Click, Dismiss, ModalDialog, Wait } from '@serenity-js/protractor';
+     *  import { isTrue } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Click.on(Widget.trigger),
+     *          Wait.until(ModalDialog.hasPoppedUp(), isTrue()),
+     *          Dismiss.the(ModalDialog.window()),
+     *      );
+     *
+     * @see {@link @serenity-js/assertions~Ensure}
      * @see {@link Wait}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<boolean>>}
      */
     static hasPoppedUp(): Question<Promise<boolean>> {
         return Question.about<Promise<boolean>>(`the modal dialog has popped up`, actor =>
@@ -97,24 +120,25 @@ export class ModalDialog {
 
     /**
      * @desc
-     *  Resolves to the message displayed on the modal dialog window.
+     *  Resolves to the message displayed in the modal dialog window.
      *
-     * @example <caption>Usage</caption>
+     * @example <caption>Verifying the message</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Click, ModalDialog, Wait } from '@serenity-js/protractor';
+     *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';
      *  import { Ensure, equals } from '@serenity-js/assertions';
-     *  import { browser, by } from 'protractor';
+     *  import { protractor } from 'protractor';
      *
      *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
      *          Click.on(Widget.trigger),
-     *          Wait.until(ModalDialog.hasPoppedUp(), isTrue()), // optionally
      *          Ensure.that(ModalDialog.message(), equals('Hello!')),
      *      );
      *
-     * @see {@link @serenity-js/assertions/lib/screenplay~Ensure}
+     * @see {@link @serenity-js/assertions~Ensure}
      * @see {@link Wait}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}
      */
     static message(): Question<Promise<string>> {
         return Question.about<Promise<string>>(`the modal dialog message`, actor =>
