@@ -6,35 +6,48 @@ import { by } from 'protractor';
 import { Enter, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Enter} */
 describe('Enter', () => {
 
     const Form = {
-        Field: Target.the('name field').located(by.id('name')),
-        Result: Target.the('result').located(by.id('your-name')),
+        Field: Target.the('name field').located(by.id('field')),
+        Result: Target.the('result').located(by.id('result')),
     };
 
-    /** @test {Enter} */
-    /** @test {Enter.theValue} */
-    it('allows the actor to enter the value into a field', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(pageFromTemplate(`
+    const page = pageFromTemplate(`
             <html>
                 <body>
                     <form>
-                        <input type="text" id="name" onkeyup="update()" />
-                        <div id="your-name" />
+                        <input type="text" id="field" onkeyup="update()" />
+                        <div id="result" />
                     </form>
                     <script>
                     function update() {
-                      document.getElementById("your-name").textContent = document.getElementById("name").value;
+                      document.getElementById("result").textContent = document.getElementById("field).value;
                     }
                     </script>
                 </body>
             </html>
-        `)),
+        `)
+
+    /** @test {Enter} */
+    /** @test {Enter.theValue} */
+    it('allows the actor to enter the value into an input field', () => actorCalled('Bernie').attemptsTo(
+        Navigate.to(page),
 
         Enter.theValue(actorCalled('Bernie').name).into(Form.Field),
 
         Ensure.that(Value.of(Form.Field), equals(actorCalled('Bernie').name)),
+    ));
+
+    /** @test {Enter} */
+    /** @test {Enter.theValue} */
+    it('allows the actor to enter the value into a number field', () => actorCalled('Bernie').attemptsTo(
+        Navigate.to(page),
+
+        Enter.theValue(123).into(Form.Field),
+
+        Ensure.that(Value.of(Form.Field), equals('123')),
     ));
 
     /** @test {Enter#toString} */

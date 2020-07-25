@@ -1,5 +1,7 @@
+export * from './Accept';
 export * from './Clear';
 export * from './Click';
+export * from './Dismiss';
 export * from './DeleteCookies';
 export * from './DoubleClick';
 export * from './Enter';
