@@ -88,7 +88,7 @@ export class ChangeApiConfig {
 /**
  * @package
  */
-class ChangeApiConfigSetUrl  extends Interaction {
+class ChangeApiConfigSetUrl extends Interaction {
     constructor(private readonly newApiUrl: Answerable<string>) {
         super();
     }
