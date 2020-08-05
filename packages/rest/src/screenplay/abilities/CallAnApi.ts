@@ -83,6 +83,8 @@ export class CallAnApi implements Ability {
      *
      * @param {AxiosInstance} axiosInstance
      * @returns {CallAnApi}
+     *
+     * @see {@link AxiosInstance}
      */
     static using(axiosInstance: AxiosInstance) {
         return new CallAnApi(axiosInstance);
@@ -104,6 +106,8 @@ export class CallAnApi implements Ability {
     /**
      * @param {AxiosInstance} axiosInstance
      *  A pre-configured instance of the Axios HTTP client
+     *
+     * @see {@link AxiosInstance}
      */
     constructor(private readonly axiosInstance: AxiosInstance) {
     }
@@ -116,6 +120,8 @@ export class CallAnApi implements Ability {
      *
      * @param {function (original: AxiosRequestConfig): any} fn
      * @returns {void}
+     *
+     * @see {@link AxiosRequestConfig}
      */
     modifyConfig(fn: (original: AxiosRequestConfig) => any): void {
         fn(this.axiosInstance.defaults);
@@ -132,6 +138,9 @@ export class CallAnApi implements Ability {
      *
      * @returns {Promise<AxiosResponse>}
      *  A promise of an AxiosResponse
+     *
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosResponse}
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         return this.captureResponseOf(this.axiosInstance.request(config));
@@ -144,6 +153,8 @@ export class CallAnApi implements Ability {
      *
      * @param {function<T>(AxiosResponse): T} fn - mapper function
      * @returns {T}
+     *
+     * @see {@link AxiosResponse}
      */
     mapLastResponse<T>(fn: (response: AxiosResponse) => T): T {
         if (!this.lastResponse) {
