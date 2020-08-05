@@ -37,6 +37,7 @@ If you're starting a new project, the easiest way to do it is to use one of the 
 The most popular templates include:
 - [`serenity-js-cucumber-protractor-template`](https://github.com/serenity-js/serenity-js-cucumber-protractor-template) - a boilerplate project with Serenity/JS 2.x, latest version of Cucumber.js and Protractor,
 - [`serenity-js-jasmine-protractor-template`](https://github.com/serenity-js/serenity-js-jasmine-protractor-template) - a boilerplate project with Serenity/JS 2.x, Jasmine and Protractor.
+- [`serenity-js-mocha-protractor-template`](https://github.com/serenity-js/serenity-js-mocha-protractor-template) - a boilerplate project with Serenity/JS 2.x, Mocha and Protractor.
 
 ## A modular framework
 
