@@ -164,6 +164,8 @@
      *
      * @param {@serenity-js/lib/core/screenplay~Answerable&lt;AxiosRequestConfig&gt;} request
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     *
+     * @see {@link AxiosRequestConfig}
      */</span>
     <span class="hljs-keyword">static</span> a(request: Answerable&lt;AxiosRequestConfig&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Send(request);
@@ -171,6 +173,8 @@
 
     <span class="hljs-comment">/**
      * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} request
+     *
+     * @see {@link AxiosRequestConfig}
      */</span>
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> request: Answerable&lt;AxiosRequestConfig&gt;</span>) {
         <span class="hljs-built_in">super</span>();

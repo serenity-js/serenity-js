@@ -822,6 +822,36 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "axioserror",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "AxiosError",
+    "external"
+  ],
+  [
+    "axiosinstance",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "AxiosInstance",
+    "external"
+  ],
+  [
+    "axiospromise",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "AxiosPromise",
+    "external"
+  ],
+  [
+    "axiosrequestconfig",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "AxiosRequestConfig",
+    "external"
+  ],
+  [
+    "axiosresponse",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "AxiosResponse",
+    "external"
+  ],
+  [
     "* *,*",
     "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber8",
     "JasmineAdapter",

@@ -216,6 +216,8 @@
      *
      * @param {AxiosInstance} axiosInstance
      * @returns {CallAnApi}
+     *
+     * @see {@link AxiosInstance}
      */</span>
     <span class="hljs-keyword">static</span> using(axiosInstance: AxiosInstance) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CallAnApi(axiosInstance);
@@ -237,6 +239,8 @@
     <span class="hljs-comment">/**
      * @param {AxiosInstance} axiosInstance
      *  A pre-configured instance of the Axios HTTP client
+     *
+     * @see {@link AxiosInstance}
      */</span>
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> axiosInstance: AxiosInstance</span>) {
     }
@@ -249,6 +253,8 @@
      *
      * @param {function (original: AxiosRequestConfig): any} fn
      * @returns {void}
+     *
+     * @see {@link AxiosRequestConfig}
      */</span>
     modifyConfig(fn: <span class="hljs-function">(<span class="hljs-params">original: AxiosRequestConfig</span>) =&gt;</span> <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span> {
         fn(<span class="hljs-built_in">this</span>.axiosInstance.defaults);
@@ -265,6 +271,9 @@
      *
      * @returns {Promise&lt;AxiosResponse&gt;}
      *  A promise of an AxiosResponse
+     *
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosResponse}
      */</span>
     request(config: AxiosRequestConfig): <span class="hljs-built_in">Promise</span>&lt;AxiosResponse&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.captureResponseOf(<span class="hljs-built_in">this</span>.axiosInstance.request(config));
@@ -277,6 +286,8 @@
      *
      * @param {function&lt;T&gt;(AxiosResponse): T} fn - mapper function
      * @returns {T}
+     *
+     * @see {@link AxiosResponse}
      */</span>
     mapLastResponse&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> T): T {
         <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.lastResponse) {

@@ -954,6 +954,36 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "axioserror",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "AxiosError",
+    "external"
+  ],
+  [
+    "axiosinstance",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "AxiosInstance",
+    "external"
+  ],
+  [
+    "axiospromise",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "AxiosPromise",
+    "external"
+  ],
+  [
+    "axiosrequestconfig",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "AxiosRequestConfig",
+    "external"
+  ],
+  [
+    "axiosresponse",
+    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "AxiosResponse",
+    "external"
+  ],
+  [
     "callanapi src/screenplay/abilities/callanapi.ts~callanapi,callanapi",
     "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber12",
     "CallAnApi",
