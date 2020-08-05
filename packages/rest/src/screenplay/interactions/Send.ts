@@ -31,6 +31,8 @@ export class Send extends Interaction {
      *
      * @param {@serenity-js/lib/core/screenplay~Answerable<AxiosRequestConfig>} request
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     *
+     * @see {@link AxiosRequestConfig}
      */
     static a(request: Answerable<AxiosRequestConfig>): Interaction {
         return new Send(request);
@@ -38,6 +40,8 @@ export class Send extends Interaction {
 
     /**
      * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} request
+     *
+     * @see {@link AxiosRequestConfig}
      */
     constructor(private readonly request: Answerable<AxiosRequestConfig>) {
         super();

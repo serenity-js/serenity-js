@@ -87,9 +87,10 @@ actorCalled('Priya')
 
 ### Template Repositories
 
-The easiest way for you to start writing web-based acceptance tests using Serenity/JS, Protractor and either [Jasmine](https://jasmine.github.io/) or [Cucumber](https://github.com/cucumber/cucumber-js) is by using one of the below template repositories:
+The easiest way for you to start writing web-based acceptance tests using Serenity/JS, Protractor and either [Mocha](https://mochajs.org/), [Cucumber](https://github.com/cucumber/cucumber-js) or [Jasmine](https://jasmine.github.io/) is by using one of the below template repositories:
 
-- [Sernity/JS, Jasmine, and Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template)
+- [Serenity/JS, Mocha, and Protractor template](https://github.com/serenity-js/serenity-js-mocha-protractor-template)
 - [Serenity/JS, Cucumber, and Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template)
+- [Serenity/JS, Jasmine, and Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template)
 
 
