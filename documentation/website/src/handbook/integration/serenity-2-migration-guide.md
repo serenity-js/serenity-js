@@ -13,7 +13,7 @@ are backwardly compatible.
 
 There are some [example mini-projects within the Serenity/JS main repo](https://github.com/jan-molak/serenity-js/tree/master/examples) created in version 2.x format that demonstrate the major features for each supported framework. 
 For instance there are Serenity/JS 2.x implementations of a [calculator](https://github.com/serenity-js/serenity-js/tree/master/examples/calculator-app) or the [popular todomvc](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc) project.
-There are also some separate repos that provide empty templates for [Protractor](https://github.com/serenity-js/serenity-js-cucumber-protractor-template) and [Jasmine](https://github.com/serenity-js/serenity-js-jasmine-protractor-template).
+There are also some separate repos that provide empty templates for [Protractor](https://github.com/serenity-js/serenity-js-cucumber-protractor-template), [Jasmine](https://github.com/serenity-js/serenity-js-jasmine-protractor-template) and [Mocha](https://github.com/serenity-js/serenity-js-mocha-protractor-template).
 However, it can sometimes be difficult to know how to apply patterns from example or empty projects into your existing project. 
 
 As with any major library or framework release, there are a number of breaking changes that will prevent your project from being immediately runnable upon changing to the new version. 
@@ -92,7 +92,7 @@ Now that Serenity/JS 2.x is officially released, versions can be set to "^2.0.0"
 If you want to want to stay on a fixed version, use that instead. You can find out the latest available version by visiting the [releases page](https://github.com/jan-molak/serenity-js/releases).
 
 You may have other dependencies such as express, jasmine, node, sinon, in your existing project, but you won't need to have these unless you need to use them directly. 
-Adding the above Serenity/JS dependencies should bring all runtime dependencies across. If you do need them and you want to pick a compatible version, see the versions in the [Protractor](https://github.com/serenity-js/serenity-js-cucumber-protractor-template) and [Jasmine](https://github.com/serenity-js/serenity-js-jasmine-protractor-template) template repos.
+Adding the above Serenity/JS dependencies should bring all runtime dependencies across. If you do need them and you want to pick a compatible version, see the versions in the [Protractor](https://github.com/serenity-js/serenity-js-cucumber-protractor-template), [Jasmine](https://github.com/serenity-js/serenity-js-jasmine-protractor-template) or [Mocha](https://github.com/serenity-js/serenity-js-mocha-protractor-template) template repos.
 
 ### Updating scripts
   
