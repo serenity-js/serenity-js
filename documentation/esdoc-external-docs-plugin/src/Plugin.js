@@ -8,7 +8,6 @@ const
 class Plugin {
     constructor() {
         this._enable = true;
-        this._source = undefined;
         this._destination = undefined;
         this._externalImports = [];
     }
@@ -24,16 +23,24 @@ class Plugin {
         this._source = ev.data.config.source;
         this._destination = ev.data.config.destination;
 
-        glob.sync(ev.data.option.externals).forEach((pathToExports) => {
-            const moduleName = pathToExports.match(/@serenity-js\/(.*?)\//)[1];
+        const createATempImportsFile = (pattern, mapper) => (pathToExports) => {
+            const matched = pathToExports.match(pattern);
 
-            const importsFileName = `.imports-from-${moduleName}.js`;
+            const importsFileName = `.imports-from-${mapper(matched)}.js`;
             const destination = path.join(this._source, importsFileName);
 
             this._externalImports.push(destination);
 
-            fs.copyFileSync(pathToExports, path.resolve(destination))
-        });
+            fs.copyFileSync(pathToExports, path.resolve(destination));
+        }
+
+        // @serenity-js/* modules
+        glob.sync(ev.data.option.externals)
+            .forEach(createATempImportsFile(/@(serenity-js)\/(.*?)\//, m => `${ m[1] }-${ m[2] }`));
+
+        // any external modules with type definitions under resources
+        glob.sync(path.resolve(__dirname, '../resources/*.js'))
+            .forEach(createATempImportsFile(/external\.(.*?)\.js/, m => `${ m[1] }`));
     }
 
     onHandleDocs(event) {
