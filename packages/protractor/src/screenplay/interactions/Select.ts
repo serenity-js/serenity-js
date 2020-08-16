@@ -1,5 +1,6 @@
 import { Answerable, AnswersQuestions, Question } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
+import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { by, ElementFinder, protractor } from 'protractor';
 import { promiseOf } from '../../promiseOf';
@@ -14,7 +15,7 @@ export class Select {
         };
     }
 
-    static values(values: string[] | Question<Promise<string[]>>) {
+    static values(...values: Array<Answerable<string[] | string>>) {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectValues(values, target)
@@ -28,7 +29,7 @@ export class Select {
         };
     }
 
-    static options(values: string[] | Question<Promise<string[]>>) {
+    static options(...values: Array<Answerable<string[] | string>>) {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectOptions(values, target)
@@ -67,16 +68,17 @@ class SelectValue implements Interaction {
 class SelectValues implements Interaction {
 
     constructor(
-        private readonly values: string[] | Question<Promise<string[]>>,
+        private readonly values: Array<Answerable<string[] | string>>,
         private readonly target: Question<ElementFinder> | ElementFinder
     ) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
-        return actor.answer(this.values)
+        return Promise.all(this.values.map(value => actor.answer(value)))
+            .then(flatten)
             .then(values => {
-
+                // todo: extract
                 const hasRequiredValue = (option: ElementFinder) => option.getAttribute('value').then(value => !!~values.indexOf(value)),
                     isAlreadySelected = (option: ElementFinder) => option.isSelected(),
                     ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1,
@@ -95,7 +97,7 @@ class SelectValues implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects values ${ this.values } from ${ this.target }`;
+        return `#actor selects values ${ commaSeparated(flatten(this.values), inspected) } from ${ this.target }`;
     }
 }
 
@@ -130,14 +132,14 @@ class SelectOption implements Interaction {
 class SelectOptions implements Interaction {
 
     constructor(
-        // todo: vararg
-        private readonly values: string[] | Question<Promise<string[]>>,
+        private readonly values: Array<Answerable<string[] | string>>,
         private readonly target: Question<ElementFinder> | ElementFinder
     ) {
     }
 
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        return actor.answer(this.values)
+        return Promise.all(this.values.map(value => actor.answer(value)))
+            .then(flatten)
             .then(values => {
 
                 const hasRequiredText = (option: ElementFinder) => option.getText().then(value => !!~values.indexOf(value)),
@@ -159,6 +161,13 @@ class SelectOptions implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects ${ this.values } from ${ this.target }`;
+        return `#actor selects ${ commaSeparated(flatten(this.values), inspected) } from ${ this.target }`;
     }
+}
+
+/** @package */
+function flatten<T>(listOfLists: Array<T[] | T>): T[] {
+    return listOfLists
+        .map(item => [].concat(item))
+        .reduce((acc: T[], list: T[]) => acc.concat(list), []);
 }
