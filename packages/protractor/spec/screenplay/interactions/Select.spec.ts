@@ -143,6 +143,8 @@ describe('Select', () => {
                     <li>Poland</li>
                     <li>United Kingdom</li>
                 </ul>
+                <p id='another-country-of-interest-code'>DE</p>
+                <p id='another-country-of-interest-name'>Germany</p>
                 </body>
             </html>
         `);
@@ -151,6 +153,8 @@ describe('Select', () => {
             static selector = Target.the('country selector').located(by.id('multi-option-select'));
             static countryCodes = Target.all('country codes').located(by.css('#country-of-interest-codes li'));
             static countryNames = Target.all('country names').located(by.css('#country-of-interest-names li'));
+            static anotherCountryCode = Target.the('another country code').located(by.css('#another-country-of-interest-code'));
+            static anotherCountryName = Target.the('another country name').located(by.css('#another-country-of-interest-name'));
         }
 
         describe('Select.values', () => {
@@ -160,7 +164,7 @@ describe('Select', () => {
             it('should select multiple options by their static value', () =>
                 actorCalled('Nick').attemptsTo(
                     Navigate.to(pageWithMultiSelect),
-                    Select.values(['PL', 'DE']).from(MultiSelectPage.selector),
+                    Select.values('PL', 'DE').from(MultiSelectPage.selector),
                     Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals(['PL', 'DE']))
                 ));
 
@@ -173,12 +177,34 @@ describe('Select', () => {
                     Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals(['UK', 'PL']))
                 ));
 
+            /** @test {Select.values} */
+            /** @test {Selected.valuesOf} */
+            it('should concatenate option values from several Answerables', () =>
+                actorCalled('Nick').attemptsTo(
+                    Navigate.to(pageWithMultiSelect),
+                    Select.values(
+                        Text.ofAll(MultiSelectPage.countryCodes),
+                        Text.of(MultiSelectPage.anotherCountryCode),
+                        'FR'
+                    ).from(MultiSelectPage.selector),
+                    Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals(['UK', 'PL', 'DE', 'FR']))
+                ));
+
+            /** @test {Select.values} */
+            /** @test {Selected.valuesOf} */
+            it('should concatenate option values from several static values', () =>
+                actorCalled('Nick').attemptsTo(
+                    Navigate.to(pageWithMultiSelect),
+                    Select.values('UK', 'PL').from(MultiSelectPage.selector),
+                    Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals(['UK', 'PL']))
+                ));
+
             describe('toString()', () => {
 
                 /** @test {Select.values} */
                 it('provides a sensible description of the interaction being performed', () => {
-                    expect(Select.values(['PL', 'DE']).from(MultiSelectPage.selector).toString())
-                        .to.equal(`#actor selects values [ 'PL', 'DE' ] from the country selector`);
+                    expect(Select.values(['PL', 'DE'], 'FR').from(MultiSelectPage.selector).toString())
+                        .to.equal(`#actor selects values 'PL', 'DE' and 'FR' from the country selector`);
                 });
 
                 /** @test {Selected.valuesOf} */
@@ -208,15 +234,42 @@ describe('Select', () => {
                     Ensure.that(Selected.optionsOf(MultiSelectPage.selector), equals(['United Kingdom', 'Poland']))
                 ));
 
+            /** @test {Select.values} */
+            /** @test {Selected.valuesOf} */
+            it('should concatenate option values from several Answerables', () =>
+                actorCalled('Nick').attemptsTo(
+                    Navigate.to(pageWithMultiSelect),
+                    Select.options(
+                        Text.ofAll(MultiSelectPage.countryNames),
+                        Text.of(MultiSelectPage.anotherCountryName),
+                        'France'
+                    ).from(MultiSelectPage.selector),
+                    Ensure.that(Selected.optionsOf(MultiSelectPage.selector), equals(['United Kingdom', 'Poland', 'Germany', 'France']))
+                ));
+
+            /** @test {Select.values} */
+            /** @test {Selected.valuesOf} */
+            it('should concatenate option values from several static values', () =>
+                actorCalled('Nick').attemptsTo(
+                    Navigate.to(pageWithMultiSelect),
+                    Select.options(['Poland', 'Germany'], 'France').from(MultiSelectPage.selector),
+                    Ensure.that(Selected.optionsOf(MultiSelectPage.selector), equals(['Poland', 'Germany', 'France']))
+                ));
+
             describe('toString()', () => {
 
                 /** @test {Select.options} */
                 it('provides a sensible description of the interaction being performed', () => {
-                    expect(Select.options(['Poland', 'France']).from(MultiSelectPage.selector).toString())
-                        .to.equal(`#actor selects [ 'Poland', 'France' ] from the country selector`);
+                    expect(
+                        Select.options(
+                            ['Poland', 'Germany' ],
+                            'France',
+                            Text.of(MultiSelectPage.anotherCountryName)
+                        ).from(MultiSelectPage.selector).toString()
+                    ).to.equal(`#actor selects 'Poland', 'Germany', 'France' and the text of the another country name from the country selector`);
                 });
 
-                /** @test {Selected.optionOf} */$
+                /** @test {Selected.optionOf} */
                 it('provides a sensible description of the question being answered', () => {
                     expect(Selected.optionsOf(MultiSelectPage.selector).toString())
                         .to.equal(`options selected in the country selector`);
