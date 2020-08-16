@@ -68,7 +68,7 @@ describe('Select', () => {
                 /** @test {Select.value} */
                 it('provides a sensible description of the interaction being performed', () => {
                     expect(Select.value('FR').from(SingleSelectPage.selector).toString())
-                        .to.equal(`#actor selects value 'FR' in the country selector`);
+                        .to.equal(`#actor selects value 'FR' from the country selector`);
                 });
 
                 /** @test {Selected.valueOf} */
@@ -105,7 +105,7 @@ describe('Select', () => {
             /** @test {Select.option} */
             it('provides a sensible description of the interaction being performed', () => {
                 expect(Select.option('France').from(SingleSelectPage.selector).toString())
-                    .to.equal(`#actor selects 'France' in the country selector`);
+                    .to.equal(`#actor selects 'France' from the country selector`);
             });
 
             /** @test {Selected.optionOf} */
@@ -178,7 +178,7 @@ describe('Select', () => {
                 /** @test {Select.values} */
                 it('provides a sensible description of the interaction being performed', () => {
                     expect(Select.values(['PL', 'DE']).from(MultiSelectPage.selector).toString())
-                        .to.equal(`#actor selects values [ 'PL', 'DE' ] in the country selector`);
+                        .to.equal(`#actor selects values [ 'PL', 'DE' ] from the country selector`);
                 });
 
                 /** @test {Selected.valuesOf} */
@@ -213,10 +213,10 @@ describe('Select', () => {
                 /** @test {Select.options} */
                 it('provides a sensible description of the interaction being performed', () => {
                     expect(Select.options(['Poland', 'France']).from(MultiSelectPage.selector).toString())
-                        .to.equal(`#actor selects [ 'Poland', 'France' ] in the country selector`);
+                        .to.equal(`#actor selects [ 'Poland', 'France' ] from the country selector`);
                 });
 
-                /** @test {Selected.optionOf} */
+                /** @test {Selected.optionOf} */$
                 it('provides a sensible description of the question being answered', () => {
                     expect(Selected.optionsOf(MultiSelectPage.selector).toString())
                         .to.equal(`options selected in the country selector`);
