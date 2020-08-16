@@ -57,7 +57,7 @@ class SelectValue implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects value ${ this.value } in ${ this.target }`;
+        return formatted `#actor selects value ${ this.value } from ${ this.target }`;
     }
 }
 
@@ -95,7 +95,7 @@ class SelectValues implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects values ${ this.values } in ${ this.target }`;
+        return formatted `#actor selects values ${ this.values } from ${ this.target }`;
     }
 }
 
@@ -120,7 +120,7 @@ class SelectOption implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects ${ this.value } in ${ this.target }`;
+        return formatted `#actor selects ${ this.value } from ${ this.target }`;
     }
 }
 
@@ -159,6 +159,6 @@ class SelectOptions implements Interaction {
     }
 
     toString () {
-        return formatted `#actor selects ${ this.values } in ${ this.target }`;
+        return formatted `#actor selects ${ this.values } from ${ this.target }`;
     }
 }
