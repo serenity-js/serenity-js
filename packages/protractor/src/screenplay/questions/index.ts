@@ -6,6 +6,8 @@ export * from './LastScriptExecution';
 export * from './ModalDialog';
 export { Pick } from './Pick';
 export { Target } from './targets';
+export * from './SelectedOption';
+export * from './SelectedText';
 export * from './text';
 export * from './Value';
 export * from './Website';
