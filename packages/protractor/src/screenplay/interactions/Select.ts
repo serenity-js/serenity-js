@@ -30,7 +30,7 @@ class SelectOption implements Interaction {
     }
 
     resolveValueAs(actor: UsesAbilities & AnswersQuestions) {
-        if (typeof this.value === "string") {
+        if (typeof this.value === 'string') {
             return Promise.resolve(this.value);
         } else {
             return actor.answer(this.value);
@@ -51,7 +51,10 @@ class SelectOption implements Interaction {
 
 class SelectOptions implements Interaction {
 
-    constructor(private values: string[] | Question<Promise<string[]>> & RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>, private target: Question<ElementFinder> | ElementFinder) {
+    constructor(
+        private values: string[] | Question<Promise<string[]>> & RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>,
+        private target: Question<ElementFinder> | ElementFinder
+    ) {
     }
 
     resolveValuesAs(actor: AnswersQuestions) {
@@ -91,7 +94,7 @@ class SelectText implements Interaction {
     }
 
     resolveValueAs(actor: UsesAbilities & AnswersQuestions) {
-        if (typeof this.value === "string") {
+        if (typeof this.value === 'string') {
             return Promise.resolve(this.value);
         } else {
             return actor.answer(this.value);
@@ -112,7 +115,10 @@ class SelectText implements Interaction {
 
 class SelectTextValues implements Interaction {
 
-    constructor(private values: string[] | Question<Promise<string[]>> & RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>, private target: Question<ElementFinder> | ElementFinder) {
+    constructor(
+        private values: string[] | Question<Promise<string[]>> & RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>,
+        private target: Question<ElementFinder> | ElementFinder
+    ) {
     }
 
     resolveValuesAs(actor: AnswersQuestions) {
