@@ -4,20 +4,198 @@ import { ElementFinder } from 'protractor';
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
 
+/**
+ * @desc
+ *  Represents options and values selected in a
+ *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+ *
+ * @see {@link Select}
+ */
 export class Selected {
-    static valueOf(target: Question<ElementFinder> | ElementFinder) {
+
+    /**
+     * @desc
+     *  Represents the value of a single option selected in a
+     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+     *
+     * @example <caption>Example widget</caption>
+     *  <select data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.value('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
+     *      );
+     *
+     * @param {Question<ElementFinder> | ElementFinder} target
+     *  A {@link Target} identifying the `<select>` element of interest
+     *
+     * @returns {Question<Promise<string>>}
+     *
+     * @see {@link Select.value}
+     */
+    static valueOf(target: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
         return new SelectedValue(target);
     }
 
-    static valuesOf(target: Question<ElementFinder> | ElementFinder) {
+    /**
+     * @desc
+     *  Represents values of options selected in a
+     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     *
+     * @example <caption>Example widget</caption>
+     *  <select multiple data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.values('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals('UK')),
+     *      );
+     *
+     * @param {Question<ElementFinder> | ElementFinder} target
+     *  A {@link Target} identifying the `<select>` element of interest
+     *
+     * @returns {Question<Promise<string[]>>}
+     *
+     * @see {@link Select.values}
+     */
+    static valuesOf(target: Question<ElementFinder> | ElementFinder): Question<Promise<string[]>> {
         return new SelectedValues(target);
     }
 
-    static optionOf(target: Question<ElementFinder> | ElementFinder) {
+    /**
+     * @desc
+     *  Represents a single option selected in a
+     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     *
+     * @example <caption>Example widget</caption>
+     *  <select data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.option('Poland').from(Countries.dropdown),
+     *          Ensure.that(
+     *              Selected.optionIn(Countries.dropdown),
+     *              equals('Poland')
+     *          ),
+     *      );
+     *
+     * @param {Question<ElementFinder> | ElementFinder} target
+     *  A {@link Target} identifying the `<select>` element of interest
+     *
+     * @returns {Question<Promise<string>>}
+     *
+     * @see {@link Select.option}
+     */
+    static optionIn(target: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
         return new SelectedOption(target);
     }
 
-    static optionsOf(target: Question<ElementFinder> | ElementFinder) {
+    /**
+     * @desc
+     *  Represents options selected in a
+     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     *
+     * @example <caption>Example widget</caption>
+     *  <select multiple data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.options('Poland', 'United States').from(Countries.dropdown),
+     *          Ensure.that(
+     *              Selected.optionsIn(Countries.dropdown),
+     *              equals([ 'Poland', 'United States' ])
+     *          ),
+     *      );
+     *
+     * @param {Question<ElementFinder> | ElementFinder} target
+     *  A {@link Target} identifying the `<select>` element of interest
+     *
+     * @returns {Question<Promise<string[]>>}
+     *
+     * @see {@link Select.options}
+     */
+    static optionsIn(target: Question<ElementFinder> | ElementFinder): Question<Promise<string[]>> {
         return new SelectedOptions(target);
     }
 }
@@ -67,9 +245,6 @@ class SelectedValues implements Question<Promise<string[]>> {
  * @package
  */
 class SelectedOption implements Question<Promise<string>> {
-    static of(target: Question<ElementFinder> | ElementFinder) {
-        return new SelectedOption(target);
-    }
 
     constructor(private target: Question<ElementFinder> | ElementFinder) {
     }
@@ -87,9 +262,6 @@ class SelectedOption implements Question<Promise<string>> {
  * @package
  */
 class SelectedOptions implements Question<Promise<string[]>> {
-    static of(target: Question<ElementFinder> | ElementFinder) {
-        return new SelectedOptions(target);
-    }
 
     constructor(private target: Question<ElementFinder> | ElementFinder) {
     }

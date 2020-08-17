@@ -3,33 +3,225 @@ import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { by, ElementFinder, protractor } from 'protractor';
+import { promise } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
+import { SelectBuilder } from './SelectBuilder';
 
+/**
+ * @desc
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
+ *  an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
+ *  either by its display name, or by value.
+ *
+ * @see {@link Selected}
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ */
 export class Select {
 
-    static value(value: string | Answerable<string>) {
+    /**
+     * @desc
+     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *  with a [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)
+     *  of a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     *
+     * @example <caption>Example widget</caption>
+     *  <select data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.value('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
+     *      );
+     *
+     * @param {string | Answerable<string>} value
+     *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
+     *
+     * @returns {SelectBuilder}
+     *
+     * @see {@link Selected.valueOf}
+     */
+    static value(value: string | Answerable<string>): SelectBuilder {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectValue(value, target)
         };
     }
 
-    static values(...values: Array<Answerable<string[] | string>>) {
+    /**
+     * @desc
+     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *  with [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)
+     *  of multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     *
+     * @example <caption>Example widget</caption>
+     *  <select multiple data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.values('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals('UK')),
+     *      );
+     *
+     * @param {Array<Answerable<string[] | string>>} values
+     *  Values of the [`option` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
+     *
+     * @returns {SelectBuilder}
+     *
+     * @see {@link Selected.valuesOf}
+     */
+    static values(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectValues(values, target)
         };
     }
 
-    static option(value: string | Answerable<string>) {
+    /**
+     * @desc
+     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *  with a single [`option`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     *
+     * @example <caption>Example widget</caption>
+     *  <select data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.option('Poland').from(Countries.dropdown),
+     *          Ensure.that(
+     *              Selected.optionIn(Countries.dropdown),
+     *              equals('Poland')
+     *          ),
+     *      );
+     *
+     * @param {string | Answerable<string>} value
+     *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
+     *
+     * @returns {SelectBuilder}
+     *
+     * @see {@link Selected.optionIn}
+     */
+    static option(value: string | Answerable<string>): SelectBuilder {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectOption(value, target)
         };
     }
 
-    static options(...values: Array<Answerable<string[] | string>>) {
+    /**
+     * @desc
+     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *  with [`option`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     *
+     * @example <caption>Example widget</caption>
+     *  <select multiple data-test='countries'>
+     *      <option value='UK'>United Kingdom</option>
+     *      <option value='PL'>Poland</option>
+     *      <option value='US'>United States</option>
+     *  </select>
+     *
+     * @example <caption>Lean Page Object</caption>
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
+     *
+     *  class Countries {
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
+     *  }
+     *
+     * @example <caption>Retrieving the selected value</caption>
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
+     *
+     *  actorCalled('Nick')
+     *      .whoCan(BrowseTheWeb.using(protractor.browser))
+     *      .attemptsTo(
+     *          Select.options('Poland', 'United States').from(Countries.dropdown),
+     *          Ensure.that(
+     *              Selected.optionsIn(Countries.dropdown),
+     *              equals([ 'Poland', 'United States' ])
+     *          ),
+     *      );
+     *
+     * @param {Array<Answerable<string[] | string>>} values
+     *  Text of the [`option` elements  ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
+     *
+     * @returns {SelectBuilder}
+     *
+     * @see {@link Selected.optionsIn}
+     */
+    static options(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
             from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
                 new SelectOptions(values, target)
@@ -51,9 +243,10 @@ class SelectValue implements Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return actor.answer(this.value)
             .then(value =>
-                withAnswerOf(actor, this.target, element => element
-                    .element(by.css(`option[value=${ value }]`)))
-                    .click()
+                withAnswerOf(actor, this.target, (element: ElementFinder) =>
+                    element
+                        .element(by.css(`option[value=${ value }]`)))
+                        .click()
             );
     }
 
@@ -78,21 +271,19 @@ class SelectValues implements Interaction {
         return Promise.all(this.values.map(value => actor.answer(value)))
             .then(flatten)
             .then(values => {
-                // todo: extract
-                const hasRequiredValue = (option: ElementFinder) => option.getAttribute('value').then(value => !!~values.indexOf(value)),
-                    isAlreadySelected = (option: ElementFinder) => option.isSelected(),
-                    ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1,
+
+                const
+                    hasRequiredValue = (option: ElementFinder) =>
+                        option.getAttribute('value').then(value => !! ~values.indexOf(value)),
                     select = (option: ElementFinder) => option.click();
 
-                const optionsToClick = (option: ElementFinder) =>
-                    protractor.promise.all(
-                        [hasRequiredValue(option), isAlreadySelected(option)]
+                return promiseOf(
+                    withAnswerOf(actor, this.target, (element: ElementFinder) =>
+                        element.all(by.css('option'))
+                            .filter(optionsToSelect(hasRequiredValue))
+                            .each(select)
                     )
-                    .then(ensureOnlyOneApplies);
-
-                return promiseOf(withAnswerOf(actor, this.target, element => element.all(by.css('option'))
-                    .filter(optionsToClick)
-                    .each(select)));
+                );
             });
     }
 
@@ -115,9 +306,10 @@ class SelectOption implements Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return actor.answer(this.value)
             .then(value => {
-                return promiseOf(withAnswerOf(actor, this.target, element => element
-                    .element(by.cssContainingText('option', value)))
-                    .click());
+                return promiseOf(withAnswerOf(actor, this.target, (element: ElementFinder) =>
+                    element
+                        .element(by.cssContainingText('option', value)))
+                        .click());
             });
     }
 
@@ -142,21 +334,18 @@ class SelectOptions implements Interaction {
             .then(flatten)
             .then(values => {
 
-                const hasRequiredText = (option: ElementFinder) => option.getText().then(value => !!~values.indexOf(value)),
-                    isAlreadySelected = (option: ElementFinder) => option.isSelected(),
-                    ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1,
+                const
+                    hasRequiredText = (option: ElementFinder) =>
+                        option.getText().then(value => !! ~values.indexOf(value)),
                     select = (option: ElementFinder) => option.click();
 
-                const optionsToClick = (option: ElementFinder) =>
-                    protractor.promise.all([
-                        hasRequiredText(option),
-                        isAlreadySelected(option),
-                    ])
-                    .then(ensureOnlyOneApplies);
-
-                return promiseOf(withAnswerOf(actor, this.target, element => element.all(by.css('option'))
-                    .filter(optionsToClick)
-                    .each(select)));
+                return promiseOf(
+                    withAnswerOf(actor, this.target, (element: ElementFinder) =>
+                        element.all(by.css('option'))
+                            .filter(optionsToSelect(hasRequiredText))
+                            .each(select)
+                    )
+                );
             });
     }
 
@@ -170,4 +359,19 @@ function flatten<T>(listOfLists: Array<T[] | T>): T[] {
     return listOfLists
         .map(item => [].concat(item))
         .reduce((acc: T[], list: T[]) => acc.concat(list), []);
+}
+
+/** @package */
+function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<boolean>) {
+
+    const
+        isAlreadySelected = (option: ElementFinder) => option.isSelected(),
+        ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1;
+
+    return (option: ElementFinder) =>
+        protractor.promise.all([
+                criterion(option),
+                isAlreadySelected(option)
+            ])
+            .then(ensureOnlyOneApplies);
 }
