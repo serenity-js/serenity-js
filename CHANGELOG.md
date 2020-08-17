@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/serenity-js/serenity-js/compare/v2.13.1...v2.14.0) (2020-08-17)
+
+
+### Features
+
+* **protractor:** better API for Select.options and Select.values ([3331f57](https://github.com/serenity-js/serenity-js/commit/3331f578cbfd4d29d0a1925633863113495f2a62)), closes [#373](https://github.com/serenity-js/serenity-js/issues/373)
+* **protractor:** interactions to Select and questions about Selected ([f0a7812](https://github.com/serenity-js/serenity-js/commit/f0a78127a7038b5734789f8b4b4d1df2444f154d)), closes [#373](https://github.com/serenity-js/serenity-js/issues/373)
+
+
+
+
+
 ## [2.13.1](https://github.com/serenity-js/serenity-js/compare/v2.13.0...v2.13.1) (2020-08-05)
 
 **Note:** Version bump only for package serenity-js-monorepo
