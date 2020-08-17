@@ -189,8 +189,8 @@ describe('Select', () => {
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals(['United Kingdom', 'Poland']))
                 ));
 
-            /** @test {Select.values} */
-            /** @test {Selected.valuesOf} */
+            /** @test {Select.options} */
+            /** @test {Selected.optionsIn} */
             it('should concatenate option values from several Answerables', () =>
                 actorCalled('Nick').attemptsTo(
                     Navigate.to(pageWithMultiSelect),
@@ -202,8 +202,8 @@ describe('Select', () => {
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals(['United Kingdom', 'Poland', 'Germany', 'France']))
                 ));
 
-            /** @test {Select.values} */
-            /** @test {Selected.valuesOf} */
+            /** @test {Select.options} */
+            /** @test {Selected.optionsIn} */
             it('should concatenate option values from several static values', () =>
                 actorCalled('Nick').attemptsTo(
                     Navigate.to(pageWithMultiSelect),
