@@ -162,6 +162,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inspected">inspected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-trimmed">trimmed</a></span></span></li>
@@ -297,6 +298,35 @@
         
         <div data-ice="description"><p> Retrieves an actor who was last instantiated or retrieved
  using <span><a href="function/index.html#static-function-actorCalled">actorCalled</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span><span class="code" data-ice="signature">(list: <span>Array</span>&lt;<span>string</span>&gt;, map: <span><span>function</span><span>(item: <span>string</span>)</span>: <span>string</span></span>, acc: <span>string</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Produces a comma-separated list based on the list provided.</p>
 </div>
       </div>
     </td>
@@ -641,6 +671,92 @@
 <li><span><span><a href="function/index.html#static-function-actorCalled">actorCalled</a></span></span></li>
 <li><span><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li><span><span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-commaSeparated">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">commaSeparated</span><span class="code" data-ice="signature">(list: <span>Array</span>&lt;<span>string</span>&gt;, map: <span><span>function</span><span>(item: <span>string</span>)</span>: <span>string</span></span>, acc: <span>string</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/io/commaSeparated.ts.html#lineNumber24">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {commaSeparated} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span></code></pre></div>
+  
+  
+  <div data-ice="description"><p> Produces a comma-separated list based on the list provided.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">list</td>
+      <td data-ice="type" class="code"><span>Array</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">map</td>
+      <td data-ice="type" class="code"><span><span>function</span><span>(item: <span>string</span>)</span>: <span>string</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">acc</td>
+      <td data-ice="type" class="code"><span>string</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: &apos;&apos;</li></ul></td>
+      <td data-ice="description"><p>acc</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
   
 </div>
 <div class="detail" data-ice="detail">

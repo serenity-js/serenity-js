@@ -696,6 +696,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@serenity-js/core/lib/io~commaseparated",
+    "function/index.html#static-function-commaSeparated",
+    "<span>commaSeparated</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
+    "function"
+  ],
+  [
     "@serenity-js/core~configure",
     "function/index.html#static-function-configure",
     "<span>configure</span> <span class=\"search-result-import-path\">@serenity-js/core</span>",
@@ -1000,6 +1006,18 @@ window.esdocSearchIndex = [
     "test-file/spec/model/Duration.spec.ts.html#lineNumber41",
     "Duration when performing computations allows for durations to be added",
     "test"
+  ],
+  [
+    "elementarrayfinder",
+    "https://www.protractortest.org/#/api?view=ElementArrayFinder",
+    "ElementArrayFinder",
+    "external"
+  ],
+  [
+    "elementfinder",
+    "https://www.protractortest.org/#/api?view=ElementFinder",
+    "ElementFinder",
+    "external"
   ],
   [
     "",
@@ -1366,6 +1384,12 @@ window.esdocSearchIndex = [
     "test-file/spec/io/Path.spec.ts.html#lineNumber23",
     "Path when used across different operating systems splits the same",
     "test"
+  ],
+  [
+    "protractorbrowser",
+    "https://www.protractortest.org/#/api?view=ProtractorBrowser",
+    "ProtractorBrowser",
+    "external"
   ],
   [
     "",
@@ -1866,6 +1890,54 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber7",
+    "commaSeparated",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber14",
+    "commaSeparated returns an empty string for an empty list",
+    "test"
+  ],
+  [
+    "selenium-webdriver~actions",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
+    "selenium-webdriver~Actions",
+    "external"
+  ],
+  [
+    "selenium-webdriver~alertpromise",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html",
+    "selenium-webdriver~AlertPromise",
+    "external"
+  ],
+  [
+    "selenium-webdriver~by",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/by_exports_By.html",
+    "selenium-webdriver~By",
+    "external"
+  ],
+  [
+    "selenium-webdriver~capabilities",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html",
+    "selenium-webdriver~Capabilities",
+    "external"
+  ],
+  [
+    "selenium-webdriver~navigation",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
+    "selenium-webdriver~Navigation",
+    "external"
+  ],
+  [
+    "selenium-webdriver~options",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
+    "selenium-webdriver~Options",
+    "external"
+  ],
+  [
     "spec/serenity.spec.ts",
     "test-file/spec/Serenity.spec.ts.html",
     "spec/Serenity.spec.ts",
@@ -1911,6 +1983,12 @@ window.esdocSearchIndex = [
     "spec/io/version.spec.ts",
     "test-file/spec/io/Version.spec.ts.html",
     "spec/io/Version.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/io/commaseparated.spec.ts",
+    "test-file/spec/io/commaSeparated.spec.ts.html",
+    "spec/io/commaSeparated.spec.ts",
     "testFile"
   ],
   [
@@ -2998,6 +3076,12 @@ window.esdocSearchIndex = [
     "class/src/io/Version.ts~Version.html#static-method-fromJSON",
     "src/io/Version.ts~Version.fromJSON",
     "method"
+  ],
+  [
+    "src/io/commaseparated.ts",
+    "file/src/io/commaSeparated.ts.html",
+    "src/io/commaSeparated.ts",
+    "file"
   ],
   [
     "src/io/formatted.ts",

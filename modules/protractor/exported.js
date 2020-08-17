@@ -19,6 +19,8 @@
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Press} /modules/protractor/class/src/screenplay/interactions/Press.ts~Press.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~ResizeBrowserWindow} /modules/protractor/class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Scroll} /modules/protractor/class/src/screenplay/interactions/Scroll.ts~Scroll.html */
+/** @external {@serenity-js/protractor/lib/screenplay/interactions~Select} /modules/protractor/class/src/screenplay/interactions/Select.ts~Select.html */
+/** @external {@serenity-js/protractor/lib/screenplay/interactions~SelectBuilder} /modules/protractor/class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~TakeScreenshot} /modules/protractor/class/src/screenplay/interactions/TakeScreenshot.ts~TakeScreenshot.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~UseAngular} /modules/protractor/class/src/screenplay/interactions/UseAngular.ts~UseAngular.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Wait} /modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html */
@@ -32,6 +34,7 @@
 /** @external {@serenity-js/protractor/lib/screenplay/questions~ModalDialog} /modules/protractor/class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Pick} /modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~RelativeQuestion} /modules/protractor/class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html */
+/** @external {@serenity-js/protractor/lib/screenplay/questions~Selected} /modules/protractor/class/src/screenplay/questions/Selected.ts~Selected.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Value} /modules/protractor/class/src/screenplay/questions/Value.ts~Value.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Website} /modules/protractor/class/src/screenplay/questions/Website.ts~Website.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Window} /modules/protractor/class/src/screenplay/questions/Window.ts~Window.html */

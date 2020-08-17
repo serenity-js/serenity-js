@@ -132,9 +132,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/TakeScreenshot.ts~TakeScreenshot.html">TakeScreenshot</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/UseAngular.ts~UseAngular.html">UseAngular</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Wait.ts~Wait.html">Wait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html">SelectBuilder</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions-execute-script">screenplay/interactions/execute-script</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html">ExecuteScript</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments.html">ExecuteScriptWithArguments</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Attribute.ts~Attribute.html">Attribute</a></span></span></li>
@@ -144,6 +146,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Selected.ts~Selected.html">Selected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
@@ -316,7 +319,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html#static-method-window">window</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>AlertPromise</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html#static-method-window">window</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -522,7 +525,7 @@
     
     
     
-    <span class="code" data-ice="name">window</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>AlertPromise</span>&gt;</span>
+    <span class="code" data-ice="name">window</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span>&gt;</span>
     <span class="right-info">
       
       
@@ -548,7 +551,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>AlertPromise</span>&gt;</td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span>&gt;</td>
           
         </tr>
       </tbody>

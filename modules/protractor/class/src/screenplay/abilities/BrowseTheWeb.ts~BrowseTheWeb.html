@@ -132,9 +132,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/TakeScreenshot.ts~TakeScreenshot.html">TakeScreenshot</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/UseAngular.ts~UseAngular.html">UseAngular</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Wait.ts~Wait.html">Wait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html">SelectBuilder</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions-execute-script">screenplay/interactions/execute-script</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html">ExecuteScript</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments.html">ExecuteScriptWithArguments</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Attribute.ts~Attribute.html">Attribute</a></span></span></li>
@@ -144,6 +146,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Selected.ts~Selected.html">Selected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
@@ -279,7 +282,7 @@ actor.attemptsTo(
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#static-method-using">using</a></span></span><span class="code" data-ice="signature">(browser: <span>ProtractorBrowser</span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#static-method-using">using</a></span></span><span class="code" data-ice="signature">(browser: <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
         </p>
       </div>
       <div>
@@ -315,7 +318,7 @@ actor.attemptsTo(
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(browser: <span>ProtractorBrowser</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(browser: <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>)</span>
         </p>
       </div>
       <div>
@@ -380,7 +383,7 @@ actor.attemptsTo(
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-alert">alert</a></span></span><span class="code" data-ice="signature">(): <span>AlertPromise</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-alert">alert</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span></span>
         </p>
       </div>
       <div>
@@ -530,7 +533,7 @@ tasks to complete before interacting with the browser.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getCapabilities">getCapabilities</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>Capabilities</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getCapabilities">getCapabilities</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html">Capabilities</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -647,7 +650,7 @@ tasks to complete before interacting with the browser.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-locate">locate</a></span></span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span>ElementFinder</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-locate">locate</a></span></span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span></span>
         </p>
       </div>
       <div>
@@ -676,7 +679,7 @@ tasks to complete before interacting with the browser.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-locateAll">locateAll</a></span></span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span>ElementArrayFinder</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-locateAll">locateAll</a></span></span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span></span>
         </p>
       </div>
       <div>
@@ -705,7 +708,7 @@ tasks to complete before interacting with the browser.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-manage">manage</a></span></span><span class="code" data-ice="signature">(): <span>Options</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-manage">manage</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html">Options</a></span></span>
         </p>
       </div>
       <div>
@@ -734,7 +737,7 @@ tasks to complete before interacting with the browser.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-navigate">navigate</a></span></span><span class="code" data-ice="signature">(): <span>Navigation</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-navigate">navigate</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html">Navigation</a></span></span>
         </p>
       </div>
       <div>
@@ -926,7 +929,7 @@ tasks to complete before interacting with the browser.</p>
     
     
     
-    <span class="code" data-ice="name">using</span><span class="code" data-ice="signature">(browser: <span>ProtractorBrowser</span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
+    <span class="code" data-ice="name">using</span><span class="code" data-ice="signature">(browser: <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
     <span class="right-info">
       
       
@@ -952,7 +955,7 @@ tasks to complete before interacting with the browser.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">browser</td>
-      <td data-ice="type" class="code"><span>ProtractorBrowser</span></td>
+      <td data-ice="type" class="code"><span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -1001,7 +1004,7 @@ tasks to complete before interacting with the browser.</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(browser: <span>ProtractorBrowser</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(browser: <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>)</span>
     <span class="right-info">
       
       
@@ -1026,7 +1029,7 @@ tasks to complete before interacting with the browser.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">browser</td>
-      <td data-ice="type" class="code"><span>ProtractorBrowser</span></td>
+      <td data-ice="type" class="code"><span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>An instance of a protractor browser</p>
 </td>
@@ -1122,7 +1125,7 @@ tasks to complete before interacting with the browser.</p>
     
     
     
-    <span class="code" data-ice="name">alert</span><span class="code" data-ice="signature">(): <span>AlertPromise</span></span>
+    <span class="code" data-ice="name">alert</span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span></span>
     <span class="right-info">
       
       
@@ -1152,7 +1155,7 @@ if there are no open alerts.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>AlertPromise</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html">AlertPromise</a></span></td>
           
         </tr>
       </tbody>
@@ -1592,7 +1595,7 @@ in protractor configuration:</p>
     
     
     
-    <span class="code" data-ice="name">getCapabilities</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>Capabilities</span>&gt;</span>
+    <span class="code" data-ice="name">getCapabilities</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html">Capabilities</a></span>&gt;</span>
     <span class="right-info">
       
       
@@ -1619,7 +1622,7 @@ in protractor configuration:</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>Capabilities</span>&gt;</td>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html">Capabilities</a></span>&gt;</td>
           <td class="return-desc" data-ice="returnDescription"><p>The actual capabilities of this browser.</p>
 </td>
         </tr>
@@ -1821,7 +1824,7 @@ in protractor configuration:</p>
     
     
     
-    <span class="code" data-ice="name">locate</span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span>ElementFinder</span></span>
+    <span class="code" data-ice="name">locate</span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span></span>
     <span class="right-info">
       
       
@@ -1861,7 +1864,7 @@ in protractor configuration:</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>ElementFinder</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span></td>
           
         </tr>
       </tbody>
@@ -1893,7 +1896,7 @@ in protractor configuration:</p>
     
     
     
-    <span class="code" data-ice="name">locateAll</span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span>ElementArrayFinder</span></span>
+    <span class="code" data-ice="name">locateAll</span><span class="code" data-ice="signature">(locator: <span>Locator</span>): <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span></span>
     <span class="right-info">
       
       
@@ -1933,7 +1936,7 @@ in protractor configuration:</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>ElementArrayFinder</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span></td>
           
         </tr>
       </tbody>
@@ -1965,7 +1968,7 @@ in protractor configuration:</p>
     
     
     
-    <span class="code" data-ice="name">manage</span><span class="code" data-ice="signature">(): <span>Options</span></span>
+    <span class="code" data-ice="name">manage</span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html">Options</a></span></span>
     <span class="right-info">
       
       
@@ -1989,7 +1992,7 @@ in protractor configuration:</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Options</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html">Options</a></span></td>
           
         </tr>
       </tbody>
@@ -2021,7 +2024,7 @@ in protractor configuration:</p>
     
     
     
-    <span class="code" data-ice="name">navigate</span><span class="code" data-ice="signature">(): <span>Navigation</span></span>
+    <span class="code" data-ice="name">navigate</span><span class="code" data-ice="signature">(): <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html">Navigation</a></span></span>
     <span class="right-info">
       
       
@@ -2045,7 +2048,7 @@ in protractor configuration:</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Navigation</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html">Navigation</a></span></td>
           
         </tr>
       </tbody>

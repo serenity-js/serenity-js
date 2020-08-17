@@ -156,6 +156,24 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~select",
+    "class/src/screenplay/interactions/Select.ts~Select.html",
+    "<span>Select</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/screenplay/interactions~selectbuilder",
+    "class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html",
+    "<span>SelectBuilder</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/screenplay/questions~selected",
+    "class/src/screenplay/questions/Selected.ts~Selected.html",
+    "<span>Selected</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/stage/crew/photographer/strategies~takephotosbeforeandafterinteractions",
     "class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html",
     "<span>TakePhotosBeforeAndAfterInteractions</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/stage/crew/photographer/strategies</span>",
@@ -693,6 +711,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~version",
     "/modules/core/class/src/io/Version.ts~Version.html",
     "@serenity-js/core/lib/io~Version",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~commaseparated",
+    "/modules/core/function/src/io/commaSeparated.ts~commaSeparated.html",
+    "@serenity-js/core/lib/io~commaSeparated",
     "external"
   ],
   [
@@ -1680,6 +1704,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "elementarrayfinder",
+    "https://www.protractortest.org/#/api?view=ElementArrayFinder",
+    "ElementArrayFinder",
+    "external"
+  ],
+  [
+    "elementfinder",
+    "https://www.protractortest.org/#/api?view=ElementFinder",
+    "ElementFinder",
+    "external"
+  ],
+  [
     "enter src/screenplay/interactions/enter.ts~enter,enter",
     "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber10",
     "Enter",
@@ -2532,6 +2568,12 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "protractorbrowser",
+    "https://www.protractortest.org/#/api?view=ProtractorBrowser",
+    "ProtractorBrowser",
+    "external"
+  ],
+  [
     "",
     "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber15",
     "ProtractorFrameworkAdapter",
@@ -2709,6 +2751,174 @@ window.esdocSearchIndex = [
     "protractorreporter protractorreporter,protractorreporter",
     "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber34",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ignores events outcomes Protractor doesn't care about",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber11",
+    "Select",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber318",
+    "Select toString()",
+    "test"
+  ],
+  [
+    "select.option src/screenplay/interactions/select.ts~select.option,select.option",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber333",
+    "Select toString() provides a sensible description of Select.option()",
+    "test"
+  ],
+  [
+    "select.options src/screenplay/interactions/select.ts~select.options,select.options",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber357",
+    "Select toString() provides a sensible description of Select.options()",
+    "test"
+  ],
+  [
+    "select.value src/screenplay/interactions/select.ts~select.value,select.value",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber321",
+    "Select toString() provides a sensible description of Select.value()",
+    "test"
+  ],
+  [
+    "select.values src/screenplay/interactions/select.ts~select.values,select.values",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber345",
+    "Select toString() provides a sensible description of Select.values()",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber351",
+    "Select toString() provides a sensible description of Select.valuesOf()",
+    "test"
+  ],
+  [
+    "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber339",
+    "Select toString() provides a sensible description of Selected.optionIn()",
+    "test"
+  ],
+  [
+    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber368",
+    "Select toString() provides a sensible description of Selected.optionsIn()",
+    "test"
+  ],
+  [
+    "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber327",
+    "Select toString() provides a sensible description of Selected.valueOf",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber230",
+    "Select when working with multi-option selects",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber275",
+    "Select when working with multi-option selects Select.options()",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber296",
+    "Select when working with multi-option selects Select.options() should concatenate option values from several Answerables",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber309",
+    "Select when working with multi-option selects Select.options() should concatenate option values from several static values",
+    "test"
+  ],
+  [
+    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber287",
+    "Select when working with multi-option selects Select.options() should select multiple options by their Answerable name",
+    "test"
+  ],
+  [
+    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber279",
+    "Select when working with multi-option selects Select.options() should select multiple options by their static name",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber232",
+    "Select when working with multi-option selects Select.values()",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber254",
+    "Select when working with multi-option selects Select.values() should concatenate option values from several Answerables",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber267",
+    "Select when working with multi-option selects Select.values() should concatenate option values from several static values",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber245",
+    "Select when working with multi-option selects Select.values() should select multiple options by their Answerable value",
+    "test"
+  ],
+  [
+    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber236",
+    "Select when working with multi-option selects Select.values() should select multiple options by their static value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber185",
+    "Select when working with single-option selects",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber208",
+    "Select when working with single-option selects Select.option()",
+    "test"
+  ],
+  [
+    "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber221",
+    "Select when working with single-option selects Select.option() should select a single option by its Answerable name",
+    "test"
+  ],
+  [
+    "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber212",
+    "Select when working with single-option selects Select.option() should select a single option by its static name",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber187",
+    "Select when working with single-option selects Select.value()",
+    "test"
+  ],
+  [
+    "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber200",
+    "Select when working with single-option selects Select.value() should select a single option by its Answerable value",
+    "test"
+  ],
+  [
+    "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber191",
+    "Select when working with single-option selects Select.value() should select a single option by its static value",
     "test"
   ],
   [
@@ -3354,6 +3564,42 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "selenium-webdriver~actions",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
+    "selenium-webdriver~Actions",
+    "external"
+  ],
+  [
+    "selenium-webdriver~alertpromise",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html",
+    "selenium-webdriver~AlertPromise",
+    "external"
+  ],
+  [
+    "selenium-webdriver~by",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/by_exports_By.html",
+    "selenium-webdriver~By",
+    "external"
+  ],
+  [
+    "selenium-webdriver~capabilities",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html",
+    "selenium-webdriver~Capabilities",
+    "external"
+  ],
+  [
+    "selenium-webdriver~navigation",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
+    "selenium-webdriver~Navigation",
+    "external"
+  ],
+  [
+    "selenium-webdriver~options",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
+    "selenium-webdriver~Options",
+    "external"
+  ],
+  [
     "spec/adapter/protractorframeworkadapter.spec.ts",
     "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html",
     "spec/adapter/ProtractorFrameworkAdapter.spec.ts",
@@ -3465,6 +3711,12 @@ window.esdocSearchIndex = [
     "spec/screenplay/interactions/scroll.spec.ts",
     "test-file/spec/screenplay/interactions/Scroll.spec.ts.html",
     "spec/screenplay/interactions/Scroll.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/interactions/select.spec.ts",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html",
+    "spec/screenplay/interactions/Select.spec.ts",
     "testFile"
   ],
   [
@@ -4230,6 +4482,48 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/interactions/select.ts",
+    "file/src/screenplay/interactions/Select.ts.html",
+    "src/screenplay/interactions/Select.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/select.ts~select.option",
+    "class/src/screenplay/interactions/Select.ts~Select.html#static-method-option",
+    "src/screenplay/interactions/Select.ts~Select.option",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/select.ts~select.options",
+    "class/src/screenplay/interactions/Select.ts~Select.html#static-method-options",
+    "src/screenplay/interactions/Select.ts~Select.options",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/select.ts~select.value",
+    "class/src/screenplay/interactions/Select.ts~Select.html#static-method-value",
+    "src/screenplay/interactions/Select.ts~Select.value",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/select.ts~select.values",
+    "class/src/screenplay/interactions/Select.ts~Select.html#static-method-values",
+    "src/screenplay/interactions/Select.ts~Select.values",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/selectbuilder.ts",
+    "file/src/screenplay/interactions/SelectBuilder.ts.html",
+    "src/screenplay/interactions/SelectBuilder.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/selectbuilder.ts~selectbuilder#from",
+    "class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html#instance-member-from",
+    "src/screenplay/interactions/SelectBuilder.ts~SelectBuilder#from",
+    "member"
+  ],
+  [
     "src/screenplay/interactions/takescreenshot.ts",
     "file/src/screenplay/interactions/TakeScreenshot.ts.html",
     "src/screenplay/interactions/TakeScreenshot.ts",
@@ -4600,6 +4894,36 @@ window.esdocSearchIndex = [
     "class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html#instance-member-name",
     "src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion#name",
     "member"
+  ],
+  [
+    "src/screenplay/questions/selected.ts",
+    "file/src/screenplay/questions/Selected.ts.html",
+    "src/screenplay/questions/Selected.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/selected.ts~selected.optionin",
+    "class/src/screenplay/questions/Selected.ts~Selected.html#static-method-optionIn",
+    "src/screenplay/questions/Selected.ts~Selected.optionIn",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/selected.ts~selected.optionsin",
+    "class/src/screenplay/questions/Selected.ts~Selected.html#static-method-optionsIn",
+    "src/screenplay/questions/Selected.ts~Selected.optionsIn",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/selected.ts~selected.valueof",
+    "class/src/screenplay/questions/Selected.ts~Selected.html#static-method-valueOf",
+    "src/screenplay/questions/Selected.ts~Selected.valueOf",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/selected.ts~selected.valuesof",
+    "class/src/screenplay/questions/Selected.ts~Selected.html#static-method-valuesOf",
+    "src/screenplay/questions/Selected.ts~Selected.valuesOf",
+    "method"
   ],
   [
     "src/screenplay/questions/value.ts",

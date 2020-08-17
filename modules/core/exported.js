@@ -49,6 +49,7 @@
 /** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
 /** @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html */
 /** @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html */
+/** @external {@serenity-js/core/lib/io~commaSeparated} /modules/core/function/src/io/commaSeparated.ts~commaSeparated.html */
 /** @external {@serenity-js/core/lib/io~formatted} /modules/core/function/src/io/formatted.ts~formatted.html */
 /** @external {@serenity-js/core/lib/io~inspected} /modules/core/function/src/io/inspected.ts~inspected.html */
 /** @external {@serenity-js/core/lib/io~trimmed} /modules/core/function/src/io/trimmed.ts~trimmed.html */

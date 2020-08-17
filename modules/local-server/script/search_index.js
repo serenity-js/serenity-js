@@ -432,6 +432,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~commaseparated",
+    "/modules/core/function/src/io/commaSeparated.ts~commaSeparated.html",
+    "@serenity-js/core/lib/io~commaSeparated",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~formatted",
     "/modules/core/function/src/io/formatted.ts~formatted.html",
     "@serenity-js/core/lib/io~formatted",
@@ -1038,6 +1044,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "elementarrayfinder",
+    "https://www.protractortest.org/#/api?view=ElementArrayFinder",
+    "ElementArrayFinder",
+    "external"
+  ],
+  [
+    "elementfinder",
+    "https://www.protractortest.org/#/api?view=ElementFinder",
+    "ElementFinder",
+    "external"
+  ],
+  [
     "",
     "test-file/spec/restarting.spec.ts.html#lineNumber13",
     "ManageALocalServer",
@@ -1080,10 +1098,52 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "protractorbrowser",
+    "https://www.protractortest.org/#/api?view=ProtractorBrowser",
+    "ProtractorBrowser",
+    "external"
+  ],
+  [
     "localserver.port src/screenplay/questions/localserver.ts~localserver.port,localserver.port",
     "test-file/spec/screenplay/interactions/StartLocalServer.spec.ts.html#lineNumber17",
     "StartALocalServer",
     "test"
+  ],
+  [
+    "selenium-webdriver~actions",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
+    "selenium-webdriver~Actions",
+    "external"
+  ],
+  [
+    "selenium-webdriver~alertpromise",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_AlertPromise.html",
+    "selenium-webdriver~AlertPromise",
+    "external"
+  ],
+  [
+    "selenium-webdriver~by",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/by_exports_By.html",
+    "selenium-webdriver~By",
+    "external"
+  ],
+  [
+    "selenium-webdriver~capabilities",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Capabilities.html",
+    "selenium-webdriver~Capabilities",
+    "external"
+  ],
+  [
+    "selenium-webdriver~navigation",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
+    "selenium-webdriver~Navigation",
+    "external"
+  ],
+  [
+    "selenium-webdriver~options",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
+    "selenium-webdriver~Options",
+    "external"
   ],
   [
     "spec/reporting.spec.ts",
