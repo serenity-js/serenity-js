@@ -24,7 +24,7 @@ describe('MochaTestMapper', () => {
     it('recognises passing tests', () => {
 
         const test = new Test('example', someScenario);
-        this.state = 'passed';
+        test.state = 'passed';
 
         const outcome = mapper.outcomeOf(test);
 
