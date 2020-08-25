@@ -89,7 +89,7 @@ export class Selected {
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
      *          Select.values('UK').from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals('UK')),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
      *      );
      *
      * @param {Question<ElementFinder> | ElementFinder} target
