@@ -104,7 +104,7 @@ export class Select {
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
      *          Select.values('UK').from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals('UK')),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
      *      );
      *
      * @param {Array<Answerable<string[] | string>>} values
