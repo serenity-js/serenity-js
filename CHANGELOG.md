@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/serenity-js/serenity-js/compare/v2.14.0...v2.15.0) (2020-08-27)
+
+
+### Features
+
+* **core:** an interaction to Loop.over an Answerable<Array<T>> ([ded7dc2](https://github.com/serenity-js/serenity-js/commit/ded7dc252609e1c9caf67c92784c82cfc3dbeaa5))
+
+
+
+
+
 # [2.14.0](https://github.com/serenity-js/serenity-js/compare/v2.13.1...v2.14.0) (2020-08-17)
 
 
