@@ -814,7 +814,7 @@
      .whoCan(BrowseTheWeb.using(protractor.browser))
      .attemptsTo(
          Select.values(<span class="hljs-string">&apos;UK&apos;</span>).from(Countries.dropdown),
-         Ensure.that(Selected.valuesOf(Countries.dropdown), equals(<span class="hljs-string">&apos;UK&apos;</span>)),
+         Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ <span class="hljs-string">&apos;UK&apos;</span> ])),
      );</code></pre>
     </div>
 </div>

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 269,
+  "end": 403,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 16,
+      "line": 20,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 269,
+    "end": 403,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 16,
+        "line": 20,
         "column": 0
       }
     },
@@ -119,9 +119,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
             "start": 39,
-            "end": 83,
+            "end": 84,
             "loc": {
               "start": {
                 "line": 2,
@@ -135,16 +135,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
-            "start": 86,
-            "end": 187,
+            "value": "*\n * @desc\n *  A union type that provides a convenient way to represent any value\n *  that can be resolved by {@link Actor#answer}.\n *\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+            "start": 87,
+            "end": 321,
             "loc": {
               "start": {
                 "line": 10,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 18,
                 "column": 3
               }
             }
@@ -153,15 +153,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 188,
-        "end": 268,
+        "start": 322,
+        "end": 402,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 19,
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 19,
             "column": 80
           }
         },
@@ -170,29 +170,29 @@
         "source": null,
         "declaration": {
           "type": "TSTypeAliasDeclaration",
-          "start": 195,
-          "end": 268,
+          "start": 329,
+          "end": 402,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 19,
               "column": 7
             },
             "end": {
-              "line": 15,
+              "line": 19,
               "column": 80
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 200,
-            "end": 210,
+            "start": 334,
+            "end": 344,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 12
               },
               "end": {
-                "line": 15,
+                "line": 19,
                 "column": 22
               },
               "identifierName": "Answerable"
@@ -201,30 +201,30 @@
           },
           "typeParameters": {
             "type": "TSTypeParameterDeclaration",
-            "start": 210,
-            "end": 213,
+            "start": 344,
+            "end": 347,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 22
               },
               "end": {
-                "line": 15,
+                "line": 19,
                 "column": 25
               }
             },
             "params": [
               {
                 "type": "TSTypeParameter",
-                "start": 211,
-                "end": 212,
+                "start": 345,
+                "end": 346,
                 "loc": {
                   "start": {
-                    "line": 15,
+                    "line": 19,
                     "column": 23
                   },
                   "end": {
-                    "line": 15,
+                    "line": 19,
                     "column": 24
                   }
                 },
@@ -234,44 +234,44 @@
           },
           "typeAnnotation": {
             "type": "TSUnionType",
-            "start": 216,
-            "end": 267,
+            "start": 350,
+            "end": 401,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 28
               },
               "end": {
-                "line": 15,
+                "line": 19,
                 "column": 79
               }
             },
             "types": [
               {
                 "type": "TSTypeReference",
-                "start": 216,
-                "end": 236,
+                "start": 350,
+                "end": 370,
                 "loc": {
                   "start": {
-                    "line": 15,
+                    "line": 19,
                     "column": 28
                   },
                   "end": {
-                    "line": 15,
+                    "line": 19,
                     "column": 48
                   }
                 },
                 "typeName": {
                   "type": "Identifier",
-                  "start": 216,
-                  "end": 224,
+                  "start": 350,
+                  "end": 358,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 28
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 36
                     },
                     "identifierName": "Question"
@@ -280,44 +280,44 @@
                 },
                 "typeParameters": {
                   "type": "TSTypeParameterInstantiation",
-                  "start": 224,
-                  "end": 236,
+                  "start": 358,
+                  "end": 370,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 36
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 48
                     }
                   },
                   "params": [
                     {
                       "type": "TSTypeReference",
-                      "start": 225,
-                      "end": 235,
+                      "start": 359,
+                      "end": 369,
                       "loc": {
                         "start": {
-                          "line": 15,
+                          "line": 19,
                           "column": 37
                         },
                         "end": {
-                          "line": 15,
+                          "line": 19,
                           "column": 47
                         }
                       },
                       "typeName": {
                         "type": "Identifier",
-                        "start": 225,
-                        "end": 232,
+                        "start": 359,
+                        "end": 366,
                         "loc": {
                           "start": {
-                            "line": 15,
+                            "line": 19,
                             "column": 37
                           },
                           "end": {
-                            "line": 15,
+                            "line": 19,
                             "column": 44
                           },
                           "identifierName": "Promise"
@@ -326,44 +326,44 @@
                       },
                       "typeParameters": {
                         "type": "TSTypeParameterInstantiation",
-                        "start": 232,
-                        "end": 235,
+                        "start": 366,
+                        "end": 369,
                         "loc": {
                           "start": {
-                            "line": 15,
+                            "line": 19,
                             "column": 44
                           },
                           "end": {
-                            "line": 15,
+                            "line": 19,
                             "column": 47
                           }
                         },
                         "params": [
                           {
                             "type": "TSTypeReference",
-                            "start": 233,
-                            "end": 234,
+                            "start": 367,
+                            "end": 368,
                             "loc": {
                               "start": {
-                                "line": 15,
+                                "line": 19,
                                 "column": 45
                               },
                               "end": {
-                                "line": 15,
+                                "line": 19,
                                 "column": 46
                               }
                             },
                             "typeName": {
                               "type": "Identifier",
-                              "start": 233,
-                              "end": 234,
+                              "start": 367,
+                              "end": 368,
                               "loc": {
                                 "start": {
-                                  "line": 15,
+                                  "line": 19,
                                   "column": 45
                                 },
                                 "end": {
-                                  "line": 15,
+                                  "line": 19,
                                   "column": 46
                                 },
                                 "identifierName": "T"
@@ -379,29 +379,29 @@
               },
               {
                 "type": "TSTypeReference",
-                "start": 239,
-                "end": 250,
+                "start": 373,
+                "end": 384,
                 "loc": {
                   "start": {
-                    "line": 15,
+                    "line": 19,
                     "column": 51
                   },
                   "end": {
-                    "line": 15,
+                    "line": 19,
                     "column": 62
                   }
                 },
                 "typeName": {
                   "type": "Identifier",
-                  "start": 239,
-                  "end": 247,
+                  "start": 373,
+                  "end": 381,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 51
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 59
                     },
                     "identifierName": "Question"
@@ -410,44 +410,44 @@
                 },
                 "typeParameters": {
                   "type": "TSTypeParameterInstantiation",
-                  "start": 247,
-                  "end": 250,
+                  "start": 381,
+                  "end": 384,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 59
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 62
                     }
                   },
                   "params": [
                     {
                       "type": "TSTypeReference",
-                      "start": 248,
-                      "end": 249,
+                      "start": 382,
+                      "end": 383,
                       "loc": {
                         "start": {
-                          "line": 15,
+                          "line": 19,
                           "column": 60
                         },
                         "end": {
-                          "line": 15,
+                          "line": 19,
                           "column": 61
                         }
                       },
                       "typeName": {
                         "type": "Identifier",
-                        "start": 248,
-                        "end": 249,
+                        "start": 382,
+                        "end": 383,
                         "loc": {
                           "start": {
-                            "line": 15,
+                            "line": 19,
                             "column": 60
                           },
                           "end": {
-                            "line": 15,
+                            "line": 19,
                             "column": 61
                           },
                           "identifierName": "T"
@@ -460,29 +460,29 @@
               },
               {
                 "type": "TSTypeReference",
-                "start": 253,
-                "end": 263,
+                "start": 387,
+                "end": 397,
                 "loc": {
                   "start": {
-                    "line": 15,
+                    "line": 19,
                     "column": 65
                   },
                   "end": {
-                    "line": 15,
+                    "line": 19,
                     "column": 75
                   }
                 },
                 "typeName": {
                   "type": "Identifier",
-                  "start": 253,
-                  "end": 260,
+                  "start": 387,
+                  "end": 394,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 65
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 72
                     },
                     "identifierName": "Promise"
@@ -491,44 +491,44 @@
                 },
                 "typeParameters": {
                   "type": "TSTypeParameterInstantiation",
-                  "start": 260,
-                  "end": 263,
+                  "start": 394,
+                  "end": 397,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 72
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 75
                     }
                   },
                   "params": [
                     {
                       "type": "TSTypeReference",
-                      "start": 261,
-                      "end": 262,
+                      "start": 395,
+                      "end": 396,
                       "loc": {
                         "start": {
-                          "line": 15,
+                          "line": 19,
                           "column": 73
                         },
                         "end": {
-                          "line": 15,
+                          "line": 19,
                           "column": 74
                         }
                       },
                       "typeName": {
                         "type": "Identifier",
-                        "start": 261,
-                        "end": 262,
+                        "start": 395,
+                        "end": 396,
                         "loc": {
                           "start": {
-                            "line": 15,
+                            "line": 19,
                             "column": 73
                           },
                           "end": {
-                            "line": 15,
+                            "line": 19,
                             "column": 74
                           },
                           "identifierName": "T"
@@ -541,29 +541,29 @@
               },
               {
                 "type": "TSTypeReference",
-                "start": 266,
-                "end": 267,
+                "start": 400,
+                "end": 401,
                 "loc": {
                   "start": {
-                    "line": 15,
+                    "line": 19,
                     "column": 78
                   },
                   "end": {
-                    "line": 15,
+                    "line": 19,
                     "column": 79
                   }
                 },
                 "typeName": {
                   "type": "Identifier",
-                  "start": 266,
-                  "end": 267,
+                  "start": 400,
+                  "end": 401,
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 19,
                       "column": 78
                     },
                     "end": {
-                      "line": 15,
+                      "line": 19,
                       "column": 79
                     },
                     "identifierName": "T"
@@ -576,9 +576,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
               "start": 39,
-              "end": 83,
+              "end": 84,
               "loc": {
                 "start": {
                   "line": 2,
@@ -592,16 +592,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
-              "start": 86,
-              "end": 187,
+              "value": "*\n * @desc\n *  A union type that provides a convenient way to represent any value\n *  that can be resolved by {@link Actor#answer}.\n *\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+              "start": 87,
+              "end": 321,
               "loc": {
                 "start": {
                   "line": 10,
                   "column": 0
                 },
                 "end": {
-                  "line": 14,
+                  "line": 18,
                   "column": 3
                 }
               }
@@ -612,9 +612,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
             "start": 39,
-            "end": 83,
+            "end": 84,
             "loc": {
               "start": {
                 "line": 2,
@@ -628,16 +628,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
-            "start": 86,
-            "end": 187,
+            "value": "*\n * @desc\n *  A union type that provides a convenient way to represent any value\n *  that can be resolved by {@link Actor#answer}.\n *\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+            "start": 87,
+            "end": 321,
             "loc": {
               "start": {
                 "line": 10,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 18,
                 "column": 3
               }
             }
@@ -650,9 +650,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
       "start": 39,
-      "end": 83,
+      "end": 84,
       "loc": {
         "start": {
           "line": 2,
@@ -666,16 +666,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
-      "start": 86,
-      "end": 187,
+      "value": "*\n * @desc\n *  A union type that provides a convenient way to represent any value\n *  that can be resolved by {@link Actor#answer}.\n *\n * @public\n *\n * @typedef {Question<Promise<T>> | Question<T> | Promise<T> | T} Answerable<T>\n ",
+      "start": 87,
+      "end": 321,
       "loc": {
         "start": {
           "line": 10,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 18,
           "column": 3
         }
       }

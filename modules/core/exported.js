@@ -98,6 +98,7 @@
 /** @external {@serenity-js/core/lib/screenplay~Discardable} /modules/core/class/src/screenplay/Discardable.ts~Discardable.html */
 /** @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html */
 /** @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html */
+/** @external {@serenity-js/core/lib/screenplay~Reducible} /modules/core/class/src/screenplay/Reducible.ts~Reducible.html */
 /** @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html */
@@ -112,6 +113,7 @@
 /** @external {@serenity-js/core/lib/screenplay/interactions~TakeNote} /modules/core/class/src/screenplay/interactions/TakeNote.ts~TakeNote.html */
 /** @external {@serenity-js/core/lib/screenplay/questions~Note} /modules/core/class/src/screenplay/questions/Note.ts~Note.html */
 /** @external {@serenity-js/core/lib/screenplay/questions~Transform} /modules/core/class/src/screenplay/questions/Transform.ts~Transform.html */
+/** @external {@serenity-js/core/lib/screenplay/tasks~Loop} /modules/core/class/src/screenplay/tasks/Loop.ts~Loop.html */
 /** @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html */
 /** @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html */
 /** @external {@serenity-js/core/lib/stage~DressingRoom} /modules/core/class/src/stage/DressingRoom.ts~DressingRoom.html */

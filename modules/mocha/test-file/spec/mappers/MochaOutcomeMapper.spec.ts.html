@@ -145,7 +145,7 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
     it(<span class="hljs-string">&apos;recognises passing tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-        <span class="hljs-built_in">this</span>.state = <span class="hljs-string">&apos;passed&apos;</span>;
+        test.state = <span class="hljs-string">&apos;passed&apos;</span>;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
 

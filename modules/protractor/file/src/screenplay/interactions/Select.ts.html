@@ -275,7 +275,7 @@
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
      *          Select.values(&apos;UK&apos;).from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals(&apos;UK&apos;)),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ &apos;UK&apos; ])),
      *      );
      *
      * @param {Array&lt;Answerable&lt;string[] | string&gt;&gt;} values

@@ -360,6 +360,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay/tasks~loop",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html",
+    "<span>Loop</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/tasks</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/model/tags~manualtag",
     "class/src/model/tags/ManualTag.ts~ManualTag.html",
     "<span>ManualTag</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model/tags</span>",
@@ -423,6 +429,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~question",
     "class/src/screenplay/Question.ts~Question.html",
     "<span>Question</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay~reducible",
+    "class/src/screenplay/Reducible.ts~Reducible.html",
+    "<span>Reducible</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay</span>",
     "class"
   ],
   [
@@ -1239,6 +1251,18 @@ window.esdocSearchIndex = [
     "see src/screenplay/interactions/see.ts~see,see",
     "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber49",
     "Interactions See when used with sync questions rejects the promise if the condition is not met",
+    "test"
+  ],
+  [
+    "loop src/screenplay/tasks/loop.ts~loop,loop",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber14",
+    "Loop",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber94",
+    "Loop ",
     "test"
   ],
   [
@@ -2079,6 +2103,12 @@ window.esdocSearchIndex = [
     "spec/screenplay/questions/transform.spec.ts",
     "test-file/spec/screenplay/questions/Transform.spec.ts.html",
     "spec/screenplay/questions/Transform.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/tasks/loop.spec.ts",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html",
+    "spec/screenplay/tasks/Loop.spec.ts",
     "testFile"
   ],
   [
@@ -4032,6 +4062,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/reducible.ts",
+    "file/src/screenplay/Reducible.ts.html",
+    "src/screenplay/Reducible.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/reducible.ts~reducible#reduce",
+    "class/src/screenplay/Reducible.ts~Reducible.html#instance-member-reduce",
+    "src/screenplay/Reducible.ts~Reducible#reduce",
+    "member"
+  ],
+  [
     "src/screenplay/task.ts",
     "file/src/screenplay/Task.ts.html",
     "src/screenplay/Task.ts",
@@ -4407,6 +4449,60 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/index.ts",
     "file/src/screenplay/questions/index.ts.html",
     "src/screenplay/questions/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts",
+    "file/src/screenplay/tasks/Loop.ts.html",
+    "src/screenplay/tasks/Loop.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop#constructor",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#instance-constructor-constructor",
+    "src/screenplay/tasks/Loop.ts~Loop#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop#performas",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#instance-method-performAs",
+    "src/screenplay/tasks/Loop.ts~Loop#performAs",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop#tostring",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#instance-method-toString",
+    "src/screenplay/tasks/Loop.ts~Loop#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop.index",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#static-method-index",
+    "src/screenplay/tasks/Loop.ts~Loop.index",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop.item",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#static-method-item",
+    "src/screenplay/tasks/Loop.ts~Loop.item",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loop.over",
+    "class/src/screenplay/tasks/Loop.ts~Loop.html#static-method-over",
+    "src/screenplay/tasks/Loop.ts~Loop.over",
+    "method"
+  ],
+  [
+    "src/screenplay/tasks/loop.ts~loopbuilder",
+    "typedef/index.html#static-typedef-LoopBuilder",
+    "src/screenplay/tasks/Loop.ts~LoopBuilder",
+    "typedef"
+  ],
+  [
+    "src/screenplay/tasks/index.ts",
+    "file/src/screenplay/tasks/index.ts.html",
+    "src/screenplay/tasks/index.ts",
     "file"
   ],
   [

@@ -1050,6 +1050,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/tasks~loop",
+    "/modules/core/class/src/screenplay/tasks/Loop.ts~Loop.html",
+    "@serenity-js/core/lib/screenplay/tasks~Loop",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay~ability",
     "/modules/core/class/src/screenplay/Ability.ts~Ability.html",
     "@serenity-js/core/lib/screenplay~Ability",
@@ -1083,6 +1089,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~question",
     "/modules/core/class/src/screenplay/Question.ts~Question.html",
     "@serenity-js/core/lib/screenplay~Question",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay~reducible",
+    "/modules/core/class/src/screenplay/Reducible.ts~Reducible.html",
+    "@serenity-js/core/lib/screenplay~Reducible",
     "external"
   ],
   [
@@ -1941,6 +1953,18 @@ window.esdocSearchIndex = [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
     "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber64",
     "LastScriptExecution when used with ExecuteScript.sync returns null if the script did not return any result",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber10",
+    "Loop",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber56",
+    "Loop allows the actor to perform a sequence of activities for every element given",
     "test"
   ],
   [
@@ -2826,13 +2850,13 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
     "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber296",
     "Select when working with multi-option selects Select.options() should concatenate option values from several Answerables",
     "test"
   ],
   [
-    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
+    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
     "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber309",
     "Select when working with multi-option selects Select.options() should concatenate option values from several static values",
     "test"
@@ -3819,6 +3843,12 @@ window.esdocSearchIndex = [
     "spec/screenplay/questions/website.spec.ts",
     "test-file/spec/screenplay/questions/Website.spec.ts.html",
     "spec/screenplay/questions/Website.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/tasks/loop.spec.ts",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html",
+    "spec/screenplay/tasks/Loop.spec.ts",
     "testFile"
   ],
   [

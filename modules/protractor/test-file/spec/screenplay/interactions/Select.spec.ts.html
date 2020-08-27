@@ -360,8 +360,8 @@ describe(<span class="hljs-string">&apos;Select&apos;</span>, <span class="hljs-
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals([<span class="hljs-string">&apos;United Kingdom&apos;</span>, <span class="hljs-string">&apos;Poland&apos;</span>]))
                 ));
 
-            <span class="hljs-comment">/** @test {Select.values} */</span>
-            <span class="hljs-comment">/** @test {Selected.valuesOf} */</span>
+            <span class="hljs-comment">/** @test {Select.options} */</span>
+            <span class="hljs-comment">/** @test {Selected.optionsIn} */</span>
             it(<span class="hljs-string">&apos;should concatenate option values from several Answerables&apos;</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                     Navigate.to(pageWithMultiSelect),
@@ -373,8 +373,8 @@ describe(<span class="hljs-string">&apos;Select&apos;</span>, <span class="hljs-
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals([<span class="hljs-string">&apos;United Kingdom&apos;</span>, <span class="hljs-string">&apos;Poland&apos;</span>, <span class="hljs-string">&apos;Germany&apos;</span>, <span class="hljs-string">&apos;France&apos;</span>]))
                 ));
 
-            <span class="hljs-comment">/** @test {Select.values} */</span>
-            <span class="hljs-comment">/** @test {Selected.valuesOf} */</span>
+            <span class="hljs-comment">/** @test {Select.options} */</span>
+            <span class="hljs-comment">/** @test {Selected.optionsIn} */</span>
             it(<span class="hljs-string">&apos;should concatenate option values from several static values&apos;</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                     Navigate.to(pageWithMultiSelect),

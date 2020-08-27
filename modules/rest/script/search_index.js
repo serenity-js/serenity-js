@@ -822,6 +822,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/tasks~loop",
+    "/modules/core/class/src/screenplay/tasks/Loop.ts~Loop.html",
+    "@serenity-js/core/lib/screenplay/tasks~Loop",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay~ability",
     "/modules/core/class/src/screenplay/Ability.ts~Ability.html",
     "@serenity-js/core/lib/screenplay~Ability",
@@ -855,6 +861,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~question",
     "/modules/core/class/src/screenplay/Question.ts~Question.html",
     "@serenity-js/core/lib/screenplay~Question",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay~reducible",
+    "/modules/core/class/src/screenplay/Reducible.ts~Reducible.html",
+    "@serenity-js/core/lib/screenplay~Reducible",
     "external"
   ],
   [
