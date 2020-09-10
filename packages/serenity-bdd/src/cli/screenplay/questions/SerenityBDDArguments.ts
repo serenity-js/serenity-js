@@ -20,17 +20,13 @@ export class SerenityBDDArguments extends Question<string[]> {
     }
 
     constructor(private readonly argv: Argv) {
-        super();
+        super('Serenity BDD arguments');
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): string[] {
         return flatten(Object.keys(this.argv)
             .filter(key => !! ~ SerenityBDDArguments.Allowed.indexOf(key) && !! this.argv[key])
             .map(arg => [`--${ arg }`, this.argv[arg]]));
-    }
-
-    toString() {
-        return 'Serenity BDD arguments';
     }
 }
 

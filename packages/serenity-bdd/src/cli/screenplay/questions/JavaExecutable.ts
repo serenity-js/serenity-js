@@ -8,14 +8,14 @@ const findJavaHome = promisify(require('find-java-home'));  // tslint:disable-li
  * @package
  */
 export class JavaExecutable extends Question<Promise<Path>> {
+    constructor() {
+        super(`java executable`);
+    }
+
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Path> {
         return findJavaHome({ allowJre: true })
             .then(pathToJavaHome => path.join(pathToJavaHome, 'bin', this.javaFileName()))
             .then(Path.fromJSON);
-    }
-
-    toString() {
-        return `java executable`;
     }
 
     private javaFileName() {

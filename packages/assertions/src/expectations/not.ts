@@ -12,8 +12,14 @@ export function not<Expected, Actual>(assertion: Expectation<Expected, Actual>):
  * @package
  */
 class Not<Expected, Actual> extends Expectation<Expected, Actual> {
+    private static flipped(message: string): string {
+        return message.startsWith('not ')
+            ? message.substring(4)
+            : `not ${ message }`;
+    }
+
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
-        super();
+        super(Not.flipped(expectation.toString()));
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
@@ -22,17 +28,7 @@ class Not<Expected, Actual> extends Expectation<Expected, Actual> {
             this.expectation.answeredBy(actor)(actual)
                 .then((outcome: Outcome<Expected, Actual>) =>
                     match<Outcome<Expected, Actual>, Outcome<Expected, Actual>>(outcome)
-                        .when(ExpectationMet, o => new ExpectationNotMet(this.flipped(this.expectation.toString()), o.expected, o.actual))
-                        .else(o => new ExpectationMet(this.flipped(this.expectation.toString()), o.expected, o.actual)));
-    }
-
-    toString(): string {
-        return this.flipped(this.expectation.toString());
-    }
-
-    private flipped(message: string): string {
-        return message.startsWith('not ')
-            ? message.substring(4)
-            : `not ${ message }`;
+                        .when(ExpectationMet, o => new ExpectationNotMet(this.subject, o.expected, o.actual))
+                        .else(o => new ExpectationMet(this.subject, o.expected, o.actual)));
     }
 }

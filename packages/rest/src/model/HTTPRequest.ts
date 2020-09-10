@@ -8,9 +8,9 @@ import { AxiosRequestConfig } from 'axios';
  *  using the {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}
  *
  * @abstract
- * @implements {Question<Promise<AxiosRequestConfig>>}
+ * @extends {Question<Promise<AxiosRequestConfig>>}
  */
-export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig>> {
+export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {
 
     /**
      * @protected
@@ -30,6 +30,8 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
         protected readonly data?: Answerable<any>,
         protected readonly config?: Answerable<AxiosRequestConfig>,
     ) {
+        super('');
+        this.subject = `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
     }
 
     /**
@@ -60,13 +62,6 @@ export abstract class HTTPRequest implements Question<Promise<AxiosRequestConfig
                 }
                 return acc;
             }, {}));
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     */
-    toString() {
-        return `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
     }
 
     /**

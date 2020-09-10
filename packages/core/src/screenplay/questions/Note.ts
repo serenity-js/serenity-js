@@ -46,19 +46,19 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @desc
      *  Retrieves the previously recorded answer to a given {@link Question}
      *
-     * @param {Question<Promise<A>> | Question<A> | string} subject
+     * @param {Question<Promise<A>> | Question<A> | string} topic
      *
      * @returns {Note<A>}
      */
-    static of<A>(subject: Question<Promise<A>> | Question<A> | string): Note<A> {
-        return new Note<A>(subject);
+    static of<A>(topic: Question<Promise<A>> | Question<A> | string): Note<A> {
+        return new Note<A>(topic);
     }
 
     /**
-     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject
+     * @param {Question<Promise<Answer>> | Question<Answer> | string} topic
      */
-    constructor(private readonly subject: Question<Promise<Answer>> | Question<Answer> | string) {
-        super();
+    constructor(private readonly topic: Question<Promise<Answer>> | Question<Answer> | string) {
+        super(`a note of ${ topic }`);
     }
 
     /**
@@ -74,13 +74,6 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @see {@link UsesAbilities}
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer> {
-        return TakeNotes.as(actor).answerTo(this.subject);
-    }
-
-    /**
-     * Description to be used when reporting this {@link Question}.
-     */
-    toString() {
-        return `a note of ${ this.subject }`;
+        return TakeNotes.as(actor).answerTo(this.topic);
     }
 }

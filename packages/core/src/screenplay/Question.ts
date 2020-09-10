@@ -49,6 +49,9 @@ import { AnswersQuestions, UsesAbilities } from './actor';
  */
 export abstract class Question<T> {
 
+    protected constructor(protected subject: string) {
+    }
+
     /**
      * @desc
      *  Factory method that simplifies the process of defining custom questions.
@@ -82,6 +85,27 @@ export abstract class Question<T> {
     }
 
     /**
+     * Describes the subject of this {@link Question}.
+     *
+     * @returns {string}
+     */
+    toString() {
+        return this.subject;
+    }
+
+    /**
+     * Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): Question<T> {
+        this.subject = subject;
+
+        return this;
+    }
+
+    /**
      * @abstract
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
@@ -90,15 +114,23 @@ export abstract class Question<T> {
 /**
  * @package
  */
-class AnonymousQuestion<T> implements Question<T> {
+class AnonymousQuestion<T> extends Question<T> {
     constructor(private description: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
+        super(description);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities) {
         return this.body(actor);
     }
 
-    toString() {
-        return this.description;
+    /**
+     * Changes the description of this question's subject
+     * and produces a new instance without mutating the original one.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): Question<T> {
+        return new AnonymousQuestion(subject, this.body);
     }
 }
