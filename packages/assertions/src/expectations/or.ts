@@ -14,7 +14,9 @@ class Or<Actual> extends Expectation<any, Actual> {
     private static readonly Separator = ' or ';
 
     constructor(private readonly expectations: Array<Expectation<any, Actual>>) {
-        super();
+        super(expectations
+            .map(assertion => assertion.toString())
+            .join(Or.Separator));
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
@@ -38,11 +40,5 @@ class Or<Actual> extends Expectation<any, Actual> {
                     ? new ExpectationNotMet(message, outcomes[0].expected, outcomes[0].actual)
                     : new ExpectationMet(message, outcomes[0].expected, outcomes[0].actual);
             });
-    }
-
-    toString(): string {
-        return this.expectations
-            .map(assertion => assertion.toString())
-            .join(Or.Separator);
     }
 }

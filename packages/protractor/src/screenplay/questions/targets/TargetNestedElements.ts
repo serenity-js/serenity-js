@@ -13,7 +13,8 @@ import { override } from './override';
  * @see {@link Target}
  */
 export class TargetNestedElements
-    implements Question<ElementArrayFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
+    extends Question<ElementArrayFinder>
+    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
 {
 
     /**
@@ -26,6 +27,7 @@ export class TargetNestedElements
         private readonly parent: Question<ElementFinder> | ElementFinder,
         private readonly children: Question<ElementArrayFinder> | ElementArrayFinder,
     ) {
+        super(`${ children.toString() } of ${ parent }`);
     }
 
     /**
@@ -55,12 +57,5 @@ export class TargetNestedElements
                 'toString',
                 this.toString.bind(this),
             )));
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return `${ this.children.toString() } of ${ this.parent }`;
     }
 }

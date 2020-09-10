@@ -55,12 +55,12 @@ describe('Ensure', () => {
     /** @test {Ensure.that} */
     it('complains when given an Expectation that doesn\'t conform to the interface', () => {
         class BrokenExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
-            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
-                return (actual: Actual) => Promise.resolve(null);
+            constructor() {
+                super(`broken`);
             }
 
-            toString(): string {
-                return `broken`;
+            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+                return (actual: Actual) => Promise.resolve(null);
             }
         }
 
