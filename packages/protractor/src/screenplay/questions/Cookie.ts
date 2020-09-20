@@ -40,8 +40,9 @@ export class Cookie {
 /**
  * @package
  */
-class CookieDetails implements Question<Promise<IWebDriverOptionsCookie>> {
+class CookieDetails extends Question<Promise<IWebDriverOptionsCookie>> {
     constructor(private readonly name: Answerable<string>) {
+        super(`the details of the "${ name } cookie`);
     }
 
     /**
@@ -60,12 +61,5 @@ class CookieDetails implements Question<Promise<IWebDriverOptionsCookie>> {
         return actor.answer(this.name)
             .then(name => BrowseTheWeb.as(actor).manage().getCookie(name))
             .then(details => !! details ? details : undefined);
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return `the details of the "${ this.name } cookie`;
     }
 }

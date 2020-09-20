@@ -9,6 +9,5 @@ export * from './Interaction';
 export * from './interactions';
 export * from './Question';
 export * from './questions';
-export * from './Reducible';
 export * from './Task';
 export * from './tasks';

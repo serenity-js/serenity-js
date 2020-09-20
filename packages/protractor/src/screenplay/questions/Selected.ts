@@ -203,9 +203,10 @@ export class Selected {
 /**
  * @package
  */
-class SelectedValue implements Question<Promise<string>> {
+class SelectedValue extends Question<Promise<string>> {
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `value selected in ${ target }`);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
@@ -215,18 +216,15 @@ class SelectedValue implements Question<Promise<string>> {
 
         return promiseOf(value);
     }
-
-    toString() {
-        return formatted `value selected in ${ this.target }`;
-    }
 }
 
 /**
  * @package
  */
-class SelectedValues implements Question<Promise<string[]>> {
+class SelectedValues extends Question<Promise<string[]>> {
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `values selected in ${ target }`);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
@@ -235,44 +233,34 @@ class SelectedValues implements Question<Promise<string[]>> {
 
         return promiseOf(options.map(option => option.getAttribute('value')));
     }
-
-    toString() {
-        return formatted `values selected in ${ this.target }`;
-    }
 }
 
 /**
  * @package
  */
-class SelectedOption implements Question<Promise<string>> {
+class SelectedOption extends Question<Promise<string>> {
 
     constructor(private target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `option selected in ${ target }`);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return promiseOf(withAnswerOf(actor, this.target, element => element.$('option:checked').getText()));
     }
-
-    toString() {
-        return formatted `option selected in ${ this.target }`;
-    }
 }
 
 /**
  * @package
  */
-class SelectedOptions implements Question<Promise<string[]>> {
+class SelectedOptions extends Question<Promise<string[]>> {
 
     constructor(private target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `options selected in ${ target }`);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         return promiseOf(withAnswerOf(actor, this.target, element => element.$$('option')
             .filter(option => option.isSelected())
             .map(elements => elements.getText())));
-    }
-
-    toString() {
-        return formatted `options selected in ${ this.target }`;
     }
 }

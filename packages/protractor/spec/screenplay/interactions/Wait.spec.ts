@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';

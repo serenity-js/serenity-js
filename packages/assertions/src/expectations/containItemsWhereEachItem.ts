@@ -12,7 +12,7 @@ export function containItemsWhereEachItem<Actual>(expectation: Expectation<any, 
  */
 class ContainItemsWhereEachItemMeetsExpectation<Expected, Actual> extends Expectation<Expected, Actual[]> {
     constructor(private readonly expectation: Expectation<Expected, Actual>) {
-        super();
+        super(formatted `contain items where each item does ${ expectation }`);
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual[]) => Promise<Outcome<Expected, Actual[]>> {
@@ -24,9 +24,5 @@ class ContainItemsWhereEachItemMeetsExpectation<Expected, Actual> extends Expect
                         ? new ExpectationMet(this.toString(), results[0].expected, actual)
                         : new ExpectationNotMet(this.toString(), results[0].expected, actual),
                     );
-    }
-
-    toString(): string {
-        return formatted `contain items where each item does ${ this.expectation }`;
     }
 }

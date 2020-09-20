@@ -5,6 +5,8 @@
  * @param {Array<string>} list
  * @param {function(item: string): string} map
  * @param {string} [acc=''] acc
+ *
+ * @returns {string}
  */
 export function commaSeparated(
     list: Array<string | { toString: () => string }>,
