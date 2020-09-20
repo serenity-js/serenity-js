@@ -372,6 +372,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/io/collections~mappable",
+    "class/src/io/collections/mappable.ts~Mappable.html",
+    "<span>Mappable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/io~moduleloader",
     "class/src/io/ModuleLoader.ts~ModuleLoader.html",
     "<span>ModuleLoader</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
@@ -432,9 +438,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/core/lib/screenplay~reducible",
-    "class/src/screenplay/Reducible.ts~Reducible.html",
-    "<span>Reducible</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay</span>",
+    "@serenity-js/core/lib/io/collections~reducible",
+    "class/src/io/collections/reducible.ts~Reducible.html",
+    "<span>Reducible</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
     "class"
   ],
   [
@@ -708,6 +714,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
+    "function/index.html#static-function-append",
+    "<span>append</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
     "@serenity-js/core/lib/io~commaseparated",
     "function/index.html#static-function-commaSeparated",
     "<span>commaSeparated</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
@@ -738,10 +750,76 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@serenity-js/core/lib/io/collections~ismappable",
+    "function/index.html#static-function-isMappable",
+    "<span>isMappable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
+    "function/index.html#static-function-normalize",
+    "<span>normalize</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
+    "function/index.html#static-function-replace",
+    "<span>replace</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
     "@serenity-js/core~serenity",
     "variable/index.html#static-variable-serenity",
     "<span>serenity</span> <span class=\"search-result-import-path\">@serenity-js/core</span>",
     "variable"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
+    "function/index.html#static-function-slice",
+    "<span>slice</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
+    "function/index.html#static-function-split",
+    "<span>split</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocalelowercase",
+    "function/index.html#static-function-toLocaleLowerCase",
+    "<span>toLocaleLowerCase</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocaleuppercase",
+    "function/index.html#static-function-toLocaleUpperCase",
+    "<span>toLocaleUpperCase</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolowercase",
+    "function/index.html#static-function-toLowerCase",
+    "<span>toLowerCase</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tonumber",
+    "function/index.html#static-function-toNumber",
+    "<span>toNumber</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~touppercase",
+    "function/index.html#static-function-toUpperCase",
+    "<span>toUpperCase</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
+    "function/index.html#static-function-trim",
+    "<span>trim</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
   ],
   [
     "@serenity-js/core/lib/io~trimmed",
@@ -1416,6 +1494,84 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "question src/screenplay/question.ts~question,question",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber10",
+    "Question",
+    "test"
+  ],
+  [
+    "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber46",
+    "Question allows for a custom description to override the default one",
+    "test"
+  ],
+  [
+    "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber56",
+    "Question allows for a custom description to override the default one without affecting the original question",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber12",
+    "Question provides a convenient way to define a custom question that",
+    "test"
+  ],
+  [
+    "question#tostring src/screenplay/question.ts~question#tostring,question#tostring",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber36",
+    "Question provides a convenient way to define a custom question that has a description",
+    "test"
+  ],
+  [
+    "question.about src/screenplay/question.ts~question.about,question.about",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber25",
+    "Question provides a convenient way to define a custom question that returns a Promise of a value",
+    "test"
+  ],
+  [
+    "question.about src/screenplay/question.ts~question.about,question.about",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber15",
+    "Question provides a convenient way to define a custom question that returns a static value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber64",
+    "Question when mapping the answer",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber136",
+    "Question when mapping the answer works with a mappable collection (Array, ElementArrayFinder, etc.)",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber84",
+    "Question when mapping the answer works with a promise",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber118",
+    "Question when mapping the answer works with a promised list",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber100",
+    "Question when mapping the answer works with a static list of values",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber68",
+    "Question when mapping the answer works with a static value",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/errors/RuntimeError.spec.ts.html#lineNumber6",
     "RuntimeError",
@@ -1914,6 +2070,36 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber10",
+    "append",
+    "test"
+  ],
+  [
+    "append src/screenplay/questions/mappings/string/append.ts~append,append",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber57",
+    "append allows for a Promise<string> to be appended to the original answer",
+    "test"
+  ],
+  [
+    "append src/screenplay/questions/mappings/string/append.ts~append,append",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber77",
+    "append allows for a Question<Promise<string>> to be appended to the original answer",
+    "test"
+  ],
+  [
+    "append src/screenplay/questions/mappings/string/append.ts~append,append",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber67",
+    "append allows for a Question<string> to be appended to the original answer",
+    "test"
+  ],
+  [
+    "append src/screenplay/questions/mappings/string/append.ts~append,append",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber47",
+    "append allows for a string to be appended to the original answer",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber7",
     "commaSeparated",
@@ -1923,6 +2109,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber14",
     "commaSeparated returns an empty string for an empty list",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html#lineNumber10",
+    "normalize",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/replace.spec.ts.html#lineNumber10",
+    "replace",
     "test"
   ],
   [
@@ -1960,6 +2158,18 @@ window.esdocSearchIndex = [
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
     "selenium-webdriver~Options",
     "external"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber10",
+    "slice",
+    "test"
+  ],
+  [
+    "slice src/screenplay/questions/mappings/string/slice.ts~slice,slice",
+    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber115",
+    "slice extracts the part of the string from `startIndex` to `endIndex`",
+    "test"
   ],
   [
     "spec/serenity.spec.ts",
@@ -2070,6 +2280,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/question.spec.ts",
+    "test-file/spec/screenplay/Question.spec.ts.html",
+    "spec/screenplay/Question.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/task.spec.ts",
     "test-file/spec/screenplay/Task.spec.ts.html",
     "spec/screenplay/Task.spec.ts",
@@ -2106,6 +2322,66 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/questions/mappings/string/append.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/append.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/normalize.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/normalize.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/replace.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/replace.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/replace.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/slice.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/slice.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/split.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/split.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/tolocalelowercase.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleLowerCase.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/toLocaleLowerCase.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/tolocaleuppercase.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleUpperCase.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/toLocaleUpperCase.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/tolowercase.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/toLowerCase.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/toLowerCase.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/touppercase.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/toUpperCase.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/toUpperCase.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/mappings/string/trim.spec.ts",
+    "test-file/spec/screenplay/questions/mappings/string/trim.spec.ts.html",
+    "spec/screenplay/questions/mappings/string/trim.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/tasks/loop.spec.ts",
     "test-file/spec/screenplay/tasks/Loop.spec.ts.html",
     "spec/screenplay/tasks/Loop.spec.ts",
@@ -2128,6 +2404,18 @@ window.esdocSearchIndex = [
     "test-file/spec/stage/crew/artifact-archiver/ArtifactArchiver.spec.ts.html",
     "spec/stage/crew/artifact-archiver/ArtifactArchiver.spec.ts",
     "testFile"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber10",
+    "split",
+    "test"
+  ],
+  [
+    "split src/io/path.ts~path#split,split",
+    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber80",
+    "split can limit the number of substrings returned",
+    "test"
   ],
   [
     "src/serenity.ts",
@@ -3108,6 +3396,42 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/io/collections/index.ts",
+    "file/src/io/collections/index.ts.html",
+    "src/io/collections/index.ts",
+    "file"
+  ],
+  [
+    "src/io/collections/mappable.ts",
+    "file/src/io/collections/mappable.ts.html",
+    "src/io/collections/mappable.ts",
+    "file"
+  ],
+  [
+    "src/io/collections/mappable.ts~mappable#map",
+    "class/src/io/collections/mappable.ts~Mappable.html#instance-member-map",
+    "src/io/collections/mappable.ts~Mappable#map",
+    "member"
+  ],
+  [
+    "src/io/collections/mappable.ts~mapping<v,o>",
+    "typedef/index.html#static-typedef-Mapping<V,O>",
+    "src/io/collections/mappable.ts~Mapping<V,O>",
+    "typedef"
+  ],
+  [
+    "src/io/collections/reducible.ts",
+    "file/src/io/collections/reducible.ts.html",
+    "src/io/collections/reducible.ts",
+    "file"
+  ],
+  [
+    "src/io/collections/reducible.ts~reducible#reduce",
+    "class/src/io/collections/reducible.ts~Reducible.html#instance-member-reduce",
+    "src/io/collections/reducible.ts~Reducible#reduce",
+    "member"
+  ],
+  [
     "src/io/commaseparated.ts",
     "file/src/io/commaSeparated.ts.html",
     "src/io/commaSeparated.ts",
@@ -4050,6 +4374,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/screenplay/question.ts~question#constructor",
+    "class/src/screenplay/Question.ts~Question.html#instance-constructor-constructor",
+    "src/screenplay/Question.ts~Question#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/question.ts~question#describedas",
+    "class/src/screenplay/Question.ts~Question.html#instance-method-describedAs",
+    "src/screenplay/Question.ts~Question#describedAs",
+    "method"
+  ],
+  [
+    "src/screenplay/question.ts~question#map",
+    "class/src/screenplay/Question.ts~Question.html#instance-method-map",
+    "src/screenplay/Question.ts~Question#map",
+    "method"
+  ],
+  [
+    "src/screenplay/question.ts~question#subject",
+    "class/src/screenplay/Question.ts~Question.html#instance-member-subject",
+    "src/screenplay/Question.ts~Question#subject",
+    "member"
+  ],
+  [
+    "src/screenplay/question.ts~question#tostring",
+    "class/src/screenplay/Question.ts~Question.html#instance-method-toString",
+    "src/screenplay/Question.ts~Question#toString",
+    "method"
+  ],
+  [
     "src/screenplay/question.ts~question.about",
     "class/src/screenplay/Question.ts~Question.html#static-method-about",
     "src/screenplay/Question.ts~Question.about",
@@ -4060,18 +4414,6 @@ window.esdocSearchIndex = [
     "class/src/screenplay/Question.ts~Question.html#static-method-isAQuestion",
     "src/screenplay/Question.ts~Question.isAQuestion",
     "method"
-  ],
-  [
-    "src/screenplay/reducible.ts",
-    "file/src/screenplay/Reducible.ts.html",
-    "src/screenplay/Reducible.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/reducible.ts~reducible#reduce",
-    "class/src/screenplay/Reducible.ts~Reducible.html#instance-member-reduce",
-    "src/screenplay/Reducible.ts~Reducible#reduce",
-    "member"
   ],
   [
     "src/screenplay/task.ts",
@@ -4398,12 +4740,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/questions/note.ts~note#tostring",
-    "class/src/screenplay/questions/Note.ts~Note.html#instance-method-toString",
-    "src/screenplay/questions/Note.ts~Note#toString",
-    "method"
-  ],
-  [
     "src/screenplay/questions/note.ts~note.of",
     "class/src/screenplay/questions/Note.ts~Note.html#static-method-of",
     "src/screenplay/questions/Note.ts~Note.of",
@@ -4434,9 +4770,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/questions/transform.ts~transform#tostring",
-    "class/src/screenplay/questions/Transform.ts~Transform.html#instance-method-toString",
-    "src/screenplay/questions/Transform.ts~Transform#toString",
+    "src/screenplay/questions/transform.ts~transform#describedas",
+    "class/src/screenplay/questions/Transform.ts~Transform.html#instance-method-describedAs",
+    "src/screenplay/questions/Transform.ts~Transform#describedAs",
     "method"
   ],
   [
@@ -4449,6 +4785,96 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/index.ts",
     "file/src/screenplay/questions/index.ts.html",
     "src/screenplay/questions/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/answermappingfunction.ts",
+    "file/src/screenplay/questions/mappings/AnswerMappingFunction.ts.html",
+    "src/screenplay/questions/mappings/AnswerMappingFunction.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/answermappingfunction.ts~answermappingfunction<v,",
+    "typedef/index.html#static-typedef-AnswerMappingFunction<V,",
+    "src/screenplay/questions/mappings/AnswerMappingFunction.ts~AnswerMappingFunction<V,",
+    "typedef"
+  ],
+  [
+    "src/screenplay/questions/mappings/index.ts",
+    "file/src/screenplay/questions/mappings/index.ts.html",
+    "src/screenplay/questions/mappings/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/append.ts",
+    "file/src/screenplay/questions/mappings/string/append.ts.html",
+    "src/screenplay/questions/mappings/string/append.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/index.ts",
+    "file/src/screenplay/questions/mappings/string/index.ts.html",
+    "src/screenplay/questions/mappings/string/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/normalize.ts",
+    "file/src/screenplay/questions/mappings/string/normalize.ts.html",
+    "src/screenplay/questions/mappings/string/normalize.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/replace.ts",
+    "file/src/screenplay/questions/mappings/string/replace.ts.html",
+    "src/screenplay/questions/mappings/string/replace.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/slice.ts",
+    "file/src/screenplay/questions/mappings/string/slice.ts.html",
+    "src/screenplay/questions/mappings/string/slice.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/split.ts",
+    "file/src/screenplay/questions/mappings/string/split.ts.html",
+    "src/screenplay/questions/mappings/string/split.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/tolocalelowercase.ts",
+    "file/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts.html",
+    "src/screenplay/questions/mappings/string/toLocaleLowerCase.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/tolocaleuppercase.ts",
+    "file/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts.html",
+    "src/screenplay/questions/mappings/string/toLocaleUpperCase.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/tolowercase.ts",
+    "file/src/screenplay/questions/mappings/string/toLowerCase.ts.html",
+    "src/screenplay/questions/mappings/string/toLowerCase.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/tonumber.ts",
+    "file/src/screenplay/questions/mappings/string/toNumber.ts.html",
+    "src/screenplay/questions/mappings/string/toNumber.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/touppercase.ts",
+    "file/src/screenplay/questions/mappings/string/toUpperCase.ts.html",
+    "src/screenplay/questions/mappings/string/toUpperCase.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/mappings/string/trim.ts",
+    "file/src/screenplay/questions/mappings/string/trim.ts.html",
+    "src/screenplay/questions/mappings/string/trim.ts",
     "file"
   ],
   [
@@ -4792,5 +5218,35 @@ window.esdocSearchIndex = [
     "file/src/stage/index.ts.html",
     "src/stage/index.ts",
     "file"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleLowerCase.spec.ts.html#lineNumber10",
+    "toLocaleLowerCase",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleUpperCase.spec.ts.html#lineNumber10",
+    "toLocaleUpperCase",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/toLowerCase.spec.ts.html#lineNumber10",
+    "toLowerCase",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/toUpperCase.spec.ts.html#lineNumber10",
+    "toUpperCase",
+    "test"
+  ],
+  [
+    "question#map src/screenplay/question.ts~question#map,question#map",
+    "test-file/spec/screenplay/questions/mappings/string/trim.spec.ts.html#lineNumber10",
+    "trim",
+    "test"
   ]
 ]

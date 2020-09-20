@@ -174,7 +174,7 @@
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../withAnswerOf&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Attribute <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Attribute <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder) {
         <span class="hljs-keyword">return</span> {
             called: <span class="hljs-function">(<span class="hljs-params">name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) =&gt;</span> <span class="hljs-keyword">new</span> Attribute(target, name),
@@ -185,6 +185,7 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt; | ElementFinder,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;,
     </span>) {
+        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`the value of the <span class="hljs-subst">${ name }</span> attribute of <span class="hljs-subst">${ target}</span>`</span>);
     }
 
     <span class="hljs-comment">/**
@@ -202,13 +203,6 @@
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.name)
             .then(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function"><span class="hljs-params">elf</span> =&gt;</span> elf.getAttribute(name)));
-    }
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`the value of the <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> attribute of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.target}</span>`</span>;
     }
 }
 </code></pre>

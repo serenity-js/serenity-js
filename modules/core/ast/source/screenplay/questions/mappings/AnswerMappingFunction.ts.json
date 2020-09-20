@@ -1,0 +1,753 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 464,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 22,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 464,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 22,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 58,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 58
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 24,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 24
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 24,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24
+                },
+                "identifierName": "MappingFunction"
+              },
+              "name": "MappingFunction"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 24,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24
+                },
+                "identifierName": "MappingFunction"
+              },
+              "name": "MappingFunction"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 32,
+          "end": 57,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 32
+            },
+            "end": {
+              "line": 1,
+              "column": 57
+            }
+          },
+          "extra": {
+            "rawValue": "../../../io/collections",
+            "raw": "'../../../io/collections'"
+          },
+          "value": "../../../io/collections"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 59,
+        "end": 106,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 47
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 68,
+            "end": 84,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 25
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 68,
+              "end": 84,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 25
+                },
+                "identifierName": "AnswersQuestions"
+              },
+              "name": "AnswersQuestions"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 68,
+              "end": 84,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 25
+                },
+                "identifierName": "AnswersQuestions"
+              },
+              "name": "AnswersQuestions"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 92,
+          "end": 105,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 33
+            },
+            "end": {
+              "line": 2,
+              "column": 46
+            }
+          },
+          "extra": {
+            "rawValue": "../../actor",
+            "raw": "'../../actor'"
+          },
+          "value": "../../actor"
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 107,
+            "end": 152,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(actor: AnswersQuestions) => MappingFunction<V,O>} AnswerMappingFunction<V, O>\n ",
+            "start": 155,
+            "end": 345,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 346,
+        "end": 463,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 21,
+            "column": 42
+          }
+        },
+        "exportKind": "type",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "TSTypeAliasDeclaration",
+          "start": 353,
+          "end": 463,
+          "loc": {
+            "start": {
+              "line": 19,
+              "column": 7
+            },
+            "end": {
+              "line": 21,
+              "column": 42
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 358,
+            "end": 379,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 12
+              },
+              "end": {
+                "line": 19,
+                "column": 33
+              },
+              "identifierName": "AnswerMappingFunction"
+            },
+            "name": "AnswerMappingFunction"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 379,
+            "end": 385,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 33
+              },
+              "end": {
+                "line": 19,
+                "column": 39
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 380,
+                "end": 381,
+                "loc": {
+                  "start": {
+                    "line": 19,
+                    "column": 34
+                  },
+                  "end": {
+                    "line": 19,
+                    "column": 35
+                  }
+                },
+                "name": "V"
+              },
+              {
+                "type": "TSTypeParameter",
+                "start": 383,
+                "end": 384,
+                "loc": {
+                  "start": {
+                    "line": 19,
+                    "column": 37
+                  },
+                  "end": {
+                    "line": 19,
+                    "column": 38
+                  }
+                },
+                "name": "O"
+              }
+            ]
+          },
+          "typeAnnotation": {
+            "type": "TSFunctionType",
+            "start": 392,
+            "end": 463,
+            "loc": {
+              "start": {
+                "line": 20,
+                "column": 4
+              },
+              "end": {
+                "line": 21,
+                "column": 42
+              }
+            },
+            "parameters": [
+              {
+                "type": "Identifier",
+                "start": 393,
+                "end": 416,
+                "loc": {
+                  "start": {
+                    "line": 20,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 28
+                  },
+                  "identifierName": "actor"
+                },
+                "name": "actor",
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 398,
+                  "end": 416,
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 28
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 400,
+                    "end": 416,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 28
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 400,
+                      "end": 416,
+                      "loc": {
+                        "start": {
+                          "line": 20,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 28
+                        },
+                        "identifierName": "AnswersQuestions"
+                      },
+                      "name": "AnswersQuestions"
+                    }
+                  }
+                }
+              }
+            ],
+            "typeAnnotation": {
+              "type": "TSTypeAnnotation",
+              "start": 418,
+              "end": 463,
+              "loc": {
+                "start": {
+                  "line": 20,
+                  "column": 30
+                },
+                "end": {
+                  "line": 21,
+                  "column": 42
+                }
+              },
+              "typeAnnotation": {
+                "type": "TSTypeReference",
+                "start": 429,
+                "end": 463,
+                "loc": {
+                  "start": {
+                    "line": 21,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 21,
+                    "column": 42
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 429,
+                  "end": 444,
+                  "loc": {
+                    "start": {
+                      "line": 21,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 21,
+                      "column": 23
+                    },
+                    "identifierName": "MappingFunction"
+                  },
+                  "name": "MappingFunction"
+                },
+                "typeParameters": {
+                  "type": "TSTypeParameterInstantiation",
+                  "start": 444,
+                  "end": 463,
+                  "loc": {
+                    "start": {
+                      "line": 21,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 21,
+                      "column": 42
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeReference",
+                      "start": 445,
+                      "end": 446,
+                      "loc": {
+                        "start": {
+                          "line": 21,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 21,
+                          "column": 25
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 445,
+                        "end": 446,
+                        "loc": {
+                          "start": {
+                            "line": 21,
+                            "column": 24
+                          },
+                          "end": {
+                            "line": 21,
+                            "column": 25
+                          },
+                          "identifierName": "V"
+                        },
+                        "name": "V"
+                      }
+                    },
+                    {
+                      "type": "TSUnionType",
+                      "start": 448,
+                      "end": 462,
+                      "loc": {
+                        "start": {
+                          "line": 21,
+                          "column": 27
+                        },
+                        "end": {
+                          "line": 21,
+                          "column": 41
+                        }
+                      },
+                      "types": [
+                        {
+                          "type": "TSTypeReference",
+                          "start": 448,
+                          "end": 458,
+                          "loc": {
+                            "start": {
+                              "line": 21,
+                              "column": 27
+                            },
+                            "end": {
+                              "line": 21,
+                              "column": 37
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 448,
+                            "end": 455,
+                            "loc": {
+                              "start": {
+                                "line": 21,
+                                "column": 27
+                              },
+                              "end": {
+                                "line": 21,
+                                "column": 34
+                              },
+                              "identifierName": "Promise"
+                            },
+                            "name": "Promise"
+                          },
+                          "typeParameters": {
+                            "type": "TSTypeParameterInstantiation",
+                            "start": 455,
+                            "end": 458,
+                            "loc": {
+                              "start": {
+                                "line": 21,
+                                "column": 34
+                              },
+                              "end": {
+                                "line": 21,
+                                "column": 37
+                              }
+                            },
+                            "params": [
+                              {
+                                "type": "TSTypeReference",
+                                "start": 456,
+                                "end": 457,
+                                "loc": {
+                                  "start": {
+                                    "line": 21,
+                                    "column": 35
+                                  },
+                                  "end": {
+                                    "line": 21,
+                                    "column": 36
+                                  }
+                                },
+                                "typeName": {
+                                  "type": "Identifier",
+                                  "start": 456,
+                                  "end": 457,
+                                  "loc": {
+                                    "start": {
+                                      "line": 21,
+                                      "column": 35
+                                    },
+                                    "end": {
+                                      "line": 21,
+                                      "column": 36
+                                    },
+                                    "identifierName": "O"
+                                  },
+                                  "name": "O"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "TSTypeReference",
+                          "start": 461,
+                          "end": 462,
+                          "loc": {
+                            "start": {
+                              "line": 21,
+                              "column": 40
+                            },
+                            "end": {
+                              "line": 21,
+                              "column": 41
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 461,
+                            "end": 462,
+                            "loc": {
+                              "start": {
+                                "line": 21,
+                                "column": 40
+                              },
+                              "end": {
+                                "line": 21,
+                                "column": 41
+                              },
+                              "identifierName": "O"
+                            },
+                            "name": "O"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+              "start": 107,
+              "end": 152,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(actor: AnswersQuestions) => MappingFunction<V,O>} AnswerMappingFunction<V, O>\n ",
+              "start": 155,
+              "end": 345,
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 0
+                },
+                "end": {
+                  "line": 18,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 107,
+            "end": 152,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(actor: AnswersQuestions) => MappingFunction<V,O>} AnswerMappingFunction<V, O>\n ",
+            "start": 155,
+            "end": 345,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+      "start": 107,
+      "end": 152,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(actor: AnswersQuestions) => MappingFunction<V,O>} AnswerMappingFunction<V, O>\n ",
+      "start": 155,
+      "end": 345,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

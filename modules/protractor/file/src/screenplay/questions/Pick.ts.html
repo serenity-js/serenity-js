@@ -232,11 +232,19 @@
 <span class="hljs-comment">/**
  * @package
  */</span>
-<span class="hljs-keyword">class</span> Filters&lt;Item_Type, Collection_Type
-    <span class="hljs-keyword">extends</span> Collection&lt;Item_Type&gt;&gt;
-    <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
+<span class="hljs-keyword">class</span> Filters&lt;Item_Type, Collection_Type <span class="hljs-keyword">extends</span> Collection&lt;Item_Type&gt;&gt;
+    <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: <span class="hljs-built_in">Array</span>&lt;Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;&gt; = []</span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">&apos;&apos;</span>);
+
+        <span class="hljs-keyword">const</span> fullDescription = <span class="hljs-built_in">this</span>.filters
+            .reduce(<span class="hljs-function">(<span class="hljs-params">description, filter</span>) =&gt;</span> description.concat(filter.toString()), [ ])
+            .join(<span class="hljs-string">&apos; and &apos;</span>);
+
+        <span class="hljs-built_in">this</span>.subject = fullDescription.length &gt; <span class="hljs-number">0</span>
+            ? <span class="hljs-string">`where <span class="hljs-subst">${ fullDescription }</span>`</span>
+            : <span class="hljs-string">&apos;&apos;</span>;
     }
 
     append(filter: Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;) {
@@ -262,31 +270,19 @@
                 collection,
             );
     }
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString() {
-        <span class="hljs-keyword">const</span> fullDescription = <span class="hljs-built_in">this</span>.filters
-            .reduce(<span class="hljs-function">(<span class="hljs-params">description, filter</span>) =&gt;</span> description.concat(filter.toString()), [ ])
-            .join(<span class="hljs-string">&apos; and &apos;</span>);
-
-        <span class="hljs-keyword">return</span> fullDescription.length &gt; <span class="hljs-number">0</span>
-            ? <span class="hljs-string">`where <span class="hljs-subst">${ fullDescription }</span>`</span>
-            : <span class="hljs-string">&apos;&apos;</span>;
-    }
 }
 
 <span class="hljs-comment">/**
  * @package
  */</span>
 <span class="hljs-keyword">class</span> Filter&lt;Item_Type, Collection_Type <span class="hljs-keyword">extends</span> Collection&lt;Item_Type&gt;, Property_Type&gt;
-    <span class="hljs-keyword">implements</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
+    <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> Collection_Type&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: RelativeQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
     </span>) {
+        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`<span class="hljs-subst">${ question }</span> does <span class="hljs-subst">${ expectation }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
@@ -310,26 +306,20 @@
                     .then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcome <span class="hljs-keyword">instanceof</span> ExpectationMet);
             }) <span class="hljs-keyword">as</span> Collection_Type;
     }
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString() {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.question }</span> does <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation }</span>`</span>;
-    }
 }
 
 <span class="hljs-comment">/**
  * @package
  */</span>
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> QuestionAboutCollectionItems&lt;IT, CT <span class="hljs-keyword">extends</span> Collection&lt;IT&gt;, Answer_Type&gt;
-    <span class="hljs-keyword">implements</span> Question&lt;Answer_Type&gt;
+    <span class="hljs-keyword">extends</span> Question&lt;Answer_Type&gt;
 {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;CT&gt; | CT,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: Filters&lt;IT, CT&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
     </span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>}</span> <span class="hljs-subst">${ filters.toString() }</span>`</span>.trim())
     }
 
     <span class="hljs-comment">/**
@@ -345,13 +335,6 @@
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
     <span class="hljs-keyword">abstract</span> answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Answer_Type;
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection }</span>`</span>}</span> <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.filters.toString() }</span>`</span>.trim();
-    }
 
     <span class="hljs-keyword">protected</span> collectionFilteredBy(actor: AnswersQuestions &amp; UsesAbilities): CT {
         <span class="hljs-keyword">const</span> collection = <span class="hljs-built_in">this</span>.isAQuestion(<span class="hljs-built_in">this</span>.collection)

@@ -185,7 +185,8 @@
  * @see {@link Target}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TargetElement
-    <span class="hljs-keyword">implements</span> Question&lt;ElementFinder&gt;, RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, ElementFinder&gt;
+    <span class="hljs-keyword">extends</span> Question&lt;ElementFinder&gt;
+    <span class="hljs-keyword">implements</span> RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, ElementFinder&gt;
 {
     <span class="hljs-comment">/**
      * @desc
@@ -197,6 +198,7 @@
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> locator: Locator,
     </span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
@@ -225,13 +227,6 @@
             <span class="hljs-string">&apos;toString&apos;</span>,
             <span class="hljs-built_in">this</span>.toString.bind(<span class="hljs-built_in">this</span>),
         );
-    }
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`the <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.description }</span>`</span>;
     }
 }
 </code></pre>

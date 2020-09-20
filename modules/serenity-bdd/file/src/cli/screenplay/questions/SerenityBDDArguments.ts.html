@@ -142,17 +142,13 @@
     }
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> argv: Argv</span>) {
-        <span class="hljs-built_in">super</span>();
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">&apos;Serenity BDD arguments&apos;</span>);
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">string</span>[] {
         <span class="hljs-keyword">return</span> flatten(<span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.argv)
             .filter(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> !! ~ SerenityBDDArguments.Allowed.indexOf(key) &amp;&amp; !! <span class="hljs-built_in">this</span>.argv[key])
             .map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> [<span class="hljs-string">`--<span class="hljs-subst">${ arg }</span>`</span>, <span class="hljs-built_in">this</span>.argv[arg]]));
-    }
-
-    toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;Serenity BDD arguments&apos;</span>;
     }
 }
 

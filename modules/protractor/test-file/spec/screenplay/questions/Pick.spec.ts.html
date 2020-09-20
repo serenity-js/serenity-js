@@ -304,6 +304,37 @@ describe(<span class="hljs-string">&apos;Pick&apos;</span>, <span class="hljs-fu
                     .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items`</span>);
             });
         });
+
+        describe(<span class="hljs-string">&apos;provides a custom description when the name of its subject is overridden and it&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> picked = Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Titles);
+
+            <span class="hljs-comment">/** @test {Pick} */</span>
+            it(<span class="hljs-string">&apos;returns the number of items&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                expect(picked.count().describedAs(<span class="hljs-string">&apos;item count&apos;</span>).toString())
+                    .to.equal(<span class="hljs-string">&apos;item count&apos;</span>));
+
+            <span class="hljs-comment">/** @test {Pick} */</span>
+            it(<span class="hljs-string">&apos;picks all the items&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                expect(picked.all().describedAs(<span class="hljs-string">&apos;all items&apos;</span>).toString())
+                    .to.equal(<span class="hljs-string">&apos;all items&apos;</span>));
+
+            <span class="hljs-comment">/** @test {Pick} */</span>
+            it(<span class="hljs-string">&apos;picks the first item&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                expect(picked.first().describedAs(<span class="hljs-string">&apos;top item&apos;</span>).toString())
+                    .to.equal(<span class="hljs-string">&apos;top item&apos;</span>));
+
+            <span class="hljs-comment">/** @test {Pick} */</span>
+            it(<span class="hljs-string">&apos;picks the last item&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                expect(picked.last().describedAs(<span class="hljs-string">&apos;last one&apos;</span>).toString())
+                    .to.equal(<span class="hljs-string">&apos;last one&apos;</span>));
+
+            <span class="hljs-comment">/** @test {Pick} */</span>
+            it(<span class="hljs-string">&apos;picks the nth item&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(picked.get(<span class="hljs-number">0</span>).describedAs(<span class="hljs-string">&apos;first one&apos;</span>).toString())
+                    .to.equal(<span class="hljs-string">`first one`</span>);
+            });
+        });
     });
 
     describe(<span class="hljs-string">&apos;(when a filter is applied)&apos;</span>, <span class="hljs-function">() =&gt;</span> {

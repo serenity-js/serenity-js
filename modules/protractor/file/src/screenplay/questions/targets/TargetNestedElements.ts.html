@@ -184,7 +184,8 @@
  * @see {@link Target}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TargetNestedElements
-    <span class="hljs-keyword">implements</span> Question&lt;ElementArrayFinder&gt;, RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, ElementArrayFinder&gt;
+    <span class="hljs-keyword">extends</span> Question&lt;ElementArrayFinder&gt;
+    <span class="hljs-keyword">implements</span> RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, ElementArrayFinder&gt;
 {
 
     <span class="hljs-comment">/**
@@ -197,6 +198,7 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parent: Question&lt;ElementFinder&gt; | ElementFinder,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> children: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder,
     </span>) {
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ children.toString() }</span> of <span class="hljs-subst">${ parent }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
@@ -226,13 +228,6 @@
                 <span class="hljs-string">&apos;toString&apos;</span>,
                 <span class="hljs-built_in">this</span>.toString.bind(<span class="hljs-built_in">this</span>),
             )));
-    }
-
-    <span class="hljs-comment">/**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */</span>
-    toString() {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.children.toString() }</span> of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.parent }</span>`</span>;
     }
 }
 </code></pre>

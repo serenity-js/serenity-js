@@ -157,7 +157,7 @@
  */</span>
 <span class="hljs-keyword">class</span> ContainAtLeastOneItemThatMeetsExpectation&lt;Expected, Actual&gt; <span class="hljs-keyword">extends</span> Expectation&lt;Expected, Actual[]&gt; {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Expected, Actual&gt;</span>) {
-        <span class="hljs-built_in">super</span>();
+        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`contain at least one item that does <span class="hljs-subst">${ expectation }</span>`</span>);
     }
 
     answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual[]</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;Expected, Actual[]&gt;&gt; {
@@ -169,10 +169,6 @@
                         ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.toString(), results[<span class="hljs-number">0</span>].expected, actual)
                         : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), results[<span class="hljs-number">0</span>].expected, actual),
                     );
-    }
-
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`contain at least one item that does <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation }</span>`</span>;
     }
 }
 </code></pre>

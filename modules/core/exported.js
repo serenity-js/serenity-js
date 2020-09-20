@@ -49,6 +49,9 @@
 /** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
 /** @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html */
 /** @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html */
+/** @external {@serenity-js/core/lib/io/collections~Mappable} /modules/core/class/src/io/collections/mappable.ts~Mappable.html */
+/** @external {@serenity-js/core/lib/io/collections~isMappable} /modules/core/function/src/io/collections/mappable.ts~isMappable.html */
+/** @external {@serenity-js/core/lib/io/collections~Reducible} /modules/core/class/src/io/collections/reducible.ts~Reducible.html */
 /** @external {@serenity-js/core/lib/io~commaSeparated} /modules/core/function/src/io/commaSeparated.ts~commaSeparated.html */
 /** @external {@serenity-js/core/lib/io~formatted} /modules/core/function/src/io/formatted.ts~formatted.html */
 /** @external {@serenity-js/core/lib/io~inspected} /modules/core/function/src/io/inspected.ts~inspected.html */
@@ -98,7 +101,6 @@
 /** @external {@serenity-js/core/lib/screenplay~Discardable} /modules/core/class/src/screenplay/Discardable.ts~Discardable.html */
 /** @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html */
 /** @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html */
-/** @external {@serenity-js/core/lib/screenplay~Reducible} /modules/core/class/src/screenplay/Reducible.ts~Reducible.html */
 /** @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html */
@@ -113,6 +115,17 @@
 /** @external {@serenity-js/core/lib/screenplay/interactions~TakeNote} /modules/core/class/src/screenplay/interactions/TakeNote.ts~TakeNote.html */
 /** @external {@serenity-js/core/lib/screenplay/questions~Note} /modules/core/class/src/screenplay/questions/Note.ts~Note.html */
 /** @external {@serenity-js/core/lib/screenplay/questions~Transform} /modules/core/class/src/screenplay/questions/Transform.ts~Transform.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~append} /modules/core/function/src/screenplay/questions/mappings/string/append.ts~append.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~normalize} /modules/core/function/src/screenplay/questions/mappings/string/normalize.ts~normalize.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~replace} /modules/core/function/src/screenplay/questions/mappings/string/replace.ts~replace.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~slice} /modules/core/function/src/screenplay/questions/mappings/string/slice.ts~slice.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~split} /modules/core/function/src/screenplay/questions/mappings/string/split.ts~split.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleLowerCase} /modules/core/function/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts~toLocaleLowerCase.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleUpperCase} /modules/core/function/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts~toLocaleUpperCase.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toLowerCase} /modules/core/function/src/screenplay/questions/mappings/string/toLowerCase.ts~toLowerCase.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber} /modules/core/function/src/screenplay/questions/mappings/string/toNumber.ts~toNumber.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase} /modules/core/function/src/screenplay/questions/mappings/string/toUpperCase.ts~toUpperCase.html */
+/** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~trim} /modules/core/function/src/screenplay/questions/mappings/string/trim.ts~trim.html */
 /** @external {@serenity-js/core/lib/screenplay/tasks~Loop} /modules/core/class/src/screenplay/tasks/Loop.ts~Loop.html */
 /** @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html */
 /** @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html */

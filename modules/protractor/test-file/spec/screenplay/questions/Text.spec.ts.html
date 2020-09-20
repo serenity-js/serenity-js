@@ -169,9 +169,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Text.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, replace, toNumber, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
@@ -183,23 +185,63 @@ describe(<span class="hljs-string">&apos;Text&apos;</span>, <span class="hljs-fu
 
         <span class="hljs-keyword">const</span> Header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>));
 
-        <span class="hljs-comment">/** @test {Text} */</span>
         <span class="hljs-comment">/** @test {Text.of} */</span>
-        it(<span class="hljs-string">&apos;allows the actor to read the text of the DOM element matching the locator&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
-            Navigate.to(pageFromTemplate(<span class="hljs-string">`
-                &lt;html&gt;
-                &lt;body&gt;
-                    &lt;h1&gt;Hello World!&lt;/h1&gt;
-                &lt;/body&gt;
-                &lt;/html&gt;
-            `</span>)),
+        it(<span class="hljs-string">&apos;allows the actor to read the text of the DOM element matching the locator&apos;</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                Navigate.to(pageFromTemplate(<span class="hljs-string">`
+                    &lt;html&gt;
+                        &lt;body&gt;
+                            &lt;h1&gt;Hello World!&lt;/h1&gt;
+                        &lt;/body&gt;
+                    &lt;/html&gt;
+                `</span>)),
 
-            Ensure.that(Text.of(Header), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
-        ));
+                Ensure.that(Text.of(Header), equals(<span class="hljs-string">&apos;Hello World!&apos;</span>)),
+            ));
 
+        <span class="hljs-comment">/** @test {Text.of} */</span>
+        <span class="hljs-comment">/** @test {Text#toString} */</span>
         it(<span class="hljs-string">&apos;produces a sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Text.of(Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>))).toString())
                 .to.equal(<span class="hljs-string">&apos;the text of the header&apos;</span>);
+        });
+
+        describe(<span class="hljs-string">&apos;when mapping&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-comment">/** @test {Text.of} */</span>
+            <span class="hljs-comment">/** @test {Text#map} */</span>
+            it(<span class="hljs-string">&apos;allows for the answer to be mapped to another type&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                    Navigate.to(pageFromTemplate(<span class="hljs-string">`
+                        &lt;html&gt;
+                        &lt;body&gt;
+                            &lt;h1&gt;2&lt;/h1&gt;
+                        &lt;/body&gt;
+                        &lt;/html&gt;
+                    `</span>)),
+
+                    Ensure.that(Text.of(Header).map(toNumber()), equals(<span class="hljs-number">2</span>)),
+                ));
+
+            <span class="hljs-comment">/** @test {Text.of} */</span>
+            <span class="hljs-comment">/** @test {Text#map} */</span>
+            it(<span class="hljs-string">&apos;allows for the transformations to be chained&apos;</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                    Navigate.to(pageFromTemplate(<span class="hljs-string">`
+                        &lt;html&gt;
+                        &lt;body&gt;
+                            &lt;h1&gt;
+                            2020-09-11T19:53:18.160Z
+                            &lt;/h1&gt;
+                        &lt;/body&gt;
+                        &lt;/html&gt;
+                    `</span>)),
+
+                    Ensure.that(
+                        Text.of(Header).map(trim()).map(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(value)),
+                        equals(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;2020-09-11T19:53:18.160Z&apos;</span>))
+                    ),
+                ));
         });
     });
 
@@ -219,7 +261,6 @@ describe(<span class="hljs-string">&apos;Text&apos;</span>, <span class="hljs-fu
                 &lt;/html&gt;
             `</span>);
 
-        <span class="hljs-comment">/** @test {Text} */</span>
         <span class="hljs-comment">/** @test {Text.ofAll} */</span>
         it(<span class="hljs-string">&apos;allows the actor to read the text of all DOM elements matching the locator&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(testPage),
@@ -227,7 +268,6 @@ describe(<span class="hljs-string">&apos;Text&apos;</span>, <span class="hljs-fu
             Ensure.that(Text.ofAll(Shopping_List_Items), equals([<span class="hljs-string">&apos;milk&apos;</span>, <span class="hljs-string">&apos;oats&apos;</span>])),
         ));
 
-        <span class="hljs-comment">/** @test {Text} */</span>
         <span class="hljs-comment">/** @test {Text.ofAll} */</span>
         it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(testPage),
@@ -235,13 +275,40 @@ describe(<span class="hljs-string">&apos;Text&apos;</span>, <span class="hljs-fu
             Ensure.that(Text.ofAll(Shopping_List_Items).of(Target.the(<span class="hljs-string">&apos;body&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;body&apos;</span>))), equals([<span class="hljs-string">&apos;milk&apos;</span>, <span class="hljs-string">&apos;oats&apos;</span>])),
         ));
 
-        <span class="hljs-comment">/** @test {Text} */</span>
         <span class="hljs-comment">/** @test {Text.ofAll} */</span>
         <span class="hljs-comment">/** @test {Text#toString} */</span>
         it(<span class="hljs-string">&apos;produces sensible description of the question being asked&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Text.ofAll(Shopping_List_Items).toString())
                 .to.equal(<span class="hljs-string">&apos;the text of the shopping list items&apos;</span>);
         });
+
+        <span class="hljs-comment">/** @test {Text.ofAll} */</span>
+        <span class="hljs-comment">/** @test {Text#map} */</span>
+        it(<span class="hljs-string">&apos;allows for the answer to be mapped&apos;</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                Navigate.to(pageFromTemplate(<span class="hljs-string">`
+                        &lt;html&gt;
+                        &lt;body&gt;
+                            &lt;ul id=&quot;answers&quot;&gt;
+                                &lt;li&gt;
+                                    6.67%
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    3.34%
+                                &lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/body&gt;
+                        &lt;/html&gt;
+                    `</span>)),
+
+                Ensure.that(
+                    Text.ofAll(Target.all(<span class="hljs-string">&apos;possible answers&apos;</span>).located(by.css(<span class="hljs-string">&apos;#answers li&apos;</span>)))
+                        .map(trim())
+                        .map(replace(<span class="hljs-string">&apos;%&apos;</span>, <span class="hljs-string">&apos;&apos;</span>))
+                        .map(toNumber()),
+                    equals([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>])
+                ),
+            ));
     });
 });
 </code></pre>

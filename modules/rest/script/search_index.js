@@ -438,6 +438,24 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io/collections~mappable",
+    "/modules/core/class/src/io/collections/mappable.ts~Mappable.html",
+    "@serenity-js/core/lib/io/collections~Mappable",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io/collections~reducible",
+    "/modules/core/class/src/io/collections/reducible.ts~Reducible.html",
+    "@serenity-js/core/lib/io/collections~Reducible",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io/collections~ismappable",
+    "/modules/core/function/src/io/collections/mappable.ts~isMappable.html",
+    "@serenity-js/core/lib/io/collections~isMappable",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~assertionreportdiffer",
     "/modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html",
     "@serenity-js/core/lib/io~AssertionReportDiffer",
@@ -810,6 +828,72 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
+    "/modules/core/function/src/screenplay/questions/mappings/string/append.ts~append.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
+    "/modules/core/function/src/screenplay/questions/mappings/string/normalize.ts~normalize.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
+    "/modules/core/function/src/screenplay/questions/mappings/string/replace.ts~replace.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
+    "/modules/core/function/src/screenplay/questions/mappings/string/slice.ts~slice.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
+    "/modules/core/function/src/screenplay/questions/mappings/string/split.ts~split.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocalelowercase",
+    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts~toLocaleLowerCase.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleLowerCase",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocaleuppercase",
+    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts~toLocaleUpperCase.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleUpperCase",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tolowercase",
+    "/modules/core/function/src/screenplay/questions/mappings/string/toLowerCase.ts~toLowerCase.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~toLowerCase",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~tonumber",
+    "/modules/core/function/src/screenplay/questions/mappings/string/toNumber.ts~toNumber.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~touppercase",
+    "/modules/core/function/src/screenplay/questions/mappings/string/toUpperCase.ts~toUpperCase.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
+    "/modules/core/function/src/screenplay/questions/mappings/string/trim.ts~trim.html",
+    "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions~note",
     "/modules/core/class/src/screenplay/questions/Note.ts~Note.html",
     "@serenity-js/core/lib/screenplay/questions~Note",
@@ -861,12 +945,6 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~question",
     "/modules/core/class/src/screenplay/Question.ts~Question.html",
     "@serenity-js/core/lib/screenplay~Question",
-    "external"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay~reducible",
-    "/modules/core/class/src/screenplay/Reducible.ts~Reducible.html",
-    "@serenity-js/core/lib/screenplay~Reducible",
     "external"
   ],
   [
@@ -1122,7 +1200,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "deleterequest#tostring src/model/httprequest.ts~httprequest#tostring,deleterequest#tostring",
+    "deleterequest#tostring deleterequest#tostring,deleterequest#tostring",
     "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber38",
     "DeleteRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1158,7 +1236,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "getrequest#tostring src/model/httprequest.ts~httprequest#tostring,getrequest#tostring",
+    "getrequest#tostring getrequest#tostring,getrequest#tostring",
     "test-file/spec/model/GetRequest.spec.ts.html#lineNumber38",
     "GetRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1182,7 +1260,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "headrequest#tostring src/model/httprequest.ts~httprequest#tostring,headrequest#tostring",
+    "headrequest#tostring headrequest#tostring,headrequest#tostring",
     "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber38",
     "HeadRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1278,7 +1356,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "patchrequest#tostring src/model/httprequest.ts~httprequest#tostring,patchrequest#tostring",
+    "patchrequest#tostring patchrequest#tostring,patchrequest#tostring",
     "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber52",
     "PatchRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1308,7 +1386,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "postrequest#tostring src/model/httprequest.ts~httprequest#tostring,postrequest#tostring",
+    "postrequest#tostring postrequest#tostring,postrequest#tostring",
     "test-file/spec/model/PostRequest.spec.ts.html#lineNumber43",
     "PostRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1344,7 +1422,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "putrequest#tostring src/model/httprequest.ts~httprequest#tostring,putrequest#tostring",
+    "putrequest#tostring putrequest#tostring,putrequest#tostring",
     "test-file/spec/model/PutRequest.spec.ts.html#lineNumber52",
     "PutRequest provides a sensible description of the interaction being performed",
     "test"
@@ -1548,10 +1626,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/model/httprequest.ts~httprequest#tostring",
-    "class/src/model/HTTPRequest.ts~HTTPRequest.html#instance-method-toString",
-    "src/model/HTTPRequest.ts~HTTPRequest#toString",
-    "method"
+    "src/model/httprequest.ts~httprequest#subject",
+    "class/src/model/HTTPRequest.ts~HTTPRequest.html#instance-member-subject",
+    "src/model/HTTPRequest.ts~HTTPRequest#subject",
+    "member"
   ],
   [
     "src/model/headrequest.ts",
