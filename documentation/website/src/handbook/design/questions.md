@@ -8,7 +8,7 @@ A "question" in one of the five building blocks of the [Screenplay Pattern](/han
 
 Answering a question enables the [actor](/handbook/design/actors.html) to retrieve information about the state of the system under test or its execution environment. 
 
-Such information can then be passed to an [interaction](/handbook/design.interactions.html), [asserted on](/modules/assertions/class/src/Ensure.ts~Ensure.html), or used to [control the flow](/modules/assertions/class/src/Check.ts~Check.html) of the scenario.
+Such information can then be passed to an [interaction](/handbook/design.interactions.html), [asserted on](/modules/assertions/class/src/Ensure.ts~Ensure.html), or used to [control flow](/modules/assertions/class/src/Check.ts~Check.html) of the scenario.
 
 <figure>
 ![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
@@ -170,7 +170,7 @@ Let's say for example that we have the following widget, describing a discount a
 </div>
 ```
 
-We can of course get its text using the [`Text.of`](/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of) question and pass it to some interaction (like the one to [`Ensure`](/modules/assertions/class/src/Ensure.ts~Ensure.html), responsible for performing [assertions](/handbook/design/assertions.html)):
+We can, of course, get its text using the [`Text.of`](/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of) question and then pass it to an interaction like [`Ensure`](/modules/assertions/class/src/Ensure.ts~Ensure.html) (responsible for performing [assertions](/handbook/design/assertions.html)):
 
 ```typescript
 import { Ensure, equals } from '@serenity-js/assertions';
@@ -224,10 +224,11 @@ There are several interesting things demonstrated in the code sample above:
 
 There's more to `.map()` method, though:
 - it accepts custom functions, which can be either:
-    - synchronous: `.map(value => value.replace('%', ''))`,
-    - or asynchronous: `.map(value => Promise.resolve(value.replace('%', ''))`,
+    - synchronous: `.map(actor => value => value.replace('%', ''))`,
+    - or asynchronous: `.map(actor => value => Promise.resolve(value.replace('%', ''))`,
 - it works on _any question_, including the custom ones, i.e. `NameOfTheActor().map(toUpperCase())`
-- you can use it to map a question returning a single value, but also a list of values, which is particularly useful when you need to apply the same transformation to all the rows in an HTML table, or all entries returned in an [API response](modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html).  
+- you can use the same technique to map both a question returning a single value, but also a question returning a list of values. This is particularly useful when you need to apply the same transformation to all the rows in an HTML table, or all entries returned in an [API response](modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html)
+- all the parameterised mapping functions accept [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable<T>) too.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
@@ -273,7 +274,9 @@ class OrderSummary {
 }
 ```
 
-In this case, `OrderSummary.DiscountPercentage` would get reported as `"text of the discount widget of the order summary"`, but you can override that automatically generated description of the question's subject with a custom one using [`Question#describedAs()`](/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs): 
+In this case, `OrderSummary.DiscountPercentage` would get reported as `"text of the discount widget of the order summary"`. 
+
+To override this automatically-generated description of the question's subject with a custom one, use [`Question#describedAs()`](/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs): 
 
 ```typescript
 class OrderSummary {
