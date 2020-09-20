@@ -1,9 +1,8 @@
-import { formatted } from '../../io';
+import { formatted, Reducible } from '../../io';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsActivities, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Question } from '../Question';
-import { Reducible } from '../Reducible';
 import { Task } from '../Task';
 
 /**
@@ -121,7 +120,7 @@ export class Loop<Item> extends Task {
      *  that enables the {@link Actor} to iterate over `items`
      *  to perform some `activities`.
      *
-     * @param {items: Answerable<Reducible>} items
+     * @param {items: Answerable<ReducibleCollection>} items
      * @returns {LoopBuilder}
      */
     static over<T>(items: Answerable<Reducible>) {

@@ -12,10 +12,10 @@ export class ElementFinderExpectation extends Expectation<any, ElementFinder> {
     }
 
     constructor(
-        private readonly message: string,
+        subject: string,
         private readonly fn: (actual: ElementFinder) => PromiseLike<boolean>,
     ) {
-        super();
+        super(subject);
     }
 
     answeredBy(actor: AnswersQuestions): (actual: ElementFinder) => Promise<Outcome<boolean, ElementFinder>> {
@@ -25,9 +25,5 @@ export class ElementFinderExpectation extends Expectation<any, ElementFinder> {
                 ? new ExpectationMet(this.toString(), null, actual)
                 : new ExpectationNotMet(this.toString(), null, actual),
             );
-    }
-
-    toString(): string {
-        return this.message;
     }
 }

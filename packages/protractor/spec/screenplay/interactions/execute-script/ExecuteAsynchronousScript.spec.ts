@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Question, Serenity } from '@serenity-js/core';

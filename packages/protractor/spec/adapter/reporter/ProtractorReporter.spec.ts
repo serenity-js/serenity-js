@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Serenity } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished } from '@serenity-js/core/lib/events';

@@ -3,7 +3,6 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { given } from 'mocha-testdata';
 import { Capabilities, ProtractorBrowser } from 'protractor';
-import * as sinon from 'sinon';
 
 import { StandardisedCapabilities } from '../../../src/adapter/browser-detector';
 

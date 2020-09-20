@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Note, TakeNote } from '@serenity-js/core';
 import { ResizeBrowserWindow, Window } from '../../../src';
