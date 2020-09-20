@@ -6,13 +6,15 @@ import { RelativeQuestion } from './RelativeQuestion';
 import { TargetNestedElement } from './targets';
 
 export class CSSClasses
-    implements Question<Promise<string[]>>, RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
+    extends Question<Promise<string[]>>
+    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
 {
     static of(target: Question<ElementFinder> | ElementFinder) {
         return new CSSClasses(target);
     }
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `the CSS classes of ${ target}`);
     }
 
     of(parent: Question<ElementFinder> | ElementFinder): Question<Promise<string[]>> {
@@ -39,12 +41,5 @@ export class CSSClasses
                 .split(' ')
                 .filter(cssClass => !! cssClass),
             );
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString(): string {
-        return formatted `the CSS classes of ${ this.target}`;
     }
 }
