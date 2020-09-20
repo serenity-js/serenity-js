@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';

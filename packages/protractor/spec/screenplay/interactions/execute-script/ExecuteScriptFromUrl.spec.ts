@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';

@@ -4,7 +4,7 @@ layout: handbook.hbs
 ---
 # Interactions
 
-An "interaction" is one of the five building blocks of [the Screenplay Pattern](/handbook/design/screenplay-pattern.html);
+An "interaction" is one of the five building blocks of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html);
 a low-level activity, directly exercising the [actor's](/handbook/design/actors.html) [ability](/handbook/design/abilities.html)
  to interact with a specific external interface of the system under test or perform a [side-effect](https://en.wikipedia.org/wiki/Side_effect_&#40;computer_science&#41;). Such external interface could be a website, a mobile app, a web service, but also a file system, a database, or pretty much anything else a Node.js program can integrate with.
 

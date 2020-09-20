@@ -12,7 +12,7 @@ export function and<Actual>(...expectations: Array<Expectation<any, Actual>>): E
  */
 class And<Actual> extends Expectation<any, Actual> {
     constructor(private readonly expectations: Array<Expectation<any, Actual>>) {
-        super();
+        super(expectations.map(assertion => assertion.toString()).join(' and '));
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
@@ -27,9 +27,5 @@ class And<Actual> extends Expectation<any, Actual> {
                 ),
                 Promise.resolve(void 0),
             );
-    }
-
-    toString(): string {
-        return this.expectations.map(assertion => assertion.toString()).join(' and ');
     }
 }

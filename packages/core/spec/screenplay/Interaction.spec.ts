@@ -1,7 +1,7 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { ActivityRelatedArtifactGenerated, ArtifactGenerated } from '../../src/events';
+import { ArtifactGenerated } from '../../src/events';
 import { JSONData, Name } from '../../src/model';
 import { Actor, Interaction } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';

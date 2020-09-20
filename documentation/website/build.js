@@ -34,7 +34,7 @@ const
     lerna            = require('../../lerna'),
     escape           = require('querystring').escape,
 
-    highlightedLanguages = ['gherkin', 'typescript', 'javascript', 'json', 'bash', 'console'];
+    highlightedLanguages = ['gherkin', 'typescript', 'javascript', 'json', 'bash', 'console', 'html'];
 
 Metalsmith(__dirname)
     .source('src')

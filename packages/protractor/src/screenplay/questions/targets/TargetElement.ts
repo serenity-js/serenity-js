@@ -14,7 +14,8 @@ import { TargetNestedElement } from './TargetNestedElement';
  * @see {@link Target}
  */
 export class TargetElement
-    implements Question<ElementFinder>, RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder>
+    extends Question<ElementFinder>
+    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementFinder>
 {
     /**
      * @desc
@@ -26,6 +27,7 @@ export class TargetElement
         protected readonly description: string,
         protected readonly locator: Locator,
     ) {
+        super(`the ${ description }`);
     }
 
     /**
@@ -54,12 +56,5 @@ export class TargetElement
             'toString',
             this.toString.bind(this),
         );
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return `the ${ this.description }`;
     }
 }

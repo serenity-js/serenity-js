@@ -133,6 +133,37 @@ describe('Pick', () => {
                     .to.equal(`the ${ description } of the shopping list items`);
             });
         });
+
+        describe('provides a custom description when the name of its subject is overridden and it', () => {
+
+            const picked = Pick.from<ElementFinder, ElementArrayFinder>(ShoppingList.Titles);
+
+            /** @test {Pick} */
+            it('returns the number of items', () =>
+                expect(picked.count().describedAs('item count').toString())
+                    .to.equal('item count'));
+
+            /** @test {Pick} */
+            it('picks all the items', () =>
+                expect(picked.all().describedAs('all items').toString())
+                    .to.equal('all items'));
+
+            /** @test {Pick} */
+            it('picks the first item', () =>
+                expect(picked.first().describedAs('top item').toString())
+                    .to.equal('top item'));
+
+            /** @test {Pick} */
+            it('picks the last item', () =>
+                expect(picked.last().describedAs('last one').toString())
+                    .to.equal('last one'));
+
+            /** @test {Pick} */
+            it('picks the nth item', () => {
+                expect(picked.get(0).describedAs('first one').toString())
+                    .to.equal(`first one`);
+            });
+        });
     });
 
     describe('(when a filter is applied)', () => {

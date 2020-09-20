@@ -21,7 +21,7 @@ export type Predicate<A, E> = (actual: A, expected: E) => boolean;
  * @see {@link Check}
  */
 export abstract class Expectation<Expected, Actual = Expected>
-    implements Question<(actual: Actual) => Promise<Outcome<Expected, Actual>>>
+    extends Question<(actual: Actual) => Promise<Outcome<Expected, Actual>>>
 {
 
     /**
@@ -92,20 +92,19 @@ export abstract class Expectation<Expected, Actual = Expected>
     }
 
     abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>>;
-
-    abstract toString(): string;
 }
 
 /**
  * @package
  */
-class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<Expected, Actual> {
+class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
 
     constructor(
         private readonly description: string,
         private readonly predicate: Predicate<Actual, Expected>,
         private readonly expectedValue: Answerable<Expected>,
     ) {
+        super(`${ description } ${ formatted `${ expectedValue }` }`);
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
@@ -117,32 +116,25 @@ class DynamicallyGeneratedExpectation<Expected, Actual> implements Expectation<E
                     : new ExpectationNotMet(this.toString(), expected, actual);
             });
     }
-
-    toString(): string {
-        return `${ this.description } ${ formatted `${this.expectedValue}` }`;
-    }
 }
 
 /**
  * @package
  */
-class ExpectationAlias<Actual> implements Expectation<any, Actual> {
+class ExpectationAlias<Actual> extends Expectation<any, Actual> {
 
     constructor(
-        private readonly description: string,
+        subject: string,
         private readonly expectation: Expectation<any, Actual>,
     ) {
+        super(subject);
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
 
         return (actual: Actual) =>
             this.expectation.answeredBy(actor)(actual).then(_ => _ instanceof ExpectationMet
-                ? new ExpectationMet(this.description, _.expected, _.actual)
+                ? new ExpectationMet(this.subject, _.expected, _.actual)
                 : new ExpectationNotMet(_.message, _.expected, _.actual));
-    }
-
-    toString(): string {
-        return this.description;
     }
 }
