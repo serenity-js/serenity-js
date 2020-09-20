@@ -34,8 +34,7 @@ export interface Mappable<Item> {
  * @typedef {function(item?: V, index?: number) => Promise<O> | O} Mapping<V,O>
  */
 export type MappingFunction<V, O> =
-    (item?: V, index?: number) =>
-        /*Promise<O> |*/ O;
+    (item?: V, index?: number) => O;
 
 /**
  * @desc
