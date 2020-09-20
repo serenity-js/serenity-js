@@ -1,4 +1,4 @@
-import yargs = require('yargs');
+const yargs = require('yargs');             // tslint:disable-line:no-var-requires
 
 const pkg = require('../../package.json');  // tslint:disable-line:no-var-requires
 
