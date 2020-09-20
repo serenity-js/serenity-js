@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { by } from 'protractor';

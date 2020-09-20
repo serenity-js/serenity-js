@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { actorCalled, configure } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';

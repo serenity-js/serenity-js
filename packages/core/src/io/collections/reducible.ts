@@ -1,7 +1,7 @@
 /**
  * @desc
  *  Describes a collection providing
- *  a [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)-like interface.
+ *  a [`reduce`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).
  *
  * @interface
  *

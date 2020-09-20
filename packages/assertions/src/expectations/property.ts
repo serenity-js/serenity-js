@@ -19,7 +19,7 @@ class HasProperty<Property extends keyof Actual, Actual> extends Expectation<Act
         private readonly propertyName: Property,
         private readonly expectation: Expectation<any, Actual[Property]>,
     ) {
-        super();
+        super(formatted `have property ${ propertyName } that does ${ expectation }`);
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Actual[Property], any>> {
@@ -32,9 +32,5 @@ class HasProperty<Property extends keyof Actual, Actual> extends Expectation<Act
                         ? new ExpectationMet(this.toString(), outcome.expected, actual[this.propertyName])
                         : new ExpectationNotMet(this.toString(), outcome.expected, actual[this.propertyName]);
                 });
-    }
-
-    toString(): string {
-        return formatted `have property ${ this.propertyName } that does ${ this.expectation }`;
     }
 }

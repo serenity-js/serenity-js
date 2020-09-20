@@ -61,11 +61,19 @@ export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Col
 /**
  * @package
  */
-class Filters<Item_Type, Collection_Type
-    extends Collection<Item_Type>>
-    implements Question<(ct: Collection_Type) => Collection_Type>
+class Filters<Item_Type, Collection_Type extends Collection<Item_Type>>
+    extends Question<(ct: Collection_Type) => Collection_Type>
 {
     constructor(private readonly filters: Array<Filter<Item_Type, Collection_Type, any>> = []) {
+        super('');
+
+        const fullDescription = this.filters
+            .reduce((description, filter) => description.concat(filter.toString()), [ ])
+            .join(' and ');
+
+        this.subject = fullDescription.length > 0
+            ? `where ${ fullDescription }`
+            : '';
     }
 
     append(filter: Filter<Item_Type, Collection_Type, any>) {
@@ -91,31 +99,19 @@ class Filters<Item_Type, Collection_Type
                 collection,
             );
     }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        const fullDescription = this.filters
-            .reduce((description, filter) => description.concat(filter.toString()), [ ])
-            .join(' and ');
-
-        return fullDescription.length > 0
-            ? `where ${ fullDescription }`
-            : '';
-    }
 }
 
 /**
  * @package
  */
 class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_Type>
-    implements Question<(ct: Collection_Type) => Collection_Type>
+    extends Question<(ct: Collection_Type) => Collection_Type>
 {
     constructor(
         private readonly question: RelativeQuestion<Item_Type, Promise<Property_Type> | Property_Type>,
         private readonly expectation: Expectation<any, Promise<Property_Type> | Property_Type>,
     ) {
+        super(formatted `${ question } does ${ expectation }`);
     }
 
     /**
@@ -139,26 +135,20 @@ class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_
                     .then(outcome => outcome instanceof ExpectationMet);
             }) as Collection_Type;
     }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return formatted `${ this.question } does ${ this.expectation }`;
-    }
 }
 
 /**
  * @package
  */
 abstract class QuestionAboutCollectionItems<IT, CT extends Collection<IT>, Answer_Type>
-    implements Question<Answer_Type>
+    extends Question<Answer_Type>
 {
     constructor(
         protected readonly collection: Question<CT> | CT,
         private readonly filters: Filters<IT, CT>,
         private readonly description: string,
     ) {
+        super(`${ description } ${ formatted `${ collection }`} ${ filters.toString() }`.trim())
     }
 
     /**
@@ -174,13 +164,6 @@ abstract class QuestionAboutCollectionItems<IT, CT extends Collection<IT>, Answe
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): Answer_Type;
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return `${ this.description } ${ formatted `${ this.collection }`} ${ this.filters.toString() }`.trim();
-    }
 
     protected collectionFilteredBy(actor: AnswersQuestions & UsesAbilities): CT {
         const collection = this.isAQuestion(this.collection)

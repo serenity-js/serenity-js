@@ -7,13 +7,15 @@ import { RelativeQuestion } from './RelativeQuestion';
 import { TargetNestedElement } from './targets';
 
 export class Value
-    implements Question<Promise<string>>, RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
+    extends Question<Promise<string>>
+    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
 {
     static of(target: Question<ElementFinder> | ElementFinder) {
         return new Value(target);
     }
 
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+        super(formatted `the value of ${ target}`);
     }
 
     of(parent: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
@@ -34,12 +36,5 @@ export class Value
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return Attribute.of(this.target).called('value').answeredBy(actor);
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString(): string {
-        return formatted `the value of ${ this.target}`;
     }
 }
