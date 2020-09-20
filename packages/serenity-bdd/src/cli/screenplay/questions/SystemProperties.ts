@@ -10,15 +10,11 @@ export class SystemProperties extends Question<string[]> {
     }
 
     constructor(private readonly argv: Argv) {
-        super();
+        super('system properties');
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): string[] {
         return Object.keys(this.argv)
             .map(arg => `-D${ arg }=${ this.argv[arg] }`);
-    }
-
-    toString() {
-        return 'system properties';
     }
 }

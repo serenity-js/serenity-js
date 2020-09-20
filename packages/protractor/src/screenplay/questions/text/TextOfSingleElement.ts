@@ -9,9 +9,11 @@ import { TargetNestedElement } from '../targets';
  * @package
  */
 export class TextOfSingleElement
+    extends Question<Promise<string>>
     implements RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
 {
     constructor(protected readonly target: Question<ElementFinder> | ElementFinder) {
+        super(`the text of ${ target }`);
     }
 
     of(parent: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
@@ -32,12 +34,5 @@ export class TextOfSingleElement
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return withAnswerOf(actor, this.target, elf => elf.getText() as any);
-    }
-
-    /**
-     * Description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Question}.
-     */
-    toString() {
-        return `the text of ${ this.target }`;
     }
 }

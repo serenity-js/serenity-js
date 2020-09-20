@@ -4,7 +4,7 @@ layout: handbook.hbs
 ---
 # Abilities
 
-An "ability" is one of the five building blocks of [the Screenplay Pattern](/handbook/design/screenplay-pattern.html).
+An "ability" is one of the five building blocks of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html).
 It's what enables
 the [actor](/handbook/design/actors.html) to interact with the system under test.
 
