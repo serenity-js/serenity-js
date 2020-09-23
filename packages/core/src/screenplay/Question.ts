@@ -93,7 +93,7 @@ export abstract class Question<T> {
      * @returns {boolean}
      */
     static isAQuestion<T>(maybeQuestion: any): maybeQuestion is Question<T> {
-        return !! (maybeQuestion as any).answeredBy;
+        return !! maybeQuestion && !! (maybeQuestion as any).answeredBy;
     }
 
     /**
