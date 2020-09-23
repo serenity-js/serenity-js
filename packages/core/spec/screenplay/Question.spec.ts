@@ -1,4 +1,5 @@
 import 'mocha';
+import { given } from 'mocha-testdata';
 
 import { actorCalled, AnswersQuestions } from '../../src';
 import { Mappable } from '../../src/io';
@@ -148,5 +149,19 @@ describe('Question', () => {
 
             return expect(endResult).to.eventually.deep.equal([6.67, 3.34]);
         });
+    });
+
+    given([
+        { isAQuestion: false, value: null                                           },
+        { isAQuestion: false, value: false                                          },
+        { isAQuestion: false, value: void 0                                         },
+        { isAQuestion: false, value: ''                                             },
+        { isAQuestion: false, value: {}                                             },
+        { isAQuestion: false, value: 42                                             },
+        { isAQuestion: false, value: () => void 0                                   },
+        { isAQuestion: true,  value: Question.about('something', actor => void 0)   },
+    ]).
+    it('recognises if something is a question', ({ value, isAQuestion }) => {
+        expect(Question.isAQuestion(value)).to.equal(isAQuestion);
     });
 });
