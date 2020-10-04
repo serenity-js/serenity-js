@@ -1,6 +1,8 @@
+// tslint:disable:member-ordering
+
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
-import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
+import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
 /**
@@ -38,6 +40,11 @@ export class BrowseTheWeb implements Ability {
      * @private
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /**
+     * @private
+     */
+    private originalWindowHandle: string;
 
     /**
      * @desc
@@ -80,7 +87,13 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     get(destination: string, timeoutInMillis?: number): Promise<void> {
-        return promiseOf(this.browser.get(destination, timeoutInMillis));
+        // todo: throw compromised error if we can't load page
+        return promiseOf(this.browser.get(destination, timeoutInMillis)
+            .then(() => this.browser.getWindowHandle())
+            .then(handle => {
+                this.originalWindowHandle = handle;
+            }),
+        );
     }
 
     /**
@@ -141,6 +154,147 @@ export class BrowseTheWeb implements Ability {
      */
     alert(): AlertPromise {
         return this.browser.switchTo().alert();
+    }
+
+    /**
+     * @desc
+     *  Switches the focus to a [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
+     *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) identified by `elementOrIndexOrName`,
+     *  which can be specified either as {@link selenium-webdriver~WebElement}, the name of the frame, or its index.
+     *
+     * @param {number | string | WebElement} elementOrIndexOrName
+     *
+     * @returns {Promise<void>}
+     */
+    switchToFrame(elementOrIndexOrName: number | string | WebElement): Promise<void> {
+        // incorrect type definition in selenium-webdriver prevents us from providing a string arg
+        return promiseOf(this.browser.switchTo().frame(elementOrIndexOrName as any));
+    }
+
+    /**
+     * @desc
+     *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
+     *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to its parent iframe.
+     *
+     * @returns {Promise<void>}
+     */
+    switchToParentFrame(): Promise<void> {
+        return promiseOf(this.browser.driver.switchToParentFrame());
+    }
+
+    /**
+     * @desc
+     *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame)
+     *  or [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to default content,
+     *  a.k.a. "the main window".
+     *
+     * @returns {Promise<void>}
+     */
+    switchToDefaultContent(): Promise<void> {
+        return promiseOf(this.browser.switchTo().defaultContent());
+    }
+
+    /**
+     * @desc
+     *  Switches browser window/tab to the one identified by `nameOrHandleOrIndex`,
+     *  which can be specified as the name of the window to switch to, its handle, or numeric index.
+     *
+     * @param {string | number} nameOrHandleOrIndex
+     *
+     * @returns {Promise<void>}
+     */
+    switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
+        return typeof nameOrHandleOrIndex === 'string'
+            ? this.switchToWindowByNameOrHandle(nameOrHandleOrIndex)
+            : this.switchToWindowByIndex(nameOrHandleOrIndex);
+    }
+
+    /**
+     * @param {string} nameOrHandle
+     * @private
+     */
+    private switchToWindowByNameOrHandle(nameOrHandle: string): Promise<void> {
+        return promiseOf(this.browser.switchTo().window(nameOrHandle));
+    }
+
+    /**
+     * @param {number} index
+     * @private
+     */
+    private switchToWindowByIndex(index: number): Promise<void> {
+        return promiseOf(this.browser.getAllWindowHandles().then(handles => {
+            const handle = handles[index];
+
+            if (! handle) {
+                throw new LogicError(`Window ${ index } doesn't exist`)
+            }
+
+            return this.browser.switchTo().window(handle);
+        }));
+    }
+
+    /**
+     * @desc
+     *  Switches the window back to the original one that was used to call {@link get}.
+     *
+     * @returns {Promise<void>}
+     */
+    switchToOriginalWindow(): Promise<void> {
+        return !! this.originalWindowHandle
+            ? promiseOf(this.browser.switchTo().window(this.originalWindowHandle))
+            : Promise.resolve();
+    }
+
+    /**
+     * @desc
+     *  Returns the handle of the browser window last used to navigate to a URL.
+     *
+     * @returns {Promise<string>}
+     *  A window handle
+     *
+     * @see {@link get}
+     */
+    getOriginalWindowHandle(): Promise<string> {
+        return Promise.resolve(this.originalWindowHandle);
+    }
+
+    /**
+     * @desc
+     *  Returns the current window handle.
+     *  Please note that the current handle changes with each browser window you {@link Switch} to.
+     *
+     * @returns {Promise<string>}
+     *  A window handle
+     *
+     * @see {@link get}
+     */
+    getCurrentWindowHandle(): Promise<string> {
+        return promiseOf(this.browser.getWindowHandle());
+    }
+
+    /**
+     * @desc
+     *  Returns the handles of all the available windows.
+     *
+     *  Please note that while some browsers organise entries of this list in the same order
+     *  new windows have been spawned, other browsers order it alphabetically.
+     *  For this reason, you should not make any assumptions about how this list is ordered.
+     *
+     * @returns {Promise<string[]>}
+     *  A list of window handles
+     */
+    getAllWindowHandles(): Promise<string[]> {
+        return promiseOf(this.browser.getAllWindowHandles());
+    }
+
+    /**
+     * @desc
+     *  Closes the currently active browser window/tab.
+     *
+     * @returns {Promise<void>}
+     */
+    closeCurrentWindow(): Promise<void> {
+        return promiseOf(this.browser.close());
     }
 
     /**

@@ -21,3 +21,7 @@
 /**
  * @external {selenium-webdriver~By} https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/by_exports_By.html
  */
+
+/**
+ * @external {selenium-webdriver~WebElement} https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
+ */
