@@ -17,8 +17,8 @@ import { BrowseTheWeb } from '../abilities';
  *  class LoginForm {
  *      static iframe           = Target.the('login form').located(by.tagName('iframe'));
  *      static usernameField    = Target.the('username field').located(by.css('[data-test="username"]'));
- *      static passwordField    = Target.the('username field').located(by.css('[data-test="password"]'));
- *      static submitButton     = Target.the('username field').located(by.css(`button[type='submit']`));
+ *      static passwordField    = Target.the('password field').located(by.css('[data-test="password"]'));
+ *      static submitButton     = Target.the('submit button').located(by.css(`button[type='submit']`));
  *  }
  *
  * @example <caption>Switch to an iframe and back</caption>
@@ -29,7 +29,7 @@ import { BrowseTheWeb } from '../abilities';
  *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
- *          Switch.toFrame(LoginForm),
+ *          Switch.toFrame(LoginForm.iframe),
  *
  *          Enter.theValue('francesca@example.org').into(LoginForm.usernameField),
  *          Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField),
@@ -47,7 +47,7 @@ import { BrowseTheWeb } from '../abilities';
  *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
- *          Switch.toFrame(LoginForm).and(
+ *          Switch.toFrame(LoginForm.iframe).and(
  *              Enter.theValue('francesca@example.org').into(LoginForm.usernameField),
  *              Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField),
  *              Click.on(LoginForm.submitButton),
