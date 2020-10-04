@@ -123,7 +123,10 @@ Metalsmith(__dirname)
     }))
     // .use(debug(true))
     .use(devMode ? browserSync({
-        server: 'target/site',
+        server: {
+            baseDir: './target/site',
+            index: 'index.html'
+        },
         files: [
             'src/**/*',
             'node_modules/@serenity-js/(.*)/target/site/**/*',
@@ -135,6 +138,7 @@ Metalsmith(__dirname)
                 const baseDir = bs.options.get('server').get('baseDir').get(0);
 
                 bs.addMiddleware("*", function (req, res) {
+                    res.writeHead(302);
                     res.write(readFileSync(resolve(__dirname, baseDir, '404.html')));
                     res.end();
                 });
