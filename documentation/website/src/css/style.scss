@@ -159,15 +159,40 @@ a.anchorjs-link:hover {
   }
 }
 
+.tier {
+  font-size: 0.5em;
+}
+
 ul.supporters {
   list-style-type: none;
   padding: 0;
 
   li {
-    margin:0.25em;
     display: inline-block;
+    margin: 0.25em;
     vertical-align: top;
-    float: left;
+    text-align:center;
+    text-decoration:none;
+
+    border: 1px solid #bdbadf;
+    border-radius: 5px;
+    padding: 5px;
+
+    a {
+      display: block;
+      text-align: center;
+
+      img {
+        margin: 0 auto 0 auto;
+        display: block;
+      }
+
+      span {
+        display: block;
+
+        &.nickname { color: #666; }
+      }
+    }
   }
 }
 
