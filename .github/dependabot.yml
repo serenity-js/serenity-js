@@ -1,0 +1,36 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: gherkin
+    versions:
+    - ">= 6.a"
+    - "< 7"
+  - dependency-name: gherkin
+    versions:
+    - ">= 7.a"
+    - "< 8"
+  - dependency-name: gherkin
+    versions:
+    - ">= 8.a"
+    - "< 9"
+  - dependency-name: gherkin
+    versions:
+    - ">= 9.a"
+    - "< 10"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 13.a"
+    - "< 14"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 14.a"
+    - "< 15"
+  - dependency-name: "@types/selenium-webdriver"
+    versions:
+    - ">= 4.a"
+    - "< 5"
