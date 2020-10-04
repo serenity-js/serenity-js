@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/serenity-js/serenity-js/compare/v2.15.0...v2.16.0) (2020-09-20)
+
+
+### Features
+
+* **core:** Question#map() and mapping functions for Answerable<string> ([e5bb825](https://github.com/serenity-js/serenity-js/commit/e5bb82548f399557387cb24028bb9c8dd1dd5393))
+* **core:** the name of a Question's subject can be overridden ([8ec5ab7](https://github.com/serenity-js/serenity-js/commit/8ec5ab7c901a395a81d2ee5db0c653b163a586a7))
+
+
+
+
+
 # [2.15.0](https://github.com/serenity-js/serenity-js/compare/v2.14.0...v2.15.0) (2020-08-27)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

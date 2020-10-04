@@ -15,8 +15,6 @@ describe('Press', () => {
         Text_Field:     Target.the('text field').located(by.name('text')),
     };
 
-    // todo: add check.whether
-
     const page = pageFromTemplate(`
             <html>
                 <body>
