@@ -8,6 +8,7 @@ import { by } from 'protractor';
 import { Attribute, Hover, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Hover} */
 describe('Hover', function () {
 
     const pageWithALink = pageFromTemplate(`
@@ -16,8 +17,7 @@ describe('Hover', function () {
                 <h1>A page with a link</h1>
                 <a href="javascript:void(0)"
                    class="off"
-                   onmouseover="this.className='on';" onmouseout="this.className='off';">
-                >link</a>
+                   onmouseover="this.className='on';" onmouseout="this.className='off';">link</a>
             </body>
         </html>
     `);
@@ -27,9 +27,8 @@ describe('Hover', function () {
         Link:   Target.the('link').located(by.css('a')),
     };
 
-    /** @test {Scroll} */
-    /** @test {Scroll.to} */
-    it('allows the actor to move the mouse to a given target', () => actorCalled('Mickey').attemptsTo(
+    /** @test {Hover.over} */
+    it('allows the actor to position the mouse cursor over a given target', () => actorCalled('Mickey').attemptsTo(
         Navigate.to(pageWithALink),
 
         Ensure.that(Attribute.of(Page.Link).called('class'), equals('off')),
@@ -41,7 +40,7 @@ describe('Hover', function () {
         Ensure.that(Attribute.of(Page.Link).called('class'), equals('off')),
     ));
 
-    /** @test {Enter#toString} */
+    /** @test {Hover#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(Hover.over(Page.Link).toString())
             .to.equal(`#actor hovers the mouse over the link`);

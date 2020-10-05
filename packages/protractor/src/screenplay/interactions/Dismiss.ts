@@ -4,15 +4,15 @@ import { AlertPromise } from 'selenium-webdriver';
 
 /**
  * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to dismiss
- *  a {@link ModalDialog}.
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ *  dismiss a {@link ModalDialog}.
  *
  * @example <caption>Example widget</caption>
  *  <button
  *      data-test="trigger"
  *      onclick="alert('hello!')">Trigger Alert</button>
  *
- * @example <caption>Lean Page Object</caption>
+ * @example <caption>Lean Page Object describing the widget</caption>
  *  import { Target } from '@serenity-js/protractor';
  *  import { by } from 'protractor';
  *
@@ -30,7 +30,7 @@ import { AlertPromise } from 'selenium-webdriver';
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Click.on(Widget.trigger),
- *          Accept.the(ModalDialog.window()),
+ *          Dismiss.the(ModalDialog.window()),
  *      );
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
@@ -47,8 +47,11 @@ export class Dismiss extends Interaction {
      *  will dismiss.
      *
      * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow
+     *  The modal dialog window to dismiss
+     *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
+     * @see {@link ModalDialog.window}
      * @see {@link @serenity-js/core/lib/screenplay~Question}
      */
     static the(modalDialogWindow: Question<AlertPromise> | AlertPromise): Interaction {
@@ -57,6 +60,9 @@ export class Dismiss extends Interaction {
 
     /**
      * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow
+     *  The modal dialog window to dismiss
+     *
+     * @see {@link ModalDialog.window}
      */
     constructor(private readonly modalDialogWindow: Question<AlertPromise> | AlertPromise) {
         super();
@@ -68,7 +74,9 @@ export class Dismiss extends Interaction {
      *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
+     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *
+     * @returns {PromiseLike<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}

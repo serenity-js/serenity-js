@@ -8,6 +8,7 @@ import { by } from 'protractor';
 import { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Scroll} */
 describe('Scroll', function () {
 
     const aLongSpell = pageFromTemplate(`
@@ -22,7 +23,6 @@ describe('Scroll', function () {
         Execute_Button: Target.the('"Cast!" button').located(by.id('cast')),
     };
 
-    /** @test {Scroll} */
     /** @test {Scroll.to} */
     it('allows the actor to scroll to a given target so that it appears in the viewport', () => actorCalled('Gandalf').attemptsTo(
         Navigate.to(aLongSpell),
@@ -36,7 +36,8 @@ describe('Scroll', function () {
         Ensure.that(LastScriptExecution.result<number>(), isLessThan(1000)),
     ));
 
-    /** @test {Enter#toString} */
+    /** @test {Scroll.to} */
+    /** @test {Scroll#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(Scroll.to(Page.Execute_Button).toString())
             .to.equal(`#actor scrolls to the "Cast!" button`);

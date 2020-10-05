@@ -8,6 +8,7 @@ import { by } from 'protractor';
 import { Navigate, Target, Text, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Navigate} */
 describe('Navigate', () => {
 
     describe('to(url)', () => {
@@ -25,6 +26,7 @@ describe('Navigate', () => {
             Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Hello World')),
         ));
 
+        /** @test {Navigate.to} */
         /** @test {Navigate#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).toString())
@@ -34,6 +36,7 @@ describe('Navigate', () => {
 
     describe('to(url).withTimeout(duration)', function () {
 
+        /** @test {Navigate.to} */
         /** @test {Navigate#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).withTimeout(Duration.ofSeconds(5)).toString())
@@ -53,6 +56,7 @@ describe('Navigate', () => {
             Ensure.that(Website.url(), endsWith('version/')),
         ));
 
+        /** @test {Navigate.back} */
         /** @test {Navigate#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.back().toString())
@@ -73,6 +77,7 @@ describe('Navigate', () => {
             Ensure.that(Website.url(), endsWith('accessibility/')),
         ));
 
+        /** @test {Navigate.forward} */
         /** @test {Navigate#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.forward().toString())
@@ -81,7 +86,8 @@ describe('Navigate', () => {
     });
 
     describe('reloadPage', () => {
-        /** @test {Navigate.to} */
+
+        /** @test {Navigate.reloadPage} */
         it('allows the actor to navigate to a desired destination', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
@@ -101,6 +107,7 @@ describe('Navigate', () => {
             Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Reloaded')),
         ));
 
+        /** @test {Navigate.reloadPage} */
         /** @test {Navigate#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.reloadPage().toString())

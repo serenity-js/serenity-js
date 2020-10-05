@@ -12,7 +12,7 @@ import { ExecuteScript, Navigate, Target, Value } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
-/** @test {ExecuteAsynchronousScript} */
+/** @test {ExecuteScript} */
 describe('ExecuteAsynchronousScript', function () {
 
     const page = pageFromTemplate(`

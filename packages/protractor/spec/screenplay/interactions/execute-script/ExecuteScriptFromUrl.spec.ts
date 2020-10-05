@@ -7,7 +7,7 @@ import { actorCalled, LogicError } from '@serenity-js/core';
 import { by } from 'protractor';
 import { Browser, ExecuteScript, Navigate, Target, Text } from '../../../../src';
 
-/** @test {ExecuteScriptFromUrl} */
+/** @test {ExecuteScript} */
 describe('ExecuteScriptFromUrl', function () {
 
     const

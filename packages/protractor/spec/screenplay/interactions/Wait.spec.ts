@@ -8,6 +8,7 @@ import { by } from 'protractor';
 import { Navigate, Target, Text, Wait } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Wait} */
 describe('Wait', () => {
 
     const Status = Target.the('header').located(by.id('status'));
@@ -29,7 +30,6 @@ describe('Wait', () => {
 
     describe('for', () => {
 
-        /** @test {Wait} */
         /** @test {Wait.for} */
         it('pauses the actor flow for the length of an explicitly-set duration', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(Test_Page),
@@ -48,7 +48,6 @@ describe('Wait', () => {
 
     describe('until', () => {
 
-        /** @test {Wait} */
         /** @test {Wait.until} */
         it('pauses the actor flow until the expectation is met', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(Test_Page),
@@ -58,7 +57,6 @@ describe('Wait', () => {
             Ensure.that(Text.of(Status), equals('Ready!')),
         ));
 
-        /** @test {Wait} */
         /** @test {Wait.upTo} */
         /** @test {Wait.until} */
         it('fails the actor flow when the timeout expires', () => expect(actorCalled('Bernie').attemptsTo(

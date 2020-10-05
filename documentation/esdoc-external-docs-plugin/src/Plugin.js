@@ -76,7 +76,9 @@ class Plugin {
             const
                 module     = moduleNameFrom(doc.importPath),
                 id         = `${doc.importPath}~${doc.name}`,
-                pathToDocs = `/modules/${ module }/${ doc.kind }/${ doc.longname }.html`;
+                pathToDocs = doc.kind !== 'function'
+                    ? `/modules/${ module }/${ doc.kind }/${ doc.longname }.html`
+                    : `/modules/${ module }/${ doc.kind }/index.html#static-function-${ doc.name }`;
 
             exported[module] = exported[module] || [];
             exported[module].push({

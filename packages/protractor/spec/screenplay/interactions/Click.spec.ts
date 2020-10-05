@@ -8,13 +8,13 @@ import { by } from 'protractor';
 import { Attribute, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Click} */
 describe('Click', () => {
 
     const Form = {
         Checkbox: Target.the('checkbox').located(by.id('no-spam-please')),
     };
 
-    /** @test {Click} */
     /** @test {Click.on} */
     it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`

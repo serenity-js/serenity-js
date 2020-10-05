@@ -3,8 +3,56 @@ import { BrowseTheWeb } from '../abilities';
 
 /**
  * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  to close a browser tab or window.
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ *  close browser tabs or windows.
+ *
+ * @example <caption>Closing a browser tab or window</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Click, Close, Switch } from '@serenity-js/protractor';
+ *  import { protractor } from 'protractor';
+ *
+ *  actorCalled('Caleb')
+ *      .whoCan(BrowseTheWeb.using(protractor.browser))
+ *      .attemptsTo(
+ *          Click.on(someLinkThatOpensANewWindow),
+ *
+ *          Switch.toNewWindow().and(
+ *              // perform activities in the context of the new window
+ *              Close.currentWindow(),
+ *          ),
+ *      );
+ *
+ * @example <caption>Closing any new windows after a Jasmine test</caption>
+ *  import 'jasmine';
+ *
+ *  import { actorInTheSpotlight } from '@serenity-js/core';
+ *  import { Close } from '@serenity-js/protractor';
+ *
+ *  after(() =>
+ *      actorInTheSpotlight().attemptsTo(
+ *          Close.anyNewWindows(),
+ *      ));
+ *
+ * @example <caption>Closing any new windows after a Mocha test</caption>
+ *  import 'mocha';
+ *
+ *  import { actorInTheSpotlight } from '@serenity-js/core';
+ *  import { Close } from '@serenity-js/protractor';
+ *
+ *  after(() =>
+ *      actorInTheSpotlight().attemptsTo(
+ *          Close.anyNewWindows(),
+ *      ));
+ *
+ * @example <caption>Closing any new windows after a    Cucumber scenario</caption>
+ *  import { actorInTheSpotlight } from '@serenity-js/core';
+ *  import { Close } from '@serenity-js/protractor';
+ *  import { After } from 'cucumber';
+ *
+ *  After(() =>
+ *      actorInTheSpotlight().attemptsTo(
+ *          Close.anyNewWindows(),
+ *      ));
  *
  * @see {@link Switch}
  */

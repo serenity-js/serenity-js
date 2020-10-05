@@ -8,11 +8,11 @@ import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
 
 import { by, error } from 'protractor';
-import { Browser, ExecuteScript, Navigate, Target, Value } from '../../../../src';
+import { Browser, ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
-/** @test {ExecuteSynchronousScript} */
+/** @test {ExecuteScript} */
 describe('ExecuteSynchronousScript', function () {
 
     const page = pageFromTemplate(`
@@ -40,6 +40,16 @@ describe('ExecuteSynchronousScript', function () {
 
         Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
     ));
+
+    /** @test {ExecuteScript.sync} */
+    /** @test {ExecuteSynchronousScript} */
+    /** @test {LastScriptExecution.result} */
+    it('allows the actor to retrieve the value returned by the script', () =>
+        actorCalled('Joe')
+            .attemptsTo(
+                ExecuteScript.sync('return navigator.userAgent'),
+                Ensure.that(LastScriptExecution.result<string>(), includes('Chrome')),
+            ));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
