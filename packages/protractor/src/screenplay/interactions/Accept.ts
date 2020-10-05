@@ -35,6 +35,8 @@ import { AlertPromise } from 'selenium-webdriver';
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  *
+ * @see {@link BrowseTheWeb}
+ * @see {@link Click}
  * @see {@link Dismiss}
  * @see {@link ModalDialog}
  */
@@ -68,7 +70,9 @@ export class Accept extends Interaction {
      *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
+     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *
+     * @returns {PromiseLike<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}

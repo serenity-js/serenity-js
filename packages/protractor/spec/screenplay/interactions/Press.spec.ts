@@ -2,13 +2,14 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, Key } from 'protractor';
 
 import { Navigate, Press, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 
+/** @test {Press} */
 describe('Press', () => {
 
     const Form = {
@@ -27,7 +28,6 @@ describe('Press', () => {
 
     describe('single keys', () => {
 
-        /** @test {Press} */
         /** @test {Press.the} */
         it('allows the actor to enter keys individually into a field', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(page),
@@ -42,7 +42,6 @@ describe('Press', () => {
 
     describe('keyboard shortcuts', function () {
 
-        /** @test {Press} */
         /** @test {Press.the} */
         it('allows the actor to use keyboard shortcuts', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(page),
@@ -51,7 +50,6 @@ describe('Press', () => {
 
             Ensure.that(Value.of(Form.Text_Field), equals(`A`)),
         ));
-
     });
 
     given([

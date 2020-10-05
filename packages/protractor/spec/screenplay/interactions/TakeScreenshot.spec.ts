@@ -8,6 +8,7 @@ import { Navigate, TakeScreenshot } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
+/** @test {TakeScreenshot} */
 describe('TakeScreenshot', () => {
 
     let recorder: EventRecorder;
@@ -31,7 +32,6 @@ describe('TakeScreenshot', () => {
             </html>
         `);
 
-    /** @test {TakeScreenshot} */
     /** @test {TakeScreenshot.of} */
     it('allows the actor to take a screenshot with an arbitrary name', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(page),
@@ -43,6 +43,7 @@ describe('TakeScreenshot', () => {
             });
     }));
 
+    /** @test {TakeScreenshot.of} */
     /** @test {TakeScreenshot#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(TakeScreenshot.of('the page').toString()).to.equal(`#actor takes a screenshot of 'the page'`);

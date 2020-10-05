@@ -8,6 +8,7 @@ import { Navigate, Select, Selected, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
+/** @test {Select} */
 describe('Select', () => {
 
     const pageWithSingleSelect = pageFromTemplate(`
@@ -216,42 +217,49 @@ describe('Select', () => {
     describe('toString()', () => {
 
         /** @test {Select.value} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Select.value()', () => {
             expect(Select.value('FR').from(SingleSelectPage.selector).toString())
                 .to.equal(`#actor selects value 'FR' from the country selector`);
         });
 
         /** @test {Selected.valueOf} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Selected.valueOf', () => {
             expect(Selected.valueOf(SingleSelectPage.selector).toString())
                 .to.equal(`value selected in the country selector`);
         });
 
         /** @test {Select.option} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Select.option()', () => {
             expect(Select.option('France').from(SingleSelectPage.selector).toString())
                 .to.equal(`#actor selects 'France' from the country selector`);
         });
 
         /** @test {Selected.optionIn} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Selected.optionIn()', () => {
             expect(Selected.optionIn(SingleSelectPage.selector).toString())
                 .to.equal(`option selected in the country selector`);
         });
 
         /** @test {Select.values} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Select.values()', () => {
             expect(Select.values(['PL', 'DE'], 'FR').from(MultiSelectPage.selector).toString())
                 .to.equal(`#actor selects values 'PL', 'DE' and 'FR' from the country selector`);
         });
 
         /** @test {Selected.valuesOf} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Select.valuesOf()', () => {
             expect(Selected.valuesOf(MultiSelectPage.selector).toString())
                 .to.equal(`values selected in the country selector`);
         });
 
         /** @test {Select.options} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Select.options()', () => {
             expect(
                 Select.options(
@@ -263,6 +271,7 @@ describe('Select', () => {
         });
 
         /** @test {Selected.optionsIn} */
+        /** @test {Select#toString} */
         it('provides a sensible description of Selected.optionsIn()', () => {
             expect(Selected.optionsIn(MultiSelectPage.selector).toString())
                 .to.equal(`options selected in the country selector`);

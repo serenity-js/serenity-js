@@ -6,7 +6,7 @@ export * from './Dismiss';
 export * from './DeleteCookies';
 export * from './DoubleClick';
 export * from './Enter';
-export { ExecuteScript } from './execute-script';
+export * from './ExecuteScript';
 export * from './Hover';
 export * from './Navigate';
 export * from './Press';

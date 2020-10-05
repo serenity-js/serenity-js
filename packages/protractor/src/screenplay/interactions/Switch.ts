@@ -4,8 +4,8 @@ import { BrowseTheWeb } from '../abilities';
 
 /**
  * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to switch
- *  to a different [frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame),
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ *  to switch to a different [frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame),
  *  [inline frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
  *  or browser window/tab.
  *
@@ -23,7 +23,8 @@ import { BrowseTheWeb } from '../abilities';
  *
  * @example <caption>Switch to an iframe and back</caption>
  *
- *  import { actorCalled, BrowseTheWeb } from '@serenity-js/core';
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Switch, Enter, Click } from '@serenity-js/protractor';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Francesca')
@@ -40,8 +41,8 @@ import { BrowseTheWeb } from '../abilities';
  *
  * @example <caption>Perform activities in the context of an iframe</caption>
  *
- *  import { actorCalled, BrowseTheWeb } from '@serenity-js/core';
- *  import { Switch, Enter, Click } from '@serenity-js/protractor';
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Switch, Enter, Click } from '@serenity-js/protractor';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Francesca')
@@ -57,8 +58,8 @@ import { BrowseTheWeb } from '../abilities';
  *
  * @example <caption>Switch to a new window/tab and back</caption>
  *
- *  import { actorCalled, BrowseTheWeb } from '@serenity-js/core';
- *  import { Switch, Close } from '@serenity-js/protractor';
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Switch, Close } from '@serenity-js/protractor';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Francesca')
@@ -75,8 +76,8 @@ import { BrowseTheWeb } from '../abilities';
  *
  * @example <caption>Perform activities in the context of a different window/tab</caption>
  *
- *  import { actorCalled, BrowseTheWeb } from '@serenity-js/core';
- *  import { Switch } from '@serenity-js/protractor';
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Switch, Close } from '@serenity-js/protractor';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Francesca')
@@ -92,6 +93,7 @@ import { BrowseTheWeb } from '../abilities';
  *      );
  *
  * @see {@link Close}
+ * @see {@link BrowseTheWeb}
  */
 export class Switch {
 
@@ -109,7 +111,6 @@ export class Switch {
      * @see {@link Switch.toParentFrame}
      * @see {@link Switch.toDefaultContent}
      * @see {@link Target}
-     * @see {@link @serenity-js/core/lib/screenplay~Answerable<T>}
      */
     static toFrame(targetOrIndex: Answerable<ElementFinder | number | string>): SwitchToFrame {
         return new SwitchToFrame(targetOrIndex);
@@ -155,8 +156,6 @@ export class Switch {
      *
      * @param {Answerable<string | number>} nameOrHandleOrIndex
      * @returns {SwitchToWindow}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay~Answerable<T>}
      */
     static toWindow(nameOrHandleOrIndex: Answerable<string | number>): SwitchToWindow {
         return new SwitchToWindow(nameOrHandleOrIndex);

@@ -21,14 +21,14 @@ export interface SelectBuilder {
      *  to interact with
      *
      * @param {Question<ElementFinder> | ElementFinder} target
-     * @returns {Interaction}
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link Select}
      * @see {@link Select.option}
      * @see {@link Select.options}
      * @see {@link Select.value}
      * @see {@link Select.values}
-     *
      * @see {@link Target}
      */
     from: (target: Question<ElementFinder> | ElementFinder) => Interaction;

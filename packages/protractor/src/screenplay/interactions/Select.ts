@@ -10,13 +10,11 @@ import { SelectBuilder } from './SelectBuilder';
 
 /**
  * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
- *  an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ *  select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
  *  either by its display name, or by value.
  *
  * @see {@link Selected}
- *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
 export class Select {
 
@@ -34,7 +32,7 @@ export class Select {
      *      <option value='US'>United States</option>
      *  </select>
      *
-     * @example <caption>Lean Page Object</caption>
+     * @example <caption>Lean Page Object describing the widget</caption>
      *  import { Target } from '@serenity-js/protractor';
      *  import { browser, by } from 'protractor';
      *
@@ -45,7 +43,7 @@ export class Select {
      *
      * @example <caption>Retrieving the selected value</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
      *  import { Ensure, equals } from '@serenity-js/assertions';
      *  import { protractor } from 'protractor';
      *
@@ -63,6 +61,10 @@ export class Select {
      * @returns {SelectBuilder}
      *
      * @see {@link Selected.valueOf}
+     * @see {@link BrowseTheWeb}
+     * @see {@link Target}
+     * @see {@link @serenity-js/assertions~Ensure}
+     * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
     static value(value: string | Answerable<string>): SelectBuilder {
         return {
@@ -85,7 +87,7 @@ export class Select {
      *      <option value='US'>United States</option>
      *  </select>
      *
-     * @example <caption>Lean Page Object</caption>
+     * @example <caption>Lean Page Object describing the widget</caption>
      *  import { Target } from '@serenity-js/protractor';
      *  import { browser, by } from 'protractor';
      *
@@ -96,7 +98,7 @@ export class Select {
      *
      * @example <caption>Retrieving the selected value</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
      *  import { Ensure, equals } from '@serenity-js/assertions';
      *  import { protractor } from 'protractor';
      *
@@ -114,6 +116,10 @@ export class Select {
      * @returns {SelectBuilder}
      *
      * @see {@link Selected.valuesOf}
+     * @see {@link BrowseTheWeb}
+     * @see {@link Target}
+     * @see {@link @serenity-js/assertions~Ensure}
+     * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
     static values(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
@@ -135,7 +141,7 @@ export class Select {
      *      <option value='US'>United States</option>
      *  </select>
      *
-     * @example <caption>Lean Page Object</caption>
+     * @example <caption>Lean Page Object describing the widget</caption>
      *  import { Target } from '@serenity-js/protractor';
      *  import { browser, by } from 'protractor';
      *
@@ -146,7 +152,7 @@ export class Select {
      *
      * @example <caption>Retrieving the selected value</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
      *  import { Ensure, equals } from '@serenity-js/assertions';
      *  import { protractor } from 'protractor';
      *
@@ -167,6 +173,10 @@ export class Select {
      * @returns {SelectBuilder}
      *
      * @see {@link Selected.optionIn}
+     * @see {@link BrowseTheWeb}
+     * @see {@link Target}
+     * @see {@link @serenity-js/assertions~Ensure}
+     * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
     static option(value: string | Answerable<string>): SelectBuilder {
         return {
@@ -188,7 +198,7 @@ export class Select {
      *      <option value='US'>United States</option>
      *  </select>
      *
-     * @example <caption>Lean Page Object</caption>
+     * @example <caption>Lean Page Object describing the widget</caption>
      *  import { Target } from '@serenity-js/protractor';
      *  import { browser, by } from 'protractor';
      *
@@ -199,7 +209,7 @@ export class Select {
      *
      * @example <caption>Retrieving the selected value</caption>
      *  import { actorCalled } from '@serenity-js/core';
-     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
      *  import { Ensure, equals } from '@serenity-js/assertions';
      *  import { protractor } from 'protractor';
      *
@@ -220,6 +230,10 @@ export class Select {
      * @returns {SelectBuilder}
      *
      * @see {@link Selected.optionsIn}
+     * @see {@link BrowseTheWeb}
+     * @see {@link Target}
+     * @see {@link @serenity-js/assertions~Ensure}
+     * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
     static options(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {

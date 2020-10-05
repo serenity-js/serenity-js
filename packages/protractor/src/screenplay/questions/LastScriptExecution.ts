@@ -1,6 +1,10 @@
 import { Question } from '@serenity-js/core';
 import { BrowseTheWeb } from '../abilities';
 
+/**
+ * @desc
+ *  Returns the result of last script executed via {@link ExecuteScript}
+ */
 export class LastScriptExecution {
 
     /**
