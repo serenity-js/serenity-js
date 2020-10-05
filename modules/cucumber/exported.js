@@ -17,4 +17,4 @@
 /** @external {@serenity-js/cucumber/lib/gherkin/nodes~TableCell} /modules/cucumber/class/src/gherkin/nodes/TableCell.ts~TableCell.html */
 /** @external {@serenity-js/cucumber/lib/gherkin/nodes~TableRow} /modules/cucumber/class/src/gherkin/nodes/TableRow.ts~TableRow.html */
 /** @external {@serenity-js/cucumber/lib/gherkin/nodes~Tag} /modules/cucumber/class/src/gherkin/nodes/Tag.ts~Tag.html */
-/** @external {@serenity-js/cucumber/lib/listeners~listenerForCucumber} /modules/cucumber/function/src/listeners/index.ts~listenerForCucumber.html */
+/** @external {@serenity-js/cucumber/lib/listeners~listenerForCucumber} /modules/cucumber/function/index.html#static-function-listenerForCucumber */

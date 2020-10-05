@@ -42,6 +42,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~close",
+    "class/src/screenplay/interactions/Close.ts~Close.html",
+    "<span>Close</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/adapter~config",
     "class/src/adapter/Config.ts~Config.html",
     "<span>Config</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/adapter</span>",
@@ -78,15 +84,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/protractor/lib/screenplay/interactions/execute-script~executescript",
-    "class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html",
-    "<span>ExecuteScript</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions/execute-script</span>",
+    "@serenity-js/protractor/lib/screenplay/interactions~enterbuilder",
+    "class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html",
+    "<span>EnterBuilder</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
     "class"
   ],
   [
-    "@serenity-js/protractor/lib/screenplay/interactions/execute-script~executescriptwitharguments",
-    "class/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments.html",
-    "<span>ExecuteScriptWithArguments</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions/execute-script</span>",
+    "@serenity-js/protractor/lib/screenplay/interactions~executescript",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.html",
+    "<span>ExecuteScript</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/screenplay/interactions~executescriptwitharguments",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments.html",
+    "<span>ExecuteScriptWithArguments</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
     "class"
   ],
   [
@@ -138,6 +150,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~pressbuilder",
+    "class/src/screenplay/interactions/PressBuilder.ts~PressBuilder.html",
+    "<span>PressBuilder</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/questions~relativequestion",
     "class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html",
     "<span>RelativeQuestion</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
@@ -171,6 +189,12 @@ window.esdocSearchIndex = [
     "@serenity-js/protractor/lib/screenplay/questions~selected",
     "class/src/screenplay/questions/Selected.ts~Selected.html",
     "<span>Selected</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/screenplay/interactions~switch",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html",
+    "<span>Switch</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
     "class"
   ],
   [
@@ -252,6 +276,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/interactions~waitbuilder",
+    "class/src/screenplay/interactions/WaitBuilder.ts~WaitBuilder.html",
+    "<span>WaitBuilder</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/questions~website",
     "class/src/screenplay/questions/Website.ts~Website.html",
     "<span>Website</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
@@ -307,109 +337,109 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/assertions/lib/expectations~and",
-    "/modules/assertions/function/src/expectations/and.ts~and.html",
+    "/modules/assertions/function/index.html#static-function-and",
     "@serenity-js/assertions/lib/expectations~and",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~contain",
-    "/modules/assertions/function/src/expectations/contain.ts~contain.html",
+    "/modules/assertions/function/index.html#static-function-contain",
     "@serenity-js/assertions/lib/expectations~contain",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~containatleastoneitemthat",
-    "/modules/assertions/function/src/expectations/containAtLeastOneItemThat.ts~containAtLeastOneItemThat.html",
+    "/modules/assertions/function/index.html#static-function-containAtLeastOneItemThat",
     "@serenity-js/assertions/lib/expectations~containAtLeastOneItemThat",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~containitemswhereeachitem",
-    "/modules/assertions/function/src/expectations/containItemsWhereEachItem.ts~containItemsWhereEachItem.html",
+    "/modules/assertions/function/index.html#static-function-containItemsWhereEachItem",
     "@serenity-js/assertions/lib/expectations~containItemsWhereEachItem",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~endswith",
-    "/modules/assertions/function/src/expectations/endsWith.ts~endsWith.html",
+    "/modules/assertions/function/index.html#static-function-endsWith",
     "@serenity-js/assertions/lib/expectations~endsWith",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~equals",
-    "/modules/assertions/function/src/expectations/equals.ts~equals.html",
+    "/modules/assertions/function/index.html#static-function-equals",
     "@serenity-js/assertions/lib/expectations~equals",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~includes",
-    "/modules/assertions/function/src/expectations/includes.ts~includes.html",
+    "/modules/assertions/function/index.html#static-function-includes",
     "@serenity-js/assertions/lib/expectations~includes",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isafter",
-    "/modules/assertions/function/src/expectations/isAfter.ts~isAfter.html",
+    "/modules/assertions/function/index.html#static-function-isAfter",
     "@serenity-js/assertions/lib/expectations~isAfter",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isbefore",
-    "/modules/assertions/function/src/expectations/isBefore.ts~isBefore.html",
+    "/modules/assertions/function/index.html#static-function-isBefore",
     "@serenity-js/assertions/lib/expectations~isBefore",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isfalse",
-    "/modules/assertions/function/src/expectations/isFalse.ts~isFalse.html",
+    "/modules/assertions/function/index.html#static-function-isFalse",
     "@serenity-js/assertions/lib/expectations~isFalse",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isgreaterthan",
-    "/modules/assertions/function/src/expectations/isGreaterThan.ts~isGreaterThan.html",
+    "/modules/assertions/function/index.html#static-function-isGreaterThan",
     "@serenity-js/assertions/lib/expectations~isGreaterThan",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~islessthan",
-    "/modules/assertions/function/src/expectations/isLessThan.ts~isLessThan.html",
+    "/modules/assertions/function/index.html#static-function-isLessThan",
     "@serenity-js/assertions/lib/expectations~isLessThan",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~istrue",
-    "/modules/assertions/function/src/expectations/isTrue.ts~isTrue.html",
+    "/modules/assertions/function/index.html#static-function-isTrue",
     "@serenity-js/assertions/lib/expectations~isTrue",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~matches",
-    "/modules/assertions/function/src/expectations/matches.ts~matches.html",
+    "/modules/assertions/function/index.html#static-function-matches",
     "@serenity-js/assertions/lib/expectations~matches",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~not",
-    "/modules/assertions/function/src/expectations/not.ts~not.html",
+    "/modules/assertions/function/index.html#static-function-not",
     "@serenity-js/assertions/lib/expectations~not",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~or",
-    "/modules/assertions/function/src/expectations/or.ts~or.html",
+    "/modules/assertions/function/index.html#static-function-or",
     "@serenity-js/assertions/lib/expectations~or",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~property",
-    "/modules/assertions/function/src/expectations/property.ts~property.html",
+    "/modules/assertions/function/index.html#static-function-property",
     "@serenity-js/assertions/lib/expectations~property",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~startswith",
-    "/modules/assertions/function/src/expectations/startsWith.ts~startsWith.html",
+    "/modules/assertions/function/index.html#static-function-startsWith",
     "@serenity-js/assertions/lib/expectations~startsWith",
     "external"
   ],
@@ -679,7 +709,7 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io/collections~ismappable",
-    "/modules/core/function/src/io/collections/mappable.ts~isMappable.html",
+    "/modules/core/function/index.html#static-function-isMappable",
     "@serenity-js/core/lib/io/collections~isMappable",
     "external"
   ],
@@ -733,25 +763,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io~commaseparated",
-    "/modules/core/function/src/io/commaSeparated.ts~commaSeparated.html",
+    "/modules/core/function/index.html#static-function-commaSeparated",
     "@serenity-js/core/lib/io~commaSeparated",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~formatted",
-    "/modules/core/function/src/io/formatted.ts~formatted.html",
+    "/modules/core/function/index.html#static-function-formatted",
     "@serenity-js/core/lib/io~formatted",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~inspected",
-    "/modules/core/function/src/io/inspected.ts~inspected.html",
+    "/modules/core/function/index.html#static-function-inspected",
     "@serenity-js/core/lib/io~inspected",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~trimmed",
-    "/modules/core/function/src/io/trimmed.ts~trimmed.html",
+    "/modules/core/function/index.html#static-function-trimmed",
     "@serenity-js/core/lib/io~trimmed",
     "external"
   ],
@@ -1057,67 +1087,67 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
-    "/modules/core/function/src/screenplay/questions/mappings/string/append.ts~append.html",
+    "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
-    "/modules/core/function/src/screenplay/questions/mappings/string/normalize.ts~normalize.html",
+    "/modules/core/function/index.html#static-function-normalize",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
-    "/modules/core/function/src/screenplay/questions/mappings/string/replace.ts~replace.html",
+    "/modules/core/function/index.html#static-function-replace",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
-    "/modules/core/function/src/screenplay/questions/mappings/string/slice.ts~slice.html",
+    "/modules/core/function/index.html#static-function-slice",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
-    "/modules/core/function/src/screenplay/questions/mappings/string/split.ts~split.html",
+    "/modules/core/function/index.html#static-function-split",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocalelowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts~toLocaleLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocaleuppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts~toLocaleUpperCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLowerCase.ts~toLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tonumber",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toNumber.ts~toNumber.html",
+    "/modules/core/function/index.html#static-function-toNumber",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~touppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toUpperCase.ts~toUpperCase.html",
+    "/modules/core/function/index.html#static-function-toUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
-    "/modules/core/function/src/screenplay/questions/mappings/string/trim.ts~trim.html",
+    "/modules/core/function/index.html#static-function-trim",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
     "external"
   ],
@@ -1249,25 +1279,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core~actorcalled",
-    "/modules/core/function/src/instance.ts~actorCalled.html",
+    "/modules/core/function/index.html#static-function-actorCalled",
     "@serenity-js/core~actorCalled",
     "external"
   ],
   [
     "@serenity-js/core~actorinthespotlight",
-    "/modules/core/function/src/instance.ts~actorInTheSpotlight.html",
+    "/modules/core/function/index.html#static-function-actorInTheSpotlight",
     "@serenity-js/core~actorInTheSpotlight",
     "external"
   ],
   [
     "@serenity-js/core~configure",
-    "/modules/core/function/src/instance.ts~configure.html",
+    "/modules/core/function/index.html#static-function-configure",
     "@serenity-js/core~configure",
     "external"
   ],
   [
     "@serenity-js/core~engage",
-    "/modules/core/function/src/instance.ts~engage.html",
+    "/modules/core/function/index.html#static-function-engage",
     "@serenity-js/core~engage",
     "external"
   ],
@@ -1393,7 +1423,7 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/cucumber/lib/listeners~listenerforcucumber",
-    "/modules/cucumber/function/src/listeners/index.ts~listenerForCucumber.html",
+    "/modules/cucumber/function/index.html#static-function-listenerForCucumber",
     "@serenity-js/cucumber/lib/listeners~listenerForCucumber",
     "external"
   ],
@@ -1417,13 +1447,13 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/jasmine~bootstrap",
-    "/modules/jasmine/function/src/bootstrap.ts~bootstrap.html",
+    "/modules/jasmine/function/index.html#static-function-bootstrap",
     "@serenity-js/jasmine~bootstrap",
     "external"
   ],
   [
     "@serenity-js/jasmine~monkeypatched",
-    "/modules/jasmine/function/src/monkeyPatched.ts~monkeyPatched.html",
+    "/modules/jasmine/function/index.html#static-function-monkeyPatched",
     "@serenity-js/jasmine~monkeyPatched",
     "external"
   ],
@@ -1596,8 +1626,8 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber11",
+    "click src/screenplay/interactions/click.ts~click,click",
+    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber12",
     "Click",
     "test"
   ],
@@ -1611,6 +1641,54 @@ window.esdocSearchIndex = [
     "click#tostring src/screenplay/interactions/click.ts~click#tostring,click#tostring",
     "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber36",
     "Click provides a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "close src/screenplay/interactions/close.ts~close,close",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber12",
+    "Close",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber36",
+    "Close anyNewWindows()",
+    "test"
+  ],
+  [
+    "close.anynewwindows src/screenplay/interactions/close.ts~close.anynewwindows,close.anynewwindows",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber39",
+    "Close anyNewWindows() should close any new windows and switch back to the original window",
+    "test"
+  ],
+  [
+    "close.anynewwindows src/screenplay/interactions/close.ts~close.anynewwindows,close.anynewwindows",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber53",
+    "Close anyNewWindows() should do nothing if no new windows have been opened",
+    "test"
+  ],
+  [
+    "close#tostring close#tostring,close#tostring",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber64",
+    "Close anyNewWindows() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber69",
+    "Close currentWindow()",
+    "test"
+  ],
+  [
+    "close.currentwindow src/screenplay/interactions/close.ts~close.currentwindow,close.currentwindow",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber72",
+    "Close currentWindow() should close the current window",
+    "test"
+  ],
+  [
+    "close#tostring close#tostring,close#tostring",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber88",
+    "Close currentWindow() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
@@ -1830,7 +1908,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
+    "executescript src/screenplay/interactions/executescript.ts~executescript,executescript",
     "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber16",
     "ExecuteAsynchronousScript",
     "test"
@@ -1884,7 +1962,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "executescriptfromurl executescriptfromurl,executescriptfromurl",
+    "executescript src/screenplay/interactions/executescript.ts~executescript,executescript",
     "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber11",
     "ExecuteScriptFromUrl",
     "test"
@@ -1914,7 +1992,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "executesynchronousscript executesynchronousscript,executesynchronousscript",
+    "executescript src/screenplay/interactions/executescript.ts~executescript,executescript",
     "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber16",
     "ExecuteSynchronousScript",
     "test"
@@ -1927,61 +2005,67 @@ window.esdocSearchIndex = [
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber92",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber102",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a Target argument",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber78",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber88",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a promised argument",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber64",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber74",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a static argument",
     "test"
   ],
   [
+    "lastscriptexecution.result src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution.result,lastscriptexecution.result",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber65",
+    "ExecuteSynchronousScript allows the actor to retrieve the value returned by the script",
+    "test"
+  ],
+  [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber128",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber138",
     "ExecuteSynchronousScript complains if the script has failed",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber138",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber148",
     "ExecuteSynchronousScript emits the events so that the details of the script being executed can be reported",
     "test"
   ],
   [
     "executesynchronousscript#tostring executesynchronousscript#tostring,executesynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber117",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber127",
     "ExecuteSynchronousScript provides a sensible description of the interaction being performed when invoked with arguments",
     "test"
   ],
   [
     "executesynchronousscript#tostring executesynchronousscript#tostring,executesynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber108",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber118",
     "ExecuteSynchronousScript provides a sensible description of the interaction being performed when invoked without arguments",
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber11",
+    "hover src/screenplay/interactions/hover.ts~hover,hover",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber12",
     "Hover",
     "test"
   ],
   [
-    "scroll.to src/screenplay/interactions/scroll.ts~scroll.to,scroll.to",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber32",
-    "Hover allows the actor to move the mouse to a given target",
+    "hover.over src/screenplay/interactions/hover.ts~hover.over,hover.over",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber31",
+    "Hover allows the actor to position the mouse cursor over a given target",
     "test"
   ],
   [
-    "enter#tostring src/screenplay/interactions/enter.ts~enter#tostring,enter#tostring",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber45",
+    "hover#tostring src/screenplay/interactions/hover.ts~hover#tostring,hover#tostring",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber44",
     "Hover provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -2154,92 +2238,92 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber11",
+    "navigate src/screenplay/interactions/navigate.ts~navigate,navigate",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber12",
     "Navigate",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber44",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber47",
     "Navigate back",
     "test"
   ],
   [
     "navigate.back src/screenplay/interactions/navigate.ts~navigate.back,navigate.back",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber50",
     "Navigate back allows the actor to navigate back in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber57",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber61",
     "Navigate back provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber63",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber67",
     "Navigate forward",
     "test"
   ],
   [
     "navigate.forward src/screenplay/interactions/navigate.ts~navigate.forward,navigate.forward",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber66",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber70",
     "Navigate forward allows the actor to navigate forward in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber82",
     "Navigate forward provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber83",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber88",
     "Navigate reloadPage",
     "test"
   ],
   [
-    "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber85",
+    "navigate.reloadpage src/screenplay/interactions/navigate.ts~navigate.reloadpage,navigate.reloadpage",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber91",
     "Navigate reloadPage allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber105",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber112",
     "Navigate reloadPage provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber14",
     "Navigate to(url)",
     "test"
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber16",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber17",
     "Navigate to(url) allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber29",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber31",
     "Navigate to(url) provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber35",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber37",
     "Navigate to(url).withTimeout(duration)",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber38",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber41",
     "Navigate to(url).withTimeout(duration) provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -2676,32 +2760,32 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber12",
+    "press src/screenplay/interactions/press.ts~press,press",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber13",
     "Press",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber45",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber43",
     "Press keyboard shortcuts",
     "test"
   ],
   [
     "press.the src/screenplay/interactions/press.ts~press.the,press.the",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber49",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber46",
     "Press keyboard shortcuts allows the actor to use keyboard shortcuts",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber30",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber29",
     "Press single keys",
     "test"
   ],
   [
     "press.the src/screenplay/interactions/press.ts~press.the,press.the",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber34",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber32",
     "Press single keys allows the actor to enter keys individually into a field",
     "test"
   ],
@@ -2838,26 +2922,50 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber7",
+    "resizebrowserwindow src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow,resizebrowserwindow",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber9",
     "ResizeBrowserWindow",
     "test"
   ],
   [
-    "resizebrowserwindow.to src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.to,resizebrowserwindow.to",
+    "",
     "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber11",
-    "ResizeBrowserWindow allows the actor to change width and height of browser window",
+    "ResizeBrowserWindow ",
     "test"
   ],
   [
-    "resizebrowserwindow.tomaximum src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.tomaximum,resizebrowserwindow.tomaximum",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber19",
-    "ResizeBrowserWindow allows the actor to resize browser window to maximum",
+    "resizebrowserwindow.to src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.to,resizebrowserwindow.to",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber14",
+    "ResizeBrowserWindow  allows the actor to change width and height of the browser window",
+    "test"
+  ],
+  [
+    "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber24",
+    "ResizeBrowserWindow  produces a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber29",
+    "ResizeBrowserWindow toMaximum()",
+    "test"
+  ],
+  [
+    "resizebrowserwindow.tomaximum src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.tomaximum,resizebrowserwindow.tomaximum",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber32",
+    "ResizeBrowserWindow toMaximum() allows the actor to resize browser window to maximum",
+    "test"
+  ],
+  [
+    "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber43",
+    "ResizeBrowserWindow toMaximum() produces a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "scroll src/screenplay/interactions/scroll.ts~scroll,scroll",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber12",
     "Scroll",
     "test"
   ],
@@ -2868,8 +2976,8 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "enter#tostring src/screenplay/interactions/enter.ts~enter#tostring,enter#tostring",
-    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber40",
+    "scroll#tostring src/screenplay/interactions/scroll.ts~scroll#tostring,scroll#tostring",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber41",
     "Scroll provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -2892,170 +3000,170 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber11",
+    "select src/screenplay/interactions/select.ts~select,select",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber12",
     "Select",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber318",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber319",
     "Select toString()",
     "test"
   ],
   [
-    "select.option src/screenplay/interactions/select.ts~select.option,select.option",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber333",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber337",
     "Select toString() provides a sensible description of Select.option()",
     "test"
   ],
   [
-    "select.options src/screenplay/interactions/select.ts~select.options,select.options",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber357",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber365",
     "Select toString() provides a sensible description of Select.options()",
     "test"
   ],
   [
-    "select.value src/screenplay/interactions/select.ts~select.value,select.value",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber321",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber323",
     "Select toString() provides a sensible description of Select.value()",
     "test"
   ],
   [
-    "select.values src/screenplay/interactions/select.ts~select.values,select.values",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber345",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber351",
     "Select toString() provides a sensible description of Select.values()",
     "test"
   ],
   [
-    "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber351",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber358",
     "Select toString() provides a sensible description of Select.valuesOf()",
     "test"
   ],
   [
-    "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber339",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber344",
     "Select toString() provides a sensible description of Selected.optionIn()",
     "test"
   ],
   [
-    "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber368",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber377",
     "Select toString() provides a sensible description of Selected.optionsIn()",
     "test"
   ],
   [
-    "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber327",
+    "select#tostring select#tostring,select#tostring",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber330",
     "Select toString() provides a sensible description of Selected.valueOf",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber230",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber231",
     "Select when working with multi-option selects",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber275",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber276",
     "Select when working with multi-option selects Select.options()",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber296",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber297",
     "Select when working with multi-option selects Select.options() should concatenate option values from several Answerables",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber309",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber310",
     "Select when working with multi-option selects Select.options() should concatenate option values from several static values",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber287",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber288",
     "Select when working with multi-option selects Select.options() should select multiple options by their Answerable name",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber279",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber280",
     "Select when working with multi-option selects Select.options() should select multiple options by their static name",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber232",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber233",
     "Select when working with multi-option selects Select.values()",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber254",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber255",
     "Select when working with multi-option selects Select.values() should concatenate option values from several Answerables",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber267",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber268",
     "Select when working with multi-option selects Select.values() should concatenate option values from several static values",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber245",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber246",
     "Select when working with multi-option selects Select.values() should select multiple options by their Answerable value",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber236",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber237",
     "Select when working with multi-option selects Select.values() should select multiple options by their static value",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber185",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber186",
     "Select when working with single-option selects",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber208",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber209",
     "Select when working with single-option selects Select.option()",
     "test"
   ],
   [
     "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber221",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber222",
     "Select when working with single-option selects Select.option() should select a single option by its Answerable name",
     "test"
   ],
   [
     "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber212",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber213",
     "Select when working with single-option selects Select.option() should select a single option by its static name",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber187",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber188",
     "Select when working with single-option selects Select.value()",
     "test"
   ],
   [
     "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber200",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber201",
     "Select when working with single-option selects Select.value() should select a single option by its Answerable value",
     "test"
   ],
   [
     "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber191",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber192",
     "Select when working with single-option selects Select.value() should select a single option by its static value",
     "test"
   ],
@@ -3066,8 +3174,278 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "switch src/screenplay/interactions/switch.ts~switch,switch",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber13",
+    "Switch",
+    "test"
+  ],
+  [
     "",
-    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber59",
+    "Switch when working with frames",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber171",
+    "Switch when working with frames toDefaultContent()",
+    "test"
+  ],
+  [
+    "switch.todefaultcontent src/screenplay/interactions/switch.ts~switch.todefaultcontent,switch.todefaultcontent",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber174",
+    "Switch when working with frames toDefaultContent() should not switch the frame if there are no parent frames",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber202",
+    "Switch when working with frames toDefaultContent() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "switch.todefaultcontent src/screenplay/interactions/switch.ts~switch.todefaultcontent,switch.todefaultcontent",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber185",
+    "Switch when working with frames toDefaultContent() should support nested frames",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber61",
+    "Switch when working with frames toFrame()",
+    "test"
+  ],
+  [
+    "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber64",
+    "Switch when working with frames toFrame() ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber100",
+    "Switch when working with frames toFrame() should provide a sensible description when the iframe",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber104",
+    "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by Question<ElementFinder>",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber110",
+    "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by index number",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber116",
+    "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by name",
+    "test"
+  ],
+  [
+    "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber71",
+    "Switch when working with frames toFrame() should switch to an iframe identified by Question<ElementFinder>",
+    "test"
+  ],
+  [
+    "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber81",
+    "Switch when working with frames toFrame() should switch to an iframe identified by index",
+    "test"
+  ],
+  [
+    "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber91",
+    "Switch when working with frames toFrame() should switch to an iframe identified by name",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber207",
+    "Switch when working with frames toFrame().and()",
+    "test"
+  ],
+  [
+    "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber210",
+    "Switch when working with frames toFrame().and() should perform any activities in the context of the frame it switched to",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber226",
+    "Switch when working with frames toFrame().and() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber122",
+    "Switch when working with frames toParentFrame()",
+    "test"
+  ],
+  [
+    "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber125",
+    "Switch when working with frames toParentFrame() should not switch the frame if there are no parent frames",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber166",
+    "Switch when working with frames toParentFrame() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber149",
+    "Switch when working with frames toParentFrame() should support nested frames",
+    "test"
+  ],
+  [
+    "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber135",
+    "Switch when working with frames toParentFrame() should switch to the parent hosting an iframe",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber232",
+    "Switch when working with windows",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber309",
+    "Switch when working with windows ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber359",
+    "Switch when working with windows ",
+    "test"
+  ],
+  [
+    "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber312",
+    "Switch when working with windows  ",
+    "test"
+  ],
+  [
+    "switch.tooriginalwindow src/screenplay/interactions/switch.ts~switch.tooriginalwindow,switch.tooriginalwindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber362",
+    "Switch when working with windows  ",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber332",
+    "Switch when working with windows  should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber386",
+    "Switch when working with windows  should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "switch.tooriginalwindow src/screenplay/interactions/switch.ts~switch.tooriginalwindow,switch.tooriginalwindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber371",
+    "Switch when working with windows  should switch back from a newly opened window",
+    "test"
+  ],
+  [
+    "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber320",
+    "Switch when working with windows  should switch to a newly opened window",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber337",
+    "Switch when working with windows toNewWindow().and()",
+    "test"
+  ],
+  [
+    "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber340",
+    "Switch when working with windows toNewWindow().and() should perform any activities in the context of the new window it switched to",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber354",
+    "Switch when working with windows toNewWindow().and() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber239",
+    "Switch when working with windows toWindow()",
+    "test"
+  ],
+  [
+    "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber264",
+    "Switch when working with windows toWindow() ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber271",
+    "Switch when working with windows toWindow() should provide a sensible description when the window",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber275",
+    "Switch when working with windows toWindow() should provide a sensible description when the window is specified by its index",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber281",
+    "Switch when working with windows toWindow() should provide a sensible description when the window is specified by name",
+    "test"
+  ],
+  [
+    "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber242",
+    "Switch when working with windows toWindow() should switch to a window identified by its index",
+    "test"
+  ],
+  [
+    "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber253",
+    "Switch when working with windows toWindow() should switch to a window identified by its name",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber287",
+    "Switch when working with windows toWindow().and()",
+    "test"
+  ],
+  [
+    "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber290",
+    "Switch when working with windows toWindow().and() should perform any activities in the context of the window it switched to",
+    "test"
+  ],
+  [
+    "switch#tostring switch#tostring,switch#tostring",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber304",
+    "Switch when working with windows toWindow().and() should provide a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
+    "takescreenshot src/screenplay/interactions/takescreenshot.ts~takescreenshot,takescreenshot",
+    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber12",
     "TakeScreenshot",
     "test"
   ],
@@ -3079,7 +3457,7 @@ window.esdocSearchIndex = [
   ],
   [
     "takescreenshot#tostring src/screenplay/interactions/takescreenshot.ts~takescreenshot#tostring,takescreenshot#tostring",
-    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber48",
     "TakeScreenshot provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -3372,44 +3750,44 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber11",
+    "useangular src/screenplay/interactions/useangular.ts~useangular,useangular",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber12",
     "UseAngular",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber14",
     "UseAngular synchronisation",
     "test"
   ],
   [
-    "useangular src/screenplay/interactions/useangular.ts~useangular,useangular",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber42",
+    "useangular.disablesynchronisation src/screenplay/interactions/useangular.ts~useangular.disablesynchronisation,useangular.disablesynchronisation",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber44",
     "UseAngular synchronisation provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber31",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber32",
     "UseAngular synchronisation when disabled",
     "test"
   ],
   [
-    "useangular src/screenplay/interactions/useangular.ts~useangular,useangular",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber35",
+    "useangular.enablesynchronisation src/screenplay/interactions/useangular.ts~useangular.enablesynchronisation,useangular.enablesynchronisation",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber36",
     "UseAngular synchronisation when disabled can be enabled",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber21",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber22",
     "UseAngular synchronisation when enabled",
     "test"
   ],
   [
-    "useangular src/screenplay/interactions/useangular.ts~useangular,useangular",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber25",
+    "useangular.disablesynchronisation src/screenplay/interactions/useangular.ts~useangular.disablesynchronisation,useangular.disablesynchronisation",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber26",
     "UseAngular synchronisation when enabled can be disabled",
     "test"
   ],
@@ -3444,14 +3822,14 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber11",
+    "wait src/screenplay/interactions/wait.ts~wait,wait",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber12",
     "Wait",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber30",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber31",
     "Wait for",
     "test"
   ],
@@ -3475,19 +3853,19 @@ window.esdocSearchIndex = [
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber64",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber62",
     "Wait until fails the actor flow when the timeout expires",
     "test"
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber53",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber52",
     "Wait until pauses the actor flow until the expectation is met",
     "test"
   ],
   [
     "wait#tostring wait#tostring,wait#tostring",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber79",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber77",
     "Wait until provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -3750,6 +4128,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "selenium-webdriver~key",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Key.html",
+    "selenium-webdriver~Key",
+    "external"
+  ],
+  [
     "selenium-webdriver~navigation",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
     "selenium-webdriver~Navigation",
@@ -3759,6 +4143,12 @@ window.esdocSearchIndex = [
     "selenium-webdriver~options",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
     "selenium-webdriver~Options",
+    "external"
+  ],
+  [
+    "selenium-webdriver~webelement",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
+    "selenium-webdriver~WebElement",
     "external"
   ],
   [
@@ -3834,6 +4224,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/interactions/close.spec.ts",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html",
+    "spec/screenplay/interactions/Close.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/interactions/doubleclick.spec.ts",
     "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html",
     "spec/screenplay/interactions/DoubleClick.spec.ts",
@@ -3879,6 +4275,12 @@ window.esdocSearchIndex = [
     "spec/screenplay/interactions/select.spec.ts",
     "test-file/spec/screenplay/interactions/Select.spec.ts.html",
     "spec/screenplay/interactions/Select.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/interactions/switch.spec.ts",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html",
+    "spec/screenplay/interactions/Switch.spec.ts",
     "testFile"
   ],
   [
@@ -4194,6 +4596,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#closecurrentwindow",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-closeCurrentWindow",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#closeCurrentWindow",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#constructor",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-constructor-constructor",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#constructor",
@@ -4224,6 +4632,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#getallwindowhandles",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getAllWindowHandles",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getAllWindowHandles",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#getcapabilities",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getCapabilities",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getCapabilities",
@@ -4236,9 +4650,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#getcurrentwindowhandle",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getCurrentWindowHandle",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getCurrentWindowHandle",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#getlastscriptexecutionresult",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getLastScriptExecutionResult",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getLastScriptExecutionResult",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#getoriginalwindowhandle",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getOriginalWindowHandle",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getOriginalWindowHandle",
     "method"
   ],
   [
@@ -4275,6 +4701,36 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#sleep",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-sleep",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#sleep",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#switchtodefaultcontent",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-switchToDefaultContent",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#switchToDefaultContent",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#switchtoframe",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-switchToFrame",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#switchToFrame",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#switchtooriginalwindow",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-switchToOriginalWindow",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#switchToOriginalWindow",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#switchtoparentframe",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-switchToParentFrame",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#switchToParentFrame",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#switchtowindow",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-switchToWindow",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#switchToWindow",
     "method"
   ],
   [
@@ -4404,6 +4860,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/interactions/close.ts",
+    "file/src/screenplay/interactions/Close.ts.html",
+    "src/screenplay/interactions/Close.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/close.ts~close.anynewwindows",
+    "class/src/screenplay/interactions/Close.ts~Close.html#static-method-anyNewWindows",
+    "src/screenplay/interactions/Close.ts~Close.anyNewWindows",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/close.ts~close.currentwindow",
+    "class/src/screenplay/interactions/Close.ts~Close.html#static-method-currentWindow",
+    "src/screenplay/interactions/Close.ts~Close.currentWindow",
+    "method"
+  ],
+  [
     "src/screenplay/interactions/deletecookies.ts",
     "file/src/screenplay/interactions/DeleteCookies.ts.html",
     "src/screenplay/interactions/DeleteCookies.ts",
@@ -4512,6 +4986,54 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/interactions/enterbuilder.ts",
+    "file/src/screenplay/interactions/EnterBuilder.ts.html",
+    "src/screenplay/interactions/EnterBuilder.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/enterbuilder.ts~enterbuilder#into",
+    "class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html#instance-member-into",
+    "src/screenplay/interactions/EnterBuilder.ts~EnterBuilder#into",
+    "member"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts",
+    "file/src/screenplay/interactions/ExecuteScript.ts.html",
+    "src/screenplay/interactions/ExecuteScript.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts~executescript.async",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.html#static-method-async",
+    "src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.async",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts~executescript.from",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.html#static-method-from",
+    "src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.from",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts~executescript.sync",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.html#static-method-sync",
+    "src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.sync",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts~executescriptwitharguments#constructor",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments.html#instance-constructor-constructor",
+    "src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/executescript.ts~executescriptwitharguments#performas",
+    "class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments.html#instance-method-performAs",
+    "src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments#performAs",
+    "method"
+  ],
+  [
     "src/screenplay/interactions/hover.ts",
     "file/src/screenplay/interactions/Hover.ts.html",
     "src/screenplay/interactions/Hover.ts",
@@ -4602,6 +5124,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/interactions/pressbuilder.ts",
+    "file/src/screenplay/interactions/PressBuilder.ts.html",
+    "src/screenplay/interactions/PressBuilder.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/pressbuilder.ts~pressbuilder#in",
+    "class/src/screenplay/interactions/PressBuilder.ts~PressBuilder.html#instance-member-in",
+    "src/screenplay/interactions/PressBuilder.ts~PressBuilder#in",
+    "member"
+  ],
+  [
     "src/screenplay/interactions/resizebrowserwindow.ts",
     "file/src/screenplay/interactions/ResizeBrowserWindow.ts.html",
     "src/screenplay/interactions/ResizeBrowserWindow.ts",
@@ -4609,15 +5143,15 @@ window.esdocSearchIndex = [
   ],
   [
     "src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.to",
-    "class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html#static-member-to",
+    "class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html#static-method-to",
     "src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.to",
-    "member"
+    "method"
   ],
   [
     "src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.tomaximum",
-    "class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html#static-member-toMaximum",
+    "class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html#static-method-toMaximum",
     "src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.toMaximum",
-    "member"
+    "method"
   ],
   [
     "src/screenplay/interactions/scroll.ts",
@@ -4690,6 +5224,48 @@ window.esdocSearchIndex = [
     "class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html#instance-member-from",
     "src/screenplay/interactions/SelectBuilder.ts~SelectBuilder#from",
     "member"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts",
+    "file/src/screenplay/interactions/Switch.ts.html",
+    "src/screenplay/interactions/Switch.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.todefaultcontent",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toDefaultContent",
+    "src/screenplay/interactions/Switch.ts~Switch.toDefaultContent",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.toframe",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toFrame",
+    "src/screenplay/interactions/Switch.ts~Switch.toFrame",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.tonewwindow",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toNewWindow",
+    "src/screenplay/interactions/Switch.ts~Switch.toNewWindow",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.tooriginalwindow",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toOriginalWindow",
+    "src/screenplay/interactions/Switch.ts~Switch.toOriginalWindow",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.toparentframe",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toParentFrame",
+    "src/screenplay/interactions/Switch.ts~Switch.toParentFrame",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/switch.ts~switch.towindow",
+    "class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toWindow",
+    "src/screenplay/interactions/Switch.ts~Switch.toWindow",
+    "method"
   ],
   [
     "src/screenplay/interactions/takescreenshot.ts",
@@ -4770,70 +5346,16 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/interactions/execute-script/executeasynchronousscript.ts",
-    "file/src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts.html",
-    "src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts",
+    "src/screenplay/interactions/waitbuilder.ts",
+    "file/src/screenplay/interactions/WaitBuilder.ts.html",
+    "src/screenplay/interactions/WaitBuilder.ts",
     "file"
   ],
   [
-    "src/screenplay/interactions/execute-script/executescript.ts",
-    "file/src/screenplay/interactions/execute-script/ExecuteScript.ts.html",
-    "src/screenplay/interactions/execute-script/ExecuteScript.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescript.ts~executescript.async",
-    "class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html#static-method-async",
-    "src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.async",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescript.ts~executescript.from",
-    "class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html#static-method-from",
-    "src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.from",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescript.ts~executescript.sync",
-    "class/src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.html#static-method-sync",
-    "src/screenplay/interactions/execute-script/ExecuteScript.ts~ExecuteScript.sync",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescriptfromurl.ts",
-    "file/src/screenplay/interactions/execute-script/ExecuteScriptFromUrl.ts.html",
-    "src/screenplay/interactions/execute-script/ExecuteScriptFromUrl.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescriptwitharguments.ts",
-    "file/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts.html",
-    "src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescriptwitharguments.ts~executescriptwitharguments#constructor",
-    "class/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments.html#instance-constructor-constructor",
-    "src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments#constructor",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executescriptwitharguments.ts~executescriptwitharguments#performas",
-    "class/src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments.html#instance-method-performAs",
-    "src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts~ExecuteScriptWithArguments#performAs",
-    "method"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/executesynchronousscript.ts",
-    "file/src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts.html",
-    "src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/interactions/execute-script/index.ts",
-    "file/src/screenplay/interactions/execute-script/index.ts.html",
-    "src/screenplay/interactions/execute-script/index.ts",
-    "file"
+    "src/screenplay/interactions/waitbuilder.ts~waitbuilder#until",
+    "class/src/screenplay/interactions/WaitBuilder.ts~WaitBuilder.html#instance-member-until",
+    "src/screenplay/interactions/WaitBuilder.ts~WaitBuilder#until",
+    "member"
   ],
   [
     "src/screenplay/interactions/index.ts",
@@ -5128,6 +5650,12 @@ window.esdocSearchIndex = [
     "file/src/screenplay/questions/Window.ts.html",
     "src/screenplay/questions/Window.ts",
     "file"
+  ],
+  [
+    "src/screenplay/questions/window.ts~window.position",
+    "class/src/screenplay/questions/Window.ts~Window.html#static-method-position",
+    "src/screenplay/questions/Window.ts~Window.position",
+    "method"
   ],
   [
     "src/screenplay/questions/window.ts~window.size",

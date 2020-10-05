@@ -7,109 +7,109 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/assertions/lib/expectations~and",
-    "/modules/assertions/function/src/expectations/and.ts~and.html",
+    "/modules/assertions/function/index.html#static-function-and",
     "@serenity-js/assertions/lib/expectations~and",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~contain",
-    "/modules/assertions/function/src/expectations/contain.ts~contain.html",
+    "/modules/assertions/function/index.html#static-function-contain",
     "@serenity-js/assertions/lib/expectations~contain",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~containatleastoneitemthat",
-    "/modules/assertions/function/src/expectations/containAtLeastOneItemThat.ts~containAtLeastOneItemThat.html",
+    "/modules/assertions/function/index.html#static-function-containAtLeastOneItemThat",
     "@serenity-js/assertions/lib/expectations~containAtLeastOneItemThat",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~containitemswhereeachitem",
-    "/modules/assertions/function/src/expectations/containItemsWhereEachItem.ts~containItemsWhereEachItem.html",
+    "/modules/assertions/function/index.html#static-function-containItemsWhereEachItem",
     "@serenity-js/assertions/lib/expectations~containItemsWhereEachItem",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~endswith",
-    "/modules/assertions/function/src/expectations/endsWith.ts~endsWith.html",
+    "/modules/assertions/function/index.html#static-function-endsWith",
     "@serenity-js/assertions/lib/expectations~endsWith",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~equals",
-    "/modules/assertions/function/src/expectations/equals.ts~equals.html",
+    "/modules/assertions/function/index.html#static-function-equals",
     "@serenity-js/assertions/lib/expectations~equals",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~includes",
-    "/modules/assertions/function/src/expectations/includes.ts~includes.html",
+    "/modules/assertions/function/index.html#static-function-includes",
     "@serenity-js/assertions/lib/expectations~includes",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isafter",
-    "/modules/assertions/function/src/expectations/isAfter.ts~isAfter.html",
+    "/modules/assertions/function/index.html#static-function-isAfter",
     "@serenity-js/assertions/lib/expectations~isAfter",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isbefore",
-    "/modules/assertions/function/src/expectations/isBefore.ts~isBefore.html",
+    "/modules/assertions/function/index.html#static-function-isBefore",
     "@serenity-js/assertions/lib/expectations~isBefore",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isfalse",
-    "/modules/assertions/function/src/expectations/isFalse.ts~isFalse.html",
+    "/modules/assertions/function/index.html#static-function-isFalse",
     "@serenity-js/assertions/lib/expectations~isFalse",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~isgreaterthan",
-    "/modules/assertions/function/src/expectations/isGreaterThan.ts~isGreaterThan.html",
+    "/modules/assertions/function/index.html#static-function-isGreaterThan",
     "@serenity-js/assertions/lib/expectations~isGreaterThan",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~islessthan",
-    "/modules/assertions/function/src/expectations/isLessThan.ts~isLessThan.html",
+    "/modules/assertions/function/index.html#static-function-isLessThan",
     "@serenity-js/assertions/lib/expectations~isLessThan",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~istrue",
-    "/modules/assertions/function/src/expectations/isTrue.ts~isTrue.html",
+    "/modules/assertions/function/index.html#static-function-isTrue",
     "@serenity-js/assertions/lib/expectations~isTrue",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~matches",
-    "/modules/assertions/function/src/expectations/matches.ts~matches.html",
+    "/modules/assertions/function/index.html#static-function-matches",
     "@serenity-js/assertions/lib/expectations~matches",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~not",
-    "/modules/assertions/function/src/expectations/not.ts~not.html",
+    "/modules/assertions/function/index.html#static-function-not",
     "@serenity-js/assertions/lib/expectations~not",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~or",
-    "/modules/assertions/function/src/expectations/or.ts~or.html",
+    "/modules/assertions/function/index.html#static-function-or",
     "@serenity-js/assertions/lib/expectations~or",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~property",
-    "/modules/assertions/function/src/expectations/property.ts~property.html",
+    "/modules/assertions/function/index.html#static-function-property",
     "@serenity-js/assertions/lib/expectations~property",
     "external"
   ],
   [
     "@serenity-js/assertions/lib/expectations~startswith",
-    "/modules/assertions/function/src/expectations/startsWith.ts~startsWith.html",
+    "/modules/assertions/function/index.html#static-function-startsWith",
     "@serenity-js/assertions/lib/expectations~startsWith",
     "external"
   ],
@@ -379,7 +379,7 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io/collections~ismappable",
-    "/modules/core/function/src/io/collections/mappable.ts~isMappable.html",
+    "/modules/core/function/index.html#static-function-isMappable",
     "@serenity-js/core/lib/io/collections~isMappable",
     "external"
   ],
@@ -433,25 +433,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io~commaseparated",
-    "/modules/core/function/src/io/commaSeparated.ts~commaSeparated.html",
+    "/modules/core/function/index.html#static-function-commaSeparated",
     "@serenity-js/core/lib/io~commaSeparated",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~formatted",
-    "/modules/core/function/src/io/formatted.ts~formatted.html",
+    "/modules/core/function/index.html#static-function-formatted",
     "@serenity-js/core/lib/io~formatted",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~inspected",
-    "/modules/core/function/src/io/inspected.ts~inspected.html",
+    "/modules/core/function/index.html#static-function-inspected",
     "@serenity-js/core/lib/io~inspected",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~trimmed",
-    "/modules/core/function/src/io/trimmed.ts~trimmed.html",
+    "/modules/core/function/index.html#static-function-trimmed",
     "@serenity-js/core/lib/io~trimmed",
     "external"
   ],
@@ -757,67 +757,67 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
-    "/modules/core/function/src/screenplay/questions/mappings/string/append.ts~append.html",
+    "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
-    "/modules/core/function/src/screenplay/questions/mappings/string/normalize.ts~normalize.html",
+    "/modules/core/function/index.html#static-function-normalize",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
-    "/modules/core/function/src/screenplay/questions/mappings/string/replace.ts~replace.html",
+    "/modules/core/function/index.html#static-function-replace",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
-    "/modules/core/function/src/screenplay/questions/mappings/string/slice.ts~slice.html",
+    "/modules/core/function/index.html#static-function-slice",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
-    "/modules/core/function/src/screenplay/questions/mappings/string/split.ts~split.html",
+    "/modules/core/function/index.html#static-function-split",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocalelowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts~toLocaleLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocaleuppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts~toLocaleUpperCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLowerCase.ts~toLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tonumber",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toNumber.ts~toNumber.html",
+    "/modules/core/function/index.html#static-function-toNumber",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~touppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toUpperCase.ts~toUpperCase.html",
+    "/modules/core/function/index.html#static-function-toUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
-    "/modules/core/function/src/screenplay/questions/mappings/string/trim.ts~trim.html",
+    "/modules/core/function/index.html#static-function-trim",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
     "external"
   ],
@@ -949,25 +949,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core~actorcalled",
-    "/modules/core/function/src/instance.ts~actorCalled.html",
+    "/modules/core/function/index.html#static-function-actorCalled",
     "@serenity-js/core~actorCalled",
     "external"
   ],
   [
     "@serenity-js/core~actorinthespotlight",
-    "/modules/core/function/src/instance.ts~actorInTheSpotlight.html",
+    "/modules/core/function/index.html#static-function-actorInTheSpotlight",
     "@serenity-js/core~actorInTheSpotlight",
     "external"
   ],
   [
     "@serenity-js/core~configure",
-    "/modules/core/function/src/instance.ts~configure.html",
+    "/modules/core/function/index.html#static-function-configure",
     "@serenity-js/core~configure",
     "external"
   ],
   [
     "@serenity-js/core~engage",
-    "/modules/core/function/src/instance.ts~engage.html",
+    "/modules/core/function/index.html#static-function-engage",
     "@serenity-js/core~engage",
     "external"
   ],
@@ -1638,6 +1638,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "selenium-webdriver~key",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Key.html",
+    "selenium-webdriver~Key",
+    "external"
+  ],
+  [
     "selenium-webdriver~navigation",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
     "selenium-webdriver~Navigation",
@@ -1647,6 +1653,12 @@ window.esdocSearchIndex = [
     "selenium-webdriver~options",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
     "selenium-webdriver~Options",
+    "external"
+  ],
+  [
+    "selenium-webdriver~webelement",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
+    "selenium-webdriver~WebElement",
     "external"
   ],
   [

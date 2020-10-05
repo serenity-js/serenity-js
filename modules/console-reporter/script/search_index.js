@@ -271,7 +271,7 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io/collections~ismappable",
-    "/modules/core/function/src/io/collections/mappable.ts~isMappable.html",
+    "/modules/core/function/index.html#static-function-isMappable",
     "@serenity-js/core/lib/io/collections~isMappable",
     "external"
   ],
@@ -325,25 +325,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/io~commaseparated",
-    "/modules/core/function/src/io/commaSeparated.ts~commaSeparated.html",
+    "/modules/core/function/index.html#static-function-commaSeparated",
     "@serenity-js/core/lib/io~commaSeparated",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~formatted",
-    "/modules/core/function/src/io/formatted.ts~formatted.html",
+    "/modules/core/function/index.html#static-function-formatted",
     "@serenity-js/core/lib/io~formatted",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~inspected",
-    "/modules/core/function/src/io/inspected.ts~inspected.html",
+    "/modules/core/function/index.html#static-function-inspected",
     "@serenity-js/core/lib/io~inspected",
     "external"
   ],
   [
     "@serenity-js/core/lib/io~trimmed",
-    "/modules/core/function/src/io/trimmed.ts~trimmed.html",
+    "/modules/core/function/index.html#static-function-trimmed",
     "@serenity-js/core/lib/io~trimmed",
     "external"
   ],
@@ -649,67 +649,67 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
-    "/modules/core/function/src/screenplay/questions/mappings/string/append.ts~append.html",
+    "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
-    "/modules/core/function/src/screenplay/questions/mappings/string/normalize.ts~normalize.html",
+    "/modules/core/function/index.html#static-function-normalize",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~normalize",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
-    "/modules/core/function/src/screenplay/questions/mappings/string/replace.ts~replace.html",
+    "/modules/core/function/index.html#static-function-replace",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
-    "/modules/core/function/src/screenplay/questions/mappings/string/slice.ts~slice.html",
+    "/modules/core/function/index.html#static-function-slice",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~slice",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
-    "/modules/core/function/src/screenplay/questions/mappings/string/split.ts~split.html",
+    "/modules/core/function/index.html#static-function-split",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocalelowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleLowerCase.ts~toLocaleLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolocaleuppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLocaleUpperCase.ts~toLocaleUpperCase.html",
+    "/modules/core/function/index.html#static-function-toLocaleUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLocaleUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tolowercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toLowerCase.ts~toLowerCase.html",
+    "/modules/core/function/index.html#static-function-toLowerCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toLowerCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~tonumber",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toNumber.ts~toNumber.html",
+    "/modules/core/function/index.html#static-function-toNumber",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~touppercase",
-    "/modules/core/function/src/screenplay/questions/mappings/string/toUpperCase.ts~toUpperCase.html",
+    "/modules/core/function/index.html#static-function-toUpperCase",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase",
     "external"
   ],
   [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
-    "/modules/core/function/src/screenplay/questions/mappings/string/trim.ts~trim.html",
+    "/modules/core/function/index.html#static-function-trim",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~trim",
     "external"
   ],
@@ -841,25 +841,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/core~actorcalled",
-    "/modules/core/function/src/instance.ts~actorCalled.html",
+    "/modules/core/function/index.html#static-function-actorCalled",
     "@serenity-js/core~actorCalled",
     "external"
   ],
   [
     "@serenity-js/core~actorinthespotlight",
-    "/modules/core/function/src/instance.ts~actorInTheSpotlight.html",
+    "/modules/core/function/index.html#static-function-actorInTheSpotlight",
     "@serenity-js/core~actorInTheSpotlight",
     "external"
   ],
   [
     "@serenity-js/core~configure",
-    "/modules/core/function/src/instance.ts~configure.html",
+    "/modules/core/function/index.html#static-function-configure",
     "@serenity-js/core~configure",
     "external"
   ],
   [
     "@serenity-js/core~engage",
-    "/modules/core/function/src/instance.ts~engage.html",
+    "/modules/core/function/index.html#static-function-engage",
     "@serenity-js/core~engage",
     "external"
   ],
@@ -1056,6 +1056,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "selenium-webdriver~key",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Key.html",
+    "selenium-webdriver~Key",
+    "external"
+  ],
+  [
     "selenium-webdriver~navigation",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
     "selenium-webdriver~Navigation",
@@ -1065,6 +1071,12 @@ window.esdocSearchIndex = [
     "selenium-webdriver~options",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
     "selenium-webdriver~Options",
+    "external"
+  ],
+  [
+    "selenium-webdriver~webelement",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
+    "selenium-webdriver~WebElement",
     "external"
   ],
   [

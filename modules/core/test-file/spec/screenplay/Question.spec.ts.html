@@ -261,6 +261,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/Question.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled, AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { Mappable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
@@ -410,6 +411,20 @@ describe(<span class="hljs-string">&apos;Question&apos;</span>, <span class="hlj
 
             <span class="hljs-keyword">return</span> expect(endResult).to.eventually.deep.equal([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
         });
+    });
+
+    given([
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-literal">null</span>                                           },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-literal">false</span>                                          },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                         },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-string">&apos;&apos;</span>                                             },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: {}                                             },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-number">42</span>                                             },
+        { isAQuestion: <span class="hljs-literal">false</span>, value: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                   },
+        { isAQuestion: <span class="hljs-literal">true</span>,  value: Question.about(<span class="hljs-string">&apos;something&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)   },
+    ]).
+    it(<span class="hljs-string">&apos;recognises if something is a question&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ value, isAQuestion }</span>) =&gt;</span> {
+        expect(Question.isAQuestion(value)).to.equal(isAQuestion);
     });
 });
 </code></pre>

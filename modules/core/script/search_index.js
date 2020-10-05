@@ -1495,79 +1495,79 @@ window.esdocSearchIndex = [
   ],
   [
     "question src/screenplay/question.ts~question,question",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber11",
     "Question",
     "test"
   ],
   [
     "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber46",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber47",
     "Question allows for a custom description to override the default one",
     "test"
   ],
   [
     "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber56",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber57",
     "Question allows for a custom description to override the default one without affecting the original question",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber13",
     "Question provides a convenient way to define a custom question that",
     "test"
   ],
   [
     "question#tostring src/screenplay/question.ts~question#tostring,question#tostring",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber37",
     "Question provides a convenient way to define a custom question that has a description",
     "test"
   ],
   [
     "question.about src/screenplay/question.ts~question.about,question.about",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber25",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber26",
     "Question provides a convenient way to define a custom question that returns a Promise of a value",
     "test"
   ],
   [
     "question.about src/screenplay/question.ts~question.about,question.about",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber15",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber16",
     "Question provides a convenient way to define a custom question that returns a static value",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber64",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber65",
     "Question when mapping the answer",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber136",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber137",
     "Question when mapping the answer works with a mappable collection (Array, ElementArrayFinder, etc.)",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber84",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber85",
     "Question when mapping the answer works with a promise",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber118",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber119",
     "Question when mapping the answer works with a promised list",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber100",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber101",
     "Question when mapping the answer works with a static list of values",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber68",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber69",
     "Question when mapping the answer works with a static value",
     "test"
   ],
@@ -2148,6 +2148,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "selenium-webdriver~key",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Key.html",
+    "selenium-webdriver~Key",
+    "external"
+  ],
+  [
     "selenium-webdriver~navigation",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Navigation.html",
     "selenium-webdriver~Navigation",
@@ -2157,6 +2163,12 @@ window.esdocSearchIndex = [
     "selenium-webdriver~options",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Options.html",
     "selenium-webdriver~Options",
+    "external"
+  ],
+  [
+    "selenium-webdriver~webelement",
+    "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
+    "selenium-webdriver~WebElement",
     "external"
   ],
   [

@@ -1,7 +1,7 @@
 {
-  "coverage": "86.85%",
-  "expectCount": 388,
-  "actualCount": 337,
+  "coverage": "89.24%",
+  "expectCount": 465,
+  "actualCount": 415,
   "files": {
     "src/adapter/Config.ts": {
       "expectCount": 2,
@@ -118,10 +118,10 @@
       "undocumentLines": []
     },
     "src/screenplay/abilities/BrowseTheWeb.ts": {
-      "expectCount": 24,
-      "actualCount": 23,
+      "expectCount": 36,
+      "actualCount": 35,
       "undocumentLines": [
-        675
+        969
       ]
     },
     "src/screenplay/interactions/Accept.ts": {
@@ -131,23 +131,26 @@
     },
     "src/screenplay/interactions/Clear.ts": {
       "expectCount": 8,
-      "actualCount": 7,
-      "undocumentLines": [
-        31
-      ]
+      "actualCount": 8,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/Click.ts": {
       "expectCount": 5,
-      "actualCount": 4,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/screenplay/interactions/Close.ts": {
+      "expectCount": 14,
+      "actualCount": 13,
       "undocumentLines": [
-        33
+        143
       ]
     },
     "src/screenplay/interactions/DeleteCookies.ts": {
       "expectCount": 10,
       "actualCount": 9,
       "undocumentLines": [
-        62
+        130
       ]
     },
     "src/screenplay/interactions/Dismiss.ts": {
@@ -157,62 +160,69 @@
     },
     "src/screenplay/interactions/DoubleClick.ts": {
       "expectCount": 5,
-      "actualCount": 4,
-      "undocumentLines": [
-        34
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/Enter.ts": {
       "expectCount": 5,
-      "actualCount": 4,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/screenplay/interactions/EnterBuilder.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/screenplay/interactions/ExecuteScript.ts": {
+      "expectCount": 20,
+      "actualCount": 19,
       "undocumentLines": [
-        35
+        414
       ]
     },
     "src/screenplay/interactions/Hover.ts": {
       "expectCount": 5,
-      "actualCount": 4,
-      "undocumentLines": [
-        32
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/Navigate.ts": {
       "expectCount": 23,
       "actualCount": 21,
       "undocumentLines": [
-        155,
-        248
+        248,
+        343
       ]
     },
     "src/screenplay/interactions/Press.ts": {
       "expectCount": 9,
-      "actualCount": 8,
-      "undocumentLines": [
-        37
-      ]
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/screenplay/interactions/PressBuilder.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/ResizeBrowserWindow.ts": {
       "expectCount": 10,
       "actualCount": 9,
       "undocumentLines": [
-        103
+        190
       ]
     },
     "src/screenplay/interactions/Scroll.ts": {
       "expectCount": 5,
-      "actualCount": 4,
-      "undocumentLines": [
-        32
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/Select.ts": {
       "expectCount": 23,
       "actualCount": 19,
       "undocumentLines": [
-        311,
-        366,
-        432,
-        487
+        325,
+        380,
+        446,
+        501
       ]
     },
     "src/screenplay/interactions/SelectBuilder.ts": {
@@ -220,12 +230,23 @@
       "actualCount": 2,
       "undocumentLines": []
     },
+    "src/screenplay/interactions/Switch.ts": {
+      "expectCount": 44,
+      "actualCount": 37,
+      "undocumentLines": [
+        292,
+        364,
+        507,
+        572,
+        630,
+        706,
+        761
+      ]
+    },
     "src/screenplay/interactions/TakeScreenshot.ts": {
       "expectCount": 5,
-      "actualCount": 4,
-      "undocumentLines": [
-        33
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "src/screenplay/interactions/UseAngular.ts": {
       "expectCount": 3,
@@ -236,37 +257,13 @@
       "expectCount": 13,
       "actualCount": 11,
       "undocumentLines": [
-        101,
-        167
+        243,
+        310
       ]
     },
-    "src/screenplay/interactions/execute-script/ExecuteAsynchronousScript.ts": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/screenplay/interactions/execute-script/ExecuteScript.ts": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/screenplay/interactions/execute-script/ExecuteScriptFromUrl.ts": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        18
-      ]
-    },
-    "src/screenplay/interactions/execute-script/ExecuteScriptWithArguments.ts": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        17
-      ]
-    },
-    "src/screenplay/interactions/execute-script/ExecuteSynchronousScript.ts": {
-      "expectCount": 4,
-      "actualCount": 4,
+    "src/screenplay/interactions/WaitBuilder.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
     "src/screenplay/questions/Attribute.ts": {
@@ -349,8 +346,8 @@
       "undocumentLines": []
     },
     "src/screenplay/questions/Window.ts": {
-      "expectCount": 2,
-      "actualCount": 2,
+      "expectCount": 3,
+      "actualCount": 3,
       "undocumentLines": []
     },
     "src/screenplay/questions/targets/Target.ts": {

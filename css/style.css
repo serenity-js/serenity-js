@@ -987,16 +987,42 @@ a.anchorjs-link:hover {
   margin-left: 10px;
 }
 
+.tier {
+  font-size: 0.5em;
+}
+
 ul.supporters {
   list-style-type: none;
   padding: 0;
 }
 
 ul.supporters li {
-  margin: 0.25em;
   display: inline-block;
+  margin: 0.25em;
   vertical-align: top;
-  float: left;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #bdbadf;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+ul.supporters li a {
+  display: block;
+  text-align: center;
+}
+
+ul.supporters li a img {
+  margin: 0 auto 0 auto;
+  display: block;
+}
+
+ul.supporters li a span {
+  display: block;
+}
+
+ul.supporters li a span.nickname {
+  color: #666;
 }
 
 article.content h1 {

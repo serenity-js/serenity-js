@@ -355,7 +355,7 @@
      * @returns {boolean}
      */</span>
     <span class="hljs-keyword">static</span> isAQuestion&lt;T&gt;(maybeQuestion: <span class="hljs-built_in">any</span>): maybeQuestion is Question&lt;T&gt; {
-        <span class="hljs-keyword">return</span> !! (maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).answeredBy;
+        <span class="hljs-keyword">return</span> !! maybeQuestion &amp;&amp; !! (maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).answeredBy;
     }
 
     <span class="hljs-comment">/**
