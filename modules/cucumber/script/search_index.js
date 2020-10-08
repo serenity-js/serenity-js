@@ -354,6 +354,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io/json~parse",
+    "/modules/core/function/index.html#static-function-parse",
+    "@serenity-js/core/lib/io/json~parse",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io/json~stringify",
+    "/modules/core/function/index.html#static-function-stringify",
+    "@serenity-js/core/lib/io/json~stringify",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~assertionreportdiffer",
     "/modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html",
     "@serenity-js/core/lib/io~AssertionReportDiffer",

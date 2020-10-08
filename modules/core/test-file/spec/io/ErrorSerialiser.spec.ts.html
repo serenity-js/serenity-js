@@ -170,6 +170,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/collections/reducible.ts~Reducible.html">Reducible</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isMappable">isMappable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Mapping&lt;V,O&gt;">Mapping&lt;V,O&gt;</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io-json">io/json</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parse">parse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Category.ts~Category.html">Category</a></span></span></li>
@@ -260,8 +262,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/ErrorSerialiser.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
-<span class="hljs-keyword">import</span> { ErrorSerialiser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
+<span class="hljs-keyword">import</span> { ErrorSerialiser, parse } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
 describe (<span class="hljs-string">&apos;ErrorSerialiser&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -270,11 +274,11 @@ describe (<span class="hljs-string">&apos;ErrorSerialiser&apos;</span>, <span cl
     it(<span class="hljs-string">&apos;serialises an Error object to JSON&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something happened`</span>);
 
-        expect(ErrorSerialiser.serialise(e)).to.deep.equal({
+        expect(ErrorSerialiser.serialise(e)).to.equal(<span class="hljs-built_in">JSON</span>.stringify({
             name: <span class="hljs-string">&apos;Error&apos;</span>,
-            message: <span class="hljs-string">&apos;Something happened&apos;</span>,
             stack: e.stack,
-        });
+            message: <span class="hljs-string">&apos;Something happened&apos;</span>,
+        }));
     });
 
     <span class="hljs-comment">/** @test {ErrorSerialiser} */</span>
@@ -285,11 +289,11 @@ describe (<span class="hljs-string">&apos;ErrorSerialiser&apos;</span>, <span cl
             <span class="hljs-string">&apos;    at Generator.next (&lt;anonymous&gt;)&apos;</span>,
         ].join(<span class="hljs-string">&apos;\n&apos;</span>);
 
-        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise({
+        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise(<span class="hljs-built_in">JSON</span>.stringify({
             name: <span class="hljs-string">&apos;Error&apos;</span>,
             message: <span class="hljs-string">&apos;Something happened&apos;</span>,
             stack,
-        });
+        }));
 
         expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
         expect(error.name).to.equal(<span class="hljs-string">`Error`</span>);
@@ -303,8 +307,8 @@ describe (<span class="hljs-string">&apos;ErrorSerialiser&apos;</span>, <span cl
             error = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`Expected false to equal true`</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>),
             serialised = ErrorSerialiser.serialise(error);
 
-        expect(serialised.name).to.equal(<span class="hljs-string">&apos;AssertionError&apos;</span>);
-        expect(serialised.message).to.equal(<span class="hljs-string">&apos;Expected false to equal true&apos;</span>);
+        expect(parse(serialised).name).to.equal(<span class="hljs-string">&apos;AssertionError&apos;</span>);
+        expect(parse(serialised).message).to.equal(<span class="hljs-string">&apos;Expected false to equal true&apos;</span>);
     });
 
     <span class="hljs-comment">/** @test {ErrorSerialiser} */</span>
@@ -315,11 +319,11 @@ describe (<span class="hljs-string">&apos;ErrorSerialiser&apos;</span>, <span cl
             <span class="hljs-string">&apos;    at Generator.next (&lt;anonymous&gt;)&apos;</span>,
         ].join(<span class="hljs-string">&apos;\n&apos;</span>);
 
-        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise({
+        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise(<span class="hljs-built_in">JSON</span>.stringify({
             name: <span class="hljs-string">&apos;AssertionError&apos;</span>,
             message: <span class="hljs-string">&apos;Expected false to equal true&apos;</span>,
             stack,
-        });
+        }));
 
         expect(error).to.be.instanceOf(AssertionError);
         expect(error.name).to.equal(<span class="hljs-string">`AssertionError`</span>);

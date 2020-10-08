@@ -714,6 +714,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io/json~parse",
+    "/modules/core/function/index.html#static-function-parse",
+    "@serenity-js/core/lib/io/json~parse",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io/json~stringify",
+    "/modules/core/function/index.html#static-function-stringify",
+    "@serenity-js/core/lib/io/json~stringify",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~assertionreportdiffer",
     "/modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html",
     "@serenity-js/core/lib/io~AssertionReportDiffer",
@@ -4003,37 +4015,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber12",
     "isPresent",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber29",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber48",
+    "isPresent ",
+    "test"
+  ],
+  [
+    "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber30",
     "isPresent allows the actor flow to continue when the element is present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber35",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber36",
     "isPresent breaks the actor flow when element does not become present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber40",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber41",
     "isPresent breaks the actor flow when element is not present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber53",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber64",
     "isPresent contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber47",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber58",
     "isPresent contributes to a human-readable description of an assertion",
     "test"
   ],

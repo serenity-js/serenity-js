@@ -179,6 +179,7 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ErrorSerialiser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">import</span> { isPresent, Navigate, Target, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
@@ -217,6 +218,16 @@ describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hl
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the non-existent header to become present`</span>);
+    });
+
+    <span class="hljs-comment">/** @test {isPresent} */</span>
+    it(<span class="hljs-string">`produces an assertion error that can be serialised with ErrorSerialiser`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(Page.Non_Existent_Header, isPresent()),
+        )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the non-existent header to become present`</span>)
+            .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                expect(ErrorSerialiser.serialise(error)).to.be.a(<span class="hljs-string">&apos;string&apos;</span>);
+            });
     });
 
     <span class="hljs-comment">/** @test {isPresent} */</span>

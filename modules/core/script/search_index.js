@@ -762,6 +762,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@serenity-js/core/lib/io/json~parse",
+    "function/index.html#static-function-parse",
+    "<span>parse</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/json</span>",
+    "function"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
     "function/index.html#static-function-replace",
     "<span>replace</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
@@ -783,6 +789,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~split",
     "function/index.html#static-function-split",
     "<span>split</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/io/json~stringify",
+    "function/index.html#static-function-stringify",
+    "<span>stringify</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/json</span>",
     "function"
   ],
   [
@@ -1111,43 +1123,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber5",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber7",
     "ErrorSerialiser",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber19",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber21",
     "ErrorSerialiser deserialises a serialised Error object from JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber49",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber51",
     "ErrorSerialiser deserialises a serialised custom Error object from JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber69",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber71",
     "ErrorSerialiser deserialises the error object from a stack trace alone (Cucumber event protocol)",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber81",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber83",
     "ErrorSerialiser deserialises the error object from a string (Cucumber event protocol)",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber39",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber41",
     "ErrorSerialiser serialises a custom Error object to JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber8",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber10",
     "ErrorSerialiser serialises an Error object to JSON",
     "test"
   ],
@@ -2112,6 +2124,144 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber7",
+    "cycle",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber40",
+    "cycle when used with acyclic objects",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber58",
+    "cycle when used with acyclic objects parse",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber42",
+    "cycle when used with acyclic objects stringify",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber76",
+    "cycle when used with cyclic objects",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber78",
+    "cycle when used with cyclic objects JSON.stringify",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber80",
+    "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in a round robin list",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber90",
+    "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in complex nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber85",
+    "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in simple nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber95",
+    "cycle when used with cyclic objects JSON.stringify should fail because of a cycles in object with parallel references",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber123",
+    "cycle when used with cyclic objects parse",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber135",
+    "cycle when used with cyclic objects parse should deserialise a complex nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber125",
+    "cycle when used with cyclic objects parse should deserialise a round robin list data structure",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber130",
+    "cycle when used with cyclic objects parse should deserialise a simple nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber140",
+    "cycle when used with cyclic objects parse should deserialise an object with parallel references",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber101",
+    "cycle when used with cyclic objects stringify",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber112",
+    "cycle when used with cyclic objects stringify should serialise a complex nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber102",
+    "cycle when used with cyclic objects stringify should serialise a round robin list data structure",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber107",
+    "cycle when used with cyclic objects stringify should serialise a simple nested object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber117",
+    "cycle when used with cyclic objects stringify should serialise an object with parallel references",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber9",
+    "cycle when used with primitives",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber25",
+    "cycle when used with primitives parse",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber11",
+    "cycle when used with primitives stringify",
+    "test"
+  ],
+  [
     "question#map src/screenplay/question.ts~question#map,question#map",
     "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html#lineNumber10",
     "normalize",
@@ -2241,6 +2391,12 @@ window.esdocSearchIndex = [
     "spec/io/formatted.spec.ts",
     "test-file/spec/io/formatted.spec.ts.html",
     "spec/io/formatted.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/io/json/cycle.spec.ts",
+    "test-file/spec/io/json/cycle.spec.ts.html",
+    "spec/io/json/cycle.spec.ts",
     "testFile"
   ],
   [
@@ -2787,6 +2943,12 @@ window.esdocSearchIndex = [
     "src/events/asyncoperationfailed.ts~asyncoperationfailed#constructor",
     "class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html#instance-constructor-constructor",
     "src/events/AsyncOperationFailed.ts~AsyncOperationFailed#constructor",
+    "method"
+  ],
+  [
+    "src/events/asyncoperationfailed.ts~asyncoperationfailed#tojson",
+    "class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html#instance-method-toJSON",
+    "src/events/AsyncOperationFailed.ts~AsyncOperationFailed#toJSON",
     "method"
   ],
   [
@@ -3465,6 +3627,18 @@ window.esdocSearchIndex = [
     "src/io/inspected.ts",
     "file/src/io/inspected.ts.html",
     "src/io/inspected.ts",
+    "file"
+  ],
+  [
+    "src/io/json/cycle.ts",
+    "file/src/io/json/cycle.ts.html",
+    "src/io/json/cycle.ts",
+    "file"
+  ],
+  [
+    "src/io/json/index.ts",
+    "file/src/io/json/index.ts.html",
+    "src/io/json/index.ts",
     "file"
   ],
   [
