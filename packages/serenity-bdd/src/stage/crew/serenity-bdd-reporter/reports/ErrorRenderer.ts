@@ -18,7 +18,7 @@ export class ErrorRenderer {
         return {
             errorType:    error.constructor.name,
             message:      error.message,
-            stackTrace:   ErrorRenderer.parser.parse(error).map(frame => ({
+            stackTrace:   ! error.stack ? [] : ErrorRenderer.parser.parse(error).map(frame => ({
                 declaringClass: '',
                 methodName:     `${ frame.functionName }(${ (frame.args || []).join(', ') })`,
                 fileName:       frame.fileName,
