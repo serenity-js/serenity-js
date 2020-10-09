@@ -56,14 +56,14 @@ describe('Photographer', () => {
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
-                let correlationId: CorrelationId;
+                let activityId: CorrelationId;
 
                 PickEvent.from(recorder.events)
                     .next(ActivityStarts, event => {
-                        correlationId = event.value.correlationId;
+                        activityId = event.value.activityId;
                     })
                     .next(ActivityRelatedArtifactGenerated, event => {
-                        expect(event.details.correlationId).to.equal(correlationId);
+                        expect(event.details.activityId).to.equal(activityId);
                     });
             })));
 
