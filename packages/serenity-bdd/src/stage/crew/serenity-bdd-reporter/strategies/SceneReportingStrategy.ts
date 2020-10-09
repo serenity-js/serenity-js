@@ -36,6 +36,7 @@ export abstract class SceneReportingStrategy {
             .when(SceneDescriptionDetected, (e: SceneDescriptionDetected)   => report.withDescriptionOf(e.description))
             .when(SceneTagged,              (e: SceneTagged)                => report.taggedWith(e.tag))
             .when(TestRunnerDetected,       (e: TestRunnerDetected)         => report.executedBy(e.value))
+            // todo: those should be activity-related artifacts, since they're collected by the actor
             .when(ArtifactGenerated,        (e: ArtifactGenerated)          => match<Artifact, SceneReport>(e.artifact)
                 .when(HTTPRequestResponse,  _ => report.httpRequestCaptured(e.artifact.map(data => data)))
                 .when(TextData,             _ => report.arbitraryDataCaptured(e.name, e.artifact.map(artifactContents => artifactContents.data), e.timestamp))

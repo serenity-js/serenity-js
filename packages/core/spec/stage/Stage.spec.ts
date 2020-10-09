@@ -123,7 +123,7 @@ describe('Stage', () => {
             const details = stage.activityDetailsFor(SomeActivity(), stage.actor('Alice'));
 
             expect(details.name.value).to.equal(`Alice doesn't do much`);
-            expect(details.correlationId.value).to.be.a('string');    // tslint:disable-line:no-unused-expression
+            expect(details.activityId.value).to.be.a('string');    // tslint:disable-line:no-unused-expression
         });
 
         it('allows for the recently ActivityDetails to be retrieved', () => {

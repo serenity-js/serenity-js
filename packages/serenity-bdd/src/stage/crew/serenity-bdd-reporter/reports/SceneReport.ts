@@ -184,7 +184,7 @@ export class SceneReport {
             };
 
             this.activities.last().children.push(activityReport as any);
-            this.activities.push(activityReport, activity.correlationId);
+            this.activities.push(activityReport, activity.activityId);
         });
     }
 
@@ -270,7 +270,7 @@ export class SceneReport {
 
     photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
         return this.withMutated(report => {
-            this.activities.itemByCorrelationId(details.correlationId)?.screenshots.push({
+            this.activities.itemByCorrelationId(details.activityId)?.screenshots.push({
                 screenshot: path.basename(),
                 timeStamp:  timestamp.toMillisecondTimestamp(),
             });
