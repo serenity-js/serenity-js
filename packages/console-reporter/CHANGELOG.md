@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
+
+
+### Bug Fixes
+
+* **core:** improved ErrorSerialiser so that it works with cyclic data structures ([9309302](https://github.com/serenity-js/serenity-js/commit/9309302d0ca7ec4bc27e414813a18c301cf3ef02))
+
+
+
+
+
 # [2.17.0](https://github.com/serenity-js/serenity-js/compare/v2.16.0...v2.17.0) (2020-10-05)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
