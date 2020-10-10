@@ -15,7 +15,7 @@ export class Stage {
     private actorInTheSpotlight: Actor = null;
 
     private currentActivity: CorrelationId = null;
-    private currentScene: CorrelationId = new CorrelationId('unknown-scene');
+    private currentScene: CorrelationId = new CorrelationId('unknown');
 
     constructor(
         private cast: Cast,

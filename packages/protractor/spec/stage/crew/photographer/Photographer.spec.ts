@@ -57,8 +57,8 @@ describe('Photographer', () => {
 
             givenFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
-                new TaskStarts(activityId, pickACard),
-                new TaskFinished(activityId, pickACard, outcome),
+                new TaskStarts(sceneId, activityId, pickACard),
+                new TaskFinished(sceneId, activityId, pickACard, outcome),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(),
             ).areSentTo(photographer);

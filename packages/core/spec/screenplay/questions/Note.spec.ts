@@ -13,13 +13,17 @@ describe('Note', () => {
         expectedHobby = 'DYI',
         NameOfAHobby = () => Question.about(`the name of a hobby`, someActor => Promise.resolve(expectedHobby));
 
+    const
+        sceneId = new CorrelationId('some-scene-id'),
+        activityId = new CorrelationId('some-activity-id');
+
     let stage: sinon.SinonStubbedInstance<Stage>,
         Noah: Actor;
 
     beforeEach(() => {
         stage = sinon.createStubInstance(Stage);
 
-        const activityId = CorrelationId.create();
+        stage.currentSceneId.returns(sceneId);
         stage.assignNewActivityId.returns(activityId);
         stage.currentActivityId.returns(activityId);
 

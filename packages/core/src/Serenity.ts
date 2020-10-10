@@ -184,6 +184,10 @@ export class Serenity {
         return this.stage.assignNewSceneId();
     }
 
+    currentSceneId(): CorrelationId {
+        return this.stage.currentSceneId();
+    }
+
     assignNewActivityId(): CorrelationId {
         return this.stage.assignNewActivityId();
     }

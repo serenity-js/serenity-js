@@ -82,12 +82,14 @@ export class SerenityReporterForJasmine {
          */
         if (result.failedExpectations.length > 1) {
             result.failedExpectations.forEach(failedExpectation => {
-                const activityId = this.serenity.assignNewActivityId();
+                const
+                    sceneId = this.serenity.currentSceneId(),
+                    activityId = this.serenity.assignNewActivityId();
                 const details = new ActivityDetails(new Name('Expectation'));
 
                 this.emit(
-                    new TaskStarts(activityId, details, this.serenity.currentTime()),
-                    new TaskFinished(activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
+                    new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),
+                    new TaskFinished(sceneId, activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
                 );
             });
         }

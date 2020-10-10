@@ -14,7 +14,11 @@ describe('Task', () => {
     beforeEach(() => {
         stage = sinon.createStubInstance(Stage);
 
-        const activityId = CorrelationId.create();
+        const
+            sceneId = new CorrelationId('some-scene-id'),
+            activityId = new CorrelationId('some-activity-id');
+
+        stage.currentSceneId.returns(sceneId);
         stage.assignNewActivityId.returns(activityId);
         stage.currentActivityId.returns(activityId);
     });
