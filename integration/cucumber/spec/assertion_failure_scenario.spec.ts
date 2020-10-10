@@ -41,10 +41,10 @@ describe('@serenity-js/cucumber', function () {
             expect(res.exitCode).to.equal(1);
 
             PickEvent.from(res.events)
-                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('An assertion failure scenario')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An assertion failure scenario')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Given a step that fails with assertion error')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with assertion error')))
                 .next(ActivityFinished,    event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
                     expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);

@@ -19,7 +19,7 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when marked as failed')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when marked as failed')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,       event => {
@@ -38,7 +38,7 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when an error is thrown')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,       event => {
@@ -57,7 +57,7 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when the assertion fails')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,       event => {
@@ -82,22 +82,22 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario can fail with multiple failures')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario can fail with multiple failures')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Jasmine')))
-                    .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Expectation')))
+                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Expectation')))
                     .next(ActivityFinished,    event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                         expect(outcome.error.message).to.equal('Failed: first issue');
                     })
-                    .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Expectation')))
+                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Expectation')))
                     .next(ActivityFinished,    event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                         expect(outcome.error.message).to.equal('Failed: second issue');
                     })
-                    .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Expectation')))
+                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Expectation')))
                     .next(ActivityFinished,    event => {
                         const outcome: ProblemIndication = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
@@ -126,7 +126,7 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,       event => {

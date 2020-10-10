@@ -4,20 +4,11 @@ import * as sinon from 'sinon';
 import { ConfigurationError } from '../../src/errors';
 
 import { InteractionFinished, InteractionStarts } from '../../src/events';
-import { ActivityDetails, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Activity, Actor, See } from '../../src/screenplay';
+import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
+import { Ability, Actor, See } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
-import {
-    AcousticGuitar,
-    Chords,
-    Guitar,
-    MusicSheets,
-    NumberOfGuitarStringsLeft,
-    PlayAChord,
-    PlayAGuitar,
-    PlayASong,
-} from './example-implementation';
+import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
 
 const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.equal(expected);
 
@@ -31,8 +22,9 @@ describe('Actor', () => {
         guitar = sinon.createStubInstance(AcousticGuitar);
         stage = sinon.createStubInstance(Stage);
 
-        // activityDetailsFor is a bit more involved than that, but this is a good approximation
-        stage.activityDetailsFor.callsFake((activity: Activity) => new ActivityDetails(new Name(activity.toString())));
+        const activityId = CorrelationId.create();
+        stage.assignNewActivityId.returns(activityId);
+        stage.currentActivityId.returns(activityId);
     });
 
     function actor(name: string) {
@@ -132,7 +124,10 @@ describe('Actor', () => {
         beforeEach(() => {
             stage = sinon.createStubInstance(Stage);
             stage.currentTime.returns(now);
-            stage.activityDetailsFor.returns(new ActivityDetails(activityName));
+
+            const activityId = CorrelationId.create();
+            stage.assignNewActivityId.returns(activityId);
+            stage.currentActivityId.returns(activityId);
 
             Bob = new Actor('Bob', stage as unknown as Stage);
         });
@@ -150,11 +145,11 @@ describe('Actor', () => {
                     secondEvent = stage.announce.getCall(1).args[0];
 
                 expect(firstEvent).to.be.instanceOf(InteractionStarts);
-                expect(firstEvent).to.have.property('value').property('name').equal(activityName);
+                expect(firstEvent).to.have.property('details').property('name').equal(activityName);
                 expect(firstEvent).to.have.property('timestamp').equal(now);
 
                 expect(secondEvent).to.be.instanceOf(InteractionFinished);
-                expect(secondEvent).to.have.property('value').property('name').equal(activityName);
+                expect(secondEvent).to.have.property('details').property('name').equal(activityName);
                 expect(secondEvent).to.have.property('outcome').equal(new ExecutionSuccessful());
                 expect(secondEvent).to.have.property('timestamp').equal(now);
             }));

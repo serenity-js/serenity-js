@@ -61,7 +61,7 @@ export abstract class PhotoTakingStrategy {
                     photoName = this.combinedNameFrom(...context, nameSuffix);
 
                 stage.announce(new ActivityRelatedArtifactGenerated(
-                    event.value,
+                    event.activityId,
                     photoName,
                     Photo.fromBase64(screenshot),
                 ));

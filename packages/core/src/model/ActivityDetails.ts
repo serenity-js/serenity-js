@@ -7,14 +7,18 @@ export class ActivityDetails extends TinyType {
     static fromJSON(o: JSONObject) {
         return new ActivityDetails(
             Name.fromJSON(o.name as string),
-            CorrelationId.fromJSON(o.activityId as string),
         );
     }
 
     constructor(
         public readonly name: Name,
-        public readonly activityId: CorrelationId = CorrelationId.create(),
     ) {
         super();
+    }
+
+    toJSON() {
+        return {
+            name: this.name.value,
+        }
     }
 }

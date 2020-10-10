@@ -60,10 +60,10 @@ describe('Photographer', () => {
 
                 PickEvent.from(recorder.events)
                     .next(ActivityStarts, event => {
-                        activityId = event.value.activityId;
+                        activityId = event.activityId;
                     })
                     .next(ActivityRelatedArtifactGenerated, event => {
-                        expect(event.details.activityId).to.equal(activityId);
+                        expect(event.activityId).to.equal(activityId);
                     });
             })));
 

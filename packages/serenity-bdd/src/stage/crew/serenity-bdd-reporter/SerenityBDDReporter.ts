@@ -95,8 +95,8 @@ export class SerenityBDDReporter implements StageCrewMember {
                 this.use(SceneSequenceReportingStrategy, e.value);
             })
             .when(SceneStarts, (e: SceneStarts) => {
-                if (this.shouldChangeStrategyFor(e.value)) {
-                    this.use(SingleSceneReportingStrategy, e.value);
+                if (this.shouldChangeStrategyFor(e.details)) {
+                    this.use(SingleSceneReportingStrategy, e.details);
                 }
 
                 const report = this.fetchOrCreateNewReport();

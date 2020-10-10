@@ -17,12 +17,12 @@ export class SingleSceneReportingStrategy extends SceneReportingStrategy {
     handle(event: DomainEvent, report: SceneReport): SceneReport {
         return match<DomainEvent, SceneReport>(event)
             .when(SceneStarts,      (e: SceneStarts)      => report.executionStartedAt(e.timestamp))
-            .when(ActivityStarts,   (e: ActivityStarts)   => report.activityStarted(e.value, e.timestamp))
-            .when(ActivityFinished, (e: ActivityFinished) => report.activityFinished(e.value, e.outcome, e.timestamp))
+            .when(ActivityStarts,   (e: ActivityStarts)   => report.activityStarted(e.activityId, e.details.name, e.timestamp))
+            .when(ActivityFinished, (e: ActivityFinished) => report.activityFinished(e.activityId, e.outcome, e.timestamp))
             .when(SceneFinished,    (e: SceneFinished)    =>
                 report
                     .executionFinishedAt(e.timestamp)
-                    .executionFinishedWith(e.value, e.outcome)
+                    .executionFinishedWith(e.details, e.outcome)
                     .markedAsCompleted()
             )
             .else(e => super.handle(e, report));

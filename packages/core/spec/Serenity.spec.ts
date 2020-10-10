@@ -1,6 +1,8 @@
+import 'mocha';
+
 import sinon = require('sinon');
 import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } from '../src/events';
-import { Name } from '../src/model';
+import { CorrelationId, Name } from '../src/model';
 import { Actor, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';
 import { Cast, Clock, Stage, StageCrewMember } from '../src/stage';
@@ -61,10 +63,10 @@ describe('Serenity', () => {
             expect(listener.events).to.have.lengthOf(2);
 
             expect(listener.events[0]).to.be.instanceOf(ActivityStarts);
-            expect(listener.events[0].value.name.value).to.equal(`Joe performs some interaction`);
+            expect(listener.events[0].details.name.value).to.equal(`Joe performs some interaction`);
 
             expect(listener.events[1]).to.be.instanceOf(ActivityFinished);
-            expect(listener.events[1].value.name.value).to.equal(`Joe performs some interaction`);
+            expect(listener.events[1].details.name.value).to.equal(`Joe performs some interaction`);
         });
     });
 
@@ -78,7 +80,7 @@ describe('Serenity', () => {
 
         serenity.configure({ crew: [ listener ] });
 
-        serenity.announce(new TestRunnerDetected(testRunnerName, serenity.currentTime()));
+        serenity.announce(new TestRunnerDetected(CorrelationId.create(), testRunnerName, serenity.currentTime()));
 
         return serenity.waitForNextCue().
             then(() => {
