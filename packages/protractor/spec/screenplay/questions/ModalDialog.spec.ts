@@ -230,8 +230,8 @@ describe('ModalDialog,', function () {
                     .next(AsyncOperationFailed, ({ error }: AsyncOperationFailed) => {
                         expect(error.name).to.equal('UnexpectedAlertOpenError');
                     })
-                    .next(InteractionFinished, ({ value }: InteractionFinished) => {
-                        expect(value.name).to.equal(new Name('Nick accepts the modal dialog window'));
+                    .next(InteractionFinished, ({ details }: InteractionFinished) => {
+                        expect(details.name).to.equal(new Name('Nick accepts the modal dialog window'));
                     })
             }),
         );

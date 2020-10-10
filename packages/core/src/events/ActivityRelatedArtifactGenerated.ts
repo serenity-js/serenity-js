@@ -1,12 +1,12 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { ActivityDetails, Artifact, Name, SerialisedArtifact, Timestamp } from '../model';
+import { Artifact, CorrelationId, Name, SerialisedArtifact, Timestamp } from '../model';
 import { ArtifactGenerated } from './ArtifactGenerated';
 
 export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     static fromJSON(o: JSONObject) {
         return new ActivityRelatedArtifactGenerated(
-            ActivityDetails.fromJSON(o.details as JSONObject),
+            CorrelationId.fromJSON(o.activityId as string),
             Name.fromJSON(o.name as string),
             Artifact.fromJSON(o.artifact as SerialisedArtifact),
             Timestamp.fromJSON(o.timestamp as string),
@@ -14,12 +14,12 @@ export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     }
 
     constructor(
-        public readonly details: ActivityDetails,
+        public readonly activityId: CorrelationId,
         name: Name,
         artifact: Artifact,
         timestamp?: Timestamp,
     ) {
         super(name, artifact, timestamp);
-        ensure('activity details', details, isDefined());
+        ensure('activityId', activityId, isDefined());
     }
 }

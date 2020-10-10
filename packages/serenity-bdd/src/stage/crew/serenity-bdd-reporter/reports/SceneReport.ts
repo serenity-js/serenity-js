@@ -172,11 +172,11 @@ export class SceneReport {
         });
     }
 
-    activityStarted(activity: ActivityDetails, time: Timestamp) {
+    activityStarted(id: CorrelationId, name: Name, time: Timestamp) {
         return this.withMutated(report => {
             const activityReport: Partial<TestStep> = {
                 number:      ++this.stepNumber,
-                description: activity.name.value,
+                description: name.value,
                 startTime:   time.toMillisecondTimestamp(),
                 children:    [],
                 reportData:  [],
@@ -184,11 +184,11 @@ export class SceneReport {
             };
 
             this.activities.last().children.push(activityReport as any);
-            this.activities.push(activityReport, activity.activityId);
+            this.activities.push(activityReport, id);
         });
     }
 
-    activityFinished(value: ActivityDetails, outcome: Outcome, time: Timestamp) {
+    activityFinished(id: CorrelationId, outcome: Outcome, time: Timestamp) {
         return this.withMutated(report => this.mapOutcome(outcome, (result: string, error?: ErrorDetails) => {
 
             const activityReport = this.activities.pop();
@@ -268,9 +268,9 @@ export class SceneReport {
         });
     }
 
-    photoTaken(details: ActivityDetails, path: Path, timestamp: Timestamp) {
+    photoTaken(activityId: CorrelationId, path: Path, timestamp: Timestamp) {
         return this.withMutated(report => {
-            this.activities.itemByCorrelationId(details.activityId)?.screenshots.push({
+            this.activities.itemByCorrelationId(activityId)?.screenshots.push({
                 screenshot: path.basename(),
                 timeStamp:  timestamp.toMillisecondTimestamp(),
             });

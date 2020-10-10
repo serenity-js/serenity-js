@@ -59,7 +59,7 @@ export abstract class SceneReportingStrategy {
                 )
                 .else(_ => report))
             .when(ActivityRelatedArtifactArchived, (e: ActivityRelatedArtifactArchived) => match<ArtifactType, SceneReport>(e.type)
-                .when(Photo,                _ => report.photoTaken(e.details, e.path, e.timestamp))
+                .when(Photo,                _ => report.photoTaken(e.activityId, e.path, e.timestamp))
                 .else(_ => report))
             .else(_ => report);
     }

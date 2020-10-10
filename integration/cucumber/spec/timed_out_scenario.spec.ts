@@ -40,10 +40,10 @@ describe('@serenity-js/cucumber', function () {
             expect(res.exitCode).to.equal(1);
 
             PickEvent.from(res.events)
-                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A timed out scenario')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A timed out scenario')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a timed out scenario')))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Given a step that times out')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that times out')))
                 .next(ActivityFinished,    event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);

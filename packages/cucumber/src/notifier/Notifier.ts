@@ -15,7 +15,7 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { ActivityDetails, CapabilityTag, Category, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 
 import { Serenity } from '@serenity-js/core/lib/Serenity';
 import { Feature, Scenario, ScenarioOutline, Step } from '../gherkin';
@@ -29,21 +29,24 @@ function notEmpty<T>(list: T[]) {
  * @private
  */
 export class Notifier {
+    private currentSceneId: CorrelationId;
     private currentScenario: ScenarioDetails;
+    private currentStepActivityId: CorrelationId;
 
     constructor(private readonly serenity: Serenity) {
     }
 
-    outlineDetected(scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
+    outlineDetected(sceneId: CorrelationId, scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
         const
             outlineDetails  = this.detailsOf(outline, feature),
             scenarioDetails = this.detailsOf(scenario, feature),
             template        = outline.steps.map(step => step.name.value).join('\n');
 
         this.emit(...notEmpty([
-            new SceneSequenceDetected(outlineDetails, this.serenity.currentTime()),
-            new SceneTemplateDetected(new Description(template), this.serenity.currentTime()),
+            new SceneSequenceDetected(sceneId, outlineDetails, this.serenity.currentTime()),
+            new SceneTemplateDetected(sceneId, new Description(template), this.serenity.currentTime()),
             new SceneParametersDetected(
+                sceneId,
                 scenarioDetails,
                 outline.parameters[ scenario.location.line ],
                 this.serenity.currentTime(),
@@ -51,28 +54,33 @@ export class Notifier {
         ]));
     }
 
-    scenarioStarts(scenario: Scenario, feature: Feature): void {
+    scenarioStarts(sceneId: CorrelationId, scenario: Scenario, feature: Feature): void {
+        this.currentSceneId = sceneId;
+
         const details = this.detailsOf(scenario, feature);
 
         this.currentScenario = details;
 
         this.emit(...notEmpty([
-            new SceneStarts(details, this.serenity.currentTime()),
-            feature.description && new FeatureNarrativeDetected(feature.description, this.serenity.currentTime()),
-            new TestRunnerDetected(new Name('Cucumber'), this.serenity.currentTime()),
-            ...this.scenarioHierarchyTagsFor(feature).map(tag => new SceneTagged(details, tag, this.serenity.currentTime())),
-            !! scenario.description && new SceneDescriptionDetected(scenario.description, this.serenity.currentTime()),
-            ...scenario.tags.map(tag => new SceneTagged(details, tag, this.serenity.currentTime())),
+            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
+            feature.description && new FeatureNarrativeDetected(this.currentSceneId, feature.description, this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Cucumber'), this.serenity.currentTime()),
+            ...this.scenarioHierarchyTagsFor(feature).map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+            !! scenario.description && new SceneDescriptionDetected(this.currentSceneId, scenario.description, this.serenity.currentTime()),
+            ...scenario.tags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
         ]));
     }
 
     stepStarts(step: Step): void {
-        this.emit(new TaskStarts(new ActivityDetails(step.name), this.serenity.currentTime()));
+        this.currentStepActivityId = this.serenity.assignNewActivityId();
+
+        this.emit(new TaskStarts(this.currentStepActivityId, new ActivityDetails(step.name), this.serenity.currentTime()));
     }
 
     stepFinished(step: Step, outcome: Outcome): void {
         this.emit(
             new TaskFinished(
+                this.currentStepActivityId,
                 new ActivityDetails(step.name),
                 outcome,
                 this.serenity.currentTime(),
@@ -93,6 +101,7 @@ export class Notifier {
 
         this.emit(
             new SceneFinished(
+                this.currentSceneId,
                 details,
                 outcome,
                 this.serenity.currentTime(),
@@ -115,6 +124,7 @@ export class Notifier {
     private emitSceneFinishes(details: ScenarioDetails) {
         this.emit(
             new SceneFinishes(
+                this.currentSceneId,
                 details,
                 this.serenity.currentTime(),
             ),

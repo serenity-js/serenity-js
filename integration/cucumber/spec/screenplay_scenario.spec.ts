@@ -40,27 +40,27 @@ describe('@serenity-js/cucumber', function () {
             expect(res.exitCode).to.equal(0);
 
             PickEvent.from(res.events)
-                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A screenplay scenario')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario')))
                 .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))
                 // before step
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Lara makes an arrow')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Lara makes an arrow')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara makes an arrow')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara makes an arrow')))
                 // when step
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('When Lara shoots an arrow')))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Lara fits an arrow to the bowstring')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Lara fits an arrow to the bowstring')))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Lara draws the bow')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Lara draws the bow')))
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Lara releases the bowstring')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Lara releases the bowstring')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('When Lara shoots an arrow')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('When Lara shoots an arrow')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara fits an arrow to the bowstring')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara fits an arrow to the bowstring')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara draws the bow')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara draws the bow')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara releases the bowstring')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara releases the bowstring')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('When Lara shoots an arrow')))
                 // then step
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Then she should hit a target')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Then she should hit a target')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Then she should hit a target')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Then she should hit a target')))
                 // after
-                .next(ActivityStarts,      event => expect(event.value.name).to.equal(new Name('Lara retrieves the arrow from the target')))
-                .next(ActivityFinished,    event => expect(event.value.name).to.equal(new Name('Lara retrieves the arrow from the target')))
+                .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))
+                .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
             ;
         }));

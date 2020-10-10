@@ -108,7 +108,7 @@ export class ArtifactArchiver implements StageCrewMember {
         return (absolutePath: Path) => {
             if (evt instanceof ActivityRelatedArtifactGenerated) {
                 this.stage.announce(new ActivityRelatedArtifactArchived(
-                    evt.details,
+                    evt.activityId,
                     evt.name,
                     evt.artifact.constructor as ArtifactType,
                     relativePathToArtifact,

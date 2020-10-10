@@ -19,7 +19,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when an error is thrown')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {
@@ -38,7 +38,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when a non-error is passed to done()')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when a non-error is passed to done()')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {
@@ -57,7 +57,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when an error is passed to done()')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is passed to done()')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {
@@ -77,7 +77,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario fails when the assertion fails')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {
@@ -99,7 +99,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario is compromised')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario is compromised')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {
@@ -121,7 +121,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
                     .next(SceneFinished,       event => {

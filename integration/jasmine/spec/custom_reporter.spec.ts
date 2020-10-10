@@ -29,7 +29,7 @@ describe('@serenity-js/jasmine', function () {
 
                 PickEvent.from(res.events)
                     .next(TestSuiteStarts,      event => expect(event.value.name).to.equal(new Name(`a suite`)))
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`a spec`)))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`a spec`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag('a suite')))
                     .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,        event => {
@@ -61,19 +61,19 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`pending suite will be pending`)))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`pending suite will be pending`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag(`focused suite, excludes other suites and specs`)))
                     .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ImplementationPending))
 
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`pending spec`)))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`pending spec`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag(`focused suite, excludes other suites and specs`)))
                     .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ImplementationPending))
 
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`spec`)))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`spec`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag(`focused suite, excludes other suites and specs`)))
                     .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ExecutionSuccessful))
 
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`will be excluded`)))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`will be excluded`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag(`excluded suite`)))
                     .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ExecutionSkipped))
                 ;

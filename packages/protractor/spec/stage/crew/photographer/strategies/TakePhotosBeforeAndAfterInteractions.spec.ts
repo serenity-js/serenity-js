@@ -92,8 +92,8 @@ describe('Photographer', function () {
                     cid2: CorrelationId;
 
                 PickEvent.from(recorder.events)
-                    .next(ActivityStarts, event => { cid1 = event.value.activityId; })
-                    .next(ActivityStarts, event => { cid2 = event.value.activityId; });
+                    .next(ActivityStarts, event => { cid1 = event.activityId; })
+                    .next(ActivityStarts, event => { cid2 = event.activityId; });
 
                 const
                     firstActivityEvents  = recorder.events.filter(withCorrelationIdOf(cid1)),
@@ -147,9 +147,9 @@ describe('Photographer', function () {
 
         function withCorrelationIdOf(cid: CorrelationId) {
             return (event: DomainEvent) => {
-                const details = (event as ActivityRelatedArtifactGenerated).details || (event as ActivityStarts | ActivityFinished).value;
+                const activityId = (event as ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
 
-                return details && cid.equals(details.activityId);
+                return activityId && cid.equals(activityId);
             };
         }
     });

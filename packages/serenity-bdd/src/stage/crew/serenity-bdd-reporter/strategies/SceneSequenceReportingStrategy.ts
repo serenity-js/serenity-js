@@ -21,7 +21,7 @@ export class SceneSequenceReportingStrategy extends SceneReportingStrategy {
         return match<DomainEvent, SceneReport>(event)
             .when(SceneStarts,                      (e: SceneStarts) => {
                 return report
-                    .activityStarted(this.asActivity(e.value), e.timestamp)
+                    .activityStarted(e.sceneId, e.details.name, e.timestamp)
                     .executionStartedAt(e.timestamp);
             })
             .when(SceneTemplateDetected,    (e: SceneTemplateDetected) => {
@@ -31,21 +31,17 @@ export class SceneSequenceReportingStrategy extends SceneReportingStrategy {
                 return report.withScenarioParametersOf(e.scenario, e.value);
             })
             .when(ActivityStarts,                   (e: ActivityStarts) => {
-                return report.activityStarted(e.value, e.timestamp);
+                return report.activityStarted(e.activityId, e.details.name, e.timestamp);
             })
             .when(ActivityFinished,                 (e: ActivityFinished) => {
-                return report.activityFinished(e.value, e.outcome, e.timestamp);
+                return report.activityFinished(e.activityId, e.outcome, e.timestamp);
             })
             .when(SceneFinished,                    (e: SceneFinished) => {
                 return report
-                    .activityFinished(this.asActivity(e.value), e.outcome, e.timestamp)
-                    .executionFinishedWith(e.value, e.outcome)
+                    .activityFinished(e.sceneId, e.outcome, e.timestamp)
+                    .executionFinishedWith(e.details, e.outcome)
                     .executionFinishedAt(e.timestamp);
             })
             .else(e => super.handle(e, report));
-    }
-
-    private asActivity(scenario: ScenarioDetails): ActivityDetails {
-        return new ActivityDetails(scenario.name);
     }
 }
