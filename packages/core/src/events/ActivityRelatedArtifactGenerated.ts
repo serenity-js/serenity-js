@@ -6,6 +6,7 @@ import { ArtifactGenerated } from './ArtifactGenerated';
 export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     static fromJSON(o: JSONObject) {
         return new ActivityRelatedArtifactGenerated(
+            CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),
             Name.fromJSON(o.name as string),
             Artifact.fromJSON(o.artifact as SerialisedArtifact),
@@ -14,12 +15,14 @@ export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     }
 
     constructor(
+        public readonly sceneId: CorrelationId,
         public readonly activityId: CorrelationId,
         name: Name,
         artifact: Artifact,
         timestamp?: Timestamp,
     ) {
         super(name, artifact, timestamp);
+        ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }
 }

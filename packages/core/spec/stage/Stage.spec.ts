@@ -131,7 +131,7 @@ describe('Stage', () => {
 
             const retrieved = stage.currentSceneId();
 
-            expect(retrieved.value).to.equal('unknown-scene');
+            expect(retrieved.value).to.equal('unknown');
         });
 
         it('assigns activityIds', () => {

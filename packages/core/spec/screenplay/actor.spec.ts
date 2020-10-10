@@ -14,6 +14,10 @@ const equals = (expected: number) => (actual: PromiseLike<number>) => expect(act
 
 describe('Actor', () => {
 
+    const
+        sceneId = new CorrelationId('some-scene-id'),
+        activityId = new CorrelationId('some-activity-id');
+
     let
         guitar: sinon.SinonStubbedInstance<Guitar>,
         stage: sinon.SinonStubbedInstance<Stage>;
@@ -22,8 +26,8 @@ describe('Actor', () => {
         guitar = sinon.createStubInstance(AcousticGuitar);
         stage = sinon.createStubInstance(Stage);
 
-        const activityId = CorrelationId.create();
         stage.assignNewActivityId.returns(activityId);
+        stage.currentSceneId.returns(sceneId);
         stage.currentActivityId.returns(activityId);
     });
 
@@ -48,7 +52,7 @@ describe('Actor', () => {
     });
 
     /** @test {Actor} */
-    it('has Abilities allowing them to perform Activities and interact with a given Interface of the system under test', () =>
+    it('has Abilities allowing them to perform Activities and interact with a given interface of the system under test', () =>
 
         actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
             PlayAChord.of(Chords.AMajor),
@@ -125,7 +129,7 @@ describe('Actor', () => {
             stage = sinon.createStubInstance(Stage);
             stage.currentTime.returns(now);
 
-            const activityId = CorrelationId.create();
+            stage.currentSceneId.returns(sceneId);
             stage.assignNewActivityId.returns(activityId);
             stage.currentActivityId.returns(activityId);
 

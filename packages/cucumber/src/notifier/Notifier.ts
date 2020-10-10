@@ -74,12 +74,20 @@ export class Notifier {
     stepStarts(step: Step): void {
         this.currentStepActivityId = this.serenity.assignNewActivityId();
 
-        this.emit(new TaskStarts(this.currentStepActivityId, new ActivityDetails(step.name), this.serenity.currentTime()));
+        this.emit(
+            new TaskStarts(
+                this.currentSceneId,
+                this.currentStepActivityId,
+                new ActivityDetails(step.name),
+                this.serenity.currentTime()
+            ),
+        );
     }
 
     stepFinished(step: Step, outcome: Outcome): void {
         this.emit(
             new TaskFinished(
+                this.currentSceneId,
                 this.currentStepActivityId,
                 new ActivityDetails(step.name),
                 outcome,

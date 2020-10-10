@@ -134,6 +134,7 @@ export class Actor implements
      */
     collect(artifact: Artifact, name?: string | Name) {
         this.stage.announce(new ActivityRelatedArtifactGenerated(
+            this.stage.currentSceneId(),
             this.stage.currentActivityId(),
             this.nameFrom(name || new Name(artifact.constructor.name)),
             artifact,

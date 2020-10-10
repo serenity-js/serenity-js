@@ -7,6 +7,7 @@ import { ArtifactArchived } from './ArtifactArchived';
 export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     static fromJSON<E>(o: JSONObject) {
         return new ActivityRelatedArtifactArchived(
+            CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),
             Name.fromJSON(o.name as string),
             Artifact.ofType(o.type as string),
@@ -16,6 +17,7 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     }
 
     constructor(
+        public readonly sceneId: CorrelationId,
         public readonly activityId: CorrelationId,
         name: Name,
         type: ArtifactType,
@@ -23,11 +25,13 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
         timestamp?: Timestamp,
     ) {
         super(name, type, path, timestamp);
+        ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }
 
     toJSON(): JSONObject {
         return {
+            sceneId: this.sceneId.toJSON(),
             activityId: this.activityId.toJSON(),
             name: this.name.toJSON(),
             type: this.type.name,
