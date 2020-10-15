@@ -15,13 +15,13 @@ export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     }
 
     constructor(
-        public readonly sceneId: CorrelationId,
+        sceneId: CorrelationId,
         public readonly activityId: CorrelationId,
         name: Name,
         artifact: Artifact,
         timestamp?: Timestamp,
     ) {
-        super(name, artifact, timestamp);
+        super(sceneId, name, artifact, timestamp);
         ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }

@@ -1,10 +1,10 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { Name, ScenarioDetails, TestReport } from '@serenity-js/core/lib/model';
+import { CorrelationId, Name, ScenarioDetails, TestReport } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
 import { Current } from './Current';
-import { SceneReport, SceneReports } from './reports';
+import { CategorisedEvents, SceneReport, SceneReports } from './reports';
 import { SerenityBDDReport } from './SerenityBDDJsonSchema';
 import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneReportingStrategy } from './strategies';
 
@@ -50,9 +50,11 @@ import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneRepo
  * @implements {@serenity-js/core/lib/stage~StageCrewMember}
  */
 export class SerenityBDDReporter implements StageCrewMember {
-    private readonly reports: SceneReports = new SceneReports();
-    private currentScenario = new Current<ScenarioDetails>();
-    private currentStrategy = new Current<SceneReportingStrategy>();
+    private readonly categorisedEvents = new CategorisedEvents<{ sceneId: CorrelationId }>(event => event.sceneId.value);
+
+    private readonly reports: SceneReports = new SceneReports();        // todo: remove?
+    private currentScenario = new Current<ScenarioDetails>();           // todo: remove?
+    private currentStrategy = new Current<SceneReportingStrategy>();    // todo: replace in favour of strategy per scenario
 
     /**
      * A queue for domain events that took place before the SceneStarts event,
@@ -90,6 +92,22 @@ export class SerenityBDDReporter implements StageCrewMember {
      * @returns {void}
      */
     notifyOf (event: DomainEvent): void {
+
+        if (this.isSceneSpecific(event)) {
+            this.categorisedEvents.add(event);
+        }
+
+        if (event instanceof TestRunFinishes) {
+            this.categorisedEvents.forEach(category => {
+                // todo - create new scene report
+                category.forEach(e => this.process(e));
+            });
+
+            this.reports.map(report => this.broadcast(report.toJSON()))
+        }
+    }
+
+    private process(event: DomainEvent): void {
         return match<DomainEvent, void>(event)
             .when(SceneSequenceDetected, (e: SceneSequenceDetected) => {
                 this.use(SceneSequenceReportingStrategy, e.value);
@@ -105,9 +123,6 @@ export class SerenityBDDReporter implements StageCrewMember {
 
                 this.drainAnyQueuedEventsAndRecordIn(report);
             })
-            .when(TestRunFinishes, _ => {
-                this.reports.map(report => this.broadcast(report.toJSON()));
-            })
             .else(e => {
                 if (this.currentStrategy.isSet()) {
                     this.reports.saveInProgress(this.currentStrategy.value.handle(e, this.reports.for(this.currentScenario.value)));
@@ -115,6 +130,10 @@ export class SerenityBDDReporter implements StageCrewMember {
                     this.eventQueue.push(e);
                 }
             });
+    }
+
+    private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
+        return event.hasOwnProperty('sceneId');
     }
 
     private fetchOrCreateNewReport() {
@@ -149,6 +168,7 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     private broadcast(report: Partial<SerenityBDDReport>) {
         this.stage.announce(new ArtifactGenerated(
+            new CorrelationId('fake scene id for now'),
             new Name(report.name),
             TestReport.fromJSON(report),
         ));
