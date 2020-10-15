@@ -17,14 +17,14 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     }
 
     constructor(
-        public readonly sceneId: CorrelationId,
+        sceneId: CorrelationId,
         public readonly activityId: CorrelationId,
         name: Name,
         type: ArtifactType,
         path: Path,
         timestamp?: Timestamp,
     ) {
-        super(name, type, path, timestamp);
+        super(sceneId, name, type, path, timestamp);
         ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }

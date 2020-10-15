@@ -44,11 +44,11 @@ describe('ProtractorReporter', () => {
     });
 
     /** @test {ProtractorReporter} */
-    it('ignores domain events Protractor doesn\'t care about', () => {
+    it(`ignores domain events Protractor doesn't care about`, () => {
 
         const artifact = TextData.fromJSON({ contentType: 'text/plain', data: 'one,two,three'});
 
-        expect(reporter.notifyOf(new ArtifactGenerated(new Name('report.csv'), artifact))).to.be.undefined;  // tslint:disable-line:no-unused-expression
+        expect(reporter.notifyOf(new ArtifactGenerated(CorrelationId.create(), new Name('report.csv'), artifact))).to.be.undefined;  // tslint:disable-line:no-unused-expression
 
         expect(reporter.report()).to.deep.equal({
             failedCount: 0,

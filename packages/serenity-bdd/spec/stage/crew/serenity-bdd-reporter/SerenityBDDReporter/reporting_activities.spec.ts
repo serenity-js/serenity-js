@@ -188,15 +188,15 @@ describe('SerenityBDDReporter', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
-                        new ArtifactGenerated(new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
-                        new ArtifactArchived(new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),
+                        new ArtifactGenerated(sceneId, new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
+                        new ArtifactArchived(sceneId, new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
                     new TaskStarts(sceneId, activityIds[1], makePayment),
-                        new ArtifactGenerated(new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
-                        new ArtifactArchived(new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
-                        new ArtifactGenerated(new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
+                        new ArtifactGenerated(sceneId, new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
+                        new ArtifactArchived(sceneId, new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
+                        new ArtifactGenerated(sceneId, new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
                     new TaskFinished(sceneId, activityIds[1], makePayment, new ExecutionSuccessful()),
-                new SceneFinished(activityIds[1], defaultCardScenario, new ExecutionSuccessful()),
+                new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
 

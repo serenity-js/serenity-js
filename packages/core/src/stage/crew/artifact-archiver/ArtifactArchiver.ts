@@ -116,6 +116,7 @@ export class ArtifactArchiver implements StageCrewMember {
                 ));
             } else if (evt instanceof ArtifactGenerated) {
                 this.stage.announce(new ArtifactArchived(
+                    evt.sceneId,
                     evt.name,
                     evt.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
