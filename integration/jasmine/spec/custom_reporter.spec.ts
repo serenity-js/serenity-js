@@ -28,10 +28,10 @@ describe('@serenity-js/jasmine', function () {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
-                    .next(TestSuiteStarts,      event => expect(event.value.name).to.equal(new Name(`a suite`)))
+                    .next(TestSuiteStarts,      event => expect(event.details.name).to.equal(new Name(`a suite`)))
                     .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`a spec`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag('a suite')))
-                    .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Jasmine')))
+                    .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished,        event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -40,7 +40,7 @@ describe('@serenity-js/jasmine', function () {
                         expect(outcome.error.message).to.equal('Failed: spec');                             // there's no message when the spec body is missing
                     })
                     .next(TestSuiteFinished,    event => {
-                        expect(event.value.name).to.equal(new Name(`a suite`));
+                        expect(event.details.name).to.equal(new Name(`a suite`));
                         expect(event.outcome).to.be.instanceof(ExecutionFailedWithError);
                         expect((event.outcome as ExecutionFailedWithError).error.message).to.equal('Failed: suite beforeAll');
                     })

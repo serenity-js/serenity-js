@@ -20,7 +20,7 @@ describe('@serenity-js/jasmine', function () {
 
                 PickEvent.from(res.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending when it hasn't been implemented yet`)))
-                    .next(TestRunnerDetected, event => expect(event.value).to.equal(new Name('Jasmine')))
+                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ImplementationPending);
@@ -39,7 +39,7 @@ describe('@serenity-js/jasmine', function () {
 
                 PickEvent.from(res.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
-                    .next(TestRunnerDetected, event => expect(event.value).to.equal(new Name('Jasmine')))
+                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ImplementationPending);
@@ -58,7 +58,7 @@ describe('@serenity-js/jasmine', function () {
 
                 PickEvent.from(res.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
-                    .next(TestRunnerDetected, event => expect(event.value).to.equal(new Name('Jasmine')))
+                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ImplementationPending);
@@ -77,7 +77,7 @@ describe('@serenity-js/jasmine', function () {
 
                 PickEvent.from(res.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
-                    .next(TestRunnerDetected, event => expect(event.value).to.equal(new Name('Jasmine')))
+                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
                         const outcome = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ImplementationPending);

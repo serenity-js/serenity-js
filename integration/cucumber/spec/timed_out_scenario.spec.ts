@@ -41,7 +41,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A timed out scenario')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a timed out scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that times out')))
                 .next(ActivityFinished,    event => {

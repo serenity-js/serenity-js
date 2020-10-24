@@ -61,14 +61,6 @@ describe('SerenityBDDReporter', () => {
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {
         given(reporter).isNotifiedOfFollowingEvents(
@@ -133,15 +125,6 @@ describe('SerenityBDDReporter', () => {
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
@@ -194,15 +177,6 @@ describe('SerenityBDDReporter', () => {
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('ensures that context and tags are not duplicated despite having multiple scenarios in a sequence', () => {
         given(reporter).isNotifiedOfFollowingEvents(

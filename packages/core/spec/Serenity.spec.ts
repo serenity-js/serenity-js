@@ -87,7 +87,7 @@ describe('Serenity', () => {
                 expect(listener.events).to.have.lengthOf(1);
 
                 expect(listener.events[0]).to.be.instanceOf(TestRunnerDetected);
-                expect(listener.events[0].value).to.equal(testRunnerName);
+                expect(listener.events[0].name).to.equal(testRunnerName);
             });
     });
 

@@ -54,7 +54,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps marked as pending')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that's marked as pending`)))
                 .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
@@ -98,7 +98,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                 .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
@@ -134,7 +134,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
@@ -167,7 +167,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))

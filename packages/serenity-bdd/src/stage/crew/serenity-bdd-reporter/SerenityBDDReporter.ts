@@ -1,12 +1,8 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { CorrelationId, Name, ScenarioDetails, TestReport } from '@serenity-js/core/lib/model';
-import { match } from 'tiny-types';
+import { ArtifactGenerated, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { CorrelationId } from '@serenity-js/core/lib/model';
 
-import { Current } from './Current';
-import { CategorisedEvents, SceneReport, SceneReports } from './reports';
-import { SerenityBDDReport } from './SerenityBDDJsonSchema';
-import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneReportingStrategy } from './strategies';
+import { EventQueueProcessors, EventQueues } from './processors';
 
 /**
  * @desc
@@ -50,11 +46,8 @@ import { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneRepo
  * @implements {@serenity-js/core/lib/stage~StageCrewMember}
  */
 export class SerenityBDDReporter implements StageCrewMember {
-    private readonly categorisedEvents = new CategorisedEvents<{ sceneId: CorrelationId }>(event => event.sceneId.value);
-
-    private readonly reports: SceneReports = new SceneReports();        // todo: remove?
-    private currentScenario = new Current<ScenarioDetails>();           // todo: remove?
-    private currentStrategy = new Current<SceneReportingStrategy>();    // todo: replace in favour of strategy per scenario
+    private readonly eventQueues = new EventQueues();
+    private readonly processors = new EventQueueProcessors();
 
     /**
      * A queue for domain events that took place before the SceneStarts event,
@@ -75,8 +68,11 @@ export class SerenityBDDReporter implements StageCrewMember {
      *
      * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
      *
-     * @param {@serenity-js/core/lib/stage~Stage} stage - An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to
-     * @returns {@serenity-js/core/lib/stage~StageCrewMember} - A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
+     * @param {@serenity-js/core/lib/stage~Stage} stage
+     *  An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to
+     *
+     * @returns {@serenity-js/core/lib/stage~StageCrewMember}
+     *  A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember {
         return new SerenityBDDReporter(stage);
@@ -94,83 +90,25 @@ export class SerenityBDDReporter implements StageCrewMember {
     notifyOf (event: DomainEvent): void {
 
         if (this.isSceneSpecific(event)) {
-            this.categorisedEvents.add(event);
+            this.eventQueues.enqueue(event);
         }
 
-        if (event instanceof TestRunFinishes) {
-            this.categorisedEvents.forEach(category => {
-                // todo - create new scene report
-                category.forEach(e => this.process(e));
-            });
+        else if (event instanceof TestRunFinishes) {
 
-            this.reports.map(report => this.broadcast(report.toJSON()))
+            this.processors
+                .process(this.eventQueues)
+                .forEach(result => {
+                    this.stage.announce(new ArtifactGenerated(
+                        result.sceneId,
+                        result.name,
+                        result.artifact,
+                        this.stage.currentTime(),
+                    ));
+                });
         }
-    }
-
-    private process(event: DomainEvent): void {
-        return match<DomainEvent, void>(event)
-            .when(SceneSequenceDetected, (e: SceneSequenceDetected) => {
-                this.use(SceneSequenceReportingStrategy, e.value);
-            })
-            .when(SceneStarts, (e: SceneStarts) => {
-                if (this.shouldChangeStrategyFor(e.details)) {
-                    this.use(SingleSceneReportingStrategy, e.details);
-                }
-
-                const report = this.fetchOrCreateNewReport();
-
-                this.reports.saveInProgress(this.currentStrategy.value.handle(e, report));
-
-                this.drainAnyQueuedEventsAndRecordIn(report);
-            })
-            .else(e => {
-                if (this.currentStrategy.isSet()) {
-                    this.reports.saveInProgress(this.currentStrategy.value.handle(e, this.reports.for(this.currentScenario.value)));
-                } else {
-                    this.eventQueue.push(e);
-                }
-            });
     }
 
     private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
         return event.hasOwnProperty('sceneId');
-    }
-
-    private fetchOrCreateNewReport() {
-        const report = this.reports.for(this.currentScenario.value);
-
-        if (! report.isCompleted()) {
-            return report;
-        }
-
-        this.reports.saveCompleted(report);
-
-        return this.reports.createReportFor(this.currentScenario.value);
-    }
-
-    private drainAnyQueuedEventsAndRecordIn(report: SceneReport) {
-        while (this.eventQueue.length > 0) {
-            this.reports.saveInProgress(this.currentStrategy.value.handle(
-                this.eventQueue.shift(),
-                report
-            ));
-        }
-    }
-
-    private shouldChangeStrategyFor(scenario: ScenarioDetails) {
-        return ! (this.currentStrategy.isSet() && this.currentStrategy.value.worksFor(scenario));
-    }
-
-    private use(strategy: new (sd: ScenarioDetails) => SceneReportingStrategy, scenario: ScenarioDetails) {
-        this.currentStrategy.value = new strategy(scenario);
-        this.currentScenario.value = scenario;
-    }
-
-    private broadcast(report: Partial<SerenityBDDReport>) {
-        this.stage.announce(new ArtifactGenerated(
-            new CorrelationId('fake scene id for now'),
-            new Name(report.name),
-            TestReport.fromJSON(report),
-        ));
     }
 }
