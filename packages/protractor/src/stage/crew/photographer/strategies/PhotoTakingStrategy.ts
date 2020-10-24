@@ -73,9 +73,9 @@ export abstract class PhotoTakingStrategy {
                     id,
                 ));
             }).catch(error => {
-                if (error instanceof webdriver.NoSuchSessionError) {
+                if (this.shouldIgnore(error)) {
                     stage.announce(new AsyncOperationCompleted(
-                        new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error }`),
+                        new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
                         id,
                     ));
                 }
@@ -92,5 +92,10 @@ export abstract class PhotoTakingStrategy {
 
     private combinedNameFrom(...parts: string[]): Name {
         return new Name(parts.filter(v => !! v).join('-'));
+    }
+
+    private shouldIgnore(error: Error) {
+        return error instanceof webdriver.NoSuchSessionError
+            || error instanceof webdriver.UnexpectedAlertOpenError
     }
 }
