@@ -9,6 +9,7 @@ import {
     DomainEvent,
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
+import { error as webdriver } from 'selenium-webdriver';
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
@@ -72,7 +73,15 @@ export abstract class PhotoTakingStrategy {
                     id,
                 ));
             }).catch(error => {
-                stage.announce(new AsyncOperationFailed(error, id));
+                if (error instanceof webdriver.NoSuchSessionError) {
+                    stage.announce(new AsyncOperationCompleted(
+                        new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error }`),
+                        id,
+                    ));
+                }
+                else {
+                    stage.announce(new AsyncOperationFailed(error, id));
+                }
             });
         }
     }
