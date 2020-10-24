@@ -266,19 +266,19 @@
 
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./events&apos;</span>;
 <span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./io&apos;</span>;
-<span class="hljs-keyword">import</span> { Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./model&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./model&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./screenplay/actor&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityConfig&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast, Clock, Stage, StageCrewMember, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage&apos;</span>;
 <span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/Extras&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Serenity {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serenity</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultCueTimeout    = Duration.ofSeconds(<span class="hljs-number">5</span>);
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultActors        = <span class="hljs-keyword">new</span> Extras();
 
     <span class="hljs-keyword">private</span> stage: Stage;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock: Clock = <span class="hljs-keyword">new</span> Clock()</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock: Clock = <span class="hljs-keyword">new</span> Clock()</span>)</span> {
         <span class="hljs-built_in">this</span>.stage = <span class="hljs-keyword">new</span> Stage(
             Serenity.defaultActors,
             <span class="hljs-keyword">new</span> StageManager(Serenity.defaultCueTimeout, clock),
@@ -288,14 +288,14 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Configures Serenity/JS. Every call to this function
      *  replaces the previous configuration provided,
      *  so this function should called be exactly once
      *  in your test suite.
      *
-     * @param {SerenityConfig} config
-     * @return {void}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{SerenityConfig}</span> <span class="hljs-variable">config</span></span>
+     * <span class="hljs-doctag">@return <span class="hljs-type">{void}</span></span>
      */</span>
     configure(config: SerenityConfig): <span class="hljs-built_in">void</span> {
 
@@ -322,16 +322,16 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s
-     *  you&apos;d like to use in any subsequent call to {@link actorCalled}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Re-configures Serenity/JS with a new {<span class="hljs-doctag">@link </span>Cast} of {<span class="hljs-doctag">@link </span>Actor}s
+     *  you&apos;d like to use in any subsequent call to {<span class="hljs-doctag">@link </span>actorCalled}.
      *
-     *  This method provides an alternative to calling {@link Actor#whoCan}
+     *  This method provides an alternative to calling {<span class="hljs-doctag">@link </span>Actor#whoCan}
      *  directly in your tests and you&apos;d typically us it in a &quot;before each&quot;
      *  hook of your test runner of choice.
      *
-     * @example &lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
-     *  import { Actor, Cast } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
+     *  import { Actor, Cast } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *
      *  class Actors implements Cast {
      *      prepare(actor: Actor) {
@@ -343,21 +343,21 @@
      *
      * engage(new Actors();
      *
-     * @example &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
      *  import &apos;jasmine&apos;;
      *
      *  beforeEach(() =&gt; engage(new Actors()));
      *
-     * @example &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
      *  import { Before } from &apos;cucumber&apos;;
      *
      *  Before(() =&gt; engage(new Actors());
      *
-     * @param {Cast} actors
-     * @returns {void}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Cast}</span> <span class="hljs-variable">actors</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link Cast}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
      */</span>
     engage(actors: Cast): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.stage.engage(
@@ -366,13 +366,13 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates or retrieves an actor {@link Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates or retrieves an actor {<span class="hljs-doctag">@link </span>Actor}
      *  called `name` if one has already been instantiated.
      *
-     * @example &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
      *   import &apos;jasmine&apos;;
-     *   import { actorCalled } from &apos;@serenity-js/core&apos;;
+     *   import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *
      *   describe(&apos;Feature&apos;, () =&gt; {
      *
@@ -382,8 +382,8 @@
      *          ));
      *   });
      *
-     * @example &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
-     *   import { actorCalled } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+     *   import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *   import { Given } from &apos;cucumber&apos;;
      *
      *   Given(/(.*?) is a registered user/, (name: string) =&gt;
@@ -391,28 +391,28 @@
      *              // ... activities
      *          ));
      *
-     * @param {string} name
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
      *  The name of the actor to instantiate or retrieve
      *
-     * @returns {Actor}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
      *
-     * @see {@link engage}
-     * @see {@link Actor}
-     * @see {@link Cast}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link engage}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
      */</span>
     theActorCalled(name: <span class="hljs-built_in">string</span>): Actor {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorCalled(name);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Retrieves an actor who was last instantiated or retrieved
-     *  using {@link actorCalled}.
+     *  using {<span class="hljs-doctag">@link </span>actorCalled}.
      *
      *  This function is particularly useful when automating Cucumber scenarios.
      *
-     * @example &lt;captiongit&gt;Usage with Cucumber&lt;/caption&gt;
-     *   import { actorCalled } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;captiongit&gt;Usage with Cucumber&lt;/caption&gt;
+     *   import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *   import { Given, When } from &apos;cucumber&apos;;
      *
      *   Given(/(.*?) is a registered user/, (name: string) =&gt;
@@ -425,12 +425,12 @@
      *              // ... activities
      *          ));
      *
-     * @returns {Actor}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
      *
-     * @see {@link engage}
-     * @see {@link actorCalled}
-     * @see {@link Actor}
-     * @see {@link Cast}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link engage}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link actorCalled}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
      */</span>
     theActorInTheSpotlight(): Actor {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorInTheSpotlight();
@@ -444,17 +444,29 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.currentTime();
     }
 
+    assignNewSceneId(): CorrelationId {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.assignNewSceneId();
+    }
+
+    currentSceneId(): CorrelationId {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.currentSceneId();
+    }
+
+    assignNewActivityId(): CorrelationId {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.assignNewActivityId();
+    }
+
     <span class="hljs-comment">/**
-     * @package
+     * <span class="hljs-doctag">@package</span>
      */</span>
     waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.waitForNextCue();
     }
 
     <span class="hljs-comment">/**
-     * @deprecated
-     * @experimental
-     * @param stageCrewMembers
+     * <span class="hljs-doctag">@deprecated</span>
+     * <span class="hljs-doctag">@experimental</span>
+     * <span class="hljs-doctag">@param <span class="hljs-variable">stageCrewMembers</span></span>
      */</span>
     setTheStage(...stageCrewMembers: StageCrewMember[]): <span class="hljs-built_in">void</span> {
         deprecated(<span class="hljs-string">&apos;serenity.setTheStage&apos;</span>, <span class="hljs-string">&apos;Please use the new `configure({ crew: stageCrewMembers }) from @serenity-js/core instead.&apos;</span>);
@@ -465,8 +477,8 @@
     }
 
     <span class="hljs-comment">/**
-     * @deprecated
-     * @param actors
+     * <span class="hljs-doctag">@deprecated</span>
+     * <span class="hljs-doctag">@param <span class="hljs-variable">actors</span></span>
      */</span>
     callToStageFor(actors: Cast): Stage {
         deprecated(<span class="hljs-string">&apos;serenity.callToStageFor(...)&apos;</span>, <span class="hljs-string">&apos;Please use `actorCalled(name)` and `actorInTheSpotlight()` functions from @serenity-js/core to access the actors instead.&apos;</span>);
@@ -488,11 +500,11 @@
 }
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">class</span> StageHand <span class="hljs-keyword">implements</span> StageCrewMember {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StageHand</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>)</span> {
     }
 
     assignedTo(stage: Stage): StageCrewMember {

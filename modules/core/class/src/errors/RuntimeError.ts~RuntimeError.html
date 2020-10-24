@@ -300,8 +300,8 @@
       <div class="example-caption" data-ice="exampleCaption">Custom Error definition</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CustomError <span class="hljs-keyword">extends</span> RuntimeError {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
       <span class="hljs-built_in">super</span>(CustomError, message, cause);
   }
 }</code></pre>
@@ -310,7 +310,7 @@
       <div class="example-caption" data-ice="exampleCaption">Sync error handling</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">try</span> {
     operationThatMightThrowAnError();
-} <span class="hljs-keyword">catch</span>(error) {
+} <span class="hljs-function"><span class="hljs-title">catch</span>(<span class="hljs-params">error</span>)</span> {
     <span class="hljs-comment">// catch and re-throw</span>
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">&apos;operationThatMightThrowAnError has failed&apos;</span>, error);
 }</code></pre>

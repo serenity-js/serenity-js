@@ -180,14 +180,14 @@
 <span class="hljs-keyword">import</span> { isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./isPresent&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Expectation that the element is present and selected
  *
- * @returns {Expectation&lt;boolean, ElementFinder&gt;}
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{Expectation&lt;boolean, ElementFinder&gt;}</span></span>
  *
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/assertions~Check}
- * @see {@link Wait}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Ensure}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Check}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Wait}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSelected</span>(<span class="hljs-params"></span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
     <span class="hljs-keyword">return</span> Expectation.to&lt;ElementFinder&gt;(<span class="hljs-string">&apos;become selected&apos;</span>).soThatActual(and(

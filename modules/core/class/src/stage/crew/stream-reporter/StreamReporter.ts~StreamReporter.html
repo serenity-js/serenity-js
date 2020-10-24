@@ -303,7 +303,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { serenity, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 serenity.configure({
-    crew: [ <span class="hljs-keyword">new</span> StreamReporter(process.stdout) ],
+    <span class="hljs-attr">crew</span>: [ <span class="hljs-keyword">new</span> StreamReporter(process.stdout) ],
 });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -312,7 +312,7 @@ serenity.configure({
 <span class="hljs-keyword">import</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;fs&apos;</span>);
 
 serenity.configure({
-    crew: [ <span class="hljs-keyword">new</span> StreamReporter(fs.createWriteStream(<span class="hljs-string">&apos;./events.ndjson&apos;</span>)) ],
+    <span class="hljs-attr">crew</span>: [ <span class="hljs-keyword">new</span> StreamReporter(fs.createWriteStream(<span class="hljs-string">&apos;./events.ndjson&apos;</span>)) ],
 });</code></pre>
     </div>
 </div>

@@ -268,16 +268,16 @@
 
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Path&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FileSystem {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileSystem</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> root: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: <span class="hljs-keyword">typeof</span> nodeFS = gracefulFS,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> directoryMode = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&apos;0777&apos;</span>, <span class="hljs-number">8</span>) &amp; (~process.umask()),
     </span>) {
     }
 
-    <span class="hljs-keyword">public</span> store(relativeOrAbsolutePathToFile: Path, data: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
+    <span class="hljs-keyword">public</span> store(relativeOrAbsolutePathToFile: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.write(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
@@ -343,13 +343,13 @@
         }, <span class="hljs-built_in">Promise</span>.resolve(absolutePath.root()));
     }
 
-    <span class="hljs-keyword">public</span> rename(source: Path, destination: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">public</span> rename(source: Path, <span class="hljs-attr">destination</span>: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">const</span> rename = promisify(<span class="hljs-built_in">this</span>.fs.rename);
 
         <span class="hljs-keyword">return</span> rename(source.value, destination.value);
     }
 
-    <span class="hljs-keyword">private</span> write(path: Path, data: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
+    <span class="hljs-keyword">private</span> write(path: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
             <span class="hljs-built_in">this</span>.fs.writeFile(
                 path.value,

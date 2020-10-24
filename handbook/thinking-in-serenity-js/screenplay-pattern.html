@@ -269,7 +269,7 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor.whoCan(
             BrowseTheWeb.using(protractor.browser),
@@ -337,7 +337,7 @@ Wait.until(header, isPresent())
 Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>))
 </code></pre>
 <p>If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// spec/todo.spec.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
@@ -397,7 +397,7 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
     )
 </code></pre>
 <p>To make an actor perform a task, you pass it to the <code>attemptsTo(..)</code> method, just like we did with the interactions.</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// spec/todo.spec.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;

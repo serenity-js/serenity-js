@@ -269,14 +269,14 @@
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {TransformAnswer} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TransformAnswer}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;TransformAnswer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> stage = sinon.createStubInstance(Stage);
 
     <span class="hljs-keyword">const</span> expectedAnswer = {
-        headers: { header: <span class="hljs-string">&apos;value&apos;</span> },
-        body: <span class="hljs-string">&apos;some content&apos;</span>,
+        <span class="hljs-attr">headers</span>: { <span class="hljs-attr">header</span>: <span class="hljs-string">&apos;value&apos;</span> },
+        <span class="hljs-attr">body</span>: <span class="hljs-string">&apos;some content&apos;</span>,
     };
 
     <span class="hljs-keyword">type</span> EA = <span class="hljs-keyword">typeof</span> expectedAnswer;

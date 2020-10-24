@@ -264,17 +264,21 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/ActivityFinished.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">import</span> { ActivityDetails, Outcome, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, Outcome, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> ActivityFinished <span class="hljs-keyword">extends</span> DomainEvent {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: ActivityDetails,
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ActivityFinished</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> activityId: CorrelationId,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> details: ActivityDetails,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> outcome: Outcome,
         timestamp?: Timestamp,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
-        ensure(<span class="hljs-string">&apos;value&apos;</span>, value, isDefined());
+        ensure(<span class="hljs-string">&apos;sceneId&apos;</span>, sceneId, isDefined());
+        ensure(<span class="hljs-string">&apos;activityId&apos;</span>, activityId, isDefined());
+        ensure(<span class="hljs-string">&apos;details&apos;</span>, details, isDefined());
         ensure(<span class="hljs-string">&apos;outcome&apos;</span>, outcome, isDefined());
     }
 }

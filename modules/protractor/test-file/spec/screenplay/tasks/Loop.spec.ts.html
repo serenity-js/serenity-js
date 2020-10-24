@@ -224,9 +224,9 @@ describe(<span class="hljs-string">&apos;Loop&apos;</span>, <span class="hljs-fu
     `</span>);
 
     <span class="hljs-keyword">const</span> Form = {
-        Labels:     Target.all(<span class="hljs-string">&apos;form labels&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;label&apos;</span>)),
-        Checkbox:   Target.the(<span class="hljs-string">&apos;checkbox&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;input&apos;</span>)),
-        Output:     Target.the(<span class="hljs-string">&apos;output&apos;</span>).located(by.id(<span class="hljs-string">&apos;output&apos;</span>)),
+        <span class="hljs-attr">Labels</span>:     Target.all(<span class="hljs-string">&apos;form labels&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;label&apos;</span>)),
+        <span class="hljs-attr">Checkbox</span>:   Target.the(<span class="hljs-string">&apos;checkbox&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;input&apos;</span>)),
+        <span class="hljs-attr">Output</span>:     Target.the(<span class="hljs-string">&apos;output&apos;</span>).located(by.id(<span class="hljs-string">&apos;output&apos;</span>)),
     };
 
     it(<span class="hljs-string">&apos;allows the actor to perform a sequence of activities for every element given&apos;</span>, <span class="hljs-function">() =&gt;</span>

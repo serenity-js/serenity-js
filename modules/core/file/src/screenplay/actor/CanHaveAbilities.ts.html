@@ -267,15 +267,15 @@
 <span class="hljs-keyword">import</span> { UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./UsesAbilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Enables the {@link Actor} to have an {@link Ability} or Abilities to perform some {@link Activity}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Enables the {<span class="hljs-doctag">@link </span>Actor} to have an {<span class="hljs-doctag">@link </span>Ability} or Abilities to perform some {<span class="hljs-doctag">@link </span>Activity}.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CanHaveAbilities&lt;Returned_Type = UsesAbilities&gt; {
     <span class="hljs-comment">/**
-     * @param {Ability[]} abilities
-     * @returns {Actor}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Ability[]}</span> <span class="hljs-variable">abilities</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
      */</span>
     whoCan(...abilities: Ability[]): Returned_Type;
 }

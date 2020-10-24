@@ -266,30 +266,30 @@
 <span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Indicates that execution of a given scene
  *  has been retried for the `currentRetry`-th time.
  *
- * @access public
+ * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecutionRetriedTag <span class="hljs-keyword">extends</span> Tag {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionRetriedTag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Tag</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">&apos;retry&apos;</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionRetriedTag(o.retry <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>, o.description <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> retry: <span class="hljs-built_in">number</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description?: <span class="hljs-built_in">string</span>,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(description || <span class="hljs-string">`<span class="hljs-subst">${ retry }</span><span class="hljs-subst">${ nth(retry) }</span> retry`</span>, ExecutionRetriedTag.Type);
     }
 }
 
 <span class="hljs-comment">/**
- * @private
- * @param n
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-variable">n</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nth</span>(<span class="hljs-params">n</span>): <span class="hljs-title">string</span> </span>{
     <span class="hljs-keyword">return</span> [<span class="hljs-string">&apos;st&apos;</span>, <span class="hljs-string">&apos;nd&apos;</span>, <span class="hljs-string">&apos;rd&apos;</span>][((n + <span class="hljs-number">90</span>) % <span class="hljs-number">100</span> - <span class="hljs-number">10</span>) % <span class="hljs-number">10</span> - <span class="hljs-number">1</span>] || <span class="hljs-string">&apos;th&apos;</span>;

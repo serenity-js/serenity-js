@@ -187,9 +187,9 @@
 describe(<span class="hljs-string">&apos;isVisible&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> Page = {
-        Visible_Header:        Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>)),
-        Invisible_Header:      Target.the(<span class="hljs-string">&apos;invisible header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h2&apos;</span>)),
-        Non_Existent_Header:   Target.the(<span class="hljs-string">&apos;non-existent header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h3&apos;</span>)),
+        <span class="hljs-attr">Visible_Header</span>:        Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>)),
+        <span class="hljs-attr">Invisible_Header</span>:      Target.the(<span class="hljs-string">&apos;invisible header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h2&apos;</span>)),
+        <span class="hljs-attr">Non_Existent_Header</span>:   Target.the(<span class="hljs-string">&apos;non-existent header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h3&apos;</span>)),
     };
 
     beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
@@ -203,26 +203,26 @@ describe(<span class="hljs-string">&apos;isVisible&apos;</span>, <span class="hl
         `</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {isVisible} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isVisible}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is visible&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Visible_Header, isVisible()),
         Ensure.that(Page.Visible_Header, isVisible()),
     )).to.be.fulfilled);
 
-    <span class="hljs-comment">/** @test {isVisible} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isVisible}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element is not visible&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Invisible_Header, isVisible()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the invisible header to become displayed`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isVisible} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isVisible}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Visible_Header, isVisible()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the header does become visible`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isVisible} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isVisible}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Visible_Header, isVisible()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the header does become visible`</span>);

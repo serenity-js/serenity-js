@@ -183,7 +183,7 @@
 <span class="hljs-keyword">import</span> { Enter, ExecuteScript, LastScriptExecution, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> page = pageFromTemplate(<span class="hljs-string">`
@@ -196,15 +196,15 @@ describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span
         &lt;/html&gt;
     `</span>);
 
-    <span class="hljs-keyword">class</span> Sandbox {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sandbox</span> </span>{
         <span class="hljs-keyword">static</span> Input = Target.the(<span class="hljs-string">&apos;input field&apos;</span>).located(by.id(<span class="hljs-string">&apos;name&apos;</span>));
     }
 
     describe(<span class="hljs-string">&apos;when used with ExecuteScript.sync&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {ExecuteScript.sync} */</span>
-        <span class="hljs-comment">/** @test {ExecuteSynchronousScript} */</span>
-        <span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.sync}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteSynchronousScript}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to retrieve the result of the script execution&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -218,9 +218,9 @@ describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span
             Ensure.that(LastScriptExecution.result&lt;<span class="hljs-built_in">string</span>&gt;(), equals(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).name)),
         ));
 
-        <span class="hljs-comment">/** @test {ExecuteScript.sync} */</span>
-        <span class="hljs-comment">/** @test {ExecuteSynchronousScript} */</span>
-        <span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.sync}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteSynchronousScript}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;returns null if the script did not return any result&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -234,9 +234,9 @@ describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span
 
     describe(<span class="hljs-string">&apos;when used with ExecuteScript.async&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
-        <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-        <span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.async}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteAsynchronousScript}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to retrieve the result of the script execution&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -251,9 +251,9 @@ describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span
             Ensure.that(LastScriptExecution.result&lt;<span class="hljs-built_in">string</span>&gt;(), equals(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).name)),
         ));
 
-        <span class="hljs-comment">/** @test {ExecuteScript.async} */</span>
-        <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-        <span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.async}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteAsynchronousScript}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;returns null if the script did not return any result&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -266,8 +266,8 @@ describe(<span class="hljs-string">&apos;LastScriptExecution&apos;</span>, <span
         ));
     });
 
-    <span class="hljs-comment">/** @test {ExecuteAsynchronousScript} */</span>
-    <span class="hljs-comment">/** @test {LastScriptExecution} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteAsynchronousScript}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastScriptExecution}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;complains if the script hasn\&apos;t been executed yet&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(page),
 

@@ -184,7 +184,7 @@
 <span class="hljs-keyword">import</span> { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Scroll} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Scroll}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Scroll&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> aLongSpell = pageFromTemplate(<span class="hljs-string">`
@@ -196,10 +196,10 @@ describe(<span class="hljs-string">&apos;Scroll&apos;</span>, <span class="hljs-
     `</span>);
 
     <span class="hljs-keyword">const</span> Page = {
-        Execute_Button: Target.the(<span class="hljs-string">&apos;&quot;Cast!&quot; button&apos;</span>).located(by.id(<span class="hljs-string">&apos;cast&apos;</span>)),
+        <span class="hljs-attr">Execute_Button</span>: Target.the(<span class="hljs-string">&apos;&quot;Cast!&quot; button&apos;</span>).located(by.id(<span class="hljs-string">&apos;cast&apos;</span>)),
     };
 
-    <span class="hljs-comment">/** @test {Scroll.to} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Scroll.to}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to scroll to a given target so that it appears in the viewport&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Gandalf&apos;</span>).attemptsTo(
         Navigate.to(aLongSpell),
 
@@ -212,8 +212,8 @@ describe(<span class="hljs-string">&apos;Scroll&apos;</span>, <span class="hljs-
         Ensure.that(LastScriptExecution.result&lt;<span class="hljs-built_in">number</span>&gt;(), isLessThan(<span class="hljs-number">1000</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Scroll.to} */</span>
-    <span class="hljs-comment">/** @test {Scroll#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Scroll.to}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Scroll#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Scroll.to(Page.Execute_Button).toString())
             .to.equal(<span class="hljs-string">`#actor scrolls to the &quot;Cast!&quot; button`</span>);

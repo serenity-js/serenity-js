@@ -310,12 +310,12 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
                     <span class="hljs-number">14</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the example set&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the example set&apos;</span>),
-                        { parameter: <span class="hljs-string">&apos;value one&apos;</span> },
+                        { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value one&apos;</span> },
                     ),
                     <span class="hljs-number">15</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the example set&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the example set&apos;</span>),
-                        { parameter: <span class="hljs-string">&apos;value two&apos;</span> },
+                        { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value two&apos;</span> },
                     ),
                 },
             ));
@@ -372,22 +372,22 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
                     <span class="hljs-number">28</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the first set of examples&apos;</span>),
                             <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the first set of examples&apos;</span>),
-                            { parameter: <span class="hljs-string">&apos;value one&apos;</span> },
+                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value one&apos;</span> },
                         ),
                     <span class="hljs-number">29</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the first set of examples&apos;</span>),
                             <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the first set of examples&apos;</span>),
-                            { parameter: <span class="hljs-string">&apos;value two&apos;</span> },
+                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value two&apos;</span> },
                         ),
                     <span class="hljs-number">36</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the second set of examples&apos;</span>),
                             <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the second set of examples&apos;</span>),
-                            { parameter: <span class="hljs-string">&apos;value three&apos;</span> },
+                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value three&apos;</span> },
                         ),
                     <span class="hljs-number">37</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
                             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Name of the second set of examples&apos;</span>),
                             <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Description of the second set of examples&apos;</span>),
-                            { parameter: <span class="hljs-string">&apos;value four&apos;</span> },
+                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value four&apos;</span> },
                         ),
                 },
             ));
@@ -408,7 +408,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
             expect(outline.parameters[<span class="hljs-number">49</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
                 <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;&apos;</span>),
                 <span class="hljs-literal">undefined</span>,
-                { parameter: <span class="hljs-string">&apos;value one&apos;</span> },
+                { <span class="hljs-attr">parameter</span>: <span class="hljs-string">&apos;value one&apos;</span> },
             ));
 
             <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">49</span>);
@@ -432,12 +432,12 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
             expect(outline.parameters[<span class="hljs-number">60</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
                 <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;&apos;</span>),
                 <span class="hljs-literal">undefined</span>,
-                { username: <span class="hljs-string">&apos;admin&apos;</span>, password: <span class="hljs-string">&apos;P@ssw0rd1&apos;</span> },
+                { <span class="hljs-attr">username</span>: <span class="hljs-string">&apos;admin&apos;</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">&apos;P@ssw0rd1&apos;</span> },
             ));
             expect(outline.parameters[<span class="hljs-number">61</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
                 <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;&apos;</span>),
                 <span class="hljs-literal">undefined</span>,
-                { username: <span class="hljs-string">&apos;editor&apos;</span>, password: <span class="hljs-string">&apos;P@ssw0rd2&apos;</span> },
+                { <span class="hljs-attr">username</span>: <span class="hljs-string">&apos;editor&apos;</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">&apos;P@ssw0rd2&apos;</span> },
             ));
 
             expect(map.get(Scenario).onLine(<span class="hljs-number">60</span>).steps[<span class="hljs-number">0</span>])
@@ -457,7 +457,7 @@ describe(<span class="hljs-string">&apos;FeatureFileMapper&apos;</span>, <span c
     describe(<span class="hljs-string">&apos;when mapping an empty feature file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">&apos;returns an empty map&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> empty = { <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;GherkinDocument&apos;</span>, comments: [] };
+            <span class="hljs-keyword">const</span> empty = { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;GherkinDocument&apos;</span>, <span class="hljs-attr">comments</span>: [] };
 
             <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> FeatureFileMapper();
 

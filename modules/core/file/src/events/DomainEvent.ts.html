@@ -265,8 +265,8 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> DomainEvent <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> timestamp: Timestamp = <span class="hljs-keyword">new</span> Timestamp()</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DomainEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> timestamp: Timestamp = <span class="hljs-keyword">new</span> Timestamp()</span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-string">&apos;timestamp&apos;</span>, timestamp, isDefined());
     }

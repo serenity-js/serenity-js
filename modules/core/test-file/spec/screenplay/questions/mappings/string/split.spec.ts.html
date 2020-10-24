@@ -269,8 +269,8 @@
 <span class="hljs-keyword">import</span> { split, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {split} */</span>
-<span class="hljs-comment">/** @test {Question#map} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{split}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;split&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> quentin = actorCalled(<span class="hljs-string">&apos;Quentin&apos;</span>);
@@ -282,22 +282,22 @@ describe(<span class="hljs-string">&apos;split&apos;</span>, <span class="hljs-f
         <span class="hljs-built_in">Promise</span>.resolve(value);
 
     given([
-        { value: <span class="hljs-literal">null</span>,              expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: <span class="hljs-literal">undefined</span>,         expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: <span class="hljs-number">1</span>,                 expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: { },               expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: [<span class="hljs-literal">null</span>],            expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: [<span class="hljs-literal">undefined</span>],       expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: [<span class="hljs-number">1</span>],               expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: [{ }],             expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p(<span class="hljs-literal">null</span>),           expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p(<span class="hljs-literal">undefined</span>),      expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p(<span class="hljs-number">1</span>),              expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p({ }),            expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p([ <span class="hljs-literal">null</span> ]),       expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p([ <span class="hljs-literal">undefined</span> ]),  expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p([ <span class="hljs-number">1</span> ]),          expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p([ { } ]),        expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>,              <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>,         <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,                 <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: { },               <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-literal">null</span>],            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-literal">undefined</span>],       <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-number">1</span>],               <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: [{ }],             <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">null</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">undefined</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-number">1</span>),              <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p({ }),            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">null</span> ]),       <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">undefined</span> ]),  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-number">1</span> ]),          <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p([ { } ]),        <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
     ]).
     it(<span class="hljs-string">&apos;complains if the original answer is of a wrong type at runtime&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q&lt;<span class="hljs-built_in">any</span>&gt;(value)
@@ -314,11 +314,11 @@ describe(<span class="hljs-string">&apos;split&apos;</span>, <span class="hljs-f
      *
      * So to avoid mistakes, split() will complain if you give it an empty string.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+     * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
      */</span>
     given([
-        { value: <span class="hljs-string">&apos;&apos;</span>,            expected: <span class="hljs-string">&apos;The separator should not be blank&apos;</span> },
-        { value: p(<span class="hljs-string">&apos;&apos;</span>),         expected: <span class="hljs-string">&apos;The separator should not be blank&apos;</span> },
+        { <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;&apos;</span>,            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The separator should not be blank&apos;</span> },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-string">&apos;&apos;</span>),         <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The separator should not be blank&apos;</span> },
     ]).
     it(<span class="hljs-string">&apos;complains if provided with an empty separator&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q(value)
@@ -329,8 +329,8 @@ describe(<span class="hljs-string">&apos;split&apos;</span>, <span class="hljs-f
     });
 
     given([
-        { value: <span class="hljs-string">&apos;John,Smith,Dock Road&apos;</span>,        expected: [<span class="hljs-string">&apos;John&apos;</span>, <span class="hljs-string">&apos;Smith&apos;</span>, <span class="hljs-string">&apos;Dock Road&apos;</span> ] },
-        { value: p(<span class="hljs-string">&apos;John,Smith,Dock Road&apos;</span>),     expected: [<span class="hljs-string">&apos;John&apos;</span>, <span class="hljs-string">&apos;Smith&apos;</span>, <span class="hljs-string">&apos;Dock Road&apos;</span> ] },
+        { <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;John,Smith,Dock Road&apos;</span>,        <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;John&apos;</span>, <span class="hljs-string">&apos;Smith&apos;</span>, <span class="hljs-string">&apos;Dock Road&apos;</span> ] },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-string">&apos;John,Smith,Dock Road&apos;</span>),     <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;John&apos;</span>, <span class="hljs-string">&apos;Smith&apos;</span>, <span class="hljs-string">&apos;Dock Road&apos;</span> ] },
     ]).
     it(<span class="hljs-string">&apos;divides a string into an ordered list of substrings&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q(value)
@@ -340,7 +340,7 @@ describe(<span class="hljs-string">&apos;split&apos;</span>, <span class="hljs-f
         <span class="hljs-keyword">return</span> expect(result).to.be.eventually.deep.equal(expected);
     });
 
-    <span class="hljs-comment">/** @test {split} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{split}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;can limit the number of substrings returned&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q(<span class="hljs-string">&apos;John,Smith,Dock Road&apos;</span>)
             .map(split(<span class="hljs-string">&apos;,&apos;</span>, <span class="hljs-number">2</span>))

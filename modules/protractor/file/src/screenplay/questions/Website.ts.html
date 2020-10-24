@@ -177,11 +177,11 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Website {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Website</span> </span>{
     <span class="hljs-comment">/**
      * Retrieves the title of the current page.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> title(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
         <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the title of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
@@ -192,7 +192,7 @@
     <span class="hljs-comment">/**
      * Retrieves the url of the current page.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> url(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
         <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the url of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>

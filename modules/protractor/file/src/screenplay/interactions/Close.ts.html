@@ -178,13 +178,13 @@
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ * <span class="hljs-doctag">@desc</span>
+ *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  close browser tabs or windows.
  *
- * @example &lt;caption&gt;Closing a browser tab or window&lt;/caption&gt;
- *  import { actorCalled } from &apos;@serenity-js/core&apos;;
- *  import { BrowseTheWeb, Click, Close, Switch } from &apos;@serenity-js/protractor&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Closing a browser tab or window&lt;/caption&gt;
+ *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { BrowseTheWeb, Click, Close, Switch } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  actorCalled(&apos;Caleb&apos;)
@@ -198,31 +198,31 @@
  *          ),
  *      );
  *
- * @example &lt;caption&gt;Closing any new windows after a Jasmine test&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Closing any new windows after a Jasmine test&lt;/caption&gt;
  *  import &apos;jasmine&apos;;
  *
- *  import { actorInTheSpotlight } from &apos;@serenity-js/core&apos;;
- *  import { Close } from &apos;@serenity-js/protractor&apos;;
+ *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Close } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *
  *  after(() =&gt;
  *      actorInTheSpotlight().attemptsTo(
  *          Close.anyNewWindows(),
  *      ));
  *
- * @example &lt;caption&gt;Closing any new windows after a Mocha test&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Closing any new windows after a Mocha test&lt;/caption&gt;
  *  import &apos;mocha&apos;;
  *
- *  import { actorInTheSpotlight } from &apos;@serenity-js/core&apos;;
- *  import { Close } from &apos;@serenity-js/protractor&apos;;
+ *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Close } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *
  *  after(() =&gt;
  *      actorInTheSpotlight().attemptsTo(
  *          Close.anyNewWindows(),
  *      ));
  *
- * @example &lt;caption&gt;Closing any new windows after a    Cucumber scenario&lt;/caption&gt;
- *  import { actorInTheSpotlight } from &apos;@serenity-js/core&apos;;
- *  import { Close } from &apos;@serenity-js/protractor&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Closing any new windows after a    Cucumber scenario&lt;/caption&gt;
+ *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Close } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { After } from &apos;cucumber&apos;;
  *
  *  After(() =&gt;
@@ -230,30 +230,30 @@
  *          Close.anyNewWindows(),
  *      ));
  *
- * @see {@link Switch}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Close {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Close</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Closes any windows other than the original one that
-     *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  has {@link Navigate}d to.
+     *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  has {<span class="hljs-doctag">@link </span>Navigate}d to.
      *
      *  When the windows are closed, it switches the context
      *  back to the original window.
      *
-     * @static
-     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@static</span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Interaction}</span></span>
      *
-     * @see {@link Switch}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> anyNewWindows(): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CloseWindowsOtherThan(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> BrowseTheWeb.as(actor).getOriginalWindowHandle(), <span class="hljs-string">`#actor closes any new windows`</span>);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Closes the currently focused browser window.
      *
      *  **Please note** that this interaction should be used to close
@@ -262,10 +262,10 @@
      *
      *  See tests for usage examples.
      *
-     * @static
-     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@static</span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Interaction}</span></span>
      *
-     * @see {@link Switch}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> currentWindow(): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CloseCurrentWindow();
@@ -273,13 +273,13 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> CloseWindowsOtherThan <span class="hljs-keyword">extends</span> Interaction {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CloseWindowsOtherThan</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> windowToKeepBy: (actor: UsesAbilities &amp; AnswersQuestions) =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span> = `#actor closes several windows`,
-    </span>) {
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span> = <span class="hljs-string">`#actor closes several windows`</span>,
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -291,16 +291,16 @@
             );
     }
 
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 
     <span class="hljs-comment">/**
-     * @param {string} windowToKeep
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     * @private
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">windowToKeep</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> windowsOtherThan(windowToKeep: <span class="hljs-built_in">string</span>, actor: UsesAbilities &amp; AnswersQuestions) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">windowsOtherThan</span>(<span class="hljs-params">windowToKeep: <span class="hljs-built_in">string</span>, actor: UsesAbilities &amp; AnswersQuestions</span>)</span> {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).getAllWindowHandles()
             .then(<span class="hljs-function"><span class="hljs-params">allWindows</span> =&gt;</span>
                 <span class="hljs-built_in">this</span>.isDefined(windowToKeep) &amp;&amp; allWindows.length &gt; <span class="hljs-number">1</span>
@@ -310,11 +310,11 @@
     }
 
     <span class="hljs-comment">/**
-     * @param {string[]} windows
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     * @private
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">windows</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> closeAll(windows: <span class="hljs-built_in">string</span>[], actor: UsesAbilities &amp; AnswersQuestions) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">closeAll</span>(<span class="hljs-params">windows: <span class="hljs-built_in">string</span>[], actor: UsesAbilities &amp; AnswersQuestions</span>)</span> {
         <span class="hljs-keyword">return</span> windows.reduce(
             <span class="hljs-function">(<span class="hljs-params">previous, handle</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> previous
@@ -326,34 +326,34 @@
     }
 
     <span class="hljs-comment">/**
-     * @param {string} window
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     * @private
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">window</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> switchTo(<span class="hljs-built_in">window</span>: <span class="hljs-built_in">string</span>, actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">private</span> switchTo(<span class="hljs-built_in">window</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actor</span>: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.isDefined(<span class="hljs-built_in">window</span>)
             ? BrowseTheWeb.as(actor).switchToWindow(<span class="hljs-built_in">window</span>)
             : <span class="hljs-built_in">Promise</span>.resolve();
     }
 
     <span class="hljs-comment">/**
-     * @param {any} value
-     * @private
+     * <span class="hljs-doctag">@param <span class="hljs-type">{any}</span> <span class="hljs-variable">value</span></span>
+     * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> isDefined(value: <span class="hljs-built_in">any</span>) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">isDefined</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>)</span> {
         <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">undefined</span> &amp;&amp; value !== <span class="hljs-literal">null</span>;
     }
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> CloseCurrentWindow <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CloseCurrentWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).closeCurrentWindow();
     }
 
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor closes current browser window`</span>;
     }
 }

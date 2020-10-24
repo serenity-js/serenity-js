@@ -178,25 +178,25 @@
 <span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./PhotoTakingStrategy&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when
- *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight
- *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) when
+ *  the the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight
+ *  performs any {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
  *
  *  This strategy works best when you want the results of your automated tests
  *  to become comprehensive living documentation of your system.
  *
  *  *Please note* that taking screenshots affects the performance of your tests.
  *
- * @implements {PhotoTakingStrategy}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TakePhotosOfInteractions <span class="hljs-keyword">extends</span> PhotoTakingStrategy {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosOfInteractions</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
     <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionFinished;
     }
 
     <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event.value.name.value;
+        <span class="hljs-keyword">return</span> event.details.name.value;
     }
 }
 </code></pre>

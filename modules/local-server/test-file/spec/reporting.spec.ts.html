@@ -138,7 +138,7 @@
 
 describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
         prepare(actor: Actor): Actor {
             <span class="hljs-keyword">return</span> actor.whoCan(
                 ManageALocalServer.runningAHttpListener(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) </span>{
@@ -157,17 +157,17 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
         recorder = <span class="hljs-keyword">new</span> EventRecorder();
 
         configure({
-            actors: <span class="hljs-keyword">new</span> Actors(),
-            crew: [ recorder ],
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
+            <span class="hljs-attr">crew</span>: [ recorder ],
         });
     });
 
     describe(<span class="hljs-string">&apos;when managing a local server&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {ManageALocalServer}
-         * @test {StartLocalServer}
-         * @test {StopLocalServer}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ManageALocalServer}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{StartLocalServer}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{StopLocalServer}</span></span>
          */</span>
         it(<span class="hljs-string">`correctly reports actor&apos;s activities`</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
             StartLocalServer.onRandomPort(),
@@ -193,7 +193,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
 
     describe(<span class="hljs-string">&apos;when managing a local server&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">let</span> Nadia: Actor, Phillip: Actor;
+        <span class="hljs-keyword">let</span> Nadia: Actor, <span class="hljs-attr">Phillip</span>: Actor;
 
         <span class="hljs-keyword">const</span> port = <span class="hljs-number">5000</span>;
 
@@ -218,7 +218,7 @@ describe(<span class="hljs-string">&apos;@serenity-js/local-server&apos;</span>,
     });
 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasName</span>(<span class="hljs-params">expectedName: <span class="hljs-built_in">string</span></span>) </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts | ActivityFinished</span>) =&gt;</span> expect(e.value.name.value).equals(expectedName);
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts | ActivityFinished</span>) =&gt;</span> expect(e.details.name.value).equals(expectedName);
     }
 });
 </code></pre>

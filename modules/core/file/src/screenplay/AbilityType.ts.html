@@ -266,27 +266,27 @@
 <span class="hljs-keyword">import</span> { UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  An interface describing the static access method that every {@link Ability} class
- *  needs to provide in order to be accessible from within an {@link Interaction}.
+ * <span class="hljs-doctag">@desc</span>
+ *  An interface describing the static access method that every {<span class="hljs-doctag">@link </span>Ability} class
+ *  needs to provide in order to be accessible from within an {<span class="hljs-doctag">@link </span>Interaction}.
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> AbilityType&lt;A <span class="hljs-keyword">extends</span> Ability&gt; {
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Every Ability should be constructible and ideally receive the client communicating with
      *  the desired external interface of the system under test as an argument.
      *
-     * @param {...any} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...any}</span> <span class="hljs-variable">args</span></span>
      */</span>
     <span class="hljs-keyword">new</span> (...args): A;
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves the Ability in question from the {<span class="hljs-doctag">@link </span>Actor}, provided that the {<span class="hljs-doctag">@link </span>Actor} has it.
      *
-     * @example
-     * import { Ability, Actor, Interface } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example</span>
+     * import { Ability, Actor, Interface } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *
      * class MakePhoneCalls implements Ability {
      *     static as(actor: UsesAbilities): MakesPhoneCalls {
@@ -311,7 +311,7 @@
      *  MakePhoneCalls.as(actor).dial(phoneNumber);
      * );
      *
-     * @param {UsesAbilities} actor
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
      */</span>
     <span class="hljs-keyword">as</span>(actor: UsesAbilities): A;
 }

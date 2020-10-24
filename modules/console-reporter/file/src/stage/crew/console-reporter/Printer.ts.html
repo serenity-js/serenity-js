@@ -128,92 +128,92 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> WritableStream = NodeJS.WritableStream;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  A simple abstraction around the standard output stream
  *  with support for indenting the printed text.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Printer {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Printer</span> </span>{
     <span class="hljs-keyword">private</span> indentation = <span class="hljs-keyword">new</span> Indentation(<span class="hljs-number">2</span>);
 
     <span class="hljs-comment">/**
-     * @param {WritableStream} stdout
+     * <span class="hljs-doctag">@param <span class="hljs-type">{WritableStream}</span> <span class="hljs-variable">stdout</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stdout: WritableStream = process.stdout</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stdout: WritableStream = process.stdout</span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Prints the `args` to the `stdout`, followed by a new line character (`\n`).
      *
      *  Please note that this method bypasses any indentation as it&apos;s intended
      *  to be used to print separator lines, etc.
      *
-     * @param {...any[]} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">args</span></span>
      *
-     * @returns {void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    println(...args: <span class="hljs-built_in">any</span>[]) {
+    <span class="hljs-function"><span class="hljs-title">println</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.print(...args, <span class="hljs-string">&apos;\n&apos;</span>);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Prints the `args` to the `stdout`, indenting the output according to
      *  the current indentation level.
      *
-     * @param {...any[]} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">args</span></span>
      *
-     * @returns {void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    print(...args: <span class="hljs-built_in">any</span>[]) {
+    <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
         <span class="hljs-built_in">this</span>.stdout.write(
             <span class="hljs-built_in">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">&apos;&apos;</span>) }</span>`</span>),
         );
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Increases the current indentation by 2 spaces.
      *
-     * @returns {void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    indent() {
+    <span class="hljs-function"><span class="hljs-title">indent</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-built_in">this</span>.indentation.increase();
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Reduces the current indentation by 2 spaces.
      *
-     * @returns {void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    outdent() {
+    <span class="hljs-function"><span class="hljs-title">outdent</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-built_in">this</span>.indentation.decrease();
     }
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> Indentation {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Indentation</span> </span>{
     <span class="hljs-keyword">private</span> current = <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> step: <span class="hljs-built_in">number</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> step: <span class="hljs-built_in">number</span></span>)</span> {
     }
 
-    increase() {
+    <span class="hljs-function"><span class="hljs-title">increase</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-built_in">this</span>.current += <span class="hljs-built_in">this</span>.step;
     }
 
-    decrease() {
+    <span class="hljs-function"><span class="hljs-title">decrease</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.current - <span class="hljs-built_in">this</span>.step &gt;= <span class="hljs-number">0</span>) {
             <span class="hljs-built_in">this</span>.current -= <span class="hljs-built_in">this</span>.step;
         }
     }
 
-    indented(...fragments: <span class="hljs-built_in">string</span>[]) {
+    <span class="hljs-function"><span class="hljs-title">indented</span>(<span class="hljs-params">...fragments: <span class="hljs-built_in">string</span>[]</span>)</span> {
         <span class="hljs-keyword">return</span> fragments.join(<span class="hljs-string">&apos;&apos;</span>)
             .split(<span class="hljs-string">&apos;\n&apos;</span>)
             .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">&apos; &apos;</span>.repeat(<span class="hljs-built_in">this</span>.current) + line : <span class="hljs-string">&apos;&apos;</span>)

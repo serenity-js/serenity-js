@@ -123,13 +123,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  An update on the progress of the Serenity BDD jar download.
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> DownloadProgressReport <span class="hljs-keyword">extends</span> JSONData {
-    <span class="hljs-keyword">static</span> fromJSON(value: { downloadedBytes: <span class="hljs-built_in">number</span>, totalDownloadedBytes: <span class="hljs-built_in">number</span>, totalBytes: <span class="hljs-built_in">number</span> }) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadProgressReport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JSONData</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">value: { downloadedBytes: <span class="hljs-built_in">number</span>, totalDownloadedBytes: <span class="hljs-built_in">number</span>, totalBytes: <span class="hljs-built_in">number</span> }</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DownloadProgressReport(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&apos;utf8&apos;</span>).toString(<span class="hljs-string">&apos;base64&apos;</span>));
     }
 }

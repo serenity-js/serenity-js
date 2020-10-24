@@ -180,26 +180,26 @@
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, SceneFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Category, ExecutionSkipped, Name, ScenarioDetails, TextData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionSkipped, Name, ScenarioDetails, TextData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { ProtractorReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/adapter/reporter&apos;</span>;
 
 <span class="hljs-comment">/**
- * See the {@link ProtractorFrameworkAdapter} specs to see how the {@link ProtractorReporter} is used in the context
+ * See the {<span class="hljs-doctag">@link </span>ProtractorFrameworkAdapter} specs to see how the {<span class="hljs-doctag">@link </span>ProtractorReporter} is used in the context
  */</span>
 describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> reporter:           ProtractorReporter,
-        protractorRunner:   Runner,
-        serenity:           Serenity;
+        <span class="hljs-attr">protractorRunner</span>:   Runner,
+        <span class="hljs-attr">serenity</span>:           Serenity;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         protractorRunner    = sinon.createStubInstance(Runner);
         reporter            = <span class="hljs-keyword">new</span> ProtractorReporter(protractorRunner);
         serenity            = <span class="hljs-keyword">new</span> Serenity();
 
-        serenity.configure({ crew: [ reporter ] });
+        serenity.configure({ <span class="hljs-attr">crew</span>: [ reporter ] });
     });
 
     <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ScenarioDetails(
@@ -208,27 +208,27 @@ describe(<span class="hljs-string">&apos;ProtractorReporter&apos;</span>, <span 
         <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;./some/scenario.spec.ts&apos;</span>)),
     );
 
-    <span class="hljs-comment">/** @test {ProtractorReporter} */</span>
-    it(<span class="hljs-string">&apos;ignores events outcomes Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorReporter}</span> </span>*/</span>
+    it(<span class="hljs-string">`ignores events outcomes Protractor doesn&apos;t care about`</span>, <span class="hljs-function">() =&gt;</span> {
 
-        expect(reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(details, <span class="hljs-keyword">new</span> ExecutionSkipped()))).to.be.undefined;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+        expect(reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(CorrelationId.create(), details, <span class="hljs-keyword">new</span> ExecutionSkipped()))).to.be.undefined;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
 
         expect(reporter.report()).to.deep.equal({
-            failedCount: <span class="hljs-number">0</span>,
-            specResults: [],
+            <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">specResults</span>: [],
         });
     });
 
-    <span class="hljs-comment">/** @test {ProtractorReporter} */</span>
-    it(<span class="hljs-string">&apos;ignores domain events Protractor doesn\&apos;t care about&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorReporter}</span> </span>*/</span>
+    it(<span class="hljs-string">`ignores domain events Protractor doesn&apos;t care about`</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> artifact = TextData.fromJSON({ contentType: <span class="hljs-string">&apos;text/plain&apos;</span>, data: <span class="hljs-string">&apos;one,two,three&apos;</span>});
+        <span class="hljs-keyword">const</span> artifact = TextData.fromJSON({ <span class="hljs-attr">contentType</span>: <span class="hljs-string">&apos;text/plain&apos;</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">&apos;one,two,three&apos;</span>});
 
-        expect(reporter.notifyOf(<span class="hljs-keyword">new</span> ArtifactGenerated(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;report.csv&apos;</span>), artifact))).to.be.undefined;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+        expect(reporter.notifyOf(<span class="hljs-keyword">new</span> ArtifactGenerated(CorrelationId.create(), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;report.csv&apos;</span>), artifact))).to.be.undefined;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
 
         expect(reporter.report()).to.deep.equal({
-            failedCount: <span class="hljs-number">0</span>,
-            specResults: [],
+            <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">specResults</span>: [],
         });
     });
 });

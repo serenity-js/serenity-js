@@ -139,7 +139,7 @@
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../actors&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {LastResponse} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
@@ -149,20 +149,20 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
     describe(<span class="hljs-string">&apos;when asserting on the response to the last HTTP request&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">interface</span> Product {
-            id: <span class="hljs-built_in">number</span>;
+            <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
             name: <span class="hljs-built_in">string</span>;
         }
 
         <span class="hljs-keyword">const</span>
             url     = <span class="hljs-string">&apos;/products/2&apos;</span>,
-            body    = { id: <span class="hljs-number">2</span>, name: <span class="hljs-string">&apos;apple&apos;</span> },
+            body    = { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> },
             headers = { <span class="hljs-string">&apos;Content-Type&apos;</span>: <span class="hljs-string">&apos;application/json;charset=utf-8&apos;</span> };
 
         beforeEach(<span class="hljs-function">() =&gt;</span>  mock.onGet(url).reply(<span class="hljs-number">200</span>, body, headers));
 
         <span class="hljs-comment">/**
-         * @test {LastResponse}
-         * @test {LastResponse.status}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.status}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables access to the response status&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
@@ -170,8 +170,8 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
         ));
 
         <span class="hljs-comment">/**
-         * @test {LastResponse}
-         * @test {LastResponse.body}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.body}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables access to the response body&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
@@ -179,8 +179,8 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
         ));
 
         <span class="hljs-comment">/**
-         * @test {LastResponse}
-         * @test {LastResponse.header}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.header}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables access to a specific response header&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
@@ -188,8 +188,8 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
         ));
 
         <span class="hljs-comment">/**
-         * @test {LastResponse}
-         * @test {LastResponse.headers}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.headers}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables access to all response headers&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
@@ -198,7 +198,7 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
     });
 
     <span class="hljs-comment">/**
-     * @test {CallAnApi.mapLastResponse}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;complains if the last response is attempted to be retrieved without making a request first&apos;</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.attemptsTo(

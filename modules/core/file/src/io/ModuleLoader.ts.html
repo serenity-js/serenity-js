@@ -266,23 +266,23 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;path&apos;</span>;
 <span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Version&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ModuleLoader {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cwd: <span class="hljs-built_in">string</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ModuleLoader</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cwd: <span class="hljs-built_in">string</span></span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @package
+     * <span class="hljs-doctag">@package</span>
      *
-     * @param moduleId
-     *  NPM module id, for example &apos;cucumber&apos; or &apos;@serenity-js/core&apos;
+     * <span class="hljs-doctag">@param <span class="hljs-variable">moduleId</span></span>
+     *  NPM module id, for example &apos;cucumber&apos; or &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;
      */</span>
     resolve(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> fromFile = path.join(<span class="hljs-built_in">this</span>.cwd, <span class="hljs-string">&apos;noop.js&apos;</span>);
 
         <span class="hljs-keyword">return</span> Module._resolveFilename(moduleId, {
-            id: fromFile,
-            filename: fromFile,
-            paths: Module._nodeModulePaths(<span class="hljs-built_in">this</span>.cwd),
+            <span class="hljs-attr">id</span>: fromFile,
+            <span class="hljs-attr">filename</span>: fromFile,
+            <span class="hljs-attr">paths</span>: Module._nodeModulePaths(<span class="hljs-built_in">this</span>.cwd),
         });
     }
 

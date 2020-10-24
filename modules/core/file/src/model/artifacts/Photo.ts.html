@@ -265,22 +265,22 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Artifact } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Artifact&apos;</span>;
 
 <span class="hljs-comment">/**
- * @public
- * @extends {Artifact}
+ * <span class="hljs-doctag">@public</span>
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{Artifact}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Photo <span class="hljs-keyword">extends</span> Artifact {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Photo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Artifact</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     * @param {string} value
+     * <span class="hljs-doctag">@desc</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">value</span></span>
      */</span>
     <span class="hljs-keyword">static</span> fromBase64(value: <span class="hljs-built_in">string</span>): Photo {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Photo(value);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     * @param {Buffer | ArrayBuffer} value
+     * <span class="hljs-doctag">@desc</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Buffer | ArrayBuffer}</span> <span class="hljs-variable">value</span></span>
      */</span>
     <span class="hljs-keyword">static</span> fromBuffer(value: Buffer | <span class="hljs-built_in">ArrayBuffer</span>): Photo {
         <span class="hljs-keyword">const</span> buffer = value <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">ArrayBuffer</span>
@@ -291,7 +291,7 @@
     }
 
     <span class="hljs-comment">/**
-     * @param fn
+     * <span class="hljs-doctag">@param <span class="hljs-variable">fn</span></span>
      */</span>
     map&lt;O&gt;(fn: <span class="hljs-function">(<span class="hljs-params">decodedValue: Buffer</span>) =&gt;</span> O): O {
         <span class="hljs-keyword">return</span> fn(Buffer.from(<span class="hljs-built_in">this</span>.base64EncodedValue, <span class="hljs-string">&apos;base64&apos;</span>));

@@ -271,41 +271,44 @@
 <span class="hljs-keyword">import</span> { ActivityDescriber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ActivityDescriber&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeMatcher } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeMatcher&apos;</span>;
 
-<span class="hljs-comment">/** @package */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TrackedActivity <span class="hljs-keyword">implements</span> Activity {
+<span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrackedActivity</span> <span class="hljs-title">implements</span> <span class="hljs-title">Activity</span> </span>{
 
     <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> describer = <span class="hljs-keyword">new</span> ActivityDescriber();
     <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> outcomes = <span class="hljs-keyword">new</span> OutcomeMatcher();
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> activity: Activity,
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> stage: Stage,
-    </span>) {
+    </span>)</span> {
     }
 
-    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) &amp; { name: <span class="hljs-built_in">string</span> }): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.stage.activityDetailsFor(<span class="hljs-built_in">this</span>.activity, actor);
+    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) &amp; { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span>
+            sceneId = <span class="hljs-built_in">this</span>.stage.currentSceneId(),
+            activityId = <span class="hljs-built_in">this</span>.stage.assignNewActivityId(),
+            details = <span class="hljs-keyword">new</span> ActivityDetails(TrackedActivity.describer.describe(<span class="hljs-built_in">this</span>.activity, actor));
 
         <span class="hljs-keyword">const</span> [ activityStarts, activityFinished] = <span class="hljs-built_in">this</span>.activity <span class="hljs-keyword">instanceof</span> Interaction
             ? [ InteractionStarts, InteractionFinished ]
             : [ TaskStarts, TaskFinished ];
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityStarts(details, <span class="hljs-built_in">this</span>.stage.currentTime())))
+            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityStarts(sceneId, activityId, details, <span class="hljs-built_in">this</span>.stage.currentTime())))
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.activity.performAs(actor))
             .then(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> outcome = <span class="hljs-keyword">new</span> ExecutionSuccessful();
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityFinished(details, outcome, <span class="hljs-built_in">this</span>.stage.currentTime()));
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityFinished(sceneId, activityId, details, outcome, <span class="hljs-built_in">this</span>.stage.currentTime()));
             })
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> outcome = TrackedActivity.outcomes.outcomeFor(error);
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityFinished(details, outcome, <span class="hljs-built_in">this</span>.stage.currentTime()));
+                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> activityFinished(sceneId, activityId, details, outcome, <span class="hljs-built_in">this</span>.stage.currentTime()));
 
                 <span class="hljs-keyword">throw</span> error;
             });
     }
 
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.activity.toString();
     }
 }

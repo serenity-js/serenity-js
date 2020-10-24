@@ -263,11 +263,11 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/RuntimeError.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Base class for custom errors that may occur during execution of a test scenario.
  *
- * @example &lt;caption&gt;Custom Error definition&lt;/caption&gt;
- * import { RuntimeError } from &apos;@serenity-js/core&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Custom Error definition&lt;/caption&gt;
+ * import { RuntimeError } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
  *
  * export class CustomError extends RuntimeError {
  *   constructor(message: string, cause?: Error) {
@@ -275,7 +275,7 @@
  *   }
  * }
  *
- * @example &lt;caption&gt;Sync error handling&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Sync error handling&lt;/caption&gt;
  * try {
  *     operationThatMightThrowAnError();
  * } catch(error) {
@@ -283,26 +283,26 @@
  *     throw new CustomError(&apos;operationThatMightThrowAnError has failed&apos;, error);
  * }
  *
- * @example &lt;caption&gt;Async error handling&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Async error handling&lt;/caption&gt;
  * operationThatMightRejectAPromise().catch(error =&gt; {
  *     // catch and re-throw
  *     throw new CustomError(&apos;operationThatMightThrowAnError has failed&apos;, error);
  * });
  *
- * @extends {Error}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{Error}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> RuntimeError <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Error</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RuntimeError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Error</span> </span>{
 
     <span class="hljs-comment">/**
-     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError
-     * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Function}</span> <span class="hljs-variable">type</span></span> - Constructor function used to instantiate a subclass of a RuntimeError
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">message</span></span> - Human-readable description of the error
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Error}</span> </span>[cause] - The root cause of this {<span class="hljs-doctag">@link </span>RuntimeError}, if any
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; RuntimeError,
         message: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cause?: <span class="hljs-built_in">Error</span>,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(message);
         <span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-built_in">this</span>, <span class="hljs-keyword">type</span>.prototype);
         <span class="hljs-built_in">this</span>.name = <span class="hljs-built_in">this</span>.constructor.name;
@@ -315,10 +315,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Human-readable description
      */</span>
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.message }</span>`</span>;
     }
 }

@@ -184,12 +184,12 @@
 <span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Enter} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        Field: Target.the(<span class="hljs-string">&apos;name field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
-        Result: Target.the(<span class="hljs-string">&apos;result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>)),
+        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">&apos;name field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
+        <span class="hljs-attr">Result</span>: Target.the(<span class="hljs-string">&apos;result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>)),
     };
 
     <span class="hljs-keyword">const</span> page = pageFromTemplate(<span class="hljs-string">`
@@ -208,8 +208,8 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
             &lt;/html&gt;
         `</span>)
 
-    <span class="hljs-comment">/** @test {Enter} */</span>
-    <span class="hljs-comment">/** @test {Enter.theValue} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to enter the value into an input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(page),
 
@@ -218,8 +218,8 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name)),
     ));
 
-    <span class="hljs-comment">/** @test {Enter} */</span>
-    <span class="hljs-comment">/** @test {Enter.theValue} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to enter the value into a number field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(page),
 
@@ -228,7 +228,7 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;123&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Enter#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Enter.theValue(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name).into(Form.Field).toString())
             .to.equal(<span class="hljs-string">`#actor enters &apos;Bernie&apos; into the name field`</span>);

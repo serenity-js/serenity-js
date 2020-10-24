@@ -265,13 +265,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Prepares the {@link Actor} for the performance.
+ * <span class="hljs-doctag">@desc</span>
+ *  Prepares the {<span class="hljs-doctag">@link </span>Actor} for the performance.
  *
- * @example &lt;caption&gt;A dressing room for actors interacting with a Web UI&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;A dressing room for actors interacting with a Web UI&lt;/caption&gt;
  *
- *  import { serenity, Actor, DressingRoom } from &apos;@serenity-js/core&apos;
- *  import { BrowseTheWeb } from &apos;@serenity-js/protractor&apos;
+ *  import { serenity, Actor, DressingRoom } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;
+ *  import { BrowseTheWeb } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;
  *  import { protractor } from &apos;protractor&apos;
  *
  *  class UIActors implements DressingRoom {
@@ -282,20 +282,20 @@
  *
  *  const stage = serenity.callToStageFor(new UIActors());
  *
- * @see {@link Stage}
- * @see {@link Cast}
- * @interface
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
+ * <span class="hljs-doctag">@interface</span>
  *
- * @deprecated Please use the Cast instead
+ * <span class="hljs-doctag">@deprecated </span>Please use the Cast instead
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> DressingRoom {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DressingRoom</span> </span>{
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Creates a generic `DressingRoom` implementation, where every actor
      *  is given all the abilities specified when the method is called.
      *
-     * @param {Ability[]} abilities
-     * @returns {DressingRoom}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Ability[]}</span> <span class="hljs-variable">abilities</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{DressingRoom}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> whereEveryoneCan(...abilities: Ability[]): DressingRoom {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GenericDressingRoom(abilities);
@@ -305,10 +305,10 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> GenericDressingRoom <span class="hljs-keyword">implements</span> DressingRoom {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> abilities: Ability[]</span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GenericDressingRoom</span> <span class="hljs-title">implements</span> <span class="hljs-title">DressingRoom</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> abilities: Ability[]</span>)</span> {
     }
 
     prepare(actor: Actor): Actor {

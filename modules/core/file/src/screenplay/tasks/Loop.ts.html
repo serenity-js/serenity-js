@@ -270,8 +270,8 @@
 <span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Task&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Enables the {@link Actor} to iterate over a list of items produced by any {@link Answerable}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Enables the {<span class="hljs-doctag">@link </span>Actor} to iterate over a list of items produced by any {<span class="hljs-doctag">@link </span>Answerable}.
  *
  *  You can think of `Loop` as a more sophisticated Screenplay-style equivalent of
  *  [`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).
@@ -280,11 +280,11 @@
  *  and `Question&lt;Array&lt;T&gt;&gt;`,
  *  as well as asynchronous ones, so `Promise&lt;Array&lt;T&gt;&gt;` and `Question&lt;Promise&lt;Array&lt;T&gt;&gt;&gt;`.
  *
- *  Use {@link Loop.item} to access the current item being processed by {@link Loop}, and {@link Loop.index}
- *  to access the index of {@link Loop.item} in the list.
+ *  Use {<span class="hljs-doctag">@link </span>Loop.item} to access the current item being processed by {<span class="hljs-doctag">@link </span>Loop}, and {<span class="hljs-doctag">@link </span>Loop.index}
+ *  to access the index of {<span class="hljs-doctag">@link </span>Loop.item} in the list.
  *
- * @example &lt;caption&gt;Basic scenario - Iterating over a static list of items&lt;/caption&gt;
- *  import { actorCalled, Loop, Log } from &apos;@serenity-js/core&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Basic scenario - Iterating over a static list of items&lt;/caption&gt;
+ *  import { actorCalled, Loop, Log } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
  *
  *  actorCalled(&apos;Joe&apos;).attemptsTo(
  *      Loop.over([ &apos;apple&apos;, &apos;banana&apos;, &apos;candy&apos; ]).to(
@@ -293,11 +293,11 @@
  *      ),
  *  );
  *
- * @example &lt;caption&gt;API scenario - Iterating over items in an API response&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;API scenario - Iterating over items in an API response&lt;/caption&gt;
  *
- *  import { actorCalled, Loop } from &apos;@serenity-js/core&apos;;
- *  import { Send, GetRequest, CallAnApi, LastResponse } from &apos;@serenity-js/rest&apos;;
- *  import { Ensure, property, isGreaterThan } from &apos;@serenity-js/assertions&apos;;
+ *  import { actorCalled, Loop } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Send, GetRequest, CallAnApi, LastResponse } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;;
+ *  import { Ensure, property, isGreaterThan } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
  *  interface TodoItem {
  *      userId: number;
@@ -318,7 +318,7 @@
  *      )
  *  );
  *
- * @example &lt;caption&gt;UI scenario - Example widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;UI scenario - Example widget&lt;/caption&gt;
  *  &lt;nav&gt;
  *      &lt;div data-test=&quot;cookies&quot;&gt;
  *          &lt;label for=&quot;functional-cookies&quot;&gt;
@@ -333,8 +333,8 @@
  *      &lt;/div&gt;
  *  &lt;/nav&gt;
  *
- * @example &lt;caption&gt;UI scenario - Lean Page Object&lt;/caption&gt;
- *  import { Target } from &apos;@serenity-js/protractor&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;UI scenario - Lean Page Object&lt;/caption&gt;
+ *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { browser, by } from &apos;protractor&apos;;
  *
  *  class Cookies {
@@ -345,10 +345,10 @@
  *          .located(by.tagName(&apos;input&apos;)),
  *  }
  *
- * @example &lt;caption&gt;UI scenario - Performing the same set of activities with each element&lt;/caption&gt;
- *  import { actorCalled, Loop } from &apos;@serenity-js/core&apos;;
- *  import { Click, Text, isSelected } from &apos;@serenity-js/protractor&apos;;
- *  import { Ensure, startsWith } from &apos;@serenity-js/assertions&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;UI scenario - Performing the same set of activities with each element&lt;/caption&gt;
+ *  import { actorCalled, Loop } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Click, Text, isSelected } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
+ *  import { Ensure, startsWith } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  actorCalled(&apos;Joe&apos;)
@@ -368,38 +368,38 @@
  *          ),
  *      );
  *
- * @extends {Task}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{Task}</span></span>
  *
- * @see {@link Loop.item}
- * @see {@link Loop.index}
- * @see {@link Question}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop.item}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop.index}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Question}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Loop&lt;Item&gt; <span class="hljs-keyword">extends</span> Task {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Loop</span>&lt;<span class="hljs-title">Item</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> currentItem:     unknown = <span class="hljs-literal">undefined</span>;
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> currentIndex:    <span class="hljs-built_in">number</span>  = <span class="hljs-number">0</span>;
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates a {@link Task} to {@link Loop}
-     *  that enables the {@link Actor} to iterate over `items`
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates a {<span class="hljs-doctag">@link </span>Task} to {<span class="hljs-doctag">@link </span>Loop}
+     *  that enables the {<span class="hljs-doctag">@link </span>Actor} to iterate over `items`
      *  to perform some `activities`.
      *
-     * @param {items: Answerable&lt;ReducibleCollection&gt;} items
-     * @returns {LoopBuilder}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{items: Answerable&lt;ReducibleCollection&gt;}</span> <span class="hljs-variable">items</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{LoopBuilder}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> over&lt;T&gt;(items: Answerable&lt;Reducible&gt;) {
         <span class="hljs-keyword">return</span> {
-            to: <span class="hljs-function">(<span class="hljs-params">...activities: Activity[]</span>) =&gt;</span>
+            <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">...activities: Activity[]</span>) =&gt;</span>
                 <span class="hljs-keyword">new</span> Loop&lt;T&gt;(items, activities)
         }
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Returns the current item being processed by {@link Loop.over}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the current item being processed by {<span class="hljs-doctag">@link </span>Loop.over}.
      *
      *  **Please note** that in order for the TypeScript transpiler to understand the exact `ExpectedType`
-     *  of the {@link Question} produced by this method you can optionally configure it with
+     *  of the {<span class="hljs-doctag">@link </span>Question} produced by this method you can optionally configure it with
      *  a [_type variable_](https://www.typescriptlang.org/docs/handbook/generics.html).
      *
      *  For example, configuring the method with type variable of `string`, so `Loop.item&lt;string&gt;()`,
@@ -409,7 +409,7 @@
      *  `Question&lt;any&gt;`. This means that while your code could still work, you&apos;d miss out
      *  on checking provided by TypeScript.
      *
-     * @returns {Question&lt;ExpectedType&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;ExpectedType&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> item&lt;ExpectedType = <span class="hljs-built_in">any</span>&gt;(): Question&lt;ExpectedType&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;ExpectedType&gt;(<span class="hljs-string">`current loop item`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
@@ -418,12 +418,12 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Returns the index of current {@link Loop.item} in the `Answerable&lt;Array&gt;` given to {@link Loop.over}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the index of current {<span class="hljs-doctag">@link </span>Loop.item} in the `Answerable&lt;Array&gt;` given to {<span class="hljs-doctag">@link </span>Loop.over}.
      *
      *  The index starts at `0`.
      *
-     * @returns {Question&lt;number&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;number&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> index(): Question&lt;<span class="hljs-built_in">number</span>&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`current loop index`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
@@ -432,28 +432,28 @@
     }
 
     <span class="hljs-comment">/**
-     * @param {Answerable&lt;Reducible&gt;} items
-     * @param {Activity[]} activities
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;Reducible&gt;}</span> <span class="hljs-variable">items</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Activity[]}</span> <span class="hljs-variable">activities</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> items: Answerable&lt;Reducible&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[]
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Task}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Task}.
      *
-     * @param {PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
      */</span>
     performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.items)
@@ -472,10 +472,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span>Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> description =  <span class="hljs-built_in">Array</span>.isArray(<span class="hljs-built_in">this</span>.items)
@@ -487,11 +487,11 @@
 }
 
 <span class="hljs-comment">/**
- * @typedef {Object} LoopBuilder
- * @property {function(...activities: Activity[]): Loop} to
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{Object}</span> <span class="hljs-variable">LoopBuilder</span></span>
+ * <span class="hljs-doctag">@property <span class="hljs-type">{function(...activities: Activity[]): Loop}</span> <span class="hljs-variable">to</span></span>
  *
- * @example &lt;caption&gt;Basic scenario - Iterating over a static list of items&lt;/caption&gt;
- *  import { actorCalled, Loop, Log } from &apos;@serenity-js/core&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Basic scenario - Iterating over a static list of items&lt;/caption&gt;
+ *  import { actorCalled, Loop, Log } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
  *
  *  actorCalled(&apos;Joe&apos;).attemptsTo(
  *      Loop.over([ &apos;apple&apos;, &apos;banana&apos;, &apos;candy&apos; ]).to(
@@ -499,8 +499,8 @@
  *      ),
  *  );
  *
- * @see {@link Loop}
- * @see {@link Loop.over}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop.over}</span></span>
  */</span>
 </code></pre>
 

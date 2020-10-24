@@ -126,16 +126,16 @@
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Printer&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Notifies the user of any {@link Notification} or {@link Complaint} type artifacts being reported.
+ * <span class="hljs-doctag">@desc</span>
+ *  Notifies the user of any {<span class="hljs-doctag">@link </span>Notification} or {<span class="hljs-doctag">@link </span>Complaint} type artifacts being reported.
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> NotificationReporter <span class="hljs-keyword">implements</span> StageCrewMember {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NotificationReporter</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
-    </span>) {
+    </span>)</span> {
     }
 
     assignedTo(stage: Stage): StageCrewMember {

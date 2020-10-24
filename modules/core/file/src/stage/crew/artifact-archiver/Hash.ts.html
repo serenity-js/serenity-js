@@ -266,14 +266,14 @@
 <span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Hash <span class="hljs-keyword">extends</span> TinyType {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hash</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(value: <span class="hljs-built_in">string</span>): Hash {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Hash(createHash(<span class="hljs-string">&apos;sha1&apos;</span>).update(value).digest(<span class="hljs-string">&apos;hex&apos;</span>));
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-built_in">this</span>.constructor.name, value, isDefined());
     }

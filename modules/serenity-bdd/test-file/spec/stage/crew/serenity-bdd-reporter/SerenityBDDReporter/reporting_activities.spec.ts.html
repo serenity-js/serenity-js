@@ -127,8 +127,6 @@
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
-    ArtifactArchived,
-    ArtifactGenerated,
     SceneFinished,
     SceneStarts,
     TaskFinished,
@@ -136,7 +134,7 @@
     TestRunFinishes,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage&apos;</span>;
@@ -150,6 +148,10 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
+    <span class="hljs-keyword">const</span>
+        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>),
+        activityIds = [ <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;activity-0&apos;</span>), <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;activity-1&apos;</span>) ];
+
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
 
@@ -160,22 +162,22 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     describe(<span class="hljs-string">&apos;when reporting activities that took place during scenario execution&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;reports the outcome of a single activity&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                    <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -187,25 +189,25 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         });
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;reports the outcome of a sequence of several activities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> pickACard   = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
             <span class="hljs-keyword">const</span> makePayment = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Make the payment&apos;</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                    <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskStarts(makePayment),
-                    <span class="hljs-keyword">new</span> TaskFinished(makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -219,25 +221,25 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         });
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;reports the outcome of nested activities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
             <span class="hljs-keyword">const</span> viewListOfCards = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;View the list of available cards&apos;</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                        <span class="hljs-keyword">new</span> TaskStarts(viewListOfCards),
-                        <span class="hljs-keyword">new</span> TaskFinished(viewListOfCards, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards),
+                        <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -253,14 +255,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     describe(<span class="hljs-string">&apos;order of events&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {ArtifactGenerated}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;records the events in a correct order&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
@@ -269,14 +271,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
-                    <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -284,19 +286,19 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { screenshot: <span class="hljs-string">&apos;photo1.png&apos;</span>, timeStamp: t1.toMillisecondTimestamp() },
-                { screenshot: <span class="hljs-string">&apos;photo2.png&apos;</span>, timeStamp: t2.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
             ]);
         });
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
@@ -304,17 +306,17 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 makePayment = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Make a payment&apos;</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                        <span class="hljs-keyword">new</span> ArtifactGenerated(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;pick a card message&apos;</span>), JSONData.fromJSON({ card: <span class="hljs-string">&apos;default&apos;</span> })),
-                        <span class="hljs-keyword">new</span> ArtifactArchived(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;pick a card message&apos;</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/pick-a-card-message-md5hash.json&apos;</span>)),
-                    <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskStarts(makePayment),
-                        <span class="hljs-keyword">new</span> ArtifactGenerated(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;make a payment message&apos;</span>), JSONData.fromJSON({ amount: <span class="hljs-string">&apos;&#xA3;42&apos;</span> })),
-                        <span class="hljs-keyword">new</span> ArtifactArchived(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;make a payment message&apos;</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/make-a-payment-message-md5hash.json&apos;</span>)),
-                        <span class="hljs-keyword">new</span> ArtifactGenerated(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;server log&apos;</span>), TextData.fromJSON({ contentType: <span class="hljs-string">&apos;text/plain&apos;</span>, data: <span class="hljs-string">&apos;received payment request&apos;</span> })),
-                    <span class="hljs-keyword">new</span> TaskFinished(makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;pick a card message&apos;</span>), JSONData.fromJSON({ <span class="hljs-attr">card</span>: <span class="hljs-string">&apos;default&apos;</span> })),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;pick a card message&apos;</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/pick-a-card-message-md5hash.json&apos;</span>)),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;make a payment message&apos;</span>), JSONData.fromJSON({ <span class="hljs-attr">amount</span>: <span class="hljs-string">&apos;&#xA3;42&apos;</span> })),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;make a payment message&apos;</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/make-a-payment-message-md5hash.json&apos;</span>)),   <span class="hljs-comment">// tslint:disable-line:max-line-length</span>
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;server log&apos;</span>), TextData.fromJSON({ <span class="hljs-attr">contentType</span>: <span class="hljs-string">&apos;text/plain&apos;</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">&apos;received payment request&apos;</span> })),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -338,14 +340,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     describe(<span class="hljs-string">&apos;artifacts&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {ArtifactGenerated}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;records the arbitrary JSON data emitted during the interaction&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>));
@@ -354,14 +356,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
 
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                <span class="hljs-keyword">new</span> TaskStarts(pickACard),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
-                <span class="hljs-keyword">new</span> TaskFinished(pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
-                <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(pickACard, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), photo),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo1&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo1.png&apos;</span>), t1),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), photo),
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;photo2&apos;</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;target/site/serenity/photo2.png&apos;</span>), t2),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -369,8 +371,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
             expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
             expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { screenshot: <span class="hljs-string">&apos;photo1.png&apos;</span>, timeStamp: t1.toMillisecondTimestamp() },
-                { screenshot: <span class="hljs-string">&apos;photo2.png&apos;</span>, timeStamp: t2.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo1.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&apos;photo2.png&apos;</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
             ]);
         });
     });

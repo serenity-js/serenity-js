@@ -181,32 +181,32 @@
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ * <span class="hljs-doctag">@desc</span>
+ *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  execute a script within the context of the current browser window.
  *
  *  Please see the tests below for usage examples.
  *
- * @see {@link LastScriptExecution.result}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link LastScriptExecution.result}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExecuteScript {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteScript</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates a version of this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *  configured to load a script from `sourceUrl`.
      *
-     * @param {string} sourceUrl
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">sourceUrl</span></span>
      *  The URL to load the script from
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>(sourceUrl: <span class="hljs-built_in">string</span>): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteScriptFromUrl(sourceUrl);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *  The script fragment will be executed as the body of an anonymous function.
      *  If the script is provided as a function object, that function will be converted to a string for injection
@@ -218,19 +218,19 @@
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {@link ExecuteScript#sync},
+     *  Unlike executing synchronous JavaScript with {<span class="hljs-doctag">@link </span>ExecuteScript#sync},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
      *  and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      *  If the script invokes the `callback` with a return value, this will be made available
-     *  via the {@link LastScriptExecution.result}.
+     *  via the {<span class="hljs-doctag">@link </span>LastScriptExecution.result}.
      *
-     *  **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
+     *  **Please note** that in order to signal an error in the `script` you need to throw an {<span class="hljs-doctag">@link </span>Error}
      *  instead of passing it to the callback function.
      *
-     * @example &lt;caption&gt;Executing an async script&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Executing an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var callback = arguments[arguments.length - 1];
      *
@@ -239,7 +239,7 @@
      *    callback(result)
      *  ));
      *
-     * @example &lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var name = arguments[0];
      *    var age = arguments[1];
@@ -250,7 +250,7 @@
      *    callback(result)
      *  ).withArguments(&apos;Bob&apos;, 24));
      *
-     * @example &lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *     var header = arguments[0];    // Target gets converted to a WebElement
      *     var callback = arguments[arguments.length - 1];
@@ -258,28 +258,28 @@
      *     callback(header.innerText)
      *   ).withArguments(Target.the(&apos;header&apos;).located(by.css(&apos;h1&apos;))));
      *
-     * @param {string | Function} script
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Function}</span> <span class="hljs-variable">script</span></span>
      *  The script to be executed
      *
-     * @returns {ExecuteScriptWithArguments}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ExecuteScriptWithArguments}</span></span>
      *
-     * @see {@link LastScriptExecution.result}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LastScriptExecution.result}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span>(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteAsynchronousScript(script);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+     * <span class="hljs-doctag">@desc</span>
+     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
      *  execute a synchronous script in the context of the currently selected frame or window.
      *
-     *  If the script returns a value, it will be made available via {@link LastScriptExecution.result}.
+     *  If the script returns a value, it will be made available via {<span class="hljs-doctag">@link </span>LastScriptExecution.result}.
      *
-     * @example &lt;caption&gt;Pressing keys&lt;/caption&gt;
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from &apos;@serenity-js/protractor&apos;;
-     *  import { Ensure, includes } from &apos;@serenity-js/assertions&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Pressing keys&lt;/caption&gt;
+     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+     *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
+     *  import { Ensure, includes } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
      *  import { protractor } from &apos;protractor&apos;;
      *
      *  actorCalled(&apos;Joseph&apos;)
@@ -289,12 +289,12 @@
      *          Ensure.that(LastScriptExecution.result&lt;string&gt;(), includes(&apos;Chrome&apos;)),
      *      );
      *
-     * @param {string | Function} script
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Function}</span> <span class="hljs-variable">script</span></span>
      *  The script to be executed
      *
-     * @returns {ExecuteScriptWithArguments}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ExecuteScriptWithArguments}</span></span>
      *
-     * @see {@link LastScriptExecution.result}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LastScriptExecution.result}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> sync(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                  <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(script);
@@ -302,82 +302,82 @@
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Allows for a script to be executed to be parametrised.
  *
- *  **Please note** that the arguments can be both synchronous and asynchronous {@link @serenity-js/core/lib/screenplay~Question}s
+ *  **Please note** that the arguments can be both synchronous and asynchronous {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}s
  *  as well as regular static values.
  *
- * @abstract
+ * <span class="hljs-doctag">@abstract</span>
  *
- * @see {@link ExecuteScript}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link ExecuteScript}</span></span>
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> ExecuteScriptWithArguments <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteScriptWithArguments</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
     <span class="hljs-comment">/**
-     * @param {string | Function} script
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Function}</span> <span class="hljs-variable">script</span></span>
      *  The script to be executed
      *
-     * @param {Array&lt;Answerable&lt;any&gt;&gt;} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Array&lt;Answerable&lt;any&gt;&gt;}</span> <span class="hljs-variable">args</span></span>
      *  Arguments to parametrise the script with
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>,                                   <span class="hljs-comment">// tslint:disable-line:ban-types</span>
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt; = [],
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  to {@link Enter}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     *  to {<span class="hljs-doctag">@link </span>Enter}.
      *
-     * @param {...Array&lt;Answerable&lt;any&gt;&gt;} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...Array&lt;Answerable&lt;any&gt;&gt;}</span> <span class="hljs-variable">args</span></span>
      *  Arguments to parametrise the script with
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> withArguments(...args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;): Interaction;
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * @returns {PromiseLike&lt;void&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.answerAll(<span class="hljs-built_in">this</span>.args).as(actor)
             .then(<span class="hljs-function"><span class="hljs-params">args</span> =&gt;</span> <span class="hljs-built_in">this</span>.executeAs(actor, args))
             .then(<span class="hljs-function">() =&gt;</span> actor.collect(
                 TextData.fromJSON({
-                    contentType:    <span class="hljs-string">&apos;text/javascript;charset=UTF-8&apos;</span>,
-                    data:           <span class="hljs-built_in">this</span>.script.toString(),
+                    <span class="hljs-attr">contentType</span>:    <span class="hljs-string">&apos;text/javascript;charset=UTF-8&apos;</span>,
+                    <span class="hljs-attr">data</span>:           <span class="hljs-built_in">this</span>.script.toString(),
                 }),
                 <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Script source&apos;</span>),
             ));
     }
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;;
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;;
 
     <span class="hljs-comment">/**
-     * @private
+     * <span class="hljs-doctag">@private</span>
      *
-     * @param {Array&lt;Answerable&lt;any&gt;&gt;} args
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Array&lt;Answerable&lt;any&gt;&gt;}</span> <span class="hljs-variable">args</span></span>
      */</span>
-    <span class="hljs-keyword">private</span> answerAll(args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">answerAll</span>(<span class="hljs-params">args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;</span>)</span> {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-keyword">as</span>: (actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>[]&gt; =&gt; <span class="hljs-built_in">Promise</span>.all(args.map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> {
+            <span class="hljs-attr">as</span>: (actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>[]&gt; =&gt; <span class="hljs-built_in">Promise</span>.all(args.map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> maybeElementFinder = Question.isAQuestion(arg)
                     ? arg.answeredBy(actor)
                     : arg;
@@ -393,14 +393,14 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> ExecuteAsynchronousScript <span class="hljs-keyword">extends</span> ExecuteScriptWithArguments {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteAsynchronousScript</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExecuteScriptWithArguments</span> </span>{
     withArguments(...args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteAsynchronousScript(<span class="hljs-built_in">this</span>.script, args);
     }
 
-    <span class="hljs-keyword">protected</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+    <span class="hljs-keyword">protected</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-built_in">this</span>.script, ...args);
     }
 
@@ -413,27 +413,27 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  *
  * https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html
  * https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement
  */</span>
-<span class="hljs-keyword">class</span> ExecuteScriptFromUrl <span class="hljs-keyword">extends</span> Interaction {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> sourceUrl: <span class="hljs-built_in">string</span></span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteScriptFromUrl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> sourceUrl: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
@@ -467,10 +467,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.sourceUrl }</span>`</span>;
@@ -478,15 +478,15 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> ExecuteSynchronousScript <span class="hljs-keyword">extends</span> ExecuteScriptWithArguments {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecuteSynchronousScript</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExecuteScriptWithArguments</span> </span>{
 
     withArguments(...args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(<span class="hljs-built_in">this</span>.script, args);
     }
 
-    <span class="hljs-keyword">protected</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+    <span class="hljs-keyword">protected</span> executeAs(actor: UsesAbilities &amp; AnswersQuestions, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeScript(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-built_in">this</span>.script, ...args);
     }
 

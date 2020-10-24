@@ -125,10 +125,10 @@
 <span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FileExists = {
-    at: <span class="hljs-function">(<span class="hljs-params">path: Path</span>) =&gt;</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt;(<span class="hljs-string">`<span class="hljs-subst">${ path.value }</span> exists`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+    <span class="hljs-attr">at</span>: <span class="hljs-function">(<span class="hljs-params">path: Path</span>) =&gt;</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt;(<span class="hljs-string">`<span class="hljs-subst">${ path.value }</span> exists`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
         UseFileSystem.as(actor).attributesOf(path)
             .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-literal">true</span>)
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {

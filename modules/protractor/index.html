@@ -187,13 +187,13 @@ of modern full-stack applications faster, more collaborative and easier to scale
 
 <span class="hljs-built_in">exports</span>.config = {
     <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
-    framework:      <span class="hljs-string">&apos;custom&apos;</span>,
-    frameworkPath:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
     <span class="hljs-comment">// Configure Serenity/JS to use an appropriate test runner</span>
     <span class="hljs-comment">// and the Stage Crew Members we&apos;ve imported at the top of this file</span>
     serenity: {
-        runner: <span class="hljs-string">&apos;jasmine&apos;</span>,
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;jasmine&apos;</span>,
         <span class="hljs-comment">// runner: &apos;cucumber&apos;,</span>
         <span class="hljs-comment">// runner: &apos;mocha&apos;,</span>
         crew: [
@@ -205,17 +205,17 @@ of modern full-stack applications faster, more collaborative and easier to scale
     },
 
     <span class="hljs-comment">// configure Cucumber runner</span>
-    cucumberOpts: {
+    <span class="hljs-attr">cucumberOpts</span>: {
         <span class="hljs-comment">// see the Cucumber configuration options below</span>
     },
 
     <span class="hljs-comment">// or configure Jasmine runner</span>
-    jasmineNodeOpts: {
+    <span class="hljs-attr">jasmineNodeOpts</span>: {
         <span class="hljs-comment">// see the Jasmine configuration options below</span>
     },
 
     <span class="hljs-comment">// or configure Mocha runner</span>
-    mochaOpts: {
+    <span class="hljs-attr">mochaOpts</span>: {
         <span class="hljs-comment">// see the Mocha configuration options below</span>
     },
 
@@ -229,7 +229,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <li><a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">Mocha configuration options</a></li>
 <li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">Protractor configuration file</a>.</li>
 </ul>
-<h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;

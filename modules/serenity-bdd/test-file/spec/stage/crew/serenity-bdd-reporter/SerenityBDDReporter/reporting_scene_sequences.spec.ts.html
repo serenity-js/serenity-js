@@ -129,6 +129,7 @@
 <span class="hljs-keyword">import</span> {
     BrowserTag,
     Category,
+    CorrelationId,
     Description,
     ExecutionFailedWithError,
     ExecutionSuccessful,
@@ -158,6 +159,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
     <span class="hljs-comment">// see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context</span>
     <span class="hljs-keyword">const</span>
+        sceneIds = [ <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;scene-0&apos;</span>), <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;scene-1&apos;</span>) ],
         category = <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Reporting results&apos;</span>),
         name     = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Reports scenario outlines&apos;</span>),
         path     = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`reporting_results/reports_scenario_outlines.feature`</span>),
@@ -173,53 +175,43 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             path,
             <span class="hljs-number">7</span>,
         )),
-        scenario1 = <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(
-            path,
-            <span class="hljs-number">25</span>,
-        )),
-        scenario2 = <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(
-            path,
-            <span class="hljs-number">26</span>,
-        ))
+        scenarios = [
+            <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">25</span>)),
+            <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">26</span>)),
+        ]
     ;
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;captures information about a sequence of scenes (2 scenes in a sequence)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-                <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">0</span>], sequence),
+                <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">0</span>], template),
                 <span class="hljs-keyword">new</span> SceneParametersDetected(
-                    scenario1,
+                    sceneIds[<span class="hljs-number">0</span>],
+                    scenarios[<span class="hljs-number">0</span>],
                     <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                        { Developer: <span class="hljs-string">&apos;jan-molak&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
+                        { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
                     ),
                 ),
-                <span class="hljs-keyword">new</span> SceneStarts(scenario1),
-                <span class="hljs-keyword">new</span> SceneFinished(scenario1, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-                <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">1</span>], sequence),
+                <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">1</span>], template),
                 <span class="hljs-keyword">new</span> SceneParametersDetected(
-                    scenario2,
+                    sceneIds[<span class="hljs-number">1</span>],
+                    scenarios[<span class="hljs-number">1</span>],
                     <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                        { Developer: <span class="hljs-string">&apos;wakaleo&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
+                        { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
                     ),
                 ),
-                <span class="hljs-keyword">new</span> SceneStarts(scenario2),
-                <span class="hljs-keyword">new</span> SceneFinished(scenario2, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>]),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 
@@ -234,15 +226,15 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         ]);
 
         expect(report.dataTable.dataSetDescriptors).to.deep.equal([{
-            startRow: <span class="hljs-number">0</span>,
-            rowCount: <span class="hljs-number">2</span>,
-            name: <span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>,
-            description: <span class="hljs-string">&apos;Some of the people who have contributed their time and talent to the Serenity/JS project&apos;</span>,
+            <span class="hljs-attr">startRow</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">rowCount</span>: <span class="hljs-number">2</span>,
+            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Some of the people who have contributed their time and talent to the Serenity/JS project&apos;</span>,
         }]);
 
         expect(report.dataTable.rows).to.deep.equal([
-            { values: [ <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-string">&apos;@JanMolak&apos;</span> ], result: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
-            { values: [ <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-string">&apos;@wakaleo&apos;</span> ], result: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
+            { <span class="hljs-attr">values</span>: [ <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-string">&apos;@JanMolak&apos;</span> ], <span class="hljs-attr">result</span>: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
+            { <span class="hljs-attr">values</span>: [ <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-string">&apos;@wakaleo&apos;</span> ], <span class="hljs-attr">result</span>: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
         ]);
 
         expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">2</span>);
@@ -254,52 +246,45 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     });
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;determines the result of the sequence based on the worst result of the contributing scenarios&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-                <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">0</span>], sequence),
+                <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">0</span>], template),
                 <span class="hljs-keyword">new</span> SceneParametersDetected(
-                    scenario1,
+                    sceneIds[<span class="hljs-number">0</span>],
+                    scenarios[<span class="hljs-number">0</span>],
                     <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                        { Developer: <span class="hljs-string">&apos;jan-molak&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
+                        { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
                     ),
                 ),
-                <span class="hljs-keyword">new</span> SceneStarts(scenario1),
-                <span class="hljs-keyword">new</span> SceneFinished(scenario1, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Something happened&apos;</span>))),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Something happened&apos;</span>))),
 
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-                <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">1</span>], sequence),
+                <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">1</span>], template),
                 <span class="hljs-keyword">new</span> SceneParametersDetected(
-                    scenario2,
+                    sceneIds[<span class="hljs-number">1</span>],
+                    scenarios[<span class="hljs-number">1</span>],
                     <span class="hljs-keyword">new</span> ScenarioParameters(
                         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                         <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                        { Developer: <span class="hljs-string">&apos;wakaleo&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
+                        { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
                     ),
                 ),
-                <span class="hljs-keyword">new</span> SceneStarts(scenario2),
-                <span class="hljs-keyword">new</span> SceneFinished(scenario2, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>]),
+                <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 
         <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
         expect(report.dataTable.rows).to.deep.equal([
-            { values: [ <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-string">&apos;@JanMolak&apos;</span> ], result: <span class="hljs-string">&apos;ERROR&apos;</span> },
-            { values: [ <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-string">&apos;@wakaleo&apos;</span> ], result: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
+            { <span class="hljs-attr">values</span>: [ <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-string">&apos;@JanMolak&apos;</span> ], <span class="hljs-attr">result</span>: <span class="hljs-string">&apos;ERROR&apos;</span> },
+            { <span class="hljs-attr">values</span>: [ <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-string">&apos;@wakaleo&apos;</span> ], <span class="hljs-attr">result</span>: <span class="hljs-string">&apos;SUCCESS&apos;</span> },
         ]);
 
         expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">2</span>);
@@ -313,60 +298,53 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     });
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;ensures that context and tags are not duplicated despite having multiple scenarios in a sequence&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">0</span>], sequence),
+            <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">0</span>], template),
             <span class="hljs-keyword">new</span> SceneParametersDetected(
-                scenario1,
+                sceneIds[<span class="hljs-number">0</span>],
+                scenarios[<span class="hljs-number">0</span>],
                 <span class="hljs-keyword">new</span> ScenarioParameters(
                     <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                     <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                    { Developer: <span class="hljs-string">&apos;jan-molak&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
+                    { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;jan-molak&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@JanMolak&apos;</span> },
                 ),
             ),
-            <span class="hljs-keyword">new</span> SceneStarts(scenario1),
+            <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
                 <span class="hljs-keyword">new</span> SceneTagged(
-                    scenario1,
+                    sceneIds[<span class="hljs-number">0</span>],
                     <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;83.0.4103.106&apos;</span>),
                 ),
                 <span class="hljs-keyword">new</span> SceneTagged(
-                    scenario1,
+                    sceneIds[<span class="hljs-number">0</span>],
                     <span class="hljs-keyword">new</span> PlatformTag(<span class="hljs-string">&apos;Mac OS X&apos;</span>),
                 ),
-            <span class="hljs-keyword">new</span> SceneFinished(scenario1, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Something happened&apos;</span>))),
+            <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Something happened&apos;</span>))),
 
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sequence),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(template),
+            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">1</span>], sequence),
+            <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">1</span>], template),
             <span class="hljs-keyword">new</span> SceneParametersDetected(
-                scenario2,
+                sceneIds[<span class="hljs-number">1</span>],
+                scenarios[<span class="hljs-number">1</span>],
                 <span class="hljs-keyword">new</span> ScenarioParameters(
                     <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Serenity/JS contributors&apos;</span>),
                     <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                    { Developer: <span class="hljs-string">&apos;wakaleo&apos;</span>, Twitter_Handle: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
+                    { <span class="hljs-attr">Developer</span>: <span class="hljs-string">&apos;wakaleo&apos;</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">&apos;@wakaleo&apos;</span> },
                 ),
             ),
-            <span class="hljs-keyword">new</span> SceneStarts(scenario2),
+            <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>]),
                 <span class="hljs-keyword">new</span> SceneTagged(
-                    scenario2,
+                    sceneIds[<span class="hljs-number">1</span>],
                     <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;83.0.4103.106&apos;</span>),
                 ),
                 <span class="hljs-keyword">new</span> SceneTagged(
-                    scenario2,
+                    sceneIds[<span class="hljs-number">1</span>],
                     <span class="hljs-keyword">new</span> PlatformTag(<span class="hljs-string">&apos;Mac OS X&apos;</span>),
                 ),
-            <span class="hljs-keyword">new</span> SceneFinished(scenario2, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 
@@ -377,17 +355,17 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         expect(report.context).to.equal(<span class="hljs-string">&apos;chrome,Mac OS X&apos;</span>);
 
         expect(report.tags).to.deep.equal([{
-            browserName: <span class="hljs-string">&apos;chrome&apos;</span>,
-            browserVersion: <span class="hljs-string">&apos;83.0.4103.106&apos;</span>,
-            displayName: <span class="hljs-string">&apos;chrome 83.0.4103.106&apos;</span>,
-            name: <span class="hljs-string">&apos;chrome 83.0.4103.106&apos;</span>,
-            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
+            <span class="hljs-attr">browserName</span>: <span class="hljs-string">&apos;chrome&apos;</span>,
+            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">&apos;83.0.4103.106&apos;</span>,
+            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;chrome 83.0.4103.106&apos;</span>,
+            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;chrome 83.0.4103.106&apos;</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
         }, {
-            displayName: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
-            name: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
-            platformName: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
-            platformVersion: <span class="hljs-string">&apos;&apos;</span>,
-            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;platform&apos;</span>,
+            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
+            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
+            <span class="hljs-attr">platformName</span>: <span class="hljs-string">&apos;Mac OS X&apos;</span>,
+            <span class="hljs-attr">platformVersion</span>: <span class="hljs-string">&apos;&apos;</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;platform&apos;</span>,
         }]);
     });
 });

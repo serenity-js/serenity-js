@@ -268,7 +268,7 @@
 <span class="hljs-keyword">import</span> { Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {Timestamp} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
@@ -278,12 +278,12 @@ describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hl
 
     describe(<span class="hljs-string">&apos;instantiation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be instantiated with an arbitrary Date&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>())).to.not.throw;            <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
         });
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;defaults to current time if no argument is provided&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> Timestamp()).to.not.throw;                      <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
         });
@@ -300,12 +300,12 @@ describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hl
 
     describe(<span class="hljs-string">&apos;serialisation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;is serialised to an ISO-8601-compliant string&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(now.toJSON()).to.equal(current_time_ISO8601);
         });
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be deserialised from an ISO-8601-compliant string&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Timestamp.fromJSON(current_time_ISO8601).equals(now)).to.equal(<span class="hljs-literal">true</span>);
         });
@@ -325,7 +325,7 @@ describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hl
 
     describe(<span class="hljs-string">&apos;arithmetic&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows for calculating a difference between two timestamps&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span> a_bit_later = Timestamp.fromJSON(<span class="hljs-string">&apos;2018-05-01T12:00:02.752Z&apos;</span>);
@@ -334,7 +334,7 @@ describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hl
             expect(a_bit_later.diff(now).equals(Duration.ofMilliseconds(<span class="hljs-number">2752</span>))).to.equal(<span class="hljs-literal">true</span>);
         });
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows for computing another timestamp, relative to the original one&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span>
@@ -347,12 +347,12 @@ describe(<span class="hljs-string">&apos;Timestamp&apos;</span>, <span class="hl
 
     describe(<span class="hljs-string">&apos;conversion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be converted to a numeric unix timestamp&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(now.toMillisecondTimestamp()).to.equal(<span class="hljs-built_in">Math</span>.floor(now.value.getTime()));
         });
 
-        <span class="hljs-comment">/** @test {Timestamp} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Timestamp}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be created from a numeric unix timestamp&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Timestamp.fromMillisecondTimestamp(<span class="hljs-built_in">Math</span>.floor(now.value.getTime())).toMillisecondTimestamp())
                 .to.equal(now.toMillisecondTimestamp());

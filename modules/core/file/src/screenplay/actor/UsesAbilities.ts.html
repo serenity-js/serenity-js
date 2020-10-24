@@ -267,19 +267,19 @@
 <span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Activity&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Enables the {@link Actor} to use an {@link Ability} to perform some {@link Activity}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Enables the {<span class="hljs-doctag">@link </span>Actor} to use an {<span class="hljs-doctag">@link </span>Ability} to perform some {<span class="hljs-doctag">@link </span>Activity}.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UsesAbilities {
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Grants access to the Actor&apos;s ability
      *
-     * @param {AbilityType&lt;T extends Ability&gt;} doSomething
-     * @returns {T}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{AbilityType&lt;T extends Ability&gt;}</span> <span class="hljs-variable">doSomething</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
      */</span>
     abilityTo&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): T;
 }

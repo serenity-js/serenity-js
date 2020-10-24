@@ -129,7 +129,7 @@
 <span class="hljs-keyword">import</span> { JasmineAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter&apos;</span>;
 <span class="hljs-keyword">import</span> { FakeJasmineRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FakeJasmineRunner&apos;</span>;
 
-<span class="hljs-comment">/** @test JasmineAdapter */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter */</span>
 describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> loader: sinon.SinonStubbedInstance&lt;ModuleLoader&gt;;
@@ -137,12 +137,12 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         loader = sinon.createStubInstance(ModuleLoader);
         (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = {
-            Suite: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
-            Spec: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
-            getEnv() {
+            <span class="hljs-attr">Suite</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+            <span class="hljs-attr">Spec</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+            <span class="hljs-function"><span class="hljs-title">getEnv</span>(<span class="hljs-params"></span>)</span> {
                 <span class="hljs-keyword">return</span> {
-                    beforeEach: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
-                    afterAll: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">beforeEach</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">afterAll</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
                 };
             },
         };
@@ -154,7 +154,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
         (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine = <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
     });
 
-    <span class="hljs-comment">/** @test JasmineAdapter#run */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter#run */</span>
     it(<span class="hljs-string">&apos;defaults to running tests sequentially rather than in a random order&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
@@ -168,13 +168,13 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
         FakeJasmineRunner.instance.complete(<span class="hljs-literal">true</span>);
 
         expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({
-            random: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">random</span>: <span class="hljs-literal">false</span>,
         });
 
         <span class="hljs-keyword">return</span> result;
     });
 
-    <span class="hljs-comment">/** @test JasmineAdapter#run */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter#run */</span>
     it(<span class="hljs-string">&apos;configures the default timeout interval if required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>

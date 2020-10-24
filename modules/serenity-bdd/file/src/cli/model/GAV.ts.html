@@ -124,10 +124,10 @@
 <span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> GAV <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">static</span> fromString(gav: <span class="hljs-built_in">string</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GAV</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromString</span>(<span class="hljs-params">gav: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">const</span> parts = gav.split(<span class="hljs-string">&apos;:&apos;</span>);
 
         ensure(<span class="hljs-string">&apos;GAV segments&apos;</span>, parts, property(<span class="hljs-string">&apos;length&apos;</span>, isInteger(), isInRange(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)));
@@ -139,13 +139,13 @@
         }
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> groupId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> artifactId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = &apos;jar&apos;,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = <span class="hljs-string">&apos;jar&apos;</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> classifier?: <span class="hljs-built_in">string</span>,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-string">&apos;groupId&apos;</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
         ensure(<span class="hljs-string">&apos;artifactId&apos;</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));

@@ -133,15 +133,15 @@
 <span class="hljs-keyword">import</span> { getPortPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;portfinder&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ * <span class="hljs-doctag">@desc</span>
+ *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
  *  to manage a local [Node.js](https://nodejs.org/) server.
  *
- * @example &lt;caption&gt;Using a raw Node.js server&lt;/caption&gt;
- * import { Actor } from &apos;@serenity-js/core&apos;;
- * import { CallAnApi, GetRequest, Send } from &apos;@serenity-js/rest&apos;;
- * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from &apos;@serenity-js/local-server&apos;
- * import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a raw Node.js server&lt;/caption&gt;
+ * import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ * import { CallAnApi, GetRequest, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;;
+ * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from &apos;<span class="hljs-doctag">@serenity</span>-js/local-server&apos;
+ * import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
  * import axios from &apos;axios&apos;;
  * import * as http from &apos;http&apos;;
@@ -164,23 +164,23 @@
  *     StopLocalTestServer.ifRunning(),
  * );
  *
- * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
- * @see https://nodejs.org/api/http.html#http_class_http_server
+ * <span class="hljs-doctag">@see </span>https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
+ * <span class="hljs-doctag">@see </span>https://nodejs.org/api/http.html#http_class_http_server
  *
- * @implements {@link @serenity-js/core/lib/screenplay~Ability}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Ability}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ManageALocalServer <span class="hljs-keyword">implements</span> Ability {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ManageALocalServer</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> server: ServerWithShutdown;
 
     <span class="hljs-comment">/**
-     * @desc
-     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.
+     * <span class="hljs-doctag">@desc</span>
+     *  {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.
      *
-     * @param {RequestListener | net~Server} listener
-     * @returns {ManageALocalServer}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{RequestListener | net~Server}</span> <span class="hljs-variable">listener</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ManageALocalServer}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> runningAHttpListener(listener: RequestListener | net.Server) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpListener</span>(<span class="hljs-params">listener: RequestListener | net.Server</span>)</span> {
         <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">&apos;function&apos;</span>
             ? http.createServer(listener)
             : listener;
@@ -189,16 +189,16 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
+     * <span class="hljs-doctag">@desc</span>
+     *  {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
-     * @param {RequestListener | https~Server} listener
-     * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
-     * @returns {ManageALocalServer}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{RequestListener | https~Server}</span> <span class="hljs-variable">listener</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{https~ServerOptions}</span> <span class="hljs-variable">options</span></span> - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ManageALocalServer}</span></span>
      *
-     * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
+     * <span class="hljs-doctag">@see </span>https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */</span>
-    <span class="hljs-keyword">static</span> runningAHttpsListener(listener: RequestListener | https.Server, options: https.ServerOptions = {}) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpsListener</span>(<span class="hljs-params">listener: RequestListener | https.Server, options: https.ServerOptions = {}</span>)</span> {
         <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">&apos;function&apos;</span>
             ? https.createServer(options, listener)
             : listener;
@@ -207,43 +207,43 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}&apos;s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}
-     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
-     *  such as {@link StartLocalServer}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Used to access the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}&apos;s {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}  to {<span class="hljs-doctag">@link </span>ManageALocalServer}
+     *  from within the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
+     *  such as {<span class="hljs-doctag">@link </span>StartLocalServer}.
      *
-     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor
-     * @return {ManageALocalServer}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@return <span class="hljs-type">{ManageALocalServer}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): ManageALocalServer {
         <span class="hljs-keyword">return</span> actor.abilityTo(ManageALocalServer);
     }
 
     <span class="hljs-comment">/**
-     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">protocol</span></span> - Protocol to be used when communicating with the running server; `http` or `https`
      *
-     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
+     * <span class="hljs-doctag">@param <span class="hljs-type">{net~Server}</span> <span class="hljs-variable">server</span></span> - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
      *
-     * @see https://www.npmjs.com/package/http-shutdown
+     * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/http-shutdown
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protocol: SupportedProtocols, server: net.Server</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protocol: SupportedProtocols, server: net.Server</span>)</span> {
         <span class="hljs-built_in">this</span>.server = withShutdownSupport(server);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.
      *
-     * @param {number} [preferredPort=8000]
+     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> </span>[preferredPort=8000]
      *  Lower bound of the preferred port range
      *
-     * @param {number} [highestPort=65535] highestPort
+     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> </span>[highestPort=65535] highestPort
      *  Upper bound of the preferred port range
      *
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
-    listen(preferredPort: <span class="hljs-built_in">number</span> = <span class="hljs-number">8000</span>, highestPort: <span class="hljs-built_in">number</span> = <span class="hljs-number">65535</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> getPortPromise({ port: preferredPort, stopPort: highestPort })
+    listen(preferredPort: <span class="hljs-built_in">number</span> = <span class="hljs-number">8000</span>, <span class="hljs-attr">highestPort</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">65535</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> getPortPromise({ <span class="hljs-attr">port</span>: preferredPort, <span class="hljs-attr">stopPort</span>: highestPort })
             .then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
                 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) </span>{
                     <span class="hljs-keyword">if</span> (error.code === <span class="hljs-string">&apos;EADDRINUSE&apos;</span>) {
@@ -264,11 +264,11 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Provides access to the server requestListener
      *
-     * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn
-     * @returns {T}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{function(server: ServerWithShutdown, protocol?: SupportedProtocols): T}</span> <span class="hljs-variable">fn</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
      */</span>
     mapInstance&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">server: ServerWithShutdown, protocol?: SupportedProtocols</span>) =&gt;</span> T): T {
         <span class="hljs-keyword">return</span> fn(<span class="hljs-built_in">this</span>.server, <span class="hljs-built_in">this</span>.protocol);
@@ -276,45 +276,45 @@
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  A `requestListener` function that Node&apos;s
  *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
  *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
  *  would accept.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  *
- * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(request: http.IncomingMessage, response: http.ServerResponse): void}</span> <span class="hljs-variable">RequestListener</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> RequestListener = <span class="hljs-function">(<span class="hljs-params">request: http.IncomingMessage, response: http.ServerResponse</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  A {@link net~Server} with an added shutdown method.
+ * <span class="hljs-doctag">@desc</span>
+ *  A {<span class="hljs-doctag">@link </span>net~Server} with an added shutdown method.
  *
- * @see https://www.npmjs.com/package/http-shutdown
+ * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/http-shutdown
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  *
- * @typedef {net~Server &amp; { shutdown: (callback: (error?: Error) =&gt; void) =&gt; void }} ServerWithShutdown
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{net~Server &amp; { shutdown: (callback: (error?: Error) =&gt; void) =&gt; void }</span></span>} ServerWithShutdown
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> ServerWithShutdown = net.Server &amp; {
-    shutdown: (callback: <span class="hljs-function">(<span class="hljs-params">error?: <span class="hljs-built_in">Error</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>) =&gt; <span class="hljs-built_in">void</span>,
-    forceShutdown: (callback: <span class="hljs-function">(<span class="hljs-params">error?: <span class="hljs-built_in">Error</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>) =&gt; <span class="hljs-built_in">void</span>,
+    <span class="hljs-attr">shutdown</span>: <span class="hljs-function">(<span class="hljs-params">callback: (error?: <span class="hljs-built_in">Error</span>) =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>,
+    <span class="hljs-attr">forceShutdown</span>: <span class="hljs-function">(<span class="hljs-params">callback: (error?: <span class="hljs-built_in">Error</span>) =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>,
 };
 
 <span class="hljs-comment">/**
- * @desc
- *  The protocol supported by the instance of the {@link ServerWithShutdown},
- *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.
+ * <span class="hljs-doctag">@desc</span>
+ *  The protocol supported by the instance of the {<span class="hljs-doctag">@link </span>ServerWithShutdown},
+ *  wrapped by the {<span class="hljs-doctag">@link </span>ManageALocalServer} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}.
  *
- * @see {@link ManageALocalServer#mapInstance}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link ManageALocalServer#mapInstance}</span></span>
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  *
- * @typedef {Object} SupportedProtocols
- * @property {string} HTTP
- * @property {string} HTTPS
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{Object}</span> <span class="hljs-variable">SupportedProtocols</span></span>
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> <span class="hljs-variable">HTTP</span></span>
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> <span class="hljs-variable">HTTPS</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-built_in">enum</span> SupportedProtocols {
     HTTP = <span class="hljs-string">&apos;http&apos;</span>,

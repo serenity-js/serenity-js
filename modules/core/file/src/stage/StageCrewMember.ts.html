@@ -268,23 +268,23 @@
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StageManager&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s
- *  from the {@link StageManager}. Every {@link StageCrewMember} receives a reference to the {@link Stage},
- *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.
+ * <span class="hljs-doctag">@desc</span>
+ *  You can think of the {<span class="hljs-doctag">@link </span>StageCrewMember} as an in-memory micro-service that reacts to {<span class="hljs-doctag">@link </span>DomainEvent}s
+ *  from the {<span class="hljs-doctag">@link </span>StageManager}. Every {<span class="hljs-doctag">@link </span>StageCrewMember} receives a reference to the {<span class="hljs-doctag">@link </span>Stage},
+ *  and therefore {<span class="hljs-doctag">@link </span>StageManager} as well, which enables them to emit {<span class="hljs-doctag">@link </span>DomainEvent}s back.
  *
  *  Useful when you&apos;re interested in implementing custom reporters.
  *
- * @extends {ListensToDomainEvents}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{ListensToDomainEvents}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> StageCrewMember <span class="hljs-keyword">extends</span> ListensToDomainEvents {
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Creates a new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember} and assigns it to a given {<span class="hljs-doctag">@link </span>Stage}.
      *
-     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
-     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> <span class="hljs-variable">stage</span></span> - An instance of a {<span class="hljs-doctag">@link </span>Stage} this {<span class="hljs-doctag">@link </span>StageCrewMember} will be assigned to
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{StageCrewMember}</span> </span>- A new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember}
      */</span>
     assignedTo(stage: Stage): StageCrewMember;
 }

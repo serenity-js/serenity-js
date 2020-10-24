@@ -264,23 +264,25 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/ArtifactGenerated.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">import</span> { Artifact, Name, SerialisedArtifact, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { Artifact, CorrelationId, Name, SerialisedArtifact, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ArtifactGenerated <span class="hljs-keyword">extends</span> DomainEvent {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArtifactGenerated</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactGenerated(
+            CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Artifact.fromJSON(o.artifact <span class="hljs-keyword">as</span> SerialisedArtifact),
             Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> artifact: Artifact,
         timestamp?: Timestamp,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
         ensure(<span class="hljs-string">&apos;value&apos;</span>, artifact, isDefined());
     }

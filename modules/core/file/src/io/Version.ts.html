@@ -265,18 +265,18 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> semver = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;semver&apos;</span>);
 <span class="hljs-keyword">import</span> { ensure, isDefined, isString, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Version <span class="hljs-keyword">extends</span> TinyType {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Version</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
 
-    <span class="hljs-keyword">static</span> fromJSON(version: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">version: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Version(version);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-string">&apos;version&apos;</span>, version, isDefined(), isString(), isValid());
     }
 
-    isAtLeast(other: Version) {
+    <span class="hljs-function"><span class="hljs-title">isAtLeast</span>(<span class="hljs-params">other: Version</span>)</span> {
         <span class="hljs-keyword">return</span> semver.gte(<span class="hljs-built_in">this</span>.version, other.version);
     }
 
@@ -284,7 +284,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">this</span>.version.split(<span class="hljs-string">&apos;.&apos;</span>)[<span class="hljs-number">0</span>]);
     }
 
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.version }</span>`</span>;
     }
 }

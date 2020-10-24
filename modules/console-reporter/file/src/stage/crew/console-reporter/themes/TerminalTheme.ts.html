@@ -129,53 +129,53 @@
 <span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Decorates text with control characters to make the terminal
  *  print output in colour.
  *
- * @public
- * @abstract
+ * <span class="hljs-doctag">@public</span>
+ * <span class="hljs-doctag">@abstract</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> TerminalTheme {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TerminalTheme</span> </span>{
     <span class="hljs-comment">/**
-     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~AssertionReportDiffer}</span> <span class="hljs-variable">differ</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> differ: AssertionReportDiffer</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> differ: AssertionReportDiffer</span>)</span> {
     }
 
     <span class="hljs-keyword">abstract</span> heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">abstract</span> outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">abstract</span> separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> diff(expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> diff(expected: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actual</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">abstract</span> log(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Converts the `parts` to `string` and joins them together.
      *
-     * @protected
+     * <span class="hljs-doctag">@protected</span>
      *
-     * @param {any[]} parts
+     * <span class="hljs-doctag">@param <span class="hljs-type">{any[]}</span> <span class="hljs-variable">parts</span></span>
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     <span class="hljs-keyword">protected</span> joined(parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> parts.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">&apos;&apos;</span>);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Repeats a given `pattern` so that it takes up to `maxLength` characters.
      *  Used to produce separator lines.
      *
-     * @protected
+     * <span class="hljs-doctag">@protected</span>
      *
-     * @param {string} pattern
-     * @param {number} [maxLength=80] maxLength
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">pattern</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> </span>[maxLength=80] maxLength
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-keyword">protected</span> repeat(pattern: <span class="hljs-built_in">string</span>, maxLength = <span class="hljs-number">80</span>) {
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">repeat</span>(<span class="hljs-params">pattern: <span class="hljs-built_in">string</span>, maxLength = <span class="hljs-number">80</span></span>)</span> {
         <span class="hljs-keyword">if</span> (! pattern) {
             <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&apos;</span>;
         }

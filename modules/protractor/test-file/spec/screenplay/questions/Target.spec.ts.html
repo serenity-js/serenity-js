@@ -183,7 +183,7 @@
 <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Target} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> shoppingListPage = pageFromTemplate(<span class="hljs-string">`
@@ -202,7 +202,7 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         &lt;/html&gt;
     `</span>);
 
-    <span class="hljs-keyword">class</span> ShoppingList {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingList</span> </span>{
         <span class="hljs-keyword">static</span> App                  = Target.the(<span class="hljs-string">&apos;shopping list app&apos;</span>).located(by.id(<span class="hljs-string">&apos;shopping-list-app&apos;</span>));
         <span class="hljs-keyword">static</span> Progress             = Target.the(<span class="hljs-string">&apos;progress bar&apos;</span>).located(by.css(<span class="hljs-string">&apos;.progress&apos;</span>)).of(ShoppingList.App);
         <span class="hljs-keyword">static</span> Number_Of_Items_Left = Target.the(<span class="hljs-string">&apos;number of items left&apos;</span>).of(ShoppingList.Progress).located(by.css(<span class="hljs-string">&apos;span&apos;</span>));
@@ -216,8 +216,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
     describe(<span class="hljs-string">&apos;allows the actor to locate&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetElement}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;a single web element matching the selector&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
@@ -226,8 +226,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         ));
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetElements}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;all web elements matching the selector&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
@@ -236,8 +236,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         ));
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetNestedElement}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;an element relative to another target&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
@@ -246,8 +246,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         ));
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetNestedElements}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;all elements relative to another target&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(shoppingListPage),
@@ -261,8 +261,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         describe(<span class="hljs-string">&apos;an element that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetElement}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;is being targeted&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(ShoppingList.Header.toString())
@@ -270,8 +270,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             });
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetElement}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has been located&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(ShoppingList.Header.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
@@ -279,8 +279,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             });
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetNestedElement}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;is nested&apos;</span>, <span class="hljs-function">() =&gt;</span>
                 expect(ShoppingList.Number_Of_Items_Left.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
@@ -290,8 +290,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         describe(<span class="hljs-string">&apos;elements that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetElements}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;are being targeted&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(ShoppingList.Items.toString())
@@ -299,16 +299,16 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             });
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetElements}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;have been located&apos;</span>, <span class="hljs-function">() =&gt;</span>
                 expect(ShoppingList.Items.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
                     .to.equal(<span class="hljs-string">&apos;the items of the shopping list app&apos;</span>));
 
             <span class="hljs-comment">/**
-             * @test {Target}
-             * @test {TargetNestedElements}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;are nested&apos;</span>, <span class="hljs-function">() =&gt;</span>
                 expect(ShoppingList.Bought_Items.answeredBy(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).toString())
@@ -334,7 +334,7 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
             &lt;/html&gt;
         `</span>);
 
-        <span class="hljs-keyword">class</span> Page {
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> </span>{
             <span class="hljs-keyword">static</span> Article = Target.the(<span class="hljs-string">&apos;article&apos;</span>).located(by.css(<span class="hljs-string">&apos;article&apos;</span>));
             <span class="hljs-keyword">static</span> Header  = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;header&apos;</span>));
             <span class="hljs-keyword">static</span> Title   = Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
@@ -343,8 +343,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         }
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetNestedElement}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),
@@ -354,8 +354,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         ));
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetNestedElement}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),
@@ -365,8 +365,8 @@ describe(<span class="hljs-string">&apos;Target&apos;</span>, <span class="hljs-
         ));
 
         <span class="hljs-comment">/**
-         * @test {Target}
-         * @test {TargetNestedElements}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageWithNestedTargets),

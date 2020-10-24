@@ -183,9 +183,9 @@
 
  actor.attemptsTo(
      Send.a(PostRequest.to(<span class="hljs-string">&apos;/books&apos;</span>).with({
-         isbn: <span class="hljs-string">&apos;0-688-00230-7&apos;</span>,
-         title: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
-         author: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
+         <span class="hljs-attr">isbn</span>: <span class="hljs-string">&apos;0-688-00230-7&apos;</span>,
+         <span class="hljs-attr">title</span>: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
+         <span class="hljs-attr">author</span>: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
      })),
      Ensure.that(LastResponse.status(), equals(<span class="hljs-number">201</span>)),
      Ensure.that(LastResponse.header(<span class="hljs-string">&apos;Location&apos;</span>), equals(<span class="hljs-string">&apos;/books/0-688-00230-7&apos;</span>)),
@@ -201,14 +201,14 @@
  <span class="hljs-keyword">const</span>
      actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(CallAnApi.at(<span class="hljs-string">&apos;https://myapp.com&apos;</span>)),
      formData = stringify({
-         name: actor.name,
-         email: <span class="hljs-string">`<span class="hljs-subst">${ actor.name }</span>@example.com`</span>,
-         text: <span class="hljs-string">&apos;Your website is great! Learnt a lot :-)&apos;</span>
+         <span class="hljs-attr">name</span>: actor.name,
+         <span class="hljs-attr">email</span>: <span class="hljs-string">`<span class="hljs-subst">${ actor.name }</span>@example.com`</span>,
+         <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;Your website is great! Learnt a lot :-)&apos;</span>
      });
 
  actor.attemptsTo(
      Send.a(PostRequest.to(<span class="hljs-string">&apos;/feedback&apos;</span>).with(postData).using({
-         headers: {
+         <span class="hljs-attr">headers</span>: {
              <span class="hljs-string">&apos;Content-Type&apos;</span>: <span class="hljs-string">&apos;application/x-www-form-urlencoded&apos;</span>,
              <span class="hljs-string">&apos;Content-Length&apos;</span>: formData.length
          }

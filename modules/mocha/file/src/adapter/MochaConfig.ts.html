@@ -120,190 +120,190 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaConfig.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Configuration object for the Mocha test runner.
  *
- * @see https://github.com/mochajs/mocha/blob/v8.0.1/example/config/.mocharc.yml
+ * <span class="hljs-doctag">@see </span>https://github.com/mochajs/mocha/blob/v8.0.1/example/config/.mocharc.yml
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> MochaConfig {
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Path to config file.
      *
-     * @see https://github.com/mochajs/mocha/tree/v8.0.1/example/config
+     * <span class="hljs-doctag">@see </span>https://github.com/mochajs/mocha/tree/v8.0.1/example/config
      *
-     * @type {string | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     config?: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Allow uncaught errors to propagate.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-string">&apos;allow-uncaught&apos;</span>?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Require all tests to use a callback (async) or return a Promise.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-string">&apos;async-only&apos;</span>?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Abort (&quot;bail&quot;) after first test failure.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     bail?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Check for global variable leaks.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-string">&apos;check-leaks&apos;</span>?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Delay initial execution of root suite.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     delay?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Only run tests containing this string.
-     *  Please note: {@link MochaConfig.fgrep} and {@link MochaConfig.grep} are mutually exclusive.
+     *  Please note: {<span class="hljs-doctag">@link </span>MochaConfig.fgrep} and {<span class="hljs-doctag">@link </span>MochaConfig.grep} are mutually exclusive.
      *
-     * @type {string | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     fgrep?: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  File(s) to be loaded prior to root suite execution.
      *
-     * @type {string[] | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     file?: <span class="hljs-built_in">string</span>[];
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Fail if exclusive test(s) encountered.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-string">&apos;forbid-only&apos;</span>?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Fail if pending test(s) encountered.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-string">&apos;forbid-pending&apos;</span>: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  List of allowed global variables.
      *
-     * @type {string[] | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-built_in">global</span>?: <span class="hljs-built_in">string</span>[];
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Only run tests matching this string or regexp.
-     *  Please note: {@link MochaConfig.fgrep} and {@link MochaConfig.grep} are mutually exclusive.
+     *  Please note: {<span class="hljs-doctag">@link </span>MochaConfig.fgrep} and {<span class="hljs-doctag">@link </span>MochaConfig.grep} are mutually exclusive.
      *
-     * @type {string | RegExp | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string | RegExp | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     grep?: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">RegExp</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Enable Growl notifications.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     growl?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Inverts {@link MochaConfig.grep} and {@link MochaConfig.fgrep} matches.
+     * <span class="hljs-doctag">@desc</span>
+     *  Inverts {<span class="hljs-doctag">@link </span>MochaConfig.grep} and {<span class="hljs-doctag">@link </span>MochaConfig.fgrep} matches.
      *
-     * @type {boolean | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     invert?: <span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Require module.
      *
-     * @type {string[] | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     <span class="hljs-built_in">require</span>?: <span class="hljs-built_in">string</span>[];
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Retry failed tests this many times.
      *
-     * @type {number | undefined}
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{number | undefined}</span></span>
+     * <span class="hljs-doctag">@public</span>
      */</span>
     retries?: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Specify &quot;slow&quot; test threshold (in milliseconds).
      *
-     * @type {number} [slow=75]
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{number}</span> </span>[slow=75]
+     * <span class="hljs-doctag">@public</span>
      */</span>
     slow?: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Specify test timeout threshold (in milliseconds).
      *  Please note: setting this property to 0 means &quot;no timeout&quot;.
      *
-     * @type {number} [timeout=2000]
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{number}</span> </span>[timeout=2000]
+     * <span class="hljs-doctag">@public</span>
      */</span>
     timeout?: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Specify user interface.
      *
-     * @see https://mochajs.org/#interfaces
+     * <span class="hljs-doctag">@see </span>https://mochajs.org/#interfaces
      *
-     * @type {string} [ui=&quot;bdd&quot;]
-     * @public
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span> </span>[ui=&quot;bdd&quot;]
+     * <span class="hljs-doctag">@public</span>
      */</span>
     ui?: <span class="hljs-built_in">string</span>;
 }

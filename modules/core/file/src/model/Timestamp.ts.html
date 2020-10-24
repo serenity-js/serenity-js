@@ -267,16 +267,16 @@
 
 <span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Duration&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Timestamp <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Timestamp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(ensure(Timestamp.name, v, isSerialisedISO8601Date())));
     }
 
-    <span class="hljs-keyword">static</span> fromMillisecondTimestamp(v: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromMillisecondTimestamp</span>(<span class="hljs-params">v: <span class="hljs-built_in">number</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(v).toDate());
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(Timestamp.name, value, isDefined(), isInstanceOf(<span class="hljs-built_in">Date</span>));
     }

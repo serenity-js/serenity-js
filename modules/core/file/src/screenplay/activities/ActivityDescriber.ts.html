@@ -265,10 +265,10 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Activity&apos;</span>;
 
-<span class="hljs-comment">/** @package */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ActivityDescriber {
+<span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ActivityDescriber</span> </span>{
 
-    describe(activity: Activity, actor: { name: <span class="hljs-built_in">string</span> }): Name {
+    describe(activity: Activity, <span class="hljs-attr">actor</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }): Name {
         <span class="hljs-keyword">const</span> template = activity.toString() !== ({}).toString()
             ? activity.toString()
             : <span class="hljs-string">`#actor performs <span class="hljs-subst">${ activity.constructor.name }</span>`</span>;
@@ -278,7 +278,7 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> includeActorName(template: <span class="hljs-built_in">string</span>, actor: { name: <span class="hljs-built_in">string</span> }) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">includeActorName</span>(<span class="hljs-params">template: <span class="hljs-built_in">string</span>, actor: { name: <span class="hljs-built_in">string</span> }</span>)</span> {
         <span class="hljs-keyword">return</span> template.replace(<span class="hljs-string">&apos;#actor&apos;</span>, actor.name);
     }
 }

@@ -267,13 +267,13 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ConfigurationError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
 describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
         prepare(actor: Actor): Actor {
             <span class="hljs-keyword">return</span> actor;
         }
@@ -282,8 +282,8 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
     <span class="hljs-keyword">const</span> stageManager = sinon.createStubInstance(StageManager);
 
     <span class="hljs-comment">/**
-     * @test {Stage#actor}
-     * @test {Stage#theActorCalled}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorCalled}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;provides both the more verbose and more concise way of accessing the actors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
@@ -296,7 +296,7 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;when instantiating actors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;instantiates a new actor when their name is called for the first time&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">&apos;Alice&apos;</span>,
@@ -311,7 +311,7 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
             expect(actor.name).to.equal(<span class="hljs-string">&apos;Alice&apos;</span>);
         });
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;returns an existing actor if it has already been instantiated before&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">&apos;Alice&apos;</span>,
@@ -332,7 +332,7 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;when referencing a recently retrieved actor&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;retrieves the current actor, if there is any&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">&apos;Alice&apos;</span>,
@@ -345,8 +345,8 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
         });
 
         <span class="hljs-comment">/**
-         * @test {Stage#theActorInTheSpotlight}
-         * @test {Stage#theActorInTheSpotlight}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;provides both the more verbose and more concise way of accessing the actors in the spotlight&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
@@ -362,8 +362,8 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
         });
 
         <span class="hljs-comment">/**
-         * @test {Stage#theActorInTheSpotlight}
-         * @test {Stage#theActorInTheSpotlight}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains if you try to access the actor in the spotlight, but there isn\&apos;t any yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
@@ -377,35 +377,44 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;when correlating activities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> SomeActivity = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor doesn&apos;t do much`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
-
-        it(<span class="hljs-string">&apos;provides ActivityDetails for a given Activity&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">&apos;assigns sceneIds&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 actors = <span class="hljs-keyword">new</span> Extras(),
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
-            <span class="hljs-keyword">const</span> details = stage.activityDetailsFor(SomeActivity(), stage.actor(<span class="hljs-string">&apos;Alice&apos;</span>));
+            <span class="hljs-keyword">const</span> assigned = stage.assignNewSceneId();
+            <span class="hljs-keyword">const</span> retrieved = stage.currentSceneId();
 
-            expect(details.name.value).to.equal(<span class="hljs-string">`Alice doesn&apos;t do much`</span>);
-            expect(details.correlationId.value).to.be.a(<span class="hljs-string">&apos;string&apos;</span>);    <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            expect(assigned).to.equal(retrieved);
         });
 
-        it(<span class="hljs-string">&apos;allows for the recently ActivityDetails to be retrieved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">&apos;returns a default sceneId when activities are performed outside of a test runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 actors = <span class="hljs-keyword">new</span> Extras(),
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
-            <span class="hljs-keyword">const</span> details = stage.activityDetailsFor(SomeActivity(), stage.actor(<span class="hljs-string">&apos;Alice&apos;</span>));
+            <span class="hljs-keyword">const</span> retrieved = stage.currentSceneId();
 
-            expect(stage.currentActivityDetails()).to.equal(details);
+            expect(retrieved.value).to.equal(<span class="hljs-string">&apos;unknown&apos;</span>);
         });
 
-        it(<span class="hljs-string">&apos;complains if ActivityDetails attempted to be retrieved before they have been generated&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">&apos;assigns activityIds&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 actors = <span class="hljs-keyword">new</span> Extras(),
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
-            expect(<span class="hljs-function">() =&gt;</span> stage.currentActivityDetails()).to.throw(LogicError, <span class="hljs-string">&apos;No activity is being performed. Did you call activityDetailsFor before invoking currentActivityDetails?&apos;</span>);
+            <span class="hljs-keyword">const</span> assigned = stage.assignNewActivityId();
+            <span class="hljs-keyword">const</span> retrieved = stage.currentActivityId();
+
+            expect(assigned).to.equal(retrieved);
+        });
+
+        it(<span class="hljs-string">&apos;complains if an activityId is attempted to be retrieved before is has been assigned&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span>
+                actors = <span class="hljs-keyword">new</span> Extras(),
+                stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
+
+            expect(<span class="hljs-function">() =&gt;</span> stage.currentActivityId()).to.throw(LogicError, <span class="hljs-string">&apos;No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?&apos;</span>);
         });
     });
 
@@ -423,12 +432,12 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
             }).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">&apos;StageManager should be defined&apos;</span>);
         });
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;complains if the Cast does not provide a way to instantiate a given actor&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">&apos;Alice&apos;</span>,
-                actors: Cast = {
-                    prepare: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-literal">undefined</span>,
+                <span class="hljs-attr">actors</span>: Cast = {
+                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-literal">undefined</span>,
                 },
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
@@ -437,9 +446,9 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
             }).to.throw(ConfigurationError, <span class="hljs-string">`Instead of a new instance of actor &quot;<span class="hljs-subst">${ name }</span>&quot;, Cast returned undefined`</span>);
         });
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">class</span> AwesomeActors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AwesomeActors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
                 }
@@ -455,12 +464,12 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
             }).to.throw(ConfigurationError, <span class="hljs-string">`Instead of a new instance of actor &quot;<span class="hljs-subst">${ name }</span>&quot;, AwesomeActors returned undefined`</span>);
         });
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;complains if the Cast throws an error during actor instantiation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">&apos;Alice&apos;</span>,
-                actors: Cast = {
-                    prepare: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`I&apos;m not working today`</span>); },
+                <span class="hljs-attr">actors</span>: Cast = {
+                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`I&apos;m not working today`</span>); },
                 },
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
@@ -469,9 +478,9 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
             }).to.throw(ConfigurationError, <span class="hljs-string">`Cast encountered a problem when preparing actor &quot;<span class="hljs-subst">${ name }</span>&quot; for stage`</span>);
         });
 
-        <span class="hljs-comment">/** @test {Stage#actor} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Stage#actor}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">class</span> MoodyActors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoodyActors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`I&apos;m not working today`</span>);
                 }

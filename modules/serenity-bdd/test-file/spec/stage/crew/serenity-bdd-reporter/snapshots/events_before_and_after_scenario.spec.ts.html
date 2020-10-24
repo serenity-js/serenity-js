@@ -121,6 +121,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
 <span class="hljs-keyword">import</span> { contentsOf, EventRecorder, EventStreamEmitter, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
@@ -130,9 +131,9 @@
 describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> reporter: SerenityBDDReporter,
-        stage: Stage,
-        emitter: EventStreamEmitter,
-        recorder: EventRecorder;
+        <span class="hljs-attr">stage</span>: Stage,
+        <span class="hljs-attr">emitter</span>: EventStreamEmitter,
+        <span class="hljs-attr">recorder</span>: EventRecorder;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock()));
@@ -145,7 +146,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         stage.assign(reporter);
     });
 
-    <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
     it(<span class="hljs-string">`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`</span>, <span class="hljs-function">() =&gt;</span> emitter.emit(
         contentsOf(__dirname, <span class="hljs-string">&apos;examples&apos;</span>, <span class="hljs-string">&apos;scenario_with_interactions_in_before_and_after_hooks.events&apos;</span>)
     ).then(<span class="hljs-function">() =&gt;</span> {
@@ -165,7 +166,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         .map(<span class="hljs-function">(<span class="hljs-params">e: ArtifactGenerated</span>) =&gt;</span> e.artifact);
 }
 
-<span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor;
     }

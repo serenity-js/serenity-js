@@ -120,7 +120,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/** @package */</span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
 
 <span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
@@ -128,7 +128,7 @@
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerenityBDDReport <span class="hljs-keyword">extends</span> JSONObject {
-    name: <span class="hljs-built_in">string</span>;                       <span class="hljs-comment">// done [x]</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;                       <span class="hljs-comment">// done [x]</span>
     id: <span class="hljs-built_in">string</span>;                         <span class="hljs-comment">// done [x]</span>
     testSteps: TestStep[];              <span class="hljs-comment">// done [x]</span>
     userStory: UserStory;               <span class="hljs-comment">// todo [~]    cucumber</span>
@@ -157,7 +157,7 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TestStep <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">number</span>: <span class="hljs-built_in">number</span>;
     description: <span class="hljs-built_in">string</span>;
     duration: <span class="hljs-built_in">number</span>;
     startTime: <span class="hljs-built_in">number</span>;
@@ -172,7 +172,7 @@
 
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ReportData <span class="hljs-keyword">extends</span> JSONObject {
-    id: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
     isEvidence: <span class="hljs-built_in">boolean</span>;
     path: <span class="hljs-built_in">string</span>;
     title: <span class="hljs-built_in">string</span>;
@@ -183,13 +183,13 @@
  * https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/screenshots/ScreenshotAndHtmlSource.java
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Screenshot <span class="hljs-keyword">extends</span> JSONObject {
-    screenshot: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">screenshot</span>: <span class="hljs-built_in">string</span>;
     timeStamp: <span class="hljs-built_in">number</span>;
     htmlSource?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// &quot;htmlSource&quot;: &quot;pagesource7953468346968205961.html.txt&quot;</span>
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UserStory <span class="hljs-keyword">extends</span> JSONObject {
-    id: <span class="hljs-built_in">string</span>;             <span class="hljs-comment">// dashified feature name</span>
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;             <span class="hljs-comment">// dashified feature name</span>
     storyName: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// feature name</span>
     path: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// relative feature file path</span>
     <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// &apos;feature&apos;</span>
@@ -197,13 +197,13 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Tag <span class="hljs-keyword">extends</span> JSONObject {
-    name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
     displayName: <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTable <span class="hljs-keyword">extends</span> JSONObject {
-    headers: <span class="hljs-built_in">string</span>[];
+    <span class="hljs-attr">headers</span>: <span class="hljs-built_in">string</span>[];
     rows: DataTableRow[];
     predefinedRows: <span class="hljs-built_in">boolean</span>;
     scenarioOutline: <span class="hljs-built_in">string</span>;
@@ -211,19 +211,19 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableRow <span class="hljs-keyword">extends</span> JSONObject {
-    values: <span class="hljs-built_in">string</span>[];
+    <span class="hljs-attr">values</span>: <span class="hljs-built_in">string</span>[];
     result?: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableDataSetDescriptor <span class="hljs-keyword">extends</span> JSONObject {
-    startRow: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">startRow</span>: <span class="hljs-built_in">number</span>;
     rowCount: <span class="hljs-built_in">number</span>;
     name: <span class="hljs-built_in">string</span>;
     description: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RESTQuery <span class="hljs-keyword">extends</span> JSONObject {
-    method: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">method</span>: <span class="hljs-built_in">string</span>;
     path: <span class="hljs-built_in">string</span>;
     content: <span class="hljs-built_in">string</span>;
     contentType: <span class="hljs-built_in">string</span>;
@@ -236,13 +236,13 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ErrorDetails <span class="hljs-keyword">extends</span> JSONObject {
-    errorType: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">errorType</span>: <span class="hljs-built_in">string</span>;
     message: <span class="hljs-built_in">string</span>;
     stackTrace: <span class="hljs-built_in">Array</span>&lt;{
-        declaringClass: <span class="hljs-built_in">string</span>,
-        methodName: <span class="hljs-built_in">string</span>,
-        fileName: <span class="hljs-built_in">string</span>,
-        lineNumber: <span class="hljs-built_in">number</span>,
+        <span class="hljs-attr">declaringClass</span>: <span class="hljs-built_in">string</span>,
+        <span class="hljs-attr">methodName</span>: <span class="hljs-built_in">string</span>,
+        <span class="hljs-attr">fileName</span>: <span class="hljs-built_in">string</span>,
+        <span class="hljs-attr">lineNumber</span>: <span class="hljs-built_in">number</span>,
     }&gt;;
     rootCause?: ErrorDetails;
 }

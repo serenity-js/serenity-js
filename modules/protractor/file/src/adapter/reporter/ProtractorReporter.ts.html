@@ -182,16 +182,16 @@
 <span class="hljs-keyword">import</span> { ProtractorReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ProtractorReport&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorReporter <span class="hljs-keyword">implements</span> StageCrewMember {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProtractorReporter</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> startTime: { [key: <span class="hljs-built_in">string</span> ]: Timestamp } = {};
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runner: Runner,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reported: ProtractorReport = { failedCount: 0, specResults: [] },
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reported: ProtractorReport = { failedCount: <span class="hljs-number">0</span>, specResults: [] },
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
-    </span>) {
+    </span>)</span> {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -211,8 +211,8 @@
             <span class="hljs-built_in">this</span>.recordSuccess(event);
 
             <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">&apos;testPass&apos;</span>, {
-                name:       event.value.name.value,
-                category:   event.value.category.value,
+                <span class="hljs-attr">name</span>:       event.details.name.value,
+                <span class="hljs-attr">category</span>:   event.details.category.value,
             });
         }
 
@@ -220,8 +220,8 @@
             <span class="hljs-built_in">this</span>.recordFailure(event);
 
             <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">&apos;testFail&apos;</span>, {
-                name:       event.value.name.value,
-                category:   event.value.category.value,
+                <span class="hljs-attr">name</span>:       event.details.name.value,
+                <span class="hljs-attr">category</span>:   event.details.category.value,
             });
         }
     }
@@ -230,32 +230,32 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reported;
     }
 
-    <span class="hljs-keyword">private</span> recordFailure(event: SceneFinished) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">recordFailure</span>(<span class="hljs-params">event: SceneFinished</span>)</span> {
         <span class="hljs-keyword">const</span> outcome = (event.outcome <span class="hljs-keyword">as</span> ProblemIndication);
 
         <span class="hljs-built_in">this</span>.reported.failedCount++;
 
         <span class="hljs-built_in">this</span>.reported.specResults.push({
-            description: <span class="hljs-string">`<span class="hljs-subst">${ event.value.category.value }</span> <span class="hljs-subst">${ event.value.name.value }</span>`</span>,
-            duration: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.value.toString()]).inMilliseconds(),
-            assertions: [{
-                passed: <span class="hljs-literal">false</span>,
-                errorMsg: outcome.error.message,
-                stackTrace: outcome.error.stack,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">`<span class="hljs-subst">${ event.details.category.value }</span> <span class="hljs-subst">${ event.details.name.value }</span>`</span>,
+            <span class="hljs-attr">duration</span>: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.details.toString()]).inMilliseconds(),
+            <span class="hljs-attr">assertions</span>: [{
+                <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">errorMsg</span>: outcome.error.message,
+                <span class="hljs-attr">stackTrace</span>: outcome.error.stack,
             }],
         });
     }
 
-    <span class="hljs-keyword">private</span> recordStart(event: SceneStarts) {
-        <span class="hljs-built_in">this</span>.startTime[event.value.toString()] = event.timestamp;
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">recordStart</span>(<span class="hljs-params">event: SceneStarts</span>)</span> {
+        <span class="hljs-built_in">this</span>.startTime[event.details.toString()] = event.timestamp;
     }
 
-    <span class="hljs-keyword">private</span> recordSuccess(event: SceneFinished) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">recordSuccess</span>(<span class="hljs-params">event: SceneFinished</span>)</span> {
         <span class="hljs-built_in">this</span>.reported.specResults.push({
-            description: <span class="hljs-string">`<span class="hljs-subst">${ event.value.category.value }</span> <span class="hljs-subst">${ event.value.name.value }</span>`</span>,
-            duration: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.value.toString()]).inMilliseconds(),
-            assertions: [{
-                passed: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">`<span class="hljs-subst">${ event.details.category.value }</span> <span class="hljs-subst">${ event.details.name.value }</span>`</span>,
+            <span class="hljs-attr">duration</span>: event.timestamp.diff(<span class="hljs-built_in">this</span>.startTime[event.details.toString()]).inMilliseconds(),
+            <span class="hljs-attr">assertions</span>: [{
+                <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>,
             }],
         });
     }

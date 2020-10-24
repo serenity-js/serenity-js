@@ -139,7 +139,7 @@ instead of <code>cmd.exe</code> to benefit from the colour output.</p>
 <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
 
 configure({
-    crew: [
+    <span class="hljs-attr">crew</span>: [
         ConsoleReporter.withDefaultColourSupport(),
     ],
 });
@@ -149,10 +149,10 @@ configure({
 <span class="hljs-keyword">const</span> { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>);
 
 <span class="hljs-built_in">exports</span>.config = {
-  framework:      <span class="hljs-string">&apos;custom&apos;</span>,
-    frameworkPath: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
-    serenity: {
-      crew: [
+  <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
+    <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">serenity</span>: {
+      <span class="hljs-attr">crew</span>: [
         ConsoleReporter.withDefaultColourSupport(),
       ],
       <span class="hljs-comment">// other Serenity/JS config</span>

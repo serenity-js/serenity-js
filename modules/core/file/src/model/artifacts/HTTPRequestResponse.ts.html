@@ -266,33 +266,33 @@
 <span class="hljs-keyword">import</span> { JSONData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./JSONData&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  The value of the {@link HTTPRequestResponse} {@link Artifact} describing a HTTP request/response pair.
+ * <span class="hljs-doctag">@desc</span>
+ *  The value of the {<span class="hljs-doctag">@link </span>HTTPRequestResponse} {<span class="hljs-doctag">@link </span>Artifact} describing a HTTP request/response pair.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RequestAndResponse <span class="hljs-keyword">extends</span> JSONObject {
-    request: {
-        url: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">request</span>: {
+        <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>;
         method: <span class="hljs-built_in">string</span>;
         headers: { [header: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
         data?: <span class="hljs-built_in">any</span>;
     };
     response: {
-        status: <span class="hljs-built_in">number</span>;
+        <span class="hljs-attr">status</span>: <span class="hljs-built_in">number</span>;
         data?: <span class="hljs-built_in">any</span>;
         headers?: { [header: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
     };
 }
 
 <span class="hljs-comment">/**
- * @desc
- *  An {@link Artifact} describing a HTTP request/response pair.
+ * <span class="hljs-doctag">@desc</span>
+ *  An {<span class="hljs-doctag">@link </span>Artifact} describing a HTTP request/response pair.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> HTTPRequestResponse <span class="hljs-keyword">extends</span> JSONData {
-    <span class="hljs-keyword">static</span> fromJSON(value: RequestAndResponse) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HTTPRequestResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JSONData</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">value: RequestAndResponse</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HTTPRequestResponse(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&apos;utf8&apos;</span>).toString(<span class="hljs-string">&apos;base64&apos;</span>));
     }
 }

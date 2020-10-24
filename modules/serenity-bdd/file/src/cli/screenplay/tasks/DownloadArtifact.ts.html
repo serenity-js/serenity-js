@@ -130,23 +130,23 @@
 <span class="hljs-keyword">import</span> { RenameFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../interactions/RenameFile&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> DownloadArtifact <span class="hljs-keyword">extends</span> Task {
-    <span class="hljs-keyword">static</span> identifiedBy(artifactIdentifier: GAV) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadArtifact</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">identifiedBy</span>(<span class="hljs-params">artifactIdentifier: GAV</span>)</span> {
         <span class="hljs-keyword">return</span> {
-            availableFrom: <span class="hljs-function">(<span class="hljs-params">repository: URL</span>) =&gt;</span> ({
-                to: <span class="hljs-function">(<span class="hljs-params">destinationDirectory: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> DownloadArtifact(artifactIdentifier, repository, destinationDirectory),
+            <span class="hljs-attr">availableFrom</span>: <span class="hljs-function">(<span class="hljs-params">repository: URL</span>) =&gt;</span> ({
+                <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destinationDirectory: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> DownloadArtifact(artifactIdentifier, repository, destinationDirectory),
             }),
         };
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> gav: GAV,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> repository: URL,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> destinationDirectory: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config?: AxiosRequestConfig,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -155,17 +155,17 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Task}.
      *
-     * @param {PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
         <span class="hljs-keyword">const</span>
@@ -185,16 +185,16 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor downloads <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.gav.toPath().value }</span> from <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.repository.toString() }</span>`</span>;
     }
 
-    <span class="hljs-keyword">private</span> artifactURL() {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">artifactURL</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
             <span class="hljs-built_in">this</span>.repository.toString(),
             ...this.gav.groupId.split(<span class="hljs-string">&apos;.&apos;</span>),

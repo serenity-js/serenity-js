@@ -142,16 +142,16 @@
 <span class="hljs-keyword">import</span> { ItemNotFoundError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./errors&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FeatureFileMap {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileMap</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>)</span> {
     }
 
-    set(item: <span class="hljs-built_in">object</span>) {
+    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>)</span> {
         <span class="hljs-keyword">return</span> ({
-            onLine: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
+            <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
                 <span class="hljs-built_in">this</span>.map[line] = item;
 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
@@ -161,7 +161,7 @@
 
     get&lt;T&gt;(<span class="hljs-keyword">type</span>: Constructor&lt;T&gt;) {
         <span class="hljs-keyword">return</span> ({
-            onLine: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
+            <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">this</span>.map[line];
 
                 <span class="hljs-keyword">if</span> (! found) {
@@ -191,7 +191,7 @@
         <span class="hljs-keyword">return</span> found;
     }
 
-    size() {
+    <span class="hljs-function"><span class="hljs-title">size</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.map).length;
     }
 }

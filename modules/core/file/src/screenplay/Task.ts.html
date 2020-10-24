@@ -267,44 +267,44 @@
 <span class="hljs-keyword">import</span> { PerformsActivities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Aggregates {@link Interaction}s so that they represents logical
- *  steps of a business process an {@link Actor} can perform.
+ * <span class="hljs-doctag">@desc</span>
+ *  Aggregates {<span class="hljs-doctag">@link </span>Interaction}s so that they represents logical
+ *  steps of a business process an {<span class="hljs-doctag">@link </span>Actor} can perform.
  *
- * @implements {Activity}
- * @see {@link Interaction}
- * @see {@link Actor}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{Activity}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Interaction}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Task <span class="hljs-keyword">implements</span> Activity {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Task</span> <span class="hljs-title">implements</span> <span class="hljs-title">Activity</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  A factory method to make defining the Tasks more convenient.
-     *  Please note that calling this method without providing the list of {@link Activity} objects
+     *  Please note that calling this method without providing the list of {<span class="hljs-doctag">@link </span>Activity} objects
      *  will result in producing a Task that&apos;s marked as &quot;pending&quot; in the test report.
      *
      *  This feature is useful when you want to quickly write down a task that will be needed in the scenario,
      *  but you&apos;re not yet sure what activities will constitute it.
      *
-     * @example &lt;caption&gt;Modelling a task&lt;/caption&gt;
-     * import { Log, Task } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Modelling a task&lt;/caption&gt;
+     * import { Log, Task } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *
      * const Debug = (something: Answerable&lt;any&gt;) =&gt;
      *     Task.where(`#actor prints the answer to a question`,
      *          Log.the(something),
      *     );
      *
-     * @example &lt;caption&gt;Modelling a not implemented task&lt;/caption&gt;
-     * import { Task } from &apos;@serenity-js/core&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Modelling a not implemented task&lt;/caption&gt;
+     * import { Task } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
      *
      * const SignUp = () =&gt;
      *     Task.where(`#actor signs up for a newsletter`); // no activities given
      *                                                     // =&gt; task marked as pending
      *
-     * @param {string} description - A description to be used when reporting this task
-     * @param {Activity[]} activities - A list of lower-level activities that constitute the task
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">description</span></span> - A description to be used when reporting this task
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Activity[]}</span> <span class="hljs-variable">activities</span></span> - A list of lower-level activities that constitute the task
      *
-     * @returns {Task}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Task}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> where(description: <span class="hljs-built_in">string</span>, ...activities: Activity[]): Task {
         <span class="hljs-keyword">return</span> activities.length &gt; <span class="hljs-number">0</span>
@@ -313,71 +313,71 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Task}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Task}.
      *
-     * @param {PerformsActivities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
      */</span>
     <span class="hljs-keyword">abstract</span> performAs(actor: PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt;;
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> DynamicallyGeneratedTask <span class="hljs-keyword">extends</span> Task {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> activities: Activity[]</span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DynamicallyGeneratedTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> activities: Activity[]</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Task}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Task}.
      *
-     * @param {PerformsActivities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
      */</span>
     performAs(actor: PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> actor.attemptsTo(...this.activities);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span>Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> NotImplementedTask <span class="hljs-keyword">extends</span> Task {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span></span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NotImplementedTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Task}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Task}.
      *
-     * @param {PerformsActivities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
      */</span>
     performAs(actor: PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(
@@ -386,12 +386,12 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span>Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }

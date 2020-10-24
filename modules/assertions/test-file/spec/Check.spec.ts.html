@@ -150,18 +150,18 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { Check, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src&apos;</span>;
 
-<span class="hljs-comment">/** @test {Check} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Call = (fn: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>) =&gt; Interaction.where(<span class="hljs-string">`#actor calls a function`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> fn());
+    <span class="hljs-keyword">const</span> Call = <span class="hljs-function">(<span class="hljs-params">fn: () =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> Interaction.where(<span class="hljs-string">`#actor calls a function`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> fn());
 
     <span class="hljs-keyword">let</span> spy: sinon.SinonSpy;
     beforeEach(<span class="hljs-function">() =&gt;</span> spy = sinon.spy());
 
     describe(<span class="hljs-string">&apos;(if branch)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Check.whether} */</span>
-        <span class="hljs-comment">/** @test {Check#andIfSo} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;makes the actor execute the activities when the expectation is met&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(actorCalled(<span class="hljs-string">&apos;Enrique&apos;</span>).attemptsTo(
                 Check.whether(<span class="hljs-string">&apos;Hello World&apos;</span>, startsWith(<span class="hljs-string">&apos;Hello&apos;</span>))
@@ -175,8 +175,8 @@ describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-f
             }),
         );
 
-        <span class="hljs-comment">/** @test {Check.whether} */</span>
-        <span class="hljs-comment">/** @test {Check#andIfSo} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;makes the actor ignore the activities when the expectation is not met&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(actorCalled(<span class="hljs-string">&apos;Enrique&apos;</span>).attemptsTo(
                 Check.whether(<span class="hljs-string">&apos;Hello World&apos;</span>, startsWith(<span class="hljs-string">&apos;&#xA1;Hola&apos;</span>))
@@ -191,9 +191,9 @@ describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-f
     });
 
     describe(<span class="hljs-string">&apos;(if/else branches)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-comment">/** @test {Check.whether} */</span>
-        <span class="hljs-comment">/** @test {Check#andIfSo} */</span>
-        <span class="hljs-comment">/** @test {Check#otherwise} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#otherwise}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;makes the actor execute the activities when the expectation is met&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(actorCalled(<span class="hljs-string">&apos;Enrique&apos;</span>).attemptsTo(
                 Check.whether(<span class="hljs-string">&apos;Hello World&apos;</span>, startsWith(<span class="hljs-string">&apos;Hello&apos;</span>))
@@ -209,9 +209,9 @@ describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-f
             }),
         );
 
-        <span class="hljs-comment">/** @test {Check.whether} */</span>
-        <span class="hljs-comment">/** @test {Check#andIfSo} */</span>
-        <span class="hljs-comment">/** @test {Check#otherwise} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#otherwise}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;makes the actor execute the alternative activities when the expectation is not met&apos;</span>, <span class="hljs-function">() =&gt;</span>
             expect(actorCalled(<span class="hljs-string">&apos;Enrique&apos;</span>).attemptsTo(
                 Check.whether(<span class="hljs-string">&apos;Hello World&apos;</span>, startsWith(<span class="hljs-string">&apos;&#xA1;Hola&apos;</span>))

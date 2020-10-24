@@ -175,13 +175,13 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/promiseOf.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.
  *
- * @private
+ * <span class="hljs-doctag">@private</span>
  *
- * @param promiseLike
- * @returns {Promise&lt;T&gt;}
+ * <span class="hljs-doctag">@param <span class="hljs-variable">promiseLike</span></span>
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;T&gt;}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promiseOf</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">promiseLike: PromiseLike&lt;T&gt;</span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {

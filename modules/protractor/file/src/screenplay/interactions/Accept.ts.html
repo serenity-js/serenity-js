@@ -179,17 +179,17 @@
 <span class="hljs-keyword">import</span> { AlertPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to accept
- *  a {@link ModalDialog}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to accept
+ *  a {<span class="hljs-doctag">@link </span>ModalDialog}.
  *
- * @example &lt;caption&gt;Example widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
  *  &lt;button
  *      data-test=&quot;trigger&quot;
  *      onclick=&quot;alert(&apos;hello!&apos;)&quot;&gt;Trigger Alert&lt;/button&gt;
  *
- * @example &lt;caption&gt;Lean Page Object&lt;/caption&gt;
- *  import { Target } from &apos;@serenity-js/protractor&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object&lt;/caption&gt;
+ *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { by } from &apos;protractor&apos;;
  *
  *  class Widget {
@@ -197,9 +197,9 @@
  *          .located(by.css(&apos;[data-test=&quot;trigger&quot;]&apos;));
  *  }
  *
- * @example &lt;caption&gt;Accepting a modal dialog window&lt;/caption&gt;
- *  import { actorCalled } from &apos;@serenity-js/core&apos;;
- *  import { Accept, BrowseTheWeb, Click, ModalDialog } from &apos;@serenity-js/protractor&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Accepting a modal dialog window&lt;/caption&gt;
+ *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Accept, BrowseTheWeb, Click, ModalDialog } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  actorCalled(&apos;Nick&apos;)
@@ -209,50 +209,50 @@
  *          Accept.the(ModalDialog.window()),
  *      );
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Click}
- * @see {@link Dismiss}
- * @see {@link ModalDialog}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Click}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Dismiss}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link ModalDialog}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Accept <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Accept</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  with a {@link ModalDialog.window} the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     *  with a {<span class="hljs-doctag">@link </span>ModalDialog.window} the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  will accept.
      *
-     * @param {@serenity-js/core/lib/screenplay~Question&lt;AlertPromise&gt; | AlertPromise} modalDialogWindow
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;AlertPromise&gt; | AlertPromise}</span> <span class="hljs-variable">modalDialogWindow</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      *
-     * @see {@link @serenity-js/core/lib/screenplay~Question}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Question}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> the(modalDialogWindow: Question&lt;AlertPromise&gt; | AlertPromise): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Accept(modalDialogWindow);
     }
 
     <span class="hljs-comment">/**
-     * @param {@serenity-js/core/lib/screenplay~Question&lt;AlertPromise&gt; | AlertPromise} modalDialogWindow
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;AlertPromise&gt; | AlertPromise}</span> <span class="hljs-variable">modalDialogWindow</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> modalDialogWindow: Question&lt;AlertPromise&gt; | AlertPromise</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> modalDialogWindow: Question&lt;AlertPromise&gt; | AlertPromise</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * @returns {PromiseLike&lt;void&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.modalDialogWindow)
@@ -260,10 +260,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor accepts <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.modalDialogWindow }</span>`</span>;

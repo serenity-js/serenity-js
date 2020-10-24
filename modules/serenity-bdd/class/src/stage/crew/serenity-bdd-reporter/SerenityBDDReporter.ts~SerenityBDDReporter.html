@@ -126,7 +126,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber59">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber55">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -162,7 +162,7 @@
  <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>;
 
  serenity.configure({
-   crew: [
+   <span class="hljs-attr">crew</span>: [
      ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
      <span class="hljs-keyword">new</span> SerenityBDDReporter()
    ],
@@ -176,11 +176,11 @@
    { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>);
 
  <span class="hljs-built_in">exports</span>.config = {
-   framework:     <span class="hljs-string">&apos;custom&apos;</span>,
-   frameworkPath: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+   <span class="hljs-attr">framework</span>:     <span class="hljs-string">&apos;custom&apos;</span>,
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
-   serenity: {
-     crew: [
+   <span class="hljs-attr">serenity</span>: {
+     <span class="hljs-attr">crew</span>: [
        ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
        <span class="hljs-keyword">new</span> SerenityBDDReporter(),
      ],
@@ -196,49 +196,51 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber35">SerenityBDDReporter captures information about scenario background</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber57">SerenityBDDReporter captures the description of the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber78">SerenityBDDReporter captures the narrative behind the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber49">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a single activity</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber76">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber108">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber143">SerenityBDDReporter order of events records the events in a correct order</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber179">SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber228">SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber75">SerenityBDDReporter captures information about a sequence of scenes (2 scenes in a sequence)</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber146">SerenityBDDReporter determines the result of the sequence based on the worst result of the contributing scenarios</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber205">SerenityBDDReporter ensures that context and tags are not duplicated despite having multiple scenarios in a sequence</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber48">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual is marked as automated (non-manual) by default</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber68">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual can be optionally tagged as manual</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber97">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @issue can be tagged with an issue number</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber140">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @arbitrary-tag can be tagged with an arbitrary tag</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber168">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a feature</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber200">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a capability</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber238">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a theme</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber281">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the web browser where the test was executed</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber310">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the operating system where the test was executed</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber338">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and ensures that the user-specified context takes precedence over browser context</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber95">SerenityBDDReporter generates a SerenityBDDReport Artifact that is a valid artifact</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber110">SerenityBDDReporter emits an ArtifactGenerated event that is separate for each scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber154">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the id of the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber165">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the name of the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber177">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the start time of the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber188">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the duration of the scenario</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber208">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has finished with success</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber227">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that hasn&apos;t been implemented yet</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber246">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been ignored</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber265">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been skipped</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber284">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with an assertion error</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber309">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber334">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with a non-assertion error</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber376">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber436">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the test runner</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber456">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the user story covered</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber480">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber500">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level narrative</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber503">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background title</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber506">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background description</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber27">SerenityBDDReporter </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/dealing_with_out_of_order_events.spec.ts.html#lineNumber11">SerenityBDDReporter</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber32">SerenityBDDReporter</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber37">SerenityBDDReporter captures information about scenario background</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber59">SerenityBDDReporter captures the description of the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber80">SerenityBDDReporter captures the narrative behind the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber51">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a single activity</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber78">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of a sequence of several activities</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber110">SerenityBDDReporter when reporting activities that took place during scenario execution reports the outcome of nested activities</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber145">SerenityBDDReporter order of events records the events in a correct order</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber181">SerenityBDDReporter order of events records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber230">SerenityBDDReporter artifacts records the arbitrary JSON data emitted during the interaction</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber65">SerenityBDDReporter captures information about a sequence of scenes (2 scenes in a sequence)</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber129">SerenityBDDReporter determines the result of the sequence based on the worst result of the contributing scenarios</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber181">SerenityBDDReporter ensures that context and tags are not duplicated despite having multiple scenarios in a sequence</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber50">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual is marked as automated (non-manual) by default</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber70">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @manual can be optionally tagged as manual</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber99">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @issue can be tagged with an issue number</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber142">SerenityBDDReporter produces a SerenityBDDReport that can be tagged @arbitrary-tag can be tagged with an arbitrary tag</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber170">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a feature</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber202">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a capability</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber240">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario belongs to a theme</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber283">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the web browser where the test was executed</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber312">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and indicates the operating system where the test was executed</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber340">SerenityBDDReporter produces a SerenityBDDReport that can be tagged to indicate that a scenario is executed in the context and ensures that the user-specified context takes precedence over browser context</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber101">SerenityBDDReporter generates a SerenityBDDReport Artifact that is a valid artifact</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber116">SerenityBDDReporter emits an ArtifactGenerated event that is separate for each scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber160">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the id of the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber171">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the name of the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber183">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the start time of the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber194">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the duration of the scenario</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber214">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has finished with success</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber233">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that hasn&apos;t been implemented yet</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber252">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been ignored</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber271">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been skipped</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber290">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with an assertion error</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber315">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber340">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with a non-assertion error</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber382">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber442">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the test runner</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber462">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context specifies the user story covered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber486">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber506">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level narrative</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber509">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background title</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber512">SerenityBDDReporter produces a SerenityBDDReport that indicates its execution context reports information from the cucumber feature file reports the scenario-level background description</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber28">SerenityBDDReporter </a></span></li>
 </ul>
   </div>
 
@@ -370,7 +372,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber95">source</a></span></span>
     </span>
   </h3>
 
@@ -435,7 +437,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber137">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber124">source</a></span></span>
     </span>
   </h3>
 
@@ -510,7 +512,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber163">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts.html#lineNumber150">source</a></span></span>
     </span>
   </h3>
 

@@ -273,15 +273,15 @@
 
 describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">class</span> TestEvent <span class="hljs-keyword">extends</span> DomainEvent {
-        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
             <span class="hljs-built_in">super</span>();
         }
     }
 
     <span class="hljs-keyword">const</span> testEvent = <span class="hljs-keyword">new</span> TestEvent();
 
-    <span class="hljs-comment">/** @test {StageManager} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;broadcasts the domain event it receives to all the registered subscribers&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock());
@@ -299,9 +299,9 @@ describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class=
     });
 
     <span class="hljs-comment">/**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
-     * @test {AsyncOperationCompleted}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationCompleted}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;keeps track of the work in progress&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -322,8 +322,8 @@ describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class=
     });
 
     <span class="hljs-comment">/**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;provides details should the work in progress fail to complete&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -352,9 +352,9 @@ describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class=
     });
 
     <span class="hljs-comment">/**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
-     * @test {AsyncOperationFailed}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationFailed}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;provides details should the work in progress fail with an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 

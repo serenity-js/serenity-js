@@ -266,12 +266,12 @@
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Cast&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Produces no-op actors with no special {@link Ability}
+ * <span class="hljs-doctag">@desc</span>
+ *  Produces no-op actors with no special {<span class="hljs-doctag">@link </span>Ability}
  *
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor;
     }

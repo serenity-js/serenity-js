@@ -153,8 +153,8 @@ that took care of the low-level integration:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> WriteStream = NodeJS.WriteStream;
 <span class="hljs-keyword">import</span> { Ability, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> WriteToStream <span class="hljs-keyword">implements</span> Ability {
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(stream: WriteStream) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WriteToStream</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">of</span>(<span class="hljs-params">stream: WriteStream</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WriteToStream(stream);
     }
 
@@ -162,10 +162,10 @@ that took care of the low-level integration:</p>
         <span class="hljs-keyword">return</span> actor.abilityTo(WriteToStream);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stream: WriteStream</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stream: WriteStream</span>)</span> {
     }
 
-    printLine(parts: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-function"><span class="hljs-title">printLine</span>(<span class="hljs-params">parts: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">this</span>.stream.write(message + <span class="hljs-string">&apos;\n&apos;</span>);
     }
 }
@@ -221,12 +221,12 @@ or you&apos;d like to <a href="/handbook/design/creational-patterns.html">implem
 is configured.</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
-<span class="hljs-keyword">class</span> Greet <span class="hljs-keyword">extends</span> Interaction {
-    <span class="hljs-keyword">static</span> all(...names: <span class="hljs-built_in">string</span>[]) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">all</span>(<span class="hljs-params">...names: <span class="hljs-built_in">string</span>[]</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Greet(names);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> names: <span class="hljs-built_in">string</span>[]</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> names: <span class="hljs-built_in">string</span>[]</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -240,8 +240,8 @@ is configured.</p>
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor greets <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.join(<span class="hljs-built_in">this</span>.names) }</span>`</span>;
     }
 
-    <span class="hljs-keyword">private</span> join(names: <span class="hljs-built_in">string</span>[]) {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ names.slice(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>).join(<span class="hljs-string">&apos;, &apos;</span>) }</span> and <span class="hljs-subst">${ a.slice(<span class="hljs-number">-1</span>) }</span>`</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">join</span>(<span class="hljs-params">names: <span class="hljs-built_in">string</span>[]</span>)</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ names.slice(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>).join(<span class="hljs-string">&apos;, &apos;</span>) }</span> and <span class="hljs-subst">${ a.slice(-<span class="hljs-number">1</span>) }</span>`</span>;
     }
 }
 </code></pre>

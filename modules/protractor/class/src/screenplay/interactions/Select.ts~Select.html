@@ -440,9 +440,9 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select data-test=<span class="hljs-string">&apos;countries&apos;</span>&gt;
-     &lt;option value=<span class="hljs-string">&apos;UK&apos;</span>&gt;United Kingdom&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;PL&apos;</span>&gt;Poland&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;US&apos;</span>&gt;United States&lt;/option&gt;
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;UK&apos;</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;PL&apos;</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;US&apos;</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -450,7 +450,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Countries {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
      <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">&apos;countries dropdown&apos;</span>)
          .located(by.css(<span class="hljs-string">&apos;[data-test=&quot;countries&quot;]&apos;</span>));
  }</code></pre>
@@ -558,9 +558,9 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select multiple data-test=<span class="hljs-string">&apos;countries&apos;</span>&gt;
-     &lt;option value=<span class="hljs-string">&apos;UK&apos;</span>&gt;United Kingdom&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;PL&apos;</span>&gt;Poland&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;US&apos;</span>&gt;United States&lt;/option&gt;
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;UK&apos;</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;PL&apos;</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;US&apos;</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -568,7 +568,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Countries {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
      <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">&apos;countries dropdown&apos;</span>)
          .located(by.css(<span class="hljs-string">&apos;[data-test=&quot;countries&quot;]&apos;</span>));
  }</code></pre>
@@ -677,9 +677,9 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select data-test=<span class="hljs-string">&apos;countries&apos;</span>&gt;
-     &lt;option value=<span class="hljs-string">&apos;UK&apos;</span>&gt;United Kingdom&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;PL&apos;</span>&gt;Poland&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;US&apos;</span>&gt;United States&lt;/option&gt;
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;UK&apos;</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;PL&apos;</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;US&apos;</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -687,7 +687,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Countries {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
      <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">&apos;countries dropdown&apos;</span>)
          .located(by.css(<span class="hljs-string">&apos;[data-test=&quot;countries&quot;]&apos;</span>));
  }</code></pre>
@@ -793,9 +793,9 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select multiple data-test=<span class="hljs-string">&apos;countries&apos;</span>&gt;
-     &lt;option value=<span class="hljs-string">&apos;UK&apos;</span>&gt;United Kingdom&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;PL&apos;</span>&gt;Poland&lt;/option&gt;
-     &lt;option value=<span class="hljs-string">&apos;US&apos;</span>&gt;United States&lt;/option&gt;
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;UK&apos;</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;PL&apos;</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&apos;US&apos;</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -803,7 +803,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Countries {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
      <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">&apos;countries dropdown&apos;</span>)
          .located(by.css(<span class="hljs-string">&apos;[data-test=&quot;countries&quot;]&apos;</span>));
  }</code></pre>

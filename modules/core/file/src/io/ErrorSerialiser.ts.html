@@ -268,28 +268,28 @@
 
 <span class="hljs-comment">/**
  *
- * @extends {tiny-types~JSONObject}
- * @public
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{tiny-types~JSONObject}</span></span>
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerialisedError <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-comment">/**
      *  Name of the constructor function used to instantiate
-     *  the original {@link Error} object.
+     *  the original {<span class="hljs-doctag">@link </span>Error} object.
      */</span>
-    name:    <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">name</span>:    <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
-     *  Message of the original {@link Error} object
+     *  Message of the original {<span class="hljs-doctag">@link </span>Error} object
      */</span>
     message: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
-     *  Stack trace of the original {@link Error} object
+     *  Stack trace of the original {<span class="hljs-doctag">@link </span>Error} object
      */</span>
     stack:   <span class="hljs-built_in">string</span>;
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ErrorSerialiser {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ErrorSerialiser</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> recognisedErrors = [
         ...Object.keys(serenitySpecificErrors).map(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> serenitySpecificErrors[key]),
         <span class="hljs-built_in">Error</span>,
@@ -305,7 +305,7 @@
         <span class="hljs-keyword">const</span> serialisedError = <span class="hljs-built_in">Object</span>.getOwnPropertyNames(error).reduce(<span class="hljs-function">(<span class="hljs-params">serialised, key</span>) =&gt;</span> {
             serialised[key] = error[key]
             <span class="hljs-keyword">return</span> serialised;
-        }, { name: error.constructor.name || error.name }) <span class="hljs-keyword">as</span> SerialisedError;
+        }, { <span class="hljs-attr">name</span>: error.constructor.name || error.name }) <span class="hljs-keyword">as</span> SerialisedError;
 
         <span class="hljs-keyword">return</span> stringify(serialisedError);
     }
@@ -314,8 +314,8 @@
         <span class="hljs-keyword">const</span> serialisedError = parse(stringifiedError) <span class="hljs-keyword">as</span> SerialisedError;
 
         <span class="hljs-comment">// todo: de-serialise the cause map well</span>
-        <span class="hljs-keyword">const</span> <span class="hljs-keyword">constructor</span> = ErrorSerialiser.recognisedErrors.find(<span class="hljs-params">errorType =&gt; errorType.name === serialisedError.name</span>) || Error;
-        <span class="hljs-keyword">const</span> deserialised = <span class="hljs-built_in">Object</span>.create(constructor.prototype);
+        <span class="hljs-keyword">const</span> <span class="hljs-title">constructor</span> = <span class="hljs-title">ErrorSerialiser</span>.<span class="hljs-title">recognisedErrors</span>.<span class="hljs-title">find</span>(<span class="hljs-params">errorType =&gt; errorType.name === serialisedError.name</span>) || <span class="hljs-title">Error</span>;
+        <span class="hljs-keyword">const</span> deserialised = <span class="hljs-built_in">Object</span>.create(<span class="hljs-title">constructor</span>.<span class="hljs-title">prototype</span>);
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> prop <span class="hljs-keyword">in</span> serialisedError) {
             <span class="hljs-keyword">if</span> (serialisedError.hasOwnProperty(prop)) {
                 deserialised[prop] = serialisedError[prop];
@@ -324,7 +324,7 @@
         <span class="hljs-keyword">return</span> deserialised;
     }
 
-    <span class="hljs-keyword">static</span> deserialiseFromStackTrace(stack: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">deserialiseFromStackTrace</span>(<span class="hljs-params">stack: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">const</span> lines = stack.split(<span class="hljs-string">&apos;\n&apos;</span>);
 
         <span class="hljs-keyword">const</span> pattern = <span class="hljs-regexp">/^([^\s:]*Error):\s(.*)$/</span>;

@@ -176,7 +176,7 @@
 
  actor.attemptsTo(
      Send.a(PatchRequest.to(<span class="hljs-string">&apos;/books/0-688-00230-7&apos;</span>).with({
-         lastReadOn: <span class="hljs-string">&apos;2016-06-16&apos;</span>,
+         <span class="hljs-attr">lastReadOn</span>: <span class="hljs-string">&apos;2016-06-16&apos;</span>,
      })),
      Ensure.that(LastResponse.status(), equals(<span class="hljs-number">204</span>)),
  );</code></pre>

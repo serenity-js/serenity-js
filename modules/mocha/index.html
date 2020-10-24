@@ -137,7 +137,7 @@ you&apos;ll need a setup file that configures Serenity/JS reporting services.</p
     { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/core&apos;</span>);
 
 configure({
-    crew: [
+    <span class="hljs-attr">crew</span>: [
         ConsoleReporter.forDarkTerminals(),
     ],
 });
@@ -165,7 +165,7 @@ configure({
 <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 configure({
-    crew: [
+    <span class="hljs-attr">crew</span>: [
         ConsoleReporter.forDarkTerminals(),
     ],
 });
@@ -194,15 +194,15 @@ v8-stack-trace-limit: 100
 
 <span class="hljs-built_in">exports</span>.config = {
     <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
-    framework:      <span class="hljs-string">&apos;custom&apos;</span>,
-    frameworkPath:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
-    serenity: {
-        runner: <span class="hljs-string">&apos;mocha&apos;</span>,        <span class="hljs-comment">// Use Mocha</span>
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;mocha&apos;</span>,        <span class="hljs-comment">// Use Mocha</span>
         <span class="hljs-comment">// ... other Serenity/JS-specific configuration</span>
     },
 
-    mochaOpts: {
+    <span class="hljs-attr">mochaOpts</span>: {
         <span class="hljs-comment">// Mocha-specific configuration</span>
     },
 

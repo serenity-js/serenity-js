@@ -271,8 +271,8 @@ describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class=
 
     describe(<span class="hljs-string">&apos;subclass&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">class</span> CustomError <span class="hljs-keyword">extends</span> RuntimeError {
-            <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+            <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>)</span> {
                 <span class="hljs-built_in">super</span>(CustomError, message);
             }
         }
@@ -282,19 +282,19 @@ describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class=
             error = <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">&apos;something happened&apos;</span>);
         });
 
-        <span class="hljs-comment">/** @test {RuntimeError} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{RuntimeError}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;is recognised as an instance of its type&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
             expect(error).to.be.instanceOf(RuntimeError);
             expect(error).to.be.instanceOf(CustomError);
         });
 
-        <span class="hljs-comment">/** @test {RuntimeError} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{RuntimeError}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;has a message&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(error.message).to.equal(<span class="hljs-string">&apos;something happened&apos;</span>);
         });
 
-        <span class="hljs-comment">/** @test {RuntimeError} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{RuntimeError}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;retains the stacktrace&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> frames = error.stack.split(<span class="hljs-string">&apos;\n&apos;</span>);
 
@@ -305,19 +305,19 @@ describe(<span class="hljs-string">&apos;RuntimeError&apos;</span>, <span class=
 
     describe(<span class="hljs-string">&apos;when propagating errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">class</span> ApplicationError <span class="hljs-keyword">extends</span> RuntimeError {
-            <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApplicationError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+            <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
                 <span class="hljs-built_in">super</span>(ApplicationError, message, cause);
             }
         }
 
-        <span class="hljs-keyword">class</span> IOError <span class="hljs-keyword">extends</span> RuntimeError {
-            <span class="hljs-keyword">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IOError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+            <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
                 <span class="hljs-built_in">super</span>(IOError, message, cause);
             }
         }
 
-        <span class="hljs-comment">/** @test {RuntimeError} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{RuntimeError}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;includes the stack trace of the original errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span> fsError  = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;ENOENT: no such file or directory&apos;</span>);

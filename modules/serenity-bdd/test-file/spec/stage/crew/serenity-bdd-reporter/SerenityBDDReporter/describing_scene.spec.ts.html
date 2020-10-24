@@ -125,7 +125,7 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { Description, ExecutionSuccessful, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Description, ExecutionSuccessful, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src&apos;</span>;
@@ -139,6 +139,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
+    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>);
+
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
 
@@ -147,18 +149,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     });
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {SceneBackgroundDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneBackgroundDetected}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;captures information about scenario background&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                <span class="hljs-keyword">new</span> SceneBackgroundDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Background title&apos;</span>), <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Background description&apos;</span>)),
-            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+                <span class="hljs-keyword">new</span> SceneBackgroundDetected(sceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Background title&apos;</span>), <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Background description&apos;</span>)),
+            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 
@@ -169,18 +171,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     });
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {SceneDescriptionDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneDescriptionDetected}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;captures the description of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-            <span class="hljs-keyword">new</span> SceneDescriptionDetected(<span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Scenario description&apos;</span>)),
-            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+            <span class="hljs-keyword">new</span> SceneDescriptionDetected(sceneId, <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Scenario description&apos;</span>)),
+            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 
@@ -190,18 +192,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     });
 
     <span class="hljs-comment">/**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {FeatureNarrativeDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureNarrativeDetected}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;captures the narrative behind the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-            <span class="hljs-keyword">new</span> FeatureNarrativeDetected(<span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Feature narrative&apos;</span>)),
-            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
+            <span class="hljs-keyword">new</span> FeatureNarrativeDetected(sceneId, <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;Feature narrative&apos;</span>)),
+            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
             <span class="hljs-keyword">new</span> TestRunFinishes(),
         );
 

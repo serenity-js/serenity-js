@@ -179,24 +179,24 @@
 <span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./PhotoTakingStrategy&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when
- *  the {@link @serenity-js/core/lib/screenplay~Interaction} performed
- *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.
+ * <span class="hljs-doctag">@desc</span>
+ *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) when
+ *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
+ *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.
  *
  *  This strategy works best when you are interested in the screenshots only when
  *  the a fails.
  *
- * @implements {PhotoTakingStrategy}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TakePhotosOfFailures <span class="hljs-keyword">extends</span> PhotoTakingStrategy {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosOfFailures</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
     <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionFinished
             &amp;&amp; event.outcome.isWorseThan(ImplementationPending);
     }
 
     <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event.value.name.value;
+        <span class="hljs-keyword">return</span> event.details.name.value;
     }
 }
 </code></pre>

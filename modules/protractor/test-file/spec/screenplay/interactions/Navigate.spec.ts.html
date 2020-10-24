@@ -184,12 +184,12 @@
 <span class="hljs-keyword">import</span> { Navigate, Target, Text, Website } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Navigate} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     describe(<span class="hljs-string">&apos;to(url)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Navigate.to} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to navigate to a desired destination&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
@@ -202,8 +202,8 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
             Ensure.that(Text.of(Target.the(<span class="hljs-string">&apos;heading&apos;</span>).located(by.id(<span class="hljs-string">&apos;h&apos;</span>))), equals(<span class="hljs-string">&apos;Hello World&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Navigate.to} */</span>
-        <span class="hljs-comment">/** @test {Navigate#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>).toString())
                 .to.equal(<span class="hljs-string">`#actor navigates to &apos;https://serenity-js.org&apos;`</span>);
@@ -212,8 +212,8 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
 
     describe(<span class="hljs-string">&apos;to(url).withTimeout(duration)&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-        <span class="hljs-comment">/** @test {Navigate.to} */</span>
-        <span class="hljs-comment">/** @test {Navigate#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>).withTimeout(Duration.ofSeconds(<span class="hljs-number">5</span>)).toString())
                 .to.equal(<span class="hljs-string">`#actor navigates to &apos;https://serenity-js.org&apos; waiting up to 5s for Angular to load`</span>);
@@ -222,7 +222,7 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
 
     describe(<span class="hljs-string">&apos;back&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Navigate.back} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.back}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to navigate back in the browser history&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">`chrome://version/`</span>),
             Navigate.to(<span class="hljs-string">`chrome://accessibility/`</span>),
@@ -232,8 +232,8 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
             Ensure.that(Website.url(), endsWith(<span class="hljs-string">&apos;version/&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Navigate.back} */</span>
-        <span class="hljs-comment">/** @test {Navigate#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.back}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Navigate.back().toString())
                 .to.equal(<span class="hljs-string">`#actor navigates back in the browser history`</span>);
@@ -242,7 +242,7 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
 
     describe(<span class="hljs-string">&apos;forward&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Navigate.forward} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.forward}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to navigate forward in the browser history&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(<span class="hljs-string">`chrome://version/`</span>),
             Navigate.to(<span class="hljs-string">`chrome://accessibility/`</span>),
@@ -253,8 +253,8 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
             Ensure.that(Website.url(), endsWith(<span class="hljs-string">&apos;accessibility/&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Navigate.forward} */</span>
-        <span class="hljs-comment">/** @test {Navigate#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.forward}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Navigate.forward().toString())
                 .to.equal(<span class="hljs-string">`#actor navigates forward in the browser history`</span>);
@@ -263,7 +263,7 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
 
     describe(<span class="hljs-string">&apos;reloadPage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Navigate.reloadPage} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.reloadPage}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to navigate to a desired destination&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
@@ -283,8 +283,8 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
             Ensure.that(Text.of(Target.the(<span class="hljs-string">&apos;heading&apos;</span>).located(by.id(<span class="hljs-string">&apos;h&apos;</span>))), equals(<span class="hljs-string">&apos;Reloaded&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Navigate.reloadPage} */</span>
-        <span class="hljs-comment">/** @test {Navigate#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.reloadPage}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Navigate.reloadPage().toString())
                 .to.equal(<span class="hljs-string">`#actor reloads the page`</span>);

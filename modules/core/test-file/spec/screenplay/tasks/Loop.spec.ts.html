@@ -274,13 +274,13 @@
 <span class="hljs-keyword">import</span> { Recorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../Recorder&apos;</span>;
 <span class="hljs-keyword">import</span> { Spy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Spy&apos;</span>;
 
-<span class="hljs-comment">/** @test {Loop} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Loop}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Loop&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> serenity: Serenity,
-        recorder: Recorder;
+        <span class="hljs-attr">recorder</span>: Recorder;
 
-    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
         prepare(actor: Actor): Actor {
             <span class="hljs-keyword">return</span> actor;
         }
@@ -291,27 +291,27 @@ describe(<span class="hljs-string">&apos;Loop&apos;</span>, <span class="hljs-fu
         recorder = <span class="hljs-keyword">new</span> Recorder();
 
         serenity.configure({
-            crew: [ recorder ],
-            actors: <span class="hljs-keyword">new</span> Actors(),
+            <span class="hljs-attr">crew</span>: [ recorder ],
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
         });
     });
 
     afterEach(<span class="hljs-function">() =&gt;</span> Spy.reset());
 
     <span class="hljs-keyword">const</span>
-        personA     = { name: <span class="hljs-string">&apos;Alice&apos;</span> },
-        personB     = { name: <span class="hljs-string">&apos;Bob&apos;</span> },
-        personC     = { name: <span class="hljs-string">&apos;Celine&apos;</span> },
+        personA     = { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Alice&apos;</span> },
+        personB     = { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Bob&apos;</span> },
+        personC     = { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Celine&apos;</span> },
         listOfPeople      = [ personA, personB, personC ],
         emptyList   = [],
         p           = &lt;T&gt;(value: T): <span class="hljs-built_in">Promise</span>&lt;T&gt; =&gt; <span class="hljs-built_in">Promise</span>.resolve(value),
         q           = &lt;T&gt;(value: T): Question&lt;T&gt; =&gt; Question.about(<span class="hljs-string">&apos;a list of people&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
     given([
-        { description: <span class="hljs-string">&apos;static list&apos;</span>,               list: listOfPeople         },
-        { description: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             list: p(listOfPeople)      },
-        { description: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            list: q(listOfPeople)      },
-        { description: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   list: q(p(listOfPeople))   },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;static list&apos;</span>,               <span class="hljs-attr">list</span>: listOfPeople         },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             <span class="hljs-attr">list</span>: p(listOfPeople)      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            <span class="hljs-attr">list</span>: q(listOfPeople)      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   <span class="hljs-attr">list</span>: q(p(listOfPeople))   },
     ]).
     it(<span class="hljs-string">`iterates over a list`</span>, <span class="hljs-function">(<span class="hljs-params">{ list }</span>) =&gt;</span>
         serenity.theActorCalled(<span class="hljs-string">&apos;Looper Joe&apos;</span>).attemptsTo(
@@ -323,10 +323,10 @@ describe(<span class="hljs-string">&apos;Loop&apos;</span>, <span class="hljs-fu
         }));
 
     given([
-        { description: <span class="hljs-string">&apos;static list&apos;</span>,               list: emptyList         },
-        { description: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             list: p(emptyList)      },
-        { description: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            list: q(emptyList)      },
-        { description: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   list: q(p(emptyList))   },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;static list&apos;</span>,               <span class="hljs-attr">list</span>: emptyList         },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             <span class="hljs-attr">list</span>: p(emptyList)      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            <span class="hljs-attr">list</span>: q(emptyList)      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   <span class="hljs-attr">list</span>: q(p(emptyList))   },
     ]).
     it(<span class="hljs-string">`doesn&apos;t iterate over an empty list`</span>, <span class="hljs-function">(<span class="hljs-params">{ list }</span>) =&gt;</span>
         serenity.theActorCalled(<span class="hljs-string">&apos;Looper Joe&apos;</span>).attemptsTo(
@@ -343,20 +343,20 @@ describe(<span class="hljs-string">&apos;Loop&apos;</span>, <span class="hljs-fu
 
             <span class="hljs-keyword">const</span> taskStarts = recorder.events[<span class="hljs-number">0</span>] <span class="hljs-keyword">as</span> TaskStarts;
             expect(taskStarts).to.be.instanceOf(TaskStarts);
-            expect(taskStarts.value.name.value).to.equal(<span class="hljs-string">&apos;Looper Joe loops over a list of people&apos;</span>);
+            expect(taskStarts.details.name.value).to.equal(<span class="hljs-string">&apos;Looper Joe loops over a list of people&apos;</span>);
 
             <span class="hljs-keyword">const</span> taskFinished = recorder.events[<span class="hljs-number">1</span>] <span class="hljs-keyword">as</span> TaskFinished;
             expect(taskFinished).to.be.instanceOf(TaskFinished);
-            expect(taskFinished.value.name.value).to.equal(<span class="hljs-string">&apos;Looper Joe loops over a list of people&apos;</span>);
+            expect(taskFinished.details.name.value).to.equal(<span class="hljs-string">&apos;Looper Joe loops over a list of people&apos;</span>);
         }));
 
     given([
-        { description: <span class="hljs-string">&apos;empty list&apos;</span>,                list: emptyList,            expected: <span class="hljs-string">&apos;#actor loops over a list of 0 items&apos;</span> },
-        { description: <span class="hljs-string">&apos;singleton list&apos;</span>,            list: [<span class="hljs-string">&apos;apple&apos;</span>],            expected: <span class="hljs-string">&apos;#actor loops over a list of 1 item&apos;</span> },
-        { description: <span class="hljs-string">&apos;static list&apos;</span>,               list: listOfPeople,         expected: <span class="hljs-string">&apos;#actor loops over a list of 3 items&apos;</span> },
-        { description: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             list: p(listOfPeople),      expected: <span class="hljs-string">&apos;#actor loops over a Promise&apos;</span> },
-        { description: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            list: q(listOfPeople),      expected: <span class="hljs-string">&apos;#actor loops over a list of people&apos;</span> },
-        { description: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   list: q(p(listOfPeople)),   expected: <span class="hljs-string">&apos;#actor loops over a list of people&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;empty list&apos;</span>,                <span class="hljs-attr">list</span>: emptyList,            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a list of 0 items&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;singleton list&apos;</span>,            <span class="hljs-attr">list</span>: [<span class="hljs-string">&apos;apple&apos;</span>],            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a list of 1 item&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;static list&apos;</span>,               <span class="hljs-attr">list</span>: listOfPeople,         <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a list of 3 items&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Promise&lt;list&gt;&apos;</span>,             <span class="hljs-attr">list</span>: p(listOfPeople),      <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a Promise&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;list&gt;&apos;</span>,            <span class="hljs-attr">list</span>: q(listOfPeople),      <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a list of people&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Question&lt;Promise&lt;list&gt;&gt;&apos;</span>,   <span class="hljs-attr">list</span>: q(p(listOfPeople)),   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;#actor loops over a list of people&apos;</span> },
     ]).
     it(<span class="hljs-string">`provides a sensible description of the task being performed`</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
         expect(Loop.over(list).to().toString())

@@ -178,16 +178,16 @@
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Returns the result of last script executed via {@link ExecuteScript}
+ * <span class="hljs-doctag">@desc</span>
+ *  Returns the result of last script executed via {<span class="hljs-doctag">@link </span>ExecuteScript}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> LastScriptExecution {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LastScriptExecution</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables asserting on the result of a function executed via {@link ExecuteScript}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables asserting on the result of a function executed via {<span class="hljs-doctag">@link </span>ExecuteScript}.
      *
-     * @returns {Question&lt;R&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;R&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> result&lt;R&gt;(): Question&lt;R&gt; {
         <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`last script execution result`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>

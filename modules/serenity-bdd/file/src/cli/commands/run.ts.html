@@ -132,54 +132,54 @@
 <span class="hljs-keyword">import</span> { Actors, NotificationReporter, ProgressReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
 
 <span class="hljs-keyword">export</span> = {
-    command: <span class="hljs-string">&apos;run&apos;</span>,
-    desc: <span class="hljs-string">&apos;Invokes the Serenity BDD CLI jar to produce a Serenity BDD HTML report from the Serenity/JS JSON reports&apos;</span>,
-    builder: {
-        cacheDir: {
-            <span class="hljs-keyword">default</span>:   defaults.cacheDir,
-            describe: <span class="hljs-string">&apos;A relative path to where the Serenity BDD CLI jar file is stored&apos;</span>,
+    <span class="hljs-attr">command</span>: <span class="hljs-string">&apos;run&apos;</span>,
+    <span class="hljs-attr">desc</span>: <span class="hljs-string">&apos;Invokes the Serenity BDD CLI jar to produce a Serenity BDD HTML report from the Serenity/JS JSON reports&apos;</span>,
+    <span class="hljs-attr">builder</span>: {
+        <span class="hljs-attr">cacheDir</span>: {
+            <span class="hljs-attr">default</span>:   defaults.cacheDir,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;A relative path to where the Serenity BDD CLI jar file is stored&apos;</span>,
         },
-        destination: {
-            <span class="hljs-keyword">default</span>:   defaults.reportDir,
-            describe: <span class="hljs-string">&apos;A relative path to the directory where the Serenity BDD report should be produced&apos;</span>,
+        <span class="hljs-attr">destination</span>: {
+            <span class="hljs-attr">default</span>:   defaults.reportDir,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;A relative path to the directory where the Serenity BDD report should be produced&apos;</span>,
         },
-        features: {
-            <span class="hljs-keyword">default</span>:   defaults.featuresDir,
-            describe: <span class="hljs-string">&apos;A relative path to the directory containing the Cucumber.js feature files&apos;</span>,
+        <span class="hljs-attr">features</span>: {
+            <span class="hljs-attr">default</span>:   defaults.featuresDir,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;A relative path to the directory containing the Cucumber.js feature files&apos;</span>,
         },
-        artifact: {
-            <span class="hljs-keyword">default</span>:   defaults.artifact,
-            describe: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You&apos;re best off with the default option unless you want to experiment.`</span>,
+        <span class="hljs-attr">artifact</span>: {
+            <span class="hljs-attr">default</span>:   defaults.artifact,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You&apos;re best off with the default option unless you want to experiment.`</span>,
         },
-        source: {
-            <span class="hljs-keyword">default</span>:   defaults.sourceDir,
-            describe: <span class="hljs-string">`A relative path to the directory containing the Serenity/JS JSON reports`</span>,
+        <span class="hljs-attr">source</span>: {
+            <span class="hljs-attr">default</span>:   defaults.sourceDir,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`A relative path to the directory containing the Serenity/JS JSON reports`</span>,
         },
-        issueTrackerUrl: {
-            describe: <span class="hljs-string">`Base URL for issue trackers other than JIRA`</span>,
+        <span class="hljs-attr">issueTrackerUrl</span>: {
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Base URL for issue trackers other than JIRA`</span>,
         },
-        jiraProject: {
-            describe: <span class="hljs-string">`JIRA project identifier`</span>,
+        <span class="hljs-attr">jiraProject</span>: {
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`JIRA project identifier`</span>,
         },
-        jiraUrl: {
-            describe: <span class="hljs-string">`Base URL of your JIRA server`</span>,
+        <span class="hljs-attr">jiraUrl</span>: {
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Base URL of your JIRA server`</span>,
         },
-        project: {
-            <span class="hljs-keyword">default</span>: path.basename(process.cwd()),
-            describe: <span class="hljs-string">`Project name to appear in the Serenity reports`</span>,
+        <span class="hljs-attr">project</span>: {
+            <span class="hljs-attr">default</span>: path.basename(process.cwd()),
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Project name to appear in the Serenity reports`</span>,
         },
-        shortFilenames: {
-            <span class="hljs-keyword">default</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;boolean&apos;</span>,
-            describe: <span class="hljs-string">`Use unique hashes instead of human-readable names for the HTML files`</span>,
+        <span class="hljs-attr">shortFilenames</span>: {
+            <span class="hljs-attr">default</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;boolean&apos;</span>,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Use unique hashes instead of human-readable names for the HTML files`</span>,
         },
-        log: {
-            <span class="hljs-keyword">default</span>: defaults.log,
-            choices: [ <span class="hljs-string">&apos;warn&apos;</span>, <span class="hljs-string">&apos;info&apos;</span>, <span class="hljs-string">&apos;debug&apos;</span> ],
-            describe: <span class="hljs-string">`A Logback log level to pass to the Serenity BDD CLI jar`</span>,
+        <span class="hljs-attr">log</span>: {
+            <span class="hljs-attr">default</span>: defaults.log,
+            <span class="hljs-attr">choices</span>: [ <span class="hljs-string">&apos;warn&apos;</span>, <span class="hljs-string">&apos;info&apos;</span>, <span class="hljs-string">&apos;debug&apos;</span> ],
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`A Logback log level to pass to the Serenity BDD CLI jar`</span>,
         },
     },
-    handler: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
+    <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
@@ -188,8 +188,8 @@
             moduleRoot      = path.resolve(__dirname, <span class="hljs-string">&apos;../../../&apos;</span>);
 
         configure({
-            actors: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
-            crew: [
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
+            <span class="hljs-attr">crew</span>: [
                 <span class="hljs-keyword">new</span> NotificationReporter(printer),
                 <span class="hljs-keyword">new</span> ProgressReporter(printer),
             ],

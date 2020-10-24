@@ -267,13 +267,13 @@
 <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/Question&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Provides a human-readable description of the {@link Answerable&lt;T&gt;}.
- *  Similar to {@link util~inspect}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Provides a human-readable description of the {<span class="hljs-doctag">@link </span>Answerable&lt;T&gt;}.
+ *  Similar to {<span class="hljs-doctag">@link </span>util~inspect}.
  *
- * @public
- * @param {Answerable&lt;any&gt;} value
- * @return {string}
+ * <span class="hljs-doctag">@public</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">value</span></span>
+ * <span class="hljs-doctag">@return <span class="hljs-type">{string}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inspected</span>(<span class="hljs-params">value: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">string</span> </span>{
     <span class="hljs-keyword">if</span> (! isDefined(value)) {
@@ -316,26 +316,26 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>);
     }
 
-    <span class="hljs-keyword">return</span> inspect(value, { breakLength: <span class="hljs-literal">Infinity</span>, compact: <span class="hljs-literal">true</span>, sorted: <span class="hljs-literal">false</span>  });
+    <span class="hljs-keyword">return</span> inspect(value, { <span class="hljs-attr">breakLength</span>: <span class="hljs-literal">Infinity</span>, <span class="hljs-attr">compact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">sorted</span>: <span class="hljs-literal">false</span>  });
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value is defined
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDefined</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>) </span>{
     <span class="hljs-keyword">return</span> !! v;
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value defines its own `toString` method
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasItsOwnToString</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> </span>{ toString: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span> } {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> v === <span class="hljs-string">&apos;object&apos;</span>
@@ -345,67 +345,67 @@
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value defines its own `inspect` method
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isInspectable</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> </span>{ inspect: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span> } {
     <span class="hljs-keyword">return</span> !! (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).inspect &amp;&amp; <span class="hljs-keyword">typeof</span> (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).inspect === <span class="hljs-string">&apos;function&apos;</span>;
 }
 
 <span class="hljs-comment">/**
- * @desc
- * Checks if the value is a {@link Date}
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value is a {<span class="hljs-doctag">@link </span>Date}
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isADate</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">Date</span> </span>{
     <span class="hljs-keyword">return</span> v <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Date</span>;
 }
 
 <span class="hljs-comment">/**
- * @desc
- * Checks if the value is a {@link Promise}
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value is a {<span class="hljs-doctag">@link </span>Promise}
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAPromise</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">v: Answerable&lt;T&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
     <span class="hljs-keyword">return</span> !! (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).then;
 }
 
 <span class="hljs-comment">/**
- * @desc
- * Checks if the value is a named {@link Function}
+ * <span class="hljs-doctag">@desc</span>
+ * Checks if the value is a named {<span class="hljs-doctag">@link </span>Function}
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isANamedFunction</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> </span>{ name: <span class="hljs-built_in">string</span> } {
     <span class="hljs-keyword">return</span> {}.toString.call(v) === <span class="hljs-string">&apos;[object Function]&apos;</span> &amp;&amp; (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).name !== <span class="hljs-string">&apos;&apos;</span>;
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value defines its own `inspect` method
  * See: https://nodejs.org/api/util.html#util_util_inspect_custom
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasCustomInspectionFunction</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
     <span class="hljs-keyword">return</span> v &amp;&amp; v[<span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">&apos;nodejs.util.inspect.custom&apos;</span>)];
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value has a good chance of being a plain JavaScript object
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPlainObject</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
 
@@ -428,11 +428,11 @@
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  * Checks if the value is a JSON object that can be stringified
  *
- * @private
- * @param {Answerable&lt;any&gt;} v
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;any&gt;}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSerialisableAsJSON</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">object</span> </span>{
     <span class="hljs-keyword">try</span> {
@@ -446,7 +446,7 @@
 
 <span class="hljs-comment">/**
  * https://davidwalsh.name/detect-native-function
- * @param {any} v
+ * <span class="hljs-doctag">@param <span class="hljs-type">{any}</span> <span class="hljs-variable">v</span></span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNative</span>(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">v</span> <span class="hljs-title">is</span> <span class="hljs-title">Function</span> </span>{      <span class="hljs-comment">// tslint:disable-line:ban-types</span>
 

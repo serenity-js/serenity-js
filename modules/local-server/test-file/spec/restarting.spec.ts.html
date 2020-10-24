@@ -139,7 +139,7 @@
 
 describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ManageALocalServer}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;restarting&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(servers).
@@ -148,7 +148,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpListener(handler()),
@@ -158,7 +158,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(

@@ -267,16 +267,16 @@
 <span class="hljs-keyword">import</span> { actorCalled, engage, LogicError, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
+<span class="hljs-keyword">import</span> { Category, CorrelationId, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, Note, Question, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { EnsureSame } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../EnsureSame&apos;</span>;
 
-<span class="hljs-comment">/** @test {TakeNotes} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
         prepare(actor: Actor): Actor {
             <span class="hljs-keyword">switch</span> (actor.name) {
                 <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Alice&apos;</span>:
@@ -306,13 +306,13 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
 
     beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    <span class="hljs-comment">/** @test {TakeNotes.usingAnEmptyNotepad} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingAnEmptyNotepad}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;usingAnEmptyNotepad&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingAnEmptyNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingAnEmptyNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
@@ -321,9 +321,9 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
             ));
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingAnEmptyNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingAnEmptyNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question under a custom name&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
@@ -332,9 +332,9 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
             ));
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingAnEmptyNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingAnEmptyNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">`ensures that actors have their own notepads and don&apos;t share notes`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
@@ -351,16 +351,16 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
             )));
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingAnEmptyNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingAnEmptyNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Emma&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink())
             ).
             then(<span class="hljs-function">() =&gt;</span> {
-                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
+                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(CorrelationId.create(), scenarioDetails))
             }).
             then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
             then(<span class="hljs-function">() =&gt;</span>
@@ -371,13 +371,13 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
         );
     });
 
-    <span class="hljs-comment">/** @test {TakeNotes.usingASharedNotepad} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingASharedNotepad}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;usingASharedNotepad&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingASharedNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingASharedNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;enables the actor to take note of an answer to a given question and recall it later&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
@@ -386,9 +386,9 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
             ));
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingASharedNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingASharedNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">`ensures that actors can share their notes`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
@@ -400,16 +400,16 @@ describe(<span class="hljs-string">&apos;TakeNotes&apos;</span>, <span class="hl
         );
 
         <span class="hljs-comment">/**
-         * @test {TakeNotes.usingASharedNotepad}
-         * @test {Note}
-         * @test {TakeNote}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes.usingASharedNotepad}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNote}</span></span>
          */</span>
         it(<span class="hljs-string">`ensures the notepad is cleared between test scenarios`</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
             ).
             then(<span class="hljs-function">() =&gt;</span> {
-                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(scenarioDetails))
+                serenity.announce(<span class="hljs-keyword">new</span> SceneFinishes(CorrelationId.create(), scenarioDetails))
             }).
             then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
             then(<span class="hljs-function">() =&gt;</span>

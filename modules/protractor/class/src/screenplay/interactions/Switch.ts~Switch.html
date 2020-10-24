@@ -217,7 +217,7 @@
  <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> LoginForm {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginForm</span> </span>{
      <span class="hljs-keyword">static</span> iframe           = Target.the(<span class="hljs-string">&apos;login form&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;iframe&apos;</span>));
      <span class="hljs-keyword">static</span> usernameField    = Target.the(<span class="hljs-string">&apos;username field&apos;</span>).located(by.css(<span class="hljs-string">&apos;[data-test=&quot;username&quot;]&apos;</span>));
      <span class="hljs-keyword">static</span> passwordField    = Target.the(<span class="hljs-string">&apos;password field&apos;</span>).located(by.css(<span class="hljs-string">&apos;[data-test=&quot;password&quot;]&apos;</span>));

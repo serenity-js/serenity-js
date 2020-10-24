@@ -149,7 +149,7 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
 
 <h2 id="implementing-abilities">Implementing Abilities</h2>
 <p>Consider the <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> ability from the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BrowseTheWeb <span class="hljs-keyword">implements</span> Ability {
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowseTheWeb</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
 
     <span class="hljs-keyword">static</span> using(browser: ProtractorBrowser): BrowseTheWeb {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowseTheWeb(browser);
@@ -159,7 +159,7 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
         <span class="hljs-keyword">return</span> actor.abilityTo(BrowseTheWeb);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>)</span> {
     }
 
     locate(locator: Locator): ElementFinder {
@@ -183,7 +183,7 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
 <span class="hljs-keyword">import</span> { Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">const</span> Click = {
-    onElement: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
+    <span class="hljs-attr">onElement</span>: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
         Interaction.where(<span class="hljs-string">`#actor clicks on the <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-built_in">this</span>.locator).click();
         }),

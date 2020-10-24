@@ -125,11 +125,11 @@
 <span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> RenameFile = {
-    <span class="hljs-keyword">from</span>: <span class="hljs-function">(<span class="hljs-params">source: Path</span>) =&gt;</span> ({
-        to: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> Interaction.where(<span class="hljs-string">`#actor renames <span class="hljs-subst">${ source.value }</span> to <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+    <span class="hljs-attr">from</span>: <span class="hljs-function">(<span class="hljs-params">source: Path</span>) =&gt;</span> ({
+        <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> Interaction.where(<span class="hljs-string">`#actor renames <span class="hljs-subst">${ source.value }</span> to <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
             UseFileSystem.as(actor).rename(source, destination)),
     }),
 };

@@ -125,24 +125,24 @@
 <span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../package.json&apos;</span>);  <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.
  *
- * @typedef {function(error: Error, parsed: object, output: string): void} Interceptor
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(error: Error, parsed: object, output: string): void}</span> <span class="hljs-variable">Interceptor</span></span>
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Interceptor = <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, parsed: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> }, output: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Invokes the serenity-bdd command line interface, responsible for downloading and running
  *  the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)
  *
- * @param {string[]} argv
- * @param {Interceptor} interceptor
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">argv</span></span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Interceptor}</span> <span class="hljs-variable">interceptor</span></span>
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">argv: <span class="hljs-built_in">string</span>[], interceptor?: Interceptor</span>) </span>{
     yargs()

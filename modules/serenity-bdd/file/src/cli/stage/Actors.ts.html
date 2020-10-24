@@ -128,16 +128,16 @@
 <span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> rootDir: Path</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> rootDir: Path</span>)</span> {
     }
 
     prepare(actor: Actor): Actor {
         <span class="hljs-keyword">return</span> actor.whoCan(
             CallAnApi.using(axios.create({
-                adapter: httpAdapter,
+                <span class="hljs-attr">adapter</span>: httpAdapter,
             })),
             UseFileSystem.at(<span class="hljs-built_in">this</span>.rootDir),
             TakeNotes.usingAnEmptyNotepad(),

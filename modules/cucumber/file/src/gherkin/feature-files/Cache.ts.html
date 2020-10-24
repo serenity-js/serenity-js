@@ -142,13 +142,13 @@
 <span class="hljs-keyword">import</span> { UnableToRetrieveFeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./errors&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Cache&lt;Key <span class="hljs-keyword">extends</span> TinyType, Value&gt; {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> store: { [id: <span class="hljs-built_in">string</span>]: Value } = {}</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cache</span>&lt;<span class="hljs-title">Key</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span>, <span class="hljs-title">Value</span>&gt; </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> store: { [id: <span class="hljs-built_in">string</span>]: Value } = {}</span>)</span> {
     }
 
-    set(key: Key, value: Value): <span class="hljs-built_in">void</span> {
+    set(key: Key, <span class="hljs-attr">value</span>: Value): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)] = value;
     }
 

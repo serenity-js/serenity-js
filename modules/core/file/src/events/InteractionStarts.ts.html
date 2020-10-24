@@ -264,13 +264,15 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/InteractionStarts.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">import</span> { ActivityDetails, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ActivityStarts&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> InteractionStarts <span class="hljs-keyword">extends</span> ActivityStarts {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InteractionStarts</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ActivityStarts</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InteractionStarts(
-            ActivityDetails.fromJSON(o.value <span class="hljs-keyword">as</span> JSONObject),
+            CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            CorrelationId.fromJSON(o.activityId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            ActivityDetails.fromJSON(o.details <span class="hljs-keyword">as</span> JSONObject),
             Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }

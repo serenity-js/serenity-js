@@ -237,7 +237,7 @@ that prevents the application state from leaking between the tests. I&apos;ve al
     <span class="hljs-comment">// The page object representing the Todo list:</span>
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> </span>{
 
-        <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
             <span class="hljs-comment">// Interactive elements represented as &quot;private&quot; fields of the page object</span>
             <span class="hljs-comment">// to encourage the developers to use the &quot;public&quot; methods instead</span>
             <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox = element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>));
@@ -252,12 +252,12 @@ that prevents the application state from leaking between the tests. I&apos;ve al
 
         <span class="hljs-comment">// Each &quot;task method&quot; encapsulates the low-level interactions</span>
         <span class="hljs-comment">// like entering a value into a form field or clicking on a button:</span>
-        <span class="hljs-keyword">async</span> recordItemCalled(itemName) {
+        <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">recordItemCalled</span>(<span class="hljs-params">itemName</span>)</span> {
             <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox.sendKeys(itemName);
             <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox.sendKeys(protractor.Key.ENTER);
         }
 
-        <span class="hljs-keyword">async</span> completeItemCalled(itemName) {
+        <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">completeItemCalled</span>(<span class="hljs-params">itemName</span>)</span> {
             <span class="hljs-comment">// The dynamically-generated XPath locator is now encapsulated</span>
             <span class="hljs-comment">// within the page object. But, even though it&apos;s swept under the carpet,</span>
             <span class="hljs-comment">// it&apos;s still just as complex as it was before:</span>
@@ -267,14 +267,14 @@ that prevents the application state from leaking between the tests. I&apos;ve al
             ).click();
         }
 
-        <span class="hljs-keyword">async</span> filterToShowActiveItemsOnly() {
+        <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">filterToShowActiveItemsOnly</span>(<span class="hljs-params"></span>)</span> {
             <span class="hljs-keyword">await</span> element(by.linkText(<span class="hljs-string">`Active`</span>))
                 .click();
         },
 
         <span class="hljs-comment">// A data retrieval method designed to make it easier to perform</span>
         <span class="hljs-comment">// an assertion in the test</span>
-        <span class="hljs-keyword">async</span> textOfRecordedItems() {
+        <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">textOfRecordedItems</span>(<span class="hljs-params"></span>)</span> {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._recordedItems.getText();
         },
     };

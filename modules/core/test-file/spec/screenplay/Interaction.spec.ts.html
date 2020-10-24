@@ -275,8 +275,8 @@
 describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> stage: Stage,
-        Ivonne: Actor,
-        stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;;
+        <span class="hljs-attr">Ivonne</span>: Actor,
+        <span class="hljs-attr">stageManager</span>: sinon.SinonStubbedInstance&lt;StageManager&gt;;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         stageManager = sinon.createStubInstance(StageManager);
@@ -290,7 +290,7 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
 
     describe(<span class="hljs-string">&apos;when defining an interaction&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Interaction} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Interaction}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a convenient factory method for synchronous interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> spy = sinon.spy();
 
@@ -307,7 +307,7 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
             });
         });
 
-        <span class="hljs-comment">/** @test {Interaction} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Interaction}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a convenient factory method for asynchronous interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> spy = sinon.spy();
 
@@ -348,10 +348,10 @@ describe(<span class="hljs-string">&apos;Interaction&apos;</span>, <span class="
         });
     });
 
-    <span class="hljs-comment">/** @test {Interaction} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Interaction}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;can optionally emit an artifact to be attached to the report or stored&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            expectedArtifact = JSONData.fromJSON({ token: <span class="hljs-string">&apos;123&apos;</span> }),
+            expectedArtifact = JSONData.fromJSON({ <span class="hljs-attr">token</span>: <span class="hljs-string">&apos;123&apos;</span> }),
             expectedArtifactName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Session Token&apos;</span>);
 
         <span class="hljs-keyword">const</span> InteractWithTheSystem = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor interacts with the system`</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> {

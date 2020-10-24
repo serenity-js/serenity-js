@@ -148,8 +148,8 @@ actor.attemptsTo(
 
     <span class="hljs-comment">// create a new test user account</span>
     Send.a(PostRequest.to(<span class="hljs-string">&apos;/users&apos;</span>).with({
-        login: <span class="hljs-string">&apos;tester&apos;</span>,
-        password: <span class="hljs-string">&apos;P@ssword1&apos;</span>,
+        <span class="hljs-attr">login</span>: <span class="hljs-string">&apos;tester&apos;</span>,
+        <span class="hljs-attr">password</span>: <span class="hljs-string">&apos;P@ssword1&apos;</span>,
     }),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">201</span>)),
     Ensure.that(LastResponse.header(<span class="hljs-string">&apos;Location&apos;</span>), startsWith(<span class="hljs-string">&apos;/users&apos;</span>)),

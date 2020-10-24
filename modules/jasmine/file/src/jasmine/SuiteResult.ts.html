@@ -128,12 +128,12 @@
 <span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Result&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
- * @see https://jasmine.github.io/api/edge/global.html#SuiteResult
+ * <span class="hljs-doctag">@package</span>
+ * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#SuiteResult
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SuiteResult <span class="hljs-keyword">extends</span> Result {
     <span class="hljs-comment">/** The unique id of this suite. */</span>
-    id: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The description text passed to the `describe` that made this suite. */</span>
     description: <span class="hljs-built_in">string</span>;

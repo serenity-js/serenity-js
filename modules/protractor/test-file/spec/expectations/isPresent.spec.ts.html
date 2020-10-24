@@ -188,8 +188,8 @@
 describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> Page = {
-        Present_Header:         Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>)),
-        Non_Existent_Header:    Target.the(<span class="hljs-string">&apos;non-existent header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h2&apos;</span>)),
+        <span class="hljs-attr">Present_Header</span>:         Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h1&apos;</span>)),
+        <span class="hljs-attr">Non_Existent_Header</span>:    Target.the(<span class="hljs-string">&apos;non-existent header&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;h2&apos;</span>)),
     };
 
     beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
@@ -202,25 +202,25 @@ describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hl
         `</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is present in the DOM&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Present_Header, isPresent()),
         Ensure.that(Page.Present_Header, isPresent()),
     )).to.be.fulfilled);
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element does not become present in the DOM&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.upTo(Duration.ofMilliseconds(<span class="hljs-number">250</span>)).until(Page.Non_Existent_Header, isPresent()),
     )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Waited 250ms for the non-existent header to become present`</span>));
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element is not present in the DOM&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the non-existent header to become present`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">`produces an assertion error that can be serialised with ErrorSerialiser`</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
@@ -230,13 +230,13 @@ describe(<span class="hljs-string">&apos;isPresent&apos;</span>, <span class="hl
             });
     });
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Present_Header, isPresent()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the header does become present`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isPresent} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isPresent}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Present_Header, isPresent()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the header does become present`</span>);

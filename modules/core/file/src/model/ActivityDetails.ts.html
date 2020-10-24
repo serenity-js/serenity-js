@@ -267,19 +267,23 @@
 <span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CorrelationId&apos;</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Name&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ActivityDetails <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ActivityDetails</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ActivityDetails(
             Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            CorrelationId.fromJSON(o.correlationId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> correlationId: CorrelationId = CorrelationId.create(),
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
+    }
+
+    <span class="hljs-function"><span class="hljs-title">toJSON</span>(<span class="hljs-params"></span>)</span> {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">name</span>: <span class="hljs-built_in">this</span>.name.value,
+        }
     }
 }
 </code></pre>

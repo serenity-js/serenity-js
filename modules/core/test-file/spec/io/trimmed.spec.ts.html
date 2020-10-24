@@ -269,12 +269,12 @@
 
 describe (<span class="hljs-string">&apos;`trimmed` tag function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {trimmed} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;trims the leading and trailing whitespace&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`  Hello world!  `</span>).to.equal(<span class="hljs-string">&apos;Hello world!&apos;</span>);
     });
 
-    <span class="hljs-comment">/** @test {trimmed} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;leaves the space between the lines if required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`
             | --------------------------------------------------------------------------------
@@ -294,7 +294,7 @@ describe (<span class="hljs-string">&apos;`trimmed` tag function&apos;</span>, <
         ].join(<span class="hljs-string">&apos;\n&apos;</span>));
     });
 
-    <span class="hljs-comment">/** @test {trimmed} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;trims padded multi-line string&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(trimmed <span class="hljs-string">`
             | const SomeInteraction = () =&gt;

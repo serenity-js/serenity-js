@@ -184,7 +184,7 @@
 <span class="hljs-keyword">import</span> { Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Wait} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Status = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.id(<span class="hljs-string">&apos;status&apos;</span>));
@@ -206,7 +206,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
 
     describe(<span class="hljs-string">&apos;for&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Wait.for} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait.for}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;pauses the actor flow for the length of an explicitly-set duration&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
@@ -215,7 +215,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
             Ensure.that(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Wait#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Wait.for(Duration.ofMilliseconds(<span class="hljs-number">300</span>)).toString())
                 .to.equal(<span class="hljs-string">`#actor waits for 300ms`</span>);
@@ -224,7 +224,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
 
     describe(<span class="hljs-string">&apos;until&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Wait.until} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait.until}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;pauses the actor flow until the expectation is met&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
@@ -233,8 +233,8 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
             Ensure.that(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Wait.upTo} */</span>
-        <span class="hljs-comment">/** @test {Wait.until} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait.upTo}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait.until}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;fails the actor flow when the timeout expires&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(Test_Page),
 
@@ -249,7 +249,7 @@ describe(<span class="hljs-string">&apos;Wait&apos;</span>, <span class="hljs-fu
             expect(error.cause.message).to.match(<span class="hljs-regexp">/^Wait timed out after.*/</span>);
         }));
 
-        <span class="hljs-comment">/** @test {Wait#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Wait.upTo(Duration.ofMilliseconds(<span class="hljs-number">10</span>)).until(Text.of(Status), equals(<span class="hljs-string">&apos;Ready!&apos;</span>)).toString())
                 .to.equal(<span class="hljs-string">`#actor waits up to 10ms until the text of the header does equal &apos;Ready!&apos;`</span>);

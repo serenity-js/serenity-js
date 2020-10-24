@@ -269,8 +269,8 @@
 <span class="hljs-keyword">import</span> { normalize, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {normalize} */</span>
-<span class="hljs-comment">/** @test {Question#map} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{normalize}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;normalize&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> quentin = actorCalled(<span class="hljs-string">&apos;Quentin&apos;</span>);
@@ -285,27 +285,27 @@ describe(<span class="hljs-string">&apos;normalize&apos;</span>, <span class="hl
      * U+1E9B: LATIN SMALL LETTER LONG S WITH DOT ABOVE
      * U+0323: COMBINING DOT BELOW
      *
-     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
+     * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
      */</span>
     <span class="hljs-keyword">const</span> initialString = <span class="hljs-string">&apos;\u1E9B\u0323&apos;</span>;
 
     given([
-        { value: <span class="hljs-literal">null</span>,              expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: <span class="hljs-literal">undefined</span>,         expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: <span class="hljs-number">1</span>,                 expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: { },               expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: [<span class="hljs-literal">null</span>],            expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: [<span class="hljs-literal">undefined</span>],       expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: [<span class="hljs-number">1</span>],               expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: [{ }],             expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p(<span class="hljs-literal">null</span>),           expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p(<span class="hljs-literal">undefined</span>),      expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p(<span class="hljs-number">1</span>),              expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p({ }),            expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p([ <span class="hljs-literal">null</span> ]),       expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p([ <span class="hljs-literal">undefined</span> ]),  expected: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
-        { value: p([ <span class="hljs-number">1</span> ]),          expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
-        { value: p([ { } ]),        expected: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>,              <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>,         <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,                 <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: { },               <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-literal">null</span>],            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-literal">undefined</span>],       <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: [<span class="hljs-number">1</span>],               <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: [{ }],             <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">null</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">undefined</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p(<span class="hljs-number">1</span>),              <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p({ }),            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">null</span> ]),       <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">undefined</span> ]),  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be defined&apos;</span>    },
+        { <span class="hljs-attr">value</span>: p([ <span class="hljs-number">1</span> ]),          <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
+        { <span class="hljs-attr">value</span>: p([ { } ]),        <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;The value to be mapped should be a string&apos;</span>   },
     ]).
     it(<span class="hljs-string">&apos;complains if the original answer is of a wrong type at runtime&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q&lt;<span class="hljs-built_in">any</span>&gt;(value)

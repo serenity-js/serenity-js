@@ -131,57 +131,57 @@
 <span class="hljs-keyword">import</span> { ThemeForColourTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ThemeForColourTerminals&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  A simple colour theme for terminals with dark backgrounds.
  *
- * @extends {ThemeForColourTerminals}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{ThemeForColourTerminals}</span></span>
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ThemeForDarkTerminals <span class="hljs-keyword">extends</span> ThemeForColourTerminals {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThemeForDarkTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeForColourTerminals</span> </span>{
 
     <span class="hljs-comment">/**
-     * @param {chalk~Chalk} chalk
+     * <span class="hljs-doctag">@param <span class="hljs-type">{chalk~Chalk}</span> <span class="hljs-variable">chalk</span></span>
      *
-     * @see https://www.npmjs.com/package/chalk
+     * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/chalk
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">chalk: Chalk</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">chalk: Chalk</span>)</span> {
         <span class="hljs-built_in">super</span>(chalk);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Formats the heading
      *
-     * @param {...any[]} parts
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
      *  `parts` to be converted to string, joined together, and formatted as a heading
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.bold.white(<span class="hljs-built_in">this</span>.joined(parts));
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Decorates the heading with theme colours.
      *
-     * @param {string} pattern
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">pattern</span></span>
      *  The pattern to be repeated to create a separator, for example `-`, `&#x2702; - - `, etc.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.yellow(<span class="hljs-built_in">this</span>.repeat(pattern));
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * @param {...any[]} parts
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     log(...parts): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.yellow(<span class="hljs-built_in">this</span>.joined(parts));

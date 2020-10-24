@@ -125,7 +125,7 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage&apos;</span>;
@@ -138,6 +138,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
     <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
+
+    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>);
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
@@ -154,22 +156,22 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
             beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
+                    <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
                 );
             });
 
             describe(<span class="hljs-string">&apos;@manual&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;is marked as automated (non-manual) by default&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
@@ -179,18 +181,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 });
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {ManualTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ManualTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;can be optionally tagged as manual&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ManualTag()),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ManualTag()),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
@@ -198,9 +200,9 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                     expect(report.manual).to.equal(<span class="hljs-literal">true</span>);
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;Manual&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Manual&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;External Tests&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Manual&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Manual&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;External Tests&apos;</span>,
                     }]);
                 });
             });
@@ -208,32 +210,32 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             describe(<span class="hljs-string">&apos;@issue&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {IssueTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{IssueTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;can be tagged with an issue number&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;ABC-1234&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;DEF-5678&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;ABC-1234&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;DEF-5678&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name:        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;ABC-1234&apos;</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
                     }, {
-                        name:        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;DEF-5678&apos;</span>,
-                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
                     }]);
 
                     expect(report.issues).to.deep.equal([
@@ -251,27 +253,27 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             describe(<span class="hljs-string">&apos;@arbitrary-tag&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {ArbitraryTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ArbitraryTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;can be tagged with an arbitrary tag&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;regression&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;regression&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name:        <span class="hljs-string">&apos;regression&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;regression&apos;</span>,
-                        <span class="hljs-keyword">type</span>:        <span class="hljs-string">&apos;tag&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;regression&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;regression&apos;</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;tag&apos;</span>,
                     }]);
                 });
             });
@@ -279,131 +281,131 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             describe(<span class="hljs-string">&apos;to indicate that a scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;belongs to a feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: <span class="hljs-string">&apos;Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
-                 * @test {CapabilityTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureTag}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{CapabilityTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;belongs to a capability&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
                     }, {
-                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
                 <span class="hljs-comment">/**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
-                 * @test {CapabilityTag}
-                 * @test {ThemeTag}
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureTag}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{CapabilityTag}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{ThemeTag}</span></span>
                  */</span>
                 it(<span class="hljs-string">&apos;belongs to a theme&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ThemeTag(<span class="hljs-string">&apos;Digital&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ThemeTag(<span class="hljs-string">&apos;Digital&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
 
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        name: <span class="hljs-string">&apos;Digital&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;theme&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Digital&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Digital&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;theme&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Digital&apos;</span>,
                     }, {
-                        name: <span class="hljs-string">&apos;Digital/E-Commerce&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Digital/E-Commerce&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
                     }, {
-                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        name: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        displayName: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
                     });
                 });
 
                 describe(<span class="hljs-string">&apos;is executed in the context and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                     <span class="hljs-comment">/**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {BrowserTag}
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{BrowserTag}</span></span>
                      */</span>
                     it(<span class="hljs-string">&apos;indicates the web browser where the test was executed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;80.0.3987.87&apos;</span>)),
-                            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;80.0.3987.87&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
@@ -412,27 +414,27 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                         expect(report.context).to.equal(<span class="hljs-string">&apos;chrome&apos;</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            browserName: <span class="hljs-string">&apos;chrome&apos;</span>,
-                            browserVersion: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>,
-                            name: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
-                            displayName: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
-                            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
+                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">&apos;chrome&apos;</span>,
+                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
                         }]);
                     });
 
                     <span class="hljs-comment">/**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {ContextTag}
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{ContextTag}</span></span>
                      */</span>
                     it(<span class="hljs-string">&apos;indicates the operating system where the test was executed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
-                            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
@@ -441,27 +443,27 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                         expect(report.context).to.equal(<span class="hljs-string">&apos;iphone&apos;</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            name: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            displayName: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
                         }]);
                     });
 
                     <span class="hljs-comment">/**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {BrowserTag}
-                     * @test {ContextTag}
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneTagged}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{BrowserTag}</span></span>
+                     * <span class="hljs-doctag">@test <span class="hljs-type">{ContextTag}</span></span>
                      */</span>
                     it(<span class="hljs-string">&apos;ensures that the user-specified context takes precedence over browser context&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;safari&apos;</span>, <span class="hljs-string">&apos;13.0.5&apos;</span>)),
-                            <span class="hljs-keyword">new</span> SceneTagged(defaultCardScenario, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
-                            <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;safari&apos;</span>, <span class="hljs-string">&apos;13.0.5&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
@@ -470,15 +472,15 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                         expect(report.context).to.equal(<span class="hljs-string">&apos;iphone&apos;</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            name: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
-                            displayName: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
-                            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
-                            browserName: <span class="hljs-string">&apos;safari&apos;</span>,
-                            browserVersion: <span class="hljs-string">&apos;13.0.5&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
+                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">&apos;safari&apos;</span>,
+                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">&apos;13.0.5&apos;</span>,
                         }, {
-                            name: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            displayName: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
                         }]);
                     });
                 });

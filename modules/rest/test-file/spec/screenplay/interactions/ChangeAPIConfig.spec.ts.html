@@ -139,7 +139,7 @@
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../actors&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {ChangeApiConfig} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
@@ -149,7 +149,7 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
 
     describe(<span class="hljs-string">&apos;when changing the API URL&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
+        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ <span class="hljs-attr">baseURL</span>: originalUrl });
 
         beforeEach(<span class="hljs-function">() =&gt;</span> {
             mock.onGet(originalUrl).reply(<span class="hljs-number">500</span>);
@@ -159,8 +159,8 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
         afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
 
         <span class="hljs-comment">/**
-         * @test {ChangeApiConfig}
-         * @test {ChangeApiConfig.setUrlTo}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setUrlTo}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
@@ -174,7 +174,7 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
 
     describe(<span class="hljs-string">&apos;when changing the API port&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
+        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ <span class="hljs-attr">baseURL</span>: originalUrl });
 
         beforeEach(<span class="hljs-function">() =&gt;</span> {
             mock.onGet(originalUrl).reply(<span class="hljs-number">500</span>);
@@ -184,8 +184,8 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
         afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
 
         <span class="hljs-comment">/**
-         * @test {ChangeApiConfig}
-         * @test {ChangeApiConfig.setPortTo}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
@@ -197,8 +197,8 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
         ));
 
         <span class="hljs-comment">/**
-         * @test {ChangeApiConfig}
-         * @test {ChangeApiConfig.setPortTo}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains if the url has not been set prior to attempted port change&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
             ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
@@ -206,8 +206,8 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
         )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can&apos;t change the port of a baseURL that has not been set.`</span>));
 
         <span class="hljs-comment">/**
-         * @test {ChangeApiConfig}
-         * @test {ChangeApiConfig.setPortTo}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains if the url to be changed is invalid&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
             ChangeApiConfig.setUrlTo(<span class="hljs-string">&apos;invalid&apos;</span>),

@@ -185,7 +185,7 @@
 
 describe(<span class="hljs-string">&apos;Browser&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {Browser.log} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Browser.log}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;returns no entries if the console log is empty&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html lang=&quot;en&quot; /&gt;
@@ -194,7 +194,7 @@ describe(<span class="hljs-string">&apos;Browser&apos;</span>, <span class="hljs
         Ensure.that(Browser.log(), property(<span class="hljs-string">&apos;length&apos;</span>, equals(<span class="hljs-number">0</span>))),
     ));
 
-    <span class="hljs-comment">/** @test {Browser.log} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Browser.log}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to read the browser log entries&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html lang=&quot;en&quot;&gt;
@@ -211,7 +211,7 @@ describe(<span class="hljs-string">&apos;Browser&apos;</span>, <span class="hljs
 
     <span class="hljs-keyword">const</span> Trigger = Target.the(<span class="hljs-string">&apos;trigger button&apos;</span>).located(by.id(<span class="hljs-string">&apos;trigger&apos;</span>));
 
-    <span class="hljs-comment">/** @test {Browser.log} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Browser.log}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;clears the log upon invocation&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html lang=&quot;en&quot;&gt;

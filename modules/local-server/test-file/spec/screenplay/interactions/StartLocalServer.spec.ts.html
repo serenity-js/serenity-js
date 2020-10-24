@@ -138,13 +138,13 @@
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../servers&apos;</span>);
 
-<span class="hljs-comment">/** @test {StartALocalServer} */</span>
-<span class="hljs-comment">/** @test {LocalServer.url} */</span>
-<span class="hljs-comment">/** @test {LocalServer.port} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StartALocalServer}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LocalServer.url}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LocalServer.port}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;StartALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
-        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> listener: () =&gt; RequestListener | Server</span>) {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
+        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> listener: () =&gt; RequestListener | Server</span>)</span> {
         }
 
         prepare(actor: Actor): Actor {
@@ -158,7 +158,7 @@ describe(<span class="hljs-string">&apos;StartALocalServer&apos;</span>, <span c
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
         }
 
-        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
 
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
             StartLocalServer.onPort(<span class="hljs-number">30000</span>),
@@ -172,7 +172,7 @@ describe(<span class="hljs-string">&apos;StartALocalServer&apos;</span>, <span c
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
         }
 
-        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
 
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
             StartLocalServer.onRandomPort(),
@@ -186,7 +186,7 @@ describe(<span class="hljs-string">&apos;StartALocalServer&apos;</span>, <span c
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
         }
 
-        configure({ actors: <span class="hljs-keyword">new</span> Actors(handler) });
+        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
 
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
             StartLocalServer.onRandomPortBetween(<span class="hljs-number">8080</span>, <span class="hljs-number">9090</span>),

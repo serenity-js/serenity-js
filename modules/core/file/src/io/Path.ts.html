@@ -267,18 +267,18 @@
 <span class="hljs-keyword">import</span> filenamify = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;filenamify&apos;</span>);
 <span class="hljs-keyword">import</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;upath&apos;</span>);
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Path <span class="hljs-keyword">extends</span> TinyType {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Path</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Separator = <span class="hljs-string">&apos;/&apos;</span>;
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> Path(v);
 
-    <span class="hljs-keyword">static</span> fromSanitisedString(value: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromSanitisedString</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">const</span>
             normalised = path.normalize(value).replace(<span class="hljs-regexp">/[\/\\&quot;&apos;:]/gi</span>, <span class="hljs-string">&apos;&apos;</span>),
             extension  = path.extname(normalised),
             basename   = path.basename(normalised, extension),
-            filename   = filenamify(basename, { replacement: <span class="hljs-string">&apos;-&apos;</span>, maxLength: <span class="hljs-number">250</span> })
+            filename   = filenamify(basename, { <span class="hljs-attr">replacement</span>: <span class="hljs-string">&apos;-&apos;</span>, <span class="hljs-attr">maxLength</span>: <span class="hljs-number">250</span> })
                 .trim()
                 .replace(<span class="hljs-regexp">/[\s-]+/g</span>, <span class="hljs-string">&apos;-&apos;</span>);
 
@@ -288,14 +288,14 @@
         ));
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(Path.name, value, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
 
         <span class="hljs-built_in">this</span>.value = path.normalize(value);
     }
 
-    join(another: Path) {
+    <span class="hljs-function"><span class="hljs-title">join</span>(<span class="hljs-params">another: Path</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.join(<span class="hljs-built_in">this</span>.value, another.value));
     }
 
@@ -305,11 +305,11 @@
             .filter(<span class="hljs-function"><span class="hljs-params">segment</span> =&gt;</span> !! segment); <span class="hljs-comment">// so that we ignore the trailing path separator in absolute paths</span>
     }
 
-    resolve(another: Path) {
+    <span class="hljs-function"><span class="hljs-title">resolve</span>(<span class="hljs-params">another: Path</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.resolve(<span class="hljs-built_in">this</span>.value, another.value));
     }
 
-    directory() {
+    <span class="hljs-function"><span class="hljs-title">directory</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.dirname(<span class="hljs-built_in">this</span>.value));
     }
 

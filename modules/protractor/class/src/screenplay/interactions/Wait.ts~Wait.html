@@ -217,21 +217,21 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;!--
      After about <span class="hljs-number">1</span> second, the text will change <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;Loading...&apos;</span> to <span class="hljs-string">&apos;Ready!&apos;</span>
  --&gt;
- &lt;h1 id=<span class="hljs-string">&quot;status&quot;</span>&gt;Loading...&lt;/h1&gt;
- &lt;script&gt;
+ <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;status&quot;</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+ <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
      (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
              <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;status&apos;</span>).textContent = <span class="hljs-string">&apos;Ready!&apos;</span>
          }, <span class="hljs-number">1000</span>);
      })();
- &lt;/script&gt;</code></pre>
+ </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> App {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
      <span class="hljs-keyword">static</span> status = Target.the(<span class="hljs-string">&apos;status widget&apos;</span>)
          .located(by.id(<span class="hljs-string">&apos;status&apos;</span>));
  }</code></pre>

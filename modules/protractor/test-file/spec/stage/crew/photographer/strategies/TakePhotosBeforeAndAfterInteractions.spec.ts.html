@@ -194,8 +194,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
     describe(<span class="hljs-string">&apos;when instructed to take photos before and after all interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> photographer: Photographer,
-            stage: Stage,
-            recorder: EventRecorder;
+            <span class="hljs-attr">stage</span>: Stage,
+            <span class="hljs-attr">recorder</span>: EventRecorder;
 
         beforeEach(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> testSubject = create(Duration.ofSeconds(<span class="hljs-number">3</span>));
@@ -265,11 +265,11 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
             )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">let</span> cid1: CorrelationId,
-                    cid2: CorrelationId;
+                    <span class="hljs-attr">cid2</span>: CorrelationId;
 
                 PickEvent.from(recorder.events)
-                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid1 = event.value.correlationId; })
-                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid2 = event.value.correlationId; });
+                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid1 = event.activityId; })
+                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid2 = event.activityId; });
 
                 <span class="hljs-keyword">const</span>
                     firstActivityEvents  = recorder.events.filter(withCorrelationIdOf(cid1)),
@@ -323,9 +323,9 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
 
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withCorrelationIdOf</span>(<span class="hljs-params">cid: CorrelationId</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">event: DomainEvent</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> details = (event <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated).details || (event <span class="hljs-keyword">as</span> ActivityStarts | ActivityFinished).value;
+                <span class="hljs-keyword">const</span> activityId = (event <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
 
-                <span class="hljs-keyword">return</span> details &amp;&amp; cid.equals(details.correlationId);
+                <span class="hljs-keyword">return</span> activityId &amp;&amp; cid.equals(activityId);
             };
         }
     });

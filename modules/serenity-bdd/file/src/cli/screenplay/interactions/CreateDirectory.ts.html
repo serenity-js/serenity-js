@@ -125,10 +125,10 @@
 <span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> CreateDirectory = {
-    at: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> Interaction.where(<span class="hljs-string">`#actor creates a directory at <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+    <span class="hljs-attr">at</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> Interaction.where(<span class="hljs-string">`#actor creates a directory at <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
         UseFileSystem.as(actor).createDirectory(destination).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)),
 };
 </code></pre>

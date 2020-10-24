@@ -143,31 +143,31 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/containAtLeastOneItemThat.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Expectation&apos;</span>;
-<span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../outcomes&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions } from &apos;@serenity-js/core&apos;;
+import { formatted } from &apos;@serenity-js/core/lib/io&apos;;
+import { Expectation } from &apos;../Expectation&apos;;
+import { ExpectationMet, ExpectationNotMet, Outcome } from &apos;../outcomes&apos;;
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">containAtLeastOneItemThat</span>&lt;<span class="hljs-title">Actual</span>&gt;(<span class="hljs-params">expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">Actual</span>[]&gt; </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ContainAtLeastOneItemThatMeetsExpectation(expectation);
+export function containAtLeastOneItemThat&lt;Actual&gt;(expectation: Expectation&lt;any, Actual&gt;): Expectation&lt;any, Actual[]&gt; {
+    return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
 }
 
-<span class="hljs-comment">/**
+/**
  * @package
- */</span>
-<span class="hljs-keyword">class</span> ContainAtLeastOneItemThatMeetsExpectation&lt;Expected, Actual&gt; <span class="hljs-keyword">extends</span> Expectation&lt;Expected, Actual[]&gt; {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Expected, Actual&gt;</span>) {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`contain at least one item that does <span class="hljs-subst">${ expectation }</span>`</span>);
+ */
+class ContainAtLeastOneItemThatMeetsExpectation&lt;Expected, Actual&gt; extends Expectation&lt;Expected, Actual[]&gt; {
+    constructor(private readonly expectation: Expectation&lt;Expected, Actual&gt;) {
+        super(formatted `contain at least one item that does ${ expectation }`);
     }
 
-    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual[]</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;Expected, Actual[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual[]</span>) =&gt;</span>
-            actual.length === <span class="hljs-number">0</span>
-                ? <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-literal">null</span>, actual))
-                : <span class="hljs-built_in">Promise</span>.all(actual.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> <span class="hljs-built_in">this</span>.expectation.answeredBy(actor)(item)))
-                    .then(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> results.some(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result <span class="hljs-keyword">instanceof</span> ExpectationMet)
-                        ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.toString(), results[<span class="hljs-number">0</span>].expected, actual)
-                        : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), results[<span class="hljs-number">0</span>].expected, actual),
+    answeredBy(actor: AnswersQuestions): (actual: Actual[]) =&gt; Promise&lt;Outcome&lt;Expected, Actual[]&gt;&gt; {
+        return (actual: Actual[]) =&gt;
+            actual.length === 0
+                ? Promise.resolve(new ExpectationNotMet(this.toString(), null, actual))
+                : Promise.all(actual.map(item =&gt; this.expectation.answeredBy(actor)(item)))
+                    .then(results =&gt; results.some(result =&gt; result instanceof ExpectationMet)
+                        ? new ExpectationMet(this.toString(), results[0].expected, actual)
+                        : new ExpectationNotMet(this.toString(), results[0].expected, actual),
                     );
     }
 }

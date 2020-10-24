@@ -168,13 +168,15 @@
                 lines = get(scenario, <span class="hljs-string">&apos;lines&apos;</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>[],
                 isOutline = lines.length === <span class="hljs-number">2</span>;
 
-            <span class="hljs-keyword">const</span> map = cache.get(path);
+            <span class="hljs-keyword">const</span>
+                sceneId = serenity.assignNewSceneId(),
+                map = cache.get(path);
 
             <span class="hljs-keyword">if</span> (isOutline) {
-                notifier.outlineDetected(map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ <span class="hljs-number">1</span> ]), map.getFirst(Feature));
+                notifier.outlineDetected(sceneId, map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ <span class="hljs-number">1</span> ]), map.getFirst(Feature));
             }
 
-            notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
+            notifier.scenarioStarts(sceneId, map.get(Scenario).onLine(line), map.getFirst(Feature));
         });
 
         <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">&apos;BeforeStep&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">step</span>) </span>{
@@ -245,10 +247,10 @@
         : <span class="hljs-built_in">object</span>[property];
 
     <span class="hljs-keyword">return</span> ({
-        <span class="hljs-keyword">as</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (v: <span class="hljs-built_in">any</span>) =&gt; T</span>): <span class="hljs-title">T</span> </span>{  <span class="hljs-comment">// tslint:disable-line:object-literal-shorthand esdoc doesn&apos;t understand generic anonymous functions</span>
+        <span class="hljs-attr">as</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (v: <span class="hljs-built_in">any</span>) =&gt; T</span>): <span class="hljs-title">T</span> </span>{  <span class="hljs-comment">// tslint:disable-line:object-literal-shorthand esdoc doesn&apos;t understand generic anonymous functions</span>
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(value);
         },
-        value: <span class="hljs-function">() =&gt;</span> value,
+        <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> value,
     });
 }
 
@@ -275,17 +277,17 @@
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">scenarioOutcomeFrom</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Outcome</span> </span>{
     <span class="hljs-keyword">const</span>
-        status: <span class="hljs-built_in">string</span> = get(result, <span class="hljs-string">&apos;status&apos;</span>).value(),
-        error: <span class="hljs-built_in">Error</span>   = errorFrom(get(result, <span class="hljs-string">&apos;failureException&apos;</span>).value());
+        <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span> = get(result, <span class="hljs-string">&apos;status&apos;</span>).value(),
+        <span class="hljs-attr">error</span>: <span class="hljs-built_in">Error</span>   = errorFrom(get(result, <span class="hljs-string">&apos;failureException&apos;</span>).value());
 
     <span class="hljs-keyword">return</span> outcomeFrom(status, error);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stepOutcomeFrom</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Outcome</span> </span>{
     <span class="hljs-keyword">const</span>
-        status: <span class="hljs-built_in">string</span>                          = get(result, <span class="hljs-string">&apos;status&apos;</span>).value(),
-        ambiguousStepsError: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>  = ambiguousStepsDetectedIn(result),
-        error: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>                = errorFrom(get(result, <span class="hljs-string">&apos;failureException&apos;</span>).value());
+        <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span>                          = get(result, <span class="hljs-string">&apos;status&apos;</span>).value(),
+        <span class="hljs-attr">ambiguousStepsError</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>  = ambiguousStepsDetectedIn(result),
+        <span class="hljs-attr">error</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>                = errorFrom(get(result, <span class="hljs-string">&apos;failureException&apos;</span>).value());
 
     <span class="hljs-keyword">return</span> outcomeFrom(status, error || ambiguousStepsError);
 }

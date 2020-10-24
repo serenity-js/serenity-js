@@ -266,19 +266,19 @@
 <span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
 
 <span class="hljs-comment">/**
- * @access public
+ * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BrowserTag <span class="hljs-keyword">extends</span> Tag {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowserTag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Tag</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">&apos;browser&apos;</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserTag(o.browserName <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>, o.browserVersion <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> browserName: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> browserVersion: <span class="hljs-built_in">string</span> = &apos;&apos;,
-    </span>) {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> browserVersion: <span class="hljs-built_in">string</span> = <span class="hljs-string">&apos;&apos;</span>,
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(
             [ browserName, browserVersion ]
                 .filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !! _)
@@ -287,12 +287,12 @@
         );
     }
 
-    toJSON() {
+    <span class="hljs-function"><span class="hljs-title">toJSON</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> {
-            name: <span class="hljs-built_in">this</span>.name,
-            <span class="hljs-keyword">type</span>: BrowserTag.Type,
-            browserName: <span class="hljs-built_in">this</span>.browserName,
-            browserVersion: <span class="hljs-built_in">this</span>.browserVersion,
+            <span class="hljs-attr">name</span>: <span class="hljs-built_in">this</span>.name,
+            <span class="hljs-attr">type</span>: BrowserTag.Type,
+            <span class="hljs-attr">browserName</span>: <span class="hljs-built_in">this</span>.browserName,
+            <span class="hljs-attr">browserVersion</span>: <span class="hljs-built_in">this</span>.browserVersion,
         };
     }
 }

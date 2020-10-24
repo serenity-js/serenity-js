@@ -184,11 +184,11 @@
 <span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunnerDetector&apos;</span>;
 
 <span class="hljs-comment">/**
- * @param {protractor~Runner} runner
- * @param {string[]} specs
- * @returns {Promise&lt;ProtractorReport&gt;}
+ * <span class="hljs-doctag">@param <span class="hljs-type">{protractor~Runner}</span> <span class="hljs-variable">runner</span></span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">specs</span></span>
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;ProtractorReport&gt;}</span></span>
  *
- * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
+ * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params">runner: Runner, specs: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">ProtractorReport</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(

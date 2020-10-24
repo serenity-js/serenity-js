@@ -268,17 +268,17 @@
 <span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../AnswerMappingFunction&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Extracts the part of the string between the `startIndex` and `endIndex` indexes, or to the end of the string if `endIndex` is `undefined`.
  *
- * @param {Answerable&lt;number&gt;} startIndex
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> <span class="hljs-variable">startIndex</span></span>
  *  The zero-based index at which to begin extraction.
  *
  *  If negative, it is treated as `str.length + startIndex`. For example, if `startIndex` is `-3`, it is treated as `str.length - 3`
  *
  *  If `startIndex` is greater than or equal to `str.length`, an empty string is returned.
  *
- * @param {Answerable&lt;number&gt;} [endIndex]
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> </span>[endIndex]
  *  The zero-based index _before_ which to endIndex extraction.
  *  The character at this index will not be included.
  *
@@ -288,13 +288,13 @@
  *  If negative, it is treated as `str.length + endIndex`.
  *  For example, if `endIndex` is `-3`, it is treated as `str.length - 3`.
  *
- * @returns {AnswerMappingFunction&lt;string, string&gt;}
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">slice</span>(<span class="hljs-params">startIndex: Answerable&lt;<span class="hljs-built_in">number</span>&gt;, endIndex?: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
-        (value: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
 
             ensure(<span class="hljs-string">&apos;The value to be mapped&apos;</span>, value, isDefined(), isString())
 

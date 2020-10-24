@@ -265,18 +265,18 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Path&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FileSystemLocation <span class="hljs-keyword">extends</span> TinyType {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileSystemLocation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
     <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: JSONObject</span>) =&gt;</span> <span class="hljs-keyword">new</span> FileSystemLocation(
         Path.fromJSON(o.path <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         o.line <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
         o.column <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
     )
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> path: Path,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> line?: <span class="hljs-built_in">number</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> column?: <span class="hljs-built_in">number</span>,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 }

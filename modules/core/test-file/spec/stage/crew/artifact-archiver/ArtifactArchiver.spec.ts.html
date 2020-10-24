@@ -268,25 +268,26 @@
 <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactArchived, ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Duration, JSONData, Name, TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/model&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Duration, JSONData, Name, TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/model&apos;</span>;
 <span class="hljs-keyword">import</span> { ArtifactArchiver, Cast, Clock, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { photo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../samples&apos;</span>;
 
-<span class="hljs-comment">/** @test {ArtifactArchiver} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        json = { key: <span class="hljs-string">&apos;value&apos;</span> },
+        json = { <span class="hljs-attr">key</span>: <span class="hljs-string">&apos;value&apos;</span> },
         jsonValueShortHash = <span class="hljs-string">&apos;64cdd772d3&apos;</span>,
-        photoShortHash = <span class="hljs-string">&apos;6808b2e9fe&apos;</span>;
+        photoShortHash = <span class="hljs-string">&apos;6808b2e9fe&apos;</span>,
+        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene&apos;</span>);
 
     <span class="hljs-keyword">let</span> stage:          Stage,
-        fs:             sinon.SinonStubbedInstance&lt;FileSystem&gt;,
+        <span class="hljs-attr">fs</span>:             sinon.SinonStubbedInstance&lt;FileSystem&gt;,
         archiver:       ArtifactArchiver;
 
-    <span class="hljs-keyword">class</span> Extras <span class="hljs-keyword">implements</span> Cast {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
         prepare(actor: Actor): Actor {
             <span class="hljs-keyword">return</span> actor;
         }
@@ -313,11 +314,12 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
             expectedPngFileName = <span class="hljs-string">&apos;png-artifact-name&apos;</span>;
 
         <span class="hljs-comment">/**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+                sceneId,
                 jsonArtifactName,
                 JSONData.fromJSON(json),
             ));
@@ -326,13 +328,14 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
         });
 
         <span class="hljs-comment">/**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;notifies the StageManager when an artifact cannot be saved so that the promise of a stage cue can be rejected&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             fs.store.returns(<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Something happened&apos;</span>)));
 
             stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+                sceneId,
                 pngArtifactName,
                 photo,
             ));
@@ -341,11 +344,12 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
         });
 
         <span class="hljs-comment">/**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;correctly saves the test report to a unique file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+                sceneId,
                 jsonArtifactName,
                 TestReport.fromJSON(json),
             ));
@@ -359,11 +363,12 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
         });
 
         <span class="hljs-comment">/**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;correctly saves PNG content to a file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+                sceneId,
                 pngArtifactName,
                 photo,
             ));
@@ -380,8 +385,8 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
 
     describe(<span class="hljs-string">&apos;when it encounters events it\&apos;s not interested in&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">class</span> SomeEvent <span class="hljs-keyword">extends</span> DomainEvent {
-            <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+            <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
                 <span class="hljs-built_in">super</span>();
             }
         }
@@ -389,7 +394,7 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
         <span class="hljs-keyword">const</span> someEvent = <span class="hljs-keyword">new</span> SomeEvent();
 
         <span class="hljs-comment">/**
-         * @test {ArtifactArchiver}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;ignores them&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> stageManager = sinon.createStubInstance(StageManager);
@@ -410,9 +415,9 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
     });
 
     <span class="hljs-comment">/**
-     * @test {ArtifactArchiver}
-     * @test {ArtifactGenerated}
-     * @test {ArtifactArchived}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchived}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;notifies the StageManager when the artifact is correctly archived&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -426,6 +431,7 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
         <span class="hljs-keyword">const</span> notifyOf = sinon.spy(stageManager, <span class="hljs-string">&apos;notifyOf&apos;</span>);
 
         stageManager.notifyOf(<span class="hljs-keyword">new</span> ArtifactGenerated(
+            sceneId,
             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Some Report Name&apos;</span>),
             TestReport.fromJSON(json),
         ));
@@ -435,6 +441,7 @@ describe(<span class="hljs-string">&apos;ArtifactArchiver&apos;</span>, <span cl
             <span class="hljs-keyword">const</span> archived: ArtifactArchived = notifyOf.getCall(<span class="hljs-number">2</span>).lastArg;
 
             expect(archived).to.be.instanceOf(ArtifactArchived);
+            expect(archived.sceneId).to.equal(sceneId);
             expect(archived.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Some Report Name&apos;</span>));
             expect(archived.type).to.equal(TestReport);
             expect(archived.path).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">`scenario-some-report-name-<span class="hljs-subst">${ jsonValueShortHash }</span>.json`</span>));

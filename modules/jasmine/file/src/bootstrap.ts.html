@@ -128,27 +128,27 @@
 <span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityReporterForJasmine&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Monkey-patches Jasmine&apos;s Suite and Spec so that they provide more accurate information and
- *  returns a bootstrapped instance of the {@link SerenityReporterForJasmine} to be registered with Jasmine.
+ *  returns a bootstrapped instance of the {<span class="hljs-doctag">@link </span>SerenityReporterForJasmine} to be registered with Jasmine.
  *
- * @example &lt;caption&gt;Registering the reporter from the command line&lt;/caption&gt;
- * jasmine --reporter=@serenity-js/jasmine
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter from the command line&lt;/caption&gt;
+ * jasmine --reporter=<span class="hljs-doctag">@serenity</span>-js/jasmine
  *
- * @example &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- * import serenityReporterForJasmine = require(&apos;@serenity-js/jasmine&apos;);
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
+ * import serenityReporterForJasmine = require(&apos;<span class="hljs-doctag">@serenity</span>-js/jasmine&apos;);
  *
  * jasmine.getEnv().addReporter(serenityReporterForJasmine);
  *
- * @see {@link monkeyPatched}
- * @see {@link SerenityReporterForJasmine}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link monkeyPatched}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link SerenityReporterForJasmine}</span></span>
  *
- * @param {jasmine} jasmine - the global.jasmine instance
- * @returns {SerenityReporterForJasmine}
+ * <span class="hljs-doctag">@param <span class="hljs-type">{jasmine}</span> <span class="hljs-variable">jasmine</span></span> - the global.jasmine instance
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{SerenityReporterForJasmine}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">jasmine = (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine</span>) </span>{
     <span class="hljs-keyword">const</span> wrappers = {
-        expectationResultFactory: <span class="hljs-function"><span class="hljs-params">originalExpectationResultFactory</span> =&gt;</span> (<span class="hljs-function">(<span class="hljs-params">attrs: { passed: <span class="hljs-built_in">boolean</span>, error: <span class="hljs-built_in">Error</span> }</span>) =&gt;</span> {
+        <span class="hljs-attr">expectationResultFactory</span>: <span class="hljs-function"><span class="hljs-params">originalExpectationResultFactory</span> =&gt;</span> (<span class="hljs-function">(<span class="hljs-params">attrs: { passed: <span class="hljs-built_in">boolean</span>, error: <span class="hljs-built_in">Error</span> }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> result = originalExpectationResultFactory(attrs);
 
             <span class="hljs-keyword">if</span> (! attrs.passed &amp;&amp; attrs.error <span class="hljs-keyword">instanceof</span> RuntimeError) {

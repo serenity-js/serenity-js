@@ -266,8 +266,8 @@
 <span class="hljs-keyword">import</span> { CorrelationId, Description, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AsyncOperationAttempted <span class="hljs-keyword">extends</span> DomainEvent {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncOperationAttempted</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AsyncOperationAttempted(
             Description.fromJSON(o.taskDescription <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             CorrelationId.fromJSON(o.correlationId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
@@ -275,11 +275,11 @@
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> taskDescription: Description,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> correlationId: CorrelationId,
         timestamp?: Timestamp,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
     }
 }

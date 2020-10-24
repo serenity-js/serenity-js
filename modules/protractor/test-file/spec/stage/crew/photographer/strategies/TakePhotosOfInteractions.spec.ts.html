@@ -191,8 +191,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
     describe(<span class="hljs-string">&apos;when instructed to take a photo of all interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> photographer: Photographer,
-            stage: Stage,
-            recorder: EventRecorder;
+            <span class="hljs-attr">stage</span>: Stage,
+            <span class="hljs-attr">recorder</span>: EventRecorder;
 
         beforeEach(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> testSubject = create();
@@ -232,14 +232,14 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                 Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
             )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">let</span> correlationId: CorrelationId;
+                <span class="hljs-keyword">let</span> activityId: CorrelationId;
 
                 PickEvent.from(recorder.events)
                     .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        correlationId = event.value.correlationId;
+                        activityId = event.activityId;
                     })
                     .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.details.correlationId).to.equal(correlationId);
+                        expect(event.activityId).to.equal(activityId);
                     });
             })));
 

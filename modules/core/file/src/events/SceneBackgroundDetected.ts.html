@@ -264,22 +264,25 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/SceneBackgroundDetected.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">import</span> { Description, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Description, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SceneBackgroundDetected <span class="hljs-keyword">extends</span> DomainEvent {
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SceneBackgroundDetected</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneBackgroundDetected(
+            CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Description.fromJSON(o.description <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
+        ensure(<span class="hljs-string">&apos;sceneId&apos;</span>, sceneId, isDefined());
         ensure(<span class="hljs-string">&apos;name&apos;</span>, name, isDefined());
         ensure(<span class="hljs-string">&apos;description&apos;</span>, description, isDefined());
     }

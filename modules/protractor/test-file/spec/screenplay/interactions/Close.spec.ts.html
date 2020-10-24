@@ -184,7 +184,7 @@
 <span class="hljs-keyword">import</span> { Click, Close, Navigate, Switch, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Close} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
@@ -211,7 +211,7 @@ describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;anyNewWindows()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Close.anyNewWindows} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close.anyNewWindows}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;should close any new windows and switch back to the original window&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Caleb&apos;</span>).attemptsTo(
                 Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main page&apos;</span>)),
@@ -225,7 +225,7 @@ describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-f
                 Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main page&apos;</span>)),
             ));
 
-        <span class="hljs-comment">/** @test {Close.anyNewWindows} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close.anyNewWindows}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;should do nothing if no new windows have been opened&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Caleb&apos;</span>).attemptsTo(
                 Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main page&apos;</span>)),
@@ -235,8 +235,8 @@ describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-f
                 Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main page&apos;</span>)),
             ));
 
-        <span class="hljs-comment">/** @test {Close.anyNewWindows} */</span>
-        <span class="hljs-comment">/** @test {Close#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close.anyNewWindows}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Close.anyNewWindows().toString()).to.equal(<span class="hljs-string">&apos;#actor closes any new windows&apos;</span>)
         });
@@ -244,7 +244,7 @@ describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;currentWindow()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Close.currentWindow} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close.currentWindow}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;should close the current window&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Caleb&apos;</span>).attemptsTo(
                 Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main page&apos;</span>)),
@@ -259,8 +259,8 @@ describe(<span class="hljs-string">&apos;Close&apos;</span>, <span class="hljs-f
                 Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main page&apos;</span>)),
             ));
 
-        <span class="hljs-comment">/** @test {Close.currentWindow} */</span>
-        <span class="hljs-comment">/** @test {Close#toString} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close.currentWindow}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Close#toString}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Close.currentWindow().toString()).to.equal(<span class="hljs-string">&apos;#actor closes current browser window&apos;</span>)
         });

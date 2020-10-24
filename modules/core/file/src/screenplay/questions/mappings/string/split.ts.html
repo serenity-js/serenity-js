@@ -267,25 +267,25 @@
 <span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../AnswerMappingFunction&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Divides a string into an ordered list of substrings, puts these substrings into an array, and returns the array.
  *  The division is done by searching for a pattern; where the pattern is provided as the first parameter in the method&apos;s call.
  *
- * @param {Answerable&lt;string | RegExp&gt;} separator
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string | RegExp&gt;}</span> <span class="hljs-variable">separator</span></span>
  *  The pattern describing where each split should occur.  The separator can be a simple string or it can be a regular expression.
  *
- * @param {Answerable&lt;number&gt;} [limit]
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> </span>[limit]
  *  A non-negative integer specifying a limit on the number of substrings to be included in the array.
  *  If provided, splits the string at each occurrence of the specified separator, but stops when limit entries have been placed in the array.
  *  Any leftover text is not included in the array at all.
  *
- * @returns {AnswerMappingFunction&lt;string, string&gt;}
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">split</span>(<span class="hljs-params">separator: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">RegExp</span>, limit?: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>[]&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
-        (value: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
             ensure(<span class="hljs-string">&apos;The value to be mapped&apos;</span>, value, isDefined(), isString())
 
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([

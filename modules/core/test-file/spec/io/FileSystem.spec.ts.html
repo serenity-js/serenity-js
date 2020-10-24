@@ -266,13 +266,13 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { FakeFS } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../FakeFS&apos;</span>;
 
-<span class="hljs-comment">/** @test {FileSystem} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileSystem}</span> </span>*/</span>
 describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         image        = <span class="hljs-string">&apos;iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=&apos;</span>,
         imageBuffer  = Buffer.from(image, <span class="hljs-string">&apos;base64&apos;</span>),
-        originalJSON = { name: <span class="hljs-string">&apos;jan&apos;</span> },
+        originalJSON = { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;jan&apos;</span> },
         processCWD   = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/Users/jan/projects/serenityjs&apos;</span>);
 
     describe (<span class="hljs-string">&apos;when storing JSON files&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -353,8 +353,8 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
                 <span class="hljs-keyword">const</span>
                     fs = FakeFS.with({
                         [processCWD.value]: {
-                            outlet: {
-                                subdir: {
+                            <span class="hljs-attr">outlet</span>: {
+                                <span class="hljs-attr">subdir</span>: {
                                     <span class="hljs-string">&apos;file-to-be-deleted.json&apos;</span>: <span class="hljs-string">&apos;{}&apos;</span>,
                                     <span class="hljs-string">&apos;file-not-to-be-deleted.json&apos;</span>: <span class="hljs-string">&apos;{}&apos;</span>,
                                 },
@@ -377,11 +377,11 @@ describe (<span class="hljs-string">&apos;FileSystem&apos;</span>, <span class="
                 <span class="hljs-keyword">const</span>
                     fs = FakeFS.with({
                         [processCWD.value]: {
-                            outlet: {
-                                subdir: {
+                            <span class="hljs-attr">outlet</span>: {
+                                <span class="hljs-attr">subdir</span>: {
                                     <span class="hljs-string">&apos;file-to-be-deleted.json&apos;</span>: <span class="hljs-string">&apos;{}&apos;</span>,
                                 },
-                                another: {
+                                <span class="hljs-attr">another</span>: {
                                     <span class="hljs-string">&apos;file-not-to-be-deleted.json&apos;</span>: <span class="hljs-string">&apos;{}&apos;</span>,
                                 },
                             },

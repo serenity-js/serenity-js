@@ -180,7 +180,7 @@
  <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 
  <span class="hljs-keyword">interface</span> Book {
-     title: <span class="hljs-built_in">string</span>;
+     <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
      author: <span class="hljs-built_in">string</span>;
  }
 
@@ -190,8 +190,8 @@
      Send.a(GetRequest.to(<span class="hljs-string">&apos;/books/0-688-00230-7&apos;</span>)),
      Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
      Ensure.that(LastResponse.body&lt;Book&gt;(), equals({
-         title: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
-         author: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
+         <span class="hljs-attr">title</span>: <span class="hljs-string">&apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;</span>,
+         <span class="hljs-attr">author</span>: <span class="hljs-string">&apos;Robert M. Pirsig&apos;</span>,
      })),
  );</code></pre>
     </div>

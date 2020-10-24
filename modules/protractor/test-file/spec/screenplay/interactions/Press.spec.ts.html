@@ -185,11 +185,11 @@
 <span class="hljs-keyword">import</span> { Navigate, Press, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Press} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Press}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        Text_Field:     Target.the(<span class="hljs-string">&apos;text field&apos;</span>).located(by.name(<span class="hljs-string">&apos;text&apos;</span>)),
+        <span class="hljs-attr">Text_Field</span>:     Target.the(<span class="hljs-string">&apos;text field&apos;</span>).located(by.name(<span class="hljs-string">&apos;text&apos;</span>)),
     };
 
     <span class="hljs-keyword">const</span> page = pageFromTemplate(<span class="hljs-string">`
@@ -204,7 +204,7 @@ describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;single keys&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Press.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Press.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to enter keys individually into a field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -218,7 +218,7 @@ describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;keyboard shortcuts&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-        <span class="hljs-comment">/** @test {Press.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Press.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to use keyboard shortcuts&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(page),
 
@@ -230,27 +230,27 @@ describe(<span class="hljs-string">&apos;Press&apos;</span>, <span class="hljs-f
 
     given([
         {
-            description: <span class="hljs-string">&apos;single key&apos;</span>,
-            interaction: Press.the(<span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
-            expected:   <span class="hljs-string">`#actor presses A in the text field`</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;single key&apos;</span>,
+            <span class="hljs-attr">interaction</span>: Press.the(<span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
+            <span class="hljs-attr">expected</span>:   <span class="hljs-string">`#actor presses A in the text field`</span>,
         },
         {
-            description: <span class="hljs-string">&apos;sequence of keys&apos;</span>,
-            interaction: Press.the(<span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;b&apos;</span>, <span class="hljs-string">&apos;c&apos;</span>).in(Form.Text_Field),
-            expected:   <span class="hljs-string">`#actor presses A, B, C in the text field`</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;sequence of keys&apos;</span>,
+            <span class="hljs-attr">interaction</span>: Press.the(<span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;b&apos;</span>, <span class="hljs-string">&apos;c&apos;</span>).in(Form.Text_Field),
+            <span class="hljs-attr">expected</span>:   <span class="hljs-string">`#actor presses A, B, C in the text field`</span>,
         },
         {
-            description: <span class="hljs-string">&apos;keyboard shortcut&apos;</span>,
-            interaction: Press.the(Key.CONTROL, <span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
-            expected:   <span class="hljs-string">`#actor presses Control-A in the text field`</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;keyboard shortcut&apos;</span>,
+            <span class="hljs-attr">interaction</span>: Press.the(Key.CONTROL, <span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
+            <span class="hljs-attr">expected</span>:   <span class="hljs-string">`#actor presses Control-A in the text field`</span>,
         },
         {
-            description: <span class="hljs-string">&apos;complex shortcut&apos;</span>,
-            interaction: Press.the(Key.COMMAND, Key.ALT, <span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
-            expected:   <span class="hljs-string">`#actor presses Command-Alt-A in the text field`</span>,
+            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;complex shortcut&apos;</span>,
+            <span class="hljs-attr">interaction</span>: Press.the(Key.COMMAND, Key.ALT, <span class="hljs-string">&apos;a&apos;</span>).in(Form.Text_Field),
+            <span class="hljs-attr">expected</span>:   <span class="hljs-string">`#actor presses Command-Alt-A in the text field`</span>,
         },
     ]).
-    <span class="hljs-comment">/** @test {Press#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Press#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ interaction, expected }</span>) =&gt;</span> {
         expect(interaction.toString()).to.equal(expected);
     });

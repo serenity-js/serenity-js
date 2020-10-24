@@ -188,8 +188,8 @@ describe(<span class="hljs-string">&apos;DoubleClick&apos;</span>, <span class="
 
     <span class="hljs-keyword">const</span> Interactive_Element = Target.the(<span class="hljs-string">&apos;interactive element&apos;</span>).located(by.id(<span class="hljs-string">&apos;double-click-me&apos;</span>));
 
-    <span class="hljs-comment">/** @test {DoubleClick} */</span>
-    <span class="hljs-comment">/** @test {DoubleClick.on} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DoubleClick}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DoubleClick.on}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of a field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -211,7 +211,7 @@ describe(<span class="hljs-string">&apos;DoubleClick&apos;</span>, <span class="
         Ensure.that(Text.of(Interactive_Element), equals(<span class="hljs-string">&apos;done!&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {DoubleClick#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DoubleClick#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(DoubleClick.on(Interactive_Element).toString())
             .to.equal(<span class="hljs-string">&apos;#actor double-clicks on the interactive element&apos;</span>);

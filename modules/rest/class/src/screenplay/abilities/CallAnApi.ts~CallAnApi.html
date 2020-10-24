@@ -189,8 +189,8 @@ actor.attemptsTo(
 <span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
 
 <span class="hljs-keyword">const</span> axiosInstance = axios.create({
-    timeout: <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>,
-    headers: {
+    <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>,
+    <span class="hljs-attr">headers</span>: {
         <span class="hljs-string">&apos;X-Custom-Api-Key&apos;</span>: <span class="hljs-string">&apos;secret-key&apos;</span>,
     },
 });

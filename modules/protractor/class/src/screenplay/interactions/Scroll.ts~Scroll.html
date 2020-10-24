@@ -215,14 +215,14 @@
      an element somewhere at the bottom <span class="hljs-keyword">of</span> the page,
      outside <span class="hljs-keyword">of</span> the visible area
  --&gt;
- &lt;input <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;submit&quot;</span> id=<span class="hljs-string">&quot;submit&quot;</span> /&gt;</code></pre>
+ <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;submit&quot;</span> /&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Form {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> </span>{
      <span class="hljs-keyword">static</span> submitButton = Target.the(<span class="hljs-string">&apos;submit button&apos;</span>)
          .located(by.id(<span class="hljs-string">&apos;submit&apos;</span>));
  }</code></pre>

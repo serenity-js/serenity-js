@@ -262,10 +262,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/Task.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { ImplementationPendingError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Activity, Actor, Interaction, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, Interaction, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
@@ -276,8 +278,13 @@ describe(<span class="hljs-string">&apos;Task&apos;</span>, <span class="hljs-fu
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         stage = sinon.createStubInstance(Stage);
 
-        <span class="hljs-comment">// activityDetailsFor is a bit more involved than that, but this is a good approximation</span>
-        stage.activityDetailsFor.callsFake(<span class="hljs-function">(<span class="hljs-params">activity: Activity</span>) =&gt;</span> <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(activity.toString())));
+        <span class="hljs-keyword">const</span>
+            sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;some-scene-id&apos;</span>),
+            activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;some-activity-id&apos;</span>);
+
+        stage.currentSceneId.returns(sceneId);
+        stage.assignNewActivityId.returns(activityId);
+        stage.currentActivityId.returns(activityId);
     });
 
     <span class="hljs-keyword">const</span>
@@ -291,7 +298,7 @@ describe(<span class="hljs-string">&apos;Task&apos;</span>, <span class="hljs-fu
         Loose(),
     );
 
-    <span class="hljs-comment">/** @test {Task} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a convenient factory method for defining tasks&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> Lara = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Lara&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
@@ -299,12 +306,12 @@ describe(<span class="hljs-string">&apos;Task&apos;</span>, <span class="hljs-fu
         <span class="hljs-keyword">return</span> expect(Lara.attemptsTo(ShootAnArrow())).to.be.fulfilled;
     });
 
-    <span class="hljs-comment">/** @test {Task} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a way to describe a collection of activities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(ShootAnArrow().toString()).to.equal(<span class="hljs-string">`#actor shoots an arrow`</span>);
     });
 
-    <span class="hljs-comment">/** @test {Task} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;generates a pending task if no activities are provided&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> Lara = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">&apos;Lara&apos;</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);

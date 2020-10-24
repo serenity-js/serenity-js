@@ -129,6 +129,7 @@
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> {
     Category,
+    CorrelationId,
     Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -149,11 +150,16 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../given&apos;</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./create&apos;</span>;
 
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         startTime = Timestamp.fromJSON(<span class="hljs-string">&apos;2018-05-25T00:00:00.123Z&apos;</span>),
         scenarioDuration = Duration.ofMilliseconds(<span class="hljs-number">142</span>);
+
+    <span class="hljs-keyword">const</span>
+        aSceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>),
+        anotherSceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;another-scene-id&apos;</span>);
 
     <span class="hljs-keyword">const</span> defaultCardScenario = <span class="hljs-keyword">new</span> ScenarioDetails(
         <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Paying with a default card&apos;</span>),
@@ -180,7 +186,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     );
 
     <span class="hljs-keyword">let</span> stage: Stage,
-        stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
+        <span class="hljs-attr">stageManager</span>: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
@@ -197,8 +203,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
         beforeEach(<span class="hljs-function">() =&gt;</span> {
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario),
+                <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
@@ -208,11 +214,11 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         });
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {SceneFinished}
-         * @test {ExecutionSuccessful}
-         * @test {TestRunFinishes}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;is a valid artifact&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(artifact).to.be.instanceOf(TestReport);
@@ -222,27 +228,27 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
     describe(<span class="hljs-string">&apos;emits an ArtifactGenerated event that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         * @test {ExecutionSuccessful}
-         * @test {ExecutionSkipped}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSkipped}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;is separate for each scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneStarts(voucherScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(voucherScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
+                <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario),
+                <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                <span class="hljs-keyword">new</span> SceneStarts(anotherSceneId, voucherScenario),
+                <span class="hljs-keyword">new</span> SceneFinished(anotherSceneId, voucherScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
                 <span class="hljs-keyword">new</span> TestRunFinishes(),
             );
 
             expect(stageManager.notifyOf.callCount).to.equal(<span class="hljs-number">2</span>);
 
             <span class="hljs-keyword">const</span>
-                event1: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,
-                event2: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;
+                <span class="hljs-attr">event1</span>: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,
+                <span class="hljs-attr">event2</span>: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;
 
             expect(event1.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).name).to.equal(defaultCardScenario.name.value);
 
@@ -258,8 +264,8 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
             beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario, startTime),
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful(), startTime.plus(scenarioDuration)),
+                    <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario, startTime),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful(), startTime.plus(scenarioDuration)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -267,22 +273,22 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;contains the id of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.id).to.equal(<span class="hljs-string">&apos;online-checkout;paying-with-a-default-card&apos;</span>);
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;contains the name of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.name).to.equal(defaultCardScenario.name.value);
@@ -290,22 +296,22 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;contains the start time of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.startTime).to.equal(startTime.toMillisecondTimestamp());
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;contains the duration of the scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 expect(report.duration).to.equal(scenarioDuration.inMilliseconds());
@@ -316,21 +322,21 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
             beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
+                    <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario),
                 );
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has finished with success&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -340,16 +346,16 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ImplementationPending}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ImplementationPending}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;hasn\&apos;t been implemented yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>))),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>))),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -359,16 +365,16 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionIgnored}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionIgnored}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has been ignored&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Failed, retrying`</span>))),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Failed, retrying`</span>))),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -378,16 +384,16 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSkipped}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSkipped}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has been skipped&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSkipped()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -397,18 +403,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionFailedWithAssertionError}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionFailedWithAssertionError}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has failed with an assertion error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">&apos;expected true to equal false&apos;</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(assertionError)),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(assertionError)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -421,12 +427,12 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {TestCompromisedError}
-             * @test {ExecutionCompromised}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestCompromisedError}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionCompromised}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -434,7 +440,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;expected true to equal false&apos;</span>);
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionCompromised(assertionError)),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionCompromised(assertionError)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -447,11 +453,11 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionFailedWithError}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionFailedWithError}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has failed with a non-assertion error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;We&apos;re sorry, something happened&quot;</span>);
@@ -464,7 +470,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 ].join(<span class="hljs-string">&apos;\n&apos;</span>);
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionFailedWithError(error)),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionFailedWithError(error)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -472,28 +478,28 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;ERROR&apos;</span>);
                 expect(report.testFailureCause).to.deep.equal({
-                    errorType: <span class="hljs-string">&apos;Error&apos;</span>,
-                    message: <span class="hljs-string">`We&apos;re sorry, something happened`</span>,
-                    stackTrace: [ {
-                        declaringClass: <span class="hljs-string">&apos;&apos;</span>,
-                        fileName: <span class="hljs-string">&apos;/fake/path/node_modules/mocha/lib/runnable.js&apos;</span>,
-                        lineNumber: <span class="hljs-number">326</span>,
-                        methodName: <span class="hljs-string">&apos;callFn()&apos;</span>,
+                    <span class="hljs-attr">errorType</span>: <span class="hljs-string">&apos;Error&apos;</span>,
+                    <span class="hljs-attr">message</span>: <span class="hljs-string">`We&apos;re sorry, something happened`</span>,
+                    <span class="hljs-attr">stackTrace</span>: [ {
+                        <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">fileName</span>: <span class="hljs-string">&apos;/fake/path/node_modules/mocha/lib/runnable.js&apos;</span>,
+                        <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">326</span>,
+                        <span class="hljs-attr">methodName</span>: <span class="hljs-string">&apos;callFn()&apos;</span>,
                     }, {
-                        declaringClass: <span class="hljs-string">&apos;&apos;</span>,
-                        fileName: <span class="hljs-string">&apos;/fake/path/node_modules/mocha/lib/runnable.js&apos;</span>,
-                        lineNumber: <span class="hljs-number">319</span>,
-                        methodName: <span class="hljs-string">&apos;Test.Runnable.run()&apos;</span>,
+                        <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">fileName</span>: <span class="hljs-string">&apos;/fake/path/node_modules/mocha/lib/runnable.js&apos;</span>,
+                        <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">319</span>,
+                        <span class="hljs-attr">methodName</span>: <span class="hljs-string">&apos;Test.Runnable.run()&apos;</span>,
                     } ],
                 });
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionCompromised}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionCompromised}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;has been compromised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> dbError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Could not connect to the database`</span>);
@@ -511,7 +517,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 ].join(<span class="hljs-string">&apos;\n&apos;</span>);
 
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionCompromised(error)),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionCompromised(error)),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -519,25 +525,25 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                 expect(report.result).to.equal(<span class="hljs-string">&apos;COMPROMISED&apos;</span>);
                 expect(report.testFailureCause).to.deep.equal({
-                    errorType: <span class="hljs-string">&apos;TestCompromisedError&apos;</span>,
-                    message: <span class="hljs-string">`Test database not deployed, no point running the test`</span>,
-                    stackTrace: [
+                    <span class="hljs-attr">errorType</span>: <span class="hljs-string">&apos;TestCompromisedError&apos;</span>,
+                    <span class="hljs-attr">message</span>: <span class="hljs-string">`Test database not deployed, no point running the test`</span>,
+                    <span class="hljs-attr">stackTrace</span>: [
                         {
-                            declaringClass: <span class="hljs-string">&apos;&apos;</span>,
-                            fileName: <span class="hljs-string">&apos;/fake/path/my-test/index.js&apos;</span>,
-                            lineNumber: <span class="hljs-number">12</span>,
-                            methodName: <span class="hljs-string">&apos;callFn()&apos;</span>,
+                            <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">&apos;&apos;</span>,
+                            <span class="hljs-attr">fileName</span>: <span class="hljs-string">&apos;/fake/path/my-test/index.js&apos;</span>,
+                            <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">12</span>,
+                            <span class="hljs-attr">methodName</span>: <span class="hljs-string">&apos;callFn()&apos;</span>,
                         },
                     ],
-                    rootCause: {
-                        errorType: <span class="hljs-string">`Error`</span>,
-                        message: <span class="hljs-string">`Could not connect to the database`</span>,
-                        stackTrace: [
+                    <span class="hljs-attr">rootCause</span>: {
+                        <span class="hljs-attr">errorType</span>: <span class="hljs-string">`Error`</span>,
+                        <span class="hljs-attr">message</span>: <span class="hljs-string">`Could not connect to the database`</span>,
+                        <span class="hljs-attr">stackTrace</span>: [
                             {
-                                declaringClass: <span class="hljs-string">&apos;&apos;</span>,
-                                fileName: <span class="hljs-string">&apos;/fake/path/node_modules/db-module/index.js&apos;</span>,
-                                lineNumber: <span class="hljs-number">56</span>,
-                                methodName: <span class="hljs-string">&apos;callFn()&apos;</span>,
+                                <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">&apos;&apos;</span>,
+                                <span class="hljs-attr">fileName</span>: <span class="hljs-string">&apos;/fake/path/node_modules/db-module/index.js&apos;</span>,
+                                <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">56</span>,
+                                <span class="hljs-attr">methodName</span>: <span class="hljs-string">&apos;callFn()&apos;</span>,
                             },
                         ],
                     },
@@ -548,18 +554,18 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         describe(<span class="hljs-string">&apos;indicates its execution context&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {TestRunnerDetected}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunnerDetected}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;specifies the test runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)),
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> TestRunnerDetected(aSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
@@ -569,62 +575,62 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;specifies the user story covered&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(defaultCardScenario),
-                    <span class="hljs-keyword">new</span> SceneFinished(defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> SceneStarts(aSceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.userStory).to.deep.equal({
-                    id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
-                    storyName: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
-                    path: <span class="hljs-string">&apos;payments/checkout.feature&apos;</span>,
-                    <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;online-checkout&apos;</span>,
+                    <span class="hljs-attr">storyName</span>: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
+                    <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;payments/checkout.feature&apos;</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
                 });
             });
 
             <span class="hljs-comment">/**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
              */</span>
             it(<span class="hljs-string">&apos;does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    <span class="hljs-keyword">new</span> SceneStarts(jasmineScenario),
-                    <span class="hljs-keyword">new</span> SceneFinished(jasmineScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+                    <span class="hljs-keyword">new</span> SceneStarts(aSceneId, jasmineScenario),
+                    <span class="hljs-keyword">new</span> SceneFinished(aSceneId, jasmineScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TestRunFinishes(),
                 );
 
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                 expect(report.userStory).to.deep.equal({
-                    id: <span class="hljs-string">&apos;online-checkout&apos;</span>,
-                    storyName: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
-                    path: <span class="hljs-string">&apos;&apos;</span>,
-                    <span class="hljs-keyword">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;online-checkout&apos;</span>,
+                    <span class="hljs-attr">storyName</span>: <span class="hljs-string">&apos;Online Checkout&apos;</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
+                    <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;&apos;</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
                 });
             });
 
             describe(<span class="hljs-string">&apos;reports information from the cucumber feature file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
                 it(<span class="hljs-string">&apos;reports the scenario-level narrative&apos;</span>);
 
-                <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
                 it(<span class="hljs-string">&apos;reports the scenario-level background title&apos;</span>);
 
-                <span class="hljs-comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
                 it(<span class="hljs-string">&apos;reports the scenario-level background description&apos;</span>);
             });
         });
@@ -645,9 +651,6 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         it(<span class="hljs-string">&apos;generates the report even when the test runner has crashed&apos;</span>);
     });
 });
-
-<span class="hljs-comment">// todo: Does the scene need a correlation ID?</span>
-<span class="hljs-comment">// todo: &apos;ParametrisedSceneStarts&apos;(scenedetails, parameters)</span>
 </code></pre>
 
 </article>

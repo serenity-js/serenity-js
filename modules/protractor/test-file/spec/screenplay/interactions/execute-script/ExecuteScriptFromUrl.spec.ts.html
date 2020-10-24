@@ -183,19 +183,19 @@
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { Browser, ExecuteScript, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src&apos;</span>;
 
-<span class="hljs-comment">/** @test {ExecuteScript} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span>
         pathToScript = <span class="hljs-string">`file://<span class="hljs-subst">${ <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;./resources/execute-script-sample.js&apos;</span>) }</span>`</span>,
         pathToPage = <span class="hljs-string">`file://<span class="hljs-subst">${ <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;./resources/execute-script-sandbox.html&apos;</span>) }</span>`</span>;
 
-    <span class="hljs-keyword">class</span> Sandbox {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sandbox</span> </span>{
         <span class="hljs-keyword">static</span> Result = Target.the(<span class="hljs-string">&apos;sandbox result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>));
     }
 
-    <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
-    <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.from}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScriptFromUrl}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to execute a script stored at a specific location&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
@@ -204,8 +204,8 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
         Ensure.that(Text.of(Sandbox.Result), equals(<span class="hljs-string">&apos;Script loaded successfully&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
-    <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.from}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScriptFromUrl}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;complains if the script could not be loaded&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
@@ -215,8 +215,8 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
             Ensure.that(Browser.log(), containAtLeastOneItemThat(property(<span class="hljs-string">&apos;message&apos;</span>, includes(<span class="hljs-string">&apos;execute-script-sample.js.invalid - Failed to load resource&apos;</span>)))),
         )));
 
-    <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
-    <span class="hljs-comment">/** @test {ExecuteScriptFromUrl} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.from}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScriptFromUrl}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;complains if the script has already been loaded&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Joe&apos;</span>).attemptsTo(
         Navigate.to(pathToPage),
 
@@ -224,8 +224,8 @@ describe(<span class="hljs-string">&apos;ExecuteScriptFromUrl&apos;</span>, <spa
         ExecuteScript.from(pathToScript),
     )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Script from <span class="hljs-subst">${ pathToScript }</span> has already been loaded`</span>));
 
-    <span class="hljs-comment">/** @test {ExecuteScript.from} */</span>
-    <span class="hljs-comment">/** @test {ExecuteScriptFromUrl#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.from}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScriptFromUrl#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(<span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ pathToScript }</span>`</span>);

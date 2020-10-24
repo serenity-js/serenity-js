@@ -159,7 +159,7 @@
 <span class="hljs-keyword">import</span> { ensure, isDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">interface</span> Location {
-    uri: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">uri</span>: <span class="hljs-built_in">string</span>;
     line: <span class="hljs-built_in">number</span>;
 }
 
@@ -169,15 +169,15 @@
 }
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cucumberEventProtocolAdapter</span>(<span class="hljs-params">{ serenity, notifier, mapper, cache }: Dependencies</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> CucumberEventProtocolAdapter {
+    <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberEventProtocolAdapter</span> </span>{
 
         <span class="hljs-comment">// note: exported class expression can&apos;t have private properties</span>
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> log: <span class="hljs-built_in">any</span>;
 
-        <span class="hljs-keyword">constructor</span>(<span class="hljs-params">{ eventBroadcaster, log }: CucumberFormatterOptions</span>) {
+        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">{ eventBroadcaster, log }: CucumberFormatterOptions</span>)</span> {
             <span class="hljs-built_in">this</span>.log = log;
 
             eventBroadcaster.on(<span class="hljs-string">&apos;gherkin-document&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ uri, <span class="hljs-built_in">document</span> }</span>) =&gt;</span> {
@@ -227,7 +227,7 @@
                     isAHook = <span class="hljs-function">(<span class="hljs-params">stepLocations: StepLocations</span>) =&gt;</span>
                         stepLocations.actionLocation &amp;&amp; ! stepLocations.sourceLocation,
                     matching  = <span class="hljs-function">(<span class="hljs-params">location: StepLocations</span>) =&gt;</span>
-                        (step: Step) =&gt;
+                        <span class="hljs-function">(<span class="hljs-params">step: Step</span>) =&gt;</span>
                             step.location.path.equals(<span class="hljs-keyword">new</span> Path(location.sourceLocation.uri)) &amp;&amp;
                             step.location.line === location.sourceLocation.line;
 
@@ -243,14 +243,15 @@
 
                 <span class="hljs-keyword">const</span>
                     map = cache.get(<span class="hljs-keyword">new</span> Path(sourceLocation.uri)),
-                    scenario = map.get(Scenario).onLine(sourceLocation.line);
+                    scenario = map.get(Scenario).onLine(sourceLocation.line),
+                    sceneId = serenity.assignNewSceneId();
 
                 <span class="hljs-keyword">if</span> (!! scenario.outline) {
                     <span class="hljs-keyword">const</span> outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
-                    notifier.outlineDetected(scenario, outline, map.getFirst(Feature));
+                    notifier.outlineDetected(sceneId, scenario, outline, map.getFirst(Feature));
                 }
 
-                notifier.scenarioStarts(scenario, map.getFirst(Feature));
+                notifier.scenarioStarts(sceneId, scenario, map.getFirst(Feature));
             });
 
             eventBroadcaster.on(<span class="hljs-string">&apos;test-step-started&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ index, testCase }</span>) =&gt;</span> {
@@ -302,7 +303,7 @@
             });
         }
 
-        outcomeFrom(result: { duration: <span class="hljs-built_in">number</span>, exception: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Error</span>, status: <span class="hljs-built_in">string</span> }): Outcome {
+        outcomeFrom(result: { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">exception</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Error</span>, <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span> }): Outcome {
             <span class="hljs-keyword">const</span> error = !! result.exception &amp;&amp; <span class="hljs-built_in">this</span>.errorFrom(result.exception);
 
             <span class="hljs-comment">// tslint:disable:switch-default</span>

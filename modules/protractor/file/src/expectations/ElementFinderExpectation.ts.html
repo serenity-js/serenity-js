@@ -180,17 +180,17 @@
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../promiseOf&apos;</span>;
 
 <span class="hljs-comment">/**
- * @access private
+ * <span class="hljs-doctag">@access <span class="hljs-variable">private</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ElementFinderExpectation <span class="hljs-keyword">extends</span> Expectation&lt;<span class="hljs-built_in">any</span>, ElementFinder&gt; {
-    <span class="hljs-keyword">static</span> forElementTo(message: <span class="hljs-built_in">string</span>, fn: <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> PromiseLike&lt;<span class="hljs-built_in">boolean</span>&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, ElementFinder&gt; {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ElementFinderExpectation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
+    <span class="hljs-keyword">static</span> forElementTo(message: <span class="hljs-built_in">string</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> PromiseLike&lt;<span class="hljs-built_in">boolean</span>&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, ElementFinder&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ElementFinderExpectation(message, fn);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         subject: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fn: (actual: ElementFinder) =&gt; PromiseLike&lt;<span class="hljs-built_in">boolean</span>&gt;,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(subject);
     }
 

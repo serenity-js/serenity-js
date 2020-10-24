@@ -265,12 +265,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../io&apos;</span>;
-<span class="hljs-keyword">import</span> { Artifact, ArtifactType, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { Artifact, ArtifactType, CorrelationId, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ArtifactArchived <span class="hljs-keyword">extends</span> DomainEvent {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArtifactArchived</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
     <span class="hljs-keyword">static</span> fromJSON&lt;E&gt;(o: JSONObject) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactArchived(
+            CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Artifact.ofType(o.type <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Path.fromJSON(o.path <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
@@ -278,12 +279,13 @@
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span>: ArtifactType,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> path: Path,
         timestamp?: Timestamp,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
 
         ensure(<span class="hljs-string">&apos;name&apos;</span>, name, isDefined());
@@ -293,10 +295,10 @@
 
     toJSON(): JSONObject {
         <span class="hljs-keyword">return</span> {
-            name: <span class="hljs-built_in">this</span>.name.toJSON(),
-            <span class="hljs-keyword">type</span>: <span class="hljs-built_in">this</span>.type.name,
-            path: <span class="hljs-built_in">this</span>.path.toJSON(),
-            timestamp: <span class="hljs-built_in">this</span>.timestamp.toJSON(),
+            <span class="hljs-attr">name</span>: <span class="hljs-built_in">this</span>.name.toJSON(),
+            <span class="hljs-attr">type</span>: <span class="hljs-built_in">this</span>.type.name,
+            <span class="hljs-attr">path</span>: <span class="hljs-built_in">this</span>.path.toJSON(),
+            <span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">this</span>.timestamp.toJSON(),
         };
     }
 }

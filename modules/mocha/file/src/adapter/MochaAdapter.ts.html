@@ -127,23 +127,23 @@
 <span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./MochaConfig&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Allows for programmatic execution of Mocha test scenarios,
- *  using {@link SerenityReporterForMocha} to report progress.
+ *  using {<span class="hljs-doctag">@link </span>SerenityReporterForMocha} to report progress.
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MochaAdapter {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaAdapter</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: MochaConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>) {
+    </span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @param {string[]} pathsToScenarios
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">pathsToScenarios</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
     run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
@@ -153,7 +153,7 @@
                 Mocha   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">&apos;mocha&apos;</span>),
                 mocha   = <span class="hljs-keyword">new</span> Mocha({
                     ...this.config,
-                    reporter: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;../index&apos;</span>),
+                    <span class="hljs-attr">reporter</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;../index&apos;</span>),
                 });
 
             mocha.files = pathsToScenarios;
@@ -165,7 +165,7 @@
         });
     }
 
-    <span class="hljs-keyword">private</span> requireAny(filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">requireAny</span>(<span class="hljs-params">filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]</span>)</span> {
         <span class="hljs-keyword">const</span> requires = !! filesOrModules
             ? [].concat(filesOrModules).filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item)
             : [];

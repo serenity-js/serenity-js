@@ -159,39 +159,43 @@
 <span class="hljs-keyword">import</span> { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./jasmine&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events
  *  to Serenity/JS events.
  *
- * @see {@link bootstrap}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link bootstrap}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityReporterForJasmine {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityReporterForJasmine</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> errorMessagePattern = <span class="hljs-regexp">/^([^\s:]*Error):\s(.*)$/</span>;
     <span class="hljs-keyword">private</span> describes: SuiteResult[] = [];
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>) {
+    <span class="hljs-keyword">private</span> currentSceneId: CorrelationId = <span class="hljs-literal">null</span>;
+
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>)</span> {
     }
 
-    suiteStarted(result: SuiteResult) {
+    <span class="hljs-function"><span class="hljs-title">suiteStarted</span>(<span class="hljs-params">result: SuiteResult</span>)</span> {
         <span class="hljs-built_in">this</span>.describes.push(result);
 
         <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteStarts(<span class="hljs-built_in">this</span>.testSuiteDetailsOf(result), <span class="hljs-built_in">this</span>.serenity.currentTime()));
     }
 
-    suiteDone(result: SuiteResult) {
+    <span class="hljs-function"><span class="hljs-title">suiteDone</span>(<span class="hljs-params">result: SuiteResult</span>)</span> {
         <span class="hljs-built_in">this</span>.describes = <span class="hljs-built_in">this</span>.describes.filter(<span class="hljs-function"><span class="hljs-params">suite</span> =&gt;</span> suite.id !== result.id);
 
         <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestSuiteFinished(<span class="hljs-built_in">this</span>.testSuiteDetailsOf(result), <span class="hljs-built_in">this</span>.outcomeFrom(result), <span class="hljs-built_in">this</span>.serenity.currentTime()));
     }
 
-    specStarted(result: SpecResult) {
+    <span class="hljs-function"><span class="hljs-title">specStarted</span>(<span class="hljs-params">result: SpecResult</span>)</span> {
+        <span class="hljs-built_in">this</span>.currentSceneId = <span class="hljs-built_in">this</span>.serenity.assignNewSceneId();
+
         <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.scenarioDetailsOf(result);
 
         <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> SceneStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> SceneTagged(details, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.currentFeatureName()), <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.currentFeatureName()), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
@@ -203,11 +207,14 @@
          */</span>
         <span class="hljs-keyword">if</span> (result.failedExpectations.length &gt; <span class="hljs-number">1</span>) {
             result.failedExpectations.forEach(<span class="hljs-function"><span class="hljs-params">failedExpectation</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>), CorrelationId.create());
+                <span class="hljs-keyword">const</span>
+                    sceneId = <span class="hljs-built_in">this</span>.serenity.currentSceneId(),
+                    activityId = <span class="hljs-built_in">this</span>.serenity.assignNewActivityId();
+                <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>));
 
                 <span class="hljs-built_in">this</span>.emit(
-                    <span class="hljs-keyword">new</span> TaskStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-                    <span class="hljs-keyword">new</span> TaskFinished(details, <span class="hljs-built_in">this</span>.failureOutcomeFrom(failedExpectation), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityId, details, <span class="hljs-built_in">this</span>.failureOutcomeFrom(failedExpectation), <span class="hljs-built_in">this</span>.serenity.currentTime()),
                 );
             });
         }
@@ -215,6 +222,7 @@
         <span class="hljs-keyword">const</span> scenarioDetails = <span class="hljs-built_in">this</span>.scenarioDetailsOf(result);
 
         <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinishes(
+            <span class="hljs-built_in">this</span>.currentSceneId,
             scenarioDetails,
             <span class="hljs-built_in">this</span>.serenity.currentTime(),
         ));
@@ -222,6 +230,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
             .then(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+                    <span class="hljs-built_in">this</span>.currentSceneId,
                     scenarioDetails,
                     <span class="hljs-built_in">this</span>.outcomeFrom(result),
                     <span class="hljs-built_in">this</span>.serenity.currentTime(),
@@ -230,9 +239,9 @@
     }
 
     <span class="hljs-comment">/**
-     * @param {JasmineDoneInfo} suiteInfo
+     * <span class="hljs-doctag">@param <span class="hljs-type">{JasmineDoneInfo}</span> <span class="hljs-variable">suiteInfo</span></span>
      */</span>
-    jasmineDone(suiteInfo: JasmineDoneInfo) {
+    <span class="hljs-function"><span class="hljs-title">jasmineDone</span>(<span class="hljs-params">suiteInfo: JasmineDoneInfo</span>)</span> {
         <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()));
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
@@ -242,17 +251,17 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {DomainEvent[]} events
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent[]}</span> <span class="hljs-variable">events</span></span>
      */</span>
     <span class="hljs-keyword">private</span> emit(...events: DomainEvent[]): <span class="hljs-built_in">void</span> {
         events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.serenity.announce(event));
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {SpecResult} spec
-     * @returns {ScenarioDetails}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{SpecResult}</span> <span class="hljs-variable">spec</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ScenarioDetails}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> scenarioDetailsOf(spec: SpecResult): ScenarioDetails {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
@@ -263,9 +272,9 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {SuiteResult} result
-     * @returns {TestSuiteDetails}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{SuiteResult}</span> <span class="hljs-variable">result</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{TestSuiteDetails}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> testSuiteDetailsOf(result: SuiteResult): TestSuiteDetails {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestSuiteDetails(
@@ -276,8 +285,8 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @returns {string}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> currentFeatureName(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.describes[<span class="hljs-number">0</span>]
@@ -286,9 +295,9 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {string} itBlockDescription
-     * @returns {string}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">itBlockDescription</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> currentScenarioNameFor(itBlockDescription: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> [ topSuite, ...rest ] = <span class="hljs-built_in">this</span>.describes;
@@ -297,9 +306,9 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {SpecResult | SuiteResult} result
-     * @returns {Outcome}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{SpecResult | SuiteResult}</span> <span class="hljs-variable">result</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> outcomeFrom(result: SpecResult | SuiteResult): Outcome {
         <span class="hljs-keyword">switch</span> (result.status) {
@@ -316,9 +325,9 @@
     }
 
     <span class="hljs-comment">/**
-     * @private
-     * @param {Expectation} failure
-     * @returns {ProblemIndication}
+     * <span class="hljs-doctag">@private</span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Expectation}</span> <span class="hljs-variable">failure</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{ProblemIndication}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> failureOutcomeFrom(failure: Expectation): ProblemIndication {
         <span class="hljs-keyword">const</span> error = <span class="hljs-built_in">this</span>.errorFrom(failure);
@@ -372,7 +381,7 @@
      * Probably caused by this:
      * https://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93
      *
-     * @param {Expectation} failure
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Expectation}</span> <span class="hljs-variable">failure</span></span>
      */</span>
     <span class="hljs-keyword">private</span> repairedStackTraceOf(failure: Expectation): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> [

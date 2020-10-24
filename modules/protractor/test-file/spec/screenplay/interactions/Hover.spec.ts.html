@@ -184,7 +184,7 @@
 <span class="hljs-keyword">import</span> { Attribute, Hover, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Hover} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> pageWithALink = pageFromTemplate(<span class="hljs-string">`
@@ -199,11 +199,11 @@ describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-f
     `</span>);
 
     <span class="hljs-keyword">const</span> Page = {
-        Header: Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
-        Link:   Target.the(<span class="hljs-string">&apos;link&apos;</span>).located(by.css(<span class="hljs-string">&apos;a&apos;</span>)),
+        <span class="hljs-attr">Header</span>: Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
+        <span class="hljs-attr">Link</span>:   Target.the(<span class="hljs-string">&apos;link&apos;</span>).located(by.css(<span class="hljs-string">&apos;a&apos;</span>)),
     };
 
-    <span class="hljs-comment">/** @test {Hover.over} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover.over}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to position the mouse cursor over a given target&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Mickey&apos;</span>).attemptsTo(
         Navigate.to(pageWithALink),
 
@@ -216,7 +216,7 @@ describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-f
         Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">&apos;class&apos;</span>), equals(<span class="hljs-string">&apos;off&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Hover#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Hover.over(Page.Link).toString())
             .to.equal(<span class="hljs-string">`#actor hovers the mouse over the link`</span>);

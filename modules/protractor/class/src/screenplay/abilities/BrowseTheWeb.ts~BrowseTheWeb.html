@@ -220,7 +220,7 @@
 );
 
 <span class="hljs-keyword">const</span> HomePage = {
-    Title: Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
+    <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
 };
 
 actor.attemptsTo(
@@ -1586,7 +1586,7 @@ in protractor configuration:</p>
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-built_in">exports</span>.config = {
-    onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-attr">onPrepare</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">return</span> browser.waitForAngularEnabled(<span class="hljs-literal">false</span>);
     },
 

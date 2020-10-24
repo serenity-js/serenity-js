@@ -135,14 +135,14 @@
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Provides access to the properties of the last {@link AxiosResponse} object,
- *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.
+ * <span class="hljs-doctag">@desc</span>
+ *  Provides access to the properties of the last {<span class="hljs-doctag">@link </span>AxiosResponse} object,
+ *  cached on the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}.
  *
- * @example &lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
- *  import { Actor } from &apos;@serenity-js/core&apos;;
- *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
- *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
+ *  import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;
+ *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
  *  interface Book {
  *      title: string;
@@ -161,13 +161,13 @@
  *      })),
  *  );
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> LastResponse {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LastResponse</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables asserting on the {@link LastResponse} status
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables asserting on the {<span class="hljs-doctag">@link </span>LastResponse} status
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;number&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;number&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> status(): Question&lt;<span class="hljs-built_in">number</span>&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the status of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
@@ -176,10 +176,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables asserting on the {@link LastResponse} body
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables asserting on the {<span class="hljs-doctag">@link </span>LastResponse} body
      *
-     * @example &lt;caption&gt;A type-safe approach using generics&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;A type-safe approach using generics&lt;/caption&gt;
      *  interface Book {
      *      title: string;
      *      author: string
@@ -193,7 +193,7 @@
      *      })),
      *  );
      *
-     * @example &lt;caption&gt;A non-type-safe approach using `any`&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;A non-type-safe approach using `any`&lt;/caption&gt;
      *  actor.attemptsTo(
      *      // ...
      *      Ensure.that(LastResponse.body&lt;any&gt;(), equals({
@@ -202,7 +202,7 @@
      *      })),
      *  );
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;any&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;any&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> body&lt;T = <span class="hljs-built_in">any</span>&gt;(): Question&lt;T&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;T&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
@@ -211,11 +211,11 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables asserting on one of the {@link LastResponse}&apos;s headers
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables asserting on one of the {<span class="hljs-doctag">@link </span>LastResponse}&apos;s headers
      *
-     * @param {string} name
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;string&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> header(name: <span class="hljs-built_in">string</span>): Question&lt;<span class="hljs-built_in">string</span>&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">`the &apos;<span class="hljs-subst">${ name }</span>&apos; header of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
@@ -224,13 +224,13 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables asserting on all of the {@link LastResponse}&apos;s headers,
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables asserting on all of the {<span class="hljs-doctag">@link </span>LastResponse}&apos;s headers,
      *  returned as an object where the keys represent header names.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question&lt;object&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;object&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> headers() {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">headers</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> Question.about&lt;{ [header: <span class="hljs-built_in">string</span> ]: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">`the headers or the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.headers);
         });

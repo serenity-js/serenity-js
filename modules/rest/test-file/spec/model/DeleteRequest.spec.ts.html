@@ -136,38 +136,38 @@
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actors&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {DeleteRequest} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DeleteRequest}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;DeleteRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
 
-    <span class="hljs-comment">/** @test {DeleteRequest.to} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DeleteRequest.to}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;represents an Axios request&apos;</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.answer(DeleteRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)))
             .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;DELETE&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
+                <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;DELETE&apos;</span>,
+                <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/products/2&apos;</span>,
             }));
 
     <span class="hljs-comment">/**
-     * @test {DeleteRequest.to}
-     * @test {DeleteRequest#using}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{DeleteRequest.to}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{DeleteRequest#using}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;allows for additional request properties to be specified&apos;</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.answer(DeleteRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).using({
-                headers: {
-                    Authorization: <span class="hljs-string">&apos;token&apos;</span>,
+                <span class="hljs-attr">headers</span>: {
+                    <span class="hljs-attr">Authorization</span>: <span class="hljs-string">&apos;token&apos;</span>,
                 },
             })))
             .to.eventually.deep.equal({
-                method: <span class="hljs-string">&apos;DELETE&apos;</span>,
-                url: <span class="hljs-string">&apos;/products/2&apos;</span>,
-                headers: {
-                    Authorization: <span class="hljs-string">&apos;token&apos;</span>,
+                <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;DELETE&apos;</span>,
+                <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/products/2&apos;</span>,
+                <span class="hljs-attr">headers</span>: {
+                    <span class="hljs-attr">Authorization</span>: <span class="hljs-string">&apos;token&apos;</span>,
                 },
             }));
 
-    <span class="hljs-comment">/** @test {DeleteRequest#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{DeleteRequest#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(DeleteRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).toString())
             .to.equal(<span class="hljs-string">`a DELETE request to &apos;/products/2&apos;`</span>);

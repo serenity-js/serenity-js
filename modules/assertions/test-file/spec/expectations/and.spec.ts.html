@@ -151,7 +151,7 @@
 
 describe(<span class="hljs-string">&apos;and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {and} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{and}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; meets all the expectations&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, and(startsWith(<span class="hljs-string">&apos;Hello&apos;</span>), endsWith(<span class="hljs-string">&apos;World!&apos;</span>))),
@@ -160,7 +160,7 @@ describe(<span class="hljs-string">&apos;and&apos;</span>, <span class="hljs-fun
 
     describe(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {and} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{and}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;does not meet the first expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                 Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, and(startsWith(<span class="hljs-string">&apos;&#xA1;Hola&apos;</span>), endsWith(<span class="hljs-string">&apos;World!&apos;</span>))),
@@ -171,7 +171,7 @@ describe(<span class="hljs-string">&apos;and&apos;</span>, <span class="hljs-fun
                 });
         });
 
-        <span class="hljs-comment">/** @test {and} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{and}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;does not meet the second expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
                 Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, and(startsWith(<span class="hljs-string">&apos;Hello&apos;</span>), endsWith(<span class="hljs-string">&apos;Mundo!&apos;</span>))),
@@ -183,7 +183,7 @@ describe(<span class="hljs-string">&apos;and&apos;</span>, <span class="hljs-fun
         });
     });
 
-    <span class="hljs-comment">/** @test {and} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{and}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, and(startsWith(<span class="hljs-string">&apos;H&apos;</span>), endsWith(<span class="hljs-string">&apos;o&apos;</span>))).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does start with &apos;H&apos; and end with &apos;o&apos;`</span>);

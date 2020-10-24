@@ -146,10 +146,10 @@
 <span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FeatureFileMap&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FeatureFileMapper {
-    map(<span class="hljs-built_in">document</span>: nodes.GherkinDocument, path: Path): FeatureFileMap {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileMapper</span> </span>{
+    map(<span class="hljs-built_in">document</span>: nodes.GherkinDocument, <span class="hljs-attr">path</span>: Path): FeatureFileMap {
 
         <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap();
 
@@ -199,7 +199,7 @@
 
                     <span class="hljs-keyword">const</span>
                         outline = scenarioDefinition <span class="hljs-keyword">as</span> nodes.ScenarioOutline,
-                        parameters: { [line: <span class="hljs-built_in">number</span>]: ScenarioParameters } = {};
+                        <span class="hljs-attr">parameters</span>: { [line: <span class="hljs-built_in">number</span>]: ScenarioParameters } = {};
 
                     <span class="hljs-comment">// @see https://github.com/cucumber/gherkin-javascript/blob/v5.1.0/lib/gherkin/pickles/compiler.js#L45</span>
                     outline.examples.filter(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.tableHeader !== <span class="hljs-literal">undefined</span>).forEach(<span class="hljs-function"><span class="hljs-params">examples</span> =&gt;</span> {
@@ -299,7 +299,7 @@
         <span class="hljs-keyword">return</span> map;
     }
 
-    <span class="hljs-keyword">private</span> asStep(path: Path, step: nodes.Step, variableCells: nodes.TableCell[] = [], valueCells: nodes.TableCell[] = []): Step {
+    <span class="hljs-keyword">private</span> asStep(path: Path, <span class="hljs-attr">step</span>: nodes.Step, <span class="hljs-attr">variableCells</span>: nodes.TableCell[] = [], <span class="hljs-attr">valueCells</span>: nodes.TableCell[] = []): Step {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Step(
             <span class="hljs-keyword">new</span> FileSystemLocation(
                 path,
@@ -324,7 +324,7 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> interpolateStepArgument(argument: nodes.StepArgument, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> interpolateStepArgument(argument: nodes.StepArgument, <span class="hljs-attr">variableCells</span>: nodes.TableCell[], <span class="hljs-attr">valueCells</span>: nodes.TableCell[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">&apos;DocString&apos;</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-built_in">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
@@ -342,7 +342,7 @@
     }
 
     <span class="hljs-comment">// @see https://github.com/cucumber/gherkin-javascript/blob/v5.1.0/lib/gherkin/pickles/compiler.js#L115</span>
-    <span class="hljs-keyword">private</span> interpolate(text: <span class="hljs-built_in">string</span>, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">interpolate</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]</span>)</span> {
         variableCells.forEach(<span class="hljs-function">(<span class="hljs-params">variableCell, n</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> valueCell = valueCells[n];
             <span class="hljs-keyword">const</span> search = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&apos;&lt;&apos;</span> + variableCell.value + <span class="hljs-string">&apos;&gt;&apos;</span>, <span class="hljs-string">&apos;g&apos;</span>);

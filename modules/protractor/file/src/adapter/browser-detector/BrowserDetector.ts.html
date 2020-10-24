@@ -183,22 +183,22 @@
 <span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StandardisedCapabilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  *
- * @see https://github.com/serenity-js/serenity-js/issues/455
- * @see https://github.com/serenity-bdd/serenity-core/pull/1860/files
- * @see https://github.com/serenity-js/serenity-js/issues/132
+ * <span class="hljs-doctag">@see </span>https://github.com/serenity-js/serenity-js/issues/455
+ * <span class="hljs-doctag">@see </span>https://github.com/serenity-bdd/serenity-core/pull/1860/files
+ * <span class="hljs-doctag">@see </span>https://github.com/serenity-js/serenity-js/issues/132
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BrowserDetector <span class="hljs-keyword">implements</span> StageCrewMember {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowserDetector</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">with</span>(capabilities: StandardisedCapabilities) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">with</span>(<span class="hljs-params">capabilities: StandardisedCapabilities</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(capabilities);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> capabilities: StandardisedCapabilities,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
-    </span>) {
+    </span>)</span> {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -224,13 +224,13 @@
             then(<span class="hljs-function">(<span class="hljs-params">[browserName, browserVersion, platformName, platformVersion]</span>) =&gt;</span> {
 
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
-                    event.value,
+                    event.sceneId,
                     <span class="hljs-keyword">new</span> BrowserTag(browserName, browserVersion),
                     <span class="hljs-built_in">this</span>.stage.currentTime(),
                 ));
 
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
-                    event.value,
+                    event.sceneId,
                     <span class="hljs-keyword">new</span> PlatformTag(platformName, platformVersion),
                     <span class="hljs-built_in">this</span>.stage.currentTime(),
                 ));

@@ -187,11 +187,11 @@
 describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        Field: Target.the(<span class="hljs-string">&apos;input field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
+        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">&apos;input field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
     };
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of an empty input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -208,8 +208,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of an empty input with no &quot;value&quot; attribute&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -226,8 +226,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of an input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -244,8 +244,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of an number field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -262,8 +262,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of a date field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -280,8 +280,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to clear the value of an RTL input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html dir=&quot;rtl&quot;&gt;
@@ -298,8 +298,8 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Clear} */</span>
-    <span class="hljs-comment">/** @test {Clear.theValueOf} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;complains if the element cannot be cleared&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html dir=&quot;rtl&quot;&gt;
@@ -312,7 +312,7 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
         Clear.theValueOf(Form.Field),
     )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The input field doesn&apos;t seem to have a &apos;value&apos; attribute that could be cleared.`</span>));
 
-    <span class="hljs-comment">/** @test {Clear#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Clear.theValueOf(Form.Field).toString())
             .to.equal(<span class="hljs-string">&apos;#actor clears the value of the input field&apos;</span>);

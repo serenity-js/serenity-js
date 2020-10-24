@@ -138,14 +138,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/CucumberEventProtocolAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+
+<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { ImplementationPendingError, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
 <span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;events&apos;</span>;
-
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
@@ -158,16 +159,16 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
     <span class="hljs-keyword">let</span> afterHook: CucumberHook;
 
     <span class="hljs-keyword">const</span> fakeCucumber = {
-        Before: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
-        After: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> { afterHook = hook; },
-        AfterAll: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
+        <span class="hljs-attr">Before</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
+        <span class="hljs-attr">After</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> { afterHook = hook; },
+        <span class="hljs-attr">AfterAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
     };
 
     <span class="hljs-keyword">let</span> recorder: EventRecorder,
-        serenity: Serenity,
-        log: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">console</span>.log,
-        eventBroadcaster: EventEmitter,
-        adapter: <span class="hljs-built_in">any</span>;
+        <span class="hljs-attr">serenity</span>: Serenity,
+        <span class="hljs-attr">log</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">console</span>.log,
+        <span class="hljs-attr">eventBroadcaster</span>: EventEmitter,
+        <span class="hljs-attr">adapter</span>: <span class="hljs-built_in">any</span>;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
 
@@ -179,7 +180,7 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         eventBroadcaster.on(<span class="hljs-string">&apos;test-case-finished&apos;</span>, <span class="hljs-function">() =&gt;</span> afterHook());
 
         serenity.configure({
-            crew: [recorder],
+            <span class="hljs-attr">crew</span>: [recorder],
         });
 
         <span class="hljs-keyword">const</span> listener = listenerForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>), fakeCucumber, serenity);
@@ -203,21 +204,21 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
 
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
             PickEvent.from(recorder.events)
-                .next(SceneStarts,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a tasty cucumber in my belly&apos;</span>)))
+                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a tasty cucumber in my belly&apos;</span>)))
                 .next(TaskFinished,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a tasty cucumber in my belly&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a tasty cucumber in my belly&apos;</span>));
                     expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
                 })
-                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I&apos;m very happy`</span>)))
+                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I&apos;m very happy`</span>)))
                 .next(TaskFinished,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I&apos;m very happy`</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I&apos;m very happy`</span>));
                     expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
                 })
                 .next(SceneFinished,        <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
                 })
             ;
@@ -241,21 +242,21 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an undefined step&apos;</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an undefined step&apos;</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an undefined step&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an undefined step&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should implement it&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should implement it&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                 })
                 .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                 })
             ;
@@ -279,21 +280,21 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a pending step&apos;</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a pending step&apos;</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a pending step&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a pending step&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should implement it&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should implement it&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
                 })
                 .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                 })
             ;
@@ -316,22 +317,22 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
 
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an ambiguous step definition&apos;</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an ambiguous step definition&apos;</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an ambiguous step definition&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have an ambiguous step definition&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should correct it`</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should correct it`</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should correct it&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Then I should correct it&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
                 })
                 .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
                 })
@@ -356,18 +357,18 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a step that throws an error&apos;</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a step that throws an error&apos;</span>)))
                 .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a step that throws an error&apos;</span>));
+                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I have a step that throws an error&apos;</span>));
                     expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error.message).to.equal(<span class="hljs-string">`We&apos;re sorry, something happened`</span>);
                 })
                 .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
                     expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error.message).to.equal(<span class="hljs-string">`We&apos;re sorry, something happened`</span>);
@@ -393,26 +394,26 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like programming&apos;</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like programming&apos;</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like programming&apos;</span>)))
+                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like programming&apos;</span>)))
+                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
 
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like to play guitar&apos;</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like to play guitar&apos;</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like to play guitar&apos;</span>)))
+                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like to play guitar&apos;</span>)))
+                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
 
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like martial arts&apos;</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like martial arts&apos;</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
+                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like martial arts&apos;</span>)))
+                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Given I like martial arts&apos;</span>)))
+                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
             ;
         });
     });
@@ -434,11 +435,11 @@ describe(<span class="hljs-string">&apos;CucumberEventProtocolAdapter&apos;</spa
         <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.value).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
+                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
+                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>)))
                 .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Event Protocol&apos;</span>)))
                 .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.value).to.equal(expectedScenarioDetails);
+                    expect(e.details).to.equal(expectedScenarioDetails);
                     expect(e.outcome).to.be.instanceOf(ImplementationPending);
                     expect((e.outcome <span class="hljs-keyword">as</span> ImplementationPending).error).to.be.instanceOf(ImplementationPendingError);
                     expect((e.outcome <span class="hljs-keyword">as</span> ImplementationPending).error.message).to.equal(<span class="hljs-string">`&quot;Implement me&quot; has no test steps`</span>);

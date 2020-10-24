@@ -143,16 +143,16 @@
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberOptions&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CucumberCLIAdapter {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberCLIAdapter</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> options: CucumberOptions;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         config: CucumberConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
     }
 
@@ -160,7 +160,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
 
             <span class="hljs-keyword">const</span>
-                cucumber: <span class="hljs-built_in">any</span>   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">&apos;cucumber&apos;</span>),
+                <span class="hljs-attr">cucumber</span>: <span class="hljs-built_in">any</span>   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">&apos;cucumber&apos;</span>),
                 version         = <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">&apos;cucumber&apos;</span>),
                 argv            = <span class="hljs-built_in">this</span>.options.asArgumentsForCucumber(version),
 
@@ -168,9 +168,9 @@
 
             <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>))) {
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.Cli({
-                    argv:   argv.concat(<span class="hljs-string">&apos;--format&apos;</span>, serenityListener, ...pathsToScenarios),
-                    cwd:    <span class="hljs-built_in">this</span>.loader.cwd,
-                    stdout: process.stdout,
+                    <span class="hljs-attr">argv</span>:   argv.concat(<span class="hljs-string">&apos;--format&apos;</span>, serenityListener, ...pathsToScenarios),
+                    <span class="hljs-attr">cwd</span>:    <span class="hljs-built_in">this</span>.loader.cwd,
+                    <span class="hljs-attr">stdout</span>: process.stdout,
                 }).run().then(resolve, reject);
             }
             <span class="hljs-keyword">else</span> {

@@ -169,7 +169,7 @@
  <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
 
  serenity.configure({
-     crew: [ ConsoleReporter.withDefaultColourSupport() ],
+     <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
  });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -178,11 +178,11 @@
  <span class="hljs-keyword">const</span> { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>);
 
  <span class="hljs-built_in">exports</span>.config = {
-   framework:     <span class="hljs-string">&apos;custom&apos;</span>,
-   frameworkPath: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+   <span class="hljs-attr">framework</span>:     <span class="hljs-string">&apos;custom&apos;</span>,
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
-   serenity: {
-     crew: [
+   <span class="hljs-attr">serenity</span>: {
+     <span class="hljs-attr">crew</span>: [
        ConsoleReporter.withDefaultColourSupport(),
      ],
      <span class="hljs-comment">// other Serenity/JS config</span>
@@ -197,12 +197,13 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber230">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber300">ConsoleReporter when the developer logs arbitrary data </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber47">ConsoleReporter when the scenario passes prints the passing steps and the scenario summary</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber86">ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber127">ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber172">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber11">ConsoleReporter</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber231">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber301">ConsoleReporter when the developer logs arbitrary data </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber48">ConsoleReporter when the scenario passes prints the passing steps and the scenario summary</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber87">ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber128">ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber173">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
 </ul>
   </div>
 

@@ -126,16 +126,16 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Order } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Order&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Information passed to the Reporter#jasmineStarted event.
  *
- * @package
- * @see https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
+ * <span class="hljs-doctag">@package</span>
+ * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> JasmineStartedInfo {
 
     <span class="hljs-comment">/** The total number of specs defined in this suite. */</span>
-    totalSpecsDefined: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">totalSpecsDefined</span>: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/** Information about the ordering (random or not) of this execution of the suite. */</span>
     order: Order;

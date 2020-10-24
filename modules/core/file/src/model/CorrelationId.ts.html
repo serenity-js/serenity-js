@@ -265,12 +265,12 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuid <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;cuid&apos;</span>;
 <span class="hljs-keyword">import</span> { TinyType, TinyTypeOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CorrelationId <span class="hljs-keyword">extends</span> TinyTypeOf&lt;<span class="hljs-built_in">string</span>&gt;() {
-    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CorrelationId</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyTypeOf</span>&lt;<span class="hljs-title">string</span>&gt;() </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CorrelationId(v);
     }
 
-    <span class="hljs-keyword">static</span> create() {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">create</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CorrelationId(cuid());
     }
 }

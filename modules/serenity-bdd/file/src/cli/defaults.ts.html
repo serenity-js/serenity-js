@@ -121,29 +121,29 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/defaults.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Default configuration to be used when invoking the serenity-bdd command line interface.
  *  See the source code to find out more about the values being used.
  *
- * @typedef {Object} defaults
- * @property {string} artifact      The GAV identifier of the artifact to download from the artifact repository
- * @property {string} repository    The URL of the repository where the artifact can be found
- * @property {string} cacheDir      A relative path to the directory where the artifact should be downloaded
- * @property {string} sourceDir     A relative path to the directory where the intermediate Serenity/JS JSON reports have been generated
- * @property {string} reportDir     A relative path to the directory where the Serenity BDD HTML report should be generated
- * @property {string} featuresDir   A relative path to the Cucumber.js features directory (if Cucumber is used)
- * @property {string} log           A Logback log level that Serenity BDD CLI should use (info, warn, debug)
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{Object}</span> <span class="hljs-variable">defaults</span></span>
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>artifact      The GAV identifier of the artifact to download from the artifact repository
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>repository    The URL of the repository where the artifact can be found
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>cacheDir      A relative path to the directory where the artifact should be downloaded
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>sourceDir     A relative path to the directory where the intermediate Serenity/JS JSON reports have been generated
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>reportDir     A relative path to the directory where the Serenity BDD HTML report should be generated
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>featuresDir   A relative path to the Cucumber.js features directory (if Cucumber is used)
+ * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> </span>log           A Logback log level that Serenity BDD CLI should use (info, warn, debug)
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> defaults = {
-    artifact:    <span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:jar:all:2.1.10&apos;</span>,
-    repository:  <span class="hljs-string">&apos;https://jcenter.bintray.com/&apos;</span>,
-    cacheDir:    <span class="hljs-string">&apos;node_modules/@serenity-js/serenity-bdd/cache&apos;</span>,
-    sourceDir:   <span class="hljs-string">&apos;target/site/serenity&apos;</span>,
-    reportDir:   <span class="hljs-string">&apos;target/site/serenity&apos;</span>,
-    featuresDir: <span class="hljs-string">&apos;features&apos;</span>,
-    log:         <span class="hljs-string">&apos;warn&apos;</span>,
+    <span class="hljs-attr">artifact</span>:    <span class="hljs-string">&apos;net.serenity-bdd:serenity-cli:jar:all:2.1.10&apos;</span>,
+    <span class="hljs-attr">repository</span>:  <span class="hljs-string">&apos;https://jcenter.bintray.com/&apos;</span>,
+    <span class="hljs-attr">cacheDir</span>:    <span class="hljs-string">&apos;node_modules/@serenity-js/serenity-bdd/cache&apos;</span>,
+    <span class="hljs-attr">sourceDir</span>:   <span class="hljs-string">&apos;target/site/serenity&apos;</span>,
+    <span class="hljs-attr">reportDir</span>:   <span class="hljs-string">&apos;target/site/serenity&apos;</span>,
+    <span class="hljs-attr">featuresDir</span>: <span class="hljs-string">&apos;features&apos;</span>,
+    <span class="hljs-attr">log</span>:         <span class="hljs-string">&apos;warn&apos;</span>,
 };
 </code></pre>
 

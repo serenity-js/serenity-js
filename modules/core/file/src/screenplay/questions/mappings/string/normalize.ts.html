@@ -268,11 +268,11 @@
 <span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../AnswerMappingFunction&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Returns the String value result of normalizing the string into the normalization form
  *  named by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.
  *
- * @param {Answerable&lt;string&gt;} [form]
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string&gt;}</span> </span>[form]
  *  One of &quot;NFC&quot;, &quot;NFD&quot;, &quot;NFKC&quot;, or &quot;NFKD&quot;, specifying the Unicode Normalization Form. If omitted or undefined, &quot;NFC&quot; is used.
  *  These values have the following meanings:
  *   &quot;NFC&quot; - Canonical Decomposition, followed by Canonical Composition.
@@ -280,13 +280,13 @@
  *   &quot;NFKC&quot; - Compatibility Decomposition, followed by Canonical Composition.
  *   &quot;NFKD&quot; - Compatibility Decomposition.
  *
- * @returns {AnswerMappingFunction&lt;string, string&gt;}
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">normalize</span>(<span class="hljs-params">form?: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
-        (value: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
 
             ensure(<span class="hljs-string">&apos;The value to be mapped&apos;</span>, value, isDefined(), isString())
 

@@ -265,13 +265,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Describes the {@link Actor}s available to take part in the performance.
+ * <span class="hljs-doctag">@desc</span>
+ *  Describes the {<span class="hljs-doctag">@link </span>Actor}s available to take part in the performance.
  *
- * @example &lt;caption&gt;Define a cast of actors interacting with a Web UI&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Define a cast of actors interacting with a Web UI&lt;/caption&gt;
  *
- *  import { engage, Actor, Cast } from &apos;@serenity-js/core&apos;;
- *  import { BrowseTheWeb } from &apos;@serenity-js/protractor&apos;;
+ *  import { engage, Actor, Cast } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { BrowseTheWeb } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  class UIActors implements Cast {
@@ -282,19 +282,19 @@
  *
  *  beforeEach(() =&gt; engage(new UIActors()));
  *
- * @example &lt;caption&gt;Using a generic cast&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a generic cast&lt;/caption&gt;
  *
- *  import { engage, Cast } from &apos;@serenity-js/core&apos;;
- *  import { BrowseTheWeb } from &apos;@serenity-js/protractor&apos;;
+ *  import { engage, Cast } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { BrowseTheWeb } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  beforeEach(() =&gt; engage(BrowseTheWeb.using(protractor.browser)));
  *
- * @example &lt;caption&gt;Preparing actors differently based on their name&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Preparing actors differently based on their name&lt;/caption&gt;
  *
- *  import { actorCalled, engage, Cast } from &apos;@serenity-js/core&apos;;
- *  import { BrowseTheWeb } from &apos;@serenity-js/protractor&apos;;
- *  import { CallAnApi } from &apos;@serenity-js/rest&apos;;
+ *  import { actorCalled, engage, Cast } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { BrowseTheWeb } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
+ *  import { CallAnApi } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;;
  *  import { protractor } from &apos;protractor&apos;;
  *
  *  class Actors implements Cast {
@@ -313,17 +313,17 @@
  *  actorCalled(&apos;James&apos;) // returns an actor using a browser
  *  actorCalled(&apos;Alice&apos;) // returns an actor interacting with an API
  *
- * @see {@link Stage}
- * @interface
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage}</span></span>
+ * <span class="hljs-doctag">@interface</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Cast {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cast</span> </span>{
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Creates a generic `Cast` implementation, where every actor
      *  is given all the abilities specified when the method is called.
      *
-     * @param {Ability[]} abilities
-     * @returns {Cast}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Ability[]}</span> <span class="hljs-variable">abilities</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Cast}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> whereEveryoneCan(...abilities: Ability[]): Cast {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GenericCast(abilities);
@@ -333,10 +333,10 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> GenericCast <span class="hljs-keyword">implements</span> Cast {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> abilities: Ability[]</span>) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GenericCast</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> abilities: Ability[]</span>)</span> {
     }
 
     prepare(actor: Actor): Actor {

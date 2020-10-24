@@ -127,16 +127,16 @@
 <span class="hljs-keyword">import</span> { Order } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Order&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Information passed to the Reporter#jasmineDone event.
  *
- * @package
- * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo
+ * <span class="hljs-doctag">@package</span>
+ * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> JasmineDoneInfo {
 
     <span class="hljs-comment">/** The overall result of the suite: &apos;passed&apos;, &apos;failed&apos;, or &apos;incomplete&apos;. */</span>
-    overallStatus: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">overallStatus</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** Explanation of why the suite was incomplete. */</span>
     incompleteReason: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>;

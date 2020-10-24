@@ -184,14 +184,14 @@
 <span class="hljs-keyword">import</span> { Attribute, Click, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 
-<span class="hljs-comment">/** @test {Click} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Click}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        Checkbox: Target.the(<span class="hljs-string">&apos;checkbox&apos;</span>).located(by.id(<span class="hljs-string">&apos;no-spam-please&apos;</span>)),
+        <span class="hljs-attr">Checkbox</span>: Target.the(<span class="hljs-string">&apos;checkbox&apos;</span>).located(by.id(<span class="hljs-string">&apos;no-spam-please&apos;</span>)),
     };
 
-    <span class="hljs-comment">/** @test {Click.on} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Click.on}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor to click on an element&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
@@ -208,7 +208,7 @@ describe(<span class="hljs-string">&apos;Click&apos;</span>, <span class="hljs-f
         Ensure.that(Attribute.of(Form.Checkbox).called(<span class="hljs-string">&apos;checked&apos;</span>), equals(<span class="hljs-string">&apos;true&apos;</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {Click#toString} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Click#toString}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Click.on(Form.Checkbox).toString())
             .to.equal(<span class="hljs-string">&apos;#actor clicks on the checkbox&apos;</span>);

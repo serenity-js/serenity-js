@@ -1422,8 +1422,8 @@
       <div class="example-caption" data-ice="exampleCaption">Engaging a cast of actors</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Actor, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
- <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
-     prepare(actor: Actor) {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
+     <span class="hljs-function"><span class="hljs-title">prepare</span>(<span class="hljs-params">actor: Actor</span>)</span> {
          <span class="hljs-keyword">return</span> actor.whoCan(
              <span class="hljs-comment">// ... abilities you&apos;d like the Actor to have</span>
          );

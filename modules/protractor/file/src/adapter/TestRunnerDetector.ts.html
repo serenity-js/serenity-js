@@ -180,11 +180,11 @@
 <span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./runners/TestRunner&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TestRunnerDetector {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerDetector</span> </span>{
 
-    <span class="hljs-keyword">static</span> protractorCliOptions() {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
             <span class="hljs-string">&apos;cucumberOpts&apos;</span>,
             <span class="hljs-string">&apos;jasmineNodeOpts&apos;</span>,
@@ -192,7 +192,7 @@
         ];
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader</span>)</span> {
     }
 
     <span class="hljs-comment">// todo: when invoking, merge config</span>

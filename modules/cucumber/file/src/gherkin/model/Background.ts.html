@@ -145,15 +145,15 @@
 <span class="hljs-keyword">import</span> { Step } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Step&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Background <span class="hljs-keyword">extends</span> FeatureFileNode {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Background</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FeatureFileNode</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         location: FileSystemLocation,
         name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> steps: Step[],
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(location, name);
     }
 }

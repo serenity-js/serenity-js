@@ -136,15 +136,15 @@
 <span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./HTTPRequest&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  The HTTP HEAD method requests the headers that are returned if the specified resource
  *  would be requested with an HTTP GET method.
  *  Such a request can be done before deciding to download a large resource to save bandwidth, for example.
  *
- * @example &lt;caption&gt;File download test&lt;/caption&gt;
- *  import { Actor } from &apos;@serenity-js/core&apos;;
- *  import { CallAnApi, HeadRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
- *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;File download test&lt;/caption&gt;
+ *  import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { CallAnApi, HeadRequest, LastResponse, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;
+ *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
  *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(CallAnApi.at(&apos;https://myapp.com/api&apos;));
  *
@@ -154,40 +154,40 @@
  *      Ensure.that(LastResponse.header(&apos;Content-Length&apos;), equals(256)),    // assuming we know the size of the document
  *  );
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD
- * @see https://tools.ietf.org/html/rfc7231#section-4.3.2
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD
+ * <span class="hljs-doctag">@see </span>https://tools.ietf.org/html/rfc7231#section-4.3.2
  *
- * @extends {HTTPRequest}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{HTTPRequest}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> HeadRequest <span class="hljs-keyword">extends</span> HTTPRequest {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeadRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTTPRequest</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Configures the object with a destination URI.
      *
      *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      *  it gets concatenated with the URL provided to the Axios instance
-     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
+     *  when the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} resourceUri
-     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  should send the {@link HTTPRequest}.
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;}</span> <span class="hljs-variable">resourceUri</span></span>
+     *  The URI where the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  should send the {<span class="hljs-doctag">@link </span>HTTPRequest}.
      *
-     * @returns {HeadRequest}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{HeadRequest}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> to(resourceUri: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): HeadRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HeadRequest(resourceUri);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Overrides the default Axios request configuration provided
-     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
+     *  when {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} config
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;}</span> <span class="hljs-variable">config</span></span>
      *  Axios request configuration overrides
      *
-     * @returns {HeadRequest}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{HeadRequest}</span></span>
      */</span>
     using(config: Answerable&lt;AxiosRequestConfig&gt;): HeadRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HeadRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-literal">undefined</span>, config);

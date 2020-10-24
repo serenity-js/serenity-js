@@ -265,19 +265,19 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../events&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to
- *  {@link DomainEvent}s
+ * <span class="hljs-doctag">@desc</span>
+ *  A {<span class="hljs-doctag">@link </span>StageCrewMember} or an {<span class="hljs-doctag">@link </span>Actor} that can listen and react to
+ *  {<span class="hljs-doctag">@link </span>DomainEvent}s
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ListensToDomainEvents {
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     *  this {@link StageCrewMember} is assigned to.
+     * <span class="hljs-doctag">@desc</span>
+     *  Handles {<span class="hljs-doctag">@link </span>DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span>Stage}
+     *  this {<span class="hljs-doctag">@link </span>StageCrewMember} is assigned to.
      *
-     * @param {DomainEvent} event
-     * @returns void
+     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent}</span> <span class="hljs-variable">event</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
      */</span>
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span>;
 }

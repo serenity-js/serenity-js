@@ -123,16 +123,16 @@
 <span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> OutcomeRecorder {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OutcomeRecorder</span> </span>{
     <span class="hljs-keyword">private</span> recordedOutcomes: RecordedOutcome[] = [];
 
     <span class="hljs-keyword">public</span> started(test: Test): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.recordedOutcomes.push({ test });
     }
 
-    <span class="hljs-keyword">public</span> finished(test: Test, outcome: Outcome): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">public</span> finished(test: Test, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.recordedOutcomes = <span class="hljs-built_in">this</span>.recordedOutcomes.map(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span>
             recordedOutcome.test === test
                 ? {...recordedOutcome, outcome }
@@ -150,7 +150,7 @@
 }
 
 <span class="hljs-keyword">interface</span> RecordedOutcome {
-    test: Test;
+    <span class="hljs-attr">test</span>: Test;
     outcome?: Outcome;
 }
 </code></pre>

@@ -265,7 +265,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Tag&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,
+ * <span class="hljs-doctag">@desc </span>There are a couple of common use-cases for contexts: running the same test in different browsers,
  * and running the same test on different operating systems.
  * If you use the name of a browser (e.g. &#x201C;chrome&#x201D;, &#x201C;firefox&#x201D;, &#x201C;safari&#x201D;, &#x201C;ie&#x201D;),
  * the context will be represented in the reports as the icon of the respective browsers.
@@ -273,13 +273,13 @@
  * a similar icon will be used. If you use any other term for your context,
  * it will appear in text form in the test results lists, so it is better to keep context names relatively short.
  *
- * @access public
- * @deprecated
+ * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
+ * <span class="hljs-doctag">@deprecated</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ContextTag <span class="hljs-keyword">extends</span> Tag {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextTag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Tag</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">&apos;context&apos;</span>;
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">context: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">context: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>(context, ContextTag.Type);
     }
 }

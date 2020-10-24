@@ -264,8 +264,8 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/artifacts/LogEntry.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONData } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./JSONData&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> LogEntry <span class="hljs-keyword">extends</span> JSONData {
-    <span class="hljs-keyword">static</span> fromJSON(value: { data: <span class="hljs-built_in">string</span> }) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogEntry</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JSONData</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">value: { data: <span class="hljs-built_in">string</span> }</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LogEntry(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&apos;utf8&apos;</span>).toString(<span class="hljs-string">&apos;base64&apos;</span>));
     }
 }

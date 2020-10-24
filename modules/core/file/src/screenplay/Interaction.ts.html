@@ -266,57 +266,57 @@
 <span class="hljs-keyword">import</span> { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Directly exercises the {@link Actor}&apos;s {@link Ability} to interact
+ * <span class="hljs-doctag">@desc</span>
+ *  Directly exercises the {<span class="hljs-doctag">@link </span>Actor}&apos;s {<span class="hljs-doctag">@link </span>Ability} to interact
  *  with the System Under Test.
  *
- * @implements {Activity}
- * @see {@link Ability}
- * @see {@link Actor}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{Activity}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Ability}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Interaction <span class="hljs-keyword">implements</span> Activity {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Interaction</span> <span class="hljs-title">implements</span> <span class="hljs-title">Activity</span> </span>{
     <span class="hljs-keyword">static</span> where(
         description: <span class="hljs-built_in">string</span>,
-        interaction: <span class="hljs-function">(<span class="hljs-params">actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts</span>) =&gt;</span> PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>,
+        <span class="hljs-attr">interaction</span>: <span class="hljs-function">(<span class="hljs-params">actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts</span>) =&gt;</span> PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>,
     ): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DynamicallyGeneratedInteraction(description, interaction);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Interaction}.
      *
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
      */</span>
     <span class="hljs-keyword">abstract</span> performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt;;
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> DynamicallyGeneratedInteraction <span class="hljs-keyword">extends</span> Interaction {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DynamicallyGeneratedInteraction</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> interaction: (actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts) =&gt; PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  perform this {<span class="hljs-doctag">@link </span>Interaction}.
      *
-     * @param {Actor} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Actor}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
      */</span>
     performAs(actor: Actor): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">try</span> {
@@ -327,12 +327,12 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span>Activity}.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.description;
     }
 }

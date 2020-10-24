@@ -148,34 +148,34 @@
 <span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./outcomes&apos;</span>;
 
 <span class="hljs-comment">/**
- * @public
+ * <span class="hljs-doctag">@public</span>
  *
- * @typedef {function(actual: A, expected: E) =&gt; boolean} Predicate&lt;A,E&gt;
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(actual: A, expected: E) =&gt; boolean}</span> </span>Predicate&lt;A,E&gt;
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Predicate&lt;A, E&gt; = <span class="hljs-function">(<span class="hljs-params">actual: A, expected: E</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Defines an expectation to be used with:
- *  - {@link Ensure} - to perform a verification
- *  - {@link Check} - to control the execution flow
+ *  - {<span class="hljs-doctag">@link </span>Ensure} - to perform a verification
+ *  - {<span class="hljs-doctag">@link </span>Check} - to control the execution flow
  *
- * @implements {@serenity-js/core/lib/screenplay~Question}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question}</span></span>
  *
- * @see {@link Ensure}
- * @see {@link Check}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Ensure}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Check}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Expectation&lt;Expected, Actual = Expected&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span> </span>= Expected&gt;
     <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;Expected, Actual&gt;&gt;&gt;
 {
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Used to define a simple {@link Expectation}
+     * <span class="hljs-doctag">@desc</span>
+     *  Used to define a simple {<span class="hljs-doctag">@link </span>Expectation}
      *
-     * @example
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Expectation, Ensure } from &apos;@serenity-js/assertions&apos;;
+     * <span class="hljs-doctag">@example</span>
+     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+     *  import { Expectation, Ensure } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
      *
      *  function isDivisibleBy(expected: Answerable&lt;number&gt;): Expectation&lt;number&gt; {
      *      return Expectation.thatActualShould&lt;number, number&gt;(&apos;have value divisible by&apos;, expected)
@@ -186,28 +186,28 @@
      *      Ensure.that(4, isDivisibleBy(2)),
      *  );
      *
-     * @param {string} relationshipName
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;} expectedValue
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">relationshipName</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;}</span> <span class="hljs-variable">expectedValue</span></span>
      *
-     * @returns {&quot;soThat&quot;: function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{&quot;soThat&quot;: function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> thatActualShould&lt;E, A&gt;(relationshipName: <span class="hljs-built_in">string</span>, expectedValue: Answerable&lt;E&gt;): {
-        soThat: <span class="hljs-function">(<span class="hljs-params">predicate: Predicate&lt;A, E&gt;</span>) =&gt;</span> Expectation&lt;E, A&gt;,
+    <span class="hljs-keyword">static</span> thatActualShould&lt;E, A&gt;(relationshipName: <span class="hljs-built_in">string</span>, <span class="hljs-attr">expectedValue</span>: Answerable&lt;E&gt;): {
+        <span class="hljs-attr">soThat</span>: <span class="hljs-function">(<span class="hljs-params">predicate: Predicate&lt;A, E&gt;</span>) =&gt;</span> Expectation&lt;E, A&gt;,
     } {
         <span class="hljs-keyword">return</span> ({
-            soThat: (predicate: Predicate&lt;A, E&gt;): Expectation&lt;E, A&gt; =&gt; {
+            <span class="hljs-attr">soThat</span>: (predicate: Predicate&lt;A, E&gt;): Expectation&lt;E, A&gt; =&gt; {
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DynamicallyGeneratedExpectation&lt;E, A&gt;(relationshipName, predicate, expectedValue);
             },
         });
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Used to compose {@link Expectation}s.
+     * <span class="hljs-doctag">@desc</span>
+     *  Used to compose {<span class="hljs-doctag">@link </span>Expectation}s.
      *
-     * @example
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from &apos;@serenity-js/assertions&apos;;
+     * <span class="hljs-doctag">@example</span>
+     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
      *
      *  function isWithin(lowerBound: number, upperBound: number) {
      *      return Expectation
@@ -222,15 +222,15 @@
      *      Ensure.that(5, isWithin(3, 6)),
      *  );
      *
-     * @param {string} relationshipName
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">relationshipName</span></span>
      *
-     * @returns {&quot;soThat&quot;: function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{&quot;soThat&quot;: function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> to&lt;A&gt;(relationshipName: <span class="hljs-built_in">string</span>): {
-        soThatActual: <span class="hljs-function">(<span class="hljs-params">...expectations: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;&gt;</span>) =&gt;</span> Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;,
+        <span class="hljs-attr">soThatActual</span>: <span class="hljs-function">(<span class="hljs-params">...expectations: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;&gt;</span>) =&gt;</span> Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;,
     } {
         <span class="hljs-keyword">return</span> {
-            soThatActual: (expectation: Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, A&gt; =&gt; {
+            <span class="hljs-attr">soThatActual</span>: (expectation: Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, A&gt; =&gt; {
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExpectationAlias&lt;A&gt;(relationshipName, expectation);
             },
         };
@@ -240,15 +240,15 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> DynamicallyGeneratedExpectation&lt;Expected, Actual&gt; <span class="hljs-keyword">extends</span> Expectation&lt;Expected, Actual&gt; {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DynamicallyGeneratedExpectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> predicate: Predicate&lt;Actual, Expected&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectedValue: Answerable&lt;Expected&gt;,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ expectedValue }</span>`</span> }</span>`</span>);
     }
 
@@ -264,14 +264,14 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> ExpectationAlias&lt;Actual&gt; <span class="hljs-keyword">extends</span> Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt; {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpectationAlias</span>&lt;<span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">Actual</span>&gt; </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         subject: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(subject);
     }
 

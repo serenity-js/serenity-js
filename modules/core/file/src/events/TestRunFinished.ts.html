@@ -266,19 +266,19 @@
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./DomainEvent&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Emitted when all the tests have finished running.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TestRunFinished <span class="hljs-keyword">extends</span> DomainEvent {
-    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunFinished</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestRunFinished(
             Timestamp.fromJSON(v <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         timestamp?: Timestamp,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
     }
 }

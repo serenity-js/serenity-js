@@ -132,7 +132,7 @@ and configure the <code>ArtifactArchiver</code> to store the reports at the loca
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>;
 
 serenity.configure({
-    crew: [
+    <span class="hljs-attr">crew</span>: [
         ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
         <span class="hljs-keyword">new</span> SerenityBDDReporter()
     ],
@@ -146,11 +146,11 @@ serenity.configure({
 
 <span class="hljs-built_in">exports</span>.config = {
 
-    framework:      <span class="hljs-string">&apos;custom&apos;</span>,
-    frameworkPath:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
-    serenity: {
-        crew: [
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">crew</span>: [
             ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
             <span class="hljs-keyword">new</span> SerenityBDDReporter(),
         ]

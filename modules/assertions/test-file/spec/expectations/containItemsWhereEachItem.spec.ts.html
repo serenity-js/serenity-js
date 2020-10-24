@@ -151,14 +151,14 @@
 
 describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {containItemsWhereEachItem} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; includes only those items that meet the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], containItemsWhereEachItem(isGreaterThan(<span class="hljs-number">0</span>))),
         );
     });
 
-    <span class="hljs-comment">/** @test {containItemsWhereEachItem} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; contains at least one item that does not meet the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">2</span> ], containItemsWhereEachItem(equals(<span class="hljs-number">7</span>))),
@@ -169,7 +169,7 @@ describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>,
             });
     });
 
-    <span class="hljs-comment">/** @test {containItemsWhereEachItem} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; is an empty list&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that([], containItemsWhereEachItem(equals(<span class="hljs-number">42</span>))),
@@ -180,7 +180,7 @@ describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>,
             });
     });
 
-    <span class="hljs-comment">/** @test {atLeastOne} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{atLeastOne}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">&apos;list of numbers&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
 

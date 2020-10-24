@@ -177,14 +177,14 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StandardisedCapabilities {
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(currentBrowser: <span class="hljs-function">() =&gt;</span> ProtractorBrowser) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StandardisedCapabilities</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">of</span>(<span class="hljs-params">currentBrowser: () =&gt; ProtractorBrowser</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StandardisedCapabilities(currentBrowser);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentBrowser: () =&gt; ProtractorBrowser</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentBrowser: () =&gt; ProtractorBrowser</span>)</span> {
     }
 
     browserName(): PromiseLike&lt;<span class="hljs-built_in">string</span>&gt; {

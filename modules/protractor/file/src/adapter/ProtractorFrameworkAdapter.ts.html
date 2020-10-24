@@ -187,36 +187,36 @@
 <span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunnerDetector&apos;</span>;
 
 <span class="hljs-comment">/**
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ProtractorFrameworkAdapter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProtractorFrameworkAdapter</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protractorRunner: Runner,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> detector: TestRunnerDetector,
-    </span>) {
+    </span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @param {string[]} specs
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">specs</span></span>
      *  Paths to spec files
      *
-     * @return {Promise&lt;ProtractorReport&gt;}
+     * <span class="hljs-doctag">@return <span class="hljs-type">{Promise&lt;ProtractorReport&gt;}</span></span>
      */</span>
     run(specs: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;ProtractorReport&gt; {
 
         <span class="hljs-keyword">const</span> noop      = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
         <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-built_in">this</span>.defaultConfig(), <span class="hljs-built_in">this</span>.protractorRunner.getConfig(), {
-            isMergeableObject: isPlainObject,
+            <span class="hljs-attr">isMergeableObject</span>: isPlainObject,
         });
 
         <span class="hljs-keyword">const</span> runner    = <span class="hljs-built_in">this</span>.detector.runnerFor(config);
         <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.protractorRunner);
 
         <span class="hljs-built_in">this</span>.serenity.configure({
-            cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors,
-            crew:           [
+            <span class="hljs-attr">cueTimeout</span>:     config.serenity.cueTimeout,
+            <span class="hljs-attr">actors</span>:         config.serenity.actors,
+            <span class="hljs-attr">crew</span>:           [
                 BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function">() =&gt;</span> protractor.browser)),
                 ...config.serenity.crew,
                 reporter,
@@ -232,8 +232,8 @@
 
     <span class="hljs-keyword">private</span> defaultConfig(): Config {
         <span class="hljs-keyword">return</span> {
-            serenity: {
-                crew: [
+            <span class="hljs-attr">serenity</span>: {
+                <span class="hljs-attr">crew</span>: [
                     ArtifactArchiver.storingArtifactsAt(process.cwd(), <span class="hljs-string">&apos;target/site/serenity&apos;</span>),
                 ],
             },

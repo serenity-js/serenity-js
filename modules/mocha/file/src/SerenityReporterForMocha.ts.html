@@ -123,30 +123,32 @@
 
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOptions, reporters, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./mappers&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeRecorder&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityReporterForMocha <span class="hljs-keyword">extends</span> reporters.Base {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityReporterForMocha</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">reporters</span>.<span class="hljs-title">Base</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testMapper: MochaTestMapper = <span class="hljs-keyword">new</span> MochaTestMapper();
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> outcomeMapper: MochaOutcomeMapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> recorder: OutcomeRecorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
 
+    <span class="hljs-keyword">private</span> currentSceneId: CorrelationId = <span class="hljs-literal">null</span>;
+
     <span class="hljs-comment">/**
-     * @param {Serenity} serenity
-     * @param {mocha~Runner} runner
-     * @param {mocha~MochaOptions} options
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Serenity}</span> <span class="hljs-variable">serenity</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{mocha~Runner}</span> <span class="hljs-variable">runner</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{mocha~MochaOptions}</span> <span class="hljs-variable">options</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
                 runner: Runner,
                 options?: MochaOptions,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>(runner, options);
 
         runner.on(Runner.constants.EVENT_TEST_BEGIN,
@@ -214,22 +216,14 @@
     }
 
     <span class="hljs-keyword">private</span> announceSceneStartsFor(test: Test): <span class="hljs-built_in">void</span> {
+        <span class="hljs-built_in">this</span>.currentSceneId = <span class="hljs-built_in">this</span>.serenity.assignNewSceneId()
+
         <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test);
 
         <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> SceneStarts(
-                scenario,
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
-            ),
-            <span class="hljs-keyword">new</span> SceneTagged(
-                scenario,
-                <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.testMapper.featureNameFor(test)),
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
-            ),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Mocha&apos;</span>),
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
-            ),
+            <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, scenario, <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.testMapper.featureNameFor(test)), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Mocha&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
@@ -238,6 +232,7 @@
 
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
+                <span class="hljs-built_in">this</span>.currentSceneId,
                 scenario,
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
@@ -246,6 +241,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
             .then(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+                    <span class="hljs-built_in">this</span>.currentSceneId,
                     scenario,
                     <span class="hljs-built_in">this</span>.recorder.outcomeOf(test) || <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test),
                     <span class="hljs-built_in">this</span>.serenity.currentTime(),
@@ -262,10 +258,12 @@
 
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
+                <span class="hljs-built_in">this</span>.currentSceneId,
                 scenario,
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
             <span class="hljs-keyword">new</span> SceneFinished(
+                <span class="hljs-built_in">this</span>.currentSceneId,
                 scenario,
                 <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test),
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
@@ -282,7 +280,7 @@
 
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneTagged(
-                scenario,
+                <span class="hljs-built_in">this</span>.currentSceneId,
                 <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;retried&apos;</span>),
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
@@ -291,7 +289,7 @@
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentRetryOf(test) &gt; <span class="hljs-number">0</span>) {
             <span class="hljs-built_in">this</span>.emit(
                 <span class="hljs-keyword">new</span> SceneTagged(
-                    scenario,
+                    <span class="hljs-built_in">this</span>.currentSceneId,
                     <span class="hljs-keyword">new</span> ExecutionRetriedTag(<span class="hljs-built_in">this</span>.currentRetryOf(test)),
                     <span class="hljs-built_in">this</span>.serenity.currentTime(),
                 ),

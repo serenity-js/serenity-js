@@ -138,10 +138,10 @@
 <span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./themes&apos;</span>;
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SummaryFormatter {
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SummaryFormatter</span> </span>{
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>)</span> {
     }
 
     format(aggregatedCategories: AggregatedCategories): <span class="hljs-built_in">string</span> {
@@ -167,14 +167,14 @@
         ].join(<span class="hljs-string">&apos;\n&apos;</span>);
     }
 
-    <span class="hljs-keyword">private</span> sorted(strings: <span class="hljs-built_in">string</span>[]) {
-        <span class="hljs-keyword">return</span> strings.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-literal">undefined</span>, { sensitivity: <span class="hljs-string">&apos;base&apos;</span> }));
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">sorted</span>(<span class="hljs-params">strings: <span class="hljs-built_in">string</span>[]</span>)</span> {
+        <span class="hljs-keyword">return</span> strings.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">&apos;base&apos;</span> }));
     }
 
     <span class="hljs-keyword">private</span> formatTotalsFor(category: AggregatedCategory): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> outcomes = <span class="hljs-built_in">Object</span>.keys(category.outcomes)
             .filter(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.outcomes[outcomeName].count &gt; <span class="hljs-number">0</span>)
-            .sort(<span class="hljs-function">(<span class="hljs-params">left, right</span>) =&gt;</span> category.outcomes[left].code &gt; category.outcomes[right].code ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>)
+            .sort(<span class="hljs-function">(<span class="hljs-params">left, right</span>) =&gt;</span> category.outcomes[left].code &gt; category.outcomes[right].code ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>)
             .reduce(<span class="hljs-function">(<span class="hljs-params">acc, outcomeName</span>) =&gt;</span> {
                 acc.push(<span class="hljs-built_in">this</span>.theme.outcome(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.nameOf(outcomeName)}</span>`</span>));
                 <span class="hljs-keyword">return</span> acc;
@@ -186,7 +186,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ outcomes }</span>, <span class="hljs-subst">${ total }</span> total (<span class="hljs-subst">${ category.totalTime }</span>)`</span>;
     }
 
-    <span class="hljs-keyword">private</span> nameOf(outcomeName: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">nameOf</span>(<span class="hljs-params">outcomeName: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">switch</span> (outcomeName) {
             <span class="hljs-keyword">case</span> ExecutionCompromised.name:                 <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;compromised&apos;</span>;
             <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:             <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;broken&apos;</span>;

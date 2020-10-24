@@ -154,16 +154,16 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> Not&lt;Expected, Actual&gt; <span class="hljs-keyword">extends</span> Expectation&lt;Expected, Actual&gt; {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Not</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> flipped(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> message.startsWith(<span class="hljs-string">&apos;not &apos;</span>)
             ? message.substring(<span class="hljs-number">4</span>)
             : <span class="hljs-string">`not <span class="hljs-subst">${ message }</span>`</span>;
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Expected, Actual&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Expected, Actual&gt;</span>)</span> {
         <span class="hljs-built_in">super</span>(Not.flipped(expectation.toString()));
     }
 

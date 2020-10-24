@@ -178,20 +178,20 @@
 <span class="hljs-keyword">import</span> { Config <span class="hljs-keyword">as</span> ProtractorConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Protractor configuration object with an additional
  *  section to configure the Serenity/JS framework.
  *
- * @public
- * @interface
+ * <span class="hljs-doctag">@public</span>
+ * <span class="hljs-doctag">@interface</span>
  *
- * @see {@link @serenity-js/core~SerenityConfig}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core~SerenityConfig}</span></span>
  *
- * @see https://github.com/angular/protractor/blob/master/lib/config.ts
- * @see {@link @serenity-js/core~configure}
+ * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/config.ts
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core~configure}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Config <span class="hljs-keyword">extends</span> ProtractorConfig {
-    serenity: SerenityConfig &amp; { runner?: <span class="hljs-built_in">string</span> };
+    <span class="hljs-attr">serenity</span>: SerenityConfig &amp; { runner?: <span class="hljs-built_in">string</span> };
 }
 </code></pre>
 

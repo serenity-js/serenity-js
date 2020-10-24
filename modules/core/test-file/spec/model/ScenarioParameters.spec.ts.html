@@ -273,36 +273,36 @@ describe(<span class="hljs-string">&apos;ScenarioParameters&apos;</span>, <span 
         name = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;set of examples&apos;</span>),
         desciption = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;description of the examples&apos;</span>);
 
-    <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;can be instantiated using a plain-old JavaScript object&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">&apos;jan-molak&apos;</span> };
         <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
 
         expect(scenarioParameters.values).to.deep.equal(parameters);
     });
 
-    <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;can be serialised to JSON&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">&apos;jan-molak&apos;</span> };
         <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
 
         expect(scenarioParameters.toJSON()).to.deep.equal({
-            name: name.toJSON(),
-            description: desciption.toJSON(),
-            values: parameters,
+            <span class="hljs-attr">name</span>: name.toJSON(),
+            <span class="hljs-attr">description</span>: desciption.toJSON(),
+            <span class="hljs-attr">values</span>: parameters,
         });
     });
 
-    <span class="hljs-comment">/** @test {ScenarioParameters} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;can be deserialised from JSON&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> parameters = { Dev: <span class="hljs-string">&apos;jan-molak&apos;</span> };
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">&apos;jan-molak&apos;</span> };
 
         expect(<span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters))
             .to.equal(ScenarioParameters.fromJSON({
-                name: name.toJSON(),
-                description: desciption.toJSON(),
-                values: parameters,
+                <span class="hljs-attr">name</span>: name.toJSON(),
+                <span class="hljs-attr">description</span>: desciption.toJSON(),
+                <span class="hljs-attr">values</span>: parameters,
             }));
     });
 });

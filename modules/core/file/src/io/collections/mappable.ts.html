@@ -263,60 +263,60 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/collections/mappable.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Describes a collection providing
  *  a [`map`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
  *
- * @interface
+ * <span class="hljs-doctag">@interface</span>
  *
- * @see {@link Question#map}
- * @see {@link ElementArrayFinder}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Question#map}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link ElementArrayFinder}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Mappable&lt;Item&gt; {
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Applies a {@link MappingFunction} function to each element of a {@link Mappable} collection.
+     * <span class="hljs-doctag">@desc</span>
+     *  Applies a {<span class="hljs-doctag">@link </span>MappingFunction} function to each element of a {<span class="hljs-doctag">@link </span>Mappable} collection.
      *
      *  The callback receives an item from the collection as the first argument
      *  and its index as the second argument.
      *
-     * @abstract
+     * <span class="hljs-doctag">@abstract</span>
      *
-     * @type {function&lt;U&gt;(callback: (item?: Item, index?: number) =&gt; U): PromiseLike&lt;U[]&gt; | U[]}
+     * <span class="hljs-doctag">@type <span class="hljs-type">{function&lt;U&gt;(callback: (item?: Item, index?: number) =&gt; U): PromiseLike&lt;U[]&gt; | U[]}</span></span>
      */</span>
-    map: &lt;U&gt;(callback: <span class="hljs-function">(<span class="hljs-params">item?: Item, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> U) =&gt;
+    <span class="hljs-attr">map</span>: &lt;U&gt;<span class="hljs-function">(<span class="hljs-params">callback: (item?: Item, index?: <span class="hljs-built_in">number</span>) =&gt; U</span>) =&gt;</span>
         PromiseLike&lt;U[]&gt; | U[];
 }
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  A mapping function converting one type into another.
  *
- * @public
+ * <span class="hljs-doctag">@public</span>
  *
- * @typedef {function(item?: V, index?: number) =&gt; Promise&lt;O&gt; | O} Mapping&lt;V,O&gt;
+ * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(item?: V, index?: number) =&gt; Promise&lt;O&gt; | O}</span> </span>Mapping&lt;V,O&gt;
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> MappingFunction&lt;V, O&gt; =
     <span class="hljs-function">(<span class="hljs-params">item?: V, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> O;
 
 <span class="hljs-comment">/**
- * @desc
- *  Checks if the value is a {@link Mappable} collection of items.
+ * <span class="hljs-doctag">@desc</span>
+ *  Checks if the value is a {<span class="hljs-doctag">@link </span>Mappable} collection of items.
  *
- * @example &lt;caption&gt;An Array&lt;/caption&gt;
- *  import { Mappable } from &apos;@serenity-js/core/lib/io&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;An Array&lt;/caption&gt;
+ *  import { Mappable } from &apos;<span class="hljs-doctag">@serenity</span>-js/core/lib/io&apos;;
  *
  *  Mappable.isMappable([ 1, 2, 3 ]) === true
  *
- * @example &lt;caption&gt;Protractor&apos;s ElementArrayFinder&lt;/caption&gt;
- *  import { Mappable } from &apos;@serenity-js/core/lib/io&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Protractor&apos;s ElementArrayFinder&lt;/caption&gt;
+ *  import { Mappable } from &apos;<span class="hljs-doctag">@serenity</span>-js/core/lib/io&apos;;
  *  import { element } from &apos;protractor&apos;;
  *
  *  Mappable.isMappable(element.all(by.tagName(&apos;li&apos;)) === true
  *
- * @param {Mappable&lt;Item&gt; | any} maybeCollection
- * @returns {boolean}
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Mappable&lt;Item&gt; | any}</span> <span class="hljs-variable">maybeCollection</span></span>
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isMappable</span>&lt;<span class="hljs-title">Item</span>&gt;(<span class="hljs-params">maybeCollection: Mappable&lt;Item&gt; | <span class="hljs-built_in">any</span></span>): <span class="hljs-title">maybeCollection</span> <span class="hljs-title">is</span> <span class="hljs-title">Mappable</span>&lt;<span class="hljs-title">Item</span>&gt; </span>{
     <span class="hljs-keyword">return</span> !! maybeCollection

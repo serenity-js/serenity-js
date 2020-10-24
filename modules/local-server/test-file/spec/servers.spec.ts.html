@@ -141,7 +141,7 @@
 
 describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ManageALocalServer}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;when working with HTTP&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(servers).
@@ -150,7 +150,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpListener(handler()),
@@ -160,7 +160,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
@@ -178,7 +178,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpListener(handler()),
@@ -187,7 +187,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(
@@ -198,7 +198,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
 
     <span class="hljs-comment">// ---</span>
 
-    <span class="hljs-comment">/** @test {ManageALocalServer} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ManageALocalServer}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;when working with HTTPS&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> testHttpsServer = [
@@ -219,21 +219,21 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(handler(), {
-                            cert:           certificates.cert,
-                            key:            certificates.key,
-                            requestCert:    <span class="hljs-literal">true</span>,
-                            rejectUnauthorized: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">cert</span>:           certificates.cert,
+                            <span class="hljs-attr">key</span>:            certificates.key,
+                            <span class="hljs-attr">requestCert</span>:    <span class="hljs-literal">true</span>,
+                            <span class="hljs-attr">rejectUnauthorized</span>: <span class="hljs-literal">false</span>,
                         }),
                         CallAnApi.using(axios.create({
-                            proxy: <span class="hljs-literal">false</span>,
-                            httpsAgent: <span class="hljs-keyword">new</span> https.Agent({
-                                cert: certificates.cert,
-                                key: certificates.key,
-                                rejectUnauthorized: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">proxy</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({
+                                <span class="hljs-attr">cert</span>: certificates.cert,
+                                <span class="hljs-attr">key</span>: certificates.key,
+                                <span class="hljs-attr">rejectUnauthorized</span>: <span class="hljs-literal">false</span>,
                             }),
                         })),
                     );
@@ -241,7 +241,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
@@ -254,23 +254,23 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(hapi.handler({
-                            tls: {
-                                cert:           certificates.cert,
-                                key:            certificates.key,
-                                requestCert:    <span class="hljs-literal">true</span>,
-                                rejectUnauthorized: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">tls</span>: {
+                                <span class="hljs-attr">cert</span>:           certificates.cert,
+                                <span class="hljs-attr">key</span>:            certificates.key,
+                                <span class="hljs-attr">requestCert</span>:    <span class="hljs-literal">true</span>,
+                                <span class="hljs-attr">rejectUnauthorized</span>: <span class="hljs-literal">false</span>,
                             },
                         })),
                         CallAnApi.using(axios.create({
-                            proxy: <span class="hljs-literal">false</span>,
-                            httpsAgent: <span class="hljs-keyword">new</span> https.Agent({
-                                cert: certificates.cert,
-                                key: certificates.key,
-                                rejectUnauthorized: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">proxy</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({
+                                <span class="hljs-attr">cert</span>: certificates.cert,
+                                <span class="hljs-attr">key</span>: certificates.key,
+                                <span class="hljs-attr">rejectUnauthorized</span>: <span class="hljs-literal">false</span>,
                             }),
                         })),
                     );
@@ -278,7 +278,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
@@ -291,19 +291,19 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
             }
 
-            <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
                 prepare(actor: Actor): Actor {
                     <span class="hljs-keyword">return</span> actor.whoCan(
                         ManageALocalServer.runningAHttpsListener(restify.handler({
-                            certificate:    certificates.cert,
-                            key:            certificates.key,
+                            <span class="hljs-attr">certificate</span>:    certificates.cert,
+                            <span class="hljs-attr">key</span>:            certificates.key,
                         })),
                         CallAnApi.using(axios.create({
-                            proxy: <span class="hljs-literal">false</span>,
-                            httpsAgent: <span class="hljs-keyword">new</span> https.Agent({
-                                cert: certificates.cert,
-                                key: certificates.key,
-                                rejectUnauthorized: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">proxy</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({
+                                <span class="hljs-attr">cert</span>: certificates.cert,
+                                <span class="hljs-attr">key</span>: certificates.key,
+                                <span class="hljs-attr">rejectUnauthorized</span>: <span class="hljs-literal">false</span>,
                             }),
                         })),
                     );
@@ -311,7 +311,7 @@ describe(<span class="hljs-string">&apos;ManageALocalServer&apos;</span>, <span 
             }
 
             configure({
-                actors: <span class="hljs-keyword">new</span> Actors(),
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Nadia&apos;</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>

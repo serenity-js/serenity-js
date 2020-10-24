@@ -280,11 +280,11 @@
 <span class="hljs-keyword">import</span> { Hash } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Hash&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc Stores any {@link Artifact}s emitted through {@link ArtifactGenerated} events on the {@link FileSystem}
+ * <span class="hljs-doctag">@desc </span>Stores any {<span class="hljs-doctag">@link </span>Artifact}s emitted through {<span class="hljs-doctag">@link </span>ArtifactGenerated} events on the {<span class="hljs-doctag">@link </span>FileSystem}
  *
- * @access public
+ * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ArtifactArchiver <span class="hljs-keyword">implements</span> StageCrewMember {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArtifactArchiver</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
 
     <span class="hljs-keyword">static</span> storingArtifactsAt(...destination: <span class="hljs-built_in">string</span>[]): ArtifactArchiver {
         ensure(<span class="hljs-string">&apos;Path to destination directory&apos;</span>, destination, property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
@@ -294,13 +294,13 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactArchiver(<span class="hljs-keyword">new</span> FileSystem(pathToDestination));
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
-    </span>) {
+    </span>)</span> {
     }
 
-    assignedTo(stage: Stage) {
+    <span class="hljs-function"><span class="hljs-title">assignedTo</span>(<span class="hljs-params">stage: Stage</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArtifactArchiver(<span class="hljs-built_in">this</span>.fileSystem, stage);
     }
 
@@ -334,7 +334,7 @@
         }
     }
 
-    <span class="hljs-keyword">private</span> fileNameFor(prefix: <span class="hljs-built_in">string</span>, artifactName: Name, artifact: Artifact, extension: <span class="hljs-built_in">string</span>): Path {
+    <span class="hljs-keyword">private</span> fileNameFor(prefix: <span class="hljs-built_in">string</span>, <span class="hljs-attr">artifactName</span>: Name, <span class="hljs-attr">artifact</span>: Artifact, <span class="hljs-attr">extension</span>: <span class="hljs-built_in">string</span>): Path {
         <span class="hljs-keyword">const</span> hash = Hash.of(artifact.base64EncodedValue).short();
         <span class="hljs-keyword">return</span> Path.fromSanitisedString(
             <span class="hljs-comment">// Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems</span>
@@ -346,7 +346,7 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> archive(relativePath: Path, contents: <span class="hljs-built_in">string</span>, encoding: <span class="hljs-built_in">string</span>, announce: <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">private</span> archive(relativePath: Path, <span class="hljs-attr">contents</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">encoding</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">announce</span>: <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">const</span> id = CorrelationId.create();
 
         <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
@@ -368,17 +368,19 @@
             });
     }
 
-    <span class="hljs-keyword">private</span> archivisationAnnouncement(evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">archivisationAnnouncement</span>(<span class="hljs-params">evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> {
             <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ActivityRelatedArtifactGenerated) {
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(
-                    evt.details,
+                    evt.sceneId,
+                    evt.activityId,
                     evt.name,
                     evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ArtifactGenerated) {
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactArchived(
+                    evt.sceneId,
                     evt.name,
                     evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,

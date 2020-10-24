@@ -124,15 +124,15 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/Order.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Information about the ordering (random or not) of this execution of the suite.
  *
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Order {
-    random: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">random</span>: <span class="hljs-built_in">boolean</span>;
     seed: <span class="hljs-built_in">string</span>;
-    sort: <span class="hljs-function">(<span class="hljs-params">items: <span class="hljs-built_in">Array</span>&lt;{ id: <span class="hljs-built_in">number</span> }&gt;</span>) =&gt;</span> <span class="hljs-built_in">Array</span>&lt;{ id: <span class="hljs-built_in">number</span> }&gt;;
+    sort: <span class="hljs-function">(<span class="hljs-params">items: <span class="hljs-built_in">Array</span>&lt;{ id: <span class="hljs-built_in">number</span> }&gt;</span>) =&gt;</span> <span class="hljs-built_in">Array</span>&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;;
 }
 </code></pre>
 

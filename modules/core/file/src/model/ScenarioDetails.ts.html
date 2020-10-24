@@ -268,8 +268,8 @@
 <span class="hljs-keyword">import</span> { Category } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Category&apos;</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Name&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ScenarioDetails <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScenarioDetails</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
             Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             Category.fromJSON(o.category <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
@@ -277,11 +277,11 @@
         );
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> category: Category,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> location: FileSystemLocation,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 }

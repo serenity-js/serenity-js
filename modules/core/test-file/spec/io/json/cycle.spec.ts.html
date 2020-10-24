@@ -275,11 +275,11 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         describe(<span class="hljs-string">&apos;stringify&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { description: <span class="hljs-string">&apos;number&apos;</span>,    value: <span class="hljs-number">1.5</span>          },
-                { description: <span class="hljs-string">&apos;string&apos;</span>,    value: <span class="hljs-string">&apos;hi&apos;</span>         },
-                { description: <span class="hljs-string">&apos;boolean&apos;</span>,   value: <span class="hljs-literal">true</span>         },
-                { description: <span class="hljs-string">&apos;null&apos;</span>,      value: <span class="hljs-literal">null</span>         },
-                { description: <span class="hljs-string">&apos;undefined&apos;</span>, value: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>       },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;number&apos;</span>,    <span class="hljs-attr">value</span>: <span class="hljs-number">1.5</span>          },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;string&apos;</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;hi&apos;</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;boolean&apos;</span>,   <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;null&apos;</span>,      <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;undefined&apos;</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>       },
             ]).
             it(<span class="hljs-string">&apos;behaves just like JSON.stringify&apos;</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
                 expect(stringify(value)).to.equal(<span class="hljs-built_in">JSON</span>.stringify(value));
@@ -289,10 +289,10 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         describe(<span class="hljs-string">&apos;parse&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { description: <span class="hljs-string">&apos;number&apos;</span>,    value: <span class="hljs-string">&apos;1.5&apos;</span>,   expected: <span class="hljs-number">1.5</span>       },
-                { description: <span class="hljs-string">&apos;string&apos;</span>,    value: <span class="hljs-string">&apos;&quot;hi&quot;&apos;</span>,  expected: <span class="hljs-string">&apos;hi&apos;</span>      },
-                { description: <span class="hljs-string">&apos;boolean&apos;</span>,   value: <span class="hljs-string">&apos;true&apos;</span>,  expected: <span class="hljs-literal">true</span>      },
-                { description: <span class="hljs-string">&apos;null&apos;</span>,      value: <span class="hljs-string">&apos;null&apos;</span>,  expected: <span class="hljs-literal">null</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;number&apos;</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;1.5&apos;</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-number">1.5</span>       },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;string&apos;</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;&quot;hi&quot;&apos;</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;hi&apos;</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;boolean&apos;</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;true&apos;</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;null&apos;</span>,      <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;null&apos;</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">null</span>      },
             ]).
             it(<span class="hljs-string">&apos;behaves just like JSON.parse&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
                 expect(parse(value)).to.equal(<span class="hljs-built_in">JSON</span>.parse(value));
@@ -306,13 +306,13 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         describe(<span class="hljs-string">&apos;stringify&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { description: <span class="hljs-string">&apos;empty object&apos;</span>,  value: { }                               },
-                { description: <span class="hljs-string">&apos;simple object&apos;</span>, value: { name: <span class="hljs-string">&apos;Jan&apos;</span> }                   },
-                { description: <span class="hljs-string">&apos;nested object&apos;</span>, value: { l1: { l2: <span class="hljs-string">&apos;value&apos;</span>} }            },
-                { description: <span class="hljs-string">&apos;empty array&apos;</span>,   value: []                                },
-                { description: <span class="hljs-string">&apos;simple array&apos;</span>,  value: [ <span class="hljs-string">&apos;1&apos;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
-                { description: <span class="hljs-string">&apos;nested array&apos;</span>,  value: [ [ <span class="hljs-string">&apos;1&apos;</span> ], [[<span class="hljs-string">&apos;2&apos;</span>]], <span class="hljs-string">&apos;3&apos;</span> ]         },
-                { description: <span class="hljs-string">&apos;mixed&apos;</span>,         value: [{ values: [<span class="hljs-number">1</span>, { name: <span class="hljs-string">&apos;Jan&apos;</span> }]}] },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;empty object&apos;</span>,  <span class="hljs-attr">value</span>: { }                               },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;simple object&apos;</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span> }                   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;nested object&apos;</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">&apos;value&apos;</span>} }            },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;empty array&apos;</span>,   <span class="hljs-attr">value</span>: []                                },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;simple array&apos;</span>,  <span class="hljs-attr">value</span>: [ <span class="hljs-string">&apos;1&apos;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;nested array&apos;</span>,  <span class="hljs-attr">value</span>: [ [ <span class="hljs-string">&apos;1&apos;</span> ], [[<span class="hljs-string">&apos;2&apos;</span>]], <span class="hljs-string">&apos;3&apos;</span> ]         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;mixed&apos;</span>,         <span class="hljs-attr">value</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span> }]}] },
             ]).
             it(<span class="hljs-string">&apos;behaves just like JSON.stringify&apos;</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
                 expect(stringify(value)).to.equal(<span class="hljs-built_in">JSON</span>.stringify(value));
@@ -322,13 +322,13 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         describe(<span class="hljs-string">&apos;parse&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { description: <span class="hljs-string">&apos;empty object&apos;</span>,  value: <span class="hljs-string">&apos;{}&apos;</span>,                                expected: { }                               },
-                { description: <span class="hljs-string">&apos;simple object&apos;</span>, value: <span class="hljs-string">&apos;{&quot;name&quot;:&quot;Jan&quot;}&apos;</span>,                    expected: { name: <span class="hljs-string">&apos;Jan&apos;</span>}                    },
-                { description: <span class="hljs-string">&apos;nested object&apos;</span>, value: <span class="hljs-string">&apos;{&quot;l1&quot;:{&quot;l2&quot;:&quot;value&quot;}}&apos;</span>,             expected: { l1: { l2: <span class="hljs-string">&apos;value&apos;</span>} }            },
-                { description: <span class="hljs-string">&apos;empty array&apos;</span>,   value: <span class="hljs-string">&apos;[]&apos;</span>,                                expected: []                                },
-                { description: <span class="hljs-string">&apos;simple array&apos;</span>,  value: <span class="hljs-string">&apos;[&quot;1&quot;,2,3]&apos;</span>,                         expected: [ <span class="hljs-string">&apos;1&apos;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
-                { description: <span class="hljs-string">&apos;nested array&apos;</span>,  value: <span class="hljs-string">&apos;[[&quot;1&quot;],[[&quot;2&quot;]],&quot;3&quot;]&apos;</span>,               expected: [ [ <span class="hljs-string">&apos;1&apos;</span> ], [[<span class="hljs-string">&apos;2&apos;</span>]], <span class="hljs-string">&apos;3&apos;</span> ]         },
-                { description: <span class="hljs-string">&apos;mixed&apos;</span>,         value: <span class="hljs-string">&apos;[{&quot;values&quot;:[1,{&quot;name&quot;:&quot;Jan&quot;}]}]&apos;</span>,   expected: [{ values: [<span class="hljs-number">1</span>, { name: <span class="hljs-string">&apos;Jan&apos;</span> }]}] },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;empty object&apos;</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;{}&apos;</span>,                                <span class="hljs-attr">expected</span>: { }                               },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;simple object&apos;</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;{&quot;name&quot;:&quot;Jan&quot;}&apos;</span>,                    <span class="hljs-attr">expected</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span>}                    },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;nested object&apos;</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;{&quot;l1&quot;:{&quot;l2&quot;:&quot;value&quot;}}&apos;</span>,             <span class="hljs-attr">expected</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">&apos;value&apos;</span>} }            },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;empty array&apos;</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;[]&apos;</span>,                                <span class="hljs-attr">expected</span>: []                                },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;simple array&apos;</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;[&quot;1&quot;,2,3]&apos;</span>,                         <span class="hljs-attr">expected</span>: [ <span class="hljs-string">&apos;1&apos;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;nested array&apos;</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;[[&quot;1&quot;],[[&quot;2&quot;]],&quot;3&quot;]&apos;</span>,               <span class="hljs-attr">expected</span>: [ [ <span class="hljs-string">&apos;1&apos;</span> ], [[<span class="hljs-string">&apos;2&apos;</span>]], <span class="hljs-string">&apos;3&apos;</span> ]         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;mixed&apos;</span>,         <span class="hljs-attr">value</span>: <span class="hljs-string">&apos;[{&quot;values&quot;:[1,{&quot;name&quot;:&quot;Jan&quot;}]}]&apos;</span>,   <span class="hljs-attr">expected</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span> }]}] },
             ]).
             it(<span class="hljs-string">&apos;behaves just like JSON.parse&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
                 expect(parse(value)).to.deep.equal(<span class="hljs-built_in">JSON</span>.parse(value));
@@ -427,8 +427,8 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">simpleNestedObject</span>(<span class="hljs-params"></span>) </span>{
 
             <span class="hljs-keyword">const</span> sample = {
-                property: <span class="hljs-string">&apos;value&apos;</span>,
-                self: <span class="hljs-literal">undefined</span>,
+                <span class="hljs-attr">property</span>: <span class="hljs-string">&apos;value&apos;</span>,
+                <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
             };
             sample.self = sample;
 
@@ -438,12 +438,12 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">complexNestedObject</span>(<span class="hljs-params"></span>) </span>{
 
             <span class="hljs-keyword">const</span> sample = {
-                property: <span class="hljs-string">&apos;value&apos;</span>,
-                another: {
-                    property: <span class="hljs-string">&apos;another value&apos;</span>,
-                    self: <span class="hljs-literal">undefined</span>,
+                <span class="hljs-attr">property</span>: <span class="hljs-string">&apos;value&apos;</span>,
+                <span class="hljs-attr">another</span>: {
+                    <span class="hljs-attr">property</span>: <span class="hljs-string">&apos;another value&apos;</span>,
+                    <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
                 },
-                self: <span class="hljs-literal">undefined</span>,
+                <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
             };
             sample.another.self = sample.another;
             sample.self = sample;
@@ -454,13 +454,13 @@ describe(<span class="hljs-string">&apos;cycle&apos;</span>, <span class="hljs-f
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectWithParallelReferences</span>(<span class="hljs-params"></span>) </span>{
 
             <span class="hljs-keyword">const</span> property = {
-                value: <span class="hljs-number">42</span>,
-                sibling: <span class="hljs-literal">undefined</span>,
+                <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">sibling</span>: <span class="hljs-literal">undefined</span>,
             }
 
             <span class="hljs-keyword">const</span> sample = {
-                property1: property,
-                property2: property,
+                <span class="hljs-attr">property1</span>: property,
+                <span class="hljs-attr">property2</span>: property,
             };
 
             sample.property1.sibling = sample.property2;

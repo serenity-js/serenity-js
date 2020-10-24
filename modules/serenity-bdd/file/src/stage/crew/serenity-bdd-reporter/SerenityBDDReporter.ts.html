@@ -121,24 +121,20 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent, SceneSequenceDetected, SceneStarts, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { Name, ScenarioDetails, TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 
-<span class="hljs-keyword">import</span> { Current } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Current&apos;</span>;
-<span class="hljs-keyword">import</span> { SceneReport, SceneReports } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reports&apos;</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityBDDJsonSchema&apos;</span>;
-<span class="hljs-keyword">import</span> { SceneReportingStrategy, SceneSequenceReportingStrategy, SingleSceneReportingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./strategies&apos;</span>;
+<span class="hljs-keyword">import</span> { EventQueueProcessors, EventQueues } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./processors&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
  *  that [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)
  *  can parse to produce HTML reports and living documentation.
  *
- * @example &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- *  import { ArtifactArchiver, serenity } from &apos;@serenity-js/core&apos;;
- *  import { SerenityBDDReporter } from &apos;@serenity-js/serenity-bdd&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
+ *  import { ArtifactArchiver, serenity } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { SerenityBDDReporter } from &apos;<span class="hljs-doctag">@serenity</span>-js/serenity-bdd&apos;;
  *
  *  serenity.configure({
  *    crew: [
@@ -147,15 +143,15 @@
  *    ],
  *  });
  *
- * @example &lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
  *  const
- *    { ArtifactArchiver }    = require(&apos;@serenity-js/core&apos;),
- *    { SerenityBDDReporter } = require(&apos;@serenity-js/serenity-bdd&apos;);
+ *    { ArtifactArchiver }    = require(&apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;),
+ *    { SerenityBDDReporter } = require(&apos;<span class="hljs-doctag">@serenity</span>-js/serenity-bdd&apos;);
  *
  *  exports.config = {
  *    framework:     &apos;custom&apos;,
- *    frameworkPath: require.resolve(&apos;@serenity-js/protractor/adapter&apos;),
+ *    frameworkPath: require.resolve(&apos;<span class="hljs-doctag">@serenity</span>-js/protractor/adapter&apos;),
  *
  *    serenity: {
  *      crew: [
@@ -168,13 +164,12 @@
  *    // other Protractor config
  *  };
  *
- * @public
- * @implements {@serenity-js/core/lib/stage~StageCrewMember}
+ * <span class="hljs-doctag">@public</span>
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/stage~StageCrewMember}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SerenityBDDReporter <span class="hljs-keyword">implements</span> StageCrewMember {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reports: SceneReports = <span class="hljs-keyword">new</span> SceneReports();
-    <span class="hljs-keyword">private</span> currentScenario = <span class="hljs-keyword">new</span> Current&lt;ScenarioDetails&gt;();
-    <span class="hljs-keyword">private</span> currentStrategy = <span class="hljs-keyword">new</span> Current&lt;SceneReportingStrategy&gt;();
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityBDDReporter</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> eventQueues = <span class="hljs-keyword">new</span> EventQueues();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> processors = <span class="hljs-keyword">new</span> EventQueueProcessors();
 
     <span class="hljs-comment">/**
      * A queue for domain events that took place before the SceneStarts event,
@@ -183,97 +178,60 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> eventQueue: DomainEvent[] = [];
 
     <span class="hljs-comment">/**
-     * @param {@serenity-js/core/lib/stage~Stage} [stage=null] stage
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/stage~Stage}</span> </span>[stage=null] stage
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Creates a new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
-     *  and assigns it to a given {@link @serenity-js/core/lib/stage~Stage}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Creates a new instance of this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}
+     *  and assigns it to a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~Stage}.
      *
-     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/stage~StageCrewMember}</span></span>
      *
-     * @param {@serenity-js/core/lib/stage~Stage} stage - An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to
-     * @returns {@serenity-js/core/lib/stage~StageCrewMember} - A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/stage~Stage}</span> <span class="hljs-variable">stage</span></span>
+     *  An instance of a {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~Stage} this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember} will be assigned to
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/stage~StageCrewMember}</span></span>
+     *  A new instance of this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}
      */</span>
     assignedTo(stage: Stage): StageCrewMember {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SerenityBDDReporter(stage);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Handles {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/events~DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}.
      *
-     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/stage~StageCrewMember}</span></span>
      *
-     * @param {@serenity-js/core/lib/events~DomainEvent} event
-     * @returns {void}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/events~DomainEvent}</span> <span class="hljs-variable">event</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
     notifyOf (event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">return</span> match&lt;DomainEvent, <span class="hljs-built_in">void</span>&gt;(event)
-            .when(SceneSequenceDetected, <span class="hljs-function">(<span class="hljs-params">e: SceneSequenceDetected</span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.use(SceneSequenceReportingStrategy, e.value);
-            })
-            .when(SceneStarts, <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.shouldChangeStrategyFor(e.value)) {
-                    <span class="hljs-built_in">this</span>.use(SingleSceneReportingStrategy, e.value);
-                }
 
-                <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.fetchOrCreateNewReport();
-
-                <span class="hljs-built_in">this</span>.reports.saveInProgress(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(e, report));
-
-                <span class="hljs-built_in">this</span>.drainAnyQueuedEventsAndRecordIn(report);
-            })
-            .when(TestRunFinishes, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.reports.map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> <span class="hljs-built_in">this</span>.broadcast(report.toJSON()));
-            })
-            .else(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.currentStrategy.isSet()) {
-                    <span class="hljs-built_in">this</span>.reports.saveInProgress(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(e, <span class="hljs-built_in">this</span>.reports.for(<span class="hljs-built_in">this</span>.currentScenario.value)));
-                } <span class="hljs-keyword">else</span> {
-                    <span class="hljs-built_in">this</span>.eventQueue.push(e);
-                }
-            });
-    }
-
-    <span class="hljs-keyword">private</span> fetchOrCreateNewReport() {
-        <span class="hljs-keyword">const</span> report = <span class="hljs-built_in">this</span>.reports.for(<span class="hljs-built_in">this</span>.currentScenario.value);
-
-        <span class="hljs-keyword">if</span> (! report.isCompleted()) {
-            <span class="hljs-keyword">return</span> report;
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.isSceneSpecific(event)) {
+            <span class="hljs-built_in">this</span>.eventQueues.enqueue(event);
         }
 
-        <span class="hljs-built_in">this</span>.reports.saveCompleted(report);
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> TestRunFinishes) {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.reports.createReportFor(<span class="hljs-built_in">this</span>.currentScenario.value);
-    }
-
-    <span class="hljs-keyword">private</span> drainAnyQueuedEventsAndRecordIn(report: SceneReport) {
-        <span class="hljs-keyword">while</span> (<span class="hljs-built_in">this</span>.eventQueue.length &gt; <span class="hljs-number">0</span>) {
-            <span class="hljs-built_in">this</span>.reports.saveInProgress(<span class="hljs-built_in">this</span>.currentStrategy.value.handle(
-                <span class="hljs-built_in">this</span>.eventQueue.shift(),
-                report
-            ));
+            <span class="hljs-built_in">this</span>.processors
+                .process(<span class="hljs-built_in">this</span>.eventQueues)
+                .forEach(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                    <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+                        result.sceneId,
+                        result.name,
+                        result.artifact,
+                        <span class="hljs-built_in">this</span>.stage.currentTime(),
+                    ));
+                });
         }
     }
 
-    <span class="hljs-keyword">private</span> shouldChangeStrategyFor(scenario: ScenarioDetails) {
-        <span class="hljs-keyword">return</span> ! (<span class="hljs-built_in">this</span>.currentStrategy.isSet() &amp;&amp; <span class="hljs-built_in">this</span>.currentStrategy.value.worksFor(scenario));
-    }
-
-    <span class="hljs-keyword">private</span> use(strategy: <span class="hljs-keyword">new</span> (sd: ScenarioDetails) =&gt; SceneReportingStrategy, scenario: ScenarioDetails) {
-        <span class="hljs-built_in">this</span>.currentStrategy.value = <span class="hljs-keyword">new</span> strategy(scenario);
-        <span class="hljs-built_in">this</span>.currentScenario.value = scenario;
-    }
-
-    <span class="hljs-keyword">private</span> broadcast(report: Partial&lt;SerenityBDDReport&gt;) {
-        <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
-            <span class="hljs-keyword">new</span> Name(report.name),
-            TestReport.fromJSON(report),
-        ));
+    <span class="hljs-keyword">private</span> isSceneSpecific(event: DomainEvent): event is DomainEvent &amp; { <span class="hljs-attr">sceneId</span>: CorrelationId } {
+        <span class="hljs-keyword">return</span> event.hasOwnProperty(<span class="hljs-string">&apos;sceneId&apos;</span>);
     }
 }
 </code></pre>

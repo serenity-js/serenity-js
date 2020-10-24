@@ -201,17 +201,17 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
             &lt;/html&gt;
         `</span>);
 
-    <span class="hljs-comment">/** @test {CSSClasses} */</span>
-    <span class="hljs-comment">/** @test {CSSClasses.of} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses}</span> </span>*/</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses.of}</span> </span>*/</span>
     describe(<span class="hljs-string">&apos;of&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
-            { description: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    expected: []                            },
-            { description: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    expected: []                            },
-            { description: <span class="hljs-string">&apos;class-attribute-with-whitespace-only&apos;</span>,  expected: []                            },
-            { description: <span class="hljs-string">&apos;single-class&apos;</span>,                          expected: [<span class="hljs-string">&apos;pretty&apos;</span>]                    },
-            { description: <span class="hljs-string">&apos;several-classes&apos;</span>,                       expected: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
-            { description: <span class="hljs-string">&apos;several-classes-with-whitespace&apos;</span>,       expected: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;class-attribute-with-whitespace-only&apos;</span>,  <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;single-class&apos;</span>,                          <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>]                    },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;several-classes&apos;</span>,                       <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;several-classes-with-whitespace&apos;</span>,       <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
         ]).
         it(<span class="hljs-string">&apos;allows the actor to read the css classes of a DOM element matching the locator&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ description, expected }</span>) =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
@@ -223,8 +223,8 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
                 ),
             ));
 
-        <span class="hljs-comment">/** @test {CSSClasses} */</span>
-        <span class="hljs-comment">/** @test {CSSClasses#of} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses#of}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(testPage),
 

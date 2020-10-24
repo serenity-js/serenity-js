@@ -187,9 +187,9 @@
 describe(<span class="hljs-string">&apos;isClickable&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> Page = {
-        Enabled_Button:     Target.the(<span class="hljs-string">&apos;enabled button&apos;</span>).located(by.id(<span class="hljs-string">&apos;enabled&apos;</span>)),
-        Disabled_Button:    Target.the(<span class="hljs-string">&apos;disabled button&apos;</span>).located(by.id(<span class="hljs-string">&apos;disabled&apos;</span>)),
-        Hidden_Button:      Target.the(<span class="hljs-string">&apos;hidden button&apos;</span>).located(by.id(<span class="hljs-string">&apos;hidden&apos;</span>)),
+        <span class="hljs-attr">Enabled_Button</span>:     Target.the(<span class="hljs-string">&apos;enabled button&apos;</span>).located(by.id(<span class="hljs-string">&apos;enabled&apos;</span>)),
+        <span class="hljs-attr">Disabled_Button</span>:    Target.the(<span class="hljs-string">&apos;disabled button&apos;</span>).located(by.id(<span class="hljs-string">&apos;disabled&apos;</span>)),
+        <span class="hljs-attr">Hidden_Button</span>:      Target.the(<span class="hljs-string">&apos;hidden button&apos;</span>).located(by.id(<span class="hljs-string">&apos;hidden&apos;</span>)),
     };
 
     beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
@@ -204,33 +204,33 @@ describe(<span class="hljs-string">&apos;isClickable&apos;</span>, <span class="
         `</span>)),
     ));
 
-    <span class="hljs-comment">/** @test {isClickable} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isClickable}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows the actor flow to continue when the element is clickable&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
         Wait.until(Page.Enabled_Button, isClickable()),
         Ensure.that(Page.Enabled_Button, isClickable()),
     )).to.be.fulfilled);
 
-    <span class="hljs-comment">/** @test {isClickable} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isClickable}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element is disabled&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Disabled_Button, isClickable()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the disabled button to become enabled`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isClickable} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isClickable}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when element is not visible&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Ensure.that(Page.Hidden_Button, isClickable()),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected the hidden button to become displayed`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isClickable} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isClickable}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of an assertion&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(Page.Enabled_Button, isClickable()).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that the enabled button does become clickable`</span>);
     });
 
-    <span class="hljs-comment">/** @test {isClickable} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{isClickable}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description of a wait&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Wait.until(Page.Enabled_Button, isClickable()).toString())
             .to.equal(<span class="hljs-string">`#actor waits up to 5s until the enabled button does become clickable`</span>);

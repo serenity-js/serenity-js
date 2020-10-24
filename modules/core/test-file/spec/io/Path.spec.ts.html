@@ -268,7 +268,7 @@
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {Path} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
 describe (<span class="hljs-string">&apos;Path&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     describe(<span class="hljs-string">&apos;when used across different operating systems&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -339,18 +339,18 @@ describe (<span class="hljs-string">&apos;Path&apos;</span>, <span class="hljs-f
     });
 
     given(
-        { description: <span class="hljs-string">&apos;file in a sub-directory&apos;</span>, path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan/file.json&apos;</span>), expected: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>) },
-        { description: <span class="hljs-string">&apos;sub-directory&apos;</span>,           path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>),           expected: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home&apos;</span>) },
-        { description: <span class="hljs-string">&apos;root&apos;</span>,                    path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>),                   expected: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;file in a sub-directory&apos;</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan/file.json&apos;</span>), <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;sub-directory&apos;</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home&apos;</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;root&apos;</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>) },
     ).
     it(<span class="hljs-string">&apos;can tell the parent directory&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
         expect(path.directory()).to.equal(expected);
     });
 
     given(
-        { description: <span class="hljs-string">&apos;file in a sub-directory&apos;</span>, path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan/file.json&apos;</span>), expected: <span class="hljs-string">&apos;file.json&apos;</span> },
-        { description: <span class="hljs-string">&apos;sub-directory&apos;</span>,           path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>),           expected: <span class="hljs-string">&apos;jan&apos;</span> },
-        { description: <span class="hljs-string">&apos;root&apos;</span>,                    path: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>),                   expected: <span class="hljs-string">&apos;&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;file in a sub-directory&apos;</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan/file.json&apos;</span>), <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;file.json&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;sub-directory&apos;</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/jan&apos;</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;jan&apos;</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;root&apos;</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/&apos;</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span> },
     ).
     it(<span class="hljs-string">&apos;can tell the name of the directory in which the file lives&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
         expect(path.basename()).to.equal(expected);

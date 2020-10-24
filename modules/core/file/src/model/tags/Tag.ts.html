@@ -266,10 +266,10 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> TagTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./index&apos;</span>;
 
 <span class="hljs-comment">/**
- * @access public
+ * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Tag <span class="hljs-keyword">extends</span> TinyType {
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Tag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">o: JSONObject</span>)</span> {
         <span class="hljs-keyword">const</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> = ensure(<span class="hljs-string">&apos;serialised tag type&apos;</span>, o.type, isDefined(), isString()) <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
 
         <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">Object</span>.keys(TagTypes).find(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> TagTypes[t].Type === <span class="hljs-keyword">type</span>) || TagTypes.ArbitraryTag.name;
@@ -281,15 +281,15 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TagTypes[found](o.name);
     }
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
 
         ensure(<span class="hljs-string">&apos;Tag name&apos;</span>, name, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
         ensure(<span class="hljs-string">&apos;Tag type&apos;</span>, <span class="hljs-keyword">type</span>, isDefined(), property(<span class="hljs-string">&apos;length&apos;</span>, isGreaterThan(<span class="hljs-number">0</span>)));
     }
 
-    toJSON(): { name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> } {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.toJSON() <span class="hljs-keyword">as</span> { name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> };
+    toJSON(): { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.toJSON() <span class="hljs-keyword">as</span> { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> };
     }
 }
 </code></pre>

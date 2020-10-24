@@ -186,12 +186,12 @@
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../UIActors&apos;</span>;
 
-<span class="hljs-comment">/** @test {ModalDialog} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> Example = {
-        trigger:    Target.the(<span class="hljs-string">&apos;alert trigger&apos;</span>).located(by.id(<span class="hljs-string">&apos;trigger&apos;</span>)),
-        result:     Target.the(<span class="hljs-string">&apos;result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>)),
+        <span class="hljs-attr">trigger</span>:    Target.the(<span class="hljs-string">&apos;alert trigger&apos;</span>).located(by.id(<span class="hljs-string">&apos;trigger&apos;</span>)),
+        <span class="hljs-attr">result</span>:     Target.the(<span class="hljs-string">&apos;result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>)),
     }
 
     describe(<span class="hljs-string">&apos;when working with alert(),&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -208,10 +208,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                 Click.on(Example.trigger),
             ));
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Accept} */</span>
-        <span class="hljs-comment">/** @test {Accept.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to accept an alert&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Accept.the(ModalDialog.window()),
@@ -219,10 +219,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Dismiss} */</span>
-        <span class="hljs-comment">/** @test {Dismiss.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to dismiss an alert&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Dismiss.the(ModalDialog.window()),
@@ -230,10 +230,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.message} */</span>
-        <span class="hljs-comment">/** @test {Dismiss} */</span>
-        <span class="hljs-comment">/** @test {Dismiss.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.message}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to read the message on an alert&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Ensure.that(ModalDialog.message(), equals(<span class="hljs-string">&apos;Hello!&apos;</span>)),
@@ -256,10 +256,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                 Click.on(Example.trigger),
             ));
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Accept} */</span>
-        <span class="hljs-comment">/** @test {Accept.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to accept a confirmation dialog&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Accept.the(ModalDialog.window()),
@@ -267,10 +267,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Dismiss} */</span>
-        <span class="hljs-comment">/** @test {Dismiss.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to dismiss a confirmation dialog&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Dismiss.the(ModalDialog.window()),
@@ -278,8 +278,8 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.message} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.message}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to read the message on a confirmation dialog&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Ensure.that(ModalDialog.message(), equals(<span class="hljs-string">&apos;Continue?&apos;</span>)),
@@ -300,10 +300,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                 Click.on(Example.trigger),
             ));
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Accept} */</span>
-        <span class="hljs-comment">/** @test {Accept.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Accept.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to accept a prompt&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Accept.the(ModalDialog.window()),
@@ -311,10 +311,10 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.window} */</span>
-        <span class="hljs-comment">/** @test {Dismiss} */</span>
-        <span class="hljs-comment">/** @test {Dismiss.the} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.window}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Dismiss.the}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to dismiss a prompt&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Dismiss.the(ModalDialog.window()),
@@ -322,8 +322,8 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.message} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.message}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to read the message on a prompt&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Ensure.that(ModalDialog.message(), equals(<span class="hljs-string">&apos;Feeling lucky?&apos;</span>)),
@@ -331,9 +331,9 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             ),
         );
 
-        <span class="hljs-comment">/** @test {ModalDialog} */</span>
-        <span class="hljs-comment">/** @test {ModalDialog.message} */</span>
-        <span class="hljs-comment">/** @test {Enter.theValue} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.message}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to enter value into a prompt&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Enter.theValue(<span class="hljs-string">&apos;certainly&apos;</span>).into(ModalDialog.window()),
@@ -358,8 +358,8 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                 `</span>)),
             ));
 
-        <span class="hljs-comment">/** @test {ModalDialog.hasPoppedUp} */</span>
-        <span class="hljs-comment">/** @test {Wait.until} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ModalDialog.hasPoppedUp}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait.until}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to wait until a modal dialog is present&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Ensure.that(ModalDialog.hasPoppedUp(), isFalse()),
@@ -379,15 +379,15 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
             recorder = <span class="hljs-keyword">new</span> EventRecorder();
 
             configure({
-                actors: <span class="hljs-keyword">new</span> UIActors(),
-                crew: [
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> UIActors(),
+                <span class="hljs-attr">crew</span>: [
                     Photographer.whoWill(TakePhotosOfInteractions),
                     recorder,
                 ]
             })
         });
 
-        <span class="hljs-comment">/** @test {Photographer} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Photographer}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;is does not negatively impact the screenshot capture process&apos;</span>, <span class="hljs-function">() =&gt;</span>
             actorCalled(<span class="hljs-string">&apos;Nick&apos;</span>).attemptsTo(
                 Navigate.to(sandboxWith(<span class="hljs-string">`
@@ -406,8 +406,8 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                     .next(AsyncOperationFailed, <span class="hljs-function">(<span class="hljs-params">{ error }: AsyncOperationFailed</span>) =&gt;</span> {
                         expect(error.name).to.equal(<span class="hljs-string">&apos;UnexpectedAlertOpenError&apos;</span>);
                     })
-                    .next(InteractionFinished, <span class="hljs-function">(<span class="hljs-params">{ value }: InteractionFinished</span>) =&gt;</span> {
-                        expect(value.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Nick accepts the modal dialog window&apos;</span>));
+                    .next(InteractionFinished, <span class="hljs-function">(<span class="hljs-params">{ details }: InteractionFinished</span>) =&gt;</span> {
+                        expect(details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Nick accepts the modal dialog window&apos;</span>));
                     })
             }),
         );

@@ -129,78 +129,78 @@
 <span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Starts local server so that a test can interact with it.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> StartLocalServer {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StartLocalServer</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Starts local test server on a random available ports.
      *
-     * @see {@link LocalServer.url}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LocalServer.url}</span></span>
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> onRandomPort(): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnRandomPort();
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  to start a local test server on one of the preferred ports.
      *
      *  Please note: this method is kept for backwards compatibility. However, its behaviour has changed
      *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
      *  passed as an argument.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number[]&gt;} preferredPorts
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;number[]&gt;}</span> <span class="hljs-variable">preferredPorts</span></span>
      *  A list of preferred ports. Please note that only the first one will be used!
      *
-     * @see {@link LocalServer.url}
-     * @see {@link StartLocalServer.onPort}
-     * @see {@link StartLocalServer.onRandomPortBetween}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LocalServer.url}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StartLocalServer.onPort}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StartLocalServer.onRandomPortBetween}</span></span>
      *
-     * @deprecated Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
+     * <span class="hljs-doctag">@deprecated </span>Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> onOneOfThePreferredPorts(preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnFirstOf(preferredPorts);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  to start a local test server on a `preferredPort`, or a random one if that&apos;s not available.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} preferredPort
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;}</span> <span class="hljs-variable">preferredPort</span></span>
      *  preferred port
      *
-     * @see {@link LocalServer.url}
-     * @see {@link @serenity-js/core/lib/screenplay~Answerable}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LocalServer.url}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Answerable}</span></span>
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> onPort(preferredPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnPort(preferredPort);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  to start a local test server on a random port between `lowestPort` and `highestPort`.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} lowestPort
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;}</span> <span class="hljs-variable">lowestPort</span></span>
      *  Lower bound of the preferred port range
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;} highestPort
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;number&gt;}</span> <span class="hljs-variable">highestPort</span></span>
      *  Upper bound of the preferred port range
      *
-     * @see {@link LocalServer.url}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link LocalServer.url}</span></span>
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> onRandomPortBetween(lowestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;, highestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StartLocalServerOnRandomPortBetween(lowestPort, highestPort);
@@ -208,9 +208,9 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> StartLocalServerOnRandomPort <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StartLocalServerOnRandomPort</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
     performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).listen();
@@ -222,11 +222,11 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> StartLocalServerOnPort <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StartLocalServerOnPort</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -241,14 +241,14 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> StartLocalServerOnRandomPortBetween <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StartLocalServerOnRandomPortBetween</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> lowestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> highestPort: Answerable&lt;<span class="hljs-built_in">number</span>&gt;,
-    </span>) {
+    </span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -266,11 +266,11 @@
 }
 
 <span class="hljs-comment">/**
- * @package
+ * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">class</span> StartLocalServerOnFirstOf <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StartLocalServerOnFirstOf</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> preferredPorts: Answerable&lt;<span class="hljs-built_in">number</span>[]&gt;</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 

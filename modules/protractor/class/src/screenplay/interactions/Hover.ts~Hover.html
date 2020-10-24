@@ -212,7 +212,7 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;a data-test=<span class="hljs-string">&quot;example-link&quot;</span>
-     <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;off&quot;</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;off&quot;</span>
      onmouseover=<span class="hljs-string">&quot;this.className=&apos;on&apos;;&quot;</span>
      onmouseout=<span class="hljs-string">&quot;this.className=&apos;off&apos;;&quot;</span>
      href=<span class="hljs-string">&quot;/&quot;</span>&gt;hover over me&lt;/a&gt;</code></pre>
@@ -222,7 +222,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Example {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> </span>{
      <span class="hljs-keyword">static</span> link = Target.the(<span class="hljs-string">&apos;example link&apos;</span>)
          .located(by.css(<span class="hljs-string">&apos;[data-test=&quot;example-link&quot;]&apos;</span>));
  }</code></pre>

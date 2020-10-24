@@ -269,30 +269,30 @@
 <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Question&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  Enables the {@link Actor} to {@link TakeNote} of an answer to a given {@link Question}
- *  and to retrieve their {@link Note} later.
+ * <span class="hljs-doctag">@desc</span>
+ *  Enables the {<span class="hljs-doctag">@link </span>Actor} to {<span class="hljs-doctag">@link </span>TakeNote} of an answer to a given {<span class="hljs-doctag">@link </span>Question}
+ *  and to retrieve their {<span class="hljs-doctag">@link </span>Note} later.
  *
- * @see {@link Note}
- * @see {@link TakeNote}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Note}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link TakeNote}</span></span>
  *
- * @implements {Ability}
- * @implements {Discardable}
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{Ability}</span></span>
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{Discardable}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TakeNotes <span class="hljs-keyword">implements</span> Discardable, Ability {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakeNotes</span> <span class="hljs-title">implements</span> <span class="hljs-title">Discardable</span>, <span class="hljs-title">Ability</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> sharedNotepad = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;();
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates an ability to {@link TakeNotes} that uses an empty notepad.
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates an ability to {<span class="hljs-doctag">@link </span>TakeNotes} that uses an empty notepad.
      *
-     *  This method should be used when you need the {@link Actor} to {@link TakeNote}
-     *  of an answer to some {@link Question} and retrieve such {@link Note} later on in the same scenario,
-     *  but you don&apos;t need the {@link Actor}s to share their notes.
+     *  This method should be used when you need the {<span class="hljs-doctag">@link </span>Actor} to {<span class="hljs-doctag">@link </span>TakeNote}
+     *  of an answer to some {<span class="hljs-doctag">@link </span>Question} and retrieve such {<span class="hljs-doctag">@link </span>Note} later on in the same scenario,
+     *  but you don&apos;t need the {<span class="hljs-doctag">@link </span>Actor}s to share their notes.
      *
-     * @example
-     *  import { actorCalled, Log, Note, TakeNote, TakeNotes } from &apos;@serenity-js/core&apos;
-     *  import { BrowseTheWeb, Target, Text } from &apos;@serenity-js/protractor&apos;
+     * <span class="hljs-doctag">@example</span>
+     *  import { actorCalled, Log, Note, TakeNote, TakeNotes } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;
+     *  import { BrowseTheWeb, Target, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;
      *  import { by, protractor } from &apos;protractor&apos;;
      *
      *  const actor = actorCalled(&apos;Apisitt&apos;).whoCan(
@@ -307,9 +307,9 @@
      *      Log.the(Note.of(LastResponse.body())),  // log it later, or pass to any other interaction
      *  );
      *
-     * @example
-     *  import { actorCalled, Note, TakeNote, TakeNotes } from &apos;@serenity-js/core&apos;
-     *  import { BrowseTheWeb, Target, Text } from &apos;@serenity-js/protractor&apos;
+     * <span class="hljs-doctag">@example</span>
+     *  import { actorCalled, Note, TakeNote, TakeNotes } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;
+     *  import { BrowseTheWeb, Target, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;
      *  import { by, protractor } from &apos;protractor&apos;;
      *
      *  class Vouchers {
@@ -328,24 +328,24 @@
      *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
      *  );
      *
-     * @returns {TakeNotes}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{TakeNotes}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> usingAnEmptyNotepad(): TakeNotes {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TakeNotes(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;());
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates an ability to {@link TakeNotes} that uses a notepad that can be shared amongst {@link Actor}s.
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates an ability to {<span class="hljs-doctag">@link </span>TakeNotes} that uses a notepad that can be shared amongst {<span class="hljs-doctag">@link </span>Actor}s.
      *
-     *  This method should be used when you need the {@link Actor}s to {@link TakeNote}s
-     *  of answers to some {@link Question}s, share those notes amongst themselves,
-     *  and retrieve such shared {@link Note}s later on in the same scenario.
+     *  This method should be used when you need the {<span class="hljs-doctag">@link </span>Actor}s to {<span class="hljs-doctag">@link </span>TakeNote}s
+     *  of answers to some {<span class="hljs-doctag">@link </span>Question}s, share those notes amongst themselves,
+     *  and retrieve such shared {<span class="hljs-doctag">@link </span>Note}s later on in the same scenario.
      *
-     * @example
-     *  import { actorCalled, Note, TakeNote, TakeNotes } from &apos;@serenity-js/core&apos;
-     *  import { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } from &apos;@serenity-js/local-server&apos;
-     *  import { BrowseTheWeb } from &apos;@serenity-js/protractor&apos;
+     * <span class="hljs-doctag">@example</span>
+     *  import { actorCalled, Note, TakeNote, TakeNotes } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;
+     *  import { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } from &apos;<span class="hljs-doctag">@serenity</span>-js/local-server&apos;
+     *  import { BrowseTheWeb } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;
      *
      *  const server = http.createServer(function (request, response) {
      *      response.setHeader(&apos;Connection&apos;, &apos;close&apos;);
@@ -372,61 +372,61 @@
      *      // perform some UI interactions
      *  );
      *
-     * @returns {TakeNotes}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{TakeNotes}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> usingASharedNotepad(): TakeNotes {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TakeNotes(TakeNotes.sharedNotepad);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Retrieves the {@link Ability} to {@link TakeNotes}
-     *  for a given {@link Actor} to be used in custom {@link Interaction}s.
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves the {<span class="hljs-doctag">@link </span>Ability} to {<span class="hljs-doctag">@link </span>TakeNotes}
+     *  for a given {<span class="hljs-doctag">@link </span>Actor} to be used in custom {<span class="hljs-doctag">@link </span>Interaction}s.
      *
-     * @see {@link Ability}
-     * @see {@link Interaction}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Ability}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Interaction}</span></span>
      *
-     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
      *
-     * @returns {TakeNotes}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{TakeNotes}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities &amp; AnswersQuestions): TakeNotes {
         <span class="hljs-keyword">return</span> actor.abilityTo(TakeNotes);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Instantiates the {@link Ability} to {@link TakeNotes}
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates the {<span class="hljs-doctag">@link </span>Ability} to {<span class="hljs-doctag">@link </span>TakeNotes}
      *
-     * @param {Map&lt;string, any&gt;} notepad
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Map&lt;string, any&gt;}</span> <span class="hljs-variable">notepad</span></span>
      */</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> notepad: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> notepad: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;</span>)</span> {
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Records the answer to a given {@link Question}
+     * <span class="hljs-doctag">@desc</span>
+     *  Records the answer to a given {<span class="hljs-doctag">@link </span>Question}
      *
-     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string} subject
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string}</span> <span class="hljs-variable">subject</span></span>
      *  Question or name to record the Answer as
      *
-     * @param {Promise&lt;Answer&gt; | Answer} value
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Promise&lt;Answer&gt; | Answer}</span> <span class="hljs-variable">value</span></span>
      *  The Answer to record
      *
-     * @returns {void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    record&lt;Answer&gt;(subject: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span>, value: <span class="hljs-built_in">Promise</span>&lt;Answer&gt; | Answer): <span class="hljs-built_in">void</span> {
+    record&lt;Answer&gt;(subject: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">Promise</span>&lt;Answer&gt; | Answer): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.notepad.set(subject.toString(), value);
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Recalls the answer to a given {@link Question}
+     * <span class="hljs-doctag">@desc</span>
+     *  Recalls the answer to a given {<span class="hljs-doctag">@link </span>Question}
      *
-     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string} subject
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string}</span> <span class="hljs-variable">subject</span></span>
      *  Question or name the Answer was recorded as
      *
-     * @returns {Promise&lt;Answer&gt;}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;Answer&gt;}</span></span>
      */</span>
     answerTo&lt;Answer&gt;(subject: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Answer&gt; {
         <span class="hljs-keyword">const</span> key = subject.toString();
@@ -437,10 +437,10 @@
     }
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Enables the {@link Actor} to clear the notepad when the {@link SceneFinishes}.
+     * <span class="hljs-doctag">@desc</span>
+     *  Enables the {<span class="hljs-doctag">@link </span>Actor} to clear the notepad when the {<span class="hljs-doctag">@link </span>SceneFinishes}.
      *
-     * @returns {Promise&lt;void&gt; | void}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt; | void}</span></span>
      */</span>
     discard(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.notepad.clear();

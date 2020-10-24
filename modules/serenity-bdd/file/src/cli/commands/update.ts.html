@@ -135,47 +135,47 @@
 <span class="hljs-keyword">import</span> { Actors, NotificationReporter, ProgressReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
 
 <span class="hljs-keyword">export</span> = {
-    command: <span class="hljs-string">&apos;update&apos;</span>,
-    desc: <span class="hljs-string">&apos;Makes sure the Serenity BDD CLI jar file is available and up to date&apos;</span>,
-    builder: {
-        cacheDir: {
-            <span class="hljs-keyword">default</span>:   defaults.cacheDir,
-            describe: <span class="hljs-string">&apos;A relative path to where the Serenity BDD CLI jar file should be stored&apos;</span>,
+    <span class="hljs-attr">command</span>: <span class="hljs-string">&apos;update&apos;</span>,
+    <span class="hljs-attr">desc</span>: <span class="hljs-string">&apos;Makes sure the Serenity BDD CLI jar file is available and up to date&apos;</span>,
+    <span class="hljs-attr">builder</span>: {
+        <span class="hljs-attr">cacheDir</span>: {
+            <span class="hljs-attr">default</span>:   defaults.cacheDir,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;A relative path to where the Serenity BDD CLI jar file should be stored&apos;</span>,
         },
-        ignoreSSL: {
-            <span class="hljs-keyword">default</span>:   <span class="hljs-literal">false</span>,
-            <span class="hljs-keyword">type</span>:     <span class="hljs-string">&apos;boolean&apos;</span>,
-            describe: <span class="hljs-string">&apos;Ignore SSL certificates&apos;</span>,
+        <span class="hljs-attr">ignoreSSL</span>: {
+            <span class="hljs-attr">default</span>:   <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">type</span>:     <span class="hljs-string">&apos;boolean&apos;</span>,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;Ignore SSL certificates&apos;</span>,
         },
-        repository: {
-            <span class="hljs-keyword">default</span>:   defaults.repository,
-            describe: <span class="hljs-string">&apos;Maven repository url where we should look for the Serenity BDD CLI artifact&apos;</span>,
+        <span class="hljs-attr">repository</span>: {
+            <span class="hljs-attr">default</span>:   defaults.repository,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">&apos;Maven repository url where we should look for the Serenity BDD CLI artifact&apos;</span>,
         },
-        auth: {
-            describe: <span class="hljs-string">`Credentials to authenticate with your repository - &quot;&lt;username&gt;:&lt;password&gt;&quot;`</span>,
+        <span class="hljs-attr">auth</span>: {
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Credentials to authenticate with your repository - &quot;&lt;username&gt;:&lt;password&gt;&quot;`</span>,
         },
-        artifact: {
-            <span class="hljs-keyword">default</span>:   defaults.artifact,
-            describe: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You&apos;re best off with the default option unless you want to experiment.`</span>,
+        <span class="hljs-attr">artifact</span>: {
+            <span class="hljs-attr">default</span>:   defaults.artifact,
+            <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You&apos;re best off with the default option unless you want to experiment.`</span>,
         },
     },
-    handler: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
+    <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
             artifactGAV     = GAV.fromString(argv.artifact),
             pathToArtifact  = <span class="hljs-keyword">new</span> Path(argv.cacheDir).join(artifactGAV.toPath()),
             repository      = <span class="hljs-keyword">new</span> URL(argv.repository),
-            requestConfig: AxiosRequestConfig = {
-                httpsAgent: <span class="hljs-keyword">new</span> https.Agent({
-                    rejectUnauthorized: ! argv.ignoreSSL,
+            <span class="hljs-attr">requestConfig</span>: AxiosRequestConfig = {
+                <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({
+                    <span class="hljs-attr">rejectUnauthorized</span>: ! argv.ignoreSSL,
                 }),
-                auth: Credentials.fromString(argv.auth),
+                <span class="hljs-attr">auth</span>: Credentials.fromString(argv.auth),
             };
 
         configure({
-            actors: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
-            crew: [
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
+            <span class="hljs-attr">crew</span>: [
                 <span class="hljs-keyword">new</span> NotificationReporter(printer),
                 <span class="hljs-keyword">new</span> ProgressReporter(printer),
             ],

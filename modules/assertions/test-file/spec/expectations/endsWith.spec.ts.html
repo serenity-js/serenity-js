@@ -151,14 +151,14 @@
 
 describe(<span class="hljs-string">&apos;endsWith&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** @test {endsWith} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{endsWith}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; ends with &quot;expected&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, endsWith(<span class="hljs-string">&apos;World!&apos;</span>)),
         )).to.be.fulfilled;
     });
 
-    <span class="hljs-comment">/** @test {endsWith} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{endsWith}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; does not end with &quot;expected&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">&apos;Hello World!&apos;</span>, endsWith(<span class="hljs-string">&apos;Mundo!&apos;</span>)),
@@ -169,7 +169,7 @@ describe(<span class="hljs-string">&apos;endsWith&apos;</span>, <span class="hlj
             });
     });
 
-    <span class="hljs-comment">/** @test {endsWith} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{endsWith}</span> </span>*/</span>
     it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Ensure.that(<span class="hljs-string">&apos;Hello&apos;</span>, endsWith(<span class="hljs-string">&apos;o&apos;</span>)).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that &apos;Hello&apos; does end with &apos;o&apos;`</span>);

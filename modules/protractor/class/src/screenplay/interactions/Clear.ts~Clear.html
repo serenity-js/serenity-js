@@ -212,7 +212,7 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;form&gt;
-   &lt;input <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;example&quot;</span> id=<span class="hljs-string">&quot;example&quot;</span> /&gt;
+   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;example&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example&quot;</span> /&gt;</span></span>
  &lt;/form&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -220,7 +220,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
- <span class="hljs-keyword">class</span> Form {
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> </span>{
      <span class="hljs-keyword">static</span> exampleInput = Target.the(<span class="hljs-string">&apos;example input&apos;</span>)
          .located(by.id(<span class="hljs-string">&apos;example&apos;</span>));
  }</code></pre>

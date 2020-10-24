@@ -1021,49 +1021,49 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber14",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15",
     "CucumberEventProtocolAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber287",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber288",
     "CucumberEventProtocolAdapter considers a scenario with no steps and no hooks to be pending implementation",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber57",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber58",
     "CucumberEventProtocolAdapter correctly recognises Cucumber Event Protocol events",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber170",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber171",
     "CucumberEventProtocolAdapter correctly recognises ambiguous steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber209",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber210",
     "CucumberEventProtocolAdapter correctly recognises errors thrown in steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber132",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber133",
     "CucumberEventProtocolAdapter correctly recognises pending steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber246",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber247",
     "CucumberEventProtocolAdapter correctly recognises scenario outlines",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber94",
+    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber95",
     "CucumberEventProtocolAdapter correctly recognises undefined steps",
     "test"
   ],

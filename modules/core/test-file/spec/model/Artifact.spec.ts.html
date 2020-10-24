@@ -270,7 +270,7 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
 
         <span class="hljs-keyword">const</span> photo = Photo.fromBase64(<span class="hljs-string">&apos;iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==&apos;</span>);
 
-        <span class="hljs-comment">/** @test {Photo#toJSON} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Photo#toJSON}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be serialised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> serialised = photo.toJSON();
 
@@ -279,8 +279,8 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {Photo#toJSON}
-         * @test {Artifact.fromJSON}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#toJSON}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Artifact.fromJSON}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;can be de-serialised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
@@ -291,8 +291,8 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {Photo#map}
-         * @test {Photo#base64EncodedValue}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#map}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#base64EncodedValue}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;allows for its value to be extracted as a Buffer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             photo.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.be.instanceOf(Buffer));
@@ -300,7 +300,7 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {Photo.fromBuffer}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo.fromBuffer}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;can be instantiated from a Buffer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(Photo.fromBuffer(Buffer.from(photo.base64EncodedValue, <span class="hljs-string">&apos;base64&apos;</span>))).to.equal(photo);
@@ -310,10 +310,10 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
     describe(<span class="hljs-string">&apos;JSONData&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> json = JSONData.fromJSON({
-            key: [<span class="hljs-string">&apos;v&apos;</span>, <span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>],
+            <span class="hljs-attr">key</span>: [<span class="hljs-string">&apos;v&apos;</span>, <span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>],
         });
 
-        <span class="hljs-comment">/** @test {JSONData#toJSON} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#toJSON}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;can be serialised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> serialised = json.toJSON();
 
@@ -322,8 +322,8 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {JSONData#toJSON}
-         * @test {Artifact.fromJSON}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#toJSON}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Artifact.fromJSON}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;can be de-serialised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
@@ -334,13 +334,13 @@ describe (<span class="hljs-string">&apos;Artifact&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {JSONData#map}
-         * @test {JSONData#base64EncodedValue}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#map}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#base64EncodedValue}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;allows for its value to be extracted as a JSON value&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             json.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.be.instanceOf(<span class="hljs-built_in">Object</span>));
             json.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.deep.equal({
-                key: [<span class="hljs-string">&apos;v&apos;</span>, <span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>],
+                <span class="hljs-attr">key</span>: [<span class="hljs-string">&apos;v&apos;</span>, <span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;l&apos;</span>, <span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;e&apos;</span>],
             }));
         });
     });

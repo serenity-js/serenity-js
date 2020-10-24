@@ -136,7 +136,7 @@
 <span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./HTTPRequest&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  The HTTP GET method requests a representation of the specified resource.
  *  It is the most frequent type of request made by consumers of a typical HTTP API.
  *  For this reason it&apos;s important to test every known endpoint that responds to GET requests and ensure that it
@@ -148,10 +148,10 @@
  *  This means that an identical request can be made once or several times in a row with the same effect while leaving
  *  the server in the same state.
  *
- * @example &lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
- *  import { Actor } from &apos;@serenity-js/core&apos;;
- *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;@serenity-js/rest&apos;
- *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
+ * <span class="hljs-doctag">@example </span>&lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
+ *  import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;
+ *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
  *  interface Book {
  *      title: string;
@@ -169,40 +169,40 @@
  *      })),
  *  );
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
- * @see https://tools.ietf.org/html/rfc7231#section-4.3.1
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+ * <span class="hljs-doctag">@see </span>https://tools.ietf.org/html/rfc7231#section-4.3.1
  *
- * @extends {HTTPRequest}
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{HTTPRequest}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> GetRequest <span class="hljs-keyword">extends</span> HTTPRequest {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GetRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTTPRequest</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Configures the object with a destination URI.
      *
      *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      *  it gets concatenated with the URL provided to the Axios instance
-     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
+     *  when the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} resourceUri
-     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  should send the {@link HTTPRequest}.
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;}</span> <span class="hljs-variable">resourceUri</span></span>
+     *  The URI where the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  should send the {<span class="hljs-doctag">@link </span>HTTPRequest}.
      *
-     * @returns {GetRequest}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{GetRequest}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> to(resourceUri: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): GetRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GetRequest(resourceUri);
     }
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Overrides the default Axios request configuration provided
-     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
+     *  when {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} config
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;}</span> <span class="hljs-variable">config</span></span>
      *  Axios request configuration overrides
      *
-     * @returns {GetRequest}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{GetRequest}</span></span>
      */</span>
     using(config: Answerable&lt;AxiosRequestConfig&gt;): GetRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GetRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-literal">undefined</span>, config);

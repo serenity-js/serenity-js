@@ -184,7 +184,7 @@
 <span class="hljs-keyword">import</span> { UseAngular } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/promiseOf&apos;</span>;
 
-<span class="hljs-comment">/** @test {UseAngular} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;UseAngular&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     describe(<span class="hljs-string">&apos;synchronisation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -198,7 +198,7 @@ describe(<span class="hljs-string">&apos;UseAngular&apos;</span>, <span class="h
         describe(<span class="hljs-string">&apos;when enabled&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             beforeEach(<span class="hljs-function">() =&gt;</span> promiseOf(protractor.browser.waitForAngularEnabled(<span class="hljs-literal">true</span>)));
 
-            <span class="hljs-comment">/** @test {UseAngular.disableSynchronisation} */</span>
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.disableSynchronisation}</span> </span>*/</span>
             it(<span class="hljs-string">&apos;can be disabled&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
                 UseAngular.disableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), equals(<span class="hljs-literal">false</span>)),
@@ -208,15 +208,15 @@ describe(<span class="hljs-string">&apos;UseAngular&apos;</span>, <span class="h
         describe(<span class="hljs-string">&apos;when disabled&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             beforeEach(<span class="hljs-function">() =&gt;</span> promiseOf(protractor.browser.waitForAngularEnabled(<span class="hljs-literal">false</span>)));
 
-            <span class="hljs-comment">/** @test {UseAngular.enableSynchronisation} */</span>
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.enableSynchronisation}</span> </span>*/</span>
             it(<span class="hljs-string">&apos;can be enabled&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
                 UseAngular.enableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), isTrue()),
             ));
         });
 
-        <span class="hljs-comment">/** @test {UseAngular.enableSynchronisation} */</span>
-        <span class="hljs-comment">/** @test {UseAngular.disableSynchronisation} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.enableSynchronisation}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.disableSynchronisation}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             expect(UseAngular.enableSynchronisation().toString())
                 .to.equal(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>);

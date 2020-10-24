@@ -265,8 +265,8 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 <span class="hljs-keyword">import</span> { Artifact } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Artifact&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> JSONData <span class="hljs-keyword">extends</span> Artifact {
-    <span class="hljs-keyword">static</span> fromJSON(value: JSONValue) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JSONData</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Artifact</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">value: JSONValue</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JSONData(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&apos;utf8&apos;</span>).toString(<span class="hljs-string">&apos;base64&apos;</span>));
     }
 

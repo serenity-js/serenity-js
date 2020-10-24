@@ -187,8 +187,8 @@ describe(<span class="hljs-string">&apos;Value&apos;</span>, <span class="hljs-f
 
     describe(<span class="hljs-string">&apos;of&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** @test {Text} */</span>
-        <span class="hljs-comment">/** @test {Text.of} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Text}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Text.of}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to read the &quot;value&quot; attribute of a DOM element matching the locator&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
@@ -203,8 +203,8 @@ describe(<span class="hljs-string">&apos;Value&apos;</span>, <span class="hljs-f
             Ensure.that(Value.of(Target.the(<span class="hljs-string">&apos;username field&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;input&apos;</span>))), equals(<span class="hljs-string">&apos;jan-molak&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {Text} */</span>
-        <span class="hljs-comment">/** @test {Text#of} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Text}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Text#of}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows the actor to read the &quot;value&quot; attribute of a DOM element matching the locator&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
@@ -219,8 +219,8 @@ describe(<span class="hljs-string">&apos;Value&apos;</span>, <span class="hljs-f
             Ensure.that(Value.of(Target.the(<span class="hljs-string">&apos;username field&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;input&apos;</span>))), equals(<span class="hljs-string">&apos;jan-molak&apos;</span>)),
         ));
 
-        <span class="hljs-comment">/** @test {CSSClasses} */</span>
-        <span class="hljs-comment">/** @test {CSSClasses#of} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses#of}</span> </span>*/</span>
         it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
             Navigate.to(pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;

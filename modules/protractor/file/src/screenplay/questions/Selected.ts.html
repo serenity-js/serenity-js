@@ -174,22 +174,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Selected.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
-<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../withAnswerOf&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Question, UsesAbilities } from &apos;@serenity-js/core&apos;;
+import { formatted } from &apos;@serenity-js/core/lib/io&apos;;
+import { ElementFinder } from &apos;protractor&apos;;
+import { promiseOf } from &apos;../../promiseOf&apos;;
+import { withAnswerOf } from &apos;../withAnswerOf&apos;;
 
-<span class="hljs-comment">/**
+/**
  * @desc
  *  Represents options and values selected in a
  *  [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
  *
  * @see {@link Select}
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Selected {
+ */
+export class Selected {
 
-    <span class="hljs-comment">/**
+    /**
      * @desc
      *  Represents the value of a single option selected in a
      *  [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
@@ -229,12 +229,12 @@
      * @returns {Question&lt;Promise&lt;string&gt;&gt;}
      *
      * @see {@link Select.value}
-     */</span>
-    <span class="hljs-keyword">static</span> valueOf(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SelectedValue(target);
+     */
+    static valueOf(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;Promise&lt;string&gt;&gt; {
+        return new SelectedValue(target);
     }
 
-    <span class="hljs-comment">/**
+    /**
      * @desc
      *  Represents values of options selected in a
      *  [HTML `&lt;select multiple&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
@@ -274,12 +274,12 @@
      * @returns {Question&lt;Promise&lt;string[]&gt;&gt;}
      *
      * @see {@link Select.values}
-     */</span>
-    <span class="hljs-keyword">static</span> valuesOf(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SelectedValues(target);
+     */
+    static valuesOf(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;Promise&lt;string[]&gt;&gt; {
+        return new SelectedValues(target);
     }
 
-    <span class="hljs-comment">/**
+    /**
      * @desc
      *  Represents a single option selected in a
      *  [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
@@ -322,12 +322,12 @@
      * @returns {Question&lt;Promise&lt;string&gt;&gt;}
      *
      * @see {@link Select.option}
-     */</span>
-    <span class="hljs-keyword">static</span> optionIn(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SelectedOption(target);
+     */
+    static optionIn(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;Promise&lt;string&gt;&gt; {
+        return new SelectedOption(target);
     }
 
-    <span class="hljs-comment">/**
+    /**
      * @desc
      *  Represents options selected in a
      *  [HTML `&lt;select multiple&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
@@ -370,74 +370,74 @@
      * @returns {Question&lt;Promise&lt;string[]&gt;&gt;}
      *
      * @see {@link Select.options}
-     */</span>
-    <span class="hljs-keyword">static</span> optionsIn(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SelectedOptions(target);
+     */
+    static optionsIn(target: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;Promise&lt;string[]&gt;&gt; {
+        return new SelectedOptions(target);
     }
 }
 
-<span class="hljs-comment">/**
+/**
  * @package
- */</span>
-<span class="hljs-keyword">class</span> SelectedValue <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+ */
+class SelectedValue extends Question&lt;Promise&lt;string&gt;&gt; {
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`value selected in <span class="hljs-subst">${ target }</span>`</span>);
+    constructor(private readonly target: Question&lt;ElementFinder&gt; | ElementFinder) {
+        super(formatted `value selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">const</span> value = withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span>
-            element.$(<span class="hljs-string">&apos;option:checked&apos;</span>).getAttribute(<span class="hljs-string">&apos;value&apos;</span>)
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string&gt; {
+        const value = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt;
+            element.$(&apos;option:checked&apos;).getAttribute(&apos;value&apos;)
         );
 
-        <span class="hljs-keyword">return</span> promiseOf(value);
+        return promiseOf(value);
     }
 }
 
-<span class="hljs-comment">/**
+/**
  * @package
- */</span>
-<span class="hljs-keyword">class</span> SelectedValues <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
+ */
+class SelectedValues extends Question&lt;Promise&lt;string[]&gt;&gt; {
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`values selected in <span class="hljs-subst">${ target }</span>`</span>);
+    constructor(private readonly target: Question&lt;ElementFinder&gt; | ElementFinder) {
+        super(formatted `values selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
-        <span class="hljs-keyword">const</span> options = withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span> element.$$(<span class="hljs-string">&apos;option&apos;</span>)
-            .filter(<span class="hljs-function"><span class="hljs-params">option</span> =&gt;</span> option.isSelected()));
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
+        const options = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt; element.$$(&apos;option&apos;)
+            .filter(option =&gt; option.isSelected()));
 
-        <span class="hljs-keyword">return</span> promiseOf(options.map(<span class="hljs-function"><span class="hljs-params">option</span> =&gt;</span> option.getAttribute(<span class="hljs-string">&apos;value&apos;</span>)));
+        return promiseOf(options.map(option =&gt; option.getAttribute(&apos;value&apos;)));
     }
 }
 
-<span class="hljs-comment">/**
+/**
  * @package
- */</span>
-<span class="hljs-keyword">class</span> SelectedOption <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+ */
+class SelectedOption extends Question&lt;Promise&lt;string&gt;&gt; {
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`option selected in <span class="hljs-subst">${ target }</span>`</span>);
+    constructor(private target: Question&lt;ElementFinder&gt; | ElementFinder) {
+        super(formatted `option selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> element.$(<span class="hljs-string">&apos;option:checked&apos;</span>).getText()));
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string&gt; {
+        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$(&apos;option:checked&apos;).getText()));
     }
 }
 
-<span class="hljs-comment">/**
+/**
  * @package
- */</span>
-<span class="hljs-keyword">class</span> SelectedOptions <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
+ */
+class SelectedOptions extends Question&lt;Promise&lt;string[]&gt;&gt; {
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`options selected in <span class="hljs-subst">${ target }</span>`</span>);
+    constructor(private target: Question&lt;ElementFinder&gt; | ElementFinder) {
+        super(formatted `options selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> element.$$(<span class="hljs-string">&apos;option&apos;</span>)
-            .filter(<span class="hljs-function"><span class="hljs-params">option</span> =&gt;</span> option.isSelected())
-            .map(<span class="hljs-function"><span class="hljs-params">elements</span> =&gt;</span> elements.getText())));
+    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
+        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$$(&apos;option&apos;)
+            .filter(option =&gt; option.isSelected())
+            .map(elements =&gt; elements.getText())));
     }
 }
 </code></pre>

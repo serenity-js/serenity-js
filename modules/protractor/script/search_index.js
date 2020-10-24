@@ -2341,7 +2341,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber25",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber26",
     "Photographer",
     "test"
   ],
@@ -2365,13 +2365,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber43",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber46",
     "Photographer ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber37",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber40",
     "Photographer complains when sent DomainEvents before getting assigned to a Stage",
     "test"
   ],
@@ -3001,14 +3001,14 @@ window.esdocSearchIndex = [
   ],
   [
     "protractorreporter protractorreporter,protractorreporter",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber47",
-    "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ignores domain events Protractor doesn't care about",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber36",
+    "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ",
     "test"
   ],
   [
     "protractorreporter protractorreporter,protractorreporter",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber36",
-    "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ignores events outcomes Protractor doesn't care about",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber47",
+    "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ",
     "test"
   ],
   [

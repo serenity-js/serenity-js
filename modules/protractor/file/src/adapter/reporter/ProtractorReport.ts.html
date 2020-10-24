@@ -177,19 +177,19 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { SpecResult } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor/built/plugins&apos;</span>;              <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
 
 <span class="hljs-comment">/**
- * @desc
- *  A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}
+ * <span class="hljs-doctag">@desc</span>
+ *  A JSON object which needs to be returned to Protractor when {<span class="hljs-doctag">@link </span>ProtractorFrameworkAdapter}
  *  is done with executing the test scenarios.
  *
- * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
+ * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
  *
- * @private
+ * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ProtractorReport {
     <span class="hljs-comment">/**
      * Total number of failed scenarios
      */</span>
-    failedCount: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">failedCount</span>: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/**
      * Results per scenario
@@ -197,7 +197,7 @@
      * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter
      * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32
      */</span>
-    specResults: <span class="hljs-built_in">Array</span>&lt;SpecResult &amp; { duration: <span class="hljs-built_in">number</span> }&gt;;
+    specResults: <span class="hljs-built_in">Array</span>&lt;SpecResult &amp; { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> }&gt;;
 }
 </code></pre>
 

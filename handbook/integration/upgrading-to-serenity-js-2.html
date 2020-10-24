@@ -358,11 +358,11 @@ using syntax similar to version 1.x, as per the code sample below.</p>
 <span class="hljs-built_in">exports</span>.config = {
 
     <span class="hljs-comment">// Serenity/JS config</span>
-    framework:      <span class="hljs-string">&apos;custom&apos;</span>,
-    frameworkPath:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
 
-    serenity: {
-        crew: [
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">crew</span>: [
             ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&quot;./target/site/serenity&quot;</span>),
             Photographer.whoWill(TakePhotosOfFailures),
             <span class="hljs-keyword">new</span> SerenityBDDReporter(),
@@ -397,9 +397,9 @@ using syntax similar to version 1.x, as per the code sample below.</p>
     <span class="hljs-comment">// Test runner config</span>
     specs: [ <span class="hljs-string">&apos;spec/*.spec.ts&apos;</span>, ],
 
-    mochaOpts: {
-        ui: <span class="hljs-string">&apos;bdd&apos;</span>,
-        compiler: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span>,
+    <span class="hljs-attr">mochaOpts</span>: {
+        <span class="hljs-attr">ui</span>: <span class="hljs-string">&apos;bdd&apos;</span>,
+        <span class="hljs-attr">compiler</span>: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span>,
     },
 
     <span class="hljs-comment">// Other Protractor config [...]</span>
@@ -417,8 +417,8 @@ using syntax similar to version 1.x, as per the code sample below.</p>
     <span class="hljs-comment">// Test runner config</span>
     specs: [ <span class="hljs-string">&apos;spec/*.spec.ts&apos;</span>, ],
 
-    mochaOpts: {
-        <span class="hljs-built_in">require</span>: [ 
+    <span class="hljs-attr">mochaOpts</span>: {
+        <span class="hljs-attr">require</span>: [ 
             <span class="hljs-string">&apos;ts-node/register&apos;</span>,
             <span class="hljs-string">&apos;spec/setup.ts&apos;</span>
         ],
@@ -460,13 +460,13 @@ I&apos;ll explain it in more depth in the next section.</p>
     <span class="hljs-comment">// Test runner config</span>
     specs: [ <span class="hljs-string">&apos;features/*.feature&apos;</span>, ],
 
-    cucumberOpts: {
-        <span class="hljs-built_in">require</span>: [
+    <span class="hljs-attr">cucumberOpts</span>: {
+        <span class="hljs-attr">require</span>: [
             <span class="hljs-string">&apos;features/step_definitions/**/*.ts&apos;</span>,
             <span class="hljs-string">&apos;features/support/setup.ts&apos;</span>,
         ],
         <span class="hljs-string">&apos;require-module&apos;</span>: [<span class="hljs-string">&apos;ts-node/register&apos;</span>],
-        tags: [],
+        <span class="hljs-attr">tags</span>: [],
     },
 
     <span class="hljs-comment">// Other Protractor config [...]</span>
@@ -496,7 +496,7 @@ take advantage of the new features.</p>
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     actor(name: <span class="hljs-built_in">string</span>): Actor {
         <span class="hljs-keyword">return</span> Actor.named(name)
             .whoCan(BrowseTheWeb.using(protractor.browser));
@@ -547,7 +547,7 @@ they need:</p>
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/lib/screenplay-protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     actor(name: <span class="hljs-built_in">string</span>): Actor {
         <span class="hljs-keyword">return</span> Actor.named(name)
             .whoCan(BrowseTheWeb.using(protractor.browser));
@@ -561,7 +561,7 @@ they need:</p>
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {              <span class="hljs-comment">// `prepare(actor: Actor)` instead of `actor(name: string)`</span>
         <span class="hljs-keyword">return</span> actor.whoCan(                    <span class="hljs-comment">// add the abilities instead of instantiating the actor</span>
             BrowseTheWeb.using(protractor.browser),
@@ -698,7 +698,7 @@ When(<span class="hljs-regexp">/^she adds &quot;(.*?)&quot; to her todo list$/</
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">class</span> Actors <span class="hljs-keyword">implements</span> Cast {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {              <span class="hljs-comment">// `prepare(actor: Actor)` instead of `actor(name: string)`</span>
         <span class="hljs-keyword">return</span> actor.whoCan(                    <span class="hljs-comment">// add the abilities instead of instantiating the actor</span>
             BrowseTheWeb.using(protractor.browser),
@@ -737,20 +737,20 @@ describe(<span class="hljs-string">&apos;some feature&apos;</span>, <span class=
 <span class="hljs-comment">/**
  * Any custom task had to implement the `Task` interface
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddAnItem <span class="hljs-keyword">implements</span> Task {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddAnItem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Task</span> </span>{
 
-    <span class="hljs-keyword">static</span> called(name: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">called</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddAnItem(name);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span></span>)</span> {
     }
 
     <span class="hljs-comment">/**
      * The `performAs` method received an `actor` who `PerformsTasks`
      * and returned a `PromiseLike&lt;void&gt;`
      *
-     * The `@step` decorator was responsible for generating 
+     * The `<span class="hljs-doctag">@step</span>` decorator was responsible for generating 
      * a human-friendly description to be used in the report
      */</span>
     <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} adds an item called #name&apos;</span>)
@@ -768,12 +768,12 @@ describe(<span class="hljs-string">&apos;some feature&apos;</span>, <span class=
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Task, PerformsActivities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Enter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AddAnItem <span class="hljs-keyword">extends</span> Task {
-    <span class="hljs-keyword">static</span> called(name: <span class="hljs-built_in">string</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddAnItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">called</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AddAnItem(name);
     }    
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -784,7 +784,7 @@ describe(<span class="hljs-string">&apos;some feature&apos;</span>, <span class=
         )   
     }
 
-    toString() {
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor adds an item called <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>`</span>;
     }
 }
@@ -802,7 +802,7 @@ generate the task from the above example with much less code:</p>
 <span class="hljs-keyword">import</span> { Enter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 
 <span class="hljs-built_in">exports</span> <span class="hljs-keyword">const</span> AddAnItem = {
-    called: <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+    <span class="hljs-attr">called</span>: <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
         Task.where(<span class="hljs-string">`#actor adds an item called <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>`</span>,
             <span class="hljs-comment">// ... list lower-level tasks and interactions:</span>
             Enter.theValue(<span class="hljs-built_in">this</span>.name).into(<span class="hljs-comment">/* some element */</span>),
@@ -815,13 +815,13 @@ generate the task from the above example with much less code:</p>
 into the browser using Protractor&apos;s <a href="https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript"><code>executeScript</code> API</a>, available via the ability to <code>BrowseTheWeb</code>:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { BrowseTheWeb, Interaction, step, Target, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">implements</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Enable</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
 
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> the(target: Target): Enable {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Target</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Target</span>)</span> {
     }
 
     <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} enables #target&apos;</span>)
@@ -836,12 +836,12 @@ into the browser using Protractor&apos;s <a href="https://www.protractortest.org
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">extends</span> Interaction {
-    <span class="hljs-keyword">static</span> the(target: Question&lt;ElementFinder&gt;) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Enable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">the</span>(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt;</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 
@@ -870,7 +870,7 @@ easier. For instance, the above code sample could be implemented as follows:</p>
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Enable = {
-    the: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
+    <span class="hljs-attr">the</span>: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
         Interaction.where(<span class="hljs-string">`#actor enables <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function">(<span class="hljs-params">actor: UsesAbilities &amp; AnswersQuestions</span>) =&gt;</span> {
             <span class="hljs-keyword">return</span> target.answeredBy(actor)
                 .then(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> {
@@ -888,7 +888,7 @@ interaction instead:</p>
 <span class="hljs-keyword">import</span> { ExecuteScript } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Enable = {
-    the: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
+    <span class="hljs-attr">the</span>: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>) =&gt;</span>
         Task.where(<span class="hljs-string">`#actor enables <span class="hljs-subst">${ target }</span>`</span>,
             ExecuteScript.sync(<span class="hljs-string">`arguments[0].removeAttribute(&quot;disabled&quot;);`</span>).
                 withArguments(target), 
@@ -904,7 +904,7 @@ interaction instead:</p>
 <p>As you have probably already guessed, introducing this level of sophistication and flexibility required changing how the <code>Target</code> class works.</p>
 <p>The original <code>Target</code> is now modelled by <a href="/modules/protractor/identifiers.html#screenplay-questions-targets">four specialised <code>Question</code> classes</a> and the <code>Target</code> class itself was turned into a factory that takes care of instantiating them correctly.</p>
 <p>However, the way you use it has remained intact:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-comment">// simple lean page object</span>
@@ -923,7 +923,7 @@ interaction instead:</p>
 <h4 id="nested-targets">Nested Targets</h4>
 <p>Serenity/JS 1.x provided a simple <code>Target.of</code> API that helped you replace parts of your locator dynamically during the test.</p>
 <p>For example, you might have located a header of a table column using a <code>Target</code> defined as follows:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTable</span> </span>{
@@ -945,7 +945,7 @@ interaction instead:</p>
 </code></pre>
 <p>Serenity/JS 2.x allows you to nest <code>Target</code>s, which should help you get rid of some of those terrible <code>xpath</code> locators
 from your codebase:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTable</span> </span>{
@@ -962,7 +962,7 @@ This is where <a href="/modules/protractor/class/src/screenplay/questions/Pick.t
 <span class="hljs-keyword">import</span> { includes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">class</span> DataTable {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTable</span> </span>{
     <span class="hljs-keyword">static</span> component =
         Target.the(<span class="hljs-string">&apos;data table component&apos;</span>).located(by.id(<span class="hljs-string">&apos;data-table&apos;</span>));
 
@@ -989,13 +989,13 @@ This is where <a href="/modules/protractor/class/src/screenplay/questions/Pick.t
 <p>Consider a hypothetical Serenity/JS 1.x interaction we discussed earlier, the one that enabled a disabled element:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { BrowseTheWeb, Interaction, step, Target, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;serenity-js/protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">implements</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Enable</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
 
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> the(target: Target): Enable {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
     }
 
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Target</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Target</span>)</span> {
     }
 
     <span class="hljs-meta">@step</span>(<span class="hljs-string">&apos;{0} enables #target&apos;</span>)
@@ -1014,15 +1014,15 @@ method calls: </p>
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Enable <span class="hljs-keyword">extends</span> Interaction {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Enable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
     <span class="hljs-comment">// Target -&gt; Question&lt;ElementFinder&gt;</span>
-    <span class="hljs-keyword">static</span> the(target: Question&lt;ElementFinder&gt;) {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">the</span>(<span class="hljs-params">target: Question&lt;ElementFinder&gt;</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Enable(target);
     }
 
     <span class="hljs-comment">// Target -&gt; Question&lt;ElementFinder&gt;</span>
-    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt;</span>) {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt;</span>)</span> {
         <span class="hljs-built_in">super</span>();
     }
 

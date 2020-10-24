@@ -269,22 +269,22 @@
 <span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../AnswerMappingFunction&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Returns a new string with some or all matches of a pattern replaced by a replacement.
  *  The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.
  *  If pattern is a string, only the first occurrence will be replaced.
  *
- * @param {Answerable&lt;string | RegExp&gt;} pattern
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string | RegExp&gt;}</span> <span class="hljs-variable">pattern</span></span>
  *
- * @param {Answerable&lt;string|function&gt;} replacement
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string|function&gt;}</span> <span class="hljs-variable">replacement</span></span>
  *
- * @returns {MappingFunction&lt;string, string&gt;}
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{MappingFunction&lt;string, string&gt;}</span></span>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+ * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">pattern: Answerable&lt;<span class="hljs-built_in">RegExp</span> | <span class="hljs-built_in">string</span>&gt;, replacement: Answerable&lt;<span class="hljs-built_in">string</span> | ((substring: <span class="hljs-built_in">string</span>, ...args: <span class="hljs-built_in">any</span>[]) =&gt; <span class="hljs-built_in">string</span>)&gt;</span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
-        (value: <span class="hljs-built_in">string</span>) =&gt; {
+        <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
             ensure(<span class="hljs-string">&apos;The value to be mapped&apos;</span>, value, isDefined(), isString())
 
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([

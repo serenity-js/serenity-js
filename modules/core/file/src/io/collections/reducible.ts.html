@@ -263,20 +263,20 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/collections/reducible.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * @desc
+ * <span class="hljs-doctag">@desc</span>
  *  Describes a collection providing
  *  a [`reduce`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).
  *
- * @interface
+ * <span class="hljs-doctag">@interface</span>
  *
- * @see {@link ElementArrayFinder}
- * @see {@link Loop}
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link ElementArrayFinder}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Reducible {
     <span class="hljs-comment">/**
-     * @type {function&lt;T,A&gt;(callback: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A): PromiseLike&lt;A&gt; | A}
+     * <span class="hljs-doctag">@type <span class="hljs-type">{function&lt;T,A&gt;(callback: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A): PromiseLike&lt;A&gt; | A}</span></span>
      */</span>
-    reduce: &lt;T, A&gt;(fn: <span class="hljs-function">(<span class="hljs-params">accumulator: A, currentValue: T, index: <span class="hljs-built_in">number</span></span>) =&gt;</span> A, initialValue: A) =&gt; PromiseLike&lt;A&gt; | A;
+    <span class="hljs-attr">reduce</span>: &lt;T, A&gt;(fn: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A) =&gt; PromiseLike&lt;A&gt; | A;
 }
 </code></pre>
 

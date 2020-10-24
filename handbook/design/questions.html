@@ -202,7 +202,7 @@ that you don&apos;t need to worry if a given interaction is synchronous or async
     <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 </code></pre>
 <p>To interact with the component, we define a <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Object</a> called <code>NewComment</code>:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewComment</span> </span>{
@@ -270,7 +270,7 @@ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>)
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>We can, of course, get its text using the <a href="/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of"><code>Text.of</code></a> question and then pass it to an interaction like <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> (responsible for performing <a href="/handbook/design/assertions.html">assertions</a>):</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -288,7 +288,7 @@ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
 <p>In many cases, asserting on a text value of an element is perfectly fine, but what if our test needed to check if the discount applied is <strong>less than 10%</strong>?</p>
 <p>We&apos;d have to first convert the text value to a number, wouldn&apos;t we?</p>
 <p>That&apos;s where <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-map"><code>Question#map</code></a> comes into play!</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { Ensure, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
 <span class="hljs-keyword">import</span> { actorCalled, trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
@@ -343,7 +343,7 @@ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
 </ul>
 <p>However, this also means that in more complex cases this description can become quite a mouthful.</p>
 <p>Consider the below example that uses <a href="/modules/protractor/test-file/spec/screenplay/questions/Target.spec.ts.html">nested targets</a>:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-keyword">import</span> { trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
@@ -366,7 +366,7 @@ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
 </code></pre>
 <p>In this case, <code>OrderSummary.DiscountPercentage</code> would get reported as <code>&quot;text of the discount widget of the order summary&quot;</code>. </p>
 <p>To override this automatically-generated description of the question&apos;s subject with a custom one, use <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs"><code>Question#describedAs()</code></a>: </p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
     <span class="hljs-comment">// other fields omitted for brevity</span>
 
     <span class="hljs-keyword">static</span> DiscountPercentage =

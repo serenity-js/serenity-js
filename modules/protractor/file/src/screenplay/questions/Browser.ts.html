@@ -179,17 +179,17 @@
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Browser {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Browser</span> </span>{
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Creates a {@link Question} that reads the entries of the browser log
+     * <span class="hljs-doctag">@desc</span>
+     *  Creates a {<span class="hljs-doctag">@link </span>Question} that reads the entries of the browser log
      *  so that they can be asserted on.
      *
      *  Please note that in order to ensure that the automated test has access to the browser log,
      *  Protractor needs to be configured with the desired logging level, as per the example below.
      *
-     * @example &lt;caption&gt;Enabling Protractor browser logging&lt;/caption&gt;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Enabling Protractor browser logging&lt;/caption&gt;
      * // protractor.conf.js
      * exports.config = {
      *   capabilities: {
@@ -200,17 +200,17 @@
      *   }
      * }
      *
-     * @example &lt;caption&gt;Ensure the app didn&apos;t log anything to the console during the test&lt;/caption&gt;
-     * import { Actor, BrowseTheWeb, Browser } from &apos;@serenity-js/core&apos;;
-     * import { Ensure, property, equals } from &apos;@serenity-js/assertions&apos;;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Ensure the app didn&apos;t log anything to the console during the test&lt;/caption&gt;
+     * import { Actor, BrowseTheWeb, Browser } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+     * import { Ensure, property, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
      *
      * actor.attemptsTo(
      *   Ensure.that(Browser.log(), property(&apos;length&apos;, equals(0))),
      * );
      *
-     * @example &lt;caption&gt;Mark the test as &quot;compromised&quot; if the server responds with a 500 to any AJAX request during the test&lt;/caption&gt;
-     * import { Actor, BrowseTheWeb, Browser, TestCompromisedError } from &apos;@serenity-js/core&apos;;
-     * import { Ensure, property, equals, not, contrainAtLeastOneItemThat } from &apos;@serenity-js/assertions&apos;
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Mark the test as &quot;compromised&quot; if the server responds with a 500 to any AJAX request during the test&lt;/caption&gt;
+     * import { Actor, BrowseTheWeb, Browser, TestCompromisedError } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+     * import { Ensure, property, equals, not, contrainAtLeastOneItemThat } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;
      *
      * actor.attemptsTo(
      *   Ensure.that(Browser.log(),
@@ -220,10 +220,10 @@
      *   ).otherwiseFailWith(TestCompromisedError, &apos;The server is down&apos;),
      * );
      *
-     * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#loggingpreferences-json-object
-     * @returns {Question&lt;Promise&lt;logging.Entry[]&gt;&gt;}
+     * <span class="hljs-doctag">@see </span>https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#loggingpreferences-json-object
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;logging.Entry[]&gt;&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> log() {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">log</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;logging.Entry[]&gt;&gt;(<span class="hljs-string">`browser log`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
             promiseOf(BrowseTheWeb.as(actor).manage().logs().get(<span class="hljs-string">&apos;browser&apos;</span>)));
     }

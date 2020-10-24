@@ -265,34 +265,34 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./actor&apos;</span>;
 
 <span class="hljs-comment">/**
- * @desc
- *  A command object representing an activity that an {@link Actor} can perform.
+ * <span class="hljs-doctag">@desc</span>
+ *  A command object representing an activity that an {<span class="hljs-doctag">@link </span>Actor} can perform.
  *
- * @see {@link Actor}
- * @see https://en.wikipedia.org/wiki/Command_pattern
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+ * <span class="hljs-doctag">@see </span>https://en.wikipedia.org/wiki/Command_pattern
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Activity {
 
     <span class="hljs-comment">/**
-     * @desc
-     *  Makes the provided {@link Actor}
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
      *  perform this Activity.
      *
-     * @param {PerformsActivities | UsesAbilities | AnswersQuestions} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities | UsesAbilities | AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
      */</span>
     performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">any</span>&gt;;
 
     <span class="hljs-comment">/**
-     * @desc
+     * <span class="hljs-doctag">@desc</span>
      *  Generates a description to be used when reporting this Activity.
      *
-     * @returns {string}
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span>;
 }

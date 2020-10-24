@@ -141,17 +141,17 @@
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 
-<span class="hljs-comment">/** @test {CallAnApi} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
     given([
-        { description: <span class="hljs-string">&apos;GET&apos;</span>,       verification: <span class="hljs-string">&apos;onGet&apos;</span>      },
-        { description: <span class="hljs-string">&apos;POST&apos;</span>,      verification: <span class="hljs-string">&apos;onPost&apos;</span>     },
-        { description: <span class="hljs-string">&apos;PUT&apos;</span>,       verification: <span class="hljs-string">&apos;onPut&apos;</span>      },
-        { description: <span class="hljs-string">&apos;HEAD&apos;</span>,      verification: <span class="hljs-string">&apos;onHead&apos;</span>     },
-        { description: <span class="hljs-string">&apos;DELETE&apos;</span>,    verification: <span class="hljs-string">&apos;onDelete&apos;</span>   },
-        { description: <span class="hljs-string">&apos;PATCH&apos;</span>,     verification: <span class="hljs-string">&apos;onPatch&apos;</span>    },
-        { description: <span class="hljs-string">&apos;OPTIONS&apos;</span>,   verification: <span class="hljs-string">&apos;onAny&apos;</span>      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;GET&apos;</span>,       <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onGet&apos;</span>      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;POST&apos;</span>,      <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onPost&apos;</span>     },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;PUT&apos;</span>,       <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onPut&apos;</span>      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;HEAD&apos;</span>,      <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onHead&apos;</span>     },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;DELETE&apos;</span>,    <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onDelete&apos;</span>   },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;PATCH&apos;</span>,     <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onPatch&apos;</span>    },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;OPTIONS&apos;</span>,   <span class="hljs-attr">verification</span>: <span class="hljs-string">&apos;onAny&apos;</span>      },
     ]).
     it(<span class="hljs-string">&apos;allows the Actor to interact with HTTP endpoints via&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{description, verification}</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span>
@@ -165,8 +165,8 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
     });
 
     <span class="hljs-comment">/**
-     * @test {CallAnApi}
-     * @test {CallAnApi.at}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.at}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;provides a convenient factory method to be used when no custom configuration is required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
@@ -178,8 +178,8 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
     });
 
     <span class="hljs-comment">/**
-     * @test {CallAnApi}
-     * @test {CallAnApi.using}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.using}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;provides a factory method to be used when custom configuration is required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
@@ -191,25 +191,25 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
     });
 
     <span class="hljs-comment">/**
-     * @test {CallAnApi}
-     * @test {CallAnApi.mapLastResponse}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;caches the last response so that it can be easily asserted on&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
             { callAnApi, mock } = mockedAxiosInstance(),
             url = <span class="hljs-string">&apos;/products/2&apos;</span>;
 
-        mock.onGet(url).reply(<span class="hljs-number">200</span>, { id: <span class="hljs-number">2</span> });
+        mock.onGet(url).reply(<span class="hljs-number">200</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> });
 
-        <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url })).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, url })).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
             callAnApi.mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> expect(response.status).to.equal(<span class="hljs-number">200</span>));
         });
     });
 
     <span class="hljs-comment">/**
-     * @test {CallAnApi}
-     * @test {CallAnApi.request}
-     * @test {CallAnApi.mapLastResponse}
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.request}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
      */</span>
     it(<span class="hljs-string">&apos;caches the last response even when the server responds with an error. As long is it responds.&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
@@ -218,15 +218,15 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
 
         mock.onGet(url).reply(<span class="hljs-number">500</span>);
 
-        <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url })).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, url })).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
             callAnApi.mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> expect(response.status).to.equal(<span class="hljs-number">500</span>));
         });
     });
 
     describe(<span class="hljs-string">&apos;when dealing with errors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-comment">/**
-         * @test {CallAnApi}
-         * @test {CallAnApi.mapLastResponse}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains if you try to retrieve the last response before making an API call&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> { callAnApi } = mockedAxiosInstance();
@@ -236,17 +236,17 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.request}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains when provided with invalid Axios configuration&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 axiosInstance = axios.create({
-                    baseURL: [<span class="hljs-string">&apos;bah&apos;</span>, <span class="hljs-string">&apos;humbug&apos;</span>, <span class="hljs-string">&apos;!&apos;</span>] <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>,
+                    <span class="hljs-attr">baseURL</span>: [<span class="hljs-string">&apos;bah&apos;</span>, <span class="hljs-string">&apos;humbug&apos;</span>, <span class="hljs-string">&apos;!&apos;</span>] <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>,
                 }),
                 callAnApi = CallAnApi.using(axiosInstance);
 
-            <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;Looks like there was an issue with Axios configuration&apos;</span>)
+            <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;Looks like there was an issue with Axios configuration&apos;</span>)
                 .then(<span class="hljs-function">(<span class="hljs-params">error: ConfigurationError</span>) =&gt;</span> {
                     expect(error).to.be.instanceOf(ConfigurationError);
                     expect(error.stack).to.contain(<span class="hljs-string">&apos;Caused by: TypeError&apos;</span>);
@@ -254,15 +254,15 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.request}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains when the API call times out&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> { callAnApi, mock } = mockedAxiosInstance();
 
             mock.onAny().timeout();
 
-            <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;The request has timed out&apos;</span>)
+            <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;The request has timed out&apos;</span>)
                 .then(<span class="hljs-function">(<span class="hljs-params">error: TestCompromisedError</span>) =&gt;</span> {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain(<span class="hljs-string">&apos;Caused by: Error: timeout of 0ms exceeded&apos;</span>);
@@ -270,15 +270,15 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.request}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains when the a network error occurs&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> { callAnApi, mock } = mockedAxiosInstance();
 
             mock.onAny().networkError();
 
-            <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;A network error has occurred&apos;</span>)
+            <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;A network error has occurred&apos;</span>)
                 .then(<span class="hljs-function">(<span class="hljs-params">error: TestCompromisedError</span>) =&gt;</span> {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain(<span class="hljs-string">&apos;Caused by: Error: Network Error&apos;</span>);
@@ -286,15 +286,15 @@ describe(<span class="hljs-string">&apos;CallAnApi&apos;</span>, <span class="hl
         });
 
         <span class="hljs-comment">/**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.request}</span></span>
          */</span>
         it(<span class="hljs-string">&apos;complains when the Axios client rejects its promise&apos;</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> { callAnApi, mock } = mockedAxiosInstance();
 
             mock.onAny().reply(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;something unpredictable&apos;</span>)));
 
-            <span class="hljs-keyword">return</span> expect(callAnApi.request({ method: <span class="hljs-string">&apos;get&apos;</span>, url: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;The API call has failed&apos;</span>)
+            <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/some/api&apos;</span> })).to.be.rejectedWith(<span class="hljs-string">&apos;The API call has failed&apos;</span>)
                 .then(<span class="hljs-function">(<span class="hljs-params">error: TestCompromisedError</span>) =&gt;</span> {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain(<span class="hljs-string">&apos;Caused by: Error: something unpredictable&apos;</span>);
