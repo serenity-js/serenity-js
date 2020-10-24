@@ -227,8 +227,8 @@ describe('ModalDialog,', function () {
                     .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
                         expect(taskDescription.value).to.include(`Took screenshot of 'Nick navigates`);
                     })
-                    .next(AsyncOperationFailed, ({ error }: AsyncOperationFailed) => {
-                        expect(error.name).to.equal('UnexpectedAlertOpenError');
+                    .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
+                        expect(taskDescription.value).to.include(`Aborted taking screenshot of 'Nick clicks on the alert trigger' because of UnexpectedAlertOpenError`);
                     })
                     .next(InteractionFinished, ({ details }: InteractionFinished) => {
                         expect(details.name).to.equal(new Name('Nick accepts the modal dialog window'));
