@@ -7,17 +7,17 @@ export class SceneSequenceDetected extends DomainEvent {
     static fromJSON(o: JSONObject) {
         return new SceneSequenceDetected(
             CorrelationId.fromJSON(o.sceneId as string),
-            ScenarioDetails.fromJSON(o.value as JSONObject),
+            ScenarioDetails.fromJSON(o.details as JSONObject),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
         public readonly sceneId: CorrelationId,
-        public readonly value: ScenarioDetails,
+        public readonly details: ScenarioDetails,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
-        ensure('value', value, isDefined());
+        ensure('details', details, isDefined());
     }
 }

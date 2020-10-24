@@ -47,7 +47,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it('prints the passing steps and the scenario summary', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:50:41.568Z","details":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:50:41.569Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:50:41.569Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-13T23:50:41.569Z","value":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-13T23:50:41.569Z","value":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2xxtnsb0000wx6ubyfcqy3x","timestamp":"2019-11-13T23:50:41.579Z","details":{"name":"Given a step that passes"}}}
@@ -86,7 +86,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it('prints the error message next to the step that has failed, and a full stack trace at the bottom', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:59:38.642Z","details":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:59:38.642Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:59:38.642Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-13T23:59:38.642Z","value":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-13T23:59:38.642Z","value":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2xy566v0000dd6u19y2orgh","timestamp":"2019-11-13T23:59:38.648Z","details":{"name":"Given a step that times out"}}}
@@ -127,7 +127,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T00:09:59.914Z","details":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T00:09:59.914Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T00:09:59.914Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T00:09:59.915Z","value":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-14T00:09:59.915Z","value":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2xyihkg0000x86u5hhg4v1i","timestamp":"2019-11-14T00:09:59.920Z","details":{"name":"Given step marked as pending"}}}
@@ -172,7 +172,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it('prints the details of the failed assertion', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T01:27:21.134Z","details":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T01:27:21.134Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T01:27:21.134Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T01:27:21.134Z","value":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-14T01:27:21.134Z","value":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yr70000hd6u9qquvkpr","timestamp":"2019-11-14T01:27:21.140Z","details":{"name":"Given a step that fails with an assertion error"}}}
@@ -230,7 +230,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it('pinpoints exactly where the failure happened', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T23:27:24.800Z","details":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T23:27:24.800Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T23:27:24.800Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T23:27:24.801Z","value":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-14T23:27:24.801Z","value":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkp60000fa6uauhx7b0c","timestamp":"2019-11-14T23:27:24.810Z","details":{"name":"Given a step that fails with an error compromising the test"}}}
@@ -300,7 +300,7 @@ describe('ConsoleReporter', () => {
         /** @test {ConsoleReporter} */
         it(`prints it together with an appropriate name for each entry (if different from the content itself)`, () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-15T01:05:12.366Z","details":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}
-            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-15T01:05:12.366Z","value":"Cucumber"}}
+            {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-15T01:05:12.366Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"api","type":"capability"},"timestamp":"2019-11-15T01:05:12.366Z","value":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Calculations API","type":"feature"},"timestamp":"2019-11-15T01:05:12.366Z","value":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}
             {"type":"InteractionStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zfxc510000p66uizjogeqq","timestamp":"2019-11-15T01:05:12.373Z","details":{"name":"Apisitt starts the local server"}}}

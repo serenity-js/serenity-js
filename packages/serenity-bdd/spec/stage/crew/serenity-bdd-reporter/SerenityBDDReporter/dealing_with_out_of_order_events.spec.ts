@@ -89,7 +89,7 @@ describe('SerenityBDDReporter', () => {
                 .next(ArtifactGenerated, ({ artifact }) => {
                     const report = artifact.map(_ => _);
 
-                    // expect(report).to.deep.equal(firstExpectedReport)
+                    expect(report).to.deep.equal(firstExpectedReport)
                 })
                 .next(ArtifactGenerated, ({ artifact }) => {
                     const report = artifact.map(_ => _);

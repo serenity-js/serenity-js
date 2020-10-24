@@ -21,7 +21,7 @@ describe('@serenity-js/mocha', function () {
 
                     PickEvent.from(res.events)
                         .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`A scenario is marked as skipped programmatically`)))
-                        .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Mocha')))
+                        .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Mocha')))
                         .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ExecutionSkipped))
                     ;
                 }));

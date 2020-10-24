@@ -4,6 +4,9 @@ import { Path } from '../io';
 import { Artifact, ArtifactType, CorrelationId, Name, Timestamp } from '../model';
 import { ArtifactArchived } from './ArtifactArchived';
 
+// todo: there should be two types of events here:
+//  - ActivityArtifactGenerated
+//  - SceneArtifactGenerated
 export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     static fromJSON<E>(o: JSONObject) {
         return new ActivityRelatedArtifactArchived(

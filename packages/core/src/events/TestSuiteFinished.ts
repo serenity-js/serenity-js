@@ -6,19 +6,19 @@ import { DomainEvent } from './DomainEvent';
 export class TestSuiteFinished extends DomainEvent {
     static fromJSON(o: JSONObject) {
         return new TestSuiteFinished(
-            TestSuiteDetails.fromJSON(o.value as JSONObject),
+            TestSuiteDetails.fromJSON(o.details as JSONObject),
             Outcome.fromJSON(o.outcome as SerialisedOutcome),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
-        public readonly value: TestSuiteDetails,
+        public readonly details: TestSuiteDetails,
         public readonly outcome: Outcome,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
-        ensure('value', value, isDefined());
+        ensure('details', details, isDefined());
         ensure('outcome', outcome, isDefined());
     }
 }

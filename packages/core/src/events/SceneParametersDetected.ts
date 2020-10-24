@@ -7,20 +7,20 @@ export class SceneParametersDetected extends DomainEvent {
     public static fromJSON(o: JSONObject) {
         return new SceneParametersDetected(
             CorrelationId.fromJSON(o.sceneId as string),
-            ScenarioDetails.fromJSON(o.scenario as JSONObject),
-            ScenarioParameters.fromJSON(o.value as JSONObject),
+            ScenarioDetails.fromJSON(o.details as JSONObject),
+            ScenarioParameters.fromJSON(o.parameters as JSONObject),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
         public readonly sceneId: CorrelationId,
-        public readonly scenario: ScenarioDetails,
-        public readonly value: ScenarioParameters,
+        public readonly details: ScenarioDetails,
+        public readonly parameters: ScenarioParameters,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
         ensure('sceneId', sceneId, isDefined());
-        ensure('value', value, isDefined());
+        ensure('parameters', parameters, isDefined());
     }
 }

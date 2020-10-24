@@ -48,16 +48,16 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneSequenceDetected, event => {
-                    expect(event.value.name).to.equal(expectedScenarioName);
-                    expect(event.value.category).to.equal(expectedScenarioCategory);
-                    expect(event.value.location.line).to.equal(outlineLine);
+                    expect(event.details.name).to.equal(expectedScenarioName);
+                    expect(event.details.category).to.equal(expectedScenarioCategory);
+                    expect(event.details.location.line).to.equal(outlineLine);
                 })
                 .next(SceneParametersDetected, event => {
-                    expect(event.scenario.name).to.equal(expectedScenarioName);
-                    expect(event.scenario.category).to.equal(expectedScenarioCategory);
-                    expect(event.value.name).to.equal(expectedExamplesName);
-                    expect(event.value.description).to.equal(expectedExamplesDescription);
-                    expect(event.value.values).to.deep.equal({ result: 'passes' });
+                    expect(event.details.name).to.equal(expectedScenarioName);
+                    expect(event.details.category).to.equal(expectedScenarioCategory);
+                    expect(event.parameters.name).to.equal(expectedExamplesName);
+                    expect(event.parameters.description).to.equal(expectedExamplesDescription);
+                    expect(event.parameters.values).to.deep.equal({ result: 'passes' });
                 })
                 .next(SceneStarts,          event => {
                     expect(event.details.name).to.equal(expectedScenarioName);
@@ -70,16 +70,16 @@ describe('@serenity-js/cucumber', function () {
                     expect(event.details.location.line).to.equal(firstScenarioLine);
                 })
                 .next(SceneSequenceDetected, event => {
-                    expect(event.value.name).to.equal(expectedScenarioName);
-                    expect(event.value.category).to.equal(expectedScenarioCategory);
-                    expect(event.value.location.line).to.equal(outlineLine);
+                    expect(event.details.name).to.equal(expectedScenarioName);
+                    expect(event.details.category).to.equal(expectedScenarioCategory);
+                    expect(event.details.location.line).to.equal(outlineLine);
                 })
                 .next(SceneParametersDetected, event => {
-                    expect(event.scenario.name).to.equal(expectedScenarioName);
-                    expect(event.scenario.category).to.equal(expectedScenarioCategory);
-                    expect(event.value.name).to.equal(expectedExamplesName);
-                    expect(event.value.description).to.equal(expectedExamplesDescription);
-                    expect(event.value.values).to.deep.equal({ result: 'fails with generic error' });
+                    expect(event.details.name).to.equal(expectedScenarioName);
+                    expect(event.details.category).to.equal(expectedScenarioCategory);
+                    expect(event.parameters.name).to.equal(expectedExamplesName);
+                    expect(event.parameters.description).to.equal(expectedExamplesDescription);
+                    expect(event.parameters.values).to.deep.equal({ result: 'fails with generic error' });
                 })
                 .next(SceneStarts,          event => {
                     expect(event.details.name).to.equal(expectedScenarioName);

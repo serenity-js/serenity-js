@@ -61,6 +61,8 @@ export class Notifier {
 
         this.currentScenario = details;
 
+        // todo: emit SceneBackgroundDetected?
+
         this.emit(...notEmpty([
             new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
             feature.description && new FeatureNarrativeDetected(this.currentSceneId, feature.description, this.serenity.currentTime()),

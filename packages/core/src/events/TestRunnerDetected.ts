@@ -7,19 +7,19 @@ export class TestRunnerDetected extends DomainEvent {
     public static fromJSON(o: JSONObject) {
         return new TestRunnerDetected(
             CorrelationId.fromJSON(o.sceneId as string),
-            Name.fromJSON(o.value as string),
+            Name.fromJSON(o.name as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
         public readonly sceneId: CorrelationId,
-        public readonly value: Name,
+        public readonly name: Name,
         public readonly timestamp: Timestamp = new Timestamp(),
     ) {
         super();
         ensure('sceneId', sceneId, isDefined());
-        ensure('value', value, isDefined());
+        ensure('name', name, isDefined());
         ensure('timestamp', timestamp, isDefined());
     }
 }

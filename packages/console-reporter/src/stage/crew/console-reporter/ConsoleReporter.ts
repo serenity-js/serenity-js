@@ -29,7 +29,7 @@ import {
     Timestamp,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk';
-import { ensure, isDefined, isInstanceOf, match } from 'tiny-types';
+import { ensure, isDefined, match } from 'tiny-types';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';

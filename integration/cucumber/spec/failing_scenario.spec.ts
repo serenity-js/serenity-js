@@ -41,7 +41,7 @@ describe('@serenity-js/cucumber', function () {
 
             PickEvent.from(res.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A failing scenario')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a failing scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with generic error')))
                 .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))

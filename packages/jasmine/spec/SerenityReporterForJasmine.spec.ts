@@ -397,7 +397,7 @@ describe('SerenityReporterForJasmine', () => {
                  */
                 it('detects the test runner', () => {
                     PickEvent.from(listener.events)
-                        .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Jasmine')));
+                        .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Jasmine')));
                 });
             });
 
