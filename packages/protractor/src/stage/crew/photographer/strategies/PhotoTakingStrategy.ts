@@ -9,6 +9,7 @@ import {
     DomainEvent,
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
+import { error as webdriver } from 'selenium-webdriver';
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
@@ -61,7 +62,8 @@ export abstract class PhotoTakingStrategy {
                     photoName = this.combinedNameFrom(...context, nameSuffix);
 
                 stage.announce(new ActivityRelatedArtifactGenerated(
-                    event.value,
+                    event.sceneId,
+                    event.activityId,
                     photoName,
                     Photo.fromBase64(screenshot),
                 ));
@@ -71,7 +73,15 @@ export abstract class PhotoTakingStrategy {
                     id,
                 ));
             }).catch(error => {
-                stage.announce(new AsyncOperationFailed(error, id));
+                if (this.shouldIgnore(error)) {
+                    stage.announce(new AsyncOperationCompleted(
+                        new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
+                        id,
+                    ));
+                }
+                else {
+                    stage.announce(new AsyncOperationFailed(error, id));
+                }
             });
         }
     }
@@ -82,5 +92,10 @@ export abstract class PhotoTakingStrategy {
 
     private combinedNameFrom(...parts: string[]): Name {
         return new Name(parts.filter(v => !! v).join('-'));
+    }
+
+    private shouldIgnore(error: Error) {
+        return error instanceof webdriver.NoSuchSessionError
+            || error instanceof webdriver.UnexpectedAlertOpenError
     }
 }

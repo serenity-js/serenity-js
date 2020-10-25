@@ -1,21 +1,24 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { Description, Timestamp } from '../model';
+import { CorrelationId, Description, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneDescriptionDetected extends DomainEvent {
     public static fromJSON(o: JSONObject) {
         return new SceneDescriptionDetected(
+            CorrelationId.fromJSON(o.sceneId as string),
             Description.fromJSON(o.description as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
+        public readonly sceneId: CorrelationId,
         public readonly description: Description,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
+        ensure('sceneId', sceneId, isDefined());
         ensure('description', description, isDefined());
     }
 }

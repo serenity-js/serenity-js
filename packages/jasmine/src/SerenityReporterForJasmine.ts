@@ -45,6 +45,8 @@ export class SerenityReporterForJasmine {
     private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/;
     private describes: SuiteResult[] = [];
 
+    private currentSceneId: CorrelationId = null;
+
     constructor(private readonly serenity: Serenity) {
     }
 
@@ -61,12 +63,14 @@ export class SerenityReporterForJasmine {
     }
 
     specStarted(result: SpecResult) {
+        this.currentSceneId = this.serenity.assignNewSceneId();
+
         const details = this.scenarioDetailsOf(result);
 
         this.emit(
-            new SceneStarts(details, this.serenity.currentTime()),
-            new SceneTagged(details, new FeatureTag(this.currentFeatureName()), this.serenity.currentTime()),
-            new TestRunnerDetected(new Name('Jasmine'), this.serenity.currentTime()),
+            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
+            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureName()), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
         );
     }
 
@@ -78,11 +82,14 @@ export class SerenityReporterForJasmine {
          */
         if (result.failedExpectations.length > 1) {
             result.failedExpectations.forEach(failedExpectation => {
-                const details = new ActivityDetails(new Name('Expectation'), CorrelationId.create());
+                const
+                    sceneId = this.serenity.currentSceneId(),
+                    activityId = this.serenity.assignNewActivityId();
+                const details = new ActivityDetails(new Name('Expectation'));
 
                 this.emit(
-                    new TaskStarts(details, this.serenity.currentTime()),
-                    new TaskFinished(details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
+                    new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),
+                    new TaskFinished(sceneId, activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
                 );
             });
         }
@@ -90,6 +97,7 @@ export class SerenityReporterForJasmine {
         const scenarioDetails = this.scenarioDetailsOf(result);
 
         this.emit(new SceneFinishes(
+            this.currentSceneId,
             scenarioDetails,
             this.serenity.currentTime(),
         ));
@@ -97,6 +105,7 @@ export class SerenityReporterForJasmine {
         return this.serenity.waitForNextCue()
             .then(() => {
                 this.emit(new SceneFinished(
+                    this.currentSceneId,
                     scenarioDetails,
                     this.outcomeFrom(result),
                     this.serenity.currentTime(),
