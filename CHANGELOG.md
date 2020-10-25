@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+
+### Bug Fixes
+
+* **protractor:** presence of modal dialog windows will no longer impact the Photographer ([eedae92](https://github.com/serenity-js/serenity-js/commit/eedae92da3d172f97290696edc5ad6ca21903b00)), closes [#532](https://github.com/serenity-js/serenity-js/issues/532)
+
+
+
+
+
 ## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
 
 
