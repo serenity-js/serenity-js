@@ -37,10 +37,10 @@ describe('@serenity-js/cucumber', function () {
         expect(res.exitCode).to.equal(1);
 
         PickEvent.from(res.events)
-            .next(SceneStarts, event => expect(event.value.name).to.equal(new Name('A passing scenario')))
-            .next(TestRunnerDetected, event => expect(event.value).to.equal(new Name('Cucumber')))
+            .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A passing scenario')))
+            .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
             .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
-            .next(ActivityStarts, event => expect(event.value.name).to.equal(new Name('Given a step that passes')))
+            .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
             .next(ActivityFinished, event => {
                 expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 

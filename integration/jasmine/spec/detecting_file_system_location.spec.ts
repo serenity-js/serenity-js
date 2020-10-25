@@ -17,39 +17,39 @@ describe('@serenity-js/jasmine', function () {
 
             PickEvent.from(res.events)
                 .next(TestSuiteStarts,         event => {
-                    expect(event.value.name).to.equal(new Name('Jasmine'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(1);
+                    expect(event.details.name).to.equal(new Name('Jasmine'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(1);
                     // expect(event.value.location.column).to.equal(1);
                 })
                 .next(TestSuiteStarts,         event => {
-                    expect(event.value.name).to.equal(new Name('Detecting file system location'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(3);
-                    expect(event.value.location.column).to.equal(5);
+                    expect(event.details.name).to.equal(new Name('Detecting file system location'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(3);
+                    expect(event.details.location.column).to.equal(5);
                 })
                 .next(SceneStarts,         event => {
-                    expect(event.value.name).to.equal(new Name('Detecting file system location works for both the suites and the individual specs'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(5);
-                    expect(event.value.location.column).to.equal(9);
+                    expect(event.details.name).to.equal(new Name('Detecting file system location works for both the suites and the individual specs'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(5);
+                    expect(event.details.location.column).to.equal(9);
                 })
                 .next(SceneFinished,       event => {
-                    expect(event.value.name).to.equal(new Name('Detecting file system location works for both the suites and the individual specs'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(5);
-                    expect(event.value.location.column).to.equal(9);
+                    expect(event.details.name).to.equal(new Name('Detecting file system location works for both the suites and the individual specs'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(5);
+                    expect(event.details.location.column).to.equal(9);
                 })
                 .next(TestSuiteFinished,   event => {
-                    expect(event.value.name).to.equal(new Name('Detecting file system location'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(3);
-                    expect(event.value.location.column).to.equal(5);
+                    expect(event.details.name).to.equal(new Name('Detecting file system location'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(3);
+                    expect(event.details.location.column).to.equal(5);
                 })
                 .next(TestSuiteFinished,   event => {
-                    expect(event.value.name).to.equal(new Name('Jasmine'));
-                    expect(event.value.location.path.value).to.match(/location.spec.js$/);
-                    expect(event.value.location.line).to.equal(1);
+                    expect(event.details.name).to.equal(new Name('Jasmine'));
+                    expect(event.details.location.path.value).to.match(/location.spec.js$/);
+                    expect(event.details.location.line).to.equal(1);
                     // expect(event.value.location.column).to.equal(1);
                 })
             ;
