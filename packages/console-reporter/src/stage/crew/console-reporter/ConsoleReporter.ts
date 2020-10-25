@@ -12,8 +12,8 @@ import {
     TestRunFinished,
 } from '@serenity-js/core/lib/events';
 import {
-    ActivityDetails,
     AssertionReport,
+    CorrelationId,
     Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -29,7 +29,7 @@ import {
     Timestamp,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk';
-import { ensure, isDefined, isInstanceOf, match } from 'tiny-types';
+import { ensure, isDefined, match } from 'tiny-types';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
@@ -194,9 +194,9 @@ export class ConsoleReporter implements StageCrewMember {
 
                 // Print scenario header
                 this.printer.println(this.theme.separator('-'));
-                this.printer.println(e.value.location.path.value, e.value.location.line ? `:${ e.value.location.line }` : '');
+                this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
                 this.printer.println();
-                this.printer.println(this.theme.heading(e.value.category.value, ': ', e.value.name.value));
+                this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
                 this.printer.println();
 
             })
@@ -205,7 +205,7 @@ export class ConsoleReporter implements StageCrewMember {
                 this.printer.indent();
 
                 if (! this.firstError.alreadyRecorded()) {
-                    this.printer.println(e.value.name.value);
+                    this.printer.println(e.details.name.value);
                 }
 
             })
@@ -229,7 +229,7 @@ export class ConsoleReporter implements StageCrewMember {
                     }
                 }
 
-                const artifacts = this.artifacts.recordedFor(e.value);
+                const artifacts = this.artifacts.recordedFor(e.activityId);
 
                 if (artifacts.filter(a => a instanceof AssertionReport || a instanceof LogEntry).length > 0) {
                     this.printer.println();
@@ -294,7 +294,7 @@ export class ConsoleReporter implements StageCrewMember {
 
                 else if (! (e.outcome instanceof ExecutionSuccessful)) {
                     this.printer.indent();
-                    this.printer.println(this.iconFrom(e.outcome), e.value.name.value);
+                    this.printer.println(this.iconFrom(e.outcome), e.details.name.value);
 
                     this.printer.outdent();
                 }
@@ -302,7 +302,7 @@ export class ConsoleReporter implements StageCrewMember {
             })
             .when(SceneFinished, (e: SceneFinished) => {
 
-                this.summary.record(e.value, e.outcome, this.startTimes.eventDurationOf(e));
+                this.summary.record(e.details, e.outcome, this.startTimes.eventDurationOf(e));
 
                 this.printer.println();
                 this.printer.println(this.theme.outcome(e.outcome, this.formattedOutcome(e, this.deCamelCased(e.outcome.constructor.name))));
@@ -331,7 +331,7 @@ export class ConsoleReporter implements StageCrewMember {
             });
     }
 
-    private formattedOutcome(event: IdentifiableEvent & { outcome: Outcome }, description: string = event.value.name.value) {
+    private formattedOutcome(event: IdentifiableEvent & { outcome: Outcome }, description: string = event.details.name.value) {
         const
             icon = `${ this.iconFrom(event.outcome) }`,
             message = `${ description } (${ this.startTimes.eventDurationOf(event) })`;
@@ -368,7 +368,7 @@ export class ConsoleReporter implements StageCrewMember {
 }
 
 interface IdentifiableEvent {
-    value: { name: Name, toString(): string };
+    details: { name: Name, toString(): string };
     timestamp: Timestamp;
 }
 
@@ -376,11 +376,11 @@ class StartTimes {
     private times: { [correlationId: string]: Timestamp } = {};
 
     recordStartOf(event: IdentifiableEvent) {
-        this.times[event.value.toString()] = event.timestamp;
+        this.times[event.details.toString()] = event.timestamp;
     }
 
     eventDurationOf(event: IdentifiableEvent & { outcome: Outcome }): Duration {
-        return event.timestamp.diff(this.times[event.value.toString()]);
+        return event.timestamp.diff(this.times[event.details.toString()]);
     }
 }
 
@@ -410,9 +410,9 @@ class ActivityRelatedArtifacts {
         this.events.push(event);
     }
 
-    recordedFor(details: ActivityDetails): ActivityRelatedArtifactGenerated[] {
+    recordedFor(activityId: CorrelationId): ActivityRelatedArtifactGenerated[] {
         return this.events
-            .filter(event => event.details.equals(details));
+            .filter(event => event.activityId.equals(activityId));
     }
 
     clear() {

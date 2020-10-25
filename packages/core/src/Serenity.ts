@@ -2,7 +2,7 @@ import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
 import { DomainEvent, SceneFinished, SceneStarts } from './events';
 import { ErrorStackParser } from './io';
-import { Duration, Timestamp } from './model';
+import { CorrelationId, Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor';
 import { SerenityConfig } from './SerenityConfig';
 import { Cast, Clock, Stage, StageCrewMember, StageManager } from './stage';
@@ -178,6 +178,18 @@ export class Serenity {
 
     currentTime(): Timestamp {
         return this.stage.currentTime();
+    }
+
+    assignNewSceneId(): CorrelationId {
+        return this.stage.assignNewSceneId();
+    }
+
+    currentSceneId(): CorrelationId {
+        return this.stage.currentSceneId();
+    }
+
+    assignNewActivityId(): CorrelationId {
+        return this.stage.assignNewActivityId();
     }
 
     /**

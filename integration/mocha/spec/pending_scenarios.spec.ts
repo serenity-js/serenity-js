@@ -18,8 +18,8 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(0);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`A scenario is marked as skipped when it hasn't been implemented yet`)))
-                    .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Mocha')))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`A scenario is marked as skipped when it hasn't been implemented yet`)))
+                    .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Mocha')))
                     .next(SceneFinished,        event => {
                         expect(event.outcome).to.be.instanceof(ImplementationPending);
                         expect((event.outcome as ImplementationPending).error.message).to.equal('Scenario not implemented');
@@ -34,8 +34,8 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(0);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`A scenario is marked as pending`)))
-                    .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Mocha')))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
+                    .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Mocha')))
                     .next(SceneFinished,        event => {
                         expect(event.outcome).to.be.instanceof(ImplementationPending);
                         expect((event.outcome as ImplementationPending).error.message).to.equal('Scenario not implemented');
@@ -50,8 +50,8 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(0);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,          event => expect(event.value.name).to.equal(new Name(`A scenario is marked as pending`)))
-                    .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Mocha')))
+                    .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
+                    .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Mocha')))
                     .next(SceneFinished,        event => {
                         expect(event.outcome).to.be.instanceof(ImplementationPending);
                         expect((event.outcome as ImplementationPending).error.message).to.equal('Scenario not implemented');

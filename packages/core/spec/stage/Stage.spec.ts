@@ -3,7 +3,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
-import { Actor, Interaction } from '../../src/screenplay';
+import { Actor } from '../../src/screenplay';
 import { Cast, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
@@ -113,35 +113,44 @@ describe('Stage', () => {
 
     describe('when correlating activities', () => {
 
-        const SomeActivity = () => Interaction.where(`#actor doesn't do much`, actor => void 0);
-
-        it('provides ActivityDetails for a given Activity', () => {
+        it('assigns sceneIds', () => {
             const
                 actors = new Extras(),
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
-            const details = stage.activityDetailsFor(SomeActivity(), stage.actor('Alice'));
+            const assigned = stage.assignNewSceneId();
+            const retrieved = stage.currentSceneId();
 
-            expect(details.name.value).to.equal(`Alice doesn't do much`);
-            expect(details.correlationId.value).to.be.a('string');    // tslint:disable-line:no-unused-expression
+            expect(assigned).to.equal(retrieved);
         });
 
-        it('allows for the recently ActivityDetails to be retrieved', () => {
+        it('returns a default sceneId when activities are performed outside of a test runner', () => {
             const
                 actors = new Extras(),
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
-            const details = stage.activityDetailsFor(SomeActivity(), stage.actor('Alice'));
+            const retrieved = stage.currentSceneId();
 
-            expect(stage.currentActivityDetails()).to.equal(details);
+            expect(retrieved.value).to.equal('unknown');
         });
 
-        it('complains if ActivityDetails attempted to be retrieved before they have been generated', () => {
+        it('assigns activityIds', () => {
             const
                 actors = new Extras(),
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
-            expect(() => stage.currentActivityDetails()).to.throw(LogicError, 'No activity is being performed. Did you call activityDetailsFor before invoking currentActivityDetails?');
+            const assigned = stage.assignNewActivityId();
+            const retrieved = stage.currentActivityId();
+
+            expect(assigned).to.equal(retrieved);
+        });
+
+        it('complains if an activityId is attempted to be retrieved before is has been assigned', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            expect(() => stage.currentActivityId()).to.throw(LogicError, 'No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?');
         });
     });
 

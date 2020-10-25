@@ -13,6 +13,7 @@ export class Tags {
 
         return match<Tag[]>(type.toLowerCase())
             .when('manual',     _ => [ new ManualTag() ])
+            // todo: map as arbitrary tag if value === ''; look up ticket id
             .when(/issues?/,    _ => val.split(',').map(value => new IssueTag(value.trim())))
             .else(value           => [ new ArbitraryTag(value.trim()) ]);
     }

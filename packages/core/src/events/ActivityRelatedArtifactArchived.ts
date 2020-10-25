@@ -1,13 +1,17 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { Path } from '../io';
-import { ActivityDetails, Artifact, ArtifactType, Name, Timestamp } from '../model';
+import { Artifact, ArtifactType, CorrelationId, Name, Timestamp } from '../model';
 import { ArtifactArchived } from './ArtifactArchived';
 
+// todo: there should be two types of events here:
+//  - ActivityArtifactGenerated
+//  - SceneArtifactGenerated
 export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     static fromJSON<E>(o: JSONObject) {
         return new ActivityRelatedArtifactArchived(
-            ActivityDetails.fromJSON(o.details as JSONObject),
+            CorrelationId.fromJSON(o.sceneId as string),
+            CorrelationId.fromJSON(o.activityId as string),
             Name.fromJSON(o.name as string),
             Artifact.ofType(o.type as string),
             Path.fromJSON(o.path as string),
@@ -16,19 +20,22 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     }
 
     constructor(
-        public readonly details: ActivityDetails,
+        sceneId: CorrelationId,
+        public readonly activityId: CorrelationId,
         name: Name,
         type: ArtifactType,
         path: Path,
         timestamp?: Timestamp,
     ) {
-        super(name, type, path, timestamp);
-        ensure('activity details', details, isDefined());
+        super(sceneId, name, type, path, timestamp);
+        ensure('sceneId', sceneId, isDefined());
+        ensure('activityId', activityId, isDefined());
     }
 
     toJSON(): JSONObject {
         return {
-            details: this.details.toJSON(),
+            sceneId: this.sceneId.toJSON(),
+            activityId: this.activityId.toJSON(),
             name: this.name.toJSON(),
             type: this.type.name,
             path: this.path.toJSON(),

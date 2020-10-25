@@ -44,6 +44,7 @@ export abstract class Artifact extends TinyType {
 
     abstract map<T>(fn: (decodedValue: any) => T): T;
 
+    // todo: serialise on call
     toJSON(): SerialisedArtifact {
         return ({
             type: this.constructor.name,
