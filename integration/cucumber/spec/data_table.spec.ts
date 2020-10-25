@@ -33,7 +33,7 @@ describe('@serenity-js/cucumber', function () {
             expect(res.exitCode).to.equal(0);
 
             PickEvent.from(res.events)
-                .next(ActivityStarts, event => expect(event.value.name).to.equal(new Name(
+                .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(
                     'Given a step that receives a table:\n' +
                     '| Developer | Website |\n' +
                     '| Jan Molak | janmolak.com |',

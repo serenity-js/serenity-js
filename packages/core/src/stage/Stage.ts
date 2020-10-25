@@ -14,7 +14,8 @@ export class Stage {
     private actorsOnStage: Map<string, Actor> = new Map<string, Actor>();
     private actorInTheSpotlight: Actor = null;
 
-    private detailsOfCurrentActivity: ActivityDetails = null;
+    private currentActivity: CorrelationId = null;
+    private currentScene: CorrelationId = new CorrelationId('unknown');
 
     constructor(
         private cast: Cast,
@@ -131,21 +132,30 @@ export class Stage {
         return this.manager.currentTime();
     }
 
-    activityDetailsFor(activity: Activity, actor: { name: string }): ActivityDetails {
-        this.detailsOfCurrentActivity = new ActivityDetails(
-            Stage.describer.describe(activity, actor),
-            CorrelationId.create(),
-        );
+    assignNewSceneId() {
+        // todo: inject an id factory to make it easier to test
+        this.currentScene = CorrelationId.create();
 
-        return this.detailsOfCurrentActivity;
+        return this.currentScene;
     }
 
-    currentActivityDetails(): ActivityDetails {
-        if (! this.detailsOfCurrentActivity) {
-            throw new LogicError(`No activity is being performed. Did you call activityDetailsFor before invoking currentActivityDetails?`);
+    currentSceneId() {
+        return this.currentScene;
+    }
+
+    assignNewActivityId() {
+        // todo: inject an id factory to make it easier to test
+        this.currentActivity = CorrelationId.create();
+
+        return this.currentActivity;
+    }
+
+    currentActivityId(): CorrelationId {
+        if (! this.currentActivity) {
+            throw new LogicError(`No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?`);
         }
 
-        return this.detailsOfCurrentActivity;
+        return this.currentActivity;
     }
 
     waitForNextCue(): Promise<void> {

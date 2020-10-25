@@ -4,7 +4,7 @@ import { ErrorSerialiser, SerialisedError } from '../io';
 
 export interface SerialisedOutcome extends JSONObject {
     code:    number;
-    error?:  SerialisedError;
+    error?:  string;
 }
 
 export abstract class Outcome extends TinyType {

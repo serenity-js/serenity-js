@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
+import { ErrorSerialiser } from '@serenity-js/core/lib/io';
 import { by } from 'protractor';
 
 import { isPresent, Navigate, Target, Wait } from '../../src';
@@ -41,6 +42,16 @@ describe('isPresent', function () {
         return expect(actorCalled('Bernie').attemptsTo(
             Ensure.that(Page.Non_Existent_Header, isPresent()),
         )).to.be.rejectedWith(AssertionError, `Expected the non-existent header to become present`);
+    });
+
+    /** @test {isPresent} */
+    it(`produces an assertion error that can be serialised with ErrorSerialiser`, () => {
+        return expect(actorCalled('Bernie').attemptsTo(
+            Ensure.that(Page.Non_Existent_Header, isPresent()),
+        )).to.be.rejectedWith(AssertionError, `Expected the non-existent header to become present`)
+            .then((error: AssertionError) => {
+                expect(ErrorSerialiser.serialise(error)).to.be.a('string');
+            });
     });
 
     /** @test {isPresent} */

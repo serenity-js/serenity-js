@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import { Actor } from '../../../../src';
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
-import { Duration, JSONData, Name, TestReport } from '../../../../src/model';
+import { CorrelationId, Duration, JSONData, Name, TestReport } from '../../../../src/model';
 import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../src/stage';
 
 import { expect } from '../../../expect';
@@ -16,7 +16,8 @@ describe('ArtifactArchiver', () => {
     const
         json = { key: 'value' },
         jsonValueShortHash = '64cdd772d3',
-        photoShortHash = '6808b2e9fe';
+        photoShortHash = '6808b2e9fe',
+        sceneId = new CorrelationId('a-scene');
 
     let stage:          Stage,
         fs:             sinon.SinonStubbedInstance<FileSystem>,
@@ -54,6 +55,7 @@ describe('ArtifactArchiver', () => {
          */
         it('notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled', () => {
             stage.announce(new ArtifactGenerated(
+                sceneId,
                 jsonArtifactName,
                 JSONData.fromJSON(json),
             ));
@@ -69,6 +71,7 @@ describe('ArtifactArchiver', () => {
             fs.store.returns(Promise.reject(new Error('Something happened')));
 
             stage.announce(new ArtifactGenerated(
+                sceneId,
                 pngArtifactName,
                 photo,
             ));
@@ -82,6 +85,7 @@ describe('ArtifactArchiver', () => {
          */
         it('correctly saves the test report to a unique file', () => {
             stage.announce(new ArtifactGenerated(
+                sceneId,
                 jsonArtifactName,
                 TestReport.fromJSON(json),
             ));
@@ -100,6 +104,7 @@ describe('ArtifactArchiver', () => {
          */
         it('correctly saves PNG content to a file', () => {
             stage.announce(new ArtifactGenerated(
+                sceneId,
                 pngArtifactName,
                 photo,
             ));
@@ -162,6 +167,7 @@ describe('ArtifactArchiver', () => {
         const notifyOf = sinon.spy(stageManager, 'notifyOf');
 
         stageManager.notifyOf(new ArtifactGenerated(
+            sceneId,
             new Name('Some Report Name'),
             TestReport.fromJSON(json),
         ));
@@ -171,6 +177,7 @@ describe('ArtifactArchiver', () => {
             const archived: ArtifactArchived = notifyOf.getCall(2).lastArg;
 
             expect(archived).to.be.instanceOf(ArtifactArchived);
+            expect(archived.sceneId).to.equal(sceneId);
             expect(archived.name).to.equal(new Name('Some Report Name'));
             expect(archived.type).to.equal(TestReport);
             expect(archived.path).to.equal(new Path(`scenario-some-report-name-${ jsonValueShortHash }.json`));

@@ -103,14 +103,15 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
 
                 const
                     map = cache.get(new Path(sourceLocation.uri)),
-                    scenario = map.get(Scenario).onLine(sourceLocation.line);
+                    scenario = map.get(Scenario).onLine(sourceLocation.line),
+                    sceneId = serenity.assignNewSceneId();
 
                 if (!! scenario.outline) {
                     const outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
-                    notifier.outlineDetected(scenario, outline, map.getFirst(Feature));
+                    notifier.outlineDetected(sceneId, scenario, outline, map.getFirst(Feature));
                 }
 
-                notifier.scenarioStarts(scenario, map.getFirst(Feature));
+                notifier.scenarioStarts(sceneId, scenario, map.getFirst(Feature));
             });
 
             eventBroadcaster.on('test-step-started', ({ index, testCase }) => {

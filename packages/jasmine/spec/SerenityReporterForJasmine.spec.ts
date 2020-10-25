@@ -374,8 +374,8 @@ describe('SerenityReporterForJasmine', () => {
                  */
                 it('derives the name of the scenario from the nested `describe` blocks', () => {
                     PickEvent.from(listener.events)
-                        .next(SceneStarts,      event => expect(event.value.name.value).to.equal('A scenario passes'))
-                        .next(SceneFinished,    event => expect(event.value.name.value).to.equal('A scenario passes'));
+                        .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))
+                        .next(SceneFinished,    event => expect(event.details.name.value).to.equal('A scenario passes'));
                 });
 
                 /**
@@ -397,7 +397,7 @@ describe('SerenityReporterForJasmine', () => {
                  */
                 it('detects the test runner', () => {
                     PickEvent.from(listener.events)
-                        .next(TestRunnerDetected,   event => expect(event.value).to.equal(new Name('Jasmine')));
+                        .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Jasmine')));
                 });
             });
 
@@ -624,7 +624,7 @@ describe('SerenityReporterForJasmine', () => {
                     });
 
                     PickEvent.from(listener.events)
-                        .next(TaskStarts,   event => expect(event.value.name).to.equal(new Name('Expectation')))
+                        .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
                         .next(TaskFinished, event => {
                             const outcome = event.outcome as ExecutionFailedWithAssertionError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
@@ -635,7 +635,7 @@ describe('SerenityReporterForJasmine', () => {
                             expect(error.actual).to.equal(false);
                             expect(error.expected).to.equal(true);
                         })
-                        .next(TaskStarts,   event => expect(event.value.name).to.equal(new Name('Expectation')))
+                        .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
                         .next(TaskFinished, event => {
                             const outcome = event.outcome as ExecutionFailedWithAssertionError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
@@ -718,8 +718,8 @@ describe('SerenityReporterForJasmine', () => {
              */
             it('correctly derives the name of the spec', () => {
                 PickEvent.from(listener.events)
-                    .next(SceneStarts,      event => expect(event.value.name.value).to.equal('A scenario passes'))
-                    .next(SceneFinished,    event => expect(event.value.name.value).to.equal('A scenario passes'));
+                    .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))
+                    .next(SceneFinished,    event => expect(event.details.name.value).to.equal('A scenario passes'));
             });
         });
     });
