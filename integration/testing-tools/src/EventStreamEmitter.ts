@@ -14,10 +14,16 @@ export class EventStreamEmitter {
                 try {
                     return JSON.parse(line.trim());
                 } catch (e) {
-                    throw new ConfigurationError(`Couldn't parse line ${ index }: ${line.trim()}`, e);
+                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${line.trim()}`, e);
                 }
             })
-            .map(entry => events[ entry.type ].fromJSON(entry.event));
+            .map((entry, index) => {
+                try {
+                    return events[ entry.type ].fromJSON(entry.event);
+                } catch (e) {
+                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${JSON.stringify(entry)}`, e);
+                }
+            });
 
         entries.forEach(event => this.stage.announce(event));
 

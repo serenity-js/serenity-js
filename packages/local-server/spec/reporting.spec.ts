@@ -91,6 +91,6 @@ describe('@serenity-js/local-server', () => {
     });
 
     function hasName(expectedName: string) {
-        return (e: ActivityStarts | ActivityFinished) => expect(e.value.name.value).equals(expectedName);
+        return (e: ActivityStarts | ActivityFinished) => expect(e.details.name.value).equals(expectedName);
     }
 });

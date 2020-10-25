@@ -48,13 +48,13 @@ export class BrowserDetector implements StageCrewMember {
             then(([browserName, browserVersion, platformName, platformVersion]) => {
 
                 this.stage.announce(new SceneTagged(
-                    event.value,
+                    event.sceneId,
                     new BrowserTag(browserName, browserVersion),
                     this.stage.currentTime(),
                 ));
 
                 this.stage.announce(new SceneTagged(
-                    event.value,
+                    event.sceneId,
                     new PlatformTag(platformName, platformVersion),
                     this.stage.currentTime(),
                 ));

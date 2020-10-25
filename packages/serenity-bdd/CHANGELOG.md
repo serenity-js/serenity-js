@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* **core:** all Activity-related events can be correlated with the Scene they originate from ([6cf0eca](https://github.com/serenity-js/serenity-js/commit/6cf0eca7670db01ac317587996fc3ea5984de059))
+* **core:** it's easier for reporters to associate artifacts with scenes they've originated from ([1ccdc99](https://github.com/serenity-js/serenity-js/commit/1ccdc998af4049d6c91dc263b16a7d8c7d84bbfa))
+* **core:** refactored the internal domain events so that they're easier to aggregate and correlate ([943c016](https://github.com/serenity-js/serenity-js/commit/943c016ed3e404c9c1aacf8342e42626d4d85d04))
+* **serenity-bdd:** reporter is capable of rendering errors with no stack trace ([ac38585](https://github.com/serenity-js/serenity-js/commit/ac38585f98b6d857b8a786522ab628aa99fbdb0c))
+* **serenity-bdd:** support for out-of-order events in SerenityBDDReporter ([77db83e](https://github.com/serenity-js/serenity-js/commit/77db83e722602b1f39aba7cde113bfb5724842b5)), closes [#518](https://github.com/serenity-js/serenity-js/issues/518)
+
+
+
+
+
+## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
 # [2.17.0](https://github.com/serenity-js/serenity-js/compare/v2.16.0...v2.17.0) (2020-10-05)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

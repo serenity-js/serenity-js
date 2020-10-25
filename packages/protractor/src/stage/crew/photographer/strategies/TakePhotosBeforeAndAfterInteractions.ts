@@ -21,7 +21,7 @@ export class TakePhotosBeforeAndAfterInteractions extends PhotoTakingStrategy {
 
     protected photoNameFor(event: InteractionStarts | InteractionFinished): string {
         return event instanceof InteractionStarts
-            ? `Before ${ event.value.name.value }`
-            : `After ${ event.value.name.value }`;
+            ? `Before ${ event.details.name.value }`
+            : `After ${ event.details.name.value }`;
     }
 }
