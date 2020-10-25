@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+**Note:** Version bump only for package @integration/mocha
+
+
+
+
+
+## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* **core:** refactored the internal domain events so that they're easier to aggregate and correlate ([943c016](https://github.com/serenity-js/serenity-js/commit/943c016ed3e404c9c1aacf8342e42626d4d85d04))
+* **serenity-bdd:** support for out-of-order events in SerenityBDDReporter ([77db83e](https://github.com/serenity-js/serenity-js/commit/77db83e722602b1f39aba7cde113bfb5724842b5)), closes [#518](https://github.com/serenity-js/serenity-js/issues/518)
+
+
+
+
+
 ## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
 
 **Note:** Version bump only for package @integration/mocha

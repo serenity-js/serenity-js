@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -16,6 +16,8 @@ describe('SerenityBDDReporter', () => {
 
     let stageManager: sinon.SinonStubbedInstance<StageManager>,
         reporter: SerenityBDDReporter;
+
+    const sceneId = new CorrelationId('a-scene-id');
 
     beforeEach(() => {
         const env = create();
@@ -32,7 +34,7 @@ describe('SerenityBDDReporter', () => {
 
             beforeEach(() => {
                 given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneStarts(defaultCardScenario),
+                    new SceneStarts(sceneId, defaultCardScenario),
                 );
             });
 
@@ -47,7 +49,7 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('is marked as automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -67,8 +69,8 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('can be optionally tagged as manual', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new ManualTag()),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new ManualTag()),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -96,9 +98,9 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('can be tagged with an issue number', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new IssueTag('ABC-1234')),
-                        new SceneTagged(defaultCardScenario, new IssueTag('DEF-5678')),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new IssueTag('ABC-1234')),
+                        new SceneTagged(sceneId, new IssueTag('DEF-5678')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -139,8 +141,8 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('can be tagged with an arbitrary tag', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new ArbitraryTag('regression')),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new ArbitraryTag('regression')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -167,8 +169,8 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('belongs to a feature', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new FeatureTag('Checkout')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -199,9 +201,9 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('belongs to a capability', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
-                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new CapabilityTag('E-Commerce')),
+                        new SceneTagged(sceneId, new FeatureTag('Checkout')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -237,10 +239,10 @@ describe('SerenityBDDReporter', () => {
                  */
                 it('belongs to a theme', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        new SceneTagged(defaultCardScenario, new ThemeTag('Digital')),
-                        new SceneTagged(defaultCardScenario, new CapabilityTag('E-Commerce')),
-                        new SceneTagged(defaultCardScenario, new FeatureTag('Checkout')),
-                        new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                        new SceneTagged(sceneId, new ThemeTag('Digital')),
+                        new SceneTagged(sceneId, new CapabilityTag('E-Commerce')),
+                        new SceneTagged(sceneId, new FeatureTag('Checkout')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                         new TestRunFinishes(),
                     );
 
@@ -280,8 +282,8 @@ describe('SerenityBDDReporter', () => {
                      */
                     it('indicates the web browser where the test was executed', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            new SceneTagged(defaultCardScenario, new BrowserTag('chrome', '80.0.3987.87')),
-                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new SceneTagged(sceneId, new BrowserTag('chrome', '80.0.3987.87')),
+                            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
 
@@ -309,8 +311,8 @@ describe('SerenityBDDReporter', () => {
                      */
                     it('indicates the operating system where the test was executed', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
-                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new SceneTagged(sceneId, new ContextTag('iphone')),
+                            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
 
@@ -337,9 +339,9 @@ describe('SerenityBDDReporter', () => {
                      */
                     it('ensures that the user-specified context takes precedence over browser context', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            new SceneTagged(defaultCardScenario, new BrowserTag('safari', '13.0.5')),
-                            new SceneTagged(defaultCardScenario, new ContextTag('iphone')),
-                            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+                            new SceneTagged(sceneId, new BrowserTag('safari', '13.0.5')),
+                            new SceneTagged(sceneId, new ContextTag('iphone')),
+                            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
 

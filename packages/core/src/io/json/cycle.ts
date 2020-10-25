@@ -62,9 +62,6 @@ export function parse(text: string, reviver?: (this: any, key: string, value: an
  *
  * @param {any} object
  *
- * @param {function(this: any, key: string, value: any): any} [replacer]
- *  A function that transforms the results.
- *
  * @package
  */
 function decycle(object: any) {
