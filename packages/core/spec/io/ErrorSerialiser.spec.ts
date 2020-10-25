@@ -1,5 +1,7 @@
+import 'mocha';
+
 import { AssertionError } from '../../src/errors';
-import { ErrorSerialiser } from '../../src/io';
+import { ErrorSerialiser, parse } from '../../src/io';
 import { expect } from '../expect';
 
 describe ('ErrorSerialiser', () => {
@@ -8,11 +10,11 @@ describe ('ErrorSerialiser', () => {
     it('serialises an Error object to JSON', () => {
         const e = new Error(`Something happened`);
 
-        expect(ErrorSerialiser.serialise(e)).to.deep.equal({
+        expect(ErrorSerialiser.serialise(e)).to.equal(JSON.stringify({
             name: 'Error',
-            message: 'Something happened',
             stack: e.stack,
-        });
+            message: 'Something happened',
+        }));
     });
 
     /** @test {ErrorSerialiser} */
@@ -23,11 +25,11 @@ describe ('ErrorSerialiser', () => {
             '    at Generator.next (<anonymous>)',
         ].join('\n');
 
-        const error = ErrorSerialiser.deserialise({
+        const error = ErrorSerialiser.deserialise(JSON.stringify({
             name: 'Error',
             message: 'Something happened',
             stack,
-        });
+        }));
 
         expect(error).to.be.instanceOf(Error);
         expect(error.name).to.equal(`Error`);
@@ -41,8 +43,8 @@ describe ('ErrorSerialiser', () => {
             error = new AssertionError(`Expected false to equal true`, true, false),
             serialised = ErrorSerialiser.serialise(error);
 
-        expect(serialised.name).to.equal('AssertionError');
-        expect(serialised.message).to.equal('Expected false to equal true');
+        expect(parse(serialised).name).to.equal('AssertionError');
+        expect(parse(serialised).message).to.equal('Expected false to equal true');
     });
 
     /** @test {ErrorSerialiser} */
@@ -53,11 +55,11 @@ describe ('ErrorSerialiser', () => {
             '    at Generator.next (<anonymous>)',
         ].join('\n');
 
-        const error = ErrorSerialiser.deserialise({
+        const error = ErrorSerialiser.deserialise(JSON.stringify({
             name: 'AssertionError',
             message: 'Expected false to equal true',
             stack,
-        });
+        }));
 
         expect(error).to.be.instanceOf(AssertionError);
         expect(error.name).to.equal(`AssertionError`);

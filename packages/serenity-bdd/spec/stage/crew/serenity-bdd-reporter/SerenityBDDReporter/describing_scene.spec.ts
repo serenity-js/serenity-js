@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src';
@@ -16,6 +16,8 @@ describe('SerenityBDDReporter', () => {
 
     let stageManager: sinon.SinonStubbedInstance<StageManager>,
         reporter: SerenityBDDReporter;
+
+    const sceneId = new CorrelationId('a-scene-id');
 
     beforeEach(() => {
         const env = create();
@@ -34,9 +36,9 @@ describe('SerenityBDDReporter', () => {
      */
     it('captures information about scenario background', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneStarts(defaultCardScenario),
-                new SceneBackgroundDetected(new Name('Background title'), new Description('Background description')),
-            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new SceneStarts(sceneId, defaultCardScenario),
+                new SceneBackgroundDetected(sceneId, new Name('Background title'), new Description('Background description')),
+            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
@@ -56,9 +58,9 @@ describe('SerenityBDDReporter', () => {
      */
     it('captures the description of the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneStarts(defaultCardScenario),
-            new SceneDescriptionDetected(new Description('Scenario description')),
-            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new SceneStarts(sceneId, defaultCardScenario),
+            new SceneDescriptionDetected(sceneId, new Description('Scenario description')),
+            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
@@ -77,9 +79,9 @@ describe('SerenityBDDReporter', () => {
      */
     it('captures the narrative behind the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneStarts(defaultCardScenario),
-            new FeatureNarrativeDetected(new Description('Feature narrative')),
-            new SceneFinished(defaultCardScenario, new ExecutionSuccessful()),
+            new SceneStarts(sceneId, defaultCardScenario),
+            new FeatureNarrativeDetected(sceneId, new Description('Feature narrative')),
+            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 

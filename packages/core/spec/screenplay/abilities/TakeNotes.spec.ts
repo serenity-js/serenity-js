@@ -3,7 +3,7 @@ import 'mocha';
 import { actorCalled, engage, LogicError, serenity } from '../../../src';
 import { SceneFinishes } from '../../../src/events';
 import { FileSystemLocation, Path } from '../../../src/io';
-import { Category, Name, ScenarioDetails } from '../../../src/model';
+import { Category, CorrelationId, Name, ScenarioDetails } from '../../../src/model';
 import { Actor, Note, Question, TakeNote, TakeNotes } from '../../../src/screenplay';
 import { Cast } from '../../../src/stage';
 import { expect } from '../../expect';
@@ -96,7 +96,7 @@ describe('TakeNotes', () => {
                 TakeNote.of(AFavouriteDrink())
             ).
             then(() => {
-                serenity.announce(new SceneFinishes(scenarioDetails))
+                serenity.announce(new SceneFinishes(CorrelationId.create(), scenarioDetails))
             }).
             then(() => serenity.waitForNextCue()).
             then(() =>
@@ -145,7 +145,7 @@ describe('TakeNotes', () => {
                 TakeNote.of(AFavouriteDrink()),
             ).
             then(() => {
-                serenity.announce(new SceneFinishes(scenarioDetails))
+                serenity.announce(new SceneFinishes(CorrelationId.create(), scenarioDetails))
             }).
             then(() => serenity.waitForNextCue()).
             then(() =>

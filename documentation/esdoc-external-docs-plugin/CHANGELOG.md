@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+**Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
+
+
+
+
+
+## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
+
+**Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
+
+
+
+
+
+## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
+
+**Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
+
+
+
+
+
+# [2.17.0](https://github.com/serenity-js/serenity-js/compare/v2.16.0...v2.17.0) (2020-10-05)
+
+
+### Bug Fixes
+
+* **protractor:** documentation and examples for all the interactions ([39a175d](https://github.com/serenity-js/serenity-js/commit/39a175d7139d6733748dcce317196794042b6a36))
+
+
+### Features
+
+* **protractor:** interactions to Close browser windows and Switch between (i)frames and windows ([2ec64ef](https://github.com/serenity-js/serenity-js/commit/2ec64ef63884b47a6b9380fcac18f2936ad611fc)), closes [#66](https://github.com/serenity-js/serenity-js/issues/66) [#82](https://github.com/serenity-js/serenity-js/issues/82) [#227](https://github.com/serenity-js/serenity-js/issues/227) [#233](https://github.com/serenity-js/serenity-js/issues/233) [#366](https://github.com/serenity-js/serenity-js/issues/366)
+
+
+
+
+
 # [2.16.0](https://github.com/serenity-js/serenity-js/compare/v2.15.0...v2.16.0) (2020-09-20)
 
 **Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
