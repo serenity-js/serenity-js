@@ -403,8 +403,8 @@ describe(<span class="hljs-string">&apos;ModalDialog,&apos;</span>, <span class=
                     .next(AsyncOperationCompleted, <span class="hljs-function">(<span class="hljs-params">{ taskDescription }: AsyncOperationCompleted</span>) =&gt;</span> {
                         expect(taskDescription.value).to.include(<span class="hljs-string">`Took screenshot of &apos;Nick navigates`</span>);
                     })
-                    .next(AsyncOperationFailed, <span class="hljs-function">(<span class="hljs-params">{ error }: AsyncOperationFailed</span>) =&gt;</span> {
-                        expect(error.name).to.equal(<span class="hljs-string">&apos;UnexpectedAlertOpenError&apos;</span>);
+                    .next(AsyncOperationCompleted, <span class="hljs-function">(<span class="hljs-params">{ taskDescription }: AsyncOperationCompleted</span>) =&gt;</span> {
+                        expect(taskDescription.value).to.include(<span class="hljs-string">`Aborted taking screenshot of &apos;Nick clicks on the alert trigger&apos; because of UnexpectedAlertOpenError`</span>);
                     })
                     .next(InteractionFinished, <span class="hljs-function">(<span class="hljs-params">{ details }: InteractionFinished</span>) =&gt;</span> {
                         expect(details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Nick accepts the modal dialog window&apos;</span>));
