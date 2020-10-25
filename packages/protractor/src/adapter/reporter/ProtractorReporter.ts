@@ -35,8 +35,8 @@ export class ProtractorReporter implements StageCrewMember {
             this.recordSuccess(event);
 
             this.runner.emit('testPass', {
-                name:       event.value.name.value,
-                category:   event.value.category.value,
+                name:       event.details.name.value,
+                category:   event.details.category.value,
             });
         }
 
@@ -44,8 +44,8 @@ export class ProtractorReporter implements StageCrewMember {
             this.recordFailure(event);
 
             this.runner.emit('testFail', {
-                name:       event.value.name.value,
-                category:   event.value.category.value,
+                name:       event.details.name.value,
+                category:   event.details.category.value,
             });
         }
     }
@@ -60,8 +60,8 @@ export class ProtractorReporter implements StageCrewMember {
         this.reported.failedCount++;
 
         this.reported.specResults.push({
-            description: `${ event.value.category.value } ${ event.value.name.value }`,
-            duration: event.timestamp.diff(this.startTime[event.value.toString()]).inMilliseconds(),
+            description: `${ event.details.category.value } ${ event.details.name.value }`,
+            duration: event.timestamp.diff(this.startTime[event.details.toString()]).inMilliseconds(),
             assertions: [{
                 passed: false,
                 errorMsg: outcome.error.message,
@@ -71,13 +71,13 @@ export class ProtractorReporter implements StageCrewMember {
     }
 
     private recordStart(event: SceneStarts) {
-        this.startTime[event.value.toString()] = event.timestamp;
+        this.startTime[event.details.toString()] = event.timestamp;
     }
 
     private recordSuccess(event: SceneFinished) {
         this.reported.specResults.push({
-            description: `${ event.value.category.value } ${ event.value.name.value }`,
-            duration: event.timestamp.diff(this.startTime[event.value.toString()]).inMilliseconds(),
+            description: `${ event.details.category.value } ${ event.details.name.value }`,
+            duration: event.timestamp.diff(this.startTime[event.details.toString()]).inMilliseconds(),
             assertions: [{
                 passed: true,
             }],

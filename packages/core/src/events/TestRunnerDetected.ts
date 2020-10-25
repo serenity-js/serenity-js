@@ -1,22 +1,25 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { Name, Timestamp } from '../model';
+import { CorrelationId, Name, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class TestRunnerDetected extends DomainEvent {
     public static fromJSON(o: JSONObject) {
         return new TestRunnerDetected(
-            Name.fromJSON(o.value as string),
+            CorrelationId.fromJSON(o.sceneId as string),
+            Name.fromJSON(o.name as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
-        public readonly value: Name,
+        public readonly sceneId: CorrelationId,
+        public readonly name: Name,
         public readonly timestamp: Timestamp = new Timestamp(),
     ) {
         super();
-        ensure('value', value, isDefined());
+        ensure('sceneId', sceneId, isDefined());
+        ensure('name', name, isDefined());
         ensure('timestamp', timestamp, isDefined());
     }
 }

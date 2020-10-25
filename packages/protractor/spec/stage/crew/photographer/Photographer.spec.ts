@@ -7,6 +7,7 @@ import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     Category,
+    CorrelationId,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -32,11 +33,13 @@ describe('Photographer', () => {
                 new Path(`payments/checkout.feature`),
             ),
         ),
-        pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+        pickACard = new ActivityDetails(new Name('Pick the default credit card')),
+        sceneId = new CorrelationId('a-scene-id'),
+        activityId = new CorrelationId('activity-id');
 
     it('complains when sent DomainEvents before getting assigned to a Stage', () => {
         const photographer = new Photographer(new TakePhotosOfFailures());
-        expect(() => photographer.notifyOf(new SceneStarts(defaultCardScenario)))
+        expect(() => photographer.notifyOf(new SceneStarts(sceneId, defaultCardScenario)))
             .to.throw(LogicError, `Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`);
     });
 
@@ -53,10 +56,10 @@ describe('Photographer', () => {
             stage.assign(photographer);
 
             givenFollowingEvents(
-                new SceneStarts(defaultCardScenario),
-                new TaskStarts(pickACard),
-                new TaskFinished(pickACard, outcome),
-                new SceneFinished(defaultCardScenario, outcome),
+                new SceneStarts(sceneId, defaultCardScenario),
+                new TaskStarts(sceneId, activityId, pickACard),
+                new TaskFinished(sceneId, activityId, pickACard, outcome),
+                new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(),
             ).areSentTo(photographer);
 
@@ -79,8 +82,8 @@ describe('Photographer', () => {
             stage.assign(photographer);
 
             givenFollowingEvents(
-                new SceneStarts(defaultCardScenario),
-                new SceneFinished(defaultCardScenario, outcome),
+                new SceneStarts(sceneId, defaultCardScenario),
+                new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(),
             ).areSentTo(photographer);
 

@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
     source: 'src',
     includes: ['\\.ts$', '\\.js$'],
-    // excludes: ['^.nyc', '^lib', '^node_modules', '^spec'],
+    excludes: ['.*serenity-bdd-reporter/processors.*'],
     destination: './target/site',
     plugins: [
         { name: 'esdoc-lint-plugin', option: {enable: true} },

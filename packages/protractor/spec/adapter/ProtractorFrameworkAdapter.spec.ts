@@ -4,7 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { Serenity, Stage } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Config, Runner } from 'protractor';
 import * as sinon from 'sinon';
@@ -58,7 +58,7 @@ describe('ProtractorFrameworkAdapter', () => {
 
         notifyOf(event: DomainEvent): void {
             if (event instanceof SceneStarts) {
-                this.stage.announce(new SceneFinishes(event.value, this.stage.currentTime()));
+                this.stage.announce(new SceneFinishes(event.sceneId, event.details, this.stage.currentTime()));
             }
         }
 
@@ -317,7 +317,10 @@ describe('ProtractorFrameworkAdapter', () => {
                         new FileSystemLocation(new Path(scenario.path)),
                     );
 
+                    const sceneId = CorrelationId.create();
+
                     this.serenityInstance.announce(new SceneStarts(
+                        sceneId,
                         details,
                         this.serenityInstance.currentTime(),
                     ));
@@ -325,13 +328,13 @@ describe('ProtractorFrameworkAdapter', () => {
                     // ... an actual test runner would now execute the test and then announce the outcome
 
                     this.serenityInstance.announce(
-                        new SceneFinishes(details, this.serenityInstance.currentTime()),
+                        new SceneFinishes(sceneId, details, this.serenityInstance.currentTime()),
                     );
 
                     return this.serenityInstance.waitForNextCue()
                         .then(() => {
                             this.serenityInstance.announce(
-                                new SceneFinished(details, scenario.outcome, this.serenityInstance.currentTime()),
+                                new SceneFinished(sceneId, details, scenario.outcome, this.serenityInstance.currentTime()),
                             );
                         });
 

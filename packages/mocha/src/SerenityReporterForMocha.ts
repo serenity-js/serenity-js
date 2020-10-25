@@ -2,7 +2,7 @@
 
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, CorrelationId, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
@@ -16,6 +16,8 @@ export class SerenityReporterForMocha extends reporters.Base {
     private readonly outcomeMapper: MochaOutcomeMapper = new MochaOutcomeMapper();
 
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
+
+    private currentSceneId: CorrelationId = null;
 
     /**
      * @param {Serenity} serenity
@@ -93,22 +95,14 @@ export class SerenityReporterForMocha extends reporters.Base {
     }
 
     private announceSceneStartsFor(test: Test): void {
+        this.currentSceneId = this.serenity.assignNewSceneId()
+
         const scenario = this.testMapper.detailsOf(test);
 
         this.emit(
-            new SceneStarts(
-                scenario,
-                this.serenity.currentTime(),
-            ),
-            new SceneTagged(
-                scenario,
-                new FeatureTag(this.testMapper.featureNameFor(test)),
-                this.serenity.currentTime(),
-            ),
-            new TestRunnerDetected(
-                new Name('Mocha'),
-                this.serenity.currentTime(),
-            ),
+            new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
+            new SceneTagged(this.currentSceneId, new FeatureTag(this.testMapper.featureNameFor(test)), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
         );
     }
 
@@ -117,6 +111,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         this.emit(
             new SceneFinishes(
+                this.currentSceneId,
                 scenario,
                 this.serenity.currentTime(),
             ),
@@ -125,6 +120,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         return this.serenity.waitForNextCue()
             .then(() => {
                 this.emit(new SceneFinished(
+                    this.currentSceneId,
                     scenario,
                     this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test),
                     this.serenity.currentTime(),
@@ -141,10 +137,12 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         this.emit(
             new SceneFinishes(
+                this.currentSceneId,
                 scenario,
                 this.serenity.currentTime(),
             ),
             new SceneFinished(
+                this.currentSceneId,
                 scenario,
                 this.outcomeMapper.outcomeOf(test),
                 this.serenity.currentTime(),
@@ -161,7 +159,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         this.emit(
             new SceneTagged(
-                scenario,
+                this.currentSceneId,
                 new ArbitraryTag('retried'),
                 this.serenity.currentTime(),
             ),
@@ -170,7 +168,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         if (this.currentRetryOf(test) > 0) {
             this.emit(
                 new SceneTagged(
-                    scenario,
+                    this.currentSceneId,
                     new ExecutionRetriedTag(this.currentRetryOf(test)),
                     this.serenity.currentTime(),
                 ),
