@@ -20,6 +20,6 @@ export class TakePhotosOfInteractions extends PhotoTakingStrategy {
     }
 
     protected photoNameFor(event: InteractionFinished): string {
-        return event.value.name.value;
+        return event.details.name.value;
     }
 }

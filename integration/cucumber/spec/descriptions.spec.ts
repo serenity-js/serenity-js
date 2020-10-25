@@ -33,7 +33,7 @@ describe('@serenity-js/cucumber', function () {
             expect(res.exitCode).to.equal(0);
 
             PickEvent.from(res.events)
-                .next(SceneStarts,              event => expect(event.value.name).to.equal(new Name('First scenario')))
+                .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('First scenario')))
                 .next(FeatureNarrativeDetected, event => {
                     expect(event.description).to.equal(new Description(
                         'In order to accurately report the scenario\n' +

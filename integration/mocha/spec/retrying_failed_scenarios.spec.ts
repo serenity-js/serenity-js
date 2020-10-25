@@ -25,7 +25,7 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(0);
 
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneFinished,       event => {
@@ -34,7 +34,7 @@ describe('@serenity-js/mocha', function () {
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Something happened');
                     })
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
@@ -44,7 +44,7 @@ describe('@serenity-js/mocha', function () {
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Something happened');
                     })
-                    .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))

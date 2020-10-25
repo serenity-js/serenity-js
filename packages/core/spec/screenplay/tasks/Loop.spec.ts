@@ -79,11 +79,11 @@ describe('Loop', () => {
 
             const taskStarts = recorder.events[0] as TaskStarts;
             expect(taskStarts).to.be.instanceOf(TaskStarts);
-            expect(taskStarts.value.name.value).to.equal('Looper Joe loops over a list of people');
+            expect(taskStarts.details.name.value).to.equal('Looper Joe loops over a list of people');
 
             const taskFinished = recorder.events[1] as TaskFinished;
             expect(taskFinished).to.be.instanceOf(TaskFinished);
-            expect(taskFinished.value.name.value).to.equal('Looper Joe loops over a list of people');
+            expect(taskFinished.details.name.value).to.equal('Looper Joe loops over a list of people');
         }));
 
     given([
