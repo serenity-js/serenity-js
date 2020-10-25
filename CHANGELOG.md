@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+
+### Bug Fixes
+
+* **protractor:** presence of modal dialog windows will no longer impact the Photographer ([eedae92](https://github.com/serenity-js/serenity-js/commit/eedae92da3d172f97290696edc5ad6ca21903b00)), closes [#532](https://github.com/serenity-js/serenity-js/issues/532)
+
+
+
+
+
+## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* **core:** all Activity-related events can be correlated with the Scene they originate from ([6cf0eca](https://github.com/serenity-js/serenity-js/commit/6cf0eca7670db01ac317587996fc3ea5984de059))
+* **core:** it's easier for reporters to associate artifacts with scenes they've originated from ([1ccdc99](https://github.com/serenity-js/serenity-js/commit/1ccdc998af4049d6c91dc263b16a7d8c7d84bbfa))
+* **core:** refactored the internal domain events so that they're easier to aggregate and correlate ([943c016](https://github.com/serenity-js/serenity-js/commit/943c016ed3e404c9c1aacf8342e42626d4d85d04))
+* **protractor:** photographer ignores closed browser windows ([8991f07](https://github.com/serenity-js/serenity-js/commit/8991f07d8238ad91763eadc42ba7688c0da83b04)), closes [#680](https://github.com/serenity-js/serenity-js/issues/680) [#506](https://github.com/serenity-js/serenity-js/issues/506)
+* **serenity-bdd:** reporter is capable of rendering errors with no stack trace ([ac38585](https://github.com/serenity-js/serenity-js/commit/ac38585f98b6d857b8a786522ab628aa99fbdb0c))
+* **serenity-bdd:** support for out-of-order events in SerenityBDDReporter ([77db83e](https://github.com/serenity-js/serenity-js/commit/77db83e722602b1f39aba7cde113bfb5724842b5)), closes [#518](https://github.com/serenity-js/serenity-js/issues/518)
+* **website:** links to changelog entries are generated correctly ([b5e4561](https://github.com/serenity-js/serenity-js/commit/b5e45617fb4e3cc9060addd18acc7197698b23b0)), closes [#686](https://github.com/serenity-js/serenity-js/issues/686)
+
+
+
+
+
+## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
+
+
+### Bug Fixes
+
+* **core:** improved ErrorSerialiser so that it works with cyclic data structures ([9309302](https://github.com/serenity-js/serenity-js/commit/9309302d0ca7ec4bc27e414813a18c301cf3ef02))
+
+
+
+
+
+# [2.17.0](https://github.com/serenity-js/serenity-js/compare/v2.16.0...v2.17.0) (2020-10-05)
+
+
+### Bug Fixes
+
+* **core:** make sure Question.isAQuestion works with any invalid values that might be thrown at it ([2d6bf91](https://github.com/serenity-js/serenity-js/commit/2d6bf91405ad464237010bf2f1dc409a36fcb87d))
+* **protractor:** documentation and examples for all the interactions ([39a175d](https://github.com/serenity-js/serenity-js/commit/39a175d7139d6733748dcce317196794042b6a36))
+
+
+### Features
+
+* **protractor:** interactions to Close browser windows and Switch between (i)frames and windows ([2ec64ef](https://github.com/serenity-js/serenity-js/commit/2ec64ef63884b47a6b9380fcac18f2936ad611fc)), closes [#66](https://github.com/serenity-js/serenity-js/issues/66) [#82](https://github.com/serenity-js/serenity-js/issues/82) [#227](https://github.com/serenity-js/serenity-js/issues/227) [#233](https://github.com/serenity-js/serenity-js/issues/233) [#366](https://github.com/serenity-js/serenity-js/issues/366)
+
+
+
+
+
 # [2.16.0](https://github.com/serenity-js/serenity-js/compare/v2.15.0...v2.16.0) (2020-09-20)
 
 

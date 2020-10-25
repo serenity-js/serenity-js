@@ -2,8 +2,8 @@ import 'mocha';
 
 import * as sinon from 'sinon';
 import { LogicError } from '../../../src/errors';
-import { ActivityDetails, Name } from '../../../src/model';
-import { Ability, Activity, Actor, Log, Note, Question, TakeNotes } from '../../../src/screenplay';
+import { CorrelationId } from '../../../src/model';
+import { Ability, Actor, Log, Note, Question, TakeNotes } from '../../../src/screenplay';
 import { Stage } from '../../../src/stage';
 import { expect } from '../../expect';
 import { EnsureSame } from '../EnsureSame';
@@ -13,13 +13,19 @@ describe('Note', () => {
         expectedHobby = 'DYI',
         NameOfAHobby = () => Question.about(`the name of a hobby`, someActor => Promise.resolve(expectedHobby));
 
+    const
+        sceneId = new CorrelationId('some-scene-id'),
+        activityId = new CorrelationId('some-activity-id');
+
     let stage: sinon.SinonStubbedInstance<Stage>,
         Noah: Actor;
 
     beforeEach(() => {
         stage = sinon.createStubInstance(Stage);
-        // activityDetailsFor is a bit more involved than that, but this is a good approximation
-        stage.activityDetailsFor.callsFake((activity: Activity) => new ActivityDetails(new Name(activity.toString())));
+
+        stage.currentSceneId.returns(sceneId);
+        stage.assignNewActivityId.returns(activityId);
+        stage.currentActivityId.returns(activityId);
 
         Noah = new Actor('Noah', stage as unknown as Stage)
             .whoCan(TakeNotes.usingAnEmptyNotepad());

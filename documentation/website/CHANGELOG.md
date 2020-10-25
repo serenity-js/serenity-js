@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
+
+**Note:** Version bump only for package @documentation/website
+
+
+
+
+
+## [2.17.2](https://github.com/serenity-js/serenity-js/compare/v2.17.1...v2.17.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* **website:** links to changelog entries are generated correctly ([b5e4561](https://github.com/serenity-js/serenity-js/commit/b5e45617fb4e3cc9060addd18acc7197698b23b0)), closes [#686](https://github.com/serenity-js/serenity-js/issues/686)
+
+
+
+
+
+## [2.17.1](https://github.com/serenity-js/serenity-js/compare/v2.17.0...v2.17.1) (2020-10-08)
+
+**Note:** Version bump only for package @documentation/website
+
+
+
+
+
+# [2.17.0](https://github.com/serenity-js/serenity-js/compare/v2.16.0...v2.17.0) (2020-10-05)
+
+**Note:** Version bump only for package @documentation/website
+
+
+
+
+
 # [2.16.0](https://github.com/serenity-js/serenity-js/compare/v2.15.0...v2.16.0) (2020-09-20)
 
 

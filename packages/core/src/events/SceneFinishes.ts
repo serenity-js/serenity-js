@@ -1,21 +1,24 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { ScenarioDetails, Timestamp } from '../model';
+import { CorrelationId, ScenarioDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneFinishes extends DomainEvent {
     static fromJSON(o: JSONObject) {
         return new SceneFinishes(
-            ScenarioDetails.fromJSON(o.value as JSONObject),
+            CorrelationId.fromJSON(o.sceneId as string),
+            ScenarioDetails.fromJSON(o.details as JSONObject),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
     constructor(
-        public readonly value: ScenarioDetails,
+        public readonly sceneId: CorrelationId,
+        public readonly details: ScenarioDetails,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
-        ensure('value', value, isDefined());
+        ensure('sceneId', sceneId, isDefined());
+        ensure('details', details, isDefined());
     }
 }

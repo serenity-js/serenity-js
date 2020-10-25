@@ -21,7 +21,7 @@ describe('@serenity-js/mocha', function () {
             expect(res.exitCode).to.equal(1);   // Protractor will still report 3 failed attempts as a scenario failure
 
             PickEvent.from(res.events)
-                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario passes the third time')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionIgnored))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionIgnored))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))

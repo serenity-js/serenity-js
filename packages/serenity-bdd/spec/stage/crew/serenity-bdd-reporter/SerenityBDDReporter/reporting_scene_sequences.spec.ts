@@ -7,6 +7,7 @@ import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     BrowserTag,
     Category,
+    CorrelationId,
     Description,
     ExecutionFailedWithError,
     ExecutionSuccessful,
@@ -36,6 +37,7 @@ describe('SerenityBDDReporter', () => {
 
     // see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context
     const
+        sceneIds = [ new CorrelationId('scene-0'), new CorrelationId('scene-1') ],
         category = new Category('Reporting results'),
         name     = new Name('Reports scenario outlines'),
         path     = new Path(`reporting_results/reports_scenario_outlines.feature`),
@@ -51,53 +53,43 @@ describe('SerenityBDDReporter', () => {
             path,
             7,
         )),
-        scenario1 = new ScenarioDetails(name, category, new FileSystemLocation(
-            path,
-            25,
-        )),
-        scenario2 = new ScenarioDetails(name, category, new FileSystemLocation(
-            path,
-            26,
-        ))
+        scenarios = [
+            new ScenarioDetails(name, category, new FileSystemLocation(path, 25)),
+            new ScenarioDetails(name, category, new FileSystemLocation(path, 26)),
+        ]
     ;
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneSequenceDetected(sequence),
-                new SceneTemplateDetected(template),
+            new SceneSequenceDetected(sceneIds[0], sequence),
+                new SceneTemplateDetected(sceneIds[0], template),
                 new SceneParametersDetected(
-                    scenario1,
+                    sceneIds[0],
+                    scenarios[0],
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                         { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
                     ),
                 ),
-                new SceneStarts(scenario1),
-                new SceneFinished(scenario1, new ExecutionSuccessful()),
-            new SceneSequenceDetected(sequence),
-                new SceneTemplateDetected(template),
+                new SceneStarts(sceneIds[0], scenarios[0]),
+                new SceneFinished(sceneIds[0], scenarios[0], new ExecutionSuccessful()),
+            new SceneSequenceDetected(sceneIds[1], sequence),
+                new SceneTemplateDetected(sceneIds[1], template),
                 new SceneParametersDetected(
-                    scenario2,
+                    sceneIds[1],
+                    scenarios[1],
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                         { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },
                     ),
                 ),
-                new SceneStarts(scenario2),
-                new SceneFinished(scenario2, new ExecutionSuccessful()),
+                new SceneStarts(sceneIds[1], scenarios[1]),
+                new SceneFinished(sceneIds[1], scenarios[1], new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
@@ -133,43 +125,36 @@ describe('SerenityBDDReporter', () => {
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneSequenceDetected(sequence),
-                new SceneTemplateDetected(template),
+            new SceneSequenceDetected(sceneIds[0], sequence),
+                new SceneTemplateDetected(sceneIds[0], template),
                 new SceneParametersDetected(
-                    scenario1,
+                    sceneIds[0],
+                    scenarios[0],
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                         { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
                     ),
                 ),
-                new SceneStarts(scenario1),
-                new SceneFinished(scenario1, new ExecutionFailedWithError(new Error('Something happened'))),
+                new SceneStarts(sceneIds[0], scenarios[0]),
+                new SceneFinished(sceneIds[0], scenarios[0], new ExecutionFailedWithError(new Error('Something happened'))),
 
-            new SceneSequenceDetected(sequence),
-                new SceneTemplateDetected(template),
+            new SceneSequenceDetected(sceneIds[1], sequence),
+                new SceneTemplateDetected(sceneIds[1], template),
                 new SceneParametersDetected(
-                    scenario2,
+                    sceneIds[1],
+                    scenarios[1],
                     new ScenarioParameters(
                         new Name('Serenity/JS contributors'),
                         new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                         { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },
                     ),
                 ),
-                new SceneStarts(scenario2),
-                new SceneFinished(scenario2, new ExecutionSuccessful()),
+                new SceneStarts(sceneIds[1], scenarios[1]),
+                new SceneFinished(sceneIds[1], scenarios[1], new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
@@ -192,59 +177,52 @@ describe('SerenityBDDReporter', () => {
 
     /**
      * @test {SerenityBDDReporter}
-     * @test {SceneSequenceDetected}
-     * @test {SceneTemplateDetected}
-     * @test {SceneParametersDetected}
-     * @test {ScenarioParameters}
-     * @test {SceneStarts}
-     * @test {SceneFinished}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
      */
     it('ensures that context and tags are not duplicated despite having multiple scenarios in a sequence', () => {
         given(reporter).isNotifiedOfFollowingEvents(
-            new SceneSequenceDetected(sequence),
-            new SceneTemplateDetected(template),
+            new SceneSequenceDetected(sceneIds[0], sequence),
+            new SceneTemplateDetected(sceneIds[0], template),
             new SceneParametersDetected(
-                scenario1,
+                sceneIds[0],
+                scenarios[0],
                 new ScenarioParameters(
                     new Name('Serenity/JS contributors'),
                     new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                     { Developer: 'jan-molak', Twitter_Handle: '@JanMolak' },
                 ),
             ),
-            new SceneStarts(scenario1),
+            new SceneStarts(sceneIds[0], scenarios[0]),
                 new SceneTagged(
-                    scenario1,
+                    sceneIds[0],
                     new BrowserTag('chrome', '83.0.4103.106'),
                 ),
                 new SceneTagged(
-                    scenario1,
+                    sceneIds[0],
                     new PlatformTag('Mac OS X'),
                 ),
-            new SceneFinished(scenario1, new ExecutionFailedWithError(new Error('Something happened'))),
+            new SceneFinished(sceneIds[0], scenarios[0], new ExecutionFailedWithError(new Error('Something happened'))),
 
-            new SceneSequenceDetected(sequence),
-            new SceneTemplateDetected(template),
+            new SceneSequenceDetected(sceneIds[1], sequence),
+            new SceneTemplateDetected(sceneIds[1], template),
             new SceneParametersDetected(
-                scenario2,
+                sceneIds[1],
+                scenarios[1],
                 new ScenarioParameters(
                     new Name('Serenity/JS contributors'),
                     new Description(`Some of the people who have contributed their time and talent to the Serenity/JS project`),
                     { Developer: 'wakaleo', Twitter_Handle: '@wakaleo' },
                 ),
             ),
-            new SceneStarts(scenario2),
+            new SceneStarts(sceneIds[1], scenarios[1]),
                 new SceneTagged(
-                    scenario2,
+                    sceneIds[1],
                     new BrowserTag('chrome', '83.0.4103.106'),
                 ),
                 new SceneTagged(
-                    scenario2,
+                    sceneIds[1],
                     new PlatformTag('Mac OS X'),
                 ),
-            new SceneFinished(scenario2, new ExecutionSuccessful()),
+            new SceneFinished(sceneIds[1], scenarios[1], new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
