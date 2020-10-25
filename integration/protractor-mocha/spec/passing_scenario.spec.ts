@@ -20,9 +20,9 @@ describe('@serenity-js/mocha', function () {
             expect(res.exitCode).to.equal(0);
 
             PickEvent.from(res.events)
-                .next(SceneStarts,         event => expect(event.value.name).to.equal(new Name('A scenario passes')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
-                .next(TestRunnerDetected,  event => expect(event.value).to.equal(new Name('Mocha')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
             ;
         }));

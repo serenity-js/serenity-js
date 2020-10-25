@@ -28,13 +28,15 @@ export = function ({ serenity, notifier, loader, cache }: Dependencies) {
                 lines = get(scenario, 'lines').value() as number[],
                 isOutline = lines.length === 2;
 
-            const map = cache.get(path);
+            const
+                sceneId = serenity.assignNewSceneId(),
+                map = cache.get(path);
 
             if (isOutline) {
-                notifier.outlineDetected(map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ 1 ]), map.getFirst(Feature));
+                notifier.outlineDetected(sceneId, map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ 1 ]), map.getFirst(Feature));
             }
 
-            notifier.scenarioStarts(map.get(Scenario).onLine(line), map.getFirst(Feature));
+            notifier.scenarioStarts(sceneId, map.get(Scenario).onLine(line), map.getFirst(Feature));
         });
 
         this.registerHandler('BeforeStep', function (step) {
