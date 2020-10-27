@@ -28,7 +28,6 @@ export function bootstrap(argv: string[], interceptor?: Interceptor) {
         .demand(1)
         .usage('Usage: $0 <command> [options]')
         .example('$0 update [options]', 'updates the Serenity jar to the latest version')
-        .example('$0 remove [options]', 'removes the cache directory and downloaded jars')
         .example('$0 run [options]',    'generates the HTML report from JSON reports produced by Serenity/JS')
         .example('$0 <command> --help', 'shows the available parameters')
         .epilog(`copyright (C) 2016-${ new Date().getFullYear() } ${ pkg.author.name } <${ pkg.author.email }>`)

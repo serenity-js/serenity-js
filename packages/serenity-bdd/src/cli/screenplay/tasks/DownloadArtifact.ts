@@ -1,8 +1,7 @@
 import { AnswersQuestions, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { GetRequest } from '@serenity-js/rest';
-import { AxiosRequestConfig } from 'axios';
-import { resolve, URL } from 'url';
+import { URL } from 'url';
 import { GAV } from '../../model';
 import { CreateDirectory, Notify, StreamResponse } from '../interactions';
 import { RenameFile } from '../interactions/RenameFile';
@@ -23,13 +22,8 @@ export class DownloadArtifact extends Task {
         private readonly gav: GAV,
         private readonly repository: URL,
         private readonly destinationDirectory: Path,
-        private readonly config?: AxiosRequestConfig,
     ) {
         super();
-    }
-
-    using(config: AxiosRequestConfig): DownloadArtifact {
-        return new DownloadArtifact(this.gav, this.repository, this.destinationDirectory, config);
     }
 
     /**
@@ -55,7 +49,7 @@ export class DownloadArtifact extends Task {
             Notify.that(`Looks like you need the latest Serenity BDD CLI jar. Let me download it for you...`),
             CreateDirectory.at(this.destinationDirectory),
             StreamResponse
-                .to(GetRequest.to(this.artifactURL()).using(this.config))
+                .to(GetRequest.to(this.artifactURL()))
                 .to(this.destinationDirectory.join(tempFileName)),
             RenameFile.from(pathToTempFile).to(pathToFinishedFile),
             Notify.that(`Downloaded ${ pathToFinishedFile.value }`),

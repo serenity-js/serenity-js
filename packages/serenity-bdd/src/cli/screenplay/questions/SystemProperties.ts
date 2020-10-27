@@ -1,20 +1,12 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 import { Argv } from '../../Argv';
 
 /**
  * @package
  */
-export class SystemProperties extends Question<string[]> {
-    static from(argv: Argv) {
-        return new SystemProperties(argv);
-    }
-
-    constructor(private readonly argv: Argv) {
-        super('system properties');
-    }
-
-    answeredBy(actor: AnswersQuestions & UsesAbilities): string[] {
-        return Object.keys(this.argv)
-            .map(arg => `-D${ arg }=${ this.argv[arg] }`);
-    }
+export const SystemProperties = {
+    of: (argv: Argv) =>
+        Question.about<string[]>('system properties', actor =>
+            Object.keys(argv)
+                .map(arg => `-D${ arg }=${ argv[arg] }`)),
 }

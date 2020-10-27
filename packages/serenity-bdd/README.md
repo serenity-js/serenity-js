@@ -12,7 +12,7 @@ can then turn into world-class, illustrated test reports and living documentatio
 
 ### Installation
 
-```
+```console
 npm install --save-dev @serenity-js/core @serenity-js/serenity-bdd
 ```
 
@@ -73,29 +73,19 @@ This module ships with a `serenity-bdd` CLI wrapper that makes downloading and r
 
 To learn more about the usage of the `serenity-bdd` wrapper, run:
 
-```
+```console
 npx serenity-bdd --help
 ```
 
 #### Downloading the Serenity BDD reporting CLI
 
-To download the Serenity BDD reporting CLI or update it, use the update command:
+To download the Serenity BDD reporting CLI or to update it, use the update command:
 
-```
+```console
 npx serenity-bdd update
 ```
 
-Please note that the `update` command will try to download the jar only if you don't have one cached already,
-or when the one you have is not up to date. Otherwise no outbound network calls are made.
-
-If you're behind a corporate proxy server that causes certificate errors you can tell the wrapper to ignore the SSL certificate check:
-
-```
-npx serenity-bdd update --ignoreSSL
-```
-
-You can also tell it to download the Serenity BDD reporting CLI jar from your company's artifact repository
-if you can't use the official Bintray one:
+You can also tell it to download the Serenity BDD reporting CLI jar from your company's artifact repository if you can't use the official Bintray one:
 
 ```
 npx serenity-bdd update --repository https://artifactory.example.org/
@@ -105,6 +95,102 @@ To learn more about the `update` command, run:
 
 ```
 npx serenity-bdd --help update
+```
+
+Please note that the `update` command will try to download the `.jar` only if you don't have it cached already, or when the one you have is not up to date. Otherwise, no outbound network calls are made.
+
+##### Downloading through a proxy
+
+The `update` command will pick up your proxy configuration automatically from your [NPM config](https://docs.npmjs.com/cli/v6/commands/npm-config), [`.npmrc` file](https://docs.npmjs.com/cli/v6/configuring-npm/npmrc), or environment variables. 
+
+Please note that you only need to use one of those configuration mechanisms.
+
+###### Use NPM config (Linux, macOS, Windows)
+
+To use NPM-level configuration, run the following commands in your terminal:
+
+```console
+npm config set proxy http://[user:pwd]@domain.tld:port
+npm config set https-proxy http://[user:pwd]@domain.tld:port
+```
+
+If your proxy requires a certificate file, you can provide a path to it as follows:
+
+```console
+npm config set cafile /path/to/root-ca.pem
+```
+
+The above can also be accomplished by placing an [`.npmrc` file](https://docs.npmjs.com/cli/v6/configuring-npm/npmrc) with following contents in your home directory or your project root:
+
+```bash
+# ~/.npmrc
+proxy = http://[user:pwd]@domain.tld:port
+https-proxy = http://[user:pwd]@domain.tld:port
+
+cafile = /path/to/root-ca.pem          # optional
+noproxy = localhost,mycompany.com      # optional
+```
+
+###### Environment variables on Linux or macOS
+
+To set your proxy on Linux or macOS, run the following commands in your terminal:
+
+```console
+export HTTP_PROXY=http://[user:pwd]@domain.tld:port
+export HTTPS_PROXY=http://[user:pwd]@domain.tld:port
+```
+
+If needed, you can also set a `NO_PROXY` variable to a comma-separated list of domains that don't require a proxy, for example:
+
+```console
+export NO_PROXY=localhost,mycompany.com
+```
+
+Please note that you can add the above commands to your shell's `~/.profile`, so that they're executed whenever you open a new terminal.
+
+###### Environment variables on Windows
+
+To configure a proxy on Windows, run the following commands in Command Prompt:
+
+```console
+set HTTP_PROXY=http://[user:pwd]@domain.tld:port
+set HTTPS_PROXY=http://[user:pwd]@domain.tld:port
+```
+
+If you're using Powershell, run the following commands instead:
+
+```console
+$env:HTTP_PROXY = http://[user:pwd]@domain.tld:port
+$env:HTTPS_PROXY = http://[user:pwd]@domain.tld:port
+```
+
+##### Use a specific User-Agent
+
+If your artifact registry requires you to use a specific user agent, you can configure it using NPM config:
+
+```console
+npm config set user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+``` 
+
+##### Ignore SSL checks
+
+You can instruct the `update` command to ignore any SSL certificate errors by providing an `--ignoreSSL` flag when running the command:  
+
+```console
+npx serenity-bdd update --ignoreSSL
+```
+
+You can also disable certificate checks at the NPM config level by running: 
+
+```console
+npm config set strict-ssl false
+```
+
+Alternative, you can accomplish the same with an `.npmrc` file:
+
+```bash
+# ~/.npmrc
+npm_config_strict-ssl = false
 ```
 
 #### Producing the Serenity BDD test report
