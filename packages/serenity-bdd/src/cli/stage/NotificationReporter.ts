@@ -26,14 +26,8 @@ export class NotificationReporter implements StageCrewMember {
         }
 
         else if (event instanceof ArtifactGenerated && event.artifact instanceof Complaint) {
-            this.printer.info(event.artifact.map(({ description, message }: { description: string, message: string }) =>
-                `${ description }\n${ message }`));
-            // todo: add stack if verbose
-        }
-
-        else {
-            // todo depending on log level, print tasks only, or tasks and interactions
-            // console.log(`[ProgressReporter] ${ event.constructor.name } ${ JSON.stringify(event.toJSON(), null, 0) }`);
+            this.printer.error(event.artifact.map(({ description, message, stack }: { description: string, message: string, stack: string }) =>
+                `${ description }\n${ stack }`));
         }
     }
 }

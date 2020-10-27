@@ -1,13 +1,16 @@
-import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
+import { actorCalled, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as path from 'path';
+
 import { Argv } from '../Argv';
 import { defaults } from '../defaults';
+import { formatError } from '../io';
 import { GAV } from '../model';
 import { Printer } from '../Printer';
-import { Complain, InvokeSerenityBDD, SerenityBDDArguments } from '../screenplay';
-import { SystemProperties } from '../screenplay/questions/SystemProperties';
-import { Actors, NotificationReporter, ProgressReporter } from '../stage';
+import { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } from '../screenplay';
+import { NotificationReporter, ProgressReporter, RunCommandActors } from '../stage';
+
+const yargs = require('yargs'); // tslint:disable-line:no-var-requires
 
 export = {
     command: 'run',
@@ -66,24 +69,27 @@ export = {
             moduleRoot      = path.resolve(__dirname, '../../../');
 
         configure({
-            actors: new Actors(new Path(process.cwd())),
+            actors: new RunCommandActors(new Path(process.cwd())),
             crew: [
                 new NotificationReporter(printer),
                 new ProgressReporter(printer),
             ],
         });
 
-        return actorCalled('Serenity/JS').attemptsTo(
-            InvokeSerenityBDD.at(pathToArtifact)
-                .withProperties(SystemProperties.from({
-                    'serenity.compress.filenames': `${ argv.shortFilenames }`,
-                    'LOG_LEVEL': argv.log,
-                    'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
-                }))
-                .withArguments(SerenityBDDArguments.from(argv)),
-        )
-        .catch(error => actorInTheSpotlight().attemptsTo(
-            Complain.about(error),
-        ));
+        return Promise.resolve().then(() =>
+                actorCalled('Serenity/JS Updater').attemptsTo(
+                    InvokeSerenityBDD.at(pathToArtifact)
+                        .withProperties(SystemProperties.of({
+                            'serenity.compress.filenames': `${ argv.shortFilenames }`,
+                            'LOG_LEVEL': argv.log,
+                            'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
+                        }))
+                        .withArguments(SerenityBDDArguments.from(argv)),
+                )
+            )
+            .catch(error => {
+                printer.error(formatError(error));
+                yargs.exit(1, error.message);
+            });
     },
 };

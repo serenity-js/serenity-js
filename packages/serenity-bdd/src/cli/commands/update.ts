@@ -1,16 +1,17 @@
 import { Check, isTrue } from '@serenity-js/assertions';
-import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
+import { actorCalled, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import { AxiosRequestConfig } from 'axios';
-import * as https from 'https';
 import { URL } from 'url';
 
 import { Argv } from '../Argv';
 import { defaults } from '../defaults';
+import { axiosClient, formatError } from '../io';
 import { Credentials, GAV } from '../model';
 import { Printer } from '../Printer';
-import { Complain, DownloadArtifact, FileExists, Notify } from '../screenplay';
-import { Actors, NotificationReporter, ProgressReporter } from '../stage';
+import { DownloadArtifact, FileExists, Notify } from '../screenplay';
+import { NotificationReporter, ProgressReporter, UpdateCommandActors } from '../stage';
+
+const yargs = require('yargs'); // tslint:disable-line:no-var-requires
 
 export = {
     command: 'update',
@@ -43,37 +44,36 @@ export = {
             printer         = new Printer(process.stdout, process.stderr),
             artifactGAV     = GAV.fromString(argv.artifact),
             pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath()),
-            repository      = new URL(argv.repository),
-            requestConfig: AxiosRequestConfig = {
-                httpsAgent: new https.Agent({
-                    rejectUnauthorized: ! argv.ignoreSSL,
-                }),
-                auth: Credentials.fromString(argv.auth),
-            };
+            repository      = new URL(argv.repository);
 
         configure({
-            actors: new Actors(new Path(process.cwd())),
+            actors: new UpdateCommandActors(
+                new Path(process.cwd()),
+                () => axiosClient(repository, !! argv.ignoreSSL, process.env, Credentials.fromString(argv.auth))
+            ),
             crew: [
                 new NotificationReporter(printer),
                 new ProgressReporter(printer),
             ],
         });
 
-        return actorCalled('Serenity/JS').attemptsTo(
-            Check.whether(FileExists.at(pathToArtifact), isTrue())
-                .andIfSo(
-                    Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
+        return Promise.resolve().then(() =>
+                actorCalled('Serenity/JS Updater').attemptsTo(
+                    Check.whether(FileExists.at(pathToArtifact), isTrue())
+                        .andIfSo(
+                            Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
+                        )
+                        .otherwise(
+                            DownloadArtifact
+                                .identifiedBy(artifactGAV)
+                                .availableFrom(repository)
+                                .to(pathToArtifact.directory())
+                        ),
                 )
-                .otherwise(
-                    DownloadArtifact
-                        .identifiedBy(artifactGAV)
-                        .availableFrom(repository)
-                        .to(pathToArtifact.directory())
-                        .using(requestConfig),
-                ),
             )
-            .catch(error => actorInTheSpotlight().attemptsTo(
-                Complain.about(error),
-            ));
+            .catch(error => {
+                printer.error(formatError(error));
+                yargs.exit(1, error.message);
+            });
     },
 };

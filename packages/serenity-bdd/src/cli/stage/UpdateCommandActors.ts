@@ -1,23 +1,23 @@
 import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { CallAnApi } from '@serenity-js/rest';
-import axios from 'axios';
-import { httpAdapter } from 'axios/lib/adapters/http'; // tslint:disable-line:no-submodule-imports
+import { AxiosInstance } from 'axios';
 import { UseFileSystem } from '../screenplay';
 
 /**
  * @package
  */
-export class Actors implements Cast {
-    constructor(private readonly rootDir: Path) {
+export class UpdateCommandActors implements Cast {
+    constructor(
+        private readonly cwd: Path,
+        private readonly createAxios: () => AxiosInstance,
+    ){
     }
 
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            CallAnApi.using(axios.create({
-                adapter: httpAdapter,
-            })),
-            UseFileSystem.at(this.rootDir),
+            CallAnApi.using(this.createAxios()),
+            UseFileSystem.at(this.cwd),
             TakeNotes.usingAnEmptyNotepad(),
         );
     }
