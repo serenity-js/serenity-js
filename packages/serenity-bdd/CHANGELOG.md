@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.4](https://github.com/serenity-js/serenity-js/compare/v2.17.3...v2.17.4) (2020-10-28)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** serenity-bdd update supports proxies ([0dd4680](https://github.com/serenity-js/serenity-js/commit/0dd4680f97387517d47d670e705553c2426881e1)), closes [#356](https://github.com/serenity-js/serenity-js/issues/356)
+
+
+
+
+
 ## [2.17.3](https://github.com/serenity-js/serenity-js/compare/v2.17.2...v2.17.3) (2020-10-25)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
