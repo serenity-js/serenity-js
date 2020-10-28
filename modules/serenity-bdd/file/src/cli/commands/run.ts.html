@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -120,16 +123,19 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/run.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;path&apos;</span>;
+
 <span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Argv&apos;</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../defaults&apos;</span>;
+<span class="hljs-keyword">import</span> { formatError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../io&apos;</span>;
 <span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Printer&apos;</span>;
-<span class="hljs-keyword">import</span> { Complain, InvokeSerenityBDD, SerenityBDDArguments } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { SystemProperties } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/questions/SystemProperties&apos;</span>;
-<span class="hljs-keyword">import</span> { Actors, NotificationReporter, ProgressReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
+<span class="hljs-keyword">import</span> { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, RunCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
+
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;yargs&apos;</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
 <span class="hljs-keyword">export</span> = {
     <span class="hljs-attr">command</span>: <span class="hljs-string">&apos;run&apos;</span>,
@@ -188,25 +194,28 @@
             moduleRoot      = path.resolve(__dirname, <span class="hljs-string">&apos;../../../&apos;</span>);
 
         configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> RunCommandActors(<span class="hljs-keyword">new</span> Path(process.cwd())),
             <span class="hljs-attr">crew</span>: [
                 <span class="hljs-keyword">new</span> NotificationReporter(printer),
                 <span class="hljs-keyword">new</span> ProgressReporter(printer),
             ],
         });
 
-        <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Serenity/JS&apos;</span>).attemptsTo(
-            InvokeSerenityBDD.at(pathToArtifact)
-                .withProperties(SystemProperties.from({
-                    <span class="hljs-string">&apos;serenity.compress.filenames&apos;</span>: <span class="hljs-string">`<span class="hljs-subst">${ argv.shortFilenames }</span>`</span>,
-                    <span class="hljs-string">&apos;LOG_LEVEL&apos;</span>: argv.log,
-                    <span class="hljs-string">&apos;logback.configurationFile&apos;</span>: path.resolve(moduleRoot, <span class="hljs-string">&apos;./resources/logback.config.xml&apos;</span>),
-                }))
-                .withArguments(SerenityBDDArguments.from(argv)),
-        )
-        .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> actorInTheSpotlight().attemptsTo(
-            Complain.about(error),
-        ));
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">&apos;Serenity/JS Updater&apos;</span>).attemptsTo(
+                    InvokeSerenityBDD.at(pathToArtifact)
+                        .withProperties(SystemProperties.of({
+                            <span class="hljs-string">&apos;serenity.compress.filenames&apos;</span>: <span class="hljs-string">`<span class="hljs-subst">${ argv.shortFilenames }</span>`</span>,
+                            <span class="hljs-string">&apos;LOG_LEVEL&apos;</span>: argv.log,
+                            <span class="hljs-string">&apos;logback.configurationFile&apos;</span>: path.resolve(moduleRoot, <span class="hljs-string">&apos;./resources/logback.config.xml&apos;</span>),
+                        }))
+                        .withArguments(SerenityBDDArguments.from(argv)),
+                )
+            )
+            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                printer.error(formatError(error));
+                yargs.exit(<span class="hljs-number">1</span>, error.message);
+            });
     },
 };
 </code></pre>

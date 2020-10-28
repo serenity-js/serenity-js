@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -120,25 +123,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/SystemProperties.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Question, UsesAbilities } from &apos;@serenity-js/core&apos;;
-import { Argv } from &apos;../../Argv&apos;;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../Argv&apos;</span>;
 
-/**
- * @package
- */
-export class SystemProperties extends Question&lt;string[]&gt; {
-    static from(argv: Argv) {
-        return new SystemProperties(argv);
-    }
-
-    constructor(private readonly argv: Argv) {
-        super(&apos;system properties&apos;);
-    }
-
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): string[] {
-        return Object.keys(this.argv)
-            .map(arg =&gt; `-D${ arg }=${ this.argv[arg] }`);
-    }
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SystemProperties = {
+    <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span>
+        Question.about&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">&apos;system properties&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-built_in">Object</span>.keys(argv)
+                .map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> <span class="hljs-string">`-D<span class="hljs-subst">${ arg }</span>=<span class="hljs-subst">${ argv[arg] }</span>`</span>)),
 }
 </code></pre>
 

@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -124,8 +127,9 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h2 id="serenity-bdd">Serenity BDD</h2><p>The <code>@serenity-js/serenity-bdd</code> module integrates Serenity/JS and the Serenity BDD reporting CLI.</p>
 <p>This integration enables your Serenity/JS tests to produce interim JSON reports, which the Serenity BDD reporting CLI
 can then turn into world-class, illustrated test reports and living documentation.</p>
-<h3 id="installation">Installation</h3><pre><code class="hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span> <span class="hljs-meta">@serenity-js/serenity-bdd</span>
-</code></pre><h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
+<h3 id="installation">Installation</h3><pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span> <span class="hljs-meta">@serenity-js/serenity-bdd</span>
+</code></pre>
+<h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
 and configure the <code>ArtifactArchiver</code> to store the reports at the location where Serenity BDD expects to find them.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you&apos;re using Protractor, or programmatically.</p>
 <h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
@@ -164,19 +168,63 @@ you need the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD
 <p>The Serenity BDD reporting CLI is a Java program, distributed as an executable <code>.jar</code> file and <a href="https://bintray.com/serenity/maven/serenity-cli">available on Bintray</a>.</p>
 <p>This module ships with a <code>serenity-bdd</code> CLI wrapper that makes downloading and running the Serenity BDD reporting CLI easy.</p>
 <p>To learn more about the usage of the <code>serenity-bdd</code> wrapper, run:</p>
-<pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span>
-</code></pre><h4 id="downloading-the-serenity-bdd-reporting-cli">Downloading the Serenity BDD reporting CLI</h4><p>To download the Serenity BDD reporting CLI or update it, use the update command:</p>
-<pre><code class="hljs plaintext">npx serenity-bdd update
-</code></pre><p>Please note that the <code>update</code> command will try to download the jar only if you don&apos;t have one cached already,
-or when the one you have is not up to date. Otherwise no outbound network calls are made.</p>
-<p>If you&apos;re behind a corporate proxy server that causes certificate errors you can tell the wrapper to ignore the SSL certificate check:</p>
-<pre><code class="hljs plaintext">npx serenity-bdd update --ignoreSSL
-</code></pre><p>You can also tell it to download the Serenity BDD reporting CLI jar from your company&apos;s artifact repository
-if you can&apos;t use the official Bintray one:</p>
+<pre><code class="lang-console hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span>
+</code></pre>
+<h4 id="downloading-the-serenity-bdd-reporting-cli">Downloading the Serenity BDD reporting CLI</h4><p>To download the Serenity BDD reporting CLI or to update it, use the update command:</p>
+<pre><code class="lang-console hljs plaintext">npx serenity-bdd update
+</code></pre>
+<p>You can also tell it to download the Serenity BDD reporting CLI jar from your company&apos;s artifact repository if you can&apos;t use the official Bintray one:</p>
 <pre><code class="hljs typescript">npx serenity-bdd update --repository https:<span class="hljs-comment">//artifactory.example.org/</span>
 </code></pre><p>To learn more about the <code>update</code> command, run:</p>
 <pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span> update
-</code></pre><h4 id="producing-the-serenity-bdd-test-report">Producing the Serenity BDD test report</h4><p>To produce the Serenity BDD test report and living documentation using default settings, run:</p>
+</code></pre><p>Please note that the <code>update</code> command will try to download the <code>.jar</code> only if you don&apos;t have it cached already, or when the one you have is not up to date. Otherwise, no outbound network calls are made.</p>
+<h5 id="downloading-through-a-proxy">Downloading through a proxy</h5><p>The <code>update</code> command will pick up your proxy configuration automatically from your <a href="https://docs.npmjs.com/cli/v6/commands/npm-config">NPM config</a>, <a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc"><code>.npmrc</code> file</a>, or environment variables. </p>
+<p>Please note that you only need to use one of those configuration mechanisms.</p>
+<h6 id="use-npm-config--linux--macos--windows-">Use NPM config (Linux, macOS, Windows)</h6><p>To use NPM-level configuration, run the following commands in your terminal:</p>
+<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> proxy http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+npm config <span class="hljs-built_in">set</span> https-proxy http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+</code></pre>
+<p>If your proxy requires a certificate file, you can provide a path to it as follows:</p>
+<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> cafile /path/to/root-ca.pem
+</code></pre>
+<p>The above can also be accomplished by placing an <a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc"><code>.npmrc</code> file</a> with following contents in your home directory or your project root:</p>
+<pre><code class="lang-bash hljs gherkin"><span class="hljs-comment"># ~/.npmrc</span>
+proxy = http://[user:pwd]<span class="hljs-meta">@domain.tld:port</span>
+https-proxy = http://[user:pwd]<span class="hljs-meta">@domain.tld:port</span>
+
+cafile = /path/to/root-ca.pem          <span class="hljs-comment"># optional</span>
+noproxy = localhost,mycompany.com      <span class="hljs-comment"># optional</span>
+</code></pre>
+<h6 id="environment-variables-on-linux-or-macos">Environment variables on Linux or macOS</h6><p>To set your proxy on Linux or macOS, run the following commands in your terminal:</p>
+<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> HTTP_PROXY=http:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
+<span class="hljs-keyword">export</span> HTTPS_PROXY=http:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
+</code></pre>
+<p>If needed, you can also set a <code>NO_PROXY</code> variable to a comma-separated list of domains that don&apos;t require a proxy, for example:</p>
+<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> NO_PROXY=localhost,mycompany.com
+</code></pre>
+<p>Please note that you can add the above commands to your shell&apos;s <code>~/.profile</code>, so that they&apos;re executed whenever you open a new terminal.</p>
+<h6 id="environment-variables-on-windows">Environment variables on Windows</h6><p>To configure a proxy on Windows, run the following commands in Command Prompt:</p>
+<pre><code class="lang-console hljs bash"><span class="hljs-built_in">set</span> HTTP_PROXY=http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+<span class="hljs-built_in">set</span> HTTPS_PROXY=http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+</code></pre>
+<p>If you&apos;re using Powershell, run the following commands instead:</p>
+<pre><code class="lang-console hljs bash"><span class="hljs-variable">$env</span>:HTTP_PROXY = http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+<span class="hljs-variable">$env</span>:HTTPS_PROXY = http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+</code></pre>
+<h5 id="use-a-specific-user-agent">Use a specific User-Agent</h5><p>If your artifact registry requires you to use a specific user agent, you can configure it using NPM config:</p>
+<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> user-agent <span class="hljs-string">&quot;Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0&quot;</span>
+</code></pre>
+<h5 id="ignore-ssl-checks">Ignore SSL checks</h5><p>You can instruct the <code>update</code> command to ignore any SSL certificate errors by providing an <code>--ignoreSSL</code> flag when running the command:  </p>
+<pre><code class="lang-console hljs plaintext">npx serenity-bdd update --ignoreSSL
+</code></pre>
+<p>You can also disable certificate checks at the NPM config level by running: </p>
+<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> strict-ssl <span class="hljs-literal">false</span>
+</code></pre>
+<p>Alternative, you can accomplish the same with an <code>.npmrc</code> file:</p>
+<pre><code class="lang-bash hljs bash"><span class="hljs-comment"># ~/.npmrc</span>
+npm_config_strict-ssl = <span class="hljs-literal">false</span>
+</code></pre>
+<h4 id="producing-the-serenity-bdd-test-report">Producing the Serenity BDD test report</h4><p>To produce the Serenity BDD test report and living documentation using default settings, run:</p>
 <pre><code class="hljs plaintext">npx serenity-bdd run
 </code></pre><p>To learn more about the <code>run</code> command and how to change the default settings, run:</p>
 <pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span> run

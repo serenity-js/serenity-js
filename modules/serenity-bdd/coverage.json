@@ -1,7 +1,7 @@
 {
-  "coverage": "81.65%",
-  "expectCount": 109,
-  "actualCount": 89,
+  "coverage": "81.35%",
+  "expectCount": 118,
+  "actualCount": 96,
   "files": {
     "src/cli/Argv.ts": {
       "expectCount": 1,
@@ -22,6 +22,32 @@
         1,
         3
       ]
+    },
+    "src/cli/commands/run.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        13
+      ]
+    },
+    "src/cli/commands/update.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        14
+      ]
+    },
+    "src/cli/io/axiosClient.ts": {
+      "expectCount": 11,
+      "actualCount": 10,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "src/cli/io/formatError.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "src/cli/model/Complaint.ts": {
       "expectCount": 2,
@@ -64,13 +90,6 @@
       "actualCount": 8,
       "undocumentLines": [
         52
-      ]
-    },
-    "src/cli/screenplay/interactions/Complain.ts": {
-      "expectCount": 6,
-      "actualCount": 5,
-      "undocumentLines": [
-        32
       ]
     },
     "src/cli/screenplay/interactions/CreateDirectory.ts": {
@@ -128,17 +147,15 @@
       ]
     },
     "src/cli/screenplay/questions/SystemProperties.ts": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        32
-      ]
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "src/cli/screenplay/tasks/DownloadArtifact.ts": {
-      "expectCount": 7,
-      "actualCount": 6,
+      "expectCount": 6,
+      "actualCount": 5,
       "undocumentLines": [
-        42
+        41
       ]
     },
     "src/cli/screenplay/tasks/InvokeSerenityBDD.ts": {
@@ -146,13 +163,6 @@
       "actualCount": 6,
       "undocumentLines": [
         67
-      ]
-    },
-    "src/cli/stage/Actors.ts": {
-      "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        19
       ]
     },
     "src/cli/stage/NotificationReporter.ts": {
@@ -168,6 +178,20 @@
       "undocumentLines": [
         21,
         96
+      ]
+    },
+    "src/cli/stage/RunCommandActors.ts": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        16
+      ]
+    },
+    "src/cli/stage/UpdateCommandActors.ts": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        18
       ]
     },
     "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts": {

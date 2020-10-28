@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -121,18 +124,19 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/update.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Check, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, actorInTheSpotlight, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;https&apos;</span>;
 <span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Argv&apos;</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../defaults&apos;</span>;
+<span class="hljs-keyword">import</span> { axiosClient, formatError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../io&apos;</span>;
 <span class="hljs-keyword">import</span> { Credentials, GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Printer&apos;</span>;
-<span class="hljs-keyword">import</span> { Complain, DownloadArtifact, FileExists, Notify } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { Actors, NotificationReporter, ProgressReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
+<span class="hljs-keyword">import</span> { DownloadArtifact, FileExists, Notify } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, UpdateCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../stage&apos;</span>;
+
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;yargs&apos;</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
 <span class="hljs-keyword">export</span> = {
     <span class="hljs-attr">command</span>: <span class="hljs-string">&apos;update&apos;</span>,
@@ -165,38 +169,37 @@
             printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
             artifactGAV     = GAV.fromString(argv.artifact),
             pathToArtifact  = <span class="hljs-keyword">new</span> Path(argv.cacheDir).join(artifactGAV.toPath()),
-            repository      = <span class="hljs-keyword">new</span> URL(argv.repository),
-            <span class="hljs-attr">requestConfig</span>: AxiosRequestConfig = {
-                <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({
-                    <span class="hljs-attr">rejectUnauthorized</span>: ! argv.ignoreSSL,
-                }),
-                <span class="hljs-attr">auth</span>: Credentials.fromString(argv.auth),
-            };
+            repository      = <span class="hljs-keyword">new</span> URL(argv.repository);
 
         configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(<span class="hljs-keyword">new</span> Path(process.cwd())),
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> UpdateCommandActors(
+                <span class="hljs-keyword">new</span> Path(process.cwd()),
+                <span class="hljs-function">() =&gt;</span> axiosClient(repository, !! argv.ignoreSSL, process.env, Credentials.fromString(argv.auth))
+            ),
             <span class="hljs-attr">crew</span>: [
                 <span class="hljs-keyword">new</span> NotificationReporter(printer),
                 <span class="hljs-keyword">new</span> ProgressReporter(printer),
             ],
         });
 
-        <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Serenity/JS&apos;</span>).attemptsTo(
-            Check.whether(FileExists.at(pathToArtifact), isTrue())
-                .andIfSo(
-                    Notify.that(<span class="hljs-string">`Looks like you&apos;re good to go! Serenity BDD CLI is already at <span class="hljs-subst">${ pathToArtifact.value }</span>`</span>),
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">&apos;Serenity/JS Updater&apos;</span>).attemptsTo(
+                    Check.whether(FileExists.at(pathToArtifact), isTrue())
+                        .andIfSo(
+                            Notify.that(<span class="hljs-string">`Looks like you&apos;re good to go! Serenity BDD CLI is already at <span class="hljs-subst">${ pathToArtifact.value }</span>`</span>),
+                        )
+                        .otherwise(
+                            DownloadArtifact
+                                .identifiedBy(artifactGAV)
+                                .availableFrom(repository)
+                                .to(pathToArtifact.directory())
+                        ),
                 )
-                .otherwise(
-                    DownloadArtifact
-                        .identifiedBy(artifactGAV)
-                        .availableFrom(repository)
-                        .to(pathToArtifact.directory())
-                        .using(requestConfig),
-                ),
             )
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> actorInTheSpotlight().attemptsTo(
-                Complain.about(error),
-            ));
+            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                printer.error(formatError(error));
+                yargs.exit(<span class="hljs-number">1</span>, error.message);
+            });
     },
 };
 </code></pre>

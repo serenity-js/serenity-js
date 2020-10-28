@@ -6,6 +6,24 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/serenity-bdd/lib/cli/io~axiosclient",
+    "function/index.html#static-function-axiosClient",
+    "<span>axiosClient</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/serenity-bdd/lib/cli/io~formaterror",
+    "function/index.html#static-function-formatError",
+    "<span>formatError</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/serenity-bdd/lib/cli/io~shouldproxy",
+    "function/index.html#static-function-shouldProxy",
+    "<span>shouldProxy</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
+    "function"
+  ],
+  [
     "@serenity-js/assertions/lib/expectations~and",
     "/modules/assertions/function/index.html#static-function-and",
     "@serenity-js/assertions/lib/expectations~and",
@@ -1800,6 +1818,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/cli/io/axiosclient.ts",
+    "file/src/cli/io/axiosClient.ts.html",
+    "src/cli/io/axiosClient.ts",
+    "file"
+  ],
+  [
+    "src/cli/io/formaterror.ts",
+    "file/src/cli/io/formatError.ts.html",
+    "src/cli/io/formatError.ts",
+    "file"
+  ],
+  [
+    "src/cli/io/index.ts",
+    "file/src/cli/io/index.ts.html",
+    "src/cli/io/index.ts",
+    "file"
+  ],
+  [
     "src/cli/model/complaint.ts",
     "file/src/cli/model/Complaint.ts.html",
     "src/cli/model/Complaint.ts",
@@ -1857,12 +1893,6 @@ window.esdocSearchIndex = [
     "src/cli/screenplay/index.ts",
     "file/src/cli/screenplay/index.ts.html",
     "src/cli/screenplay/index.ts",
-    "file"
-  ],
-  [
-    "src/cli/screenplay/interactions/complain.ts",
-    "file/src/cli/screenplay/interactions/Complain.ts.html",
-    "src/cli/screenplay/interactions/Complain.ts",
     "file"
   ],
   [
@@ -1956,12 +1986,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/cli/stage/actors.ts",
-    "file/src/cli/stage/Actors.ts.html",
-    "src/cli/stage/Actors.ts",
-    "file"
-  ],
-  [
     "src/cli/stage/notificationreporter.ts",
     "file/src/cli/stage/NotificationReporter.ts.html",
     "src/cli/stage/NotificationReporter.ts",
@@ -1971,6 +1995,18 @@ window.esdocSearchIndex = [
     "src/cli/stage/progressreporter.ts",
     "file/src/cli/stage/ProgressReporter.ts.html",
     "src/cli/stage/ProgressReporter.ts",
+    "file"
+  ],
+  [
+    "src/cli/stage/runcommandactors.ts",
+    "file/src/cli/stage/RunCommandActors.ts.html",
+    "src/cli/stage/RunCommandActors.ts",
+    "file"
+  ],
+  [
+    "src/cli/stage/updatecommandactors.ts",
+    "file/src/cli/stage/UpdateCommandActors.ts.html",
+    "src/cli/stage/UpdateCommandActors.ts",
     "file"
   ],
   [

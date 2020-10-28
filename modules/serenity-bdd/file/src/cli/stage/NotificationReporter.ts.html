@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -148,14 +151,8 @@
         }
 
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; event.artifact <span class="hljs-keyword">instanceof</span> Complaint) {
-            <span class="hljs-built_in">this</span>.printer.info(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">{ description, message }: { description: <span class="hljs-built_in">string</span>, message: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                <span class="hljs-string">`<span class="hljs-subst">${ description }</span>\n<span class="hljs-subst">${ message }</span>`</span>));
-            <span class="hljs-comment">// todo: add stack if verbose</span>
-        }
-
-        <span class="hljs-keyword">else</span> {
-            <span class="hljs-comment">// todo depending on log level, print tasks only, or tasks and interactions</span>
-            <span class="hljs-comment">// console.log(`[ProgressReporter] ${ event.constructor.name } ${ JSON.stringify(event.toJSON(), null, 0) }`);</span>
+            <span class="hljs-built_in">this</span>.printer.error(event.artifact.map(<span class="hljs-function">(<span class="hljs-params">{ description, message, stack }: { description: <span class="hljs-built_in">string</span>, message: <span class="hljs-built_in">string</span>, stack: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-string">`<span class="hljs-subst">${ description }</span>\n<span class="hljs-subst">${ stack }</span>`</span>));
         }
     }
 }

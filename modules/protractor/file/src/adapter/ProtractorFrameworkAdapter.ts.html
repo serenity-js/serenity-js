@@ -177,7 +177,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
 <span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
-<span class="hljs-keyword">const</span> isPlainObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;is-plain-object&apos;</span>);   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
+<span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;is-plain-object&apos;</span>;   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
 
 <span class="hljs-keyword">import</span> { protractor, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { BrowserDetector, StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./browser-detector&apos;</span>;

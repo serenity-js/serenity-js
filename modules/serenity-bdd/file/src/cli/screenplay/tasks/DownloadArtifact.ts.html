@@ -112,6 +112,9 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -123,8 +126,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { GetRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
-<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
-<span class="hljs-keyword">import</span> { resolve, URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
+<span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
 <span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
 <span class="hljs-keyword">import</span> { CreateDirectory, Notify, StreamResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../interactions&apos;</span>;
 <span class="hljs-keyword">import</span> { RenameFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../interactions/RenameFile&apos;</span>;
@@ -145,13 +147,8 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> gav: GAV,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> repository: URL,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> destinationDirectory: Path,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config?: AxiosRequestConfig,
     </span>)</span> {
         <span class="hljs-built_in">super</span>();
-    }
-
-    using(config: AxiosRequestConfig): DownloadArtifact {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DownloadArtifact(<span class="hljs-built_in">this</span>.gav, <span class="hljs-built_in">this</span>.repository, <span class="hljs-built_in">this</span>.destinationDirectory, config);
     }
 
     <span class="hljs-comment">/**
@@ -177,7 +174,7 @@
             Notify.that(<span class="hljs-string">`Looks like you need the latest Serenity BDD CLI jar. Let me download it for you...`</span>),
             CreateDirectory.at(<span class="hljs-built_in">this</span>.destinationDirectory),
             StreamResponse
-                .to(GetRequest.to(<span class="hljs-built_in">this</span>.artifactURL()).using(<span class="hljs-built_in">this</span>.config))
+                .to(GetRequest.to(<span class="hljs-built_in">this</span>.artifactURL()))
                 .to(<span class="hljs-built_in">this</span>.destinationDirectory.join(tempFileName)),
             RenameFile.from(pathToTempFile).to(pathToFinishedFile),
             Notify.that(<span class="hljs-string">`Downloaded <span class="hljs-subst">${ pathToFinishedFile.value }</span>`</span>),
