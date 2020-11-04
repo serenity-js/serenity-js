@@ -68,4 +68,29 @@ describe('Expectation', () => {
             )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
         });
     });
+
+    describe('allows to override the description of an expectation, so that the new version', () => {
+
+        function isWithin(lowerBound: number, upperBound: number) {
+            return and(
+                    or(isGreaterThan(lowerBound), equals(lowerBound)),
+                    or(isLessThan(upperBound), equals(upperBound)),
+                ).describedAs(`have value within ${ lowerBound } and ${ upperBound }`);
+        }
+
+        /** @test {Expectation.to} */
+        it('replaces the old description', () => {
+            expect(Ensure.that(5, isWithin(3, 6)).toString())
+                .to.equal(`#actor ensures that 5 does have value within 3 and 6`);
+        });
+
+        /** @test {Expectation.to} */
+        it('provides a precise failure message when the expectation is not met', () => {
+            return expect(actorCalled('Astrid').attemptsTo(
+                Ensure.that(9, isWithin(7, 8)),
+            )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
+        });
+    });
+
+
 });

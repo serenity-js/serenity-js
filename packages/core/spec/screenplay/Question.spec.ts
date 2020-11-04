@@ -52,16 +52,6 @@ describe('Question', () => {
             .to.equal('first name');
     });
 
-    /** @test {Question.about} */
-    /** @test {Question#describedAs} */
-    it('allows for a custom description to override the default one without affecting the original question', () => {
-        const Name      = Question.about('a name', (actor: Actor) => actor.name);
-        const FirstName = Name.describedAs('first name');
-
-        expect(Name.toString()).to.equal('a name');
-        expect(FirstName.toString()).to.equal('first name');
-    });
-
     describe('when mapping the answer', () => {
 
         /** @test {Question.about} */
