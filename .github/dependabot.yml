@@ -4,7 +4,10 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-  open-pull-requests-limit: 10
+  rebase-strategy: "auto"
+  labels:
+    - "security"
+    - "dependencies"
   ignore:
   - dependency-name: gherkin
     versions:
