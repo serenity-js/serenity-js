@@ -37,8 +37,10 @@ export class Transform<Answer_Type extends any, Output_Type> extends Question<Pr
      *
      * @param subject
      */
-    describedAs(subject: string): Transform<Answer_Type, Output_Type> {
-        return new Transform(this.questions, this.transformation, subject);
+    describedAs(subject: string): this {
+        this.subject = subject;
+
+        return this;
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Output_Type> {

@@ -112,7 +112,7 @@ export abstract class Question<T> {
      * @param {string} subject
      * @returns {Question<T>}
      */
-    describedAs(subject: string): Question<T> {
+    describedAs(subject: string): this {
         this.subject = subject;
 
         return this;
@@ -233,7 +233,9 @@ class AnonymousQuestion<T> extends Question<T> {
      * @param {string} subject
      * @returns {Question<T>}
      */
-    describedAs(subject: string): Question<T> {
-        return new AnonymousQuestion(subject, this.body);
+    describedAs(subject: string): this {
+        this.subject = subject;
+
+        return this;
     }
 }
