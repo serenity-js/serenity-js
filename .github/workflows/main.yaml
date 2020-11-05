@@ -1,4 +1,4 @@
-name: Main Pipeline
+name: Release Pipeline
 
 on: [ push ]
 
@@ -16,7 +16,8 @@ jobs:
       - name: Release
         if: github.ref == 'refs/heads/master'
         run: |
-          npx lerna publish --yes
+          npm run coverage:publish
+          npm run lerna publish --yes
           npm run site:publish
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
