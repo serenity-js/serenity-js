@@ -27,7 +27,7 @@ program
     .parse(process.argv);
 
 ghpages.publish(path.join(process.cwd(), program.dist), {
-    repo: 'https://' + process.env.GH_TOKEN + '@github.com/jan-molak/serenity-js.git',
+    repo: 'https://' + process.env.GH_TOKEN + '@github.com/serenity-js/serenity-js.git',
     silent: !!program.silent,
     branch: program.branch,
     src: program.src,
