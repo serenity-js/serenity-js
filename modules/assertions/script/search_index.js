@@ -1170,6 +1170,24 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber83",
+    "Expectation allows to override the description of an expectation, so that the new version",
+    "test"
+  ],
+  [
+    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber110",
+    "Expectation allows to override the description of an expectation, so that the new version provides a precise failure message when the expectation is not met",
+    "test"
+  ],
+  [
+    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber104",
+    "Expectation allows to override the description of an expectation, so that the new version replaces the old description",
+    "test"
+  ],
+  [
     "protractorbrowser",
     "https://www.protractortest.org/#/api?view=ProtractorBrowser",
     "ProtractorBrowser",

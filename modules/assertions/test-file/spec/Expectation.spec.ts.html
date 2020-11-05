@@ -213,6 +213,31 @@ describe(<span class="hljs-string">&apos;Expectation&apos;</span>, <span class="
             )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 9 to have value that&apos;s less than 8 or equal 8`</span>);
         });
     });
+
+    describe(<span class="hljs-string">&apos;allows to override the description of an expectation, so that the new version&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) </span>{
+            <span class="hljs-keyword">return</span> and(
+                    or(isGreaterThan(lowerBound), equals(lowerBound)),
+                    or(isLessThan(upperBound), equals(upperBound)),
+                ).describedAs(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>);
+        }
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;replaces the old description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            expect(Ensure.that(<span class="hljs-number">5</span>, isWithin(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)).toString())
+                .to.equal(<span class="hljs-string">`#actor ensures that 5 does have value within 3 and 6`</span>);
+        });
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;provides a precise failure message when the expectation is not met&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+                Ensure.that(<span class="hljs-number">9</span>, isWithin(<span class="hljs-number">7</span>, <span class="hljs-number">8</span>)),
+            )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 9 to have value that&apos;s less than 8 or equal 8`</span>);
+        });
+    });
+
+
 });
 </code></pre>
 

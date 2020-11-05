@@ -316,16 +316,6 @@ describe(<span class="hljs-string">&apos;Question&apos;</span>, <span class="hlj
             .to.equal(<span class="hljs-string">&apos;first name&apos;</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#describedAs}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows for a custom description to override the default one without affecting the original question&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> Name      = Question.about(<span class="hljs-string">&apos;a name&apos;</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.name);
-        <span class="hljs-keyword">const</span> FirstName = Name.describedAs(<span class="hljs-string">&apos;first name&apos;</span>);
-
-        expect(Name.toString()).to.equal(<span class="hljs-string">&apos;a name&apos;</span>);
-        expect(FirstName.toString()).to.equal(<span class="hljs-string">&apos;first name&apos;</span>);
-    });
-
     describe(<span class="hljs-string">&apos;when mapping the answer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>

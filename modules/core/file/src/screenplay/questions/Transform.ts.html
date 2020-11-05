@@ -301,8 +301,10 @@
      *
      * <span class="hljs-doctag">@param <span class="hljs-variable">subject</span></span>
      */</span>
-    describedAs(subject: <span class="hljs-built_in">string</span>): Transform&lt;Answer_Type, Output_Type&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Transform(<span class="hljs-built_in">this</span>.questions, <span class="hljs-built_in">this</span>.transformation, subject);
+    describedAs(subject: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">this</span> {
+        <span class="hljs-built_in">this</span>.subject = subject;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;Output_Type&gt; {

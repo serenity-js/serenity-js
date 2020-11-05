@@ -1518,12 +1518,6 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber57",
-    "Question allows for a custom description to override the default one without affecting the original question",
-    "test"
-  ],
-  [
     "",
     "test-file/spec/screenplay/Question.spec.ts.html#lineNumber13",
     "Question provides a convenient way to define a custom question that",
@@ -1549,37 +1543,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber65",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber55",
     "Question when mapping the answer",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber137",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber127",
     "Question when mapping the answer works with a mappable collection (Array, ElementArrayFinder, etc.)",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber85",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber75",
     "Question when mapping the answer works with a promise",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber119",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber109",
     "Question when mapping the answer works with a promised list",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber101",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber91",
     "Question when mapping the answer works with a static list of values",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber59",
     "Question when mapping the answer works with a static value",
     "test"
   ],
@@ -4990,6 +4984,12 @@ window.esdocSearchIndex = [
     "class/src/screenplay/questions/Transform.ts~Transform.html#instance-method-describedAs",
     "src/screenplay/questions/Transform.ts~Transform#describedAs",
     "method"
+  ],
+  [
+    "src/screenplay/questions/transform.ts~transform#subject",
+    "class/src/screenplay/questions/Transform.ts~Transform.html#instance-member-subject",
+    "src/screenplay/questions/Transform.ts~Transform#subject",
+    "member"
   ],
   [
     "src/screenplay/questions/transform.ts~transform.the",
