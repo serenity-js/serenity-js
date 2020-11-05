@@ -4,25 +4,21 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - name: build
-        run: make clean verify report
+      - run: make clean verify report site
+          env:
+            CI: true
+      - name: Release
+        if: github.ref == 'refs/heads/master'
+        run: |
+          npx lerna publish --yes
+          npm run site:publish
         env:
-          CI: true
-      - name: site
-        run: make site
-        env:
-          CI: true
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
+
