@@ -4,8 +4,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
 
-[![Build Status](https://travis-ci.org/serenity-js/serenity-js.svg?branch=master)](https://travis-ci.org/serenity-js/serenity-js)
-[![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=master)](https://coveralls.io/github/serenity-js/serenity-js?branch=master)
+[![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
 [![Dependencies](https://flat.badgen.net/dependabot/serenity-js/serenity-js?icon=dependabot)](https://github.com/serenity-js/serenity-js)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
