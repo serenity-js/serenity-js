@@ -1,9 +1,9 @@
-name: Verify
+name: Test
 
 on: [ push, pull_request ]
 
 jobs:
-  build-previous-lts:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:

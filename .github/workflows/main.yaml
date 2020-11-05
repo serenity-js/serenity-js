@@ -1,6 +1,9 @@
 name: Release Pipeline
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   pipeline:
@@ -13,13 +16,16 @@ jobs:
       - run: make clean verify report site
         env:
           CI: true
-      - name: Release
-        if: github.ref == 'refs/heads/master'
-        run: |
-          npm run coverage:publish
-          npm run lerna publish --yes
-          npm run site:publish
+      - name: Publish coverage
+        run: npm run coverage:publish
+        env:
+          COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
+      - name: Publish artifacts
+        run: npm run lerna publish --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Publish site
+        run: npm run site:publish
+        env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
 
