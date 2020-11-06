@@ -14,19 +14,24 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Configure git
+      - name: Configure Lerna
         run: |
           git config --global user.email $GH_EMAIL
           git config --global user.name $GH_USERNAME
           git config --global user.password $GH_TOKEN
           git config --global push.default simple
+          npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
+          npm whoami
         env:
           GH_EMAIL: ${{secrets.RELEASE_GH_EMAIL}}
           GH_USERNAME: ${{secrets.RELEASE_GH_USERNAME}}
           GH_TOKEN: ${{secrets.GH_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
 
       - run: npm ci
       - run: make clean
