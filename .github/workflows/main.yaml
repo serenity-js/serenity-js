@@ -12,12 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GH_TOKEN }}
-      - uses: OleksiyRudenko/gha-git-credentials@v1
-        with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.RELEASE_GH_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config --global user.email $GH_EMAIL
+          git config --global user.name $GH_USERNAME
+          git config --global user.password $GH_TOKEN
+          git config --global push.default simple
+        env:
+          GH_EMAIL: ${{secrets.RELEASE_GH_EMAIL}}
+          GH_USERNAME: ${{secrets.RELEASE_GH_USERNAME}}
+          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
+
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
+
       - run: npm ci
       - run: make clean
       - run: make verify
@@ -25,17 +35,20 @@ jobs:
           CI: true
       - run: make report
       - run: make site
+
       - name: Publish coverage
         run: npm run coverage:publish
         env:
           COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
+
       - name: Publish artifacts
         run: npx lerna publish --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
+          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
+
       - name: Publish site
         run: npm run site:publish
         env:
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
+          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
 
