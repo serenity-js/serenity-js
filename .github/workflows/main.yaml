@@ -21,7 +21,7 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
       - name: Publish artifacts
-        run: npm run lerna publish --yes
+        run: npx lerna publish --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish site
