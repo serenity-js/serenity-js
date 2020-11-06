@@ -13,9 +13,12 @@ jobs:
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
       - run: npm ci
-      - run: make clean verify report site
+      - run: make clean
+      - run: make verify
         env:
           CI: true
+      - run: make report
+      - run: make site
       - name: Publish coverage
         run: npm run coverage:publish
         env:
